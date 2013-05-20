@@ -22,7 +22,6 @@ import org.springframework.richclient.application.Application;
 public class MainPanel extends ImagePanel {
 
 //    private VistaSearchDialog dialog;
-
     public MainPanel() {
     }
 
@@ -44,48 +43,17 @@ public class MainPanel extends ImagePanel {
 //        SessionManager sessionManager = (SessionManager) Application.services().getService(SessionManager.class);
 //        int uClass = sessionManager.getSession().getUserMode();
 //        System.out.println("User Class=" + uClass);
-//        btSellTag.setEnabled(uClass > 1 ? true : false);
-//        btTopup.setEnabled(uClass > 1 ? true : false);
-//        btCloseContract.setEnabled(uClass > 1 ? true : false);
-//        btClaim.setEnabled(uClass > 1 ? true : false);
-//        btEdit.setEnabled(uClass > 0 ? true : false);
-//        btReport.setEnabled(uClass > 0 ? true : false);
-//        btReportStock.setEnabled(uClass > 1 ? true : false);
-//        btTod.setEnabled(uClass > 0 ? true : false);
-//        btReprint.setEnabled(uClass > 1 ? true : false);
-//        btReprintClaim.setEnabled(uClass > 1 ? true : false);
-//        btReceive.setEnabled(uClass > 1 ? true : false);
-//        btSend.setEnabled(uClass > 1 ? true : false);
-//        btChangeOwner.setEnabled(uClass > 1 ? true : false);
-//        btSellStatement.setEnabled(uClass > 1 ? true : false);
-//        btCancelStatement.setEnabled(uClass > 1 ? true : false);
-//        btCancelPayment.setEnabled(uClass > 1 ? true : false);
-//        btReprintChangeOwner.setEnabled(uClass > 1 ? true : false);
-////        btCheckBalance.setEnabled(uClass > 0 ? true : false);
-//        btChangeOwner.setEnabled(btChangeOwner.isEnabled() && sessionManager.getLocation().isAllowChangeTagOwner());
-//        btCancelPayment.setEnabled(btCancelPayment.isEnabled() && sessionManager.getLocation().isAllowCancelPayment());
-//        String terminalType = sessionManager.getSettings().getString("terminal_type");
-//        if (terminalType != null && terminalType.equalsIgnoreCase("TOD") || com.qfree.eta.etc.pos.Configuration.isTodMode) {
-//            btSellTag.setEnabled(false);
-//            btTopup.setEnabled(false);
-//            btCloseContract.setEnabled(false);
-//            btClaim.setEnabled(false);
-//            btEdit.setEnabled(false);
-//            btReport.setEnabled(uClass > 0 ? true : false);
-//            btReportStock.setEnabled(false);
-//            btTod.setEnabled(uClass > 0 ? true : false);
-//            btReprint.setEnabled(false);
-//            btReprintClaim.setEnabled(false);
-//            btReceive.setEnabled(false);
-//            btSend.setEnabled(false);
-//            btChangeOwner.setEnabled(false);
-//            btSellStatement.setEnabled(false);
-//            btCancelStatement.setEnabled(false);
-//            btCancelPayment.setEnabled(false);
-//            btReprintChangeOwner.setEnabled(false);
-//            btCheckSmartCard.setEnabled(false);
-//            btCheckBalance.setEnabled(false);
-//        }
+        btSellTag.setEnabled(true);
+        btTopup.setEnabled(false);
+        btCloseContract.setEnabled(false);
+        btClaim.setEnabled(false);
+        btEdit.setEnabled(false);
+        btReceive.setEnabled(false);
+        btSend.setEnabled(false);
+        btChangeOwner.setEnabled(false);
+        btSellStatement.setEnabled(false);
+        btCancelStatement.setEnabled(false);
+        btCheckBalance.setEnabled(false);
     }
 
     /** This method is called from within the constructor to
@@ -102,17 +70,14 @@ public class MainPanel extends ImagePanel {
         jPanel2 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
-        btCancelPayment = new javax.swing.JButton();
         btEdit = new javax.swing.JButton();
         btChangeOwner = new javax.swing.JButton();
         btCancelStatement = new javax.swing.JButton();
         btSellTag = new javax.swing.JButton();
-        btReprint = new javax.swing.JButton();
         btCheckBalance = new javax.swing.JButton();
         btTopup = new javax.swing.JButton();
         btCloseContract = new javax.swing.JButton();
         btClaim = new javax.swing.JButton();
-        btReport = new javax.swing.JButton();
         btSellStatement = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         btReceive = new javax.swing.JButton();
@@ -132,7 +97,7 @@ public class MainPanel extends ImagePanel {
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("ui/messages"); // NOI18N
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("main.label.transaction"))); // NOI18N
-        jPanel5.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        jPanel5.setFont(new java.awt.Font("Dialog", 0, 12));
         jPanel5.setOpaque(false);
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -140,17 +105,6 @@ public class MainPanel extends ImagePanel {
         jPanel6.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         jPanel6.setOpaque(false);
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        btCancelPayment.setFont(new java.awt.Font("Dialog", 1, 18));
-        btCancelPayment.setMnemonic('o');
-        btCancelPayment.setText(bundle.getString("main.label.cancelSell")); // NOI18N
-        btCancelPayment.setPreferredSize(new java.awt.Dimension(200, 80));
-        btCancelPayment.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btCancelPaymentActionPerformed(evt);
-            }
-        });
-        jPanel6.add(btCancelPayment, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 300, 370, -1));
 
         btEdit.setBackground(new java.awt.Color(200, 244, 11));
         btEdit.setFont(new java.awt.Font("Tahoma", 1, 18));
@@ -187,7 +141,7 @@ public class MainPanel extends ImagePanel {
         jPanel6.add(btCancelStatement, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 210, 370, 80));
 
         btSellTag.setBackground(new java.awt.Color(102, 255, 102));
-        btSellTag.setFont(new java.awt.Font("Dialog", 1, 18));
+        btSellTag.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btSellTag.setMnemonic('s');
         btSellTag.setText(bundle.getString("main.label.sell")); // NOI18N
         btSellTag.setPreferredSize(new java.awt.Dimension(200, 80));
@@ -197,17 +151,6 @@ public class MainPanel extends ImagePanel {
             }
         });
         jPanel6.add(btSellTag, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 370, -1));
-
-        btReprint.setFont(new java.awt.Font("Dialog", 1, 18));
-        btReprint.setMnemonic('/');
-        btReprint.setText(bundle.getString("main.label.reprint")); // NOI18N
-        btReprint.setPreferredSize(new java.awt.Dimension(200, 80));
-        btReprint.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btReprintActionPerformed(evt);
-            }
-        });
-        jPanel6.add(btReprint, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 370, 80));
 
         btCheckBalance.setBackground(new java.awt.Color(202, 124, 47));
         btCheckBalance.setFont(new java.awt.Font("Dialog", 1, 18));
@@ -256,16 +199,6 @@ public class MainPanel extends ImagePanel {
             }
         });
         jPanel6.add(btClaim, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 30, 370, -1));
-
-        btReport.setFont(new java.awt.Font("Dialog", 1, 18));
-        btReport.setText(bundle.getString("main.label.report")); // NOI18N
-        btReport.setPreferredSize(new java.awt.Dimension(200, 80));
-        btReport.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btReportActionPerformed(evt);
-            }
-        });
-        jPanel6.add(btReport, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 300, 370, -1));
 
         btSellStatement.setBackground(new java.awt.Color(102, 255, 213));
         btSellStatement.setFont(new java.awt.Font("Dialog", 1, 18));
@@ -351,16 +284,10 @@ public class MainPanel extends ImagePanel {
     }//GEN-LAST:event_btCloseContractActionPerformed
 
     private void btTopupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btTopupActionPerformed
-
 //        TopupWizard.getInstance().execute();
     }//GEN-LAST:event_btTopupActionPerformed
 
-    private void btReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btReportActionPerformed
-//        new ReportMainDialog().showDialog();
-    }//GEN-LAST:event_btReportActionPerformed
-
     private void btClaimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btClaimActionPerformed
-
 //        ClaimWizard.getInstance().execute();
     }//GEN-LAST:event_btClaimActionPerformed
 
@@ -381,7 +308,6 @@ public class MainPanel extends ImagePanel {
 //        SellTagWizard.getInstance().execute();
 //        SellEasyPassDialog dialog = new SellEasyPassDialog();
 //        dialog.showDialog();
-
     }//GEN-LAST:event_btSellTagActionPerformed
 
     private void btReceiveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btReceiveActionPerformed
@@ -395,16 +321,11 @@ public class MainPanel extends ImagePanel {
 //        new EditCustomerProfileDialog().showDialog();
     }//GEN-LAST:event_btEditActionPerformed
 
-    private void btReprintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btReprintActionPerformed
-//        new ReprintWizard().execute();
-    }//GEN-LAST:event_btReprintActionPerformed
-
     private void btChangeOwnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btChangeOwnerActionPerformed
 //        ChangeOwnerWizard.getInstance().execute();
     }//GEN-LAST:event_btChangeOwnerActionPerformed
 
     private void btCheckBalanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCheckBalanceActionPerformed
-
 //        CheckBalanceWizard.getInstance().execute();
     }//GEN-LAST:event_btCheckBalanceActionPerformed
 
@@ -412,15 +333,10 @@ public class MainPanel extends ImagePanel {
 //        CancelStatementWizard.getInstance().execute();
     }//GEN-LAST:event_btCancelStatementActionPerformed
 
-    private void btCancelPaymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelPaymentActionPerformed
-//        CancelPaymentWizard.getInstance().execute();
-    }//GEN-LAST:event_btCancelPaymentActionPerformed
-
     private void btSellStatementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSellStatementActionPerformed
 //        SellStatementWizard.getInstance().execute();
 }//GEN-LAST:event_btSellStatementActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btCancelPayment;
     private javax.swing.JButton btCancelStatement;
     private javax.swing.JButton btChangeOwner;
     private javax.swing.JButton btCheckBalance;
@@ -429,8 +345,6 @@ public class MainPanel extends ImagePanel {
     private javax.swing.JButton btEdit;
     private javax.swing.JButton btEoj;
     private javax.swing.JButton btReceive;
-    private javax.swing.JButton btReport;
-    private javax.swing.JButton btReprint;
     private javax.swing.JButton btSellStatement;
     private javax.swing.JButton btSellTag;
     private javax.swing.JButton btSend;
