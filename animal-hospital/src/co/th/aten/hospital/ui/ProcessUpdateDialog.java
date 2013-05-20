@@ -18,7 +18,7 @@ import org.springframework.richclient.progress.ProgressMonitor;
 
 /**
  *
- * @author Mai
+ * @author Aten
  */
 public class ProcessUpdateDialog extends javax.swing.JDialog implements Runnable {
 

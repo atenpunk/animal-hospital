@@ -14,7 +14,7 @@ import org.springframework.richclient.form.binding.support.CustomBinding;
 
 /**
  *
- * @author Mai
+ * @author Aten
  */
 public class CustomTimeBinding extends CustomBinding {
 

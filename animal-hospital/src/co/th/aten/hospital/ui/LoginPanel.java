@@ -25,7 +25,7 @@ import org.springframework.richclient.progress.ProgressMonitor;
 
 /**
  *
- * @author Mai
+ * @author Aten
  */
 public class LoginPanel extends ImagePanel {
 
@@ -155,7 +155,7 @@ public class LoginPanel extends ImagePanel {
         gridBagConstraints.insets = new java.awt.Insets(21, 20, 21, 20);
         jPanel1.add(lbStaffNo, gridBagConstraints);
 
-        txStaffNo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txStaffNo.setFont(new java.awt.Font("Tahoma", 0, 14));
         txStaffNo.setMinimumSize(new java.awt.Dimension(120, 23));
         txStaffNo.setPreferredSize(new java.awt.Dimension(120, 30));
         txStaffNo.addActionListener(new java.awt.event.ActionListener() {
@@ -188,7 +188,7 @@ public class LoginPanel extends ImagePanel {
         gridBagConstraints.insets = new java.awt.Insets(21, 20, 21, 20);
         jPanel1.add(lbPassword, gridBagConstraints);
 
-        txPassword.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txPassword.setFont(new java.awt.Font("Tahoma", 0, 14));
         txPassword.setMinimumSize(new java.awt.Dimension(120, 23));
         txPassword.setPreferredSize(new java.awt.Dimension(120, 30));
         txPassword.addActionListener(new java.awt.event.ActionListener() {
@@ -242,54 +242,6 @@ public class LoginPanel extends ImagePanel {
         doLogin();
         // ButtonLogger.getInstance().button(screeen, "LOGIN");
 }//GEN-LAST:event_btLoginActionPerformed
-
-    private void newJob() {
-        //        if(txStaffNo.getText().length()!= 10){
-//            Toolkit.getDefaultToolkit().beep();
-//        }else if(txStaffNo.getText().compareTo("4520000001") == 0){
-//            myJob = new Job();
-//            Job.setJobNo(Job.getJobNo()+1);
-//            myJob.setStaffNo(txStaffNo.getText());
-//            myJob.setBoj(Calendar.getInstance());
-//            myJob.setJobType("MT");
-//            myJob.setStaffName("นายบำรุง รักษา");
-//            pnLogin.setVisible(false);
-//            getContentPane().remove(pnLogin);
-//            getContentPane().add(pnMT, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 640, 330));
-//            pnMT.setVisible(true);
-//        }else if(txStaffNo.getText().compareTo("3520000001") == 0){
-//            myJob = new Job();
-//            Job.setJobNo(Job.getJobNo()+1);
-//            myJob.setStaffNo(txStaffNo.getText());
-//            myJob.setBoj(Calendar.getInstance());
-//            myJob.setJobType("TC");
-//            myJob.setStaffName("นายพนักงาน เก็บเงิน");
-//            pnLogin.setVisible(false);
-//            getContentPane().remove(pnLogin);
-//            getContentPane().add(pnTC, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 640, 330));
-//            pnTC.setVisible(true);
-//            lbMessage.setText(res.getString("trx.waitClass"));
-//        }else{
-//            Toolkit.getDefaultToolkit().beep();
-//            lbMessage.setText("Unknow staff no.");
-//        }
-//
-//        if(myJob!=null){
-//            lbJobValue.setText(String.valueOf(Job.getJobNo()));
-//            lbModeValue.setText("Open");
-//            lbBOJValue.setText(sdf.format(myJob.getBoj().getTime()));
-//            lbStaffValue.setText(myJob.getStaffNo() + " - " + myJob.getStaffName());
-//
-//        }
-    }
-
-    private void close() {
-//        if (this.getParent().getParent().getParent() != null) {
-//            System.out.println(this.getParent().getParent().getParent().getParent().getClass().getName());
-//            ((JDialog) this.getParent().getParent().getParent().getParent()).dispose();
-//        }
-//        Application.instance().getApplicationContext().publishEvent(new LoginSuccessEvent(txStaffNo.getText()));
-    }
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         keyBoardFocus = 1;

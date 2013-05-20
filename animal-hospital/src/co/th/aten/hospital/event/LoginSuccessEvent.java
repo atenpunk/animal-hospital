@@ -9,7 +9,7 @@ import org.springframework.context.ApplicationEvent;
 
 /**
  *
- * @author Mai
+ * @author Aten
  */
 public class LoginSuccessEvent extends ApplicationEvent{
 

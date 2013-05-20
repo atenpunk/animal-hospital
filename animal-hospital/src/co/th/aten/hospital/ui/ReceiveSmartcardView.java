@@ -18,7 +18,7 @@ import org.springframework.richclient.application.support.DefaultViewDescriptor;
 
 /**
  *
- * @author Mai
+ * @author Aten
  */
 public class ReceiveSmartcardView extends AbstractView {
 

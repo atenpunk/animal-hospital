@@ -14,7 +14,7 @@ import java.awt.event.KeyEvent;
 
 /**
  *
- * @author mai
+ * @author Aten
  */
 public class ChangePasswordPanel extends javax.swing.JPanel {
 

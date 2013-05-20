@@ -6,7 +6,7 @@ package co.th.aten.hospital.ui;
 
 /**
  *
- * @author mai
+ * @author Aten
  */
 public class Screen {
 

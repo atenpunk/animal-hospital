@@ -21,7 +21,7 @@ import org.springframework.richclient.dialog.CloseAction;
 
 /**
  *
- * @author Mai
+ * @author Aten
  */
 public class AutoLogoutDialog extends ApplicationDialog {
 

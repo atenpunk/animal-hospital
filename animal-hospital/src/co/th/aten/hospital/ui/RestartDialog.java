@@ -19,7 +19,7 @@ import org.springframework.richclient.dialog.ApplicationDialog;
 
 /**
  *
- * @author Mai
+ * @author Aten
  */
 public class RestartDialog extends ApplicationDialog{
 

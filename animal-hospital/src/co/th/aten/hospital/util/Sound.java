@@ -11,7 +11,7 @@ import javax.sound.sampled.DataLine;
 
 /**
  *
- * @author Mai
+ * @author Aten
  */
 public class Sound {
 

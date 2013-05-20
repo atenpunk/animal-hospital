@@ -10,7 +10,7 @@ import org.springframework.richclient.application.support.AbstractView;
 
 /**
  *
- * @author Mai
+ * @author Aten
  */
 
 public class MainView extends AbstractView {
