@@ -22,7 +22,7 @@ import org.springframework.richclient.image.ImageSource;
 
 /**
  *
- * @author Mai
+ * @author Aten
  */
 public class StatusPanel extends javax.swing.JPanel {
 

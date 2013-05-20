@@ -6,7 +6,7 @@ package co.th.aten.hospital;
 
 /**
  *
- * @author Mai
+ * @author Aten
  */
 public class Constants {
 

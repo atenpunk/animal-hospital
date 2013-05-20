@@ -19,7 +19,7 @@ import java.util.zip.ZipOutputStream;
 
 /**
  *
- * @author Mai
+ * @author Aten
  */
 public class ZipUtil {
 

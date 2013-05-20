@@ -25,7 +25,7 @@ import org.springframework.richclient.application.Application;
 
 /**
  *
- * @author Mai
+ * @author Aten
  */
 public class InfoPanel extends javax.swing.JPanel {
 
@@ -166,30 +166,30 @@ public class InfoPanel extends javax.swing.JPanel {
         pnInformation.setPreferredSize(new java.awt.Dimension(1024, 130));
         pnInformation.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lbStaff.setFont(new java.awt.Font("Dialog", 0, 14));
+        lbStaff.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         lbStaff.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("ui/messages"); // NOI18N
         lbStaff.setText(bundle.getString("info.staff")); // NOI18N
         lbStaff.setMaximumSize(new java.awt.Dimension(50, 17));
         lbStaff.setMinimumSize(new java.awt.Dimension(50, 17));
-        pnInformation.add(lbStaff, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 85, -1));
+        pnInformation.add(lbStaff, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 70, -1));
 
-        lbBOJ.setFont(new java.awt.Font("Dialog", 0, 14));
+        lbBOJ.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         lbBOJ.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lbBOJ.setText(bundle.getString("info.boj")); // NOI18N
         lbBOJ.setPreferredSize(new java.awt.Dimension(25, 15));
-        pnInformation.add(lbBOJ, new org.netbeans.lib.awtextra.AbsoluteConstraints(455, 20, 80, 20));
+        pnInformation.add(lbBOJ, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 20, 120, 20));
 
         lbBOJValue.setFont(new java.awt.Font("Dialog", 1, 14));
         lbBOJValue.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lbBOJValue.setText("-");
         lbBOJValue.setPreferredSize(new java.awt.Dimension(20, 15));
-        pnInformation.add(lbBOJValue, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 20, 197, 20));
+        pnInformation.add(lbBOJValue, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 20, 197, 20));
 
         lbStaffValue.setFont(new java.awt.Font("Dialog", 1, 14));
         lbStaffValue.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lbStaffValue.setText("-");
-        pnInformation.add(lbStaffValue, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 20, 260, -1));
+        pnInformation.add(lbStaffValue, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 20, 280, -1));
 
         lbTimeValue.setFont(new java.awt.Font("Tahoma", 1, 36));
         lbTimeValue.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);

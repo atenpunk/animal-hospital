@@ -11,7 +11,7 @@ import org.springframework.richclient.settings.Settings;
 
 /**
  *
- * @author Mai
+ * @author Aten
  */
 public class SessionManagerBean implements Serializable, SessionManager {
 

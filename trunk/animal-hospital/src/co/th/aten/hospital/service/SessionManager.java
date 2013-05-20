@@ -7,7 +7,7 @@ package co.th.aten.hospital.service;
 
 /**
  *
- * @author Mai
+ * @author Aten
  */
 public interface SessionManager {
 

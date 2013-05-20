@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author Mai
+ * @author Aten
  */
 public class TransparentPanel extends JPanel {
 

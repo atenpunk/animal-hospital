@@ -21,7 +21,7 @@ import org.springframework.richclient.image.ImageSource;
 
 /**
  *
- * @author Mai
+ * @author Aten
  */
 public class InitView extends AbstractView implements ApplicationListener {
 

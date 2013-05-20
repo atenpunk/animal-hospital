@@ -9,7 +9,7 @@ import javax.swing.JLabel;
 
 /**
  *
- * @author mai
+ * @author Aten
  */
 public class ShadowLabel extends JLabel{
 
