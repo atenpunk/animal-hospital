@@ -4,10 +4,10 @@
  */
 package co.th.aten.hospital.service;
 
+import co.th.aten.hospital.model.UserModel;
 import java.io.Serializable;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.richclient.settings.Settings;
 
 /**
  *
@@ -16,57 +16,18 @@ import org.springframework.richclient.settings.Settings;
 public class SessionManagerBean implements Serializable, SessionManager {
 
     private final Log logger = LogFactory.getLog(getClass());
-    private Settings settings;
-    private boolean needReaderCheck;
-    private boolean waitStaffCard;
-    private Thread readStaffWorker;
-    private boolean todMode;
-
-    public void createSecurityToken() {
-    }
+    private UserModel user;
 
     public SessionManagerBean() {
     }
 
-    /**
-     * @return the settings
-     */
-    public Settings getSettings() {
-        return settings;
+    public UserModel getUser() {
+        return user;
     }
 
-    /**
-     * @param settings the settings to set
-     */
-    public void setSettings(Settings settings) {
-        this.settings = settings;
+    public void setUser(UserModel user) {
+        this.user = user;
     }
 
-    /**
-     * @return the needReaderCheck
-     */
-    public boolean isNeedReaderCheck() {
-        return needReaderCheck;
-    }
 
-    /**
-     * @param needReaderCheck the needReaderCheck to set
-     */
-    public void setNeedReaderCheck(boolean needReaderCheck) {
-        this.needReaderCheck = needReaderCheck;
-    }
-
-    /**
-     * @return the todMode
-     */
-    public boolean isTodMode() {
-        return todMode;
-    }
-
-    /**
-     * @param todMode the todMode to set
-     */
-    public void setTodMode(boolean todMode) {
-        this.todMode = todMode;
-    }
 }

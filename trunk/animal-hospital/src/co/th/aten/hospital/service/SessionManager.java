@@ -4,17 +4,17 @@
  */
 package co.th.aten.hospital.service;
 
+import co.th.aten.hospital.model.UserModel;
+
 
 /**
  *
  * @author Aten
  */
 public interface SessionManager {
+    
+    public UserModel getUser();
 
-    public void createSecurityToken();
-
-    public boolean isNeedReaderCheck();
-    public void setNeedReaderCheck(boolean needReaderCheck);
-    public boolean isTodMode();
-    public void setTodMode(boolean todMode);
+    public void setUser(UserModel user);
+    
 }
