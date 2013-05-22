@@ -11,13 +11,18 @@
 package co.th.aten.hospital.ui;
 
 import co.th.aten.hospital.event.LoginSuccessEvent;
+import co.th.aten.hospital.model.UserModel;
+import co.th.aten.hospital.service.LoginManager;
+import co.th.aten.hospital.service.MessageManager;
 import co.th.aten.hospital.service.SessionManager;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
+import java.util.Locale;
 import javax.swing.SwingWorker;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.context.MessageSource;
 import org.springframework.richclient.application.Application;
 import org.springframework.richclient.application.ApplicationWindow;
 import org.springframework.richclient.progress.BusyIndicator;
@@ -34,11 +39,13 @@ public class LoginPanel extends ImagePanel {
     private int keyBoardFocus;
     private boolean loginSuccess;
     private SessionManager sessionManager;
+    private LoginManager loginManager;
 
     /** Creates new form LoginPanel */
     public LoginPanel(Image image) {
         super(image);
         this.sessionManager = (SessionManager) Application.services().getService(SessionManager.class);
+        this.loginManager = (LoginManager) Application.services().getService(LoginManager.class);
         initComponents();
 //        txStaffNo.setDocument(new JTextFieldFilter(JTextFieldFilter.NUMERIC));
         keyBoardFocus = 0;
@@ -52,10 +59,6 @@ public class LoginPanel extends ImagePanel {
     }
 
     private void doLogin() {
-        if (txStaffNo.getText().equals("000") && (new String(txPassword.getPassword())).equals("25834")) {
-            Application.instance().close(false, 0);
-        }
-
         this.btLogin.setEnabled(false);
         ApplicationWindow aw = Application.instance().getActiveWindow();
         final ProgressMonitor pm = aw.getStatusBar().getProgressMonitor();
@@ -76,27 +79,20 @@ public class LoginPanel extends ImagePanel {
 //                } else {
                 try {
                     System.out.println("Staff Login Staff Id=" + txStaffNo.getText());
-//                        HessianManager hessian = (HessianManager) Application.services().getService(HessianManager.class);
-//                        TcaApi api = hessian.createApi();
-//                        Staff staff = api.login(txStaffNo.getText(), new String(txPassword.getPassword()), sessionManager.getSecurityToken());
-//                        if (staff != null) {
-//                            logger.info("TCA reply staff name=" + staff.getCssfName());
-//                            sessionManager.getSession().setStaff(staff);
-                    success = true;
-//                            if (staff.getCssfPassword().length() == 0) {
-//                                new ChangePasswordDialog(false).showDialog();
-//                            }
-//                        } else {
-//                            logger.info("Staff is null");
-//                            MessageManager messageManager = (MessageManager) Application.services().getService(MessageManager.class);
-//                            MessageSource ms = (MessageSource) Application.services().getService(MessageSource.class);
-//                            messageManager.showError(ms.getMessage("error.loginFail", null, Locale.getDefault()), 3);
-//                        }
+                    UserModel user = loginManager.login(txStaffNo.getText(), new String(txPassword.getPassword()));
+                    if (user != null) {
+                        logger.info("Program reply staff name=" + user.getUserName());
+                        sessionManager.setUser(user);
+                        success = true;
+                    } else {
+                        logger.info("Staff is null");
+                        MessageManager messageManager = (MessageManager) Application.services().getService(MessageManager.class);
+                        MessageSource ms = (MessageSource) Application.services().getService(MessageSource.class);
+                        messageManager.showError(ms.getMessage("error.loginFail", null, Locale.US), 3);
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
-//                }
                 return null;
             }
 

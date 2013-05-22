@@ -6,6 +6,8 @@ package co.th.aten.hospital.ui;
 
 import co.th.aten.hospital.event.LoginSuccessEvent;
 import co.th.aten.hospital.event.LogoutEvent;
+import co.th.aten.hospital.event.MessageEvent;
+import co.th.aten.hospital.model.MessageModel;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import javax.swing.JComponent;
@@ -96,6 +98,15 @@ public class InitView extends AbstractView implements ApplicationListener {
 
     @Override
     public void onApplicationEvent(final ApplicationEvent event) {
+
+        if (event instanceof MessageEvent) {
+//            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            MessageModel model = (MessageModel) ((MessageEvent) event).getSource();
+            statusPanel.changeMessage(model.getType(), model.getMessage());
+            this.getWindowControl().repaint();
+            return;
+        }
+        
         if (event instanceof LoginSuccessEvent) {
 
 //            SessionManager sessionManager = (SessionManager) Application.services().getService(SessionManager.class);
