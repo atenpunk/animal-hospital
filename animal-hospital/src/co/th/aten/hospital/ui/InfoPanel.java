@@ -18,6 +18,7 @@ import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -34,48 +35,22 @@ public class InfoPanel extends javax.swing.JPanel {
     /** Creates new form MasterPanel */
     public InfoPanel() {
         initComponents();
-//        updateLaneInfo();
-//        updateChiefOnDuty();
         clock();
-    }
-
-    public void changeStaff() {
-        SessionManager sessionManager = (SessionManager) Application.services().getService(SessionManager.class);
-        if (Locale.getDefault().equals(Locale.US)) {
-//            String staff = session.getStaff().getCssfName() + " " + session.getStaff().getCssfSurname() + " ( " + session.getStaff().getStaffPK().getCssfStaffid() + " )";
-//            lbCODValue.setText(staff);
-        } else {
-//            String staff = session.getStaff().getCssfLocalname() + " " + session.getStaff().getCssfLocalsurname() + " ( " + session.getStaff().getStaffPK().getCssfStaffid() + " )";
-//            lbCODValue.setText(staff);
-        }
     }
 
     public void updateJob() {
         SessionManager sessionManager = (SessionManager) Application.services().getService(SessionManager.class);
-//        SessionData session = sessionManager.getSession();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-//        Job job = session.getJob();
-//        if (job != null) {
-//            if (Locale.getDefault().equals(Locale.US)) {
-//                String staff = session.getStaff().getCssfName() + " " + session.getStaff().getCssfSurname() + " ( " + session.getStaff().getStaffPK().getCssfStaffid() + " )";
-//                lbStaffValue.setText(staff);
-//            } else {
-//                String staff = session.getStaff().getCssfLocalname() + " " + session.getStaff().getCssfLocalsurname() + " ( " + session.getStaff().getStaffPK().getCssfStaffid() + " )";
-//                lbStaffValue.setText(staff);
-//            }
-//            lbBOJValue.setText(sdf.format(job.getJobPK().getCsjbBojDatetime()));
-//        } else {
-//            lbBOJValue.setText("-");
-//            lbStaffValue.setText("-");
-//        }
+        if (sessionManager.getUser() != null) {
+            lbStaffValue.setText(sessionManager.getUser().getUserName());
+            lbBOJValue.setText(sdf.format(new Date()));
+        } else {
+            lbBOJValue.setText("-");
+            lbStaffValue.setText("-");
+        }
     }
 
     private void clock() {
-//        ApplicationWindow aw = Application.instance().getActiveWindow();
-//        final ProgressMonitor pm = aw.getStatusBar().getProgressMonitor();
-//        pm.setCanceled(true);
-//        pm.taskStarted("Timer...", -1);
-
         new Thread() {
 
             @Override
@@ -91,51 +66,8 @@ public class InfoPanel extends javax.swing.JPanel {
                         logger.error(ex);
                     }
                 }
-//                return null;
             }
         }.start();
-    }
-
-    private void drawText(Graphics2D g2, int size, float opacity) {
-        Composite oldComposite = g2.getComposite();
-        float preAlpha = 1.0f;
-        if (oldComposite instanceof AlphaComposite
-                && ((AlphaComposite) oldComposite).getRule() == AlphaComposite.SRC_OVER) {
-            preAlpha = ((AlphaComposite) oldComposite).getAlpha();
-        }
-
-        g2.setFont(getFont());
-        FontMetrics metrics = g2.getFontMetrics();
-        int ascent = metrics.getAscent();
-        int heightDiff = (metrics.getHeight() - ascent) / 2;
-
-        g2.setColor(Color.BLACK);
-
-        double tx = 2.0;
-        double ty = 2.0 + heightDiff - size;
-        g2.translate(tx, ty);
-
-        for (int i = -size; i <= size; i++) {
-            for (int j = -size; j <= size; j++) {
-                double distance = i * i + j * j;
-                float alpha = opacity;
-                if (distance > 0.0d) {
-                    alpha = (float) (1.0f / ((distance * size) * opacity));
-                }
-                alpha *= preAlpha;
-                if (alpha > 1.0f) {
-                    alpha = 1.0f;
-                }
-                g2.setComposite(AlphaComposite.SrcOver.derive(alpha));
-                g2.drawString("Test", i + size, j + size + ascent);
-            }
-        }
-
-        g2.setComposite(oldComposite);
-        g2.setColor(Color.WHITE);
-        g2.drawString("Test", size, size + ascent);
-
-        g2.translate(-tx, -ty);
     }
 
     /** This method is called from within the constructor to
