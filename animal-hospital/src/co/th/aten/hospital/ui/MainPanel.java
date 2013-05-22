@@ -48,8 +48,8 @@ public class MainPanel extends ImagePanel {
         btAddCustomers.setEnabled(true);
         btEditCustomers.setEnabled(true);
         btEdit.setEnabled(false);
-        btAddStaff.setEnabled(false);
-        btChangePassword.setEnabled(false);
+        btAddStaff.setEnabled(true);
+        btChangePassword.setEnabled(true);
         btChangeOwner.setEnabled(false);
         btSellStatement.setEnabled(false);
         btReport.setEnabled(true);
@@ -311,9 +311,7 @@ public class MainPanel extends ImagePanel {
     }//GEN-LAST:event_btSearchCustomersActionPerformed
 
     private void btAddStaffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAddStaffActionPerformed
-//        Application.instance().getWindowManager().getActiveWindow().getPage().showView("ReceiveOBUView");
-//        new ObuReceiveDialog().showDialog();
-//        new EasyPassReceiveDialog().showDialog();
+//        AddStaffWizard.getInstance().execute();
     }//GEN-LAST:event_btAddStaffActionPerformed
 
     private void btEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditActionPerformed
