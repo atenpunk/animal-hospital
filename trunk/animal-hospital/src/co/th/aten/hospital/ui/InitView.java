@@ -106,21 +106,9 @@ public class InitView extends AbstractView implements ApplicationListener {
             this.getWindowControl().repaint();
             return;
         }
-        
-        if (event instanceof LoginSuccessEvent) {
 
-//            SessionManager sessionManager = (SessionManager) Application.services().getService(SessionManager.class);
-//            PosService posService = (PosService) Application.services().getService(PosService.class);
-//            sessionManager.stopReadStaffCard();
-//            MessageManager messageManager = (MessageManager) Application.services().getService(MessageManager.class);
-//            MessageSource ms = (MessageSource) Application.services().getService(MessageSource.class);
-//            messageManager.showMessage("");
-//            String[] args = new String[]{sessionManager.getSession().getStaff().getCssfLocalname() + " "
-//                + sessionManager.getSession().getStaff().getCssfLocalsurname()
-//                + " (" + sessionManager.getSession().getStaff().getStaffPK().getCssfStaffid() + ")"};
-//            messageManager.showMessage(ms.getMessage("msg.login.loginSuccess", args, Locale.getDefault()), 5);
-//            sessionManager.createSecurityToken();
-//            sessionManager.getSession().setJob(posService.beginJob());
+        if (event instanceof LoginSuccessEvent) {
+            infoPanel.updateJob();
             loginPanel.clearScreen();
             loginPanel.setVisible(false);
             loginPanel.setEnabled(false);
@@ -130,64 +118,18 @@ public class InitView extends AbstractView implements ApplicationListener {
                 mainPanel = new MainPanel(is.getImage("transaction.background"));
                 panel.add(mainPanel, BorderLayout.CENTER);
             }
-//            sessionManager.getSession().setUserMode((short) 0);
-//            if (sessionManager.getSession().getStaff().getCssfStaffgroupid() == Constants.GROUP_TC) {
-//                sessionManager.getSession().setUserMode((short) 1);
-//            }
-//            if (sessionManager.getSession().getStaff().getCssfStaffgroupid() == Constants.GROUP_CTC || sessionManager.getSession().getStaff().getCssfStaffgroupid() == Constants.GROUP_RAD_23) {
-//                sessionManager.getSession().setUserMode((short) 2);
-//                if (sessionManager.getSession().getChiefOnDuty() == null) {
-//                    LocationModel location = sessionManager.getLocation();
-//                    HessianManager hessian = (HessianManager) Application.services().getService(HessianManager.class);
-//                    TcaApi api = hessian.createApi();
-//                    if (api.assignChiefOnDuty(location.getNetworkId(), location.getTsbId(), sessionManager.getSession().getStaff().getStaffPK().getCssfStaffid(), sessionManager.getSecurityToken())) {
-//                        sessionManager.getSession().setChiefOnDuty(sessionManager.getSession().getStaff());
-//                    } else {
-//                        logger.error("assign Chief On Duty Fail....");
-//                    }
-//                } else if (sessionManager.getSession().getStaff().getStaffPK().getCssfStaffid() != sessionManager.getSession().getChiefOnDuty().getStaffPK().getCssfStaffid()) {
-//                    if (chiefOnDutyDialog == null) {
-//                        chiefOnDutyDialog = new ChiefOnDutyDialog();
-//                    }
-//                    chiefOnDutyDialog.showDialog();
-//                }
-//                if (infoPanel != null) {
-//                    infoPanel.updateChiefOnDuty();
-//                }
-//            }
-//            sessionManager.createSecurityToken();
             mainPanel.grantAccess();
             mainPanel.setVisible(true);
             mainPanel.setEnabled(true);
-//            logger.info("config Loaded" + sessionManager.getSession().isConfigLoaded());
             panel.validate();
             this.getWindowControl().repaint();
         }
 
         if (event instanceof LogoutEvent) {
 
-//            String todMode = "";
-//            SessionManager sessionManager = (SessionManager) Application.services().getService(SessionManager.class);
-//            logger.info("configloaded=" + sessionManager.getSession().isConfigLoaded());
-//            if (sessionManager.getSession().isConfigLoaded()) {
-//                String terminalType = sessionManager.getSettings().getString("terminal_type");
-//                if (terminalType != null && terminalType.equalsIgnoreCase("TOD") || com.qfree.eta.etc.pos.Configuration.isTodMode) {
-//                    todMode = " [TOD - สำหรับบันทึกการบันเงิน] ";
-//                    isTodMode = true;
-//                }
-//            }
             String build = Application.instance().getDescriptor().getVersion() + " ( " + Application.instance().getDescriptor().getBuildId() + " )";
             ((DefaultViewDescriptor) getDescriptor()).setTitle(getMessage("header.welcome") + "  v." + build);
 
-//            PosService posService = (PosService) Application.services().getService(PosService.class);
-//            if (posService.endJob()) {
-//                sessionManager.getSession().setJob(null);
-//                sessionManager.getSession().setStaff(null);
-//                sessionManager.createSecurityToken();
-//                sessionManager.startReadStaffCard();
-//                MessageManager messageManager = (MessageManager) Application.services().getService(MessageManager.class);
-//                MessageSource ms = (MessageSource) Application.services().getService(MessageSource.class);
-//                messageManager.showMessage(ms.getMessage("msg.login.insertStaffCard", null, Locale.getDefault()));
             infoPanel.updateJob();
 //            mainPanel.clearScreen();
             mainPanel.setVisible(false);
@@ -201,20 +143,7 @@ public class InitView extends AbstractView implements ApplicationListener {
             loginPanel.setEnabled(true);
             panel.add(loginPanel, BorderLayout.CENTER);
             panel.validate();
-//            }
             return;
         }
-    }
-
-    private void restoreMainPanel() {
-        if (mainPanel == null) {
-            ImageSource is = (ImageSource) Application.services().getService(ImageSource.class);
-            mainPanel = new MainPanel(is.getImage("transaction.background"));
-        }
-
-        mainPanel.setVisible(true);
-        mainPanel.setEnabled(true);
-//        mainPanel.reRender();
-        panel.add(mainPanel, BorderLayout.CENTER);
     }
 }

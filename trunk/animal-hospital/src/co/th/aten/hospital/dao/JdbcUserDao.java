@@ -38,7 +38,7 @@ public class JdbcUserDao implements UserDao {
         if (logger.isDebugEnabled()) {
             logger.debug("user=" + user);
         }
-        logger.info("Password : "+hash(pass));
+//        logger.info("Password : "+hash(pass));
         try {
             user = user.replace(" ", "");
             String sql = "select user_id, user_name, group_id, status from user where login_name ='"+user+"' and password = '"+hash(pass)+"' ";
