@@ -41,7 +41,7 @@ public class JdbcUserDao implements UserDao {
 //        logger.info("Password : "+hash(pass));
         try {
             user = user.replace(" ", "");
-            String sql = "select user_id, user_name, group_id, status from user where login_name ='"+user+"' and password = '"+hash(pass)+"' ";
+            String sql = "select user_id, user_name, group_id, status from staff where login_name ='"+user+"' and password = '"+hash(pass)+"' ";
             ParameterizedRowMapper<UserModel> mapper = new ParameterizedRowMapper<UserModel>() {
                 public UserModel mapRow(ResultSet rs, int arg1) throws SQLException {
                     UserModel um = new UserModel();
@@ -57,6 +57,17 @@ public class JdbcUserDao implements UserDao {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static void main(String[]args){
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            md.update("123456".getBytes("UTF-8"));
+            byte[] raw = md.digest();
+            System.out.println(new String(Hex.encodeHex(raw)));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private String hash(String password) {
