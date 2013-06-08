@@ -48,8 +48,8 @@ public class MainPanel extends ImagePanel {
         btAddCustomers.setEnabled(true);
         btEditCustomers.setEnabled(true);
         btEdit.setEnabled(false);
-        btAddStaff.setEnabled(true);
-        btChangePassword.setEnabled(true);
+        btAddStaff.setEnabled(false);
+        btChangePassword.setEnabled(false);
         btChangeOwner.setEnabled(false);
         btSellStatement.setEnabled(false);
         btReport.setEnabled(true);
