@@ -123,7 +123,7 @@ public class MessageManagerBean implements MessageManager {
                     delay--;
                 }
                 if (!stop) {
-                    Application.instance().getApplicationContext().publishEvent(new MessageEvent(new MessageModel(type, currentMessage())));
+                    Application.instance().getApplicationContext().publishEvent(new MessageEvent(new MessageModel(Constants.MSG_NORMAL, currentMessage())));
                 }
             } catch (InterruptedException ex) {
                 Logger.getLogger(MessageManagerBean.class.getName()).log(Level.SEVERE, null, ex);

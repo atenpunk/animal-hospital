@@ -78,16 +78,17 @@ public class LoginPanel extends ImagePanel {
 //                    Application.instance().getApplicationContext().publishEvent(new ShowMsgEvent(msg));
 //                } else {
                 try {
+                    MessageManager messageManager = (MessageManager) Application.services().getService(MessageManager.class);
+                    MessageSource ms = (MessageSource) Application.services().getService(MessageSource.class);
                     System.out.println("Staff Login Staff Id=" + txStaffNo.getText());
                     UserModel user = loginManager.login(txStaffNo.getText(), new String(txPassword.getPassword()));
                     if (user != null) {
                         logger.info("Program reply staff name=" + user.getUserName());
                         sessionManager.setUser(user);
                         success = true;
+                        messageManager.showMessage("Welcome "+user.getUserName(), 10);
                     } else {
                         logger.info("Staff is null");
-                        MessageManager messageManager = (MessageManager) Application.services().getService(MessageManager.class);
-                        MessageSource ms = (MessageSource) Application.services().getService(MessageSource.class);
                         messageManager.showError(ms.getMessage("error.loginFail", null, Locale.US), 3);
                     }
                 } catch (Exception e) {
