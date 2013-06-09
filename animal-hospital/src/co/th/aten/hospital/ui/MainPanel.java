@@ -10,6 +10,7 @@
  */
 package co.th.aten.hospital.ui;
 
+import co.th.aten.hospital.dialog.AddNewOwnerDialog;
 import co.th.aten.hospital.event.LogoutEvent;
 import java.awt.Image;
 import javax.swing.JOptionPane;
@@ -280,7 +281,7 @@ public class MainPanel extends ImagePanel {
     }//GEN-LAST:event_btChangePasswordActionPerformed
 
     private void btAddCustomersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAddCustomersActionPerformed
-//        CloseContractWizard.getInstance().execute();
+        new AddNewOwnerDialog().showDialog();
     }//GEN-LAST:event_btAddCustomersActionPerformed
 
     private void btTopupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btTopupActionPerformed
