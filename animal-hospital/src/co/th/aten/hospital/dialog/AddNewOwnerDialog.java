@@ -43,7 +43,7 @@ public class AddNewOwnerDialog extends ApplicationDialog {
     @Override
     protected JComponent createButtonBar() {
         JPanel bpanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        JButton btClose = new JButton(" Close ");
+        JButton btClose = new JButton("  Close  ");
         btClose.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
