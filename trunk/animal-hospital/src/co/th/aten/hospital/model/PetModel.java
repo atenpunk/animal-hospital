@@ -11,11 +11,38 @@ package co.th.aten.hospital.model;
  */
 public class PetModel {
 
+    private int id;
+    private int ownerId;
     private String name;
     private String type;
     private String breed;
     private String sex;
     private String color;
+    private byte[] image;
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(int ownerId) {
+        this.ownerId = ownerId;
+    }
 
     public String getBreed() {
         return breed;

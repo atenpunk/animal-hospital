@@ -13,6 +13,7 @@ package co.th.aten.hospital.ui.form;
 import co.th.aten.hospital.model.OwnerModel;
 import co.th.aten.hospital.model.PetModel;
 import co.th.aten.hospital.service.OwnerManager;
+import co.th.aten.hospital.service.PetManager;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -27,12 +28,14 @@ public class AddNewOwnerPanel extends javax.swing.JPanel {
 
     private List<PetModel> petModelList;
     private OwnerManager ownerManager;
+    private PetManager petManager;
 
     /** Creates new form AddNewOwnerPanel */
     public AddNewOwnerPanel() {
         initComponents();
         petModelList = new ArrayList<PetModel>();
         this.ownerManager = (OwnerManager) Application.services().getService(OwnerManager.class);
+        this.petManager = (PetManager) Application.services().getService(PetManager.class);
     }
 
     /** This method is called from within the constructor to
@@ -430,21 +433,29 @@ public class AddNewOwnerPanel extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        if (nameText.getText() != null && nameText.getText().trim().length() > 0) {
-            OwnerModel modelOwner = new OwnerModel();
-            modelOwner.setId(ownerManager.getMaxOwnerId()+1);
-            modelOwner.setName(nameText.getText());
-            modelOwner.setAddress(addressText.getText());
-            modelOwner.setPhoneNumber(phoneText.getText());
-            modelOwner.setEmail(emailText.getText());
-            modelOwner.setPetList(petModelList);
-            ownerManager.insertOwner(modelOwner);
-            clearDataOwner();
-            clearDataPet();
-            JOptionPane.showMessageDialog(this, "Save new owner complete");
-        } else {
-            JOptionPane.showMessageDialog(this, "Please insert name owner");
+        int saveConfirm = JOptionPane.showConfirmDialog(null, "Confirm save new owner?", "Confirm Save", JOptionPane.OK_OPTION | JOptionPane.CANCEL_OPTION);
+        if (saveConfirm == JOptionPane.OK_OPTION) {
+            if (nameText.getText() != null && nameText.getText().trim().length() > 0) {
+                OwnerModel modelOwner = new OwnerModel();
+                modelOwner.setId(ownerManager.getMaxOwnerId() + 1);
+                modelOwner.setName(nameText.getText());
+                modelOwner.setAddress(addressText.getText());
+                modelOwner.setPhoneNumber(phoneText.getText());
+                modelOwner.setEmail(emailText.getText());
+                ownerManager.insertOwner(modelOwner);
+                for(PetModel petModel:petModelList){
+                    petModel.setId(petManager.getMaxOwnerId()+1);
+                    petModel.setOwnerId(modelOwner.getId());
+                    petManager.insertOwner(petModel);
+                }
+                clearDataOwner();
+                clearDataPet();
+                JOptionPane.showMessageDialog(this, "Save new owner complete");
+            } else {
+                JOptionPane.showMessageDialog(this, "Please insert name owner");
+            }
         }
+
     }//GEN-LAST:event_jButton1ActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea addressText;

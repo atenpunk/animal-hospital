@@ -48,6 +48,9 @@
     <bean id="ownerDao" class="co.th.aten.hospital.dao.JdbcOwnerDao" lazy-init="true" >
         <property name="dataSource" ref="dataSource" />
     </bean>
+    <bean id="petDao" class="co.th.aten.hospital.dao.JdbcPetDao" lazy-init="true" >
+        <property name="dataSource" ref="dataSource" />
+    </bean>
 
 
     <!-- Service -->
@@ -60,6 +63,9 @@
     </bean>
     <bean id="ownerManager" class="co.th.aten.hospital.service.OwnerManagerBean" lazy-init="true" >
         <property name="ownerDao" ref="ownerDao" />
+    </bean>
+    <bean id="petManager" class="co.th.aten.hospital.service.PetManagerBean" lazy-init="true" >
+        <property name="petDao" ref="petDao" />
     </bean>
 
 </beans>
