@@ -8,8 +8,16 @@
  *
  * Created on 9 มิ.ย. 2556, 18:40:06
  */
-
 package co.th.aten.hospital.ui.form;
+
+import co.th.aten.hospital.model.OwnerModel;
+import co.th.aten.hospital.model.PetModel;
+import co.th.aten.hospital.service.OwnerManager;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import org.springframework.richclient.application.Application;
 
 /**
  *
@@ -17,9 +25,14 @@ package co.th.aten.hospital.ui.form;
  */
 public class AddNewOwnerPanel extends javax.swing.JPanel {
 
+    private List<PetModel> petModelList;
+    private OwnerManager ownerManager;
+
     /** Creates new form AddNewOwnerPanel */
     public AddNewOwnerPanel() {
         initComponents();
+        petModelList = new ArrayList<PetModel>();
+        this.ownerManager = (OwnerManager) Application.services().getService(OwnerManager.class);
     }
 
     /** This method is called from within the constructor to
@@ -49,7 +62,7 @@ public class AddNewOwnerPanel extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         namePetText = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        namePetText1 = new javax.swing.JTextField();
+        typePetText = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         breedPetText = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
@@ -90,7 +103,7 @@ public class AddNewOwnerPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Name", "สายพันธ์", "Breed", "Sex", "Color"
+                "Name", "Type", "Breed", "Sex", "Color"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -115,7 +128,7 @@ public class AddNewOwnerPanel extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -124,11 +137,11 @@ public class AddNewOwnerPanel extends javax.swing.JPanel {
                             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(emailText, javax.swing.GroupLayout.DEFAULT_SIZE, 395, Short.MAX_VALUE)
-                            .addComponent(nameText, javax.swing.GroupLayout.DEFAULT_SIZE, 395, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 395, Short.MAX_VALUE)
-                            .addComponent(phoneText, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 395, Short.MAX_VALUE)))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE))
+                            .addComponent(emailText, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
+                            .addComponent(nameText, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
+                            .addComponent(phoneText, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -172,7 +185,7 @@ public class AddNewOwnerPanel extends javax.swing.JPanel {
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel7.setText("สายพันธ์");
+        jLabel7.setText("Type");
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -202,9 +215,19 @@ public class AddNewOwnerPanel extends javax.swing.JPanel {
 
         jButton3.setFont(new java.awt.Font("Tahoma", 0, 12));
         jButton3.setText("Clear");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setFont(new java.awt.Font("Tahoma", 0, 12));
         jButton4.setText("Add");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("Load Image");
 
@@ -234,7 +257,7 @@ public class AddNewOwnerPanel extends javax.swing.JPanel {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(colorPetText, javax.swing.GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE))
+                                .addComponent(colorPetText, javax.swing.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -242,9 +265,9 @@ public class AddNewOwnerPanel extends javax.swing.JPanel {
                                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(breedPetText, javax.swing.GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE)
-                                    .addComponent(namePetText1, javax.swing.GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE)
-                                    .addComponent(namePetText, javax.swing.GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE))))))
+                                    .addComponent(breedPetText, javax.swing.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE)
+                                    .addComponent(typePetText, javax.swing.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE)
+                                    .addComponent(namePetText, javax.swing.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE))))))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -260,7 +283,7 @@ public class AddNewOwnerPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(namePetText1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(typePetText, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -287,9 +310,19 @@ public class AddNewOwnerPanel extends javax.swing.JPanel {
 
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 12));
         jButton1.setText("Save");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 12));
         jButton2.setText("Clear");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -324,17 +357,95 @@ public class AddNewOwnerPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void clearDataPet() {
+        maleRadio.setSelected(false);
+        femaleRadio.setSelected(false);
+        namePetText.setText("");
+        typePetText.setText("");
+        breedPetText.setText("");
+        colorPetText.setText("");
+        imgLabel.setText("NO IMAGE");
+        imgLabel.setIcon(null);
+    }
+
+    private void clearDataOwner() {
+        petModelList = new ArrayList<PetModel>();
+        nameText.setText("");
+        addressText.setText("");
+        phoneText.setText("");
+        emailText.setText("");
+        DefaultTableModel model = (DefaultTableModel) petTable.getModel();
+        while (model.getRowCount() > 0) {
+            model.removeRow(0);
+        }
+    }
+
     private void maleRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_maleRadioActionPerformed
         // TODO add your handling code here:
-//        maleRadio.
+        maleRadio.setSelected(true);
+        femaleRadio.setSelected(false);
     }//GEN-LAST:event_maleRadioActionPerformed
 
     private void femaleRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_femaleRadioActionPerformed
         // TODO add your handling code here:
-//        femaleRadio.
+        femaleRadio.setSelected(true);
+        maleRadio.setSelected(false);
     }//GEN-LAST:event_femaleRadioActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        clearDataPet();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        clearDataOwner();
+        clearDataPet();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        if (namePetText.getText() != null && namePetText.getText().trim().length() > 0) {
+            PetModel model = new PetModel();
+            model.setName(namePetText.getText());
+            model.setType(typePetText.getText());
+            model.setBreed(breedPetText.getText());
+            String sex = "";
+            if (maleRadio.isSelected()) {
+                sex = "Male";
+            } else if (femaleRadio.isSelected()) {
+                sex = "Female";
+            }
+            model.setSex(sex);
+            model.setColor(colorPetText.getText());
+            petModelList.add(model);
+            DefaultTableModel modelTable = (DefaultTableModel) petTable.getModel();
+            Object[] row = {model.getName(), model.getType(), model.getBreed(), model.getSex(), model.getColor()};
+            modelTable.addRow(row);
+            clearDataPet();
+        } else {
+            JOptionPane.showMessageDialog(this, "Please insert name pet");
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        if (nameText.getText() != null && nameText.getText().trim().length() > 0) {
+            OwnerModel modelOwner = new OwnerModel();
+            modelOwner.setId(ownerManager.getMaxOwnerId()+1);
+            modelOwner.setName(nameText.getText());
+            modelOwner.setAddress(addressText.getText());
+            modelOwner.setPhoneNumber(phoneText.getText());
+            modelOwner.setEmail(emailText.getText());
+            modelOwner.setPetList(petModelList);
+            ownerManager.insertOwner(modelOwner);
+            clearDataOwner();
+            clearDataPet();
+            JOptionPane.showMessageDialog(this, "Save new owner complete");
+        } else {
+            JOptionPane.showMessageDialog(this, "Please insert name owner");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea addressText;
     private javax.swing.JTextField breedPetText;
@@ -363,10 +474,9 @@ public class AddNewOwnerPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JRadioButton maleRadio;
     private javax.swing.JTextField namePetText;
-    private javax.swing.JTextField namePetText1;
     private javax.swing.JTextField nameText;
     private javax.swing.JTable petTable;
     private javax.swing.JTextField phoneText;
+    private javax.swing.JTextField typePetText;
     // End of variables declaration//GEN-END:variables
-
 }

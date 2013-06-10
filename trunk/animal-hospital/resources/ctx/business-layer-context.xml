@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:aop="http://www.springframework.org/schema/aop"
-  xmlns:tx="http://www.springframework.org/schema/tx"
-  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
-    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
-    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
 
-   <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
         <property name="url" value="jdbc:mysql://127.0.0.1:3306/animal_hospital" />
         <property name="username" value="hospital" />
@@ -19,36 +19,33 @@
             <ref local="dataSource" />
         </property>
     </bean>
-    
-  <!-- the transactional advice (what 'happens'; see the <aop:advisor/> bean below) -->
+
+    <!-- the transactional advice (what 'happens'; see the <aop:advisor/> bean below) -->
     <tx:advice id="txAdvice" transaction-manager="txManager">
-  <!-- the transactional semantics... -->
+        <!-- the transactional semantics... -->
         <tx:attributes>
-    <!-- all methods starting with 'get' are read-only -->
+            <!-- all methods starting with 'get' are read-only -->
             <tx:method name="get*" read-only="true"/>
             <tx:method name="check*" read-only="true"/>
             <tx:method name="find*" read-only="true"/>
 
-    <!-- other methods use the default transaction settings (see below) -->
+            <!-- other methods use the default transaction settings (see below) -->
             <tx:method name="*"/>
         </tx:attributes>
     </tx:advice>
 
-  <!-- ensure that the above transactional advice runs for any execution
+    <!-- ensure that the above transactional advice runs for any execution
     of an operation defined by the FooService interface -->
     <aop:config>
         <aop:pointcut id="serviceOperation" expression="execution(* co.th.aten.hospital.service.*Service.*(..))"/>
         <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceOperation"/>
     </aop:config>
 
-<!-- DAO -->
-    <bean id="customerDao" class="co.th.aten.hospital.dao.JdbcCustomerDao" lazy-init="true" >
+    <!-- DAO -->
+    <bean id="userDao" class="co.th.aten.hospital.dao.JdbcUserDao" lazy-init="true" >
         <property name="dataSource" ref="dataSource" />
     </bean>
-    <bean id="obuDao" class="co.th.aten.hospital.dao.JdbcObuDao" lazy-init="true" >
-        <property name="dataSource" ref="dataSource" />
-    </bean>
-    <bean id="fileVersionDao" class="co.th.aten.hospital.dao.JdbcFileVersionDao" lazy-init="true" >
+    <bean id="ownerDao" class="co.th.aten.hospital.dao.JdbcOwnerDao" lazy-init="true" >
         <property name="dataSource" ref="dataSource" />
     </bean>
 
@@ -56,16 +53,13 @@
     <!-- Service -->
     <bean id="sessionManager" class="co.th.aten.hospital.service.SessionManagerBean" lazy-init="true" >
     </bean>
-
-    <bean id="userDao" class="co.th.aten.hospital.dao.JdbcUserDao" lazy-init="true" >
-        <property name="dataSource" ref="dataSource" />
-    </bean>
-
     <bean id="messageManager" class="co.th.aten.hospital.service.MessageManagerBean" lazy-init="true" >
     </bean>
-
     <bean id="loginManager" class="co.th.aten.hospital.service.LoginManagerBean" lazy-init="true" >
         <property name="userDao" ref="userDao" />
+    </bean>
+    <bean id="ownerManager" class="co.th.aten.hospital.service.OwnerManagerBean" lazy-init="true" >
+        <property name="ownerDao" ref="ownerDao" />
     </bean>
 
 </beans>
