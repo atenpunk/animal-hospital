@@ -18,7 +18,6 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -37,7 +36,7 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author Atenpunk
  */
-public class AddNewOwnerPanel extends javax.swing.JPanel {
+public class EditOwnerPanel extends javax.swing.JPanel {
 
     private final Log logger = LogFactory.getLog(getClass());
     private List<PetModel> petModelList;
@@ -46,7 +45,7 @@ public class AddNewOwnerPanel extends javax.swing.JPanel {
     private File fileImg;
 
     /** Creates new form AddNewOwnerPanel */
-    public AddNewOwnerPanel() {
+    public EditOwnerPanel() {
         initComponents();
         petModelList = new ArrayList<PetModel>();
         this.ownerManager = (OwnerManager) Application.services().getService(OwnerManager.class);
@@ -135,7 +134,7 @@ public class AddNewOwnerPanel extends javax.swing.JPanel {
         petTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jScrollPane2.setViewportView(petTable);
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel5.setText("Pet");
 
@@ -231,7 +230,7 @@ public class AddNewOwnerPanel extends javax.swing.JPanel {
             }
         });
 
-        jButton3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jButton3.setFont(new java.awt.Font("Tahoma", 0, 12));
         jButton3.setText("Clear");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -239,7 +238,7 @@ public class AddNewOwnerPanel extends javax.swing.JPanel {
             }
         });
 
-        jButton4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jButton4.setFont(new java.awt.Font("Tahoma", 0, 12));
         jButton4.setText("Add");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -339,7 +338,7 @@ public class AddNewOwnerPanel extends javax.swing.JPanel {
             }
         });
 
-        jButton2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jButton2.setFont(new java.awt.Font("Tahoma", 1, 12));
         jButton2.setText("Clear");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
