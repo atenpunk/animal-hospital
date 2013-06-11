@@ -16,12 +16,12 @@ import co.th.aten.hospital.service.OwnerManager;
 import co.th.aten.hospital.service.PetManager;
 import co.th.aten.hospital.ui.ProcessTransactionDialog;
 import java.awt.Graphics2D;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -33,6 +33,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import org.springframework.richclient.application.Application;
 import org.apache.commons.logging.Log;
@@ -49,6 +50,7 @@ public class EditOwnerPanel extends javax.swing.JPanel {
     private OwnerManager ownerManager;
     private PetManager petManager;
     private File fileImg;
+    private List<OwnerModel> ownerList;
 
     /** Creates new form AddNewOwnerPanel */
     public EditOwnerPanel() {
@@ -62,6 +64,45 @@ public class EditOwnerPanel extends javax.swing.JPanel {
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                     searchByKeyWord();
+                }
+            }
+        });
+
+        searchTable.addMouseListener(new MouseAdapter() {
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    JTable target = (JTable) e.getSource();
+                    int row = target.getSelectedRow();
+//                    int column = target.getSelectedColumn();
+                    if (ownerList != null && ownerList.size() >= row) {
+                        OwnerModel model = ownerList.get(row);
+                        nameText.setText(model.getName());
+                        addressText.setText(model.getAddress());
+                        phoneText.setText(model.getPhoneNumber());
+                        emailText.setText(model.getEmail());
+                        namePetText.setText(model.getPetModel().getName());
+                        typePetText.setText(model.getPetModel().getType());
+                        breedPetText.setText(model.getPetModel().getBreed());
+                        if (model.getPetModel().getSex().toLowerCase().equals("male")) {
+                            maleRadio.setSelected(true);
+                        } else if (model.getPetModel().getSex().toLowerCase().equals("female")) {
+                            femaleRadio.setSelected(true);
+                        }
+                        colorPetText.setText(model.getPetModel().getColor());
+                        try {
+                            InputStream in = new ByteArrayInputStream(model.getPetModel().getImage());
+                            BufferedImage originalImage = ImageIO.read(in);
+                            int type = originalImage.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : originalImage.getType();
+                            BufferedImage resizeImageJpg = resizeImage(originalImage, type);
+                            ImageIcon imgPet = new ImageIcon(resizeImageJpg);
+                            imgLabel.setText("");
+                            imgLabel.setIcon(imgPet);
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
+                    }
                 }
             }
         });
@@ -415,6 +456,7 @@ public class EditOwnerPanel extends javax.swing.JPanel {
                     petModel.setOwnerId(modelOwner.getId());
                     petManager.insertOwner(petModel);
                 }
+                fileImg = null;
                 JOptionPane.showMessageDialog(this, "Edit data complete");
             } else {
                 JOptionPane.showMessageDialog(this, "Please insert name owner");
@@ -453,8 +495,9 @@ public class EditOwnerPanel extends javax.swing.JPanel {
     private void searchByKeyWord() {
         if (searchText.getText() != null && searchText.getText().trim().length() > 0) {
             Runnable r = new Runnable() {
+
                 public void run() {
-                    List<OwnerModel> ownerList = ownerManager.searchByKeyWord(searchText.getText());
+                    ownerList = ownerManager.searchByKeyWord(searchText.getText());
                     DefaultTableModel modelTable = (DefaultTableModel) searchTable.getModel();
                     while (modelTable.getRowCount() > 0) {
                         modelTable.removeRow(0);
