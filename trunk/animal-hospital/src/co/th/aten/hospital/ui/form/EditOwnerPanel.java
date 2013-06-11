@@ -53,7 +53,7 @@ public class EditOwnerPanel extends javax.swing.JPanel {
     private List<OwnerModel> ownerList;
     private OwnerModel modelSelected;
 
-    /** Creates new form AddNewOwnerPanel */
+    /** Creates new form EditOwnerPanel */
     public EditOwnerPanel() {
         fileImg = null;
         this.ownerManager = (OwnerManager) Application.services().getService(OwnerManager.class);
