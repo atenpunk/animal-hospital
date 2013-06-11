@@ -14,6 +14,7 @@ import co.th.aten.hospital.model.OwnerModel;
 import co.th.aten.hospital.model.PetModel;
 import co.th.aten.hospital.service.OwnerManager;
 import co.th.aten.hospital.service.PetManager;
+import co.th.aten.hospital.ui.ProcessTransactionDialog;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -30,6 +31,7 @@ import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.springframework.richclient.application.Application;
@@ -55,10 +57,11 @@ public class EditOwnerPanel extends javax.swing.JPanel {
         this.ownerManager = (OwnerManager) Application.services().getService(OwnerManager.class);
         this.petManager = (PetManager) Application.services().getService(PetManager.class);
         searchText.addKeyListener(new KeyAdapter() {
+
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    searchByKeyWord(searchText.getText());
+                    searchByKeyWord();
                 }
             }
         });
@@ -444,23 +447,27 @@ public class EditOwnerPanel extends javax.swing.JPanel {
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
         // TODO add your handling code here:
-        searchByKeyWord(searchText.getText());
+        searchByKeyWord();
     }//GEN-LAST:event_searchButtonActionPerformed
 
-    private void searchByKeyWord(String word) {
-        if (word != null && word.trim().length() > 0) {
-
-            List<OwnerModel> ownerList = ownerManager.searchByKeyWord(word);
-            DefaultTableModel modelTable = (DefaultTableModel) searchTable.getModel();
-            while (modelTable.getRowCount() > 0) {
-                modelTable.removeRow(0);
-            }
-            if (ownerList != null) {
-                for (OwnerModel model : ownerList) {
-                    Object[] row = {model.getName(), model.getPetModel().getName(), model.getPetModel().getType(), model.getPetModel().getBreed()};
-                    modelTable.addRow(row);
+    private void searchByKeyWord() {
+        if (searchText.getText() != null && searchText.getText().trim().length() > 0) {
+            Runnable r = new Runnable() {
+                public void run() {
+                    List<OwnerModel> ownerList = ownerManager.searchByKeyWord(searchText.getText());
+                    DefaultTableModel modelTable = (DefaultTableModel) searchTable.getModel();
+                    while (modelTable.getRowCount() > 0) {
+                        modelTable.removeRow(0);
+                    }
+                    if (ownerList != null) {
+                        for (OwnerModel model : ownerList) {
+                            Object[] row = {model.getName(), model.getPetModel().getName(), model.getPetModel().getType(), model.getPetModel().getBreed()};
+                            modelTable.addRow(row);
+                        }
+                    }
                 }
-            }
+            };
+            new ProcessTransactionDialog(new JFrame(), true, r, "ระบบกำลังทำงานกรุณารอสักครู่...");
         }
     }
 
