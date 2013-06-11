@@ -14,11 +14,24 @@ import co.th.aten.hospital.model.OwnerModel;
 import co.th.aten.hospital.model.PetModel;
 import co.th.aten.hospital.service.OwnerManager;
 import co.th.aten.hospital.service.PetManager;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileFilter;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.springframework.richclient.application.Application;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  *
@@ -26,9 +39,11 @@ import org.springframework.richclient.application.Application;
  */
 public class AddNewOwnerPanel extends javax.swing.JPanel {
 
+    private final Log logger = LogFactory.getLog(getClass());
     private List<PetModel> petModelList;
     private OwnerManager ownerManager;
     private PetManager petManager;
+    private File fileImg;
 
     /** Creates new form AddNewOwnerPanel */
     public AddNewOwnerPanel() {
@@ -120,8 +135,8 @@ public class AddNewOwnerPanel extends javax.swing.JPanel {
         petTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jScrollPane2.setViewportView(petTable);
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12));
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel5.setText("Pet");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -131,9 +146,10 @@ public class AddNewOwnerPanel extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -143,8 +159,7 @@ public class AddNewOwnerPanel extends javax.swing.JPanel {
                             .addComponent(emailText, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
                             .addComponent(nameText, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
-                            .addComponent(phoneText, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE))
+                            .addComponent(phoneText, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -177,7 +192,7 @@ public class AddNewOwnerPanel extends javax.swing.JPanel {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pet", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
 
-        imgLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        imgLabel.setFont(new java.awt.Font("Tahoma", 1, 18));
         imgLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         imgLabel.setText("NO IMAGE");
         imgLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -216,7 +231,7 @@ public class AddNewOwnerPanel extends javax.swing.JPanel {
             }
         });
 
-        jButton3.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jButton3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButton3.setText("Clear");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -224,7 +239,7 @@ public class AddNewOwnerPanel extends javax.swing.JPanel {
             }
         });
 
-        jButton4.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jButton4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButton4.setText("Add");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -233,6 +248,11 @@ public class AddNewOwnerPanel extends javax.swing.JPanel {
         });
 
         jButton5.setText("Load Image");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -305,10 +325,10 @@ public class AddNewOwnerPanel extends javax.swing.JPanel {
                             .addComponent(colorPetText, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jButton5))
-                .addContainerGap(124, Short.MAX_VALUE))
+                .addContainerGap(129, Short.MAX_VALUE))
         );
 
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 12));
@@ -319,7 +339,7 @@ public class AddNewOwnerPanel extends javax.swing.JPanel {
             }
         });
 
-        jButton2.setFont(new java.awt.Font("Tahoma", 1, 12));
+        jButton2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jButton2.setText("Clear");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -369,6 +389,7 @@ public class AddNewOwnerPanel extends javax.swing.JPanel {
         colorPetText.setText("");
         imgLabel.setText("NO IMAGE");
         imgLabel.setIcon(null);
+        fileImg = null;
     }
 
     private void clearDataOwner() {
@@ -381,6 +402,7 @@ public class AddNewOwnerPanel extends javax.swing.JPanel {
         while (model.getRowCount() > 0) {
             model.removeRow(0);
         }
+        fileImg = null;
     }
 
     private void maleRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_maleRadioActionPerformed
@@ -421,6 +443,7 @@ public class AddNewOwnerPanel extends javax.swing.JPanel {
             }
             model.setSex(sex);
             model.setColor(colorPetText.getText());
+            model.setImage(fileImg != null ? getByteImage(fileImg) : null);
             petModelList.add(model);
             DefaultTableModel modelTable = (DefaultTableModel) petTable.getModel();
             Object[] row = {model.getName(), model.getType(), model.getBreed(), model.getSex(), model.getColor()};
@@ -443,8 +466,8 @@ public class AddNewOwnerPanel extends javax.swing.JPanel {
                 modelOwner.setPhoneNumber(phoneText.getText());
                 modelOwner.setEmail(emailText.getText());
                 ownerManager.insertOwner(modelOwner);
-                for(PetModel petModel:petModelList){
-                    petModel.setId(petManager.getMaxOwnerId()+1);
+                for (PetModel petModel : petModelList) {
+                    petModel.setId(petManager.getMaxOwnerId() + 1);
                     petModel.setOwnerId(modelOwner.getId());
                     petManager.insertOwner(petModel);
                 }
@@ -455,8 +478,63 @@ public class AddNewOwnerPanel extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Please insert name owner");
             }
         }
-
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        try {
+            JFileChooser chooser = new JFileChooser();
+            chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+            chooser.showOpenDialog(null);
+            File file = chooser.getSelectedFile();
+            BufferedImage originalImage = ImageIO.read(file);
+            int type = originalImage.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : originalImage.getType();
+            BufferedImage resizeImageJpg = resizeImage(originalImage, type);
+            ImageIcon imgPet = new ImageIcon(resizeImageJpg);
+            imgLabel.setText("");
+            imgLabel.setIcon(imgPet);
+            System.out.println("getAbsolutePath : " + file.getAbsolutePath());
+            fileImg = new File(file.getAbsolutePath());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private static BufferedImage resizeImage(BufferedImage originalImage, int type) {
+        BufferedImage resizedImage = new BufferedImage(146, 134, type);
+        Graphics2D g = resizedImage.createGraphics();
+        g.drawImage(originalImage, 0, 0, 146, 134, null);
+        g.dispose();
+
+
+        return resizedImage;
+
+
+    }
+
+    private byte[] getByteImage(File file) {
+        try {
+            BufferedImage originalImage = ImageIO.read(file);
+
+
+            int type = originalImage.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : originalImage.getType();
+            BufferedImage resizeImageJpg = resizeImage(originalImage, type);
+            ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+            ImageIO.write(resizeImageJpg, "jpg", buffer);
+
+
+            return buffer.toByteArray();
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+
+        }
+        return null;
+
+
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea addressText;
     private javax.swing.JTextField breedPetText;
