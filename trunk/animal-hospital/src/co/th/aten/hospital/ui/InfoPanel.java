@@ -92,7 +92,7 @@ public class InfoPanel extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(800, 100));
         setLayout(new java.awt.BorderLayout());
 
-        pnInformation.setBackground(new java.awt.Color(204, 255, 255));
+        pnInformation.setBackground(new java.awt.Color(255, 255, 255));
         pnInformation.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         pnInformation.setMinimumSize(new java.awt.Dimension(1024, 150));
         pnInformation.setPreferredSize(new java.awt.Dimension(1024, 150));

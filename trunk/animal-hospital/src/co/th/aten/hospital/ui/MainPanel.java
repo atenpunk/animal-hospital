@@ -46,15 +46,15 @@ public class MainPanel extends ImagePanel {
 //        int uClass = sessionManager.getSession().getUserMode();
 //        System.out.println("User Class=" + uClass);
         btSearchCustomers.setEnabled(true);
-        btTopup.setEnabled(false);
+        btHistory.setEnabled(false);
         btAddCustomers.setEnabled(true);
         btEditCustomers.setEnabled(true);
         btEdit.setEnabled(false);
         btAddStaff.setEnabled(false);
         btChangePassword.setEnabled(false);
-        btChangeOwner.setEnabled(false);
+        btReport.setEnabled(false);
         btSellStatement.setEnabled(false);
-        btReport.setEnabled(true);
+        btReport2.setEnabled(false);
         btCheckBalance.setEnabled(false);
     }
 
@@ -73,11 +73,11 @@ public class MainPanel extends ImagePanel {
         jPanel5 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         btEdit = new javax.swing.JButton();
-        btChangeOwner = new javax.swing.JButton();
         btReport = new javax.swing.JButton();
+        btReport2 = new javax.swing.JButton();
         btSearchCustomers = new javax.swing.JButton();
         btCheckBalance = new javax.swing.JButton();
-        btTopup = new javax.swing.JButton();
+        btHistory = new javax.swing.JButton();
         btAddCustomers = new javax.swing.JButton();
         btEditCustomers = new javax.swing.JButton();
         btSellStatement = new javax.swing.JButton();
@@ -95,6 +95,7 @@ public class MainPanel extends ImagePanel {
         jScrollPane1.setFont(new java.awt.Font("Dialog", 0, 12));
         jScrollPane1.setPreferredSize(new java.awt.Dimension(22, 22));
 
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new java.awt.GridBagLayout());
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("ui/messages"); // NOI18N
@@ -103,8 +104,7 @@ public class MainPanel extends ImagePanel {
         jPanel5.setOpaque(false);
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("main.label.transaction"))); // NOI18N
-        jPanel6.setFont(new java.awt.Font("Dialog", 0, 12));
+        jPanel6.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         jPanel6.setOpaque(false);
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -116,31 +116,31 @@ public class MainPanel extends ImagePanel {
                 btEditActionPerformed(evt);
             }
         });
-        jPanel6.add(btEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 120, 370, 80));
+        jPanel6.add(btEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 120, 370, 80));
 
-        btChangeOwner.setBackground(new java.awt.Color(235, 102, 255));
-        btChangeOwner.setFont(new java.awt.Font("Dialog", 1, 18));
-        btChangeOwner.setMnemonic('p');
-        btChangeOwner.setText(bundle.getString("main.label.defaul")); // NOI18N
-        btChangeOwner.setPreferredSize(new java.awt.Dimension(200, 80));
-        btChangeOwner.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btChangeOwnerActionPerformed(evt);
-            }
-        });
-        jPanel6.add(btChangeOwner, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 120, 370, -1));
-
-        btReport.setBackground(new java.awt.Color(32, 249, 226));
+        btReport.setBackground(new java.awt.Color(235, 102, 255));
         btReport.setFont(new java.awt.Font("Dialog", 1, 18));
         btReport.setMnemonic('p');
-        btReport.setText(bundle.getString("main.label.report")); // NOI18N
+        btReport.setText(bundle.getString("main.label.reports")); // NOI18N
         btReport.setPreferredSize(new java.awt.Dimension(200, 80));
         btReport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btReportActionPerformed(evt);
             }
         });
-        jPanel6.add(btReport, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 210, 370, 80));
+        jPanel6.add(btReport, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 120, 370, -1));
+
+        btReport2.setBackground(new java.awt.Color(32, 249, 226));
+        btReport2.setFont(new java.awt.Font("Dialog", 1, 18));
+        btReport2.setMnemonic('p');
+        btReport2.setText(bundle.getString("main.label.report")); // NOI18N
+        btReport2.setPreferredSize(new java.awt.Dimension(200, 80));
+        btReport2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btReport2ActionPerformed(evt);
+            }
+        });
+        jPanel6.add(btReport2, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 210, 370, 80));
 
         btSearchCustomers.setBackground(new java.awt.Color(102, 255, 102));
         btSearchCustomers.setFont(new java.awt.Font("Dialog", 1, 18));
@@ -152,7 +152,7 @@ public class MainPanel extends ImagePanel {
                 btSearchCustomersActionPerformed(evt);
             }
         });
-        jPanel6.add(btSearchCustomers, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 370, -1));
+        jPanel6.add(btSearchCustomers, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 370, -1));
 
         btCheckBalance.setBackground(new java.awt.Color(202, 124, 47));
         btCheckBalance.setFont(new java.awt.Font("Dialog", 1, 18));
@@ -164,19 +164,19 @@ public class MainPanel extends ImagePanel {
                 btCheckBalanceActionPerformed(evt);
             }
         });
-        jPanel6.add(btCheckBalance, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 370, -1));
+        jPanel6.add(btCheckBalance, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 210, 370, -1));
 
-        btTopup.setBackground(new java.awt.Color(255, 247, 102));
-        btTopup.setFont(new java.awt.Font("Dialog", 1, 18));
-        btTopup.setMnemonic('p');
-        btTopup.setText(bundle.getString("main.label.defaul")); // NOI18N
-        btTopup.setPreferredSize(new java.awt.Dimension(200, 80));
-        btTopup.addActionListener(new java.awt.event.ActionListener() {
+        btHistory.setBackground(new java.awt.Color(255, 247, 102));
+        btHistory.setFont(new java.awt.Font("Dialog", 1, 18));
+        btHistory.setMnemonic('p');
+        btHistory.setText(bundle.getString("main.label.treatmentHistory")); // NOI18N
+        btHistory.setPreferredSize(new java.awt.Dimension(200, 80));
+        btHistory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btTopupActionPerformed(evt);
+                btHistoryActionPerformed(evt);
             }
         });
-        jPanel6.add(btTopup, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 370, -1));
+        jPanel6.add(btHistory, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 370, -1));
 
         btAddCustomers.setBackground(new java.awt.Color(255, 153, 0));
         btAddCustomers.setFont(new java.awt.Font("Dialog", 1, 18));
@@ -188,7 +188,7 @@ public class MainPanel extends ImagePanel {
                 btAddCustomersActionPerformed(evt);
             }
         });
-        jPanel6.add(btAddCustomers, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 30, 370, -1));
+        jPanel6.add(btAddCustomers, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 30, 370, -1));
 
         btEditCustomers.setBackground(new java.awt.Color(255, 204, 153));
         btEditCustomers.setFont(new java.awt.Font("Dialog", 1, 18));
@@ -200,7 +200,7 @@ public class MainPanel extends ImagePanel {
                 btEditCustomersActionPerformed(evt);
             }
         });
-        jPanel6.add(btEditCustomers, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 30, 370, -1));
+        jPanel6.add(btEditCustomers, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 30, 370, -1));
 
         btSellStatement.setBackground(new java.awt.Color(102, 255, 213));
         btSellStatement.setFont(new java.awt.Font("Dialog", 1, 18));
@@ -212,9 +212,9 @@ public class MainPanel extends ImagePanel {
                 btSellStatementActionPerformed(evt);
             }
         });
-        jPanel6.add(btSellStatement, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 210, 370, 80));
+        jPanel6.add(btSellStatement, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 210, 370, 80));
 
-        jPanel5.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        jPanel5.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 1180, 410));
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -225,6 +225,7 @@ public class MainPanel extends ImagePanel {
         gridBagConstraints.insets = new java.awt.Insets(4, 4, 4, 4);
         jPanel2.add(jPanel5, gridBagConstraints);
 
+        jPanel7.setBackground(new java.awt.Color(255, 255, 255));
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("main.label.systemControl"))); // NOI18N
         jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -238,7 +239,7 @@ public class MainPanel extends ImagePanel {
                 btAddStaffActionPerformed(evt);
             }
         });
-        jPanel7.add(btAddStaff, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 370, -1));
+        jPanel7.add(btAddStaff, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, 370, -1));
 
         btChangePassword.setBackground(new java.awt.Color(102, 102, 255));
         btChangePassword.setFont(new java.awt.Font("Dialog", 1, 18));
@@ -249,10 +250,11 @@ public class MainPanel extends ImagePanel {
                 btChangePasswordActionPerformed(evt);
             }
         });
-        jPanel7.add(btChangePassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 30, 370, -1));
+        jPanel7.add(btChangePassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 30, 370, -1));
         jPanel7.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(438, 62, -1, -1));
 
-        btEoj.setFont(new java.awt.Font("Dialog", 1, 18));
+        btEoj.setBackground(new java.awt.Color(255, 204, 204));
+        btEoj.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btEoj.setText(bundle.getString("main.label.logout")); // NOI18N
         btEoj.setPreferredSize(new java.awt.Dimension(200, 80));
         btEoj.addActionListener(new java.awt.event.ActionListener() {
@@ -260,7 +262,7 @@ public class MainPanel extends ImagePanel {
                 btEojActionPerformed(evt);
             }
         });
-        jPanel7.add(btEoj, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 30, 370, -1));
+        jPanel7.add(btEoj, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 30, 370, -1));
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -285,9 +287,9 @@ public class MainPanel extends ImagePanel {
         new AddNewOwnerDialog().showDialog();
     }//GEN-LAST:event_btAddCustomersActionPerformed
 
-    private void btTopupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btTopupActionPerformed
+    private void btHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btHistoryActionPerformed
 //        TopupWizard.getInstance().execute();
-    }//GEN-LAST:event_btTopupActionPerformed
+    }//GEN-LAST:event_btHistoryActionPerformed
 
     private void btEditCustomersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditCustomersActionPerformed
 //        ClaimWizard.getInstance().execute();
@@ -322,17 +324,17 @@ public class MainPanel extends ImagePanel {
 //        new EditCustomerProfileDialog().showDialog();
     }//GEN-LAST:event_btEditActionPerformed
 
-    private void btChangeOwnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btChangeOwnerActionPerformed
+    private void btReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btReportActionPerformed
 //        ChangeOwnerWizard.getInstance().execute();
-    }//GEN-LAST:event_btChangeOwnerActionPerformed
+    }//GEN-LAST:event_btReportActionPerformed
 
     private void btCheckBalanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCheckBalanceActionPerformed
 //        CheckBalanceWizard.getInstance().execute();
     }//GEN-LAST:event_btCheckBalanceActionPerformed
 
-    private void btReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btReportActionPerformed
+    private void btReport2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btReport2ActionPerformed
 //        CancelStatementWizard.getInstance().execute();
-    }//GEN-LAST:event_btReportActionPerformed
+    }//GEN-LAST:event_btReport2ActionPerformed
 
     private void btSellStatementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSellStatementActionPerformed
 //        SellStatementWizard.getInstance().execute();
@@ -340,16 +342,16 @@ public class MainPanel extends ImagePanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAddCustomers;
     private javax.swing.JButton btAddStaff;
-    private javax.swing.JButton btChangeOwner;
     private javax.swing.JButton btChangePassword;
     private javax.swing.JButton btCheckBalance;
     private javax.swing.JButton btEdit;
     private javax.swing.JButton btEditCustomers;
     private javax.swing.JButton btEoj;
+    private javax.swing.JButton btHistory;
     private javax.swing.JButton btReport;
+    private javax.swing.JButton btReport2;
     private javax.swing.JButton btSearchCustomers;
     private javax.swing.JButton btSellStatement;
-    private javax.swing.JButton btTopup;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
