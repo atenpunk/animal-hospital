@@ -7,6 +7,7 @@ package co.th.aten.hospital.service;
 
 import co.th.aten.hospital.dao.OwnerDao;
 import co.th.aten.hospital.model.OwnerModel;
+import java.util.List;
 
 /**
  *
@@ -15,6 +16,10 @@ import co.th.aten.hospital.model.OwnerModel;
 public class OwnerManagerBean implements OwnerManager {
 
     private OwnerDao ownerDao;
+
+    public List<OwnerModel> searchByKeyWord(String word){
+        return ownerDao.searchByKeyWord(word);
+    }
 
     public boolean insertOwner(OwnerModel ownerModel){
         return ownerDao.insertOwner(ownerModel);

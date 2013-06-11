@@ -18,7 +18,16 @@ public class OwnerModel {
     private String address;
     private String phoneNumber;
     private String email;
+    private PetModel petModel;
     private List<PetModel> petList;
+
+    public PetModel getPetModel() {
+        return petModel;
+    }
+
+    public void setPetModel(PetModel petModel) {
+        this.petModel = petModel;
+    }
 
     public int getId() {
         return id;

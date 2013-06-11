@@ -104,12 +104,12 @@ public class MainPanel extends ImagePanel {
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("main.label.transaction"))); // NOI18N
-        jPanel6.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        jPanel6.setFont(new java.awt.Font("Dialog", 0, 12));
         jPanel6.setOpaque(false);
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btEdit.setBackground(new java.awt.Color(200, 244, 11));
-        btEdit.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btEdit.setFont(new java.awt.Font("Tahoma", 1, 18));
         btEdit.setText(bundle.getString("main.label.defaul")); // NOI18N
         btEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -119,7 +119,7 @@ public class MainPanel extends ImagePanel {
         jPanel6.add(btEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 120, 370, 80));
 
         btChangeOwner.setBackground(new java.awt.Color(235, 102, 255));
-        btChangeOwner.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btChangeOwner.setFont(new java.awt.Font("Dialog", 1, 18));
         btChangeOwner.setMnemonic('p');
         btChangeOwner.setText(bundle.getString("main.label.defaul")); // NOI18N
         btChangeOwner.setPreferredSize(new java.awt.Dimension(200, 80));
@@ -131,7 +131,7 @@ public class MainPanel extends ImagePanel {
         jPanel6.add(btChangeOwner, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 120, 370, -1));
 
         btReport.setBackground(new java.awt.Color(32, 249, 226));
-        btReport.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btReport.setFont(new java.awt.Font("Dialog", 1, 18));
         btReport.setMnemonic('p');
         btReport.setText(bundle.getString("main.label.report")); // NOI18N
         btReport.setPreferredSize(new java.awt.Dimension(200, 80));
@@ -143,7 +143,7 @@ public class MainPanel extends ImagePanel {
         jPanel6.add(btReport, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 210, 370, 80));
 
         btSearchCustomers.setBackground(new java.awt.Color(102, 255, 102));
-        btSearchCustomers.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btSearchCustomers.setFont(new java.awt.Font("Dialog", 1, 18));
         btSearchCustomers.setMnemonic('s');
         btSearchCustomers.setText(bundle.getString("main.label.searchCustomers")); // NOI18N
         btSearchCustomers.setPreferredSize(new java.awt.Dimension(200, 80));
@@ -155,7 +155,7 @@ public class MainPanel extends ImagePanel {
         jPanel6.add(btSearchCustomers, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 370, -1));
 
         btCheckBalance.setBackground(new java.awt.Color(202, 124, 47));
-        btCheckBalance.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btCheckBalance.setFont(new java.awt.Font("Dialog", 1, 18));
         btCheckBalance.setMnemonic('p');
         btCheckBalance.setText(bundle.getString("main.label.defaul")); // NOI18N
         btCheckBalance.setPreferredSize(new java.awt.Dimension(200, 80));
@@ -167,7 +167,7 @@ public class MainPanel extends ImagePanel {
         jPanel6.add(btCheckBalance, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 370, -1));
 
         btTopup.setBackground(new java.awt.Color(255, 247, 102));
-        btTopup.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btTopup.setFont(new java.awt.Font("Dialog", 1, 18));
         btTopup.setMnemonic('p');
         btTopup.setText(bundle.getString("main.label.defaul")); // NOI18N
         btTopup.setPreferredSize(new java.awt.Dimension(200, 80));
@@ -179,7 +179,7 @@ public class MainPanel extends ImagePanel {
         jPanel6.add(btTopup, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 370, -1));
 
         btAddCustomers.setBackground(new java.awt.Color(255, 153, 0));
-        btAddCustomers.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btAddCustomers.setFont(new java.awt.Font("Dialog", 1, 18));
         btAddCustomers.setMnemonic('a');
         btAddCustomers.setText(bundle.getString("main.label.addCustomers")); // NOI18N
         btAddCustomers.setPreferredSize(new java.awt.Dimension(200, 80));
@@ -191,7 +191,7 @@ public class MainPanel extends ImagePanel {
         jPanel6.add(btAddCustomers, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 30, 370, -1));
 
         btEditCustomers.setBackground(new java.awt.Color(255, 204, 153));
-        btEditCustomers.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btEditCustomers.setFont(new java.awt.Font("Dialog", 1, 18));
         btEditCustomers.setMnemonic('y');
         btEditCustomers.setText(bundle.getString("main.label.editCustomers")); // NOI18N
         btEditCustomers.setPreferredSize(new java.awt.Dimension(200, 80));
@@ -203,7 +203,7 @@ public class MainPanel extends ImagePanel {
         jPanel6.add(btEditCustomers, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 30, 370, -1));
 
         btSellStatement.setBackground(new java.awt.Color(102, 255, 213));
-        btSellStatement.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btSellStatement.setFont(new java.awt.Font("Dialog", 1, 18));
         btSellStatement.setMnemonic('p');
         btSellStatement.setText(bundle.getString("main.label.defaul")); // NOI18N
         btSellStatement.setPreferredSize(new java.awt.Dimension(200, 80));
@@ -229,7 +229,7 @@ public class MainPanel extends ImagePanel {
         jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btAddStaff.setBackground(new java.awt.Color(204, 204, 255));
-        btAddStaff.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btAddStaff.setFont(new java.awt.Font("Dialog", 1, 18));
         btAddStaff.setMnemonic('h');
         btAddStaff.setText(bundle.getString("main.label.addStaff")); // NOI18N
         btAddStaff.setPreferredSize(new java.awt.Dimension(200, 80));
@@ -241,7 +241,7 @@ public class MainPanel extends ImagePanel {
         jPanel7.add(btAddStaff, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 370, -1));
 
         btChangePassword.setBackground(new java.awt.Color(102, 102, 255));
-        btChangePassword.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btChangePassword.setFont(new java.awt.Font("Dialog", 1, 18));
         btChangePassword.setText(bundle.getString("main.label.changePassword")); // NOI18N
         btChangePassword.setPreferredSize(new java.awt.Dimension(200, 80));
         btChangePassword.addActionListener(new java.awt.event.ActionListener() {
@@ -252,7 +252,7 @@ public class MainPanel extends ImagePanel {
         jPanel7.add(btChangePassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 30, 370, -1));
         jPanel7.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(438, 62, -1, -1));
 
-        btEoj.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btEoj.setFont(new java.awt.Font("Dialog", 1, 18));
         btEoj.setText(bundle.getString("main.label.logout")); // NOI18N
         btEoj.setPreferredSize(new java.awt.Dimension(200, 80));
         btEoj.addActionListener(new java.awt.event.ActionListener() {
