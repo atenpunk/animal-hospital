@@ -44,6 +44,8 @@ public class EditOwnerDialog extends ApplicationDialog {
     protected JComponent createButtonBar() {
         JPanel bpanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         JButton btClose = new JButton("  Close  ");
+        btClose.setFont(new java.awt.Font("Tahoma", 1, 12));
+        btClose.setPreferredSize(new java.awt.Dimension(100, 25));
         btClose.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 onCancel();
