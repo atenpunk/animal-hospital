@@ -7,6 +7,7 @@ package co.th.aten.hospital.dao;
 
 
 import co.th.aten.hospital.model.OwnerModel;
+import java.util.List;
 import javax.sql.DataSource;
 /**
  *
@@ -21,4 +22,6 @@ public interface OwnerDao {
     public boolean insertOwner(OwnerModel ownerModel);
 
     public int getMaxOwnerId();
+
+    public List<OwnerModel> searchByKeyWord(String word);
 }
