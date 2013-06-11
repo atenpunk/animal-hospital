@@ -144,6 +144,7 @@ public class LoginPanel extends ImagePanel {
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
         lbStaffNo.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        lbStaffNo.setForeground(new java.awt.Color(0, 0, 153));
         lbStaffNo.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("ui/messages"); // NOI18N
         lbStaffNo.setText(bundle.getString("login.staffNo")); // NOI18N
@@ -176,6 +177,7 @@ public class LoginPanel extends ImagePanel {
         jPanel1.add(txStaffNo, gridBagConstraints);
 
         lbPassword.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        lbPassword.setForeground(new java.awt.Color(0, 0, 153));
         lbPassword.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lbPassword.setText(bundle.getString("login.password")); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -206,6 +208,7 @@ public class LoginPanel extends ImagePanel {
         jPanel1.add(txPassword, gridBagConstraints);
 
         btLogin.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btLogin.setForeground(new java.awt.Color(0, 0, 153));
         btLogin.setText(bundle.getString("main.label.login")); // NOI18N
         btLogin.setPreferredSize(new java.awt.Dimension(80, 50));
         btLogin.addActionListener(new java.awt.event.ActionListener() {

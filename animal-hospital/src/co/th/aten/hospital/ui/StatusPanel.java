@@ -164,13 +164,16 @@ public class StatusPanel extends javax.swing.JPanel {
         btReader = new javax.swing.JButton();
         btNet = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(700, 55));
         setPreferredSize(new java.awt.Dimension(700, 40));
         setLayout(new java.awt.GridBagLayout());
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(720, 38));
         jPanel1.setLayout(new java.awt.BorderLayout());
 
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 0, 0));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -188,6 +191,7 @@ public class StatusPanel extends javax.swing.JPanel {
         gridBagConstraints.weightx = 500.0;
         add(jPanel1, gridBagConstraints);
 
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setMinimumSize(new java.awt.Dimension(75, 55));
         jPanel2.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
 
