@@ -35,7 +35,7 @@ public class ProcessTransactionDialog extends javax.swing.JDialog implements Run
         initComponents();
         jProgressBar1.setIndeterminate(true);
         String build = Application.instance().getDescriptor().getVersion() + " ( " + Application.instance().getDescriptor().getBuildId() + " )";
-        jLabel3.setText("POS v."+build);
+        jLabel3.setText("Animal Hospital v."+build);
         jLabel1.setText(msg);
         t = new Thread(this);
         done = false;

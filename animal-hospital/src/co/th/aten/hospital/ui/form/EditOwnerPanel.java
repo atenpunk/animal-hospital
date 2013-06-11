@@ -15,6 +15,7 @@ import co.th.aten.hospital.model.PetModel;
 import co.th.aten.hospital.service.OwnerManager;
 import co.th.aten.hospital.service.PetManager;
 import co.th.aten.hospital.ui.ProcessTransactionDialog;
+import java.awt.Cursor;
 import java.awt.Graphics2D;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -46,18 +47,18 @@ import org.apache.commons.logging.LogFactory;
 public class EditOwnerPanel extends javax.swing.JPanel {
 
     private final Log logger = LogFactory.getLog(getClass());
-    private List<PetModel> petModelList;
     private OwnerManager ownerManager;
     private PetManager petManager;
     private File fileImg;
     private List<OwnerModel> ownerList;
+    private OwnerModel modelSelected;
 
     /** Creates new form AddNewOwnerPanel */
     public EditOwnerPanel() {
-        initComponents();
-        petModelList = new ArrayList<PetModel>();
+        fileImg = null;
         this.ownerManager = (OwnerManager) Application.services().getService(OwnerManager.class);
         this.petManager = (PetManager) Application.services().getService(PetManager.class);
+        initComponents();
         searchText.addKeyListener(new KeyAdapter() {
 
             @Override
@@ -77,22 +78,22 @@ public class EditOwnerPanel extends javax.swing.JPanel {
                     int row = target.getSelectedRow();
 //                    int column = target.getSelectedColumn();
                     if (ownerList != null && ownerList.size() >= row) {
-                        OwnerModel model = ownerList.get(row);
-                        nameText.setText(model.getName());
-                        addressText.setText(model.getAddress());
-                        phoneText.setText(model.getPhoneNumber());
-                        emailText.setText(model.getEmail());
-                        namePetText.setText(model.getPetModel().getName());
-                        typePetText.setText(model.getPetModel().getType());
-                        breedPetText.setText(model.getPetModel().getBreed());
-                        if (model.getPetModel().getSex().toLowerCase().equals("male")) {
+                        modelSelected = ownerList.get(row);
+                        nameText.setText(modelSelected.getName());
+                        addressText.setText(modelSelected.getAddress());
+                        phoneText.setText(modelSelected.getPhoneNumber());
+                        emailText.setText(modelSelected.getEmail());
+                        namePetText.setText(modelSelected.getPetModel().getName());
+                        typePetText.setText(modelSelected.getPetModel().getType());
+                        breedPetText.setText(modelSelected.getPetModel().getBreed());
+                        if (modelSelected.getPetModel().getSex().toLowerCase().equals("male")) {
                             maleRadio.setSelected(true);
-                        } else if (model.getPetModel().getSex().toLowerCase().equals("female")) {
+                        } else if (modelSelected.getPetModel().getSex().toLowerCase().equals("female")) {
                             femaleRadio.setSelected(true);
                         }
-                        colorPetText.setText(model.getPetModel().getColor());
+                        colorPetText.setText(modelSelected.getPetModel().getColor());
                         try {
-                            InputStream in = new ByteArrayInputStream(model.getPetModel().getImage());
+                            InputStream in = new ByteArrayInputStream(modelSelected.getPetModel().getImage());
                             BufferedImage originalImage = ImageIO.read(in);
                             int type = originalImage.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : originalImage.getType();
                             BufferedImage resizeImageJpg = resizeImage(originalImage, type);
@@ -102,6 +103,7 @@ public class EditOwnerPanel extends javax.swing.JPanel {
                         } catch (Exception ex) {
                             ex.printStackTrace();
                         }
+                        fileImg = null;
                     }
                 }
             }
@@ -445,17 +447,27 @@ public class EditOwnerPanel extends javax.swing.JPanel {
         if (saveConfirm == JOptionPane.OK_OPTION) {
             if (nameText.getText() != null && nameText.getText().trim().length() > 0) {
                 OwnerModel modelOwner = new OwnerModel();
-                modelOwner.setId(ownerManager.getMaxOwnerId() + 1);
+                modelOwner.setId(modelSelected.getId());
                 modelOwner.setName(nameText.getText());
                 modelOwner.setAddress(addressText.getText());
                 modelOwner.setPhoneNumber(phoneText.getText());
                 modelOwner.setEmail(emailText.getText());
                 ownerManager.insertOwner(modelOwner);
-                for (PetModel petModel : petModelList) {
-                    petModel.setId(petManager.getMaxOwnerId() + 1);
-                    petModel.setOwnerId(modelOwner.getId());
-                    petManager.insertOwner(petModel);
+                PetModel petModel = new PetModel();
+                petModel.setId(modelSelected.getPetModel().getId());
+                petModel.setName(namePetText.getText());
+                petModel.setType(typePetText.getText());
+                petModel.setBreed(breedPetText.getText());
+                String sex = "";
+                if (maleRadio.isSelected()) {
+                    sex = "Male";
+                } else if (femaleRadio.isSelected()) {
+                    sex = "Female";
                 }
+                petModel.setSex(sex);
+                petModel.setColor(colorPetText.getText());
+                petModel.setImage(fileImg!=null?readImage(fileImg):modelSelected.getPetModel().getImage());
+                petManager.insertOwner(petModel);
                 fileImg = null;
                 JOptionPane.showMessageDialog(this, "Edit data complete");
             } else {
