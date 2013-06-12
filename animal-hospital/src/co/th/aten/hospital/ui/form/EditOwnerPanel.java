@@ -433,6 +433,23 @@ public class EditOwnerPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void clearData() {
+        maleRadio.setSelected(false);
+        femaleRadio.setSelected(false);
+        namePetText.setText("");
+        typePetText.setText("");
+        breedPetText.setText("");
+        colorPetText.setText("");
+        imgLabel.setText("NO IMAGE");
+        imgLabel.setIcon(null);
+        fileImg = null;
+
+        nameText.setText("");
+        addressText.setText("");
+        phoneText.setText("");
+        emailText.setText("");
+    }
+
     private void maleRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_maleRadioActionPerformed
         // TODO add your handling code here:
         maleRadio.setSelected(true);
@@ -476,7 +493,7 @@ public class EditOwnerPanel extends javax.swing.JPanel {
                 petModel.setUpdateBy(sessionManager.getUser().getUserName());
                 petModel.setUpdateDate(new Date());
                 petManager.updatePet(petModel);
-                fileImg = null;
+                clearData();
                 JOptionPane.showMessageDialog(this, "Edit data complete");
             } else {
                 JOptionPane.showMessageDialog(this, "Please insert name owner");
