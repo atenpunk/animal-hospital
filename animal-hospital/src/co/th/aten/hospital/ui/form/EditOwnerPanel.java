@@ -14,6 +14,7 @@ import co.th.aten.hospital.model.OwnerModel;
 import co.th.aten.hospital.model.PetModel;
 import co.th.aten.hospital.service.OwnerManager;
 import co.th.aten.hospital.service.PetManager;
+import co.th.aten.hospital.service.SessionManager;
 import co.th.aten.hospital.ui.ProcessTransactionDialog;
 import java.awt.Cursor;
 import java.awt.Graphics2D;
@@ -28,6 +29,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -49,6 +51,7 @@ public class EditOwnerPanel extends javax.swing.JPanel {
     private final Log logger = LogFactory.getLog(getClass());
     private OwnerManager ownerManager;
     private PetManager petManager;
+    private SessionManager sessionManager;
     private File fileImg;
     private List<OwnerModel> ownerList;
     private OwnerModel modelSelected;
@@ -58,6 +61,7 @@ public class EditOwnerPanel extends javax.swing.JPanel {
         fileImg = null;
         this.ownerManager = (OwnerManager) Application.services().getService(OwnerManager.class);
         this.petManager = (PetManager) Application.services().getService(PetManager.class);
+        this.sessionManager = (SessionManager) Application.services().getService(SessionManager.class);
         initComponents();
         searchText.addKeyListener(new KeyAdapter() {
 
@@ -452,7 +456,9 @@ public class EditOwnerPanel extends javax.swing.JPanel {
                 modelOwner.setAddress(addressText.getText());
                 modelOwner.setPhoneNumber(phoneText.getText());
                 modelOwner.setEmail(emailText.getText());
-                ownerManager.insertOwner(modelOwner);
+                modelOwner.setUpdateBy(sessionManager.getUser().getUserName());
+                modelOwner.setUpdateDate(new Date());
+                ownerManager.updateOwner(modelOwner);
                 PetModel petModel = new PetModel();
                 petModel.setId(modelSelected.getPetModel().getId());
                 petModel.setName(namePetText.getText());
@@ -466,8 +472,10 @@ public class EditOwnerPanel extends javax.swing.JPanel {
                 }
                 petModel.setSex(sex);
                 petModel.setColor(colorPetText.getText());
-                petModel.setImage(fileImg!=null?readImage(fileImg):modelSelected.getPetModel().getImage());
-                petManager.insertOwner(petModel);
+                petModel.setImage(fileImg != null ? readImage(fileImg) : modelSelected.getPetModel().getImage());
+                petModel.setUpdateBy(sessionManager.getUser().getUserName());
+                petModel.setUpdateDate(new Date());
+                petManager.updatePet(petModel);
                 fileImg = null;
                 JOptionPane.showMessageDialog(this, "Edit data complete");
             } else {

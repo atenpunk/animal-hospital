@@ -25,6 +25,10 @@ public class OwnerManagerBean implements OwnerManager {
         return ownerDao.insertOwner(ownerModel);
     }
 
+    public boolean updateOwner(OwnerModel ownerModel){
+        return ownerDao.updateOwner(ownerModel);
+    }
+
     public int getMaxOwnerId(){
         return ownerDao.getMaxOwnerId();
     }

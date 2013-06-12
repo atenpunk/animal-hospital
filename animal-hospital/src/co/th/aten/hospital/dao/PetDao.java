@@ -20,4 +20,6 @@ public interface PetDao {
     public int getMaxPetId();
 
     public boolean insertPet(PetModel petModel);
+
+    public boolean updatePet(PetModel petModel);
 }
