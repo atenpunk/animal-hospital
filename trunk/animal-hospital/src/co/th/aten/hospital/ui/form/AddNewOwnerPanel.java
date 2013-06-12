@@ -14,6 +14,7 @@ import co.th.aten.hospital.model.OwnerModel;
 import co.th.aten.hospital.model.PetModel;
 import co.th.aten.hospital.service.OwnerManager;
 import co.th.aten.hospital.service.PetManager;
+import co.th.aten.hospital.service.SessionManager;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
@@ -23,6 +24,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -43,14 +45,16 @@ public class AddNewOwnerPanel extends javax.swing.JPanel {
     private List<PetModel> petModelList;
     private OwnerManager ownerManager;
     private PetManager petManager;
+    private SessionManager sessionManager;
     private File fileImg;
 
     /** Creates new form AddNewOwnerPanel */
     public AddNewOwnerPanel() {
-        initComponents();
         petModelList = new ArrayList<PetModel>();
         this.ownerManager = (OwnerManager) Application.services().getService(OwnerManager.class);
         this.petManager = (PetManager) Application.services().getService(PetManager.class);
+        this.sessionManager = (SessionManager) Application.services().getService(SessionManager.class);
+        initComponents();
     }
 
     /** This method is called from within the constructor to
@@ -465,11 +469,19 @@ public class AddNewOwnerPanel extends javax.swing.JPanel {
                 modelOwner.setAddress(addressText.getText());
                 modelOwner.setPhoneNumber(phoneText.getText());
                 modelOwner.setEmail(emailText.getText());
+                modelOwner.setCreateBy(sessionManager.getUser().getUserName());
+                modelOwner.setCreateDate(new Date());
+                modelOwner.setUpdateBy(sessionManager.getUser().getUserName());
+                modelOwner.setUpdateDate(new Date());
                 ownerManager.insertOwner(modelOwner);
                 for (PetModel petModel : petModelList) {
                     petModel.setId(petManager.getMaxOwnerId() + 1);
                     petModel.setOwnerId(modelOwner.getId());
-                    petManager.insertOwner(petModel);
+                    petModel.setCreateBy(sessionManager.getUser().getUserName());
+                    petModel.setCreateDate(new Date());
+                    petModel.setUpdateBy(sessionManager.getUser().getUserName());
+                    petModel.setUpdateDate(new Date());
+                    petManager.insertPet(petModel);
                 }
                 clearDataOwner();
                 clearDataPet();

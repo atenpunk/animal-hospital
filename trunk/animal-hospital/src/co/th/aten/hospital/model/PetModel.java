@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package co.th.aten.hospital.model;
+
+import java.util.Date;
 
 /**
  *
@@ -19,6 +20,42 @@ public class PetModel {
     private String sex;
     private String color;
     private byte[] image;
+    private String createBy;
+    private Date createDate;
+    private String updateBy;
+    private Date updateDate;
+
+    public String getCreateBy() {
+        return createBy;
+    }
+
+    public void setCreateBy(String createBy) {
+        this.createBy = createBy;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    public String getUpdateBy() {
+        return updateBy;
+    }
+
+    public void setUpdateBy(String updateBy) {
+        this.updateBy = updateBy;
+    }
+
+    public Date getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
+    }
 
     public byte[] getImage() {
         return image;
@@ -83,5 +120,4 @@ public class PetModel {
     public void setType(String type) {
         this.type = type;
     }
-
 }

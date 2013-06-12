@@ -24,4 +24,6 @@ public interface OwnerDao {
     public int getMaxOwnerId();
 
     public List<OwnerModel> searchByKeyWord(String word);
+
+    public boolean updateOwner(OwnerModel ownerModel);
 }

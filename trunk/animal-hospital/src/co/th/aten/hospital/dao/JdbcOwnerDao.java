@@ -41,12 +41,35 @@ public class JdbcOwnerDao implements OwnerDao {
 
     public boolean insertOwner(OwnerModel ownerModel) {
         if (logger.isDebugEnabled()) {
-            logger.debug("Owner_ID = " + ownerModel.getId());
+            logger.debug("Insert Owner_ID = " + ownerModel.getId());
         }
         try {
-            String sql = " INSERT INTO owner (owner_id,owner_name,owner_phone,owner_email,owner_address) "
-                    + " VALUES (?, ?, ?, ?, ?)";
-            return (this.simpleJdbcTemplate.update(sql, ownerModel.getId(), ownerModel.getName(), ownerModel.getPhoneNumber(), ownerModel.getEmail(), ownerModel.getAddress()) > 0) ? true : false;
+            String sql = " INSERT INTO owner (owner_id,owner_name,owner_phone,owner_email,owner_address "
+                    + " , owner_create_by, owner_create_date, owner_update_by, owner_update_date ) "
+                    + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            return (this.simpleJdbcTemplate.update(sql, ownerModel.getId(), ownerModel.getName(), ownerModel.getPhoneNumber()
+                    , ownerModel.getEmail(), ownerModel.getAddress(), ownerModel.getCreateBy(), ownerModel.getCreateDate()
+                    , ownerModel.getUpdateBy(), ownerModel.getUpdateDate()) > 0) ? true : false;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean updateOwner(OwnerModel ownerModel) {
+        if (logger.isDebugEnabled()) {
+            logger.debug("Update Owner_ID = " + ownerModel.getId());
+        }
+        try {
+            String sql = " UPDATE owner SET owner_name = ? "
+                    + " , owner_phone = ? "
+                    + " , owner_email = ? "
+                    + " , owner_address = ? "
+                    + " , owner_update_by = ? "
+                    + " , owner_update_date = ? "
+                    + " WHERE owner_id = ? ";
+            return (this.simpleJdbcTemplate.update(sql, ownerModel.getName(), ownerModel.getPhoneNumber(), ownerModel.getEmail()
+                    , ownerModel.getAddress(), ownerModel.getUpdateBy(), ownerModel.getUpdateDate(), ownerModel.getId()) > 0) ? true : false;
         } catch (Exception e) {
             e.printStackTrace();
         }

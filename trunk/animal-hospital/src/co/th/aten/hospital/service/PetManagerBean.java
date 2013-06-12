@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package co.th.aten.hospital.service;
 
 import co.th.aten.hospital.dao.PetDao;
@@ -16,11 +15,15 @@ public class PetManagerBean implements PetManager {
 
     private PetDao petDao;
 
-    public boolean insertOwner(PetModel petModel){
+    public boolean insertPet(PetModel petModel) {
         return petDao.insertPet(petModel);
     }
 
-    public int getMaxOwnerId(){
+    public boolean updatePet(PetModel petModel) {
+        return petDao.updatePet(petModel);
+    }
+
+    public int getMaxOwnerId() {
         return petDao.getMaxPetId();
     }
 
@@ -31,5 +34,4 @@ public class PetManagerBean implements PetManager {
     public void setPetDao(PetDao petDao) {
         this.petDao = petDao;
     }
-
 }

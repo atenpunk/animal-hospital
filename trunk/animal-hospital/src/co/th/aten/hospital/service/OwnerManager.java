@@ -24,4 +24,6 @@ public interface OwnerManager {
     public boolean insertOwner(OwnerModel ownerModel);
 
     public int getMaxOwnerId();
+
+    public boolean updateOwner(OwnerModel ownerModel);
 }
