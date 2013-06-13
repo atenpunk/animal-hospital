@@ -473,19 +473,23 @@ public class AddNewOwnerPanel extends javax.swing.JPanel {
                 modelOwner.setCreateDate(new Date());
                 modelOwner.setUpdateBy(sessionManager.getUser().getUserName());
                 modelOwner.setUpdateDate(new Date());
-                ownerManager.insertOwner(modelOwner);
-                for (PetModel petModel : petModelList) {
-                    petModel.setId(petManager.getMaxOwnerId() + 1);
-                    petModel.setOwnerId(modelOwner.getId());
-                    petModel.setCreateBy(sessionManager.getUser().getUserName());
-                    petModel.setCreateDate(new Date());
-                    petModel.setUpdateBy(sessionManager.getUser().getUserName());
-                    petModel.setUpdateDate(new Date());
-                    petManager.insertPet(petModel);
+                boolean chkInsertOwner = ownerManager.insertOwner(modelOwner);
+                if (chkInsertOwner) {
+                    for (PetModel petModel : petModelList) {
+                        petModel.setId(petManager.getMaxOwnerId() + 1);
+                        petModel.setOwnerId(modelOwner.getId());
+                        petModel.setCreateBy(sessionManager.getUser().getUserName());
+                        petModel.setCreateDate(new Date());
+                        petModel.setUpdateBy(sessionManager.getUser().getUserName());
+                        petModel.setUpdateDate(new Date());
+                        petManager.insertPet(petModel);
+                    }
+                    clearDataOwner();
+                    clearDataPet();
+                    JOptionPane.showMessageDialog(this, "Save new owner complete");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Save new owner Fail");
                 }
-                clearDataOwner();
-                clearDataPet();
-                JOptionPane.showMessageDialog(this, "Save new owner complete");
             } else {
                 JOptionPane.showMessageDialog(this, "Please insert name owner");
             }
@@ -499,13 +503,15 @@ public class AddNewOwnerPanel extends javax.swing.JPanel {
             chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
             chooser.showOpenDialog(null);
             File file = chooser.getSelectedFile();
-            BufferedImage originalImage = ImageIO.read(file);
-            int type = originalImage.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : originalImage.getType();
-            BufferedImage resizeImageJpg = resizeImage(originalImage, type);
-            ImageIcon imgPet = new ImageIcon(resizeImageJpg);
-            imgLabel.setText("");
-            imgLabel.setIcon(imgPet);
-            fileImg = new File(file.getAbsolutePath());
+            if (file != null) {
+                BufferedImage originalImage = ImageIO.read(file);
+                int type = originalImage.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : originalImage.getType();
+                BufferedImage resizeImageJpg = resizeImage(originalImage, type);
+                ImageIcon imgPet = new ImageIcon(resizeImageJpg);
+                imgLabel.setText("");
+                imgLabel.setIcon(imgPet);
+                fileImg = new File(file.getAbsolutePath());
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
