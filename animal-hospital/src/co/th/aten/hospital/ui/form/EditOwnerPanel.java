@@ -76,6 +76,7 @@ public class EditOwnerPanel extends javax.swing.JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2) {
+                    clearData();
                     JTable target = (JTable) e.getSource();
                     int row = target.getSelectedRow();
 //                    int column = target.getSelectedColumn();

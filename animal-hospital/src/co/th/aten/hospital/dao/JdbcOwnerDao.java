@@ -8,11 +8,13 @@ import co.th.aten.hospital.model.OwnerModel;
 import co.th.aten.hospital.model.PetModel;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import javax.sql.DataSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
 import java.util.List;
+import java.util.Locale;
 import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
 
 /**
@@ -24,6 +26,7 @@ public class JdbcOwnerDao implements OwnerDao {
     private final Log logger = LogFactory.getLog(getClass());
     private SimpleJdbcTemplate simpleJdbcTemplate;
     private DataSource dataSource;
+    private SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
 
     public DataSource getDataSource() {
         return dataSource;
@@ -48,8 +51,8 @@ public class JdbcOwnerDao implements OwnerDao {
                     + " , owner_create_by, owner_create_date, owner_update_by, owner_update_date ) "
                     + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             return (this.simpleJdbcTemplate.update(sql, ownerModel.getId(), ownerModel.getName(), ownerModel.getPhoneNumber()
-                    , ownerModel.getEmail(), ownerModel.getAddress(), ownerModel.getCreateBy(), ownerModel.getCreateDate()
-                    , ownerModel.getUpdateBy(), ownerModel.getUpdateDate()) > 0) ? true : false;
+                    , ownerModel.getEmail(), ownerModel.getAddress(), ownerModel.getCreateBy(), sdfDate.parse(sdfDate.format(ownerModel.getCreateDate()))
+                    , ownerModel.getUpdateBy(), sdfDate.parse(sdfDate.format(ownerModel.getUpdateDate()))) > 0) ? true : false;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -69,7 +72,8 @@ public class JdbcOwnerDao implements OwnerDao {
                     + " , owner_update_date = ? "
                     + " WHERE owner_id = ? ";
             return (this.simpleJdbcTemplate.update(sql, ownerModel.getName(), ownerModel.getPhoneNumber(), ownerModel.getEmail()
-                    , ownerModel.getAddress(), ownerModel.getUpdateBy(), ownerModel.getUpdateDate(), ownerModel.getId()) > 0) ? true : false;
+                    , ownerModel.getAddress(), ownerModel.getUpdateBy(), sdfDate.parse(sdfDate.format(ownerModel.getUpdateDate()))
+                    , ownerModel.getId()) > 0) ? true : false;
         } catch (Exception e) {
             e.printStackTrace();
         }
