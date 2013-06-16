@@ -55,9 +55,8 @@ public class JdbcPetDao implements PetDao {
     }
 
     public boolean updatePet(PetModel petModel) {
-        if (logger.isDebugEnabled()) {
-            logger.debug("Update Pet_ID = " + petModel.getId());
-        }
+        logger.info("Update Pet_ID = " + petModel.getId());
+        logger.info("Update Owner_ID = " + petModel.getOwnerId());
         try {
             String sql = " UPDATE pet SET pet_name = ? "
                     + " , pet_type = ? "
