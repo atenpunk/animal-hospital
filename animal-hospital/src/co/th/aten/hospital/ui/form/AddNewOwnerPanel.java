@@ -680,11 +680,11 @@ public class AddNewOwnerPanel extends javax.swing.JPanel {
                 setSelectedItem(item);
             } else {
                 // keep old item selected if there is no match
-                item = comboBox.getSelectedItem();
+                item = getText(0, getLength());
                 // imitate no insert (later on offs will be incremented by str.length(): selection won't move forward)
-                offs = offs - str.length();
+//                offs = offs - str.length();
                 // provide feedback to the user that his input has been received but can not be accepted
-                comboBox.getToolkit().beep(); // when available use: UIManager.getLookAndFeel().provideErrorFeedback(comboBox);
+//                comboBox.getToolkit().beep(); // when available use: UIManager.getLookAndFeel().provideErrorFeedback(comboBox);
             }
             setText(item.toString());
             // select the completed part
