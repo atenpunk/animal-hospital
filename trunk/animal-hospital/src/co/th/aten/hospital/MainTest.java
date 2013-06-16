@@ -31,6 +31,7 @@ public class MainTest extends PlainDocument {
             }
         });
         editor.addKeyListener(new KeyAdapter() {
+            @Override
             public void keyPressed(KeyEvent e) {
                 if (comboBox.isDisplayable()) comboBox.setPopupVisible(true);
             }
@@ -41,12 +42,14 @@ public class MainTest extends PlainDocument {
         highlightCompletedText(0);
     }
 
+    @Override
     public void remove(int offs, int len) throws BadLocationException {
         // return immediately when selecting an item
         if (selecting) return;
         super.remove(offs, len);
     }
 
+    @Override
     public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {
         // return immediately when selecting an item
         if (selecting) return;

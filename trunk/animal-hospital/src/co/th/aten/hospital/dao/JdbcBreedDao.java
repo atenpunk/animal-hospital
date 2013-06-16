@@ -38,8 +38,12 @@ public class JdbcBreedDao implements BreedDao {
 
     public List<BreedModel> getBreedListOrderByEngName(int typeId) {
         try {
+            String sqlId = "";
+            if (typeId != -1) {
+                sqlId = " Where type_id = "+typeId+" ";
+            }
             String sql = " select breed_id, breed_eng_name, breed_thai_name, type_id "
-                    + " from pet_breed order by breed_eng_name ";
+                    + " from pet_breed " + sqlId + " order by breed_eng_name ";
 
             ParameterizedRowMapper<BreedModel> mapper = new ParameterizedRowMapper<BreedModel>() {
 
