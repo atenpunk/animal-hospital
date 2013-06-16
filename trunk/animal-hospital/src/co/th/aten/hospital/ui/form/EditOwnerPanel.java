@@ -96,13 +96,15 @@ public class EditOwnerPanel extends javax.swing.JPanel {
                         }
                         colorPetText.setText(modelSelected.getPetModel().getColor());
                         try {
-                            InputStream in = new ByteArrayInputStream(modelSelected.getPetModel().getImage());
-                            BufferedImage originalImage = ImageIO.read(in);
-                            int type = originalImage.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : originalImage.getType();
-                            BufferedImage resizeImageJpg = resizeImage(originalImage, type);
-                            ImageIcon imgPet = new ImageIcon(resizeImageJpg);
-                            imgLabel.setText("");
-                            imgLabel.setIcon(imgPet);
+                            if (modelSelected.getPetModel().getImage() != null) {
+                                InputStream in = new ByteArrayInputStream(modelSelected.getPetModel().getImage());
+                                BufferedImage originalImage = ImageIO.read(in);
+                                int type = originalImage.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : originalImage.getType();
+                                BufferedImage resizeImageJpg = resizeImage(originalImage, type);
+                                ImageIcon imgPet = new ImageIcon(resizeImageJpg);
+                                imgLabel.setText("");
+                                imgLabel.setIcon(imgPet);
+                            }
                         } catch (Exception ex) {
                             ex.printStackTrace();
                         }
