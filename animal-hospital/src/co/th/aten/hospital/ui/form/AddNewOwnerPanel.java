@@ -10,16 +10,19 @@
  */
 package co.th.aten.hospital.ui.form;
 
+import co.th.aten.hospital.model.BreedModel;
 import co.th.aten.hospital.model.OwnerModel;
 import co.th.aten.hospital.model.PetModel;
+import co.th.aten.hospital.model.TypeModel;
+import co.th.aten.hospital.service.BreedManager;
 import co.th.aten.hospital.service.OwnerManager;
 import co.th.aten.hospital.service.PetManager;
 import co.th.aten.hospital.service.SessionManager;
+import co.th.aten.hospital.service.TypeManager;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,13 +30,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.springframework.richclient.application.Application;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import java.awt.event.*;
+import javax.swing.*;
+import javax.swing.text.*;
 
 /**
  *
@@ -45,6 +48,8 @@ public class AddNewOwnerPanel extends javax.swing.JPanel {
     private List<PetModel> petModelList;
     private OwnerManager ownerManager;
     private PetManager petManager;
+    private TypeManager typeManager;
+    private BreedManager breedManager;
     private SessionManager sessionManager;
     private File fileImg;
 
@@ -54,7 +59,36 @@ public class AddNewOwnerPanel extends javax.swing.JPanel {
         this.ownerManager = (OwnerManager) Application.services().getService(OwnerManager.class);
         this.petManager = (PetManager) Application.services().getService(PetManager.class);
         this.sessionManager = (SessionManager) Application.services().getService(SessionManager.class);
+        this.typeManager = (TypeManager) Application.services().getService(TypeManager.class);
+        this.breedManager = (BreedManager) Application.services().getService(BreedManager.class);
         initComponents();
+
+        List<TypeModel> typeList = typeManager.getTypeList();
+        if (typeList != null) {
+            for (TypeModel model : typeList) {
+                petTypeComboBox.addItem(model.getEngName());
+            }
+            petTypeComboBox.setSelectedIndex(-1);
+            petTypeComboBox.setEditable(true);
+            new MainTest(petTypeComboBox);
+        }
+
+        List<BreedModel> breedList = breedManager.getBreedListOrderByEngName(-1);
+        if (breedList != null) {
+            for (BreedModel model : breedList) {
+                petBreedComboBox.addItem(model.getEngName());
+            }
+            petBreedComboBox.setSelectedIndex(-1);
+            petBreedComboBox.setEditable(true);
+            new MainTest(petBreedComboBox);
+        }
+        petTypeComboBox.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+                JComboBox jcmbType = (JComboBox) e.getSource();
+                String cmbType = (String) jcmbType.getSelectedItem();
+            }
+        });
     }
 
     /** This method is called from within the constructor to
@@ -84,9 +118,7 @@ public class AddNewOwnerPanel extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         namePetText = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        typePetText = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        breedPetText = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         colorPetText = new javax.swing.JTextField();
@@ -95,6 +127,8 @@ public class AddNewOwnerPanel extends javax.swing.JPanel {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+        petTypeComboBox = new javax.swing.JComboBox();
+        petBreedComboBox = new javax.swing.JComboBox();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
@@ -139,7 +173,7 @@ public class AddNewOwnerPanel extends javax.swing.JPanel {
         petTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jScrollPane2.setViewportView(petTable);
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel5.setText("Pet");
 
@@ -235,7 +269,7 @@ public class AddNewOwnerPanel extends javax.swing.JPanel {
             }
         });
 
-        jButton3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jButton3.setFont(new java.awt.Font("Tahoma", 0, 12));
         jButton3.setText("Clear");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -243,7 +277,7 @@ public class AddNewOwnerPanel extends javax.swing.JPanel {
             }
         });
 
-        jButton4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jButton4.setFont(new java.awt.Font("Tahoma", 0, 12));
         jButton4.setText("Add");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -292,9 +326,9 @@ public class AddNewOwnerPanel extends javax.swing.JPanel {
                                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(breedPetText, javax.swing.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE)
-                                    .addComponent(typePetText, javax.swing.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE)
-                                    .addComponent(namePetText, javax.swing.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE))))))
+                                    .addComponent(namePetText, javax.swing.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE)
+                                    .addComponent(petTypeComboBox, 0, 376, Short.MAX_VALUE)
+                                    .addComponent(petBreedComboBox, 0, 376, Short.MAX_VALUE))))))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -308,13 +342,13 @@ public class AddNewOwnerPanel extends javax.swing.JPanel {
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(namePetText, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(typePetText, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(petTypeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(breedPetText, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(petBreedComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -343,7 +377,7 @@ public class AddNewOwnerPanel extends javax.swing.JPanel {
             }
         });
 
-        jButton2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jButton2.setFont(new java.awt.Font("Tahoma", 1, 12));
         jButton2.setText("Clear");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -388,8 +422,8 @@ public class AddNewOwnerPanel extends javax.swing.JPanel {
         maleRadio.setSelected(false);
         femaleRadio.setSelected(false);
         namePetText.setText("");
-        typePetText.setText("");
-        breedPetText.setText("");
+        petTypeComboBox.setSelectedIndex(-1);
+        petBreedComboBox.setSelectedIndex(-1);
         colorPetText.setText("");
         imgLabel.setText("NO IMAGE");
         imgLabel.setIcon(null);
@@ -437,8 +471,8 @@ public class AddNewOwnerPanel extends javax.swing.JPanel {
         if (namePetText.getText() != null && namePetText.getText().trim().length() > 0) {
             PetModel model = new PetModel();
             model.setName(namePetText.getText());
-            model.setType(typePetText.getText());
-            model.setBreed(breedPetText.getText());
+            model.setType((String) petTypeComboBox.getSelectedItem());
+            model.setBreed((String) petBreedComboBox.getSelectedItem());
             String sex = "";
             if (maleRadio.isSelected()) {
                 sex = "Male";
@@ -574,9 +608,127 @@ public class AddNewOwnerPanel extends javax.swing.JPanel {
         }
         return null;
     }
+
+    private class MainTest extends PlainDocument {
+
+        JComboBox comboBox;
+        ComboBoxModel model;
+        JTextComponent editor;
+        // flag to indicate if setSelectedItem has been called
+        // subsequent calls to remove/insertString should be ignored
+        boolean selecting = false;
+
+        public MainTest(final JComboBox comboBox) {
+            this.comboBox = comboBox;
+            model = comboBox.getModel();
+            editor = (JTextComponent) comboBox.getEditor().getEditorComponent();
+            editor.setDocument(this);
+            comboBox.addActionListener(new ActionListener() {
+
+                public void actionPerformed(ActionEvent e) {
+                    if (!selecting) {
+                        highlightCompletedText(0);
+                    }
+                }
+            });
+            editor.addKeyListener(new KeyAdapter() {
+
+                @Override
+                public void keyPressed(KeyEvent e) {
+                    if (comboBox.isDisplayable()) {
+                        comboBox.setPopupVisible(true);
+                    }
+                }
+            });
+            // Handle initially selected object
+            Object selected = comboBox.getSelectedItem();
+            if (selected != null) {
+                setText(selected.toString());
+            }
+            highlightCompletedText(0);
+        }
+
+        @Override
+        public void remove(int offs, int len) throws BadLocationException {
+            // return immediately when selecting an item
+            if (selecting) {
+                return;
+            }
+            super.remove(offs, len);
+        }
+
+        @Override
+        public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {
+            // return immediately when selecting an item
+            if (selecting) {
+                return;
+            }
+            // insert the string into the document
+            super.insertString(offs, str, a);
+            // lookup and select a matching item
+            Object item = lookupItem(getText(0, getLength()));
+            if (item != null) {
+                setSelectedItem(item);
+            } else {
+                // keep old item selected if there is no match
+                item = comboBox.getSelectedItem();
+                // imitate no insert (later on offs will be incremented by str.length(): selection won't move forward)
+                offs = offs - str.length();
+                // provide feedback to the user that his input has been received but can not be accepted
+                comboBox.getToolkit().beep(); // when available use: UIManager.getLookAndFeel().provideErrorFeedback(comboBox);
+            }
+            setText(item.toString());
+            // select the completed part
+            highlightCompletedText(offs + str.length());
+        }
+
+        private void setText(String text) {
+            try {
+                // remove all text and insert the completed string
+                super.remove(0, getLength());
+                super.insertString(0, text, null);
+            } catch (BadLocationException e) {
+                throw new RuntimeException(e.toString());
+            }
+        }
+
+        private void highlightCompletedText(int start) {
+            editor.setCaretPosition(getLength());
+            editor.moveCaretPosition(start);
+        }
+
+        private void setSelectedItem(Object item) {
+            selecting = true;
+            model.setSelectedItem(item);
+            selecting = false;
+        }
+
+        private Object lookupItem(String pattern) {
+            Object selectedItem = model.getSelectedItem();
+            // only search for a different item if the currently selected does not match
+            if (selectedItem != null && startsWithIgnoreCase(selectedItem.toString(), pattern)) {
+                return selectedItem;
+            } else {
+                // iterate over all items
+                for (int i = 0, n = model.getSize(); i < n; i++) {
+                    Object currentItem = model.getElementAt(i);
+                    // current item starts with the pattern?
+                    if (startsWithIgnoreCase(currentItem.toString(), pattern)) {
+                        return currentItem;
+                    }
+                }
+            }
+            // no item starts with the pattern => return null
+            return null;
+        }
+
+        // checks if str1 starts with str2 - ignores case
+        private boolean startsWithIgnoreCase(String str1, String str2) {
+            return str1.toUpperCase().startsWith(str2.toUpperCase());
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea addressText;
-    private javax.swing.JTextField breedPetText;
     private javax.swing.JTextField colorPetText;
     private javax.swing.JTextField emailText;
     private javax.swing.JRadioButton femaleRadio;
@@ -603,8 +755,9 @@ public class AddNewOwnerPanel extends javax.swing.JPanel {
     private javax.swing.JRadioButton maleRadio;
     private javax.swing.JTextField namePetText;
     private javax.swing.JTextField nameText;
+    private javax.swing.JComboBox petBreedComboBox;
     private javax.swing.JTable petTable;
+    private javax.swing.JComboBox petTypeComboBox;
     private javax.swing.JTextField phoneText;
-    private javax.swing.JTextField typePetText;
     // End of variables declaration//GEN-END:variables
 }
