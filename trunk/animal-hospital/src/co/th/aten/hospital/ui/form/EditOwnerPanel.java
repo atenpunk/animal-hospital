@@ -477,6 +477,7 @@ public class EditOwnerPanel extends javax.swing.JPanel {
                 ownerManager.updateOwner(modelOwner);
                 PetModel petModel = new PetModel();
                 petModel.setId(modelSelected.getPetModel().getId());
+                petModel.setOwnerId(modelSelected.getId());
                 petModel.setName(namePetText.getText());
                 petModel.setType(typePetText.getText());
                 petModel.setBreed(breedPetText.getText());
@@ -491,9 +492,13 @@ public class EditOwnerPanel extends javax.swing.JPanel {
                 petModel.setImage(fileImg != null ? readImage(fileImg) : modelSelected.getPetModel().getImage());
                 petModel.setUpdateBy(sessionManager.getUser().getUserName());
                 petModel.setUpdateDate(new Date());
-                petManager.updatePet(petModel);
-                clearData();
-                JOptionPane.showMessageDialog(this, "Edit data complete");
+                if (petManager.updatePet(petModel)) {
+                    clearData();
+                    JOptionPane.showMessageDialog(this, "Edit data complete");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Edit Data Error");
+                }
+
             } else {
                 JOptionPane.showMessageDialog(this, "Please insert name owner");
             }
