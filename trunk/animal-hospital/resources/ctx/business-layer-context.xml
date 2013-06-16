@@ -77,7 +77,7 @@
         <property name="breedDao" ref="breedDao" />
     </bean>
     <bean id="typeManager" class="co.th.aten.hospital.service.TypeManagerBean" lazy-init="true" >
-        <property name="breedDao" ref="breedDao" />
+        <property name="typeDao" ref="typeDao" />
     </bean>
 
 </beans>

@@ -86,7 +86,16 @@ public class AddNewOwnerPanel extends javax.swing.JPanel {
 
             public void actionPerformed(ActionEvent e) {
                 JComboBox jcmbType = (JComboBox) e.getSource();
-                String cmbType = (String) jcmbType.getSelectedItem();
+                List<BreedModel> breedList = breedManager.getBreedListOrderByEngName(jcmbType.getSelectedIndex()+1);
+                if (breedList != null) {
+                    petBreedComboBox.removeAllItems();
+                    for (BreedModel model : breedList) {
+                        petBreedComboBox.addItem(model.getEngName());
+                    }
+                    petBreedComboBox.setSelectedIndex(-1);
+                    petBreedComboBox.setEditable(true);
+                    new MainTest(petBreedComboBox);
+                }
             }
         });
     }
