@@ -12,6 +12,7 @@ package co.th.aten.hospital.ui;
 
 import co.th.aten.hospital.dialog.AddNewOwnerDialog;
 import co.th.aten.hospital.dialog.EditOwnerDialog;
+import co.th.aten.hospital.dialog.SearchOwnerDialog;
 import co.th.aten.hospital.event.LogoutEvent;
 import java.awt.Image;
 import javax.swing.JOptionPane;
@@ -304,15 +305,8 @@ public class MainPanel extends ImagePanel {
     }//GEN-LAST:event_btEojActionPerformed
 
     private void btSearchCustomersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSearchCustomersActionPerformed
-//        ((SellTagWizard) Application.services().getService(SellTagWizard.class)).execute();
-        //        SellTagWizard sellTagWizard = ((SessionManager)Application.services().getService(SessionManager.class)).getSession().getSellTagWizard();
-//        if (sellTagWizard == null) {
-//            sellTagWizard = new SellTagWizard();
-//            ((SessionManager)Application.services().getService(SessionManager.class)).getSession().setSellTagWizard(sellTagWizard);
-//        }
-//        SellTagWizard.getInstance().execute();
-//        SellEasyPassDialog dialog = new SellEasyPassDialog();
-//        dialog.showDialog();
+
+        new SearchOwnerDialog().showDialog();
     }//GEN-LAST:event_btSearchCustomersActionPerformed
 
     private void btAddStaffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAddStaffActionPerformed
