@@ -13,6 +13,7 @@ package co.th.aten.hospital.ui;
 import co.th.aten.hospital.dialog.AddNewOwnerDialog;
 import co.th.aten.hospital.dialog.EditOwnerDialog;
 import co.th.aten.hospital.dialog.SearchOwnerDialog;
+import co.th.aten.hospital.dialog.TreatmentHistoryDialog;
 import co.th.aten.hospital.event.LogoutEvent;
 import java.awt.Image;
 import javax.swing.JOptionPane;
@@ -47,7 +48,7 @@ public class MainPanel extends ImagePanel {
 //        int uClass = sessionManager.getSession().getUserMode();
 //        System.out.println("User Class=" + uClass);
         btSearchCustomers.setEnabled(true);
-        btHistory.setEnabled(false);
+        btHistory.setEnabled(true);
         btAddCustomers.setEnabled(true);
         btEditCustomers.setEnabled(true);
         btEdit.setEnabled(false);
@@ -290,6 +291,8 @@ public class MainPanel extends ImagePanel {
 
     private void btHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btHistoryActionPerformed
 //        TopupWizard.getInstance().execute();
+        new TreatmentHistoryDialog().showDialog();
+
     }//GEN-LAST:event_btHistoryActionPerformed
 
     private void btEditCustomersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditCustomersActionPerformed
