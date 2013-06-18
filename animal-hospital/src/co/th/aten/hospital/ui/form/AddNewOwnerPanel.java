@@ -19,6 +19,7 @@ import co.th.aten.hospital.service.OwnerManager;
 import co.th.aten.hospital.service.PetManager;
 import co.th.aten.hospital.service.SessionManager;
 import co.th.aten.hospital.service.TypeManager;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
@@ -62,6 +63,15 @@ public class AddNewOwnerPanel extends javax.swing.JPanel {
         this.typeManager = (TypeManager) Application.services().getService(TypeManager.class);
         this.breedManager = (BreedManager) Application.services().getService(BreedManager.class);
         initComponents();
+
+        nameText.setFont(new Font("Tahoma", 0, 11));
+        addressText.setFont(new Font("Tahoma", 0, 11));
+        phoneText.setFont(new Font("Tahoma", 0, 11));
+        emailText.setFont(new Font("Tahoma", 0, 11));
+        namePetText.setFont(new Font("Tahoma", 0, 11));
+        colorPetText.setFont(new Font("Tahoma", 0, 11));
+        petTypeComboBox.setFont(new Font("Tahoma", 0, 11));
+        petBreedComboBox.setFont(new Font("Tahoma", 0, 11));
 
         List<TypeModel> typeList = typeManager.getTypeList();
         if (typeList != null) {
