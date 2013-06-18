@@ -11,7 +11,10 @@
 package co.th.aten.hospital.ui.form;
 
 import co.th.aten.hospital.model.OwnerModel;
+import co.th.aten.hospital.model.TreatmentHistoryModel;
 import co.th.aten.hospital.service.OwnerManager;
+import co.th.aten.hospital.service.SessionManager;
+import co.th.aten.hospital.service.TreatmentHistoryManager;
 import co.th.aten.hospital.ui.ProcessTransactionDialog;
 import java.awt.Graphics2D;
 import java.awt.event.KeyAdapter;
@@ -21,10 +24,14 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import org.springframework.richclient.application.Application;
@@ -39,10 +46,17 @@ public class TreatmentHistoryPanel extends javax.swing.JPanel {
     private OwnerManager ownerManager;
     private List<OwnerModel> ownerList;
     private OwnerModel modelSelected;
+    private SessionManager sessionManager;
+    private TreatmentHistoryManager treatmentHistoryManager;
+    private int indexHistory;
+    private SimpleDateFormat sdfDate;
 
     /** Creates new form EditOwnerPanel */
     public TreatmentHistoryPanel() {
+        sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
         this.ownerManager = (OwnerManager) Application.services().getService(OwnerManager.class);
+        this.sessionManager = (SessionManager) Application.services().getService(SessionManager.class);
+        this.treatmentHistoryManager = (TreatmentHistoryManager) Application.services().getService(TreatmentHistoryManager.class);
         initComponents();
         searchText.addKeyListener(new KeyAdapter() {
 
@@ -53,13 +67,14 @@ public class TreatmentHistoryPanel extends javax.swing.JPanel {
                 }
             }
         });
-        
+
         searchTable.addMouseListener(new MouseAdapter() {
 
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2) {
                     clearData();
+                    indexHistory = 0;
                     JTable target = (JTable) e.getSource();
                     int row = target.getSelectedRow();
                     if (ownerList != null && ownerList.size() >= row) {
@@ -84,6 +99,17 @@ public class TreatmentHistoryPanel extends javax.swing.JPanel {
                             }
                         } catch (Exception ex) {
                             ex.printStackTrace();
+                        }
+                        DefaultTableModel modelTable = (DefaultTableModel) historyTable.getModel();
+                        while (modelTable.getRowCount() > 0) {
+                            modelTable.removeRow(0);
+                        }
+                        List<TreatmentHistoryModel> historyList = treatmentHistoryManager.getHistoryListByPetId(modelSelected.getPetModel().getId());
+                        if (historyList != null) {
+                            for (TreatmentHistoryModel history : historyList) {
+                                Object[] rowHis = {++indexHistory, sdfDate.format(history.getCreateDate()), history.getCreateBy(), history.getDetail()};
+                                modelTable.addRow(rowHis);
+                            }
                         }
                     }
                 }
@@ -119,9 +145,9 @@ public class TreatmentHistoryPanel extends javax.swing.JPanel {
         searchTable = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        historyTable = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        historyTextArea = new javax.swing.JTextArea();
         jButton1 = new javax.swing.JButton();
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pet", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
@@ -295,7 +321,7 @@ public class TreatmentHistoryPanel extends javax.swing.JPanel {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Treatment History", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        historyTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -311,11 +337,11 @@ public class TreatmentHistoryPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(historyTable);
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane3.setViewportView(jTextArea1);
+        historyTextArea.setColumns(20);
+        historyTextArea.setRows(5);
+        jScrollPane3.setViewportView(historyTextArea);
 
         jButton1.setText("Save");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -380,8 +406,17 @@ public class TreatmentHistoryPanel extends javax.swing.JPanel {
         typePet.setText("");
         breedPet.setText("");
         colorPet.setText("");
+        historyTextArea.setText("");
         imgLabel.setText("NO IMAGE");
         imgLabel.setIcon(null);
+        DefaultTableModel modelTable = (DefaultTableModel) historyTable.getModel();
+        while (modelTable.getRowCount() > 0) {
+            modelTable.removeRow(0);
+        }
+    }
+
+    private void clearFillHistory() {
+        historyTextArea.setText("");
     }
 
     private void searchTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchTextActionPerformed
@@ -395,11 +430,35 @@ public class TreatmentHistoryPanel extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        
+        int saveConfirm = JOptionPane.showConfirmDialog(null, "Confirm save treatment history?", "Confirm Save", JOptionPane.OK_OPTION | JOptionPane.CANCEL_OPTION);
+        if (saveConfirm == JOptionPane.OK_OPTION) {
+            if (historyTextArea != null && !historyTextArea.getText().trim().equals("")) {
+                TreatmentHistoryModel historyModel = new TreatmentHistoryModel();
+                historyModel.setHistoryId(treatmentHistoryManager.getMaxHistoryId() + 1);
+                historyModel.setPetId(modelSelected.getPetModel().getId());
+                historyModel.setDetail(historyTextArea.getText());
+                historyModel.setCreateBy(sessionManager.getUser().getUserName());
+                historyModel.setCreateDate(new Date());
+                historyModel.setUpdateBy(sessionManager.getUser().getUserName());
+                historyModel.setUpdateDate(new Date());
+                if (treatmentHistoryManager.insertHistory(historyModel)) {
+                    DefaultTableModel modelTable = (DefaultTableModel) historyTable.getModel();
+                    Object[] rowHis = {++indexHistory, sdfDate.format(historyModel.getCreateDate()), historyModel.getCreateBy(), historyModel.getDetail()};
+                    modelTable.addRow(rowHis);
+                    JOptionPane.showMessageDialog(this, "Save treatment history complete");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Save treatment history fail, Please contact admin");
+                }
+                clearFillHistory();
+            } else {
+                JOptionPane.showMessageDialog(this, "Please fill treatment history");
+            }
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void searchByKeyWord() {
         if (searchText.getText() != null && searchText.getText().trim().length() > 0) {
+            modelSelected = null;
             Runnable r = new Runnable() {
 
                 public void run() {
@@ -427,10 +486,11 @@ public class TreatmentHistoryPanel extends javax.swing.JPanel {
         g.dispose();
         return resizedImage;
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel breedPet;
     private javax.swing.JLabel colorPet;
+    private javax.swing.JTable historyTable;
+    private javax.swing.JTextArea historyTextArea;
     private javax.swing.JLabel imgLabel;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel10;
@@ -444,8 +504,6 @@ public class TreatmentHistoryPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel namePet;
     private javax.swing.JButton searchButton;
     private javax.swing.JTable searchTable;

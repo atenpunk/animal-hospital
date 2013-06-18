@@ -5,12 +5,9 @@
 package co.th.aten.hospital.dao;
 
 import co.th.aten.hospital.model.BreedModel;
-import co.th.aten.hospital.model.PetModel;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Locale;
 import javax.sql.DataSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
