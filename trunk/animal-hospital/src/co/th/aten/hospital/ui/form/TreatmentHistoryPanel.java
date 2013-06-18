@@ -16,6 +16,7 @@ import co.th.aten.hospital.service.OwnerManager;
 import co.th.aten.hospital.service.SessionManager;
 import co.th.aten.hospital.service.TreatmentHistoryManager;
 import co.th.aten.hospital.ui.ProcessTransactionDialog;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -58,6 +59,11 @@ public class TreatmentHistoryPanel extends javax.swing.JPanel {
         this.sessionManager = (SessionManager) Application.services().getService(SessionManager.class);
         this.treatmentHistoryManager = (TreatmentHistoryManager) Application.services().getService(TreatmentHistoryManager.class);
         initComponents();
+
+        historyTextArea.setFont(new Font("Tahoma", 0, 11));
+        searchText.setFont(new Font("Tahoma", 0, 11));
+        historyTable.setFont(new Font("Tahoma", 0, 11));
+        
         searchText.addKeyListener(new KeyAdapter() {
 
             @Override
