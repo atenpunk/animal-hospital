@@ -72,6 +72,7 @@ public class AddNewOwnerPanel extends javax.swing.JPanel {
         colorPetText.setFont(new Font("Tahoma", 0, 11));
         petTypeComboBox.setFont(new Font("Tahoma", 0, 11));
         petBreedComboBox.setFont(new Font("Tahoma", 0, 11));
+        petTable.setFont(new Font("Tahoma", 0, 11));
 
         List<TypeModel> typeList = typeManager.getTypeList();
         if (typeList != null) {

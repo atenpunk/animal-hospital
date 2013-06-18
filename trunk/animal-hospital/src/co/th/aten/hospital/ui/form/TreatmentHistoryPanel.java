@@ -332,7 +332,7 @@ public class TreatmentHistoryPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "ครั้งที่", "วันที่", "ชื่อผู้บันทึก", "ผลการตรวจ"
+                "Index", "Date Time", "Save Name", "Treatment"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -347,6 +347,7 @@ public class TreatmentHistoryPanel extends javax.swing.JPanel {
 
         historyTextArea.setColumns(20);
         historyTextArea.setRows(5);
+        historyTextArea.setToolTipText("Fill Treatment");
         jScrollPane3.setViewportView(historyTextArea);
 
         jButton1.setText("Save");
