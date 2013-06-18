@@ -10,13 +10,19 @@
  */
 package co.th.aten.hospital.ui.form;
 
+import co.th.aten.hospital.model.BreedModel;
 import co.th.aten.hospital.model.OwnerModel;
 import co.th.aten.hospital.model.PetModel;
+import co.th.aten.hospital.model.TypeModel;
+import co.th.aten.hospital.service.BreedManager;
 import co.th.aten.hospital.service.OwnerManager;
 import co.th.aten.hospital.service.PetManager;
 import co.th.aten.hospital.service.SessionManager;
+import co.th.aten.hospital.service.TypeManager;
 import co.th.aten.hospital.ui.ProcessTransactionDialog;
 import java.awt.Graphics2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -30,12 +36,18 @@ import java.io.InputStream;
 import java.util.Date;
 import java.util.List;
 import javax.imageio.ImageIO;
+import javax.swing.ComboBoxModel;
 import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.JTextComponent;
+import javax.swing.text.PlainDocument;
 import org.springframework.richclient.application.Application;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -50,6 +62,8 @@ public class EditOwnerPanel extends javax.swing.JPanel {
     private OwnerManager ownerManager;
     private PetManager petManager;
     private SessionManager sessionManager;
+    private TypeManager typeManager;
+    private BreedManager breedManager;
     private File fileImg;
     private List<OwnerModel> ownerList;
     private OwnerModel modelSelected;
@@ -60,6 +74,8 @@ public class EditOwnerPanel extends javax.swing.JPanel {
         this.ownerManager = (OwnerManager) Application.services().getService(OwnerManager.class);
         this.petManager = (PetManager) Application.services().getService(PetManager.class);
         this.sessionManager = (SessionManager) Application.services().getService(SessionManager.class);
+        this.typeManager = (TypeManager) Application.services().getService(TypeManager.class);
+        this.breedManager = (BreedManager) Application.services().getService(BreedManager.class);
         initComponents();
         searchText.addKeyListener(new KeyAdapter() {
 
@@ -70,6 +86,26 @@ public class EditOwnerPanel extends javax.swing.JPanel {
                 }
             }
         });
+
+        List<TypeModel> typeList = typeManager.getTypeList();
+        if (typeList != null) {
+            for (TypeModel model : typeList) {
+                petTypeComboBox.addItem(model.getEngName());
+            }
+            petTypeComboBox.setSelectedIndex(-1);
+            petTypeComboBox.setEditable(true);
+            new MainTest(petTypeComboBox);
+        }
+
+        List<BreedModel> breedList = breedManager.getBreedListOrderByEngName(-1);
+        if (breedList != null) {
+            for (BreedModel model : breedList) {
+                petBreedComboBox.addItem(model.getEngName());
+            }
+            petBreedComboBox.setSelectedIndex(-1);
+            petBreedComboBox.setEditable(true);
+            new MainTest(petBreedComboBox);
+        }
 
         searchTable.addMouseListener(new MouseAdapter() {
 
@@ -87,8 +123,8 @@ public class EditOwnerPanel extends javax.swing.JPanel {
                         phoneText.setText(modelSelected.getPhoneNumber());
                         emailText.setText(modelSelected.getEmail());
                         namePetText.setText(modelSelected.getPetModel().getName());
-                        typePetText.setText(modelSelected.getPetModel().getType());
-                        breedPetText.setText(modelSelected.getPetModel().getBreed());
+                        petTypeComboBox.setSelectedItem(modelSelected.getPetModel().getType());
+                        petBreedComboBox.setSelectedItem(modelSelected.getPetModel().getBreed());
                         if (modelSelected.getPetModel().getSex().toLowerCase().equals("male")) {
                             maleRadio.setSelected(true);
                         } else if (modelSelected.getPetModel().getSex().toLowerCase().equals("female")) {
@@ -104,6 +140,9 @@ public class EditOwnerPanel extends javax.swing.JPanel {
                                 ImageIcon imgPet = new ImageIcon(resizeImageJpg);
                                 imgLabel.setText("");
                                 imgLabel.setIcon(imgPet);
+                            } else {
+                                imgLabel.setText("NO IMAGE");
+                                imgLabel.setIcon(null);
                             }
                         } catch (Exception ex) {
                             ex.printStackTrace();
@@ -139,9 +178,7 @@ public class EditOwnerPanel extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         namePetText = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        typePetText = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        breedPetText = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         colorPetText = new javax.swing.JTextField();
@@ -149,6 +186,8 @@ public class EditOwnerPanel extends javax.swing.JPanel {
         femaleRadio = new javax.swing.JRadioButton();
         jButton5 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        petTypeComboBox = new javax.swing.JComboBox();
+        petBreedComboBox = new javax.swing.JComboBox();
         jPanel3 = new javax.swing.JPanel();
         searchText = new javax.swing.JTextField();
         searchButton = new javax.swing.JButton();
@@ -290,25 +329,24 @@ public class EditOwnerPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(maleRadio)
-                                .addGap(18, 18, 18)
-                                .addComponent(femaleRadio))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(colorPetText, javax.swing.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(breedPetText, javax.swing.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE)
-                                    .addComponent(typePetText, javax.swing.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE)
-                                    .addComponent(namePetText, javax.swing.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE)))))
+                                    .addComponent(namePetText, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE)
+                                    .addComponent(petTypeComboBox, javax.swing.GroupLayout.Alignment.TRAILING, 0, 376, Short.MAX_VALUE)
+                                    .addComponent(petBreedComboBox, javax.swing.GroupLayout.Alignment.TRAILING, 0, 376, Short.MAX_VALUE)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(maleRadio)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(femaleRadio))))))
                     .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
@@ -323,13 +361,13 @@ public class EditOwnerPanel extends javax.swing.JPanel {
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(namePetText, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(typePetText, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(petTypeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(breedPetText, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(petBreedComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -355,7 +393,7 @@ public class EditOwnerPanel extends javax.swing.JPanel {
             }
         });
 
-        searchButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        searchButton.setFont(new java.awt.Font("Tahoma", 0, 12));
         searchButton.setText("Search");
         searchButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -363,7 +401,7 @@ public class EditOwnerPanel extends javax.swing.JPanel {
             }
         });
 
-        searchTable.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        searchTable.setFont(new java.awt.Font("Tahoma", 0, 12));
         searchTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -438,8 +476,8 @@ public class EditOwnerPanel extends javax.swing.JPanel {
         maleRadio.setSelected(false);
         femaleRadio.setSelected(false);
         namePetText.setText("");
-        typePetText.setText("");
-        breedPetText.setText("");
+        petTypeComboBox.setSelectedIndex(-1);
+        petBreedComboBox.setSelectedIndex(-1);
         colorPetText.setText("");
         imgLabel.setText("NO IMAGE");
         imgLabel.setIcon(null);
@@ -481,8 +519,8 @@ public class EditOwnerPanel extends javax.swing.JPanel {
                 petModel.setId(modelSelected.getPetModel().getId());
                 petModel.setOwnerId(modelSelected.getId());
                 petModel.setName(namePetText.getText());
-                petModel.setType(typePetText.getText());
-                petModel.setBreed(breedPetText.getText());
+                petModel.setType((String) petTypeComboBox.getSelectedItem());
+                petModel.setBreed((String) petBreedComboBox.getSelectedItem());
                 String sex = "";
                 if (maleRadio.isSelected()) {
                     sex = "Male";
@@ -597,9 +635,128 @@ public class EditOwnerPanel extends javax.swing.JPanel {
         }
         return null;
     }
+
+    private class MainTest extends PlainDocument {
+
+        JComboBox comboBox;
+        ComboBoxModel model;
+        JTextComponent editor;
+        // flag to indicate if setSelectedItem has been called
+        // subsequent calls to remove/insertString should be ignored
+        boolean selecting = false;
+
+        public MainTest(final JComboBox comboBox) {
+            this.comboBox = comboBox;
+            model = comboBox.getModel();
+            editor = (JTextComponent) comboBox.getEditor().getEditorComponent();
+            editor.setDocument(this);
+            comboBox.addActionListener(new ActionListener() {
+
+                public void actionPerformed(ActionEvent e) {
+                    if (!selecting) {
+                        highlightCompletedText(0);
+                    }
+                }
+            });
+            editor.addKeyListener(new KeyAdapter() {
+
+                @Override
+                public void keyPressed(KeyEvent e) {
+                    if (comboBox.isDisplayable()) {
+                        comboBox.setPopupVisible(true);
+                    }
+                }
+            });
+            // Handle initially selected object
+            Object selected = comboBox.getSelectedItem();
+            if (selected != null) {
+                setText(selected.toString());
+            }
+            highlightCompletedText(0);
+        }
+
+        @Override
+        public void remove(int offs, int len) throws BadLocationException {
+            // return immediately when selecting an item
+            if (selecting) {
+                return;
+            }
+            super.remove(offs, len);
+        }
+
+        @Override
+        public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {
+            // return immediately when selecting an item
+            if (selecting) {
+                return;
+            }
+            // insert the string into the document
+            super.insertString(offs, str, a);
+            // lookup and select a matching item
+            Object item = lookupItem(getText(0, getLength()));
+            if (item != null) {
+                setSelectedItem(item);
+            } else {
+                // keep old item selected if there is no match
+                item = getText(0, getLength());
+                // imitate no insert (later on offs will be incremented by str.length(): selection won't move forward)
+//                offs = offs - str.length();
+                // provide feedback to the user that his input has been received but can not be accepted
+//                comboBox.getToolkit().beep(); // when available use: UIManager.getLookAndFeel().provideErrorFeedback(comboBox);
+            }
+            setText(item.toString());
+            // select the completed part
+            highlightCompletedText(offs + str.length());
+        }
+
+        private void setText(String text) {
+            try {
+                // remove all text and insert the completed string
+                super.remove(0, getLength());
+                super.insertString(0, text, null);
+            } catch (BadLocationException e) {
+                throw new RuntimeException(e.toString());
+            }
+        }
+
+        private void highlightCompletedText(int start) {
+            editor.setCaretPosition(getLength());
+            editor.moveCaretPosition(start);
+        }
+
+        private void setSelectedItem(Object item) {
+            selecting = true;
+            model.setSelectedItem(item);
+            selecting = false;
+        }
+
+        private Object lookupItem(String pattern) {
+            Object selectedItem = model.getSelectedItem();
+            // only search for a different item if the currently selected does not match
+            if (selectedItem != null && startsWithIgnoreCase(selectedItem.toString(), pattern)) {
+                return selectedItem;
+            } else {
+                // iterate over all items
+                for (int i = 0, n = model.getSize(); i < n; i++) {
+                    Object currentItem = model.getElementAt(i);
+                    // current item starts with the pattern?
+                    if (startsWithIgnoreCase(currentItem.toString(), pattern)) {
+                        return currentItem;
+                    }
+                }
+            }
+            // no item starts with the pattern => return null
+            return null;
+        }
+
+        // checks if str1 starts with str2 - ignores case
+        private boolean startsWithIgnoreCase(String str1, String str2) {
+            return str1.toUpperCase().startsWith(str2.toUpperCase());
+        }
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea addressText;
-    private javax.swing.JTextField breedPetText;
     private javax.swing.JTextField colorPetText;
     private javax.swing.JTextField emailText;
     private javax.swing.JRadioButton femaleRadio;
@@ -623,10 +780,11 @@ public class EditOwnerPanel extends javax.swing.JPanel {
     private javax.swing.JRadioButton maleRadio;
     private javax.swing.JTextField namePetText;
     private javax.swing.JTextField nameText;
+    private javax.swing.JComboBox petBreedComboBox;
+    private javax.swing.JComboBox petTypeComboBox;
     private javax.swing.JTextField phoneText;
     private javax.swing.JButton searchButton;
     private javax.swing.JTable searchTable;
     private javax.swing.JTextField searchText;
-    private javax.swing.JTextField typePetText;
     // End of variables declaration//GEN-END:variables
 }
