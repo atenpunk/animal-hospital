@@ -8,6 +8,7 @@ import co.th.aten.hospital.event.LoginSuccessEvent;
 import co.th.aten.hospital.event.LogoutEvent;
 import co.th.aten.hospital.event.MessageEvent;
 import co.th.aten.hospital.model.MessageModel;
+import co.th.aten.hospital.service.SessionManager;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import javax.swing.JComponent;
@@ -126,7 +127,8 @@ public class InitView extends AbstractView implements ApplicationListener {
         }
 
         if (event instanceof LogoutEvent) {
-
+            SessionManager sessionManager = (SessionManager) Application.services().getService(SessionManager.class);
+            sessionManager.setUser(null);
             String build = Application.instance().getDescriptor().getVersion() + " ( " + Application.instance().getDescriptor().getBuildId() + " )";
             ((DefaultViewDescriptor) getDescriptor()).setTitle(getMessage("header.welcome") + "  v." + build);
 
