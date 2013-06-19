@@ -62,7 +62,7 @@ public class JdbcUserDao implements UserDao {
     public static void main(String[]args){
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
-            md.update("123456".getBytes("UTF-8"));
+            md.update("0069".getBytes("UTF-8"));
             byte[] raw = md.digest();
             System.out.println(new String(Hex.encodeHex(raw)));
         } catch (Exception e) {
