@@ -9,7 +9,7 @@
 
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-        <property name="url" value="jdbc:mysql://127.0.0.1:3306/animal_hospital" />
+        <property name="url" value="jdbc:mysql://127.0.0.1:3306/animal_hospital?characterEncoding=UTF-8 " />
         <property name="username" value="hospital" />
         <property name="password" value="hospital123" />
     </bean>
