@@ -24,6 +24,7 @@ public class PetModel {
     private Date createDate;
     private String updateBy;
     private Date updateDate;
+    private Date birthdayPet;
 
     public String getCreateBy() {
         return createBy;
@@ -120,4 +121,14 @@ public class PetModel {
     public void setType(String type) {
         this.type = type;
     }
+
+    public Date getBirthdayPet() {
+        return birthdayPet;
+    }
+
+    public void setBirthdayPet(Date birthdayPet) {
+        this.birthdayPet = birthdayPet;
+    }
+    
+
 }

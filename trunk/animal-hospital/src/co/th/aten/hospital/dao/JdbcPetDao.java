@@ -21,7 +21,8 @@ public class JdbcPetDao implements PetDao {
     private final Log logger = LogFactory.getLog(getClass());
     private SimpleJdbcTemplate simpleJdbcTemplate;
     private DataSource dataSource;
-    private SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
+    private SimpleDateFormat sdfDateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
+    private SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
 
     public DataSource getDataSource() {
         return dataSource;
@@ -43,11 +44,9 @@ public class JdbcPetDao implements PetDao {
         }
         try {
             String sql = " INSERT INTO pet (pet_id,owner_id,pet_name,pet_type,pet_breed,pet_color,pet_sex,pet_image"
-                    + " , pet_create_by, pet_create_date, pet_update_by, pet_update_date ) "
-                    + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-            return (this.simpleJdbcTemplate.update(sql, petModel.getId(), petModel.getOwnerId(), petModel.getName(), petModel.getType()
-                    , petModel.getBreed(), petModel.getColor(), petModel.getSex(), petModel.getImage(), petModel.getCreateBy()
-                    , sdfDate.parse(sdfDate.format(petModel.getCreateDate())), petModel.getUpdateBy(), sdfDate.parse(sdfDate.format(petModel.getUpdateDate()))) > 0) ? true : false;
+                    + " , pet_create_by, pet_create_date, pet_update_by, pet_update_date, pet_birthdate ) "
+                    + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            return (this.simpleJdbcTemplate.update(sql, petModel.getId(), petModel.getOwnerId(), petModel.getName(), petModel.getType(), petModel.getBreed(), petModel.getColor(), petModel.getSex(), petModel.getImage(), petModel.getCreateBy(), sdfDateTime.parse(sdfDateTime.format(petModel.getCreateDate())), petModel.getUpdateBy(), sdfDateTime.parse(sdfDateTime.format(petModel.getUpdateDate())), sdfDate.parse(sdfDate.format(petModel.getBirthdayPet()))) > 0) ? true : false;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -66,10 +65,12 @@ public class JdbcPetDao implements PetDao {
                     + " , pet_image = ? "
                     + " , pet_update_by = ? "
                     + " , pet_update_date = ? "
+                    + " , pet_birthdate = ? "
                     + " WHERE pet_id = ? AND owner_id = ? ";
-            return (this.simpleJdbcTemplate.update(sql, petModel.getName(), petModel.getType(), petModel.getBreed()
-                    , petModel.getColor(), petModel.getSex(), petModel.getImage(), petModel.getUpdateBy()
-                    , sdfDate.parse(sdfDate.format(petModel.getUpdateDate())), petModel.getId(), petModel.getOwnerId()) > 0) ? true : false;
+            return (this.simpleJdbcTemplate.update(sql, petModel.getName(), petModel.getType(), petModel.getBreed(), petModel.getColor()
+                    , petModel.getSex(), petModel.getImage(), petModel.getUpdateBy()
+                    , sdfDateTime.parse(sdfDateTime.format(petModel.getUpdateDate()))
+                    , petModel.getId(), petModel.getOwnerId(),sdfDate.parse(sdfDate.format(petModel.getBirthdayPet()))) > 0) ? true : false;
         } catch (Exception e) {
             e.printStackTrace();
         }
