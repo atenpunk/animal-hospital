@@ -83,7 +83,7 @@ public class JdbcOwnerDao implements OwnerDao {
     public List<OwnerModel> searchByKeyWord(String word) {
         try {
             String sql = " select ow.owner_id, ow.owner_name, ow.owner_phone, ow.owner_email, ow.owner_address "
-                    + " , pe.pet_id, pe.pet_name, pe.pet_type, pe.pet_breed, pe.pet_color, pe.pet_sex, pe.pet_image "
+                    + " , pe.pet_id, pe.pet_name, pe.pet_type, pe.pet_breed, pe.pet_color, pe.pet_sex, pe.pet_image, pe.pet_birthdate "
                     + " from owner ow "
                     + " left join pet pe on(pe.owner_id = ow.owner_id) "
                     + " where owner_name like '%" + word + "%' "
@@ -113,6 +113,7 @@ public class JdbcOwnerDao implements OwnerDao {
                     pet.setColor(rs.getString("pet_color"));
                     pet.setSex(rs.getString("pet_sex"));
                     pet.setImage(rs.getBytes("pet_image"));
+                    pet.setBirthdayPet(rs.getDate("pet_birthdate"));
                     model.setPetModel(pet);
                     return model;
                 }

@@ -6,6 +6,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import org.joda.time.DateTime;
+import org.joda.time.Months;
+import org.joda.time.Years;
 
 public class Util {
 
@@ -147,7 +150,7 @@ public class Util {
     }
 
     public static String nullSafeString(String _str) {
-        return (_str == null ? "":_str );
+        return (_str == null ? "" : _str);
     }
 
     public static long nullSafeLong(Long _long) {
@@ -186,5 +189,13 @@ public class Util {
     public static double calVAT(double amount, float vatPercent) {
         double vat = (double) (amount * vatPercent) / (100 + vatPercent);
         return vat;
+    }
+
+    public static String getYearMonth(Date startDate, Date endDate) {
+        DateTime dt1 = new DateTime(startDate);
+        DateTime dt2 = new DateTime(endDate);
+        String yearMonth = Years.yearsBetween(dt1, dt2).getYears() != 0 ? Years.yearsBetween(dt1, dt2).getYears() + " years, " : "";
+        yearMonth += (Months.monthsBetween(dt1, dt2).getMonths() % 12 + " months ");
+        return yearMonth;
     }
 }

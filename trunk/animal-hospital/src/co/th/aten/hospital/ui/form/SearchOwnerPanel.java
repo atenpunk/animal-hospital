@@ -13,6 +13,7 @@ package co.th.aten.hospital.ui.form;
 import co.th.aten.hospital.model.OwnerModel;
 import co.th.aten.hospital.service.OwnerManager;
 import co.th.aten.hospital.ui.ProcessTransactionDialog;
+import co.th.aten.hospital.util.Util;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.KeyAdapter;
@@ -22,6 +23,7 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.util.Date;
 import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -45,7 +47,7 @@ public class SearchOwnerPanel extends javax.swing.JPanel {
     public SearchOwnerPanel() {
         this.ownerManager = (OwnerManager) Application.services().getService(OwnerManager.class);
         initComponents();
-        
+
         searchText.setFont(new Font("Tahoma", 0, 11));
 
         searchText.addKeyListener(new KeyAdapter() {
@@ -57,7 +59,7 @@ public class SearchOwnerPanel extends javax.swing.JPanel {
                 }
             }
         });
-        
+
         searchTable.addMouseListener(new MouseAdapter() {
 
             @Override
@@ -77,6 +79,10 @@ public class SearchOwnerPanel extends javax.swing.JPanel {
                         breedPet.setText(modelSelected.getPetModel().getBreed());
                         sexPet.setText(modelSelected.getPetModel().getSex());
                         colorPet.setText(modelSelected.getPetModel().getColor());
+                        Date startDate = modelSelected.getPetModel().getBirthdayPet();
+                        Date endDate = new Date();
+                        String ageStr = Util.getYearMonth(startDate, endDate);
+                        agePet.setText(ageStr);
                         try {
                             if (modelSelected.getPetModel().getImage() != null) {
                                 InputStream in = new ByteArrayInputStream(modelSelected.getPetModel().getImage());
@@ -129,6 +135,8 @@ public class SearchOwnerPanel extends javax.swing.JPanel {
         breedPet = new javax.swing.JLabel();
         sexPet = new javax.swing.JLabel();
         colorPet = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        agePet = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         searchText = new javax.swing.JTextField();
         searchButton = new javax.swing.JButton();
@@ -137,7 +145,7 @@ public class SearchOwnerPanel extends javax.swing.JPanel {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Owner", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel1.setText("Name");
         jLabel1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
@@ -152,24 +160,24 @@ public class SearchOwnerPanel extends javax.swing.JPanel {
         jLabel3.setText("Phone Number");
         jLabel3.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel4.setText("Email");
         jLabel4.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
-        phoneLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        phoneLabel.setFont(new java.awt.Font("Tahoma", 0, 12));
         phoneLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         phoneLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        addressLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        addressLabel.setFont(new java.awt.Font("Tahoma", 0, 12));
         addressLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         addressLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        nameLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        nameLabel.setFont(new java.awt.Font("Tahoma", 0, 12));
         nameLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         nameLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        emailLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        emailLabel.setFont(new java.awt.Font("Tahoma", 0, 12));
         emailLabel.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         emailLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -243,25 +251,33 @@ public class SearchOwnerPanel extends javax.swing.JPanel {
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel10.setText("Color");
 
-        namePet.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        namePet.setFont(new java.awt.Font("Tahoma", 0, 12));
         namePet.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         namePet.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        typePet.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        typePet.setFont(new java.awt.Font("Tahoma", 0, 12));
         typePet.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         typePet.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        breedPet.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        breedPet.setFont(new java.awt.Font("Tahoma", 0, 12));
         breedPet.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         breedPet.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        sexPet.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        sexPet.setFont(new java.awt.Font("Tahoma", 0, 12));
         sexPet.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         sexPet.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        colorPet.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        colorPet.setFont(new java.awt.Font("Tahoma", 0, 12));
         colorPet.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         colorPet.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel11.setText("Age");
+
+        agePet.setFont(new java.awt.Font("Tahoma", 0, 12));
+        agePet.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        agePet.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -270,40 +286,39 @@ public class SearchOwnerPanel extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(imgLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(10, 10, 10)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(namePet, javax.swing.GroupLayout.DEFAULT_SIZE, 386, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(typePet, javax.swing.GroupLayout.DEFAULT_SIZE, 386, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(breedPet, javax.swing.GroupLayout.DEFAULT_SIZE, 386, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(agePet, javax.swing.GroupLayout.DEFAULT_SIZE, 386, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(colorPet, javax.swing.GroupLayout.DEFAULT_SIZE, 386, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
                         .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(sexPet, javax.swing.GroupLayout.DEFAULT_SIZE, 386, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(namePet, javax.swing.GroupLayout.DEFAULT_SIZE, 386, Short.MAX_VALUE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(typePet, javax.swing.GroupLayout.DEFAULT_SIZE, 386, Short.MAX_VALUE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(breedPet, javax.swing.GroupLayout.DEFAULT_SIZE, 386, Short.MAX_VALUE)))))
+                        .addComponent(sexPet, javax.swing.GroupLayout.DEFAULT_SIZE, 386, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(2, 2, 2)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -317,16 +332,20 @@ public class SearchOwnerPanel extends javax.swing.JPanel {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(breedPet, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(agePet, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(sexPet, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(sexPet, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(colorPet, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(imgLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(colorPet, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Search", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
@@ -425,6 +444,7 @@ public class SearchOwnerPanel extends javax.swing.JPanel {
         colorPet.setText("");
         imgLabel.setText("NO IMAGE");
         imgLabel.setIcon(null);
+        agePet.setText("");
 
         nameLabel.setText("");
         addressLabel.setText("");
@@ -470,15 +490,16 @@ public class SearchOwnerPanel extends javax.swing.JPanel {
         g.dispose();
         return resizedImage;
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel addressLabel;
+    private javax.swing.JLabel agePet;
     private javax.swing.JLabel breedPet;
     private javax.swing.JLabel colorPet;
     private javax.swing.JLabel emailLabel;
     private javax.swing.JLabel imgLabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

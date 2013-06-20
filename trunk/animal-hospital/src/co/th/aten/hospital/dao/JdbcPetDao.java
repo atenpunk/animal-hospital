@@ -69,8 +69,8 @@ public class JdbcPetDao implements PetDao {
                     + " WHERE pet_id = ? AND owner_id = ? ";
             return (this.simpleJdbcTemplate.update(sql, petModel.getName(), petModel.getType(), petModel.getBreed(), petModel.getColor()
                     , petModel.getSex(), petModel.getImage(), petModel.getUpdateBy()
-                    , sdfDateTime.parse(sdfDateTime.format(petModel.getUpdateDate()))
-                    , petModel.getId(), petModel.getOwnerId(),sdfDate.parse(sdfDate.format(petModel.getBirthdayPet()))) > 0) ? true : false;
+                    , sdfDateTime.parse(sdfDateTime.format(petModel.getUpdateDate())),sdfDate.parse(sdfDate.format(petModel.getBirthdayPet()))
+                    , petModel.getId(), petModel.getOwnerId()) > 0) ? true : false;
         } catch (Exception e) {
             e.printStackTrace();
         }
