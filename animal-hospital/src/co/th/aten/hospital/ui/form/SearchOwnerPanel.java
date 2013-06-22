@@ -10,8 +10,10 @@
  */
 package co.th.aten.hospital.ui.form;
 
+import co.th.aten.hospital.dialog.ShowHistoryDialog;
 import co.th.aten.hospital.model.OwnerModel;
 import co.th.aten.hospital.service.OwnerManager;
+import co.th.aten.hospital.service.SessionManager;
 import co.th.aten.hospital.ui.ProcessTransactionDialog;
 import co.th.aten.hospital.util.Util;
 import java.awt.Font;
@@ -42,10 +44,12 @@ public class SearchOwnerPanel extends javax.swing.JPanel {
     private OwnerManager ownerManager;
     private List<OwnerModel> ownerList;
     private OwnerModel modelSelected;
+    private SessionManager sessionManager;
 
     /** Creates new form EditOwnerPanel */
     public SearchOwnerPanel() {
         this.ownerManager = (OwnerManager) Application.services().getService(OwnerManager.class);
+        this.sessionManager = (SessionManager) Application.services().getService(SessionManager.class);
         initComponents();
 
         searchText.setFont(new Font("Tahoma", 0, 11));
@@ -70,6 +74,7 @@ public class SearchOwnerPanel extends javax.swing.JPanel {
                     int row = target.getSelectedRow();
                     if (ownerList != null && ownerList.size() >= row) {
                         modelSelected = ownerList.get(row);
+                        sessionManager.setPetModel(modelSelected.getPetModel());
                         nameLabel.setText(modelSelected.getName());
                         addressLabel.setText(modelSelected.getAddress());
                         phoneLabel.setText(modelSelected.getPhoneNumber());
@@ -137,6 +142,7 @@ public class SearchOwnerPanel extends javax.swing.JPanel {
         colorPet = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         agePet = new javax.swing.JLabel();
+        showHistoryButton = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         searchText = new javax.swing.JTextField();
         searchButton = new javax.swing.JButton();
@@ -279,13 +285,23 @@ public class SearchOwnerPanel extends javax.swing.JPanel {
         agePet.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         agePet.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        showHistoryButton.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        showHistoryButton.setText("Treatment History");
+        showHistoryButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showHistoryButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(imgLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(showHistoryButton, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
+                    .addComponent(imgLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -318,7 +334,7 @@ public class SearchOwnerPanel extends javax.swing.JPanel {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(2, 2, 2)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -344,7 +360,10 @@ public class SearchOwnerPanel extends javax.swing.JPanel {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(colorPet, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(imgLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(imgLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(showHistoryButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(33, Short.MAX_VALUE))
         );
 
@@ -461,6 +480,13 @@ public class SearchOwnerPanel extends javax.swing.JPanel {
         searchByKeyWord();
     }//GEN-LAST:event_searchButtonActionPerformed
 
+    private void showHistoryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showHistoryButtonActionPerformed
+        // TODO add your handling code here:
+        if (sessionManager.getPetModel() != null) {
+            new ShowHistoryDialog().showDialog();
+        }
+    }//GEN-LAST:event_showHistoryButtonActionPerformed
+
     private void searchByKeyWord() {
         if (searchText.getText() != null && searchText.getText().trim().length() > 0) {
             Runnable r = new Runnable() {
@@ -518,6 +544,7 @@ public class SearchOwnerPanel extends javax.swing.JPanel {
     private javax.swing.JTable searchTable;
     private javax.swing.JTextField searchText;
     private javax.swing.JLabel sexPet;
+    private javax.swing.JButton showHistoryButton;
     private javax.swing.JLabel typePet;
     // End of variables declaration//GEN-END:variables
 }

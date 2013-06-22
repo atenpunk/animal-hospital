@@ -221,7 +221,10 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="imgLabel" min="-2" pref="151" max="-2" attributes="1"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="showHistoryButton" pref="151" max="32767" attributes="1"/>
+                      <Component id="imgLabel" alignment="0" min="-2" pref="151" max="-2" attributes="1"/>
+                  </Group>
                   <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
@@ -263,7 +266,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Group type="102" alignment="0" attributes="1">
                           <EmptySpace min="2" pref="2" max="2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -296,7 +299,11 @@
                               <Component id="colorPet" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <Component id="imgLabel" alignment="0" min="-2" pref="133" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="1">
+                          <Component id="imgLabel" min="-2" pref="133" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="showHistoryButton" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace pref="33" max="32767" attributes="0"/>
               </Group>
@@ -449,6 +456,17 @@
               </Border>
             </Property>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="showHistoryButton">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="12" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Treatment History"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="showHistoryButtonActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
