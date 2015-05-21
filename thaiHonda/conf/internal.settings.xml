@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<settings name="internal">
+<entry key="server_ip" value="localhost"/>
+<entry key="server_port" value="8081"/>
+<entry key="network" value="2"/>
+<entry key="interchange" value="9"/>
+<entry key="tsb" value="98"/>
+<entry key="terminal" value="19801"/>
+<entry key="report_head" value="BECL"/>
+</settings>

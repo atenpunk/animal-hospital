@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<VLDocking version="2.1">
+<DockingDesktop>
+<DockingPanel>
+<Split orientation="0" location="0.5">
+<Dockable>
+<Key dockName="MainView" dockLabel="Home"/>
+</Dockable>
+<TabbedDockable>
+<Dockable>
+<Key dockName="CustomerView" dockLabel="Customer"/>
+</Dockable>
+<Dockable>
+<Key dockName="ArrivalView" dockLabel="Arrival"/>
+</Dockable>
+</TabbedDockable>
+</Split>
+</DockingPanel>
+<TabGroups>
+<TabGroup>
+<Dockable>
+<Key dockName="CustomerView" dockLabel="Customer"/>
+</Dockable>
+<Dockable>
+<Key dockName="ArrivalView" dockLabel="Arrival"/>
+</Dockable>
+</TabGroup>
+</TabGroups>
+</DockingDesktop>
+</VLDocking>
