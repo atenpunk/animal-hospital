@@ -154,7 +154,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(imgPlayer, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(484, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -194,8 +194,10 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
             }
         });
 
-        searchButton.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        searchButton.setBackground(new java.awt.Color(255, 255, 255));
+        searchButton.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         searchButton.setText("Search");
+        searchButton.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         searchButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchButtonActionPerformed(evt);
@@ -219,7 +221,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        searchTable.setGridColor(new java.awt.Color(255, 255, 255));
+        searchTable.setGridColor(new java.awt.Color(0, 0, 0));
         jScrollPane2.setViewportView(searchTable);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
