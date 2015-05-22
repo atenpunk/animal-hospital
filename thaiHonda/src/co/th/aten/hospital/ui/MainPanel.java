@@ -11,6 +11,7 @@
 package co.th.aten.hospital.ui;
 
 import co.th.aten.hospital.dialog.AddNewOwnerDialog;
+import co.th.aten.hospital.dialog.DetailPlayerDialog;
 import co.th.aten.hospital.dialog.EditOwnerDialog;
 import co.th.aten.hospital.dialog.SearchOwnerDialog;
 import co.th.aten.hospital.dialog.TreatmentHistoryDialog;
@@ -94,7 +95,7 @@ public class MainPanel extends ImagePanel {
         jScrollPane1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jScrollPane1.setAutoscrolls(true);
         jScrollPane1.setDoubleBuffered(true);
-        jScrollPane1.setFont(new java.awt.Font("Dialog", 0, 12));
+        jScrollPane1.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         jScrollPane1.setPreferredSize(new java.awt.Dimension(22, 22));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -102,7 +103,7 @@ public class MainPanel extends ImagePanel {
 
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("ui/messages"); // NOI18N
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(bundle.getString("main.label.transaction"))); // NOI18N
-        jPanel5.setFont(new java.awt.Font("Dialog", 0, 12));
+        jPanel5.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
         jPanel5.setOpaque(false);
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -111,7 +112,7 @@ public class MainPanel extends ImagePanel {
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btEdit.setBackground(new java.awt.Color(200, 244, 11));
-        btEdit.setFont(new java.awt.Font("Tahoma", 1, 18));
+        btEdit.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         btEdit.setText(bundle.getString("main.label.defaul")); // NOI18N
         btEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -121,7 +122,7 @@ public class MainPanel extends ImagePanel {
         jPanel6.add(btEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 120, 370, 80));
 
         btReport.setBackground(new java.awt.Color(235, 102, 255));
-        btReport.setFont(new java.awt.Font("Dialog", 1, 18));
+        btReport.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btReport.setMnemonic('p');
         btReport.setText(bundle.getString("main.label.reports")); // NOI18N
         btReport.setPreferredSize(new java.awt.Dimension(200, 80));
@@ -133,7 +134,7 @@ public class MainPanel extends ImagePanel {
         jPanel6.add(btReport, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 120, 370, -1));
 
         btReport2.setBackground(new java.awt.Color(32, 249, 226));
-        btReport2.setFont(new java.awt.Font("Dialog", 1, 18));
+        btReport2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btReport2.setMnemonic('p');
         btReport2.setText(bundle.getString("main.label.report")); // NOI18N
         btReport2.setPreferredSize(new java.awt.Dimension(200, 80));
@@ -145,7 +146,7 @@ public class MainPanel extends ImagePanel {
         jPanel6.add(btReport2, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 210, 370, 80));
 
         btSearchCustomers.setBackground(new java.awt.Color(102, 255, 102));
-        btSearchCustomers.setFont(new java.awt.Font("Dialog", 1, 18));
+        btSearchCustomers.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btSearchCustomers.setMnemonic('s');
         btSearchCustomers.setText(bundle.getString("main.label.searchCustomers")); // NOI18N
         btSearchCustomers.setPreferredSize(new java.awt.Dimension(200, 80));
@@ -157,7 +158,7 @@ public class MainPanel extends ImagePanel {
         jPanel6.add(btSearchCustomers, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 370, -1));
 
         btCheckBalance.setBackground(new java.awt.Color(202, 124, 47));
-        btCheckBalance.setFont(new java.awt.Font("Dialog", 1, 18));
+        btCheckBalance.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btCheckBalance.setMnemonic('p');
         btCheckBalance.setText(bundle.getString("main.label.defaul")); // NOI18N
         btCheckBalance.setPreferredSize(new java.awt.Dimension(200, 80));
@@ -169,7 +170,7 @@ public class MainPanel extends ImagePanel {
         jPanel6.add(btCheckBalance, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 210, 370, -1));
 
         btHistory.setBackground(new java.awt.Color(255, 247, 102));
-        btHistory.setFont(new java.awt.Font("Dialog", 1, 18));
+        btHistory.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btHistory.setMnemonic('p');
         btHistory.setText(bundle.getString("main.label.treatmentHistory")); // NOI18N
         btHistory.setPreferredSize(new java.awt.Dimension(200, 80));
@@ -181,7 +182,7 @@ public class MainPanel extends ImagePanel {
         jPanel6.add(btHistory, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 370, -1));
 
         btAddCustomers.setBackground(new java.awt.Color(255, 153, 0));
-        btAddCustomers.setFont(new java.awt.Font("Dialog", 1, 18));
+        btAddCustomers.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btAddCustomers.setMnemonic('a');
         btAddCustomers.setText(bundle.getString("main.label.addCustomers")); // NOI18N
         btAddCustomers.setPreferredSize(new java.awt.Dimension(200, 80));
@@ -193,7 +194,7 @@ public class MainPanel extends ImagePanel {
         jPanel6.add(btAddCustomers, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 30, 370, -1));
 
         btEditCustomers.setBackground(new java.awt.Color(255, 204, 153));
-        btEditCustomers.setFont(new java.awt.Font("Dialog", 1, 18));
+        btEditCustomers.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btEditCustomers.setMnemonic('y');
         btEditCustomers.setText(bundle.getString("main.label.editCustomers")); // NOI18N
         btEditCustomers.setPreferredSize(new java.awt.Dimension(200, 80));
@@ -205,7 +206,7 @@ public class MainPanel extends ImagePanel {
         jPanel6.add(btEditCustomers, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 30, 370, -1));
 
         btSellStatement.setBackground(new java.awt.Color(102, 255, 213));
-        btSellStatement.setFont(new java.awt.Font("Dialog", 1, 18));
+        btSellStatement.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btSellStatement.setMnemonic('p');
         btSellStatement.setText(bundle.getString("main.label.defaul")); // NOI18N
         btSellStatement.setPreferredSize(new java.awt.Dimension(200, 80));
@@ -216,7 +217,7 @@ public class MainPanel extends ImagePanel {
         });
         jPanel6.add(btSellStatement, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 210, 370, 80));
 
-        jPanel5.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 1180, 410));
+        jPanel5.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 1180, 410));
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -232,7 +233,7 @@ public class MainPanel extends ImagePanel {
         jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btAddStaff.setBackground(new java.awt.Color(204, 204, 255));
-        btAddStaff.setFont(new java.awt.Font("Dialog", 1, 18));
+        btAddStaff.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btAddStaff.setMnemonic('h');
         btAddStaff.setText(bundle.getString("main.label.addStaff")); // NOI18N
         btAddStaff.setPreferredSize(new java.awt.Dimension(200, 80));
@@ -244,7 +245,7 @@ public class MainPanel extends ImagePanel {
         jPanel7.add(btAddStaff, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, 370, -1));
 
         btChangePassword.setBackground(new java.awt.Color(102, 102, 255));
-        btChangePassword.setFont(new java.awt.Font("Dialog", 1, 18));
+        btChangePassword.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         btChangePassword.setText(bundle.getString("main.label.changePassword")); // NOI18N
         btChangePassword.setPreferredSize(new java.awt.Dimension(200, 80));
         btChangePassword.addActionListener(new java.awt.event.ActionListener() {
@@ -285,21 +286,6 @@ public class MainPanel extends ImagePanel {
 //        new ObuReturnDialog().showDialog();
     }//GEN-LAST:event_btChangePasswordActionPerformed
 
-    private void btAddCustomersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAddCustomersActionPerformed
-        new AddNewOwnerDialog().showDialog();
-    }//GEN-LAST:event_btAddCustomersActionPerformed
-
-    private void btHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btHistoryActionPerformed
-//        TopupWizard.getInstance().execute();
-        new TreatmentHistoryDialog().showDialog();
-
-    }//GEN-LAST:event_btHistoryActionPerformed
-
-    private void btEditCustomersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditCustomersActionPerformed
-//        ClaimWizard.getInstance().execute();
-        new EditOwnerDialog().showDialog();
-    }//GEN-LAST:event_btEditCustomersActionPerformed
-
     private void btEojActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEojActionPerformed
         boolean confirm = JOptionPane.showConfirmDialog(null, java.util.ResourceBundle.getBundle("ui/messages").getString("exit.question"), "Confirm Exit", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION;
         if (confirm) {
@@ -307,35 +293,50 @@ public class MainPanel extends ImagePanel {
         }
     }//GEN-LAST:event_btEojActionPerformed
 
-    private void btSearchCustomersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSearchCustomersActionPerformed
-
-        new SearchOwnerDialog().showDialog();
-    }//GEN-LAST:event_btSearchCustomersActionPerformed
-
     private void btAddStaffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAddStaffActionPerformed
 //        AddStaffWizard.getInstance().execute();
     }//GEN-LAST:event_btAddStaffActionPerformed
 
-    private void btEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditActionPerformed
-        // TODO add your handling code here:
-//        new EditCustomerProfileDialog().showDialog();
-    }//GEN-LAST:event_btEditActionPerformed
+    private void btSellStatementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSellStatementActionPerformed
+        //        SellStatementWizard.getInstance().execute();
+    }//GEN-LAST:event_btSellStatementActionPerformed
 
-    private void btReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btReportActionPerformed
-//        ChangeOwnerWizard.getInstance().execute();
-    }//GEN-LAST:event_btReportActionPerformed
+    private void btEditCustomersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditCustomersActionPerformed
+        //        ClaimWizard.getInstance().execute();
+        new EditOwnerDialog().showDialog();
+    }//GEN-LAST:event_btEditCustomersActionPerformed
+
+    private void btAddCustomersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAddCustomersActionPerformed
+        new AddNewOwnerDialog().showDialog();
+    }//GEN-LAST:event_btAddCustomersActionPerformed
+
+    private void btHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btHistoryActionPerformed
+        //        TopupWizard.getInstance().execute();
+        new TreatmentHistoryDialog().showDialog();
+    }//GEN-LAST:event_btHistoryActionPerformed
 
     private void btCheckBalanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCheckBalanceActionPerformed
-//        CheckBalanceWizard.getInstance().execute();
+        //        CheckBalanceWizard.getInstance().execute();
     }//GEN-LAST:event_btCheckBalanceActionPerformed
 
+    private void btSearchCustomersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSearchCustomersActionPerformed
+
+        new DetailPlayerDialog().showDialog();
+    }//GEN-LAST:event_btSearchCustomersActionPerformed
+
     private void btReport2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btReport2ActionPerformed
-//        CancelStatementWizard.getInstance().execute();
+        //        CancelStatementWizard.getInstance().execute();
     }//GEN-LAST:event_btReport2ActionPerformed
 
-    private void btSellStatementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSellStatementActionPerformed
-//        SellStatementWizard.getInstance().execute();
-}//GEN-LAST:event_btSellStatementActionPerformed
+    private void btReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btReportActionPerformed
+        //        ChangeOwnerWizard.getInstance().execute();
+    }//GEN-LAST:event_btReportActionPerformed
+
+    private void btEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditActionPerformed
+        // TODO add your handling code here:
+        //        new EditCustomerProfileDialog().showDialog();
+    }//GEN-LAST:event_btEditActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAddCustomers;
     private javax.swing.JButton btAddStaff;
