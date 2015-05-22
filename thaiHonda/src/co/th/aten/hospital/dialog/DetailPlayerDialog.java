@@ -5,6 +5,7 @@
 package co.th.aten.hospital.dialog;
 
 import co.th.aten.hospital.ui.form.DetailPlayerPanel;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
@@ -51,6 +52,7 @@ public class DetailPlayerDialog extends ApplicationDialog {
                 onCancel();
             }
         });
+        bpanel.setBackground(Color.WHITE);
         bpanel.add(btClose);
         return bpanel;
     }

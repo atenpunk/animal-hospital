@@ -74,7 +74,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         }
 //        ImageIcon iconLogo = new ImageIcon(System.getProperty("user.dir")+"/img" + File.separator + name);
 //        imgRedar.setIcon(iconLogo);
-        redarPanal.setBackground(Color.BLACK);
+        redarPanal.setBackground(Color.WHITE);
         redarPanal.add(view, BorderLayout.CENTER);
 
 
@@ -122,7 +122,12 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         searchTable = new javax.swing.JTable();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detail Player", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
+
+        redarPanal.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout redarPanalLayout = new javax.swing.GroupLayout(redarPanal);
         redarPanal.setLayout(redarPanalLayout);
@@ -132,8 +137,10 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         );
         redarPanalLayout.setVerticalGroup(
             redarPanalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 346, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
         imgPlayer.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         imgPlayer.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -147,7 +154,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(imgPlayer, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(484, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -177,6 +184,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Search", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
 
         searchText.setToolTipText("Search by owner name, phone number,email, pet name, type, breed");
@@ -211,6 +219,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        searchTable.setGridColor(new java.awt.Color(255, 255, 255));
         jScrollPane2.setViewportView(searchTable);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
