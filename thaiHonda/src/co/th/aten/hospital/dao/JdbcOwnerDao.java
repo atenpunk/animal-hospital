@@ -50,9 +50,7 @@ public class JdbcOwnerDao implements OwnerDao {
             String sql = " INSERT INTO owner (owner_id,owner_name,owner_phone,owner_email,owner_address "
                     + " , owner_create_by, owner_create_date, owner_update_by, owner_update_date ) "
                     + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-            return (this.simpleJdbcTemplate.update(sql, ownerModel.getId(), ownerModel.getName(), ownerModel.getPhoneNumber()
-                    , ownerModel.getEmail(), ownerModel.getAddress(), ownerModel.getCreateBy(), sdfDate.parse(sdfDate.format(ownerModel.getCreateDate()))
-                    , ownerModel.getUpdateBy(), sdfDate.parse(sdfDate.format(ownerModel.getUpdateDate()))) > 0) ? true : false;
+            return (this.simpleJdbcTemplate.update(sql, ownerModel.getId(), ownerModel.getName(), ownerModel.getPhoneNumber(), ownerModel.getEmail(), ownerModel.getAddress(), ownerModel.getCreateBy(), sdfDate.parse(sdfDate.format(ownerModel.getCreateDate())), ownerModel.getUpdateBy(), sdfDate.parse(sdfDate.format(ownerModel.getUpdateDate()))) > 0) ? true : false;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -71,9 +69,7 @@ public class JdbcOwnerDao implements OwnerDao {
                     + " , owner_update_by = ? "
                     + " , owner_update_date = ? "
                     + " WHERE owner_id = ? ";
-            return (this.simpleJdbcTemplate.update(sql, ownerModel.getName(), ownerModel.getPhoneNumber(), ownerModel.getEmail()
-                    , ownerModel.getAddress(), ownerModel.getUpdateBy(), sdfDate.parse(sdfDate.format(ownerModel.getUpdateDate()))
-                    , ownerModel.getId()) > 0) ? true : false;
+            return (this.simpleJdbcTemplate.update(sql, ownerModel.getName(), ownerModel.getPhoneNumber(), ownerModel.getEmail(), ownerModel.getAddress(), ownerModel.getUpdateBy(), sdfDate.parse(sdfDate.format(ownerModel.getUpdateDate())), ownerModel.getId()) > 0) ? true : false;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -85,18 +81,18 @@ public class JdbcOwnerDao implements OwnerDao {
             String sql = " select ow.owner_id, ow.owner_name, ow.owner_phone, ow.owner_email, ow.owner_address "
                     + " , pe.pet_id, pe.pet_name, pe.pet_type, pe.pet_breed, pe.pet_color, pe.pet_sex, pe.pet_image, pe.pet_birthdate "
                     + " from owner ow "
-                    + " left join pet pe on(pe.owner_id = ow.owner_id) "
-                    + " where owner_name like '%" + word + "%' "
-                    + " or owner_phone like '%" + word + "%' "
-                    + " or owner_email like '%" + word + "%' "
-                    + " or pet_name like '%" + word + "%' "
-                    + " or pet_type like '%" + word + "%' "
-                    + " or pet_breed like '%" + word + "%' "
-                    + " or pet_color like '%" + word + "%' "
-                    + " or pet_sex like '%" + word + "%' ";
-
+                    + " left join pet pe on(pe.owner_id = ow.owner_id) ";
+            if (word != null && !word.equals("")) {
+                sql += " where owner_name like '%" + word + "%' "
+                        + " or owner_phone like '%" + word + "%' "
+                        + " or owner_email like '%" + word + "%' "
+                        + " or pet_name like '%" + word + "%' "
+                        + " or pet_type like '%" + word + "%' "
+                        + " or pet_breed like '%" + word + "%' "
+                        + " or pet_color like '%" + word + "%' "
+                        + " or pet_sex like '%" + word + "%' ";
+            }
             ParameterizedRowMapper<OwnerModel> mapper = new ParameterizedRowMapper<OwnerModel>() {
-
                 @Override
                 public OwnerModel mapRow(ResultSet rs, int arg1) throws SQLException {
                     OwnerModel model = new OwnerModel();
