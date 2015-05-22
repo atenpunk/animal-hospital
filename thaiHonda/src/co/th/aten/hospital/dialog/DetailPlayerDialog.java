@@ -64,8 +64,8 @@ public class DetailPlayerDialog extends ApplicationDialog {
         int height = toolkit.getScreenSize().height;
         int width = toolkit.getScreenSize().width;
         System.out.println("--->>>>" + height + ", " + width);
-        height = height - (int) (height * 0.13);
-        width = width - (int) (width * 0.15);
+        height = height - (int) (height * 0.11);
+        width = width - (int) (width * 0.11);
         System.out.println("--->>>>" + height + ", " + width);
         Dimension dimension = new Dimension(width, height);
         if (panel == null) {
