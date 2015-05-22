@@ -11,15 +11,9 @@
 package co.th.aten.hospital.ui;
 
 import co.th.aten.hospital.service.SessionManager;
-import java.awt.AlphaComposite;
-import java.awt.Color;
-import java.awt.Composite;
-import java.awt.FontMetrics;
-import java.awt.Graphics2D;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.richclient.application.Application;
@@ -88,14 +82,14 @@ public class InfoPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         lbDateValue = new javax.swing.JLabel();
 
-        setMinimumSize(new java.awt.Dimension(800, 100));
-        setPreferredSize(new java.awt.Dimension(800, 100));
+        setMinimumSize(new java.awt.Dimension(800, 120));
+        setPreferredSize(new java.awt.Dimension(800, 120));
         setLayout(new java.awt.BorderLayout());
 
         pnInformation.setBackground(new java.awt.Color(255, 255, 255));
         pnInformation.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        pnInformation.setMinimumSize(new java.awt.Dimension(1024, 150));
-        pnInformation.setPreferredSize(new java.awt.Dimension(1024, 150));
+        pnInformation.setMinimumSize(new java.awt.Dimension(1024, 190));
+        pnInformation.setPreferredSize(new java.awt.Dimension(1024, 190));
         pnInformation.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lbStaff.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
@@ -106,32 +100,32 @@ public class InfoPanel extends javax.swing.JPanel {
         lbStaff.setMinimumSize(new java.awt.Dimension(50, 17));
         pnInformation.add(lbStaff, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 20, 70, -1));
 
-        lbBOJ.setFont(new java.awt.Font("Dialog", 0, 14));
+        lbBOJ.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         lbBOJ.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lbBOJ.setText(bundle.getString("info.boj")); // NOI18N
         lbBOJ.setPreferredSize(new java.awt.Dimension(25, 15));
         pnInformation.add(lbBOJ, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 50, 120, 20));
 
-        lbBOJValue.setFont(new java.awt.Font("Dialog", 1, 14));
+        lbBOJValue.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         lbBOJValue.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lbBOJValue.setText("-");
         lbBOJValue.setPreferredSize(new java.awt.Dimension(20, 15));
         pnInformation.add(lbBOJValue, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 50, 170, 20));
 
-        lbStaffValue.setFont(new java.awt.Font("Dialog", 1, 14));
+        lbStaffValue.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         lbStaffValue.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lbStaffValue.setText("-");
         pnInformation.add(lbStaffValue, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 20, 280, -1));
 
-        lbTimeValue.setFont(new java.awt.Font("Tahoma", 1, 36));
+        lbTimeValue.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         lbTimeValue.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lbTimeValue.setText("07:50:50");
         pnInformation.add(lbTimeValue, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 40, -1, -1));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo_pet.jpg"))); // NOI18N
-        pnInformation.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 240, 80));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo_thai_honda.jpg"))); // NOI18N
+        pnInformation.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 170, 100));
 
-        lbDateValue.setFont(new java.awt.Font("Tahoma", 1, 24));
+        lbDateValue.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         lbDateValue.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lbDateValue.setText("29/04/2552");
         pnInformation.add(lbDateValue, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 10, 160, -1));
