@@ -4,7 +4,7 @@
  */
 package co.th.aten.hospital.dialog;
 
-import co.th.aten.hospital.ui.form.AddNewOwnerPanel;
+import co.th.aten.hospital.ui.form.AddNewPlayerPanel;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
@@ -20,11 +20,11 @@ import org.springframework.richclient.dialog.ApplicationDialog;
  *
  * @author mai
  */
-public class AddNewOwnerDialog extends ApplicationDialog {
+public class AddNewPlayerDialog extends ApplicationDialog {
 
-    private AddNewOwnerPanel panel;
+    private AddNewPlayerPanel panel;
 
-    public AddNewOwnerDialog() {
+    public AddNewPlayerDialog() {
         this.getDialog().setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
     }
 
@@ -43,32 +43,32 @@ public class AddNewOwnerDialog extends ApplicationDialog {
     @Override
     protected JComponent createButtonBar() {
         JPanel bpanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        JButton btClose = new JButton("  Close  ");
-        btClose.setFont(new java.awt.Font("Tahoma", 1, 12));
-        btClose.setPreferredSize(new java.awt.Dimension(100, 25));
-        btClose.addActionListener(new ActionListener() {
-
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
-        });
-        bpanel.add(btClose);
+//        JButton btClose = new JButton("  Close  ");
+//        btClose.setFont(new java.awt.Font("Tahoma", 1, 12));
+//        btClose.setPreferredSize(new java.awt.Dimension(100, 25));
+//        btClose.addActionListener(new ActionListener() {
+//
+//            public void actionPerformed(ActionEvent e) {
+//                onCancel();
+//            }
+//        });
+//        bpanel.add(btClose);
         return bpanel;
     }
 
     @Override
     protected JComponent createDialogContentPane() {
-        setTitle("Add New Owner");
+        setTitle("Add New Player");
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         int height = toolkit.getScreenSize().height;
         int width = toolkit.getScreenSize().width;
         System.out.println("--->>>>" + height + ", " + width);
-        height = height - (int) (height * 0.3);
-        width = width - (int) (height * 0.3);
+        height = height - (int) (height * 0.57);
+        width = width - (int) (width * 0.53);
         System.out.println("--->>>>" + height + ", " + width);
         Dimension dimension = new Dimension(width, height);
         if (panel == null) {
-            panel = new AddNewOwnerPanel();
+            panel = new AddNewPlayerPanel();
         }
         panel.setSize(dimension);
         panel.setMaximumSize(dimension);

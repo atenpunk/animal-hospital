@@ -4,7 +4,7 @@
  */
 package co.th.aten.hospital.dialog;
 
-import co.th.aten.hospital.ui.form.AddNewOwnerPanel;
+import co.th.aten.hospital.ui.form.AddNewPlayerPanel;
 import co.th.aten.hospital.ui.form.ShowHistoryPanel;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
