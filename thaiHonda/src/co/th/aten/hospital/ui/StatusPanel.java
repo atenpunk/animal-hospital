@@ -40,7 +40,7 @@ public class StatusPanel extends javax.swing.JPanel {
         initComponents();
         netStatus = Constants.NET_STATUS_FAIL;
 
-        btNet.setEnabled(true);
+        btDataBase.setEnabled(true);
 //        blink = false;
 
     }
@@ -49,12 +49,12 @@ public class StatusPanel extends javax.swing.JPanel {
         if (netStatus != status) {
             if (status == Constants.NET_STATUS_OK) {
                 ImageSource is = (ImageSource) Application.services().getService(ImageSource.class);
-                btNet.setIcon(new ImageIcon(is.getImage("status.netOk")));
-                btNet.repaint();
+                btDataBase.setIcon(new ImageIcon(is.getImage("status.netOk")));
+                btDataBase.repaint();
             } else {
                 ImageSource is = (ImageSource) Application.services().getService(ImageSource.class);
-                btNet.setIcon(new ImageIcon(is.getImage("status.netFail")));
-                btNet.repaint();
+                btDataBase.setIcon(new ImageIcon(is.getImage("status.netFail")));
+                btDataBase.repaint();
             }
             this.netStatus = status;
         }
@@ -161,8 +161,7 @@ public class StatusPanel extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        btReader = new javax.swing.JButton();
-        btNet = new javax.swing.JButton();
+        btDataBase = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(700, 55));
@@ -195,19 +194,10 @@ public class StatusPanel extends javax.swing.JPanel {
         jPanel2.setMinimumSize(new java.awt.Dimension(75, 55));
         jPanel2.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
 
-        btReader.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/scrx.png"))); // NOI18N
-        btReader.setPreferredSize(new java.awt.Dimension(30, 30));
-        btReader.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btReaderActionPerformed(evt);
-            }
-        });
-        jPanel2.add(btReader);
-
-        btNet.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/netx.png"))); // NOI18N
-        btNet.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/images/netx.png"))); // NOI18N
-        btNet.setPreferredSize(new java.awt.Dimension(30, 30));
-        jPanel2.add(btNet);
+        btDataBase.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/netx.png"))); // NOI18N
+        btDataBase.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/images/netx.png"))); // NOI18N
+        btDataBase.setPreferredSize(new java.awt.Dimension(30, 30));
+        jPanel2.add(btDataBase);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -216,20 +206,8 @@ public class StatusPanel extends javax.swing.JPanel {
         add(jPanel2, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btReaderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btReaderActionPerformed
-//        try {
-//            btReader.setEnabled(false);
-//            CardReaderManager reader = (CardReaderManagerBean) Application.services().getService(CardReaderManager.class);
-//            reader.selfTest();
-//        } catch (Exception e) {
-//        } finally {
-//            btReader.setEnabled(true);
-//        }
-
-    }//GEN-LAST:event_btReaderActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btNet;
-    private javax.swing.JButton btReader;
+    private javax.swing.JButton btDataBase;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
