@@ -4,7 +4,7 @@
  */
 package co.th.aten.hospital.dao;
 
-import co.th.aten.hospital.model.TypeModel;
+import co.th.aten.hospital.model.PositionModel;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -18,7 +18,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
  *
  * @author Atenpunk
  */
-public class JdbcTypeDao implements TypeDao {
+public class JdbcPositionDao implements PositionDao {
 
     private final Log logger = LogFactory.getLog(getClass());
     private SimpleJdbcTemplate simpleJdbcTemplate;
@@ -33,19 +33,19 @@ public class JdbcTypeDao implements TypeDao {
         this.simpleJdbcTemplate = new SimpleJdbcTemplate(dataSource);
     }
 
-    public List<TypeModel> getTypeList() {
+    public List<PositionModel> getTypeList() {
         try {
-            String sql = " select type_id, type_eng_name, type_thai_name "
-                    + " from pet_type order by type_id ";
+            String sql = " select ID, NAME, LOCAL_NAME "
+                    + " from POSITION order by ID ";
 
-            ParameterizedRowMapper<TypeModel> mapper = new ParameterizedRowMapper<TypeModel>() {
+            ParameterizedRowMapper<PositionModel> mapper = new ParameterizedRowMapper<PositionModel>() {
 
                 @Override
-                public TypeModel mapRow(ResultSet rs, int arg1) throws SQLException {
-                    TypeModel model = new TypeModel();
-                    model.setTypeId(rs.getInt("type_id"));
-                    model.setEngName(rs.getString("type_eng_name"));
-                    model.setThaiName(rs.getString("type_thai_name"));
+                public PositionModel mapRow(ResultSet rs, int arg1) throws SQLException {
+                    PositionModel model = new PositionModel();
+                    model.setId(rs.getInt("ID"));
+                    model.setEngName(rs.getString("NAME"));
+                    model.setThaiName(rs.getString("LOCAL_NAME"));
                     return model;
                 }
             };

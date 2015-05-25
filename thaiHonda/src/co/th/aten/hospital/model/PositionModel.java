@@ -9,9 +9,9 @@ package co.th.aten.hospital.model;
  *
  * @author Atenpunk
  */
-public class TypeModel {
+public class PositionModel {
 
-    private int typeId;
+    private int id;
     private String engName;
     private String thaiName;
 
@@ -31,13 +31,14 @@ public class TypeModel {
         this.thaiName = thaiName;
     }
 
-    public int getTypeId() {
-        return typeId;
+    public int getId() {
+        return id;
     }
 
-    public void setTypeId(int typeId) {
-        this.typeId = typeId;
+    public void setId(int id) {
+        this.id = id;
     }
-
+    
+    
 
 }

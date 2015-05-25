@@ -5,18 +5,18 @@
 
 package co.th.aten.hospital.dao;
 
-import co.th.aten.hospital.model.TypeModel;
+import co.th.aten.hospital.model.PositionModel;
 import java.util.List;
 import javax.sql.DataSource;
 /**
  *
  * @author Atenpunk
  */
-public interface TypeDao {
+public interface PositionDao {
 
     public DataSource getDataSource();
 
     public void setDataSource(DataSource dataSource);
 
-    public List<TypeModel> getTypeList();
+    public List<PositionModel> getTypeList();
 }

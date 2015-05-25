@@ -13,12 +13,12 @@ package co.th.aten.hospital.ui.form;
 import co.th.aten.hospital.model.BreedModel;
 import co.th.aten.hospital.model.OwnerModel;
 import co.th.aten.hospital.model.PetModel;
-import co.th.aten.hospital.model.TypeModel;
+import co.th.aten.hospital.model.PositionModel;
 import co.th.aten.hospital.service.BreedManager;
 import co.th.aten.hospital.service.OwnerManager;
 import co.th.aten.hospital.service.PetManager;
 import co.th.aten.hospital.service.SessionManager;
-import co.th.aten.hospital.service.TypeManager;
+import co.th.aten.hospital.service.PositionManager;
 import co.th.aten.hospital.ui.ProcessTransactionDialog;
 import co.th.aten.hospital.util.Util;
 import java.awt.Color;
@@ -67,7 +67,7 @@ public class EditOwnerPanel extends javax.swing.JPanel {
     private OwnerManager ownerManager;
     private PetManager petManager;
     private SessionManager sessionManager;
-    private TypeManager typeManager;
+    private PositionManager typeManager;
     private BreedManager breedManager;
     private File fileImg;
     private List<OwnerModel> ownerList;
@@ -79,7 +79,7 @@ public class EditOwnerPanel extends javax.swing.JPanel {
         this.ownerManager = (OwnerManager) Application.services().getService(OwnerManager.class);
         this.petManager = (PetManager) Application.services().getService(PetManager.class);
         this.sessionManager = (SessionManager) Application.services().getService(SessionManager.class);
-        this.typeManager = (TypeManager) Application.services().getService(TypeManager.class);
+        this.typeManager = (PositionManager) Application.services().getService(PositionManager.class);
         this.breedManager = (BreedManager) Application.services().getService(BreedManager.class);
         initComponents();
 
@@ -119,15 +119,15 @@ public class EditOwnerPanel extends javax.swing.JPanel {
             }
         });
 
-        List<TypeModel> typeList = typeManager.getTypeList();
-        if (typeList != null) {
-            for (TypeModel model : typeList) {
-                petTypeComboBox.addItem(model.getEngName());
-            }
-            petTypeComboBox.setSelectedIndex(-1);
-            petTypeComboBox.setEditable(true);
-            new MainTest(petTypeComboBox);
-        }
+//        List<PositionModel> typeList = typeManager.getTypeList();
+//        if (typeList != null) {
+//            for (PositionModel model : typeList) {
+//                petTypeComboBox.addItem(model.getEngName());
+//            }
+//            petTypeComboBox.setSelectedIndex(-1);
+//            petTypeComboBox.setEditable(true);
+//            new MainTest(petTypeComboBox);
+//        }
 
         List<BreedModel> breedList = breedManager.getBreedListOrderByEngName(-1);
         if (breedList != null) {
