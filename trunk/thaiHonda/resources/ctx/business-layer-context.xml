@@ -62,7 +62,7 @@
     <bean id="breedDao" class="co.th.aten.hospital.dao.JdbcBreedDao" lazy-init="true" >
         <property name="dataSource" ref="dataSource" />
     </bean>
-    <bean id="typeDao" class="co.th.aten.hospital.dao.JdbcTypeDao" lazy-init="true" >
+    <bean id="positionDao" class="co.th.aten.hospital.dao.JdbcPositionDao" lazy-init="true" >
         <property name="dataSource" ref="dataSource" />
     </bean>
     <bean id="treatmentHistoryDao" class="co.th.aten.hospital.dao.JdbcTreatmentHistoryDao" lazy-init="true" >
@@ -87,8 +87,8 @@
     <bean id="breedManager" class="co.th.aten.hospital.service.BreedManagerBean" lazy-init="true" >
         <property name="breedDao" ref="breedDao" />
     </bean>
-    <bean id="typeManager" class="co.th.aten.hospital.service.TypeManagerBean" lazy-init="true" >
-        <property name="typeDao" ref="typeDao" />
+    <bean id="positionManager" class="co.th.aten.hospital.service.PositionManagerBean" lazy-init="true" >
+        <property name="positionDao" ref="positionDao" />
     </bean>
     <bean id="treatmentHistoryManager" class="co.th.aten.hospital.service.TreatmentHistoryManagerBean" lazy-init="true" >
         <property name="treatmentHistoryDao" ref="treatmentHistoryDao" />

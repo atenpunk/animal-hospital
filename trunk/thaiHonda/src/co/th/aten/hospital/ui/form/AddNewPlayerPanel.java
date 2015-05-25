@@ -12,12 +12,12 @@ package co.th.aten.hospital.ui.form;
 
 import co.th.aten.hospital.dialog.AddNewPlayerDialog;
 import co.th.aten.hospital.model.PetModel;
-import co.th.aten.hospital.model.TypeModel;
+import co.th.aten.hospital.model.PositionModel;
 import co.th.aten.hospital.service.BreedManager;
 import co.th.aten.hospital.service.OwnerManager;
 import co.th.aten.hospital.service.PetManager;
 import co.th.aten.hospital.service.SessionManager;
-import co.th.aten.hospital.service.TypeManager;
+import co.th.aten.hospital.service.PositionManager;
 import co.th.aten.hospital.util.Util;
 import java.awt.Color;
 import java.awt.Font;
@@ -52,7 +52,7 @@ public class AddNewPlayerPanel extends javax.swing.JPanel {
     private List<PetModel> petModelList;
     private OwnerManager ownerManager;
     private PetManager petManager;
-    private TypeManager typeManager;
+    private PositionManager positionManager;
     private BreedManager breedManager;
     private SessionManager sessionManager;
     private File fileImg;
@@ -64,7 +64,7 @@ public class AddNewPlayerPanel extends javax.swing.JPanel {
         this.ownerManager = (OwnerManager) Application.services().getService(OwnerManager.class);
         this.petManager = (PetManager) Application.services().getService(PetManager.class);
         this.sessionManager = (SessionManager) Application.services().getService(SessionManager.class);
-        this.typeManager = (TypeManager) Application.services().getService(TypeManager.class);
+        this.positionManager = (PositionManager) Application.services().getService(PositionManager.class);
         this.breedManager = (BreedManager) Application.services().getService(BreedManager.class);
         initComponents();
 
@@ -75,6 +75,18 @@ public class AddNewPlayerPanel extends javax.swing.JPanel {
         birthdayPlayer.getMonthView().setDayForeground(Calendar.SATURDAY, Color.BLUE);
         birthdayPlayer.getMonthView().setDayForeground(Calendar.SUNDAY, Color.RED);
         birthdayPlayer.setDate(new Date());
+        
+        startContract.setFormats("dd/MM/yyyy");
+        startContract.setLocale(Locale.US);
+        startContract.getMonthView().setDayForeground(Calendar.SATURDAY, Color.BLUE);
+        startContract.getMonthView().setDayForeground(Calendar.SUNDAY, Color.RED);
+        startContract.setDate(new Date());
+        
+        endContract.setFormats("dd/MM/yyyy");
+        endContract.setLocale(Locale.US);
+        endContract.getMonthView().setDayForeground(Calendar.SATURDAY, Color.BLUE);
+        endContract.getMonthView().setDayForeground(Calendar.SUNDAY, Color.RED);
+        endContract.setDate(new Date());
 
         birthdayPlayer.addActionListener(new ActionListener() {
 
@@ -87,9 +99,9 @@ public class AddNewPlayerPanel extends javax.swing.JPanel {
             }
         });
 
-        List<TypeModel> typeList = typeManager.getTypeList();
-        if (typeList != null) {
-            for (TypeModel model : typeList) {
+        List<PositionModel> positionList = positionManager.getPositionList();
+        if (positionList != null) {
+            for (PositionModel model : positionList) {
                 positionComboBox.addItem(model.getEngName());
             }
             positionComboBox.setSelectedIndex(-1);
@@ -198,23 +210,28 @@ public class AddNewPlayerPanel extends javax.swing.JPanel {
                             .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE)
                             .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(birthdayPlayer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(numberText, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(positionComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(agePlayerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addComponent(startContract, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(endContract, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(namePlayerText))
-                        .addGap(35, 35, 35))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(numberText, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(namePlayerText, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                                .addComponent(startContract, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                                .addComponent(birthdayPlayer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(agePlayerLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(endContract, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -270,7 +287,7 @@ public class AddNewPlayerPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
