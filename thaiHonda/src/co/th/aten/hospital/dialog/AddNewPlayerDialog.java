@@ -40,6 +40,11 @@ public class AddNewPlayerDialog extends ApplicationDialog {
         dispose();
     }
 
+    public void closePanel(){
+        super.onCancel();
+        dispose();
+    }
+    
     @Override
     protected JComponent createButtonBar() {
         JPanel bpanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
@@ -68,7 +73,7 @@ public class AddNewPlayerDialog extends ApplicationDialog {
         System.out.println("--->>>>" + height + ", " + width);
         Dimension dimension = new Dimension(width, height);
         if (panel == null) {
-            panel = new AddNewPlayerPanel();
+            panel = new AddNewPlayerPanel(this);
         }
         panel.setSize(dimension);
         panel.setMaximumSize(dimension);
