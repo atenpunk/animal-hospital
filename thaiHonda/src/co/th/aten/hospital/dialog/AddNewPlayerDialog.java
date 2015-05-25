@@ -68,7 +68,7 @@ public class AddNewPlayerDialog extends ApplicationDialog {
         int height = toolkit.getScreenSize().height;
         int width = toolkit.getScreenSize().width;
         System.out.println("--->>>>" + height + ", " + width);
-        height = height - (int) (height * 0.57);
+        height = height - (int) (height * 0.55);
         width = width - (int) (width * 0.53);
         System.out.println("--->>>>" + height + ", " + width);
         Dimension dimension = new Dimension(width, height);
