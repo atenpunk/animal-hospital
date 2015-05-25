@@ -10,8 +10,6 @@
 package co.th.aten.hospital.ui.form;
 
 import co.th.aten.hospital.ui.report.ViewReportTestRadarDlg;
-import co.th.aten.hospital.model.OwnerModel;
-import co.th.aten.hospital.service.OwnerManager;
 import co.th.aten.hospital.service.SessionManager;
 import co.th.aten.hospital.ui.ProcessTransactionDialog;
 import com.jensoft.sw2d.core.view.View2D;
@@ -40,13 +38,9 @@ import org.springframework.richclient.application.Application;
 public class DetailPlayerPanel extends javax.swing.JPanel {
 
 //    private final Log logger = LogFactory.getLog(getClass());
-    private OwnerManager ownerManager;
-    private List<OwnerModel> ownerList;
-    private OwnerModel modelSelected;
     private SessionManager sessionManager;
 
     public DetailPlayerPanel() {
-        this.ownerManager = (OwnerManager) Application.services().getService(OwnerManager.class);
         this.sessionManager = (SessionManager) Application.services().getService(SessionManager.class);
         initComponents();
 
@@ -95,8 +89,8 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
                     clearData();
                     JTable target = (JTable) e.getSource();
                     int row = target.getSelectedRow();
-                    if (ownerList != null && ownerList.size() >= row) {
-                    }
+//                    if (ownerList != null && ownerList.size() >= row) {
+//                    }
                 }
             }
         });
@@ -471,22 +465,22 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_searchButtonActionPerformed
 
     private void searchByKeyWord() {
-        Runnable r = new Runnable() {
-            public void run() {
-                ownerList = ownerManager.searchByKeyWord(searchText.getText());
-                DefaultTableModel modelTable = (DefaultTableModel) searchTable.getModel();
-                while (modelTable.getRowCount() > 0) {
-                    modelTable.removeRow(0);
-                }
-                if (ownerList != null) {
-                    for (OwnerModel model : ownerList) {
-                        Object[] row = {model.getName(), model.getPetModel().getName(), model.getPetModel().getType(), model.getPetModel().getBreed()};
-                        modelTable.addRow(row);
-                    }
-                }
-            }
-        };
-        new ProcessTransactionDialog(new JFrame(), true, r, "Please wait the system is running...");
+//        Runnable r = new Runnable() {
+//            public void run() {
+//                ownerList = ownerManager.searchByKeyWord(searchText.getText());
+//                DefaultTableModel modelTable = (DefaultTableModel) searchTable.getModel();
+//                while (modelTable.getRowCount() > 0) {
+//                    modelTable.removeRow(0);
+//                }
+//                if (ownerList != null) {
+//                    for (OwnerModel model : ownerList) {
+//                        Object[] row = {model.getName(), model.getPetModel().getName(), model.getPetModel().getType(), model.getPetModel().getBreed()};
+//                        modelTable.addRow(row);
+//                    }
+//                }
+//            }
+//        };
+//        new ProcessTransactionDialog(new JFrame(), true, r, "Please wait the system is running...");
     }
 
     private static BufferedImage resizeImage(BufferedImage originalImage, int type) {

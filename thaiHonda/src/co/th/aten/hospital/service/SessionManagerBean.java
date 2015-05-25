@@ -4,7 +4,7 @@
  */
 package co.th.aten.hospital.service;
 
-import co.th.aten.hospital.model.PetModel;
+import co.th.aten.hospital.model.PlayersModel;
 import co.th.aten.hospital.model.UserModel;
 import java.io.Serializable;
 import org.apache.commons.logging.Log;
@@ -18,7 +18,7 @@ public class SessionManagerBean implements Serializable, SessionManager {
 
     private final Log logger = LogFactory.getLog(getClass());
     private UserModel user;
-    private PetModel petModel;
+    private PlayersModel petModel;
 
     public SessionManagerBean() {
     }
@@ -31,11 +31,11 @@ public class SessionManagerBean implements Serializable, SessionManager {
         this.user = user;
     }
 
-    public PetModel getPetModel() {
+    public PlayersModel getPetModel() {
         return petModel;
     }
 
-    public void setPetModel(PetModel petModel) {
+    public void setPetModel(PlayersModel petModel) {
         this.petModel = petModel;
     }
 

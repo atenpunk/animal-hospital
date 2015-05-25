@@ -4,7 +4,7 @@
  */
 package co.th.aten.hospital.service;
 
-import co.th.aten.hospital.model.PetModel;
+import co.th.aten.hospital.model.PlayersModel;
 import co.th.aten.hospital.model.UserModel;
 
 
@@ -18,8 +18,8 @@ public interface SessionManager {
 
     public void setUser(UserModel user);
 
-    public PetModel getPetModel();
+    public PlayersModel getPetModel();
 
-    public void setPetModel(PetModel petModel);
+    public void setPetModel(PlayersModel petModel);
     
 }
