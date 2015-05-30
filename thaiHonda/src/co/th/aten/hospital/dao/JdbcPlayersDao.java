@@ -20,7 +20,7 @@ import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
  *
  * @author Atenpunk
  */
-public class JdbcOwnerDao implements OwnerDao {
+public class JdbcPlayersDao implements PlayersDao {
 
     private final Log logger = LogFactory.getLog(getClass());
     private SimpleJdbcTemplate simpleJdbcTemplate;
@@ -36,27 +36,38 @@ public class JdbcOwnerDao implements OwnerDao {
         this.simpleJdbcTemplate = new SimpleJdbcTemplate(dataSource);
     }
 
-    public int getMaxOwnerId() {
-        String sql = "select max(owner_id) from owner ";
+    public int getMaxPlayersId() {
+        String sql = "select max(PLAYER_ID) from PLAYERS ";
         return this.simpleJdbcTemplate.queryForInt(sql);
     }
 
-    public boolean insertOwner(PlayersModel playersModel) {
-//        if (logger.isDebugEnabled()) {
-//            logger.debug("Insert Owner_ID = " + playersModel.getId());
-//        }
-//        try {
-//            String sql = " INSERT INTO owner (owner_id,owner_name,owner_phone,owner_email,owner_address "
-//                    + " , owner_create_by, owner_create_date, owner_update_by, owner_update_date ) "
-//                    + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-//            return (this.simpleJdbcTemplate.update(sql, ownerModel.getId(), ownerModel.getName(), ownerModel.getPhoneNumber(), ownerModel.getEmail(), ownerModel.getAddress(), ownerModel.getCreateBy(), sdfDate.parse(sdfDate.format(ownerModel.getCreateDate())), ownerModel.getUpdateBy(), sdfDate.parse(sdfDate.format(ownerModel.getUpdateDate()))) > 0) ? true : false;
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+    public boolean insertPlayers(PlayersModel playersModel) {
+        logger.info("Insert Player_ID = " + playersModel.getPlayerId());
+        try {
+            String sql = " INSERT INTO PLAYERS (PLAYER_ID,PLAYER_NAME,PLAYER_NUMBER,HEIGHT,WEIGHT "
+                    + " , POSITION_ID, BIRTHDAY, CONTRACT_START, CONTRACT_END, IMAGE "
+                    + " , GC, ANNUAL_SALARY, SIGNING_FEE, SALARY_MONTH, GOAL "
+                    + " , PLAYING_TIME, MATCH_NUMBER, WIN, LOSE, DRAW "
+                    + " , CREATE_BY, CREATE_DATE, UPDATE_BY, UPDATE_DATE ) "
+                    + " VALUES (?, ?, ?, ?, ?, "
+                    + " ?, ?, ?, ?, ?,"
+                    + " ?, ?, ?, ?, ?,"
+                    + " ?, ?, ?, ?, ?,"
+                    + " ?, ?, ?, ?) ";
+            return (this.simpleJdbcTemplate.update(sql, playersModel.getPlayerId(), playersModel.getPlayerName(), playersModel.getPlayerNumber(), playersModel.getHeight(), playersModel.getWeight(), playersModel.getPositionId(), sdfDate.parse(sdfDate.format(playersModel.getBirthday())), sdfDate.parse(sdfDate.format(playersModel.getContractStart())), sdfDate.parse(sdfDate.format(playersModel.getContractEnd())), playersModel.getImage(), playersModel.getGc(), playersModel.getAnnualSalary(), playersModel.getSigningFee(), playersModel.getSalaryMonth(), playersModel.getGoal(), playersModel.getPlayingTime(), playersModel.getMatch(), playersModel.getWin(), playersModel.getLose(), playersModel.getDraw(), playersModel.getCreateBy(), sdfDate.parse(sdfDate.format(playersModel.getCreateDate())), playersModel.getUpdateBy(), sdfDate.parse(sdfDate.format(playersModel.getUpdateDate()))) > 0) ? true : false;
+//            boolean insert = (this.simpleJdbcTemplate.update(sql, playersModel.getPlayerId(), playersModel.getPlayerName(),playersModel.getPlayerNumber(), playersModel.getHeight(), playersModel.getWeight()
+//                    ,playersModel.getPositionId(),sdfDate.parse(sdfDate.format(playersModel.getBirthday())), sdfDate.parse(sdfDate.format(playersModel.getContractStart())), sdfDate.parse(sdfDate.format(playersModel.getContractEnd())), playersModel.getImage()
+//                    ,playersModel.getGc(), playersModel.getAnnualSalary(), playersModel.getSigningFee(), playersModel.getSalaryMonth(), playersModel.getGoal()
+//                    ,playersModel.getPlayingTime(), playersModel.getMatch(), playersModel.getWin(), playersModel.getLose(), playersModel.getDraw()
+//                    ,playersModel.getCreateBy(), sdfDate.parse(sdfDate.format(playersModel.getCreateDate())), playersModel.getUpdateBy(), sdfDate.parse(sdfDate.format(playersModel.getUpdateDate()))) > 0) ? true : false;
+//            return insert;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return false;
     }
 
-    public boolean updateOwner(PlayersModel playersModel) {
+    public boolean updatePlayers(PlayersModel playersModel) {
 //        if (logger.isDebugEnabled()) {
 //            logger.debug("Update Owner_ID = " + ownerModel.getId());
 //        }

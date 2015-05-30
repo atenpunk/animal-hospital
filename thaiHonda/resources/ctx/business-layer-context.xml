@@ -53,22 +53,12 @@
     <bean id="userDao" class="co.th.aten.hospital.dao.JdbcUserDao" lazy-init="true" >
         <property name="dataSource" ref="dataSource" />
     </bean>
-    <bean id="ownerDao" class="co.th.aten.hospital.dao.JdbcOwnerDao" lazy-init="true" >
-        <property name="dataSource" ref="dataSource" />
-    </bean>
-    <bean id="petDao" class="co.th.aten.hospital.dao.JdbcPetDao" lazy-init="true" >
-        <property name="dataSource" ref="dataSource" />
-    </bean>
-    <bean id="breedDao" class="co.th.aten.hospital.dao.JdbcBreedDao" lazy-init="true" >
+    <bean id="playersDao" class="co.th.aten.hospital.dao.JdbcPlayersDao" lazy-init="true" >
         <property name="dataSource" ref="dataSource" />
     </bean>
     <bean id="positionDao" class="co.th.aten.hospital.dao.JdbcPositionDao" lazy-init="true" >
         <property name="dataSource" ref="dataSource" />
     </bean>
-    <bean id="treatmentHistoryDao" class="co.th.aten.hospital.dao.JdbcTreatmentHistoryDao" lazy-init="true" >
-        <property name="dataSource" ref="dataSource" />
-    </bean>
-
 
     <!-- Service -->
     <bean id="sessionManager" class="co.th.aten.hospital.service.SessionManagerBean" lazy-init="true" >
@@ -78,20 +68,10 @@
     <bean id="loginManager" class="co.th.aten.hospital.service.LoginManagerBean" lazy-init="true" >
         <property name="userDao" ref="userDao" />
     </bean>
-    <bean id="ownerManager" class="co.th.aten.hospital.service.OwnerManagerBean" lazy-init="true" >
-        <property name="ownerDao" ref="ownerDao" />
-    </bean>
-    <bean id="petManager" class="co.th.aten.hospital.service.PetManagerBean" lazy-init="true" >
-        <property name="petDao" ref="petDao" />
-    </bean>
-    <bean id="breedManager" class="co.th.aten.hospital.service.BreedManagerBean" lazy-init="true" >
-        <property name="breedDao" ref="breedDao" />
+    <bean id="playersManager" class="co.th.aten.hospital.service.PlayersManagerBean" lazy-init="true" >
+        <property name="playersDao" ref="playersDao" />
     </bean>
     <bean id="positionManager" class="co.th.aten.hospital.service.PositionManagerBean" lazy-init="true" >
         <property name="positionDao" ref="positionDao" />
     </bean>
-    <bean id="treatmentHistoryManager" class="co.th.aten.hospital.service.TreatmentHistoryManagerBean" lazy-init="true" >
-        <property name="treatmentHistoryDao" ref="treatmentHistoryDao" />
-    </bean>
-
 </beans>
