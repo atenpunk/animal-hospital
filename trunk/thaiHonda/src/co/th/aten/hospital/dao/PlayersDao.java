@@ -12,17 +12,17 @@ import javax.sql.DataSource;
  *
  * @author Atenpunk
  */
-public interface OwnerDao {
+public interface PlayersDao {
 
     public DataSource getDataSource();
 
     public void setDataSource(DataSource dataSource);
 
-    public boolean insertOwner(PlayersModel playersModel);
+    public boolean insertPlayers(PlayersModel playersModel);
 
-    public int getMaxOwnerId();
+    public int getMaxPlayersId();
 
     public List<PlayersModel> searchByKeyWord(String word);
 
-    public boolean updateOwner(PlayersModel playersModel);
+    public boolean updatePlayers(PlayersModel playersModel);
 }

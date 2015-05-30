@@ -13,6 +13,7 @@ package co.th.aten.hospital.ui.form;
 import co.th.aten.hospital.dialog.AddNewPlayerDialog;
 import co.th.aten.hospital.model.PlayersModel;
 import co.th.aten.hospital.model.PositionModel;
+import co.th.aten.hospital.service.PlayersManager;
 import co.th.aten.hospital.service.SessionManager;
 import co.th.aten.hospital.service.PositionManager;
 import co.th.aten.hospital.util.Util;
@@ -25,7 +26,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.imageio.ImageIO;
@@ -33,9 +33,12 @@ import org.springframework.richclient.application.Application;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import java.awt.event.*;
+import java.io.ByteArrayInputStream;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Locale;
 import javax.swing.*;
+import org.apache.commons.codec.binary.Hex;
 
 /**
  *
@@ -44,10 +47,12 @@ import javax.swing.*;
 public class AddNewPlayerPanel extends javax.swing.JPanel {
 
     private final Log logger = LogFactory.getLog(getClass());
-    private List<PlayersModel> playersModelList;
+    private PlayersModel playersModel;
     private PositionManager positionManager;
     private SessionManager sessionManager;
+    private PlayersManager playersManager;
     private File fileImg;
+    private HashMap<String, Integer> mapPosition;
     private AddNewPlayerDialog dialog;
 
     /**
@@ -55,10 +60,43 @@ public class AddNewPlayerPanel extends javax.swing.JPanel {
      */
     public AddNewPlayerPanel(AddNewPlayerDialog dialog) {
         this.dialog = dialog;
-        playersModelList = new ArrayList<PlayersModel>();
         this.sessionManager = (SessionManager) Application.services().getService(SessionManager.class);
         this.positionManager = (PositionManager) Application.services().getService(PositionManager.class);
+        this.playersManager = (PlayersManager) Application.services().getService(PlayersManager.class);
         initComponents();
+
+        numberText.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char character = e.getKeyChar();
+                if (((character < '0') || (character > '9'))
+                        && (character != '\b')) {
+                    e.consume();
+                }
+            }
+        });
+
+        heightText.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char character = e.getKeyChar();
+                if (((character < '0') || (character > '9'))
+                        && (character != '\b')) {
+                    e.consume();
+                }
+            }
+        });
+
+        weightText.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char character = e.getKeyChar();
+                if (((character < '0') || (character > '9'))
+                        && (character != '\b')) {
+                    e.consume();
+                }
+            }
+        });
 
         namePlayerText.setFont(new Font("Tahoma", 0, 11));
         positionComboBox.setFont(new Font("Tahoma", 0, 11));
@@ -92,7 +130,9 @@ public class AddNewPlayerPanel extends javax.swing.JPanel {
 
         List<PositionModel> positionList = positionManager.getPositionList();
         if (positionList != null) {
+            mapPosition = new HashMap<String, Integer>();
             for (PositionModel model : positionList) {
+                mapPosition.put(model.getEngName(), model.getId());
                 positionComboBox.addItem(model.getEngName());
             }
             positionComboBox.setSelectedIndex(-1);
@@ -318,24 +358,55 @@ public class AddNewPlayerPanel extends javax.swing.JPanel {
         fileImg = null;
     }
 
-    private void clearDataOwner() {
-        playersModelList = new ArrayList<PlayersModel>();
-        fileImg = null;
-    }
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         int saveConfirm = JOptionPane.showConfirmDialog(null, "Confirm save new player?", "Confirm Save", JOptionPane.OK_OPTION | JOptionPane.CANCEL_OPTION);
         if (saveConfirm == JOptionPane.OK_OPTION) {
             if (namePlayerText.getText() != null && namePlayerText.getText().trim().length() > 0) {
-                
-//                boolean chkInsertOwner = ownerManager.insertOwner(modelOwner);
-//                if (chkInsertOwner) {
-//                    JOptionPane.showMessageDialog(this, "Save new player complete");
-//                    dialog.closePanel();
-//                } else {
-//                    JOptionPane.showMessageDialog(this, "Save new player Fail");
-//                }
+                playersModel = new PlayersModel();
+                int max = playersManager.getMaxPlayersId();
+                playersModel.setPlayerId(max==0?1:(max+1));
+                playersModel.setPlayerName(namePlayerText.getText());
+                playersModel.setPlayerNumber(numberText.getText().trim().length() > 0
+                        ? Integer.parseInt(numberText.getText()) : 0);
+                playersModel.setHeight(heightText.getText().trim().length() > 0
+                        ? Integer.parseInt(heightText.getText()) : 0);
+                playersModel.setWeight(weightText.getText().trim().length() > 0
+                        ? Integer.parseInt(weightText.getText()) : 0);
+                playersModel.setPositionId(positionComboBox.getSelectedIndex() != -1
+                        ? mapPosition.get((String) positionComboBox.getSelectedItem()) : 0);
+                playersModel.setBirthday(birthdayPlayer.getDate());
+                playersModel.setContractStart(startContract.getDate());
+                playersModel.setContractEnd(endContract.getDate());
+                String result = null;
+                try {
+                    if (fileImg != null) {
+                        FileInputStream in = new FileInputStream(fileImg);
+                        java.io.ByteArrayOutputStream buffer = new java.io.ByteArrayOutputStream();
+                        int nRead;
+                        byte[] data = new byte[16384];
+                        while ((nRead = in.read(data, 0, data.length)) != -1) {
+                            buffer.write(data, 0, nRead);
+                        }
+                        buffer.flush();
+                        byte[] bytes2 = buffer.toByteArray();
+                        result = new String(Hex.encodeHex(bytes2));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                playersModel.setImage(result);
+                playersModel.setCreateBy(sessionManager.getUser().getUserId());
+                playersModel.setCreateDate(new Date());
+                playersModel.setUpdateBy(sessionManager.getUser().getUserId());
+                playersModel.setUpdateDate(new Date());
+                boolean chkInsertPlayer = playersManager.insertPlayers(playersModel);
+                if (chkInsertPlayer) {
+                    JOptionPane.showMessageDialog(this, "Save new player complete");
+                    dialog.closePanel();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Save new player Fail");
+                }
             } else {
                 JOptionPane.showMessageDialog(this, "Please insert name player");
             }
