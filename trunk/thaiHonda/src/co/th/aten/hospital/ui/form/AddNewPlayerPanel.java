@@ -33,12 +33,12 @@ import org.springframework.richclient.application.Application;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import java.awt.event.*;
-import java.io.ByteArrayInputStream;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Locale;
 import javax.swing.*;
-import org.apache.commons.codec.binary.Hex;
 
 /**
  *
@@ -365,7 +365,7 @@ public class AddNewPlayerPanel extends javax.swing.JPanel {
             if (namePlayerText.getText() != null && namePlayerText.getText().trim().length() > 0) {
                 playersModel = new PlayersModel();
                 int max = playersManager.getMaxPlayersId();
-                playersModel.setPlayerId(max==0?1:(max+1));
+                playersModel.setPlayerId(max == 0 ? 1 : (max + 1));
                 playersModel.setPlayerName(namePlayerText.getText());
                 playersModel.setPlayerNumber(numberText.getText().trim().length() > 0
                         ? Integer.parseInt(numberText.getText()) : 0);
@@ -378,24 +378,29 @@ public class AddNewPlayerPanel extends javax.swing.JPanel {
                 playersModel.setBirthday(birthdayPlayer.getDate());
                 playersModel.setContractStart(startContract.getDate());
                 playersModel.setContractEnd(endContract.getDate());
-                String result = null;
+                String fileName = playersModel.getPlayerName() + (playersModel.getPlayerNumber() != 0 ? ("_" + playersModel.getPlayerNumber()) : "") + ".jpg";
                 try {
                     if (fileImg != null) {
-                        FileInputStream in = new FileInputStream(fileImg);
-                        java.io.ByteArrayOutputStream buffer = new java.io.ByteArrayOutputStream();
-                        int nRead;
-                        byte[] data = new byte[16384];
-                        while ((nRead = in.read(data, 0, data.length)) != -1) {
-                            buffer.write(data, 0, nRead);
+                        File file = new File(System.getProperty("user.dir") + "/img/" + fileName);
+                        InputStream is = null;
+                        OutputStream os = null;
+                        try {
+                            is = new FileInputStream(fileImg);
+                            os = new FileOutputStream(file);
+                            byte[] buffer = new byte[1024];
+                            int length;
+                            while ((length = is.read(buffer)) > 0) {
+                                os.write(buffer, 0, length);
+                            }
+                        } finally {
+                            is.close();
+                            os.close();
                         }
-                        buffer.flush();
-                        byte[] bytes2 = buffer.toByteArray();
-                        result = new String(Hex.encodeHex(bytes2));
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                playersModel.setImage(result);
+                playersModel.setImage(fileName);
                 playersModel.setCreateBy(sessionManager.getUser().getUserId());
                 playersModel.setCreateDate(new Date());
                 playersModel.setUpdateBy(sessionManager.getUser().getUserId());
