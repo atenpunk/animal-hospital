@@ -54,6 +54,8 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
     private List<PlayersModel> playersModelList;
     private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
     private DecimalFormat df = new DecimalFormat("#,##0");
+    private PlayersModel playersModelSelected;
+    private int row = -1;
 
     public DetailPlayerPanel() {
         this.sessionManager = (SessionManager) Application.services().getService(SessionManager.class);
@@ -116,61 +118,172 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2) {
                     JTable target = (JTable) e.getSource();
-                    int row = target.getSelectedRow();
-                    setDataDetailPlayer(row);
+                    row = target.getSelectedRow();
+                    setDataDetailPlayer();
+                }
+            }
+        });
+
+        inputGc.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char character = e.getKeyChar();
+                if (((character < '0') || (character > '9'))
+                        && (character != '\b')) {
+                    e.consume();
+                }
+            }
+        });
+        inputAnnualSalary.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char character = e.getKeyChar();
+                if (((character < '0') || (character > '9'))
+                        && (character != '\b')) {
+                    e.consume();
+                }
+            }
+        });
+        inputSigningFee.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char character = e.getKeyChar();
+                if (((character < '0') || (character > '9'))
+                        && (character != '\b')) {
+                    e.consume();
+                }
+            }
+        });
+        inputSalaryMonth.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char character = e.getKeyChar();
+                if (((character < '0') || (character > '9'))
+                        && (character != '\b')) {
+                    e.consume();
+                }
+            }
+        });
+        inputGoal.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char character = e.getKeyChar();
+                if (((character < '0') || (character > '9'))
+                        && (character != '\b')) {
+                    e.consume();
+                }
+            }
+        });
+        inputPlayingTime.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char character = e.getKeyChar();
+                if (((character < '0') || (character > '9'))
+                        && (character != '\b')) {
+                    e.consume();
+                }
+            }
+        });
+        inputMatch.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char character = e.getKeyChar();
+                if (((character < '0') || (character > '9'))
+                        && (character != '\b')) {
+                    e.consume();
+                }
+            }
+        });
+        inputStarting.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char character = e.getKeyChar();
+                if (((character < '0') || (character > '9'))
+                        && (character != '\b')) {
+                    e.consume();
+                }
+            }
+        });
+        inputWin.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char character = e.getKeyChar();
+                if (((character < '0') || (character > '9'))
+                        && (character != '\b')) {
+                    e.consume();
+                }
+            }
+        });
+        inputLose.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char character = e.getKeyChar();
+                if (((character < '0') || (character > '9'))
+                        && (character != '\b')) {
+                    e.consume();
+                }
+            }
+        });
+        inputDraw.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char character = e.getKeyChar();
+                if (((character < '0') || (character > '9'))
+                        && (character != '\b')) {
+                    e.consume();
                 }
             }
         });
     }
 
-    private void setDataDetailPlayer(int row) {
+    private void setDataDetailPlayer() {
         clearData();
         if (playersModelList != null && playersModelList.size() >= row) {
             editPlayer.setEnabled(true);
-            PlayersModel playersModel = playersModelList.get(row);
+            playersModelSelected = playersModelList.get(row);
             ViewReportTestRadarDlg report = new ViewReportTestRadarDlg();
             View2D view = report.createView2D();
             view.setSize(417, 372);
             redarPanal.setVisible(true);
             redarPanal.setBackground(Color.WHITE);
             redarPanal.add(view, BorderLayout.CENTER);
-            nameLabel.setText("#" + playersModel.getPlayerNumber() + " " + playersModel.getPlayerName());
+            nameLabel.setText("#" + playersModelSelected.getPlayerNumber() + " " + playersModelSelected.getPlayerName());
             String brid = "";
-            String HeWe = playersModel.getHeight() + "cm/" + playersModel.getWeight() + "kg";
+            String HeWe = playersModelSelected.getHeight() + "cm/" + playersModelSelected.getWeight() + "kg";
             String contractDate = "";
-            if (playersModel.getBirthday() != null) {
-                brid = sdf.format(playersModel.getBirthday());
-                Date startDate = playersModel.getBirthday();
+            if (playersModelSelected.getBirthday() != null) {
+                brid = sdf.format(playersModelSelected.getBirthday());
+                Date startDate = playersModelSelected.getBirthday();
                 Date endDate = new Date();
                 String year = Util.getYear(startDate, endDate);
                 brid += " (" + year + ")";
             }
-            if (playersModel.getContractStart() != null && playersModel.getContractEnd() != null) {
-                contractDate = sdf.format(playersModel.getContractStart()) + " - " + sdf.format(playersModel.getContractEnd());
+            if (playersModelSelected.getContractStart() != null && playersModelSelected.getContractEnd() != null) {
+                contractDate = sdf.format(playersModelSelected.getContractStart()) + " - " + sdf.format(playersModelSelected.getContractEnd());
             }
             bridLabel.setText(brid);
             higthLabel.setText(HeWe);
             contracLabel.setText(contractDate);
-            inputGc.setText(df.format(playersModel.getGc()));
-            inputAnnualSalary.setText(df.format(playersModel.getAnnualSalary()));
-            inputSigningFee.setText(df.format(playersModel.getSigningFee()));
-            inputSalaryMonth.setText(df.format(playersModel.getSalaryMonth()));
-            inputGoal.setText(df.format(playersModel.getGoal()));
-            inputPlayingTime.setText(df.format(playersModel.getPlayingTime()));
-            inputMatch.setText(df.format(playersModel.getMatch()));
-            inputStarting.setText(df.format(playersModel.getStarter()));
-            inputWin.setText(df.format(playersModel.getWin()));
-            inputLose.setText(df.format(playersModel.getLose()));
-            inputDraw.setText(df.format(playersModel.getDraw()));
+            inputGc.setText(df.format(playersModelSelected.getGc()));
+            inputAnnualSalary.setText(df.format(playersModelSelected.getAnnualSalary()));
+            inputSigningFee.setText(df.format(playersModelSelected.getSigningFee()));
+            inputSalaryMonth.setText(df.format(playersModelSelected.getSalaryMonth()));
+            inputGoal.setText(df.format(playersModelSelected.getGoal()));
+            inputPlayingTime.setText(df.format(playersModelSelected.getPlayingTime()));
+            inputMatch.setText(df.format(playersModelSelected.getMatch()));
+            inputStarting.setText(df.format(playersModelSelected.getStarter()));
+            inputWin.setText(df.format(playersModelSelected.getWin()));
+            inputLose.setText(df.format(playersModelSelected.getLose()));
+            inputDraw.setText(df.format(playersModelSelected.getDraw()));
             try {
-                if (playersModel.getImage() != null && playersModel.getImage().length() > 0) {
-                    File fileImg = new File(System.getProperty("user.dir") + "/img" + File.separator + playersModel.getImage());
+                if (playersModelSelected.getImage() != null && playersModelSelected.getImage().length() > 0) {
+                    File fileImg = new File(System.getProperty("user.dir") + "/img" + File.separator + playersModelSelected.getImage());
                     if (fileImg != null) {
                         BufferedImage originalImage = ImageIO.read(fileImg);
                         int type = originalImage.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : originalImage.getType();
                         BufferedImage resizeImageJpg = resizeImage(originalImage, type);
                         ImageIcon img = new ImageIcon(resizeImageJpg);
-//                                    ImageIcon icon = new ImageIcon(System.getProperty("user.dir") + "/img" + File.separator + playersModel.getImage());
+//                                    ImageIcon icon = new ImageIcon(System.getProperty("user.dir") + "/img" + File.separator + playersModelSelected.getImage());
                         imgPlayer.setText("");
                         imgPlayer.setIcon(img);
                     }
@@ -559,11 +672,6 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Search", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
 
         searchText.setToolTipText("Search by player name, number");
-        searchText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchTextActionPerformed(evt);
-            }
-        });
 
         searchButton.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         searchButton.setText("Search");
@@ -644,6 +752,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void clearData() {
+        playersModelSelected = null;
         editPlayer.setEnabled(false);
         editPlayer.setText("Edit");
         inputGc.setEditable(false);
@@ -690,10 +799,6 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         inputDraw.setText("");
     }
 
-    private void searchTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchTextActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_searchTextActionPerformed
-
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
         // TODO add your handling code here:
         searchByKeyWord();
@@ -715,6 +820,18 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
             inputLose.setEditable(true);
             inputDraw.setEditable(true);
 
+            inputGc.setText(inputGc.getText().replaceAll(",", ""));
+            inputAnnualSalary.setText(inputAnnualSalary.getText().replaceAll(",", ""));
+            inputSigningFee.setText(inputSigningFee.getText().replaceAll(",", ""));
+            inputSalaryMonth.setText(inputSalaryMonth.getText().replaceAll(",", ""));
+            inputGoal.setText(inputGoal.getText().replaceAll(",", ""));
+            inputPlayingTime.setText(inputPlayingTime.getText().replaceAll(",", ""));
+            inputMatch.setText(inputMatch.getText().replaceAll(",", ""));
+            inputStarting.setText(inputStarting.getText().replaceAll(",", ""));
+            inputWin.setText(inputWin.getText().replaceAll(",", ""));
+            inputLose.setText(inputLose.getText().replaceAll(",", ""));
+            inputDraw.setText(inputDraw.getText().replaceAll(",", ""));
+
             inputGc.setBackground(new Color(204, 255, 204));
             inputAnnualSalary.setBackground(new Color(204, 255, 204));
             inputSigningFee.setBackground(new Color(204, 255, 204));
@@ -727,30 +844,75 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
             inputLose.setBackground(new Color(204, 255, 204));
             inputDraw.setBackground(new Color(204, 255, 204));
         } else {
-            editPlayer.setText("Edit");
-            inputGc.setEditable(false);
-            inputAnnualSalary.setEditable(false);
-            inputSigningFee.setEditable(false);
-            inputSalaryMonth.setEditable(false);
-            inputGoal.setEditable(false);
-            inputPlayingTime.setEditable(false);
-            inputMatch.setEditable(false);
-            inputStarting.setEditable(false);
-            inputWin.setEditable(false);
-            inputLose.setEditable(false);
-            inputDraw.setEditable(false);
 
-            inputGc.setBackground(null);
-            inputAnnualSalary.setBackground(null);
-            inputSigningFee.setBackground(null);
-            inputSalaryMonth.setBackground(null);
-            inputGoal.setBackground(null);
-            inputPlayingTime.setBackground(null);
-            inputMatch.setBackground(null);
-            inputStarting.setBackground(null);
-            inputWin.setBackground(null);
-            inputLose.setBackground(null);
-            inputDraw.setBackground(null);
+            Runnable r = new Runnable() {
+                public void run() {
+                    if (playersModelSelected != null) {
+                        playersModelSelected.setGc((inputGc.getText() != null && inputGc.getText().trim().length() > 0)
+                                ? Double.parseDouble(inputGc.getText().replaceAll(",", "")) : 0d);
+                        playersModelSelected.setAnnualSalary((inputAnnualSalary.getText() != null && inputAnnualSalary.getText().trim().length() > 0)
+                                ? Double.parseDouble(inputAnnualSalary.getText().replaceAll(",", "")) : 0d);
+                        playersModelSelected.setSigningFee((inputSigningFee.getText() != null && inputSigningFee.getText().trim().length() > 0)
+                                ? Double.parseDouble(inputSigningFee.getText().replaceAll(",", "")) : 0d);
+                        playersModelSelected.setSalaryMonth((inputSalaryMonth.getText() != null && inputSalaryMonth.getText().trim().length() > 0)
+                                ? Double.parseDouble(inputSalaryMonth.getText().replaceAll(",", "")) : 0d);
+                        playersModelSelected.setGoal((inputGoal.getText() != null && inputGoal.getText().trim().length() > 0)
+                                ? Integer.parseInt(inputGoal.getText().replaceAll(",", "")) : 0);
+                        playersModelSelected.setPlayingTime((inputPlayingTime.getText() != null && inputPlayingTime.getText().trim().length() > 0)
+                                ? Integer.parseInt(inputPlayingTime.getText().replaceAll(",", "")) : 0);
+                        playersModelSelected.setMatch((inputMatch.getText() != null && inputMatch.getText().trim().length() > 0)
+                                ? Integer.parseInt(inputMatch.getText().replaceAll(",", "")) : 0);
+                        playersModelSelected.setStarter((inputStarting.getText() != null && inputStarting.getText().trim().length() > 0)
+                                ? Integer.parseInt(inputStarting.getText().replaceAll(",", "")) : 0);
+                        playersModelSelected.setWin((inputWin.getText() != null && inputWin.getText().trim().length() > 0)
+                                ? Integer.parseInt(inputWin.getText().replaceAll(",", "")) : 0);
+                        playersModelSelected.setLose((inputLose.getText() != null && inputLose.getText().trim().length() > 0)
+                                ? Integer.parseInt(inputLose.getText().replaceAll(",", "")) : 0);
+                        playersModelSelected.setDraw((inputDraw.getText() != null && inputDraw.getText().trim().length() > 0)
+                                ? Integer.parseInt(inputDraw.getText().replaceAll(",", "")) : 0);
+                        playersModelSelected.setUpdateBy(sessionManager.getUser().getUserId());
+                        playersModelSelected.setUpdateDate(new Date());
+                    }
+                    boolean update = playersManager.updatePlayers(playersModelSelected);
+                    if (update) {
+                        playersModelList.set(row, playersModelSelected);
+                        DefaultTableModel modelTable = (DefaultTableModel) searchTable.getModel();
+                        while (modelTable.getRowCount() > 0) {
+                            modelTable.removeRow(0);
+                        }
+                        for (PlayersModel model : playersModelList) {
+                            Object[] row = {model.getPlayerNumber(), model.getPlayerName(), model.getMatch(), model.getPlayingTime() + " min", model.getGoal(), model.getStarter()};
+                            modelTable.addRow(row);
+                        }
+                        setDataDetailPlayer();
+                    }
+                    editPlayer.setText("Edit");
+                    inputGc.setEditable(false);
+                    inputAnnualSalary.setEditable(false);
+                    inputSigningFee.setEditable(false);
+                    inputSalaryMonth.setEditable(false);
+                    inputGoal.setEditable(false);
+                    inputPlayingTime.setEditable(false);
+                    inputMatch.setEditable(false);
+                    inputStarting.setEditable(false);
+                    inputWin.setEditable(false);
+                    inputLose.setEditable(false);
+                    inputDraw.setEditable(false);
+
+                    inputGc.setBackground(null);
+                    inputAnnualSalary.setBackground(null);
+                    inputSigningFee.setBackground(null);
+                    inputSalaryMonth.setBackground(null);
+                    inputGoal.setBackground(null);
+                    inputPlayingTime.setBackground(null);
+                    inputMatch.setBackground(null);
+                    inputStarting.setBackground(null);
+                    inputWin.setBackground(null);
+                    inputLose.setBackground(null);
+                    inputDraw.setBackground(null);
+                }
+            };
+            new ProcessTransactionDialog(new JFrame(), true, r, "Please wait the system is running...");
         }
     }//GEN-LAST:event_editPlayerActionPerformed
 
@@ -769,7 +931,8 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
                         modelTable.addRow(row);
                     }
                     if (playersModelList.size() == 1) {
-                        setDataDetailPlayer(0);
+                        row = 0;
+                        setDataDetailPlayer();
                     }
                 }
             }
