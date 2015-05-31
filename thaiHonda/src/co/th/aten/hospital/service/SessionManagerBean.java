@@ -18,7 +18,7 @@ public class SessionManagerBean implements Serializable, SessionManager {
 
     private final Log logger = LogFactory.getLog(getClass());
     private UserModel user;
-    private PlayersModel petModel;
+    private PlayersModel playerModel;
 
     public SessionManagerBean() {
     }
@@ -31,12 +31,12 @@ public class SessionManagerBean implements Serializable, SessionManager {
         this.user = user;
     }
 
-    public PlayersModel getPetModel() {
-        return petModel;
+    public PlayersModel getPlayerModel() {
+        return playerModel;
     }
 
-    public void setPetModel(PlayersModel petModel) {
-        this.petModel = petModel;
+    public void setPlayerModel(PlayersModel playerModel) {
+        this.playerModel = playerModel;
     }
 
 

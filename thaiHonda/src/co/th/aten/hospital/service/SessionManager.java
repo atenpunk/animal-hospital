@@ -18,8 +18,8 @@ public interface SessionManager {
 
     public void setUser(UserModel user);
 
-    public PlayersModel getPetModel();
+    public PlayersModel getPlayerModel();
 
-    public void setPetModel(PlayersModel petModel);
+    public void setPlayerModel(PlayersModel playerModel);
     
 }

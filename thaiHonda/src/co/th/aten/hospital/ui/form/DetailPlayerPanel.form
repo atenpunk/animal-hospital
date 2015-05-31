@@ -697,9 +697,6 @@
           <Properties>
             <Property name="toolTipText" type="java.lang.String" value="Search by player name, number"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="searchTextActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="searchButton">
           <Properties>
