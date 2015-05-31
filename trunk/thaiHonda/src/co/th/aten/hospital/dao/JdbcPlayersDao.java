@@ -64,26 +64,31 @@ public class JdbcPlayersDao implements PlayersDao {
     }
 
     public boolean updatePlayers(PlayersModel playersModel) {
-//        if (logger.isDebugEnabled()) {
-//            logger.debug("Update Owner_ID = " + ownerModel.getId());
-//        }
-//        try {
-//            String sql = " UPDATE owner SET owner_name = ? "
-//                    + " , owner_phone = ? "
-//                    + " , owner_email = ? "
-//                    + " , owner_address = ? "
-//                    + " , owner_update_by = ? "
-//                    + " , owner_update_date = ? "
-//                    + " WHERE owner_id = ? ";
-//            return (this.simpleJdbcTemplate.update(sql, ownerModel.getName(), ownerModel.getPhoneNumber(), ownerModel.getEmail(), ownerModel.getAddress(), ownerModel.getUpdateBy(), sdfDate.parse(sdfDate.format(ownerModel.getUpdateDate())), ownerModel.getId()) > 0) ? true : false;
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        logger.debug("Update Player ID = " + playersModel.getPlayerId());
+        try {
+            String sql = " UPDATE PLAYERS SET GC = ? "
+                    + " , ANNUAL_SALARY = ? "
+                    + " , SIGNING_FEE = ? "
+                    + " , SALARY_MONTH = ? "
+                    + " , GOAL = ? "
+                    + " , PLAYING_TIME = ? "
+                    + " , MATCH_NUMBER = ? "
+                    + " , WIN = ? "
+                    + " , LOSE = ? "
+                    + " , DRAW = ? "
+                    + " , STARTER = ? "
+                    + " , UPDATE_BY = ? "
+                    + " , UPDATE_DATE = ? "
+                    + " WHERE PLAYER_ID = ? ";
+            return (this.simpleJdbcTemplate.update(sql, playersModel.getGc(), playersModel.getAnnualSalary(), playersModel.getSigningFee(), playersModel.getSalaryMonth(), playersModel.getGoal(), playersModel.getPlayingTime(), playersModel.getMatch(), playersModel.getWin(), playersModel.getLose(), playersModel.getDraw(), playersModel.getStarter(), playersModel.getUpdateBy(), sdfDate.parse(sdfDate.format(playersModel.getUpdateDate())), playersModel.getPlayerId()) > 0) ? true : false;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return false;
     }
 
     public List<PlayersModel> searchByKeyWord(String word) {
-        try {                    
+        try {
             String sql = " select py.PLAYER_ID, py.PLAYER_NAME, py.PLAYER_NUMBER, py.HEIGHT, py.WEIGHT "
                     + " , py.POSITION_ID, ps.NAME, py.BIRTHDAY, py.CONTRACT_START, py.CONTRACT_END, py.IMAGE_NAME "
                     + " , py.GC, py.ANNUAL_SALARY, py.SIGNING_FEE, py.SALARY_MONTH, py.GOAL "
@@ -94,10 +99,10 @@ public class JdbcPlayersDao implements PlayersDao {
             if (word != null && !word.equals("")) {
                 sql += " where py.PLAYER_NAME like '%" + word + "%' "
                         + " or ps.NAME like '%" + word + "%' ";
-                try{
+                try {
                     int number = Integer.parseInt(word);
                     sql += " or py.PLAYER_NUMBER = " + number + " ";
-                }catch(Exception e){                    
+                } catch (Exception e) {
                 }
             }
             sql += " order by py.PLAYER_NUMBER ";

@@ -66,8 +66,8 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jPanel2" min="-2" pref="584" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jPanel2" min="-2" pref="627" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="redarPanal" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -75,12 +75,12 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-                      <Component id="redarPanal" alignment="0" min="-2" max="-2" attributes="0"/>
+              <Group type="102" alignment="0" attributes="0">
+                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                      <Component id="redarPanal" max="32767" attributes="0"/>
+                      <Component id="jPanel2" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="21" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -96,12 +96,12 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="462" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="417" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="380" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -127,122 +127,150 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="nameLabel7" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="nameLabel5" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="nameLabel3" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="nameLabel1" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="nameLabel9" min="-2" pref="100" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                          <Component id="nameLabel7" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="nameLabel5" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="nameLabel3" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="nameLabel1" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="nameLabel9" min="-2" pref="100" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                          <Component id="inputSalaryMonth" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="inputSigningFee" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="inputAnnualSalary" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="inputGc" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="inputGoal" min="-2" pref="110" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                              <Component id="nameLabel8" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="nameLabel6" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="nameLabel4" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="nameLabel2" alignment="0" min="-2" pref="90" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Component id="nameLabel10" alignment="1" min="-2" pref="90" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Group type="102" attributes="0">
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      <Component id="nameLabel11" min="-2" pref="90" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="inputSalaryMonth" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="inputSigningFee" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="inputAnnualSalary" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="inputGc" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="inputGoal" min="-2" pref="110" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                      <Component id="nameLabel8" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="nameLabel6" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="nameLabel4" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="nameLabel2" alignment="0" min="-2" pref="90" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="nameLabel10" alignment="1" min="-2" pref="90" max="-2" attributes="0"/>
+                                  <Component id="inputPlayingTime" min="-2" pref="50" max="-2" attributes="0"/>
+                                  <Component id="inputMatch" min="-2" pref="50" max="-2" attributes="0"/>
+                                  <Component id="inputStarting" min="-2" pref="50" max="-2" attributes="0"/>
+                                  <Component id="inputWin" min="-2" pref="50" max="-2" attributes="0"/>
+                                  <Component id="inputLose" min="-2" pref="50" max="-2" attributes="0"/>
+                                  <Component id="inputDraw" min="-2" pref="50" max="-2" attributes="0"/>
                               </Group>
+                              <EmptySpace min="-2" pref="71" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              <Component id="nameLabel11" min="-2" pref="90" max="-2" attributes="0"/>
+                              <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jPanel6" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="inputPlayingTime" min="-2" pref="50" max="-2" attributes="0"/>
-                          <Component id="inputMatch" min="-2" pref="50" max="-2" attributes="0"/>
-                          <Component id="inputStarting" min="-2" pref="50" max="-2" attributes="0"/>
-                          <Component id="inputWin" min="-2" pref="50" max="-2" attributes="0"/>
-                          <Component id="inputLose" min="-2" pref="50" max="-2" attributes="0"/>
-                          <Component id="inputDraw" min="-2" pref="50" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="71" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="imgPlayer" min="-2" pref="219" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="nameLabel2" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                                  <Component id="inputPlayingTime" alignment="3" max="32767" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="imgPlayer" min="-2" pref="219" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="nameLabel2" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                                          <Component id="inputPlayingTime" alignment="3" max="32767" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="nameLabel4" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                                          <Component id="inputMatch" alignment="3" max="32767" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="nameLabel6" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                                          <Component id="inputStarting" alignment="3" max="32767" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="nameLabel8" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                                          <Component id="inputWin" alignment="3" max="32767" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="nameLabel10" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                                          <Component id="inputLose" alignment="3" max="32767" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="nameLabel11" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                                          <Component id="inputDraw" alignment="3" max="32767" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="nameLabel1" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                                          <Component id="inputGc" alignment="3" max="32767" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="nameLabel3" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                                          <Component id="inputAnnualSalary" alignment="3" max="32767" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="nameLabel5" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                                          <Component id="inputSigningFee" alignment="3" max="32767" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="nameLabel7" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                                          <Component id="inputSalaryMonth" alignment="3" max="32767" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="nameLabel9" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                                          <Component id="inputGoal" alignment="3" max="32767" attributes="0"/>
+                                      </Group>
+                                  </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="nameLabel4" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                                  <Component id="inputMatch" alignment="3" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="nameLabel6" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                                  <Component id="inputStarting" alignment="3" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="nameLabel8" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                                  <Component id="inputWin" alignment="3" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="nameLabel10" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                                  <Component id="inputLose" alignment="3" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="nameLabel11" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                                  <Component id="inputDraw" alignment="3" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Component id="nameLabel" min="-2" pref="25" max="-2" attributes="0"/>
+                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                          <Component id="bridLabel" min="-2" pref="25" max="-2" attributes="0"/>
+                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                          <Component id="higthLabel" min="-2" pref="25" max="-2" attributes="0"/>
+                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                          <Component id="contracLabel" min="-2" pref="25" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Component id="jPanel5" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="jPanel6" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="nameLabel1" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                                  <Component id="inputGc" alignment="3" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="nameLabel3" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                                  <Component id="inputAnnualSalary" alignment="3" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="nameLabel5" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                                  <Component id="inputSigningFee" alignment="3" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="nameLabel7" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                                  <Component id="inputSalaryMonth" alignment="3" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="nameLabel9" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                                  <Component id="inputGoal" alignment="3" max="32767" attributes="0"/>
-                              </Group>
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="nameLabel" min="-2" pref="25" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="bridLabel" min="-2" pref="25" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="higthLabel" min="-2" pref="25" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="contracLabel" min="-2" pref="25" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -536,6 +564,51 @@
                 </Property>
               </Properties>
             </Component>
+            <Container class="javax.swing.JPanel" name="jPanel4">
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace min="0" pref="136" max="32767" attributes="0"/>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace min="0" pref="136" max="32767" attributes="0"/>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+            </Container>
+            <Container class="javax.swing.JPanel" name="jPanel5">
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace min="0" pref="136" max="32767" attributes="0"/>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace min="0" pref="136" max="32767" attributes="0"/>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+            </Container>
+            <Container class="javax.swing.JPanel" name="jPanel6">
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace min="0" pref="136" max="32767" attributes="0"/>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace min="0" pref="136" max="32767" attributes="0"/>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+            </Container>
           </SubComponents>
         </Container>
       </SubComponents>
