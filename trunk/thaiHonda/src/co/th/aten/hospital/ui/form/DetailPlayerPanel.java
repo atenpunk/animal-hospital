@@ -59,7 +59,18 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         this.sessionManager = (SessionManager) Application.services().getService(SessionManager.class);
         this.playersManager = (PlayersManager) Application.services().getService(PlayersManager.class);
         initComponents();
-
+        editPlayer.setEnabled(false);
+        inputGc.setBackground(null);
+        inputAnnualSalary.setBackground(null);
+        inputSigningFee.setBackground(null);
+        inputSalaryMonth.setBackground(null);
+        inputGoal.setBackground(null);
+        inputPlayingTime.setBackground(null);
+        inputMatch.setBackground(null);
+        inputStarting.setBackground(null);
+        inputWin.setBackground(null);
+        inputLose.setBackground(null);
+        inputDraw.setBackground(null);
         DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
         rightRenderer.setHorizontalAlignment(SwingConstants.RIGHT);
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
@@ -115,6 +126,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
     private void setDataDetailPlayer(int row) {
         clearData();
         if (playersModelList != null && playersModelList.size() >= row) {
+            editPlayer.setEnabled(true);
             PlayersModel playersModel = playersModelList.get(row);
             ViewReportTestRadarDlg report = new ViewReportTestRadarDlg();
             View2D view = report.createView2D();
@@ -212,6 +224,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
+        editPlayer = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         searchText = new javax.swing.JTextField();
         searchButton = new javax.swing.JButton();
@@ -295,53 +308,55 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         nameLabel10.setText("Lose");
         nameLabel10.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        inputGc.setEditable(false);
         inputGc.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        inputGc.setEnabled(false);
         inputGc.setPreferredSize(new java.awt.Dimension(6, 19));
 
+        inputAnnualSalary.setEditable(false);
         inputAnnualSalary.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        inputAnnualSalary.setEnabled(false);
         inputAnnualSalary.setPreferredSize(new java.awt.Dimension(6, 19));
 
+        inputSigningFee.setEditable(false);
         inputSigningFee.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        inputSigningFee.setEnabled(false);
         inputSigningFee.setPreferredSize(new java.awt.Dimension(6, 19));
 
+        inputSalaryMonth.setEditable(false);
         inputSalaryMonth.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        inputSalaryMonth.setEnabled(false);
         inputSalaryMonth.setPreferredSize(new java.awt.Dimension(6, 19));
 
+        inputGoal.setEditable(false);
         inputGoal.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        inputGoal.setEnabled(false);
         inputGoal.setPreferredSize(new java.awt.Dimension(6, 19));
 
+        inputPlayingTime.setEditable(false);
         inputPlayingTime.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        inputPlayingTime.setEnabled(false);
         inputPlayingTime.setPreferredSize(new java.awt.Dimension(6, 19));
 
+        inputMatch.setEditable(false);
         inputMatch.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        inputMatch.setEnabled(false);
         inputMatch.setPreferredSize(new java.awt.Dimension(6, 19));
 
+        inputStarting.setEditable(false);
         inputStarting.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        inputStarting.setEnabled(false);
         inputStarting.setPreferredSize(new java.awt.Dimension(6, 19));
 
+        inputWin.setEditable(false);
         inputWin.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        inputWin.setEnabled(false);
         inputWin.setPreferredSize(new java.awt.Dimension(6, 19));
 
+        inputLose.setEditable(false);
         inputLose.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        inputLose.setEnabled(false);
         inputLose.setPreferredSize(new java.awt.Dimension(6, 19));
 
         nameLabel11.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         nameLabel11.setText("Draw");
         nameLabel11.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        inputDraw.setEditable(false);
         inputDraw.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        inputDraw.setEnabled(false);
         inputDraw.setPreferredSize(new java.awt.Dimension(6, 19));
+
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -354,6 +369,8 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
             .addGap(0, 136, Short.MAX_VALUE)
         );
 
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -365,6 +382,8 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
             .addGap(0, 136, Short.MAX_VALUE)
         );
 
+        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
@@ -375,6 +394,15 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 136, Short.MAX_VALUE)
         );
+
+        editPlayer.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        editPlayer.setText("Edit");
+        editPlayer.setBorder(null);
+        editPlayer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editPlayerActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -389,7 +417,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
                     .addComponent(imgPlayer, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -413,9 +441,11 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
                                         .addComponent(nameLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(nameLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(nameLabel10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(nameLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(editPlayer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(nameLabel11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(inputPlayingTime, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -463,7 +493,9 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(nameLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(inputDraw, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addComponent(inputDraw, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(editPlayer, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(nameLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -612,6 +644,32 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void clearData() {
+        editPlayer.setEnabled(false);
+        editPlayer.setText("Edit");
+        inputGc.setEditable(false);
+        inputAnnualSalary.setEditable(false);
+        inputSigningFee.setEditable(false);
+        inputSalaryMonth.setEditable(false);
+        inputGoal.setEditable(false);
+        inputPlayingTime.setEditable(false);
+        inputMatch.setEditable(false);
+        inputStarting.setEditable(false);
+        inputWin.setEditable(false);
+        inputLose.setEditable(false);
+        inputDraw.setEditable(false);
+
+        inputGc.setBackground(null);
+        inputAnnualSalary.setBackground(null);
+        inputSigningFee.setBackground(null);
+        inputSalaryMonth.setBackground(null);
+        inputGoal.setBackground(null);
+        inputPlayingTime.setBackground(null);
+        inputMatch.setBackground(null);
+        inputStarting.setBackground(null);
+        inputWin.setBackground(null);
+        inputLose.setBackground(null);
+        inputDraw.setBackground(null);
+
         redarPanal.setVisible(false);
         imgPlayer.setText("NO IMAGE");
         imgPlayer.setIcon(null);
@@ -641,6 +699,61 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         searchByKeyWord();
     }//GEN-LAST:event_searchButtonActionPerformed
 
+    private void editPlayerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editPlayerActionPerformed
+        // TODO add your handling code here:
+        if (editPlayer.getText().equals("Edit")) {
+            editPlayer.setText("Save");
+            inputGc.setEditable(true);
+            inputAnnualSalary.setEditable(true);
+            inputSigningFee.setEditable(true);
+            inputSalaryMonth.setEditable(true);
+            inputGoal.setEditable(true);
+            inputPlayingTime.setEditable(true);
+            inputMatch.setEditable(true);
+            inputStarting.setEditable(true);
+            inputWin.setEditable(true);
+            inputLose.setEditable(true);
+            inputDraw.setEditable(true);
+
+            inputGc.setBackground(new Color(204, 255, 204));
+            inputAnnualSalary.setBackground(new Color(204, 255, 204));
+            inputSigningFee.setBackground(new Color(204, 255, 204));
+            inputSalaryMonth.setBackground(new Color(204, 255, 204));
+            inputGoal.setBackground(new Color(204, 255, 204));
+            inputPlayingTime.setBackground(new Color(204, 255, 204));
+            inputMatch.setBackground(new Color(204, 255, 204));
+            inputStarting.setBackground(new Color(204, 255, 204));
+            inputWin.setBackground(new Color(204, 255, 204));
+            inputLose.setBackground(new Color(204, 255, 204));
+            inputDraw.setBackground(new Color(204, 255, 204));
+        } else {
+            editPlayer.setText("Edit");
+            inputGc.setEditable(false);
+            inputAnnualSalary.setEditable(false);
+            inputSigningFee.setEditable(false);
+            inputSalaryMonth.setEditable(false);
+            inputGoal.setEditable(false);
+            inputPlayingTime.setEditable(false);
+            inputMatch.setEditable(false);
+            inputStarting.setEditable(false);
+            inputWin.setEditable(false);
+            inputLose.setEditable(false);
+            inputDraw.setEditable(false);
+
+            inputGc.setBackground(null);
+            inputAnnualSalary.setBackground(null);
+            inputSigningFee.setBackground(null);
+            inputSalaryMonth.setBackground(null);
+            inputGoal.setBackground(null);
+            inputPlayingTime.setBackground(null);
+            inputMatch.setBackground(null);
+            inputStarting.setBackground(null);
+            inputWin.setBackground(null);
+            inputLose.setBackground(null);
+            inputDraw.setBackground(null);
+        }
+    }//GEN-LAST:event_editPlayerActionPerformed
+
     private void searchByKeyWord() {
         Runnable r = new Runnable() {
             public void run() {
@@ -655,7 +768,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
                         Object[] row = {model.getPlayerNumber(), model.getPlayerName(), model.getMatch(), model.getPlayingTime() + " min", model.getGoal(), model.getStarter()};
                         modelTable.addRow(row);
                     }
-                    if(playersModelList.size()==1){
+                    if (playersModelList.size() == 1) {
                         setDataDetailPlayer(0);
                     }
                 }
@@ -674,6 +787,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bridLabel;
     private javax.swing.JLabel contracLabel;
+    private javax.swing.JButton editPlayer;
     private javax.swing.JLabel higthLabel;
     private javax.swing.JLabel imgPlayer;
     private javax.swing.JTextField inputAnnualSalary;
