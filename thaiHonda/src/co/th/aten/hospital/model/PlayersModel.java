@@ -15,9 +15,10 @@ public class PlayersModel {
     private int playerId;
     private String playerName;
     private int playerNumber;
-    private double height;
-    private double weight;
+    private int height;
+    private int weight;
     private int positionId;
+    private String positionStr;
     private Date birthday;
     private Date contractStart;
     private Date contractEnd;
@@ -32,6 +33,7 @@ public class PlayersModel {
     private int win;
     private int lose;
     private int draw;
+    private int starter;
     private int createBy;
     private Date createDate;
     private int updateBy;
@@ -61,19 +63,19 @@ public class PlayersModel {
         this.playerNumber = playerNumber;
     }
 
-    public double getHeight() {
+    public int getHeight() {
         return height;
     }
 
-    public void setHeight(double height) {
+    public void setHeight(int height) {
         this.height = height;
     }
 
-    public double getWeight() {
+    public int getWeight() {
         return weight;
     }
 
-    public void setWeight(double weight) {
+    public void setWeight(int weight) {
         this.weight = weight;
     }
 
@@ -227,6 +229,22 @@ public class PlayersModel {
 
     public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate;
+    }
+
+    public String getPositionStr() {
+        return positionStr;
+    }
+
+    public void setPositionStr(String positionStr) {
+        this.positionStr = positionStr;
+    }
+
+    public int getStarter() {
+        return starter;
+    }
+
+    public void setStarter(int starter) {
+        this.starter = starter;
     }
 
     

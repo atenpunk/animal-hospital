@@ -198,4 +198,11 @@ public class Util {
         yearMonth += (Months.monthsBetween(dt1, dt2).getMonths() % 12 + " months ");
         return yearMonth;
     }
+    
+    public static String getYear(Date startDate, Date endDate) {
+        DateTime dt1 = new DateTime(startDate);
+        DateTime dt2 = new DateTime(endDate);
+        String year = Years.yearsBetween(dt1, dt2).getYears() != 0 ? Years.yearsBetween(dt1, dt2).getYears() + "" : "";
+        return year;
+    }
 }
