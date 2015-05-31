@@ -14,6 +14,7 @@ import co.th.aten.hospital.service.SessionManager;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.richclient.application.Application;
@@ -34,7 +35,7 @@ public class InfoPanel extends javax.swing.JPanel {
 
     public void updateJob() {
         SessionManager sessionManager = (SessionManager) Application.services().getService(SessionManager.class);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.US);
         if (sessionManager.getUser() != null) {
             lbStaffValue.setText(sessionManager.getUser().getUserName());
             lbBOJValue.setText(sdf.format(new Date()));
@@ -49,7 +50,7 @@ public class InfoPanel extends javax.swing.JPanel {
 
             @Override
             public void run() {
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
                 SimpleDateFormat sdf2 = new SimpleDateFormat("HH:mm:ss");
                 while (true) {
                     try {

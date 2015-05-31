@@ -93,7 +93,7 @@ public class ViewReportTestRadarDlg extends Sw2dDemo {
             radarWindow2D.registerPlugin(radarPlugin);
 //            radarWindow2D.registerPlugin(new OutlinePlugin(Color.BLACK));
 
-            final Radar radar = new Radar(0, 0, 110);
+            final Radar radar = new Radar(0, 0, 100);
             radar.setRadarPainter(new RadarDefaultPainter());
             final RadarDimension radardimension = new RadarDimension("d1", 0.0D, 0.0D, 100D);
             radardimension.setDimensionPainter(new DimensionDefaultPainter());
