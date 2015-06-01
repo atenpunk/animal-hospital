@@ -2,21 +2,16 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
-package co.th.aten.football.dao;
+package co.th.aten.football.service;
 
 import co.th.aten.football.model.PlayersModel;
 import java.util.List;
-import javax.sql.DataSource;
+
 /**
  *
  * @author Atenpunk
  */
-public interface PlayersDao {
-
-    public DataSource getDataSource();
-
-    public void setDataSource(DataSource dataSource);
+public interface PlayersManager {
 
     public boolean insertPlayers(PlayersModel playersModel);
 

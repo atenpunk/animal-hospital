@@ -4,7 +4,7 @@
  */
 package co.th.aten.football.dao;
 
-import co.th.aten.hospital.model.UserModel;
+import co.th.aten.football.model.UserModel;
 import java.security.MessageDigest;
 import javax.sql.DataSource;
 import org.apache.commons.logging.Log;
