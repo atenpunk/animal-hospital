@@ -15,8 +15,8 @@
  */
 package co.th.aten.football;
 
-import co.th.aten.hospital.service.SessionManager;
-import co.th.aten.hospital.ui.Screen;
+import co.th.aten.football.service.SessionManager;
+import co.th.aten.football.ui.Screen;
 import java.awt.event.HierarchyBoundsListener;
 import java.awt.event.HierarchyEvent;
 import java.awt.event.MouseEvent;

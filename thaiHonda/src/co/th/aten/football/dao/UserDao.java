@@ -6,7 +6,7 @@
 package co.th.aten.football.dao;
 
 
-import co.th.aten.hospital.model.UserModel;
+import co.th.aten.football.model.UserModel;
 import javax.sql.DataSource;
 /**
  *

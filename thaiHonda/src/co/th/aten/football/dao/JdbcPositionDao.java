@@ -4,7 +4,7 @@
  */
 package co.th.aten.football.dao;
 
-import co.th.aten.hospital.model.PositionModel;
+import co.th.aten.football.model.PositionModel;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
