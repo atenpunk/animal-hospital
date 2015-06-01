@@ -9,11 +9,13 @@
  */
 package co.th.aten.hospital.ui.form;
 
+import co.th.aten.hospital.Configuration;
 import co.th.aten.hospital.model.PlayersModel;
 import co.th.aten.hospital.service.PlayersManager;
 import co.th.aten.hospital.ui.report.ViewReportTestRadarDlg;
 import co.th.aten.hospital.service.SessionManager;
 import co.th.aten.hospital.ui.ProcessTransactionDialog;
+import co.th.aten.hospital.ui.report.ViewReportPieDlg;
 import co.th.aten.hospital.util.Util;
 import com.jensoft.sw2d.core.view.View2D;
 import java.awt.BorderLayout;
@@ -58,7 +60,10 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
     private DecimalFormat df = new DecimalFormat("#,##0");
     private PlayersModel playersModelSelected;
     private int row = -1;
-    private View2D view2d;
+    private View2D viewRadar;
+    private View2D viewPieTime;
+    private View2D viewPieMatch;
+    private View2D viewPieStart;
 
     public DetailPlayerPanel() {
         this.sessionManager = (SessionManager) Application.services().getService(SessionManager.class);
@@ -244,12 +249,36 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         if (playersModelList != null && playersModelList.size() >= row) {
             editPlayer.setEnabled(true);
             playersModelSelected = playersModelList.get(row);
-            ViewReportTestRadarDlg report = new ViewReportTestRadarDlg(playersModelSelected.getGc(), playersModelSelected.getMatch(), playersModelSelected.getPlayingTime());
-            view2d = report.createView2D();
-            view2d.setSize(407, 352);
             redarPanal.setVisible(true);
+            timePanel.setVisible(true);
+            matchPanel.setVisible(true);
+            startPanel.setVisible(true);
+            ViewReportTestRadarDlg reportRadar = new ViewReportTestRadarDlg(playersModelSelected.getGc(), playersModelSelected.getMatch(), playersModelSelected.getPlayingTime());
+            viewRadar = reportRadar.createView2D();
+            viewRadar.setSize(407, 352);
             redarPanal.setBackground(Color.WHITE);
-            redarPanal.add(view2d, BorderLayout.CENTER);
+            redarPanal.add(viewRadar, BorderLayout.CENTER);
+            int data01 = ((100*playersModelSelected.getMatch())/Configuration.getInt("Match"));
+            int data02 = 100-data01;
+            ViewReportPieDlg reportPieMatch = new ViewReportPieDlg(data02, data01);
+            viewPieMatch = reportPieMatch.createView2D();
+            viewPieMatch.setSize(136, 136);
+            matchPanel.setBackground(Color.WHITE);
+            matchPanel.add(viewPieMatch, BorderLayout.CENTER);
+            data01 = ((100*playersModelSelected.getPlayingTime())/Configuration.getInt("PlayingTime"));
+            data02 = 100-data01;
+            ViewReportPieDlg reportPieTime = new ViewReportPieDlg(data02, data01);
+            viewPieTime = reportPieTime.createView2D();
+            viewPieTime.setSize(136, 136);
+            timePanel.setBackground(Color.WHITE);
+            timePanel.add(viewPieTime, BorderLayout.CENTER);
+            data01 = ((100*playersModelSelected.getStarter())/Configuration.getInt("Match"));
+            data02 = 100-data01;
+            ViewReportPieDlg reportPieStart = new ViewReportPieDlg(data02, data01);
+            viewPieStart = reportPieStart.createView2D();
+            viewPieStart.setSize(136, 136);
+            startPanel.setBackground(Color.WHITE);
+            startPanel.add(viewPieStart, BorderLayout.CENTER);
             nameLabel.setText("#" + playersModelSelected.getPlayerNumber() + " " + playersModelSelected.getPlayerName());
             String brid = "";
             String HeWe = playersModelSelected.getHeight() + "cm/" + playersModelSelected.getWeight() + "kg";
@@ -337,9 +366,9 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         inputLose = new javax.swing.JTextField();
         nameLabel11 = new javax.swing.JLabel();
         inputDraw = new javax.swing.JTextField();
-        jPanel4 = new javax.swing.JPanel();
-        jPanel5 = new javax.swing.JPanel();
-        jPanel6 = new javax.swing.JPanel();
+        matchPanel = new javax.swing.JPanel();
+        timePanel = new javax.swing.JPanel();
+        startPanel = new javax.swing.JPanel();
         editPlayer = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         searchText = new javax.swing.JTextField();
@@ -472,42 +501,42 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         inputDraw.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         inputDraw.setPreferredSize(new java.awt.Dimension(6, 19));
 
-        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        matchPanel.setBackground(new java.awt.Color(255, 255, 255));
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout matchPanelLayout = new javax.swing.GroupLayout(matchPanel);
+        matchPanel.setLayout(matchPanelLayout);
+        matchPanelLayout.setHorizontalGroup(
+            matchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 136, Short.MAX_VALUE)
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 136, Short.MAX_VALUE)
-        );
-
-        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 136, Short.MAX_VALUE)
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        matchPanelLayout.setVerticalGroup(
+            matchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 136, Short.MAX_VALUE)
         );
 
-        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+        timePanel.setBackground(new java.awt.Color(255, 255, 255));
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout timePanelLayout = new javax.swing.GroupLayout(timePanel);
+        timePanel.setLayout(timePanelLayout);
+        timePanelLayout.setHorizontalGroup(
+            timePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 136, Short.MAX_VALUE)
         );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        timePanelLayout.setVerticalGroup(
+            timePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 136, Short.MAX_VALUE)
+        );
+
+        startPanel.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout startPanelLayout = new javax.swing.GroupLayout(startPanel);
+        startPanel.setLayout(startPanelLayout);
+        startPanelLayout.setHorizontalGroup(
+            startPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 136, Short.MAX_VALUE)
+        );
+        startPanelLayout.setVerticalGroup(
+            startPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 136, Short.MAX_VALUE)
         );
 
@@ -549,7 +578,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
                                     .addComponent(inputAnnualSalary, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(inputGc, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(inputGoal, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                         .addComponent(nameLabel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -572,11 +601,11 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
                             .addComponent(inputDraw, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(71, 71, 71))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(matchPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(timePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(startPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
@@ -643,11 +672,11 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
                                     .addComponent(higthLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addComponent(contracLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(timePanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(startPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(matchPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -783,8 +812,20 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         inputDraw.setBackground(null);
 
         redarPanal.setVisible(false);
-        if (view2d != null) {
-            redarPanal.remove(view2d);
+        timePanel.setVisible(false);
+        matchPanel.setVisible(false);
+        startPanel.setVisible(false);
+        if (viewRadar != null) {
+            redarPanal.remove(viewRadar);
+        }
+        if (viewPieTime != null) {
+            timePanel.remove(viewPieTime);
+        }
+        if (viewPieMatch != null) {
+            matchPanel.remove(viewPieMatch);
+        }
+        if (viewPieStart != null) {
+            startPanel.remove(viewPieStart);
         }
         imgPlayer.setText("NO IMAGE");
         imgPlayer.setIcon(null);
@@ -973,10 +1014,8 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JPanel matchPanel;
     private javax.swing.JLabel nameLabel;
     private javax.swing.JLabel nameLabel1;
     private javax.swing.JLabel nameLabel10;
@@ -993,5 +1032,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
     private javax.swing.JButton searchButton;
     private javax.swing.JTable searchTable;
     private javax.swing.JTextField searchText;
+    private javax.swing.JPanel startPanel;
+    private javax.swing.JPanel timePanel;
     // End of variables declaration//GEN-END:variables
 }
