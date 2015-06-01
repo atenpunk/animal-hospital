@@ -12,7 +12,6 @@ import com.jensoft.sw2d.core.palette.InputFonts;
 import com.jensoft.sw2d.core.palette.NanoChromatique;
 import com.jensoft.sw2d.core.palette.PetalPalette;
 import com.jensoft.sw2d.core.palette.RosePalette;
-import com.jensoft.sw2d.core.palette.TangoPalette;
 import com.jensoft.sw2d.core.plugin.outline.OutlinePlugin;
 import com.jensoft.sw2d.core.plugin.radar.DimensionMetrics;
 import com.jensoft.sw2d.core.plugin.radar.Radar;
@@ -145,7 +144,7 @@ public class ViewReportTestRadarDlg extends Sw2dDemo {
                         RosePalette.LEAFGREEN, 80));
                 radar.addSurface(radarsurface);
                 java.awt.Font font3 = InputFonts.getFont(InputFonts.NO_MOVE, 10);
-                GlyphFill glyphfill = new GlyphFill(ColorPalette.alpha(TangoPalette.BUTTER2, 240));
+                GlyphFill glyphfill = new GlyphFill(Color.BLUE, NanoChromatique.BLUE);
                 RoundMarker roundmarker = new RoundMarker(NanoChromatique.BLUE,
                         Color.WHITE, 3);
                 RadarSurfaceAnchor radarsurfaceanchor = RadarToolkit.createSurfaceAnchor(

@@ -53,7 +53,7 @@ public class ViewReportPieDlg extends Sw2dDemo {
             com.jensoft.sw2d.core.window.Window2D.Linear linear = new com.jensoft.sw2d.core.window.Window2D.Linear(
                     -1D, 1.0D, -1D, 1.0D);
             view.registerWindow2D(linear);
-            pie = PieToolkit.createPie("pie", 65);
+            pie = PieToolkit.createPie("pie", 60);
             PieLinearEffect pielineareffect = new PieLinearEffect();
             pielineareffect.setOffsetRadius(5);
             pie.setPieEffect(pielineareffect);
