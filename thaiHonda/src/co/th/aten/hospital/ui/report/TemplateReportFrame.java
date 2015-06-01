@@ -43,7 +43,7 @@ public class TemplateReportFrame extends JFrame {
         // setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         JPanel masterPane = new JPanel();
-        masterPane.setBackground(Color.BLACK);
+        masterPane.setBackground(Color.WHITE);
 
         masterPane.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         masterPane.setLayout(new BorderLayout());

@@ -24,7 +24,7 @@ public class Configuration {
     public static void loadConfig() {
         properties = new Properties();
         String dir = System.getProperty("user.dir");
-        String file = "conf/pos.conf";
+        String file = "conf/configuration.conf";
         InputStream i;
         try {
             i = new FileInputStream(dir + "/" + file);

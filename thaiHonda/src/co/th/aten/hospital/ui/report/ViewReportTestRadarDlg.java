@@ -1,12 +1,12 @@
 package co.th.aten.hospital.ui.report;
 
+import co.th.aten.hospital.Configuration;
 import java.awt.Color;
 
 import com.jensoft.sw2d.core.democomponent.Sw2dDemo;
 import com.jensoft.sw2d.core.glyphmetrics.StylePosition;
 import com.jensoft.sw2d.core.glyphmetrics.painter.fill.GlyphFill;
 import com.jensoft.sw2d.core.glyphmetrics.painter.marker.RoundMarker;
-import com.jensoft.sw2d.core.glyphmetrics.painter.marker.TicTacMarker;
 import com.jensoft.sw2d.core.palette.ColorPalette;
 import com.jensoft.sw2d.core.palette.InputFonts;
 import com.jensoft.sw2d.core.palette.NanoChromatique;
@@ -23,15 +23,24 @@ import com.jensoft.sw2d.core.plugin.radar.painter.dimension.DimensionDefaultPain
 import com.jensoft.sw2d.core.plugin.radar.painter.radar.RadarDefaultPainter;
 import com.jensoft.sw2d.core.view.View2D;
 import com.jensoft.sw2d.core.window.Window2D;
+import java.text.DecimalFormat;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class ViewReportTestRadarDlg extends Sw2dDemo {
+
+    private double gc;
+    private int match;
+    private int playingTime;
+    private DecimalFormat df = new DecimalFormat("#,###");
+    private final Log logger = LogFactory.getLog(getClass());
 
     public static void main(String[] args) {
 
         try {
-
+            Configuration.loadConfig();
             final TemplateReportFrame templateFrame = new TemplateReportFrame();
-            ViewReportTestRadarDlg report = new ViewReportTestRadarDlg();
+            ViewReportTestRadarDlg report = new ViewReportTestRadarDlg(4000000, 20, 1590);
             templateFrame.show(report);
 //            templateFrame.setView(report.getView());
 //            templateFrame.pack();
@@ -55,7 +64,10 @@ public class ViewReportTestRadarDlg extends Sw2dDemo {
         }
     }
 
-    public ViewReportTestRadarDlg() {
+    public ViewReportTestRadarDlg(double gc, int match, int playingTime) {
+        this.gc = gc;
+        this.match = match;
+        this.playingTime = playingTime;
     }
     private View2D view;
 
@@ -81,197 +93,81 @@ public class ViewReportTestRadarDlg extends Sw2dDemo {
     private void run() {
         try {
             view.setName("ReportRadar");
-            view.setBackground(Color.BLACK);
-            view.setPlaceHolderAxisEast(0);
-            view.setPlaceHolderAxisNorth(0);
-            view.setPlaceHolderAxisSouth(0);
-            view.setPlaceHolderAxisWest(0);
+            view.setBackground(Color.WHITE);
+            view.setPlaceHolderAxisEast(1);
+            view.setPlaceHolderAxisNorth(1);
+            view.setPlaceHolderAxisSouth(1);
+            view.setPlaceHolderAxisWest(1);
             Window2D radarWindow2D = new Window2D.Linear(-1, 1, -1, 1);
             radarWindow2D.setName("compatible pie window");
             RadarPlugin radarPlugin = new RadarPlugin();
             radarPlugin.setPriority(100);
             radarWindow2D.registerPlugin(radarPlugin);
-//            radarWindow2D.registerPlugin(new OutlinePlugin(Color.BLACK));
+            radarWindow2D.registerPlugin(new OutlinePlugin(Color.BLACK));
 
             final Radar radar = new Radar(0, 0, 100);
             radar.setRadarPainter(new RadarDefaultPainter());
-            final RadarDimension radardimension = new RadarDimension("d1", 0.0D, 0.0D, 100D);
+            final RadarDimension radardimension = new RadarDimension("GC", 90.0D, 0.0D, Configuration.getInt("GC"));
             radardimension.setDimensionPainter(new DimensionDefaultPainter());
-            final RadarDimension radardimension1 = new RadarDimension("d2", 60D, 0.0D, 100D);
-            radardimension1.setDimensionPainter(new DimensionDefaultPainter());
-            final RadarDimension radardimension2 = new RadarDimension("d3", 120D, 0.0D, 100D);
+            final RadarDimension radardimension2 = new RadarDimension("Match", 210D, 0.0D, Configuration.getInt("Match"));
             radardimension2.setDimensionPainter(new DimensionDefaultPainter());
-            final RadarDimension radardimension3 = new RadarDimension("d4", 180D, 0.0D, 100D);
-            radardimension3.setDimensionPainter(new DimensionDefaultPainter());
-            final RadarDimension radardimension4 = new RadarDimension("d5", 240D, 0.0D, 100D);
+            final RadarDimension radardimension4 = new RadarDimension("Playing Time", 330D, 0.0D, Configuration.getInt("PlayingTime"));
             radardimension4.setDimensionPainter(new DimensionDefaultPainter());
-            final RadarDimension radardimension5 = new RadarDimension("d6", 300D, 0.0D, 100D);
-            radardimension5.setDimensionPainter(new DimensionDefaultPainter());
 
-            RadarToolkit.pushDimensions(radar, new RadarDimension[]{radardimension,
-                radardimension1, radardimension2, radardimension3, radardimension4,
-                radardimension5});
+            RadarToolkit.pushDimensions(radar, new RadarDimension[]{radardimension, radardimension2, radardimension4});
             java.awt.Font font = InputFonts.getFont(InputFonts.NO_MOVE, 12);
             float af[] = {0.0F, 0.3F, 0.7F, 1.0F};
-            Color acolor[] = {new Color(0, 0, 0, 20), new Color(0, 0, 0, 150),
-                new Color(0, 0, 0, 150), new Color(0, 0, 0, 20)};
+            Color acolor[] = {new Color(0, 0, 0, 0), new Color(0, 0, 0, 50),
+                new Color(0, 0, 0, 50), new Color(0, 0, 0, 0)};
             com.jensoft.sw2d.core.plugin.radar.painter.label.RadarDimensionDefaultLabel radardimensiondefaultlabel = RadarToolkit
-                    .createDimensionDefaultLabel("Type 1", font, ColorPalette.WHITE,
+                    .createDimensionDefaultLabel("GC", font, ColorPalette.DARK_GRAY,
                     RosePalette.REDWOOD, af, acolor, 20);
-            com.jensoft.sw2d.core.plugin.radar.painter.label.RadarDimensionDefaultLabel radardimensiondefaultlabel1 = RadarToolkit
-                    .createDimensionDefaultLabel("Type 2", font, ColorPalette.WHITE,
-                    RosePalette.EMERALD, af, acolor, 20);
             com.jensoft.sw2d.core.plugin.radar.painter.label.RadarDimensionDefaultLabel radardimensiondefaultlabel2 = RadarToolkit
-                    .createDimensionDefaultLabel("Type 3", font, ColorPalette.WHITE,
-                    RosePalette.MELON, af, acolor, 20);
-            com.jensoft.sw2d.core.plugin.radar.painter.label.RadarDimensionDefaultLabel radardimensiondefaultlabel3 = RadarToolkit
-                    .createDimensionDefaultLabel("Type 4", font, ColorPalette.WHITE,
-                    RosePalette.CORALRED, af, acolor, 20);
+                    .createDimensionDefaultLabel("Match", font, ColorPalette.DARK_GRAY,
+                    RosePalette.REDWOOD, af, acolor, 20);
             com.jensoft.sw2d.core.plugin.radar.painter.label.RadarDimensionDefaultLabel radardimensiondefaultlabel4 = RadarToolkit
-                    .createDimensionDefaultLabel("Type 5", font, ColorPalette.WHITE,
-                    RosePalette.AZALEA, af, acolor, 20);
-            com.jensoft.sw2d.core.plugin.radar.painter.label.RadarDimensionDefaultLabel radardimensiondefaultlabel5 = RadarToolkit
-                    .createDimensionDefaultLabel("Type 6", font, ColorPalette.WHITE,
-                    RosePalette.INDIGO, af, acolor, 20);
+                    .createDimensionDefaultLabel("Playing Time", font, ColorPalette.DARK_GRAY,
+                    RosePalette.REDWOOD, af, acolor, 20);
             radardimension.setDimensionLabel(radardimensiondefaultlabel);
-            radardimension1.setDimensionLabel(radardimensiondefaultlabel1);
             radardimension2.setDimensionLabel(radardimensiondefaultlabel2);
-            radardimension3.setDimensionLabel(radardimensiondefaultlabel3);
             radardimension4.setDimensionLabel(radardimensiondefaultlabel4);
-            radardimension5.setDimensionLabel(radardimensiondefaultlabel5);
             radarPlugin.addRadar(radar);
             view.registerWindow2D(radarWindow2D);
-
-            System.out.println("RUN RUN");
             try {
                 com.jensoft.sw2d.core.plugin.radar.RadarSurface radarsurface = RadarToolkit
-                        .createSurface("surface1", Color.WHITE, ColorPalette.alpha(
+                        .createSurface("surface1", NanoChromatique.BLUE, ColorPalette.alpha(
                         RosePalette.AZALEA, 80));
                 radar.addSurface(radarsurface);
-                java.awt.Font font3 = InputFonts.getFont(InputFonts.NEUROPOL, 10);
-                GlyphFill glyphfill = new GlyphFill(Color.WHITE, NanoChromatique.GREEN);
-                RoundMarker roundmarker = new RoundMarker(NanoChromatique.GREEN,
+                java.awt.Font font3 = InputFonts.getFont(InputFonts.NO_MOVE, 10);
+                GlyphFill glyphfill = new GlyphFill(Color.BLUE, NanoChromatique.BLUE);
+                RoundMarker roundmarker = new RoundMarker(NanoChromatique.BLUE,
                         Color.WHITE, 3);
                 RadarSurfaceAnchor radarsurfaceanchor = RadarToolkit.createSurfaceAnchor(
-                        radardimension, "A1", 67D, StylePosition.Default, 10, glyphfill,
-                        roundmarker, font3);
-                RadarSurfaceAnchor radarsurfaceanchor1 = RadarToolkit.createSurfaceAnchor(
-                        radardimension1, "A2", 70D, StylePosition.Default, 10, glyphfill,
+                        radardimension, df.format(gc), gc, StylePosition.Default, 25, glyphfill,
                         roundmarker, font3);
                 RadarSurfaceAnchor radarsurfaceanchor2 = RadarToolkit.createSurfaceAnchor(
-                        radardimension2, "A3", 17D, StylePosition.Default, 10, glyphfill,
-                        roundmarker, font3);
-                RadarSurfaceAnchor radarsurfaceanchor3 = RadarToolkit.createSurfaceAnchor(
-                        radardimension3, "A4", 44D, StylePosition.Default, 10, glyphfill,
+                        radardimension2, df.format(match), match, StylePosition.Default, 10, glyphfill,
                         roundmarker, font3);
                 RadarSurfaceAnchor radarsurfaceanchor4 = RadarToolkit.createSurfaceAnchor(
-                        radardimension4, "A5", 58D, StylePosition.Default, 10, glyphfill,
-                        roundmarker, font3);
-                RadarSurfaceAnchor radarsurfaceanchor5 = RadarToolkit.createSurfaceAnchor(
-                        radardimension5, "A6", 36D, StylePosition.Default, 10, glyphfill,
+                        radardimension4, df.format(playingTime), playingTime, StylePosition.Default, 10, glyphfill,
                         roundmarker, font3);
                 RadarToolkit.pushAnchors(radarsurface, new RadarSurfaceAnchor[]{
-                    radarsurfaceanchor, radarsurfaceanchor1, radarsurfaceanchor2,
-                    radarsurfaceanchor3, radarsurfaceanchor4, radarsurfaceanchor5});
-                com.jensoft.sw2d.core.plugin.radar.RadarSurface radarsurface1 = RadarToolkit
-                        .createSurface("surface2", Color.WHITE, ColorPalette.alpha(
-                        RosePalette.EMERALD, 80));
-                radar.addSurface(radarsurface1);
-                view.repaintDevice();
-                glyphfill = new GlyphFill(Color.WHITE, NanoChromatique.ORANGE);
-                roundmarker = new RoundMarker(NanoChromatique.ORANGE, Color.WHITE, 3);
-                RadarSurfaceAnchor radarsurfaceanchor6 = RadarToolkit.createSurfaceAnchor(
-                        radardimension, "A1", 12D, StylePosition.Default, 10, glyphfill,
-                        roundmarker, font3);
-                RadarSurfaceAnchor radarsurfaceanchor7 = RadarToolkit.createSurfaceAnchor(
-                        radardimension1, "A2", 25D, StylePosition.Default, 10, glyphfill,
-                        roundmarker, font3);
-                RadarSurfaceAnchor radarsurfaceanchor8 = RadarToolkit.createSurfaceAnchor(
-                        radardimension2, "A3", 80D, StylePosition.Default, 10, glyphfill,
-                        roundmarker, font3);
-                RadarSurfaceAnchor radarsurfaceanchor9 = RadarToolkit.createSurfaceAnchor(
-                        radardimension3, "A4", 30D, StylePosition.Default, 10, glyphfill,
-                        roundmarker, font3);
-                RadarSurfaceAnchor radarsurfaceanchor10 = RadarToolkit.createSurfaceAnchor(
-                        radardimension4, "A5", 19D, StylePosition.Default, 10, glyphfill,
-                        roundmarker, font3);
-                RadarSurfaceAnchor radarsurfaceanchor11 = RadarToolkit.createSurfaceAnchor(
-                        radardimension5, "A6", 80D, StylePosition.Default, 10, glyphfill,
-                        roundmarker, font3);
-                RadarToolkit.pushAnchors(radarsurface1, new RadarSurfaceAnchor[]{
-                    radarsurfaceanchor6, radarsurfaceanchor7, radarsurfaceanchor8,
-                    radarsurfaceanchor9, radarsurfaceanchor10, radarsurfaceanchor11});
-                view.repaintDevice();
+                    radarsurfaceanchor, radarsurfaceanchor2, radarsurfaceanchor4});
                 java.awt.Font font1 = InputFonts.getFont(InputFonts.SANSATION_REGULAR, 12);
-                glyphfill = new GlyphFill(RosePalette.MANDARIN, RosePalette.MELON);
+                glyphfill = new GlyphFill(RosePalette.MANDARIN, RosePalette.CHOCOLATE);
                 roundmarker = new RoundMarker(PetalPalette.PETAL1_HC, Color.WHITE, 3);
                 DimensionMetrics dimensionmetrics = RadarToolkit.createDimensionMetrics(
-                        "100", 100D, StylePosition.Default, 20, glyphfill, roundmarker,
-                        font1);
-                DimensionMetrics dimensionmetrics1 = RadarToolkit.createDimensionMetrics(
-                        "100", 100D, StylePosition.Default, 20, glyphfill, roundmarker,
+                        "", Configuration.getDouble("GC"), StylePosition.Default, 20, glyphfill, roundmarker,
                         font1);
                 DimensionMetrics dimensionmetrics2 = RadarToolkit.createDimensionMetrics(
-                        "100", 100D, StylePosition.Default, 20, glyphfill, roundmarker,
-                        font1);
-                DimensionMetrics dimensionmetrics3 = RadarToolkit.createDimensionMetrics(
-                        "100", 100D, StylePosition.Default, 20, glyphfill, roundmarker,
+                        "", Configuration.getDouble("Match"), StylePosition.Default, 20, glyphfill, roundmarker,
                         font1);
                 DimensionMetrics dimensionmetrics4 = RadarToolkit.createDimensionMetrics(
-                        "100", 100D, StylePosition.Default, 20, glyphfill, roundmarker,
-                        font1);
-                DimensionMetrics dimensionmetrics5 = RadarToolkit.createDimensionMetrics(
-                        "100", 100D, StylePosition.Default, 20, glyphfill, roundmarker,
+                        "", Configuration.getDouble("PlayingTime"), StylePosition.Default, 20, glyphfill, roundmarker,
                         font1);
                 radardimension.addMetrics(dimensionmetrics);
-                radardimension1.addMetrics(dimensionmetrics1);
                 radardimension2.addMetrics(dimensionmetrics2);
-                radardimension3.addMetrics(dimensionmetrics3);
                 radardimension4.addMetrics(dimensionmetrics4);
-                radardimension5.addMetrics(dimensionmetrics5);
-                view.repaintDevice();
-                java.awt.Font font2 = InputFonts.getFont(InputFonts.PHOENIX, 12);
-                GlyphFill glyphfill1 = new GlyphFill(ColorPalette.WHITE,
-                        RosePalette.REDWOOD);
-                GlyphFill glyphfill2 = new GlyphFill(ColorPalette.WHITE,
-                        RosePalette.AEGEANBLUE);
-                TicTacMarker tictacmarker = new TicTacMarker(RosePalette.REDWOOD, 2, 4);
-                TicTacMarker tictacmarker1 = new TicTacMarker(RosePalette.AEGEANBLUE, 2, 4);
-                DimensionMetrics dimensionmetrics6 = RadarToolkit.createDimensionMetrics(
-                        "20", 20D, StylePosition.Default, 10, glyphfill1, tictacmarker,
-                        font2);
-                DimensionMetrics dimensionmetrics7 = RadarToolkit.createDimensionMetrics(
-                        "40", 40D, StylePosition.Default, 10, glyphfill1, tictacmarker,
-                        font2);
-                DimensionMetrics dimensionmetrics8 = RadarToolkit.createDimensionMetrics(
-                        "60", 60D, StylePosition.Default, 10, glyphfill1, tictacmarker,
-                        font2);
-                DimensionMetrics dimensionmetrics9 = RadarToolkit.createDimensionMetrics(
-                        "80", 80D, StylePosition.Default, 10, glyphfill1, tictacmarker,
-                        font2);
-                DimensionMetrics dimensionmetrics10 = RadarToolkit.createDimensionMetrics(
-                        "20", 20D, StylePosition.Default, 10, glyphfill2, tictacmarker1,
-                        font2);
-                DimensionMetrics dimensionmetrics11 = RadarToolkit.createDimensionMetrics(
-                        "40", 40D, StylePosition.Default, 10, glyphfill2, tictacmarker1,
-                        font2);
-                DimensionMetrics dimensionmetrics12 = RadarToolkit.createDimensionMetrics(
-                        "60", 60D, StylePosition.Default, 10, glyphfill2, tictacmarker1,
-                        font2);
-                DimensionMetrics dimensionmetrics13 = RadarToolkit.createDimensionMetrics(
-                        "80", 80D, StylePosition.Default, 10, glyphfill2, tictacmarker1,
-                        font2);
-                radardimension.addMetrics(dimensionmetrics6);
-                view.repaintDevice();
-                radardimension.addMetrics(dimensionmetrics7);
-                view.repaintDevice();
-                radardimension.addMetrics(dimensionmetrics8);
-                view.repaintDevice();
-                radardimension.addMetrics(dimensionmetrics9);
-                view.repaintDevice();
-                RadarToolkit.pushMetricsDimensions(radardimension1, new DimensionMetrics[]{
-                    dimensionmetrics10, dimensionmetrics11, dimensionmetrics12,
-                    dimensionmetrics13});
                 view.repaintDevice();
 
             } catch (Exception e) {
@@ -280,6 +176,8 @@ public class ViewReportTestRadarDlg extends Sw2dDemo {
 
             view.repaintDevice();
         } catch (Exception e) {
+            logger.info("" + e);
+            e.printStackTrace();
         }
     }
 }
