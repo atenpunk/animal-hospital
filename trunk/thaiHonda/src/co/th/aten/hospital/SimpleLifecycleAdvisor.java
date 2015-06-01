@@ -39,12 +39,13 @@ import org.springframework.richclient.settings.xml.XmlSettingsReaderWriter;
 /**
  * Custom application lifecycle implementation that configures the sample app at
  * well defined points within its lifecycle.
- * 
+ *
  * @author Keith Donald
  */
 public class SimpleLifecycleAdvisor extends DefaultApplicationLifecycleAdvisor {
 
     private final Log logger = LogFactory.getLog(getClass());
+
     /**
      * This method is called prior to the opening of an application window. Note
      * at this point the window control has not been created. This hook allows
@@ -52,7 +53,7 @@ public class SimpleLifecycleAdvisor extends DefaultApplicationLifecycleAdvisor {
      * properties on the configurer) and it provides a hook where code that
      * needs to be executed prior to the window opening can be plugged in (like
      * a startup wizard, for example).
-     * 
+     *
      * @param configurer The application window configurer
      */
     @Override
@@ -72,7 +73,7 @@ public class SimpleLifecycleAdvisor extends DefaultApplicationLifecycleAdvisor {
 //        configurer.setInitialSize(new Dimension((int)env.getMaximumWindowBounds().getWidth(),(int)env.getMaximumWindowBounds().getHeight()));
 
 
-
+        
         SessionManager sessionManager = (SessionManager) Application.services().getService(SessionManager.class);
         try {
             SettingsManager settingsManager = new SettingsManager();
@@ -122,7 +123,6 @@ public class SimpleLifecycleAdvisor extends DefaultApplicationLifecycleAdvisor {
 
     }
 
-
     /**
      * Called just after the command context has been internalized. At this
      * point, all the commands for the window have been created and are
@@ -143,7 +143,7 @@ public class SimpleLifecycleAdvisor extends DefaultApplicationLifecycleAdvisor {
 
     /**
      * Called after the actual window control has been created.
-     * 
+     *
      * @param window The window being processed
      */
     @Override
@@ -158,7 +158,7 @@ public class SimpleLifecycleAdvisor extends DefaultApplicationLifecycleAdvisor {
 
     /**
      * Called immediately after making the window visible.
-     * 
+     *
      * @param window The window being processed
      */
     @Override
@@ -170,7 +170,6 @@ public class SimpleLifecycleAdvisor extends DefaultApplicationLifecycleAdvisor {
         }
         window.getControl().setExtendedState(window.getControl().getExtendedState() | JFrame.MAXIMIZED_BOTH);
         window.getControl().getContentPane().addHierarchyBoundsListener(new HierarchyBoundsListener() {
-
             @Override
             public void ancestorMoved(HierarchyEvent e) {
 //				System.out.println(e);
@@ -197,9 +196,9 @@ public class SimpleLifecycleAdvisor extends DefaultApplicationLifecycleAdvisor {
      * Called when the window is being closed. This hook allows control over
      * whether the window is allowed to close. By returning false from this
      * method, the window will not be closed.
-     * 
+     *
      * @return boolean indicator if window should be closed. <code>true</code>
-     *         to allow the close, <code>false</code> to prevent the close.
+     * to allow the close, <code>false</code> to prevent the close.
      */
     @Override
     public boolean onPreWindowClose(ApplicationWindow window) {
@@ -222,11 +221,11 @@ public class SimpleLifecycleAdvisor extends DefaultApplicationLifecycleAdvisor {
     public void onPostStartup() {
         if (logger.isInfoEnabled()) {
             logger.info("onPostStartup()");
-        } 
+        }
+        Configuration.loadConfig();
         final SessionManager sessionManager = (SessionManager) Application.services().getService(SessionManager.class);
 
         Application.instance().getActiveWindow().getControl().addMouseMotionListener(new MouseMotionListener() {
-
             public void mouseDragged(MouseEvent e) {
 //                throw new UnsupportedOperationException("Not supported yet.");
             }
@@ -237,5 +236,4 @@ public class SimpleLifecycleAdvisor extends DefaultApplicationLifecycleAdvisor {
         });
 
     }
-
 }

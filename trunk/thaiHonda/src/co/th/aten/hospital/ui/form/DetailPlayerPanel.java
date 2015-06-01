@@ -31,6 +31,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -56,6 +58,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
     private DecimalFormat df = new DecimalFormat("#,##0");
     private PlayersModel playersModelSelected;
     private int row = -1;
+    private View2D view2d;
 
     public DetailPlayerPanel() {
         this.sessionManager = (SessionManager) Application.services().getService(SessionManager.class);
@@ -241,12 +244,12 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         if (playersModelList != null && playersModelList.size() >= row) {
             editPlayer.setEnabled(true);
             playersModelSelected = playersModelList.get(row);
-            ViewReportTestRadarDlg report = new ViewReportTestRadarDlg();
-            View2D view = report.createView2D();
-            view.setSize(417, 372);
+            ViewReportTestRadarDlg report = new ViewReportTestRadarDlg(playersModelSelected.getGc(), playersModelSelected.getMatch(), playersModelSelected.getPlayingTime());
+            view2d = report.createView2D();
+            view2d.setSize(407, 352);
             redarPanal.setVisible(true);
             redarPanal.setBackground(Color.WHITE);
-            redarPanal.add(view, BorderLayout.CENTER);
+            redarPanal.add(view2d, BorderLayout.CENTER);
             nameLabel.setText("#" + playersModelSelected.getPlayerNumber() + " " + playersModelSelected.getPlayerName());
             String brid = "";
             String HeWe = playersModelSelected.getHeight() + "cm/" + playersModelSelected.getWeight() + "kg";
@@ -780,6 +783,9 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         inputDraw.setBackground(null);
 
         redarPanal.setVisible(false);
+        if (view2d != null) {
+            redarPanal.remove(view2d);
+        }
         imgPlayer.setText("NO IMAGE");
         imgPlayer.setIcon(null);
         nameLabel.setText("");
