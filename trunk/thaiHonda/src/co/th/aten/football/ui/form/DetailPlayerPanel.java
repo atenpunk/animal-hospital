@@ -450,7 +450,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         nameLabel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         nameLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        nameLabel6.setText("Starting");
+        nameLabel6.setText("Starter");
         nameLabel6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         nameLabel7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -575,7 +575,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Starting");
+        jLabel3.setText("Starter");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -764,6 +764,11 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
 
         report1Button.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         report1Button.setText("Report 1");
+        report1Button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                report1ButtonActionPerformed(evt);
+            }
+        });
 
         report2Button.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         report2Button.setText("Report 2");
@@ -783,7 +788,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
                         .addComponent(report1Button)
                         .addGap(18, 18, 18)
                         .addComponent(report2Button)
-                        .addGap(0, 211, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane2))
                 .addContainerGap())
         );
@@ -1002,6 +1007,11 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
 //            new ProcessTransactionDialog(new JFrame(), true, r, "Please wait the system is running...");
         }
     }//GEN-LAST:event_editPlayerActionPerformed
+
+    private void report1ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_report1ButtonActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_report1ButtonActionPerformed
 
     private void searchByKeyWord() {
 //        Runnable r = new Runnable() {
