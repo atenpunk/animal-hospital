@@ -394,7 +394,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="12" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Starting"/>
+                <Property name="text" type="java.lang.String" value="Starter"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
                     <EtchetBorder/>
@@ -664,7 +664,7 @@
                   <Font name="Tahoma" size="11" style="1"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="Starting"/>
+                <Property name="text" type="java.lang.String" value="Starter"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -699,7 +699,7 @@
                           <Component id="report1Button" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="report2Button" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="211" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                       <Component id="jScrollPane2" max="32767" attributes="0"/>
                   </Group>
@@ -779,6 +779,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Report 1"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="report1ButtonActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="report2Button">
           <Properties>
