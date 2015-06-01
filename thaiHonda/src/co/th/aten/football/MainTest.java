@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package co.th.aten.hospital;
+package co.th.aten.football;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package co.th.aten.hospital;
+package co.th.aten.football;
 
 import java.awt.Font;
 import javax.swing.UIDefaults;
