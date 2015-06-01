@@ -57,7 +57,7 @@ public class ViewReportPieDlg extends Sw2dDemo {
             PieLinearEffect pielineareffect = new PieLinearEffect();
             pielineareffect.setOffsetRadius(5);
             pie.setPieEffect(pielineareffect);
-            pieslice01 = PieToolkit.createSlice("s1", ColorPalette.alpha(TangoPalette.ALUMINIUM2, 250), data01);
+            pieslice01 = PieToolkit.createSlice("s1", ColorPalette.alpha(RosePalette.PLUMWINE, 20), data01);
             pieslice02 = PieToolkit.createSlice("s2", ColorPalette.alpha(TangoPalette.BUTTER2, 240), data02);
             PieToolkit
                     .pushSlices(pie, new PieSlice[]{pieslice01, pieslice02});
