@@ -63,7 +63,7 @@
     AWT event thread as the handler to receive uncaught exceptions that occur
     on the event thread.
   -->
-    <bean id="lifecycleAdvisor" class="co.th.aten.hospital.SimpleLifecycleAdvisor">
+    <bean id="lifecycleAdvisor" class="co.th.aten.football.SimpleLifecycleAdvisor">
         <property name="startingPageId" value="initView" />
         <property name="windowCommandBarDefinitions" value="ui/commands-context.xml" />
         <property name="windowCommandManagerBeanName" value="windowCommandManager" />
@@ -244,11 +244,11 @@
 
 
     <bean id="initView" class="org.springframework.richclient.application.support.DefaultViewDescriptor">
-        <property name="viewClass" value="co.th.aten.hospital.ui.InitView" />
+        <property name="viewClass" value="co.th.aten.football.ui.InitView" />
     </bean>
 
     <bean id="MainView" class="org.springframework.richclient.application.support.DefaultViewDescriptor">
-        <property name="viewClass" value="co.th.aten.hospital.ui.MainView" />
+        <property name="viewClass" value="co.th.aten.football.ui.MainView" />
     </bean>
 
 
