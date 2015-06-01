@@ -954,8 +954,8 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
                     modelTable.removeRow(0);
                 }
                 for (PlayersModel model : playersModelList) {
-                    Object[] row = {model.getPlayerNumber(), model.getPlayerName(), model.getMatch(), model.getPlayingTime() + " min", model.getGoal(), model.getStarter()};
-                    modelTable.addRow(row);
+                    Object[] rowTable = {model.getPlayerNumber(), model.getPlayerName(), model.getMatch(), model.getPlayingTime() + " min", model.getGoal(), model.getStarter()};
+                    modelTable.addRow(rowTable);
                 }
                 setDataDetailPlayer();
             }
@@ -1000,8 +1000,8 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         }
         if (playersModelList != null) {
             for (PlayersModel model : playersModelList) {
-                Object[] row = {model.getPlayerNumber(), model.getPlayerName(), model.getMatch(), model.getPlayingTime() + " min", model.getGoal(), model.getStarter()};
-                modelTable.addRow(row);
+                Object[] rowTable = {model.getPlayerNumber(), model.getPlayerName(), model.getMatch(), model.getPlayingTime() + " min", model.getGoal(), model.getStarter()};
+                modelTable.addRow(rowTable);
             }
             if (playersModelList.size() == 1) {
                 row = 0;
