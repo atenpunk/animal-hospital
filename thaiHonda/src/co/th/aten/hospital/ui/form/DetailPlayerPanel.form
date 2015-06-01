@@ -150,19 +150,17 @@
                                       </Group>
                                       <Component id="nameLabel10" alignment="1" min="-2" pref="90" max="-2" attributes="0"/>
                                   </Group>
-                                  <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="editPlayer" alignment="1" max="32767" attributes="0"/>
-                                      <Component id="nameLabel11" alignment="1" min="-2" pref="90" max="-2" attributes="0"/>
-                                  </Group>
+                                  <Component id="nameLabel11" alignment="1" min="-2" pref="90" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="inputPlayingTime" min="-2" pref="50" max="-2" attributes="0"/>
-                                  <Component id="inputMatch" min="-2" pref="50" max="-2" attributes="0"/>
-                                  <Component id="inputStarting" min="-2" pref="50" max="-2" attributes="0"/>
-                                  <Component id="inputWin" min="-2" pref="50" max="-2" attributes="0"/>
-                                  <Component id="inputLose" min="-2" pref="50" max="-2" attributes="0"/>
-                                  <Component id="inputDraw" min="-2" pref="50" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="inputPlayingTime" max="32767" attributes="0"/>
+                                  <Component id="inputMatch" max="32767" attributes="0"/>
+                                  <Component id="inputStarting" max="32767" attributes="0"/>
+                                  <Component id="inputWin" max="32767" attributes="0"/>
+                                  <Component id="inputLose" max="32767" attributes="0"/>
+                                  <Component id="inputDraw" max="32767" attributes="0"/>
+                                  <Component id="editPlayer" alignment="0" pref="50" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
@@ -696,9 +694,10 @@
                       <Group type="102" attributes="0">
                           <Component id="searchText" min="-2" pref="619" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="searchButton" min="-2" pref="100" max="-2" attributes="0"/>
+                          <Component id="searchButton" min="-2" pref="30" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
-                      <Component id="jScrollPane2" alignment="1" max="32767" attributes="0"/>
+                      <Component id="jScrollPane2" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -707,12 +706,12 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="searchText" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                      <Component id="searchButton" alignment="3" pref="27" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="searchText" min="-2" pref="25" max="-2" attributes="0"/>
+                      <Component id="searchButton" min="-2" pref="25" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="18" max="32767" attributes="0"/>
-                  <Component id="jScrollPane2" min="-2" pref="160" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="jScrollPane2" pref="178" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -729,7 +728,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="12" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Search"/>
+            <Property name="toolTipText" type="java.lang.String" value="Search"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="null"/>
             </Property>

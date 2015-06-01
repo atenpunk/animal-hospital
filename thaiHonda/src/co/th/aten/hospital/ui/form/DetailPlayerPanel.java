@@ -33,8 +33,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -91,7 +89,19 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         searchTable.getColumnModel().getColumn(5).setCellRenderer(rightRenderer);
         searchTable.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
         searchTable.getColumnModel().getColumn(0).setPreferredWidth(10);
-
+        try {
+            File fileImg = new File(System.getProperty("user.dir") + "/img" + File.separator + "search.png");
+            if (fileImg != null) {
+                BufferedImage originalImage = ImageIO.read(fileImg);
+                int type = originalImage.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : originalImage.getType();
+                BufferedImage resizeImageJpg = resizeImage(originalImage, type, 30, 25);
+                ImageIcon img = new ImageIcon(resizeImageJpg);
+                searchButton.setText("");
+                searchButton.setIcon(img);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
 //        String name = "redar.png";
 //        try {
 //            View2D v = view;
@@ -111,6 +121,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
 //        }
 
         searchText.requestFocus();
+        searchText.requestFocusInWindow();
         searchText.setFont(new Font("Tahoma", 0, 11));
         searchText.addKeyListener(new KeyAdapter() {
             @Override
@@ -258,22 +269,22 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
             viewRadar.setSize(409, 308);
             redarPanal.setBackground(Color.WHITE);
             redarPanal.add(viewRadar, BorderLayout.CENTER);
-            int data01 = ((100*playersModelSelected.getMatch())/Configuration.getInt("Match"));
-            int data02 = 100-data01;
+            int data01 = ((100 * playersModelSelected.getMatch()) / Configuration.getInt("Match"));
+            int data02 = 100 - data01;
             ViewReportPieDlg reportPieMatch = new ViewReportPieDlg(data02, data01);
             viewPieMatch = reportPieMatch.createView2D();
             viewPieMatch.setSize(136, 136);
             matchPanel.setBackground(Color.WHITE);
             matchPanel.add(viewPieMatch, BorderLayout.CENTER);
-            data01 = ((100*playersModelSelected.getPlayingTime())/Configuration.getInt("PlayingTime"));
-            data02 = 100-data01;
+            data01 = ((100 * playersModelSelected.getPlayingTime()) / Configuration.getInt("PlayingTime"));
+            data02 = 100 - data01;
             ViewReportPieDlg reportPieTime = new ViewReportPieDlg(data02, data01);
             viewPieTime = reportPieTime.createView2D();
             viewPieTime.setSize(136, 136);
             timePanel.setBackground(Color.WHITE);
             timePanel.add(viewPieTime, BorderLayout.CENTER);
-            data01 = ((100*playersModelSelected.getStarter())/Configuration.getInt("Match"));
-            data02 = 100-data01;
+            data01 = ((100 * playersModelSelected.getStarter()) / Configuration.getInt("Match"));
+            data02 = 100 - data01;
             ViewReportPieDlg reportPieStart = new ViewReportPieDlg(data02, data01);
             viewPieStart = reportPieStart.createView2D();
             viewPieStart.setSize(136, 136);
@@ -313,7 +324,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
                     if (fileImg != null) {
                         BufferedImage originalImage = ImageIO.read(fileImg);
                         int type = originalImage.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : originalImage.getType();
-                        BufferedImage resizeImageJpg = resizeImage(originalImage, type);
+                        BufferedImage resizeImageJpg = resizeImage(originalImage, type, 182, 217);
                         ImageIcon img = new ImageIcon(resizeImageJpg);
 //                                    ImageIcon icon = new ImageIcon(System.getProperty("user.dir") + "/img" + File.separator + playersModelSelected.getImage());
                         imgPlayer.setText("");
@@ -600,17 +611,16 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
                                     .addComponent(nameLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(nameLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addComponent(nameLabel10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(editPlayer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(nameLabel11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(nameLabel11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(inputPlayingTime, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(inputMatch, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(inputStarting, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(inputWin, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(inputLose, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(inputDraw, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(inputPlayingTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(inputMatch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(inputStarting, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(inputWin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(inputLose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(inputDraw, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(editPlayer, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
@@ -722,7 +732,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         searchText.setToolTipText("Search by player name, number");
 
         searchButton.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        searchButton.setText("Search");
+        searchButton.setToolTipText("Search");
         searchButton.setBorder(null);
         searchButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -760,18 +770,19 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(searchText, javax.swing.GroupLayout.PREFERRED_SIZE, 619, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(searchText, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(searchButton, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -907,106 +918,105 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
             inputLose.setBackground(new Color(204, 255, 204));
             inputDraw.setBackground(new Color(204, 255, 204));
         } else {
-
-            Runnable r = new Runnable() {
-                public void run() {
-                    if (playersModelSelected != null) {
-                        playersModelSelected.setGc((inputGc.getText() != null && inputGc.getText().trim().length() > 0)
-                                ? Double.parseDouble(inputGc.getText().replaceAll(",", "")) : 0d);
-                        playersModelSelected.setAnnualSalary((inputAnnualSalary.getText() != null && inputAnnualSalary.getText().trim().length() > 0)
-                                ? Double.parseDouble(inputAnnualSalary.getText().replaceAll(",", "")) : 0d);
-                        playersModelSelected.setSigningFee((inputSigningFee.getText() != null && inputSigningFee.getText().trim().length() > 0)
-                                ? Double.parseDouble(inputSigningFee.getText().replaceAll(",", "")) : 0d);
-                        playersModelSelected.setSalaryMonth((inputSalaryMonth.getText() != null && inputSalaryMonth.getText().trim().length() > 0)
-                                ? Double.parseDouble(inputSalaryMonth.getText().replaceAll(",", "")) : 0d);
-                        playersModelSelected.setGoal((inputGoal.getText() != null && inputGoal.getText().trim().length() > 0)
-                                ? Integer.parseInt(inputGoal.getText().replaceAll(",", "")) : 0);
-                        playersModelSelected.setPlayingTime((inputPlayingTime.getText() != null && inputPlayingTime.getText().trim().length() > 0)
-                                ? Integer.parseInt(inputPlayingTime.getText().replaceAll(",", "")) : 0);
-                        playersModelSelected.setMatch((inputMatch.getText() != null && inputMatch.getText().trim().length() > 0)
-                                ? Integer.parseInt(inputMatch.getText().replaceAll(",", "")) : 0);
-                        playersModelSelected.setStarter((inputStarting.getText() != null && inputStarting.getText().trim().length() > 0)
-                                ? Integer.parseInt(inputStarting.getText().replaceAll(",", "")) : 0);
-                        playersModelSelected.setWin((inputWin.getText() != null && inputWin.getText().trim().length() > 0)
-                                ? Integer.parseInt(inputWin.getText().replaceAll(",", "")) : 0);
-                        playersModelSelected.setLose((inputLose.getText() != null && inputLose.getText().trim().length() > 0)
-                                ? Integer.parseInt(inputLose.getText().replaceAll(",", "")) : 0);
-                        playersModelSelected.setDraw((inputDraw.getText() != null && inputDraw.getText().trim().length() > 0)
-                                ? Integer.parseInt(inputDraw.getText().replaceAll(",", "")) : 0);
-                        playersModelSelected.setUpdateBy(sessionManager.getUser().getUserId());
-                        playersModelSelected.setUpdateDate(new Date());
-                    }
-                    boolean update = playersManager.updatePlayers(playersModelSelected);
-                    if (update) {
-                        playersModelList.set(row, playersModelSelected);
-                        DefaultTableModel modelTable = (DefaultTableModel) searchTable.getModel();
-                        while (modelTable.getRowCount() > 0) {
-                            modelTable.removeRow(0);
-                        }
-                        for (PlayersModel model : playersModelList) {
-                            Object[] row = {model.getPlayerNumber(), model.getPlayerName(), model.getMatch(), model.getPlayingTime() + " min", model.getGoal(), model.getStarter()};
-                            modelTable.addRow(row);
-                        }
-                        setDataDetailPlayer();
-                    }
-                    editPlayer.setText("Edit");
-                    inputGc.setEditable(false);
-                    inputAnnualSalary.setEditable(false);
-                    inputSigningFee.setEditable(false);
-                    inputSalaryMonth.setEditable(false);
-                    inputGoal.setEditable(false);
-                    inputPlayingTime.setEditable(false);
-                    inputMatch.setEditable(false);
-                    inputStarting.setEditable(false);
-                    inputWin.setEditable(false);
-                    inputLose.setEditable(false);
-                    inputDraw.setEditable(false);
-
-                    inputGc.setBackground(null);
-                    inputAnnualSalary.setBackground(null);
-                    inputSigningFee.setBackground(null);
-                    inputSalaryMonth.setBackground(null);
-                    inputGoal.setBackground(null);
-                    inputPlayingTime.setBackground(null);
-                    inputMatch.setBackground(null);
-                    inputStarting.setBackground(null);
-                    inputWin.setBackground(null);
-                    inputLose.setBackground(null);
-                    inputDraw.setBackground(null);
-                }
-            };
-            new ProcessTransactionDialog(new JFrame(), true, r, "Please wait the system is running...");
-        }
-    }//GEN-LAST:event_editPlayerActionPerformed
-
-    private void searchByKeyWord() {
-        Runnable r = new Runnable() {
-            public void run() {
-                clearData();
-                playersModelList = playersManager.searchByKeyWord(searchText.getText());
+//            Runnable r = new Runnable() {
+//                public void run() {
+            if (playersModelSelected != null) {
+                playersModelSelected.setGc((inputGc.getText() != null && inputGc.getText().trim().length() > 0)
+                        ? Double.parseDouble(inputGc.getText().replaceAll(",", "")) : 0d);
+                playersModelSelected.setAnnualSalary((inputAnnualSalary.getText() != null && inputAnnualSalary.getText().trim().length() > 0)
+                        ? Double.parseDouble(inputAnnualSalary.getText().replaceAll(",", "")) : 0d);
+                playersModelSelected.setSigningFee((inputSigningFee.getText() != null && inputSigningFee.getText().trim().length() > 0)
+                        ? Double.parseDouble(inputSigningFee.getText().replaceAll(",", "")) : 0d);
+                playersModelSelected.setSalaryMonth((inputSalaryMonth.getText() != null && inputSalaryMonth.getText().trim().length() > 0)
+                        ? Double.parseDouble(inputSalaryMonth.getText().replaceAll(",", "")) : 0d);
+                playersModelSelected.setGoal((inputGoal.getText() != null && inputGoal.getText().trim().length() > 0)
+                        ? Integer.parseInt(inputGoal.getText().replaceAll(",", "")) : 0);
+                playersModelSelected.setPlayingTime((inputPlayingTime.getText() != null && inputPlayingTime.getText().trim().length() > 0)
+                        ? Integer.parseInt(inputPlayingTime.getText().replaceAll(",", "")) : 0);
+                playersModelSelected.setMatch((inputMatch.getText() != null && inputMatch.getText().trim().length() > 0)
+                        ? Integer.parseInt(inputMatch.getText().replaceAll(",", "")) : 0);
+                playersModelSelected.setStarter((inputStarting.getText() != null && inputStarting.getText().trim().length() > 0)
+                        ? Integer.parseInt(inputStarting.getText().replaceAll(",", "")) : 0);
+                playersModelSelected.setWin((inputWin.getText() != null && inputWin.getText().trim().length() > 0)
+                        ? Integer.parseInt(inputWin.getText().replaceAll(",", "")) : 0);
+                playersModelSelected.setLose((inputLose.getText() != null && inputLose.getText().trim().length() > 0)
+                        ? Integer.parseInt(inputLose.getText().replaceAll(",", "")) : 0);
+                playersModelSelected.setDraw((inputDraw.getText() != null && inputDraw.getText().trim().length() > 0)
+                        ? Integer.parseInt(inputDraw.getText().replaceAll(",", "")) : 0);
+                playersModelSelected.setUpdateBy(sessionManager.getUser().getUserId());
+                playersModelSelected.setUpdateDate(new Date());
+            }
+            boolean update = playersManager.updatePlayers(playersModelSelected);
+            if (update) {
+                playersModelList.set(row, playersModelSelected);
                 DefaultTableModel modelTable = (DefaultTableModel) searchTable.getModel();
                 while (modelTable.getRowCount() > 0) {
                     modelTable.removeRow(0);
                 }
-                if (playersModelList != null) {
-                    for (PlayersModel model : playersModelList) {
-                        Object[] row = {model.getPlayerNumber(), model.getPlayerName(), model.getMatch(), model.getPlayingTime() + " min", model.getGoal(), model.getStarter()};
-                        modelTable.addRow(row);
-                    }
-                    if (playersModelList.size() == 1) {
-                        row = 0;
-                        setDataDetailPlayer();
-                    }
+                for (PlayersModel model : playersModelList) {
+                    Object[] row = {model.getPlayerNumber(), model.getPlayerName(), model.getMatch(), model.getPlayingTime() + " min", model.getGoal(), model.getStarter()};
+                    modelTable.addRow(row);
                 }
+                setDataDetailPlayer();
             }
-        };
-        new ProcessTransactionDialog(new JFrame(), true, r, "Please wait the system is running...");
+            editPlayer.setText("Edit");
+            inputGc.setEditable(false);
+            inputAnnualSalary.setEditable(false);
+            inputSigningFee.setEditable(false);
+            inputSalaryMonth.setEditable(false);
+            inputGoal.setEditable(false);
+            inputPlayingTime.setEditable(false);
+            inputMatch.setEditable(false);
+            inputStarting.setEditable(false);
+            inputWin.setEditable(false);
+            inputLose.setEditable(false);
+            inputDraw.setEditable(false);
+
+            inputGc.setBackground(null);
+            inputAnnualSalary.setBackground(null);
+            inputSigningFee.setBackground(null);
+            inputSalaryMonth.setBackground(null);
+            inputGoal.setBackground(null);
+            inputPlayingTime.setBackground(null);
+            inputMatch.setBackground(null);
+            inputStarting.setBackground(null);
+            inputWin.setBackground(null);
+            inputLose.setBackground(null);
+            inputDraw.setBackground(null);
+//                }
+//            };
+//            new ProcessTransactionDialog(new JFrame(), true, r, "Please wait the system is running...");
+        }
+    }//GEN-LAST:event_editPlayerActionPerformed
+
+    private void searchByKeyWord() {
+//        Runnable r = new Runnable() {
+//            public void run() {
+        clearData();
+        playersModelList = playersManager.searchByKeyWord(searchText.getText());
+        DefaultTableModel modelTable = (DefaultTableModel) searchTable.getModel();
+        while (modelTable.getRowCount() > 0) {
+            modelTable.removeRow(0);
+        }
+        if (playersModelList != null) {
+            for (PlayersModel model : playersModelList) {
+                Object[] row = {model.getPlayerNumber(), model.getPlayerName(), model.getMatch(), model.getPlayingTime() + " min", model.getGoal(), model.getStarter()};
+                modelTable.addRow(row);
+            }
+            if (playersModelList.size() == 1) {
+                row = 0;
+                setDataDetailPlayer();
+            }
+        }
+//            }
+//        };
+//        new ProcessTransactionDialog(new JFrame(), true, r, "Please wait the system is running...");
     }
 
-    private static BufferedImage resizeImage(BufferedImage originalImage, int type) {
-        BufferedImage resizedImage = new BufferedImage(182, 217, type);
+    private static BufferedImage resizeImage(BufferedImage originalImage, int type, int width, int height) {
+        BufferedImage resizedImage = new BufferedImage(width, height, type);
         Graphics2D g = resizedImage.createGraphics();
-        g.drawImage(originalImage, 0, 0, 182, 217, null);
+        g.drawImage(originalImage, 0, 0, width, height, null);
         g.dispose();
         return resizedImage;
     }
