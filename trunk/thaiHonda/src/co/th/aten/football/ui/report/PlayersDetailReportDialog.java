@@ -7,10 +7,14 @@ package co.th.aten.football.ui.report;
 import co.th.aten.football.model.PlayersModel;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
+import net.sf.jasperreports.view.JRSaveContributor;
+import net.sf.jasperreports.view.save.JRPdfSaveContributor;
+import net.sf.jasperreports.view.save.JRSingleSheetXlsSaveContributor;
 import org.springframework.richclient.dialog.ApplicationDialog;
 
 /**
@@ -41,7 +45,17 @@ public class PlayersDetailReportDialog extends ApplicationDialog {
         PlayersDetailReport print = new PlayersDetailReport(playersModelList);
 //        print.setFilter(filter);
         print.reportFactory();
-//        print.getJrViewer().setName("report.pdf");
+
+        List<JRSaveContributor> newSaveContributors = new LinkedList<JRSaveContributor>();
+        JRSaveContributor[] saveContributors = print.getJrViewer().getSaveContributors();
+        for (int i = 0; i < saveContributors.length; i++) {
+            if (saveContributors[i] instanceof JRPdfSaveContributor
+                    || saveContributors[i] instanceof JRSingleSheetXlsSaveContributor) {
+                System.out.println("saveContributors["+i+"] "+saveContributors[i].getDescription());
+                newSaveContributors.add(saveContributors[i]);
+            }
+        }
+        print.getJrViewer().setSaveContributors(newSaveContributors.toArray(new JRSaveContributor[0]));
         panel.add(print.getJrViewer(), BorderLayout.CENTER);
         return panel;
     }
