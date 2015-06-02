@@ -6,7 +6,6 @@ package co.th.aten.football.ui.report;
 
 import co.th.aten.football.model.PlayersModel;
 import co.th.aten.football.report.AbstractReport;
-import co.th.aten.football.service.SessionManager;
 import java.io.File;
 import java.util.List;
 import net.sf.jasperreports.engine.JREmptyDataSource;
@@ -16,7 +15,6 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JRViewer;
-import org.springframework.richclient.application.Application;
 
 /**
  *
