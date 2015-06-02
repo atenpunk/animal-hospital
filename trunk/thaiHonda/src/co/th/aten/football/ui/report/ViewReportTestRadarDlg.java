@@ -95,10 +95,10 @@ public class ViewReportTestRadarDlg extends Sw2dDemo {
         try {
             view.setName("ReportRadar");
             view.setBackground(Color.WHITE);
-            view.setPlaceHolderAxisEast(1);
-            view.setPlaceHolderAxisNorth(1);
-            view.setPlaceHolderAxisSouth(1);
-            view.setPlaceHolderAxisWest(1);
+            view.setPlaceHolderAxisEast(3);
+            view.setPlaceHolderAxisNorth(3);
+            view.setPlaceHolderAxisSouth(3);
+            view.setPlaceHolderAxisWest(3);
             Window2D radarWindow2D = new Window2D.Linear(-1, 1, -1, 1);
             radarWindow2D.setName("compatible pie window");
             RadarPlugin radarPlugin = new RadarPlugin();
