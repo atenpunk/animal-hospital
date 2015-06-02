@@ -104,16 +104,16 @@
 				<text><![CDATA[Report]]></text>
 			</staticText>
 			<line>
-				<reportElement key="line-1" style="default" x="9" y="4" width="564" height="1"/>
+				<reportElement key="line-1" style="default" x="9" y="2" width="564" height="1"/>
 			</line>
 			<line>
-				<reportElement key="line-2" style="default" x="573" y="4" width="1" height="52"/>
+				<reportElement key="line-2" style="default" x="573" y="2" width="1" height="54"/>
 			</line>
 			<line>
 				<reportElement key="line-3" style="default" positionType="FixRelativeToBottom" x="8" y="56" width="565" height="1"/>
 			</line>
 			<line>
-				<reportElement key="line-4" style="default" x="8" y="4" width="1" height="52"/>
+				<reportElement key="line-4" style="default" x="8" y="2" width="1" height="54"/>
 			</line>
 			<line>
 				<reportElement key="line-6" style="default" x="9" y="76" width="564" height="1"/>
@@ -155,7 +155,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font isBold="false" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[print date :]]></text>
+				<text><![CDATA[Print date :]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
 				<reportElement key="textField-5" style="default" x="507" y="57" width="19" height="18"/>
@@ -187,7 +187,7 @@
 				<reportElement key="line-10" style="default" x="573" y="56" width="1" height="21"/>
 			</line>
 			<image hAlign="Center" vAlign="Middle">
-				<reportElement key="image-1" style="default" x="11" y="5" width="50" height="50"/>
+				<reportElement key="image-1" style="default" x="13" y="5" width="50" height="50"/>
 				<imageExpression class="java.lang.String"><![CDATA[$P{logo_file}]]></imageExpression>
 			</image>
 			<staticText>
@@ -211,24 +211,24 @@
 				<reportElement key="line-14" style="default" x="62" y="3" width="1" height="24"/>
 			</line>
 			<line>
-				<reportElement key="line-16" style="default" x="227" y="3" width="1" height="24"/>
+				<reportElement key="line-16" style="default" x="295" y="3" width="1" height="24"/>
 			</line>
 			<staticText>
-				<reportElement key="staticText-9" style="default" x="63" y="3" width="164" height="23"/>
+				<reportElement key="staticText-9" style="default" x="63" y="3" width="232" height="23"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="false"/>
 				</textElement>
 				<text><![CDATA[Name]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="staticText-10" style="default" x="228" y="3" width="84" height="23"/>
+				<reportElement key="staticText-10" style="default" x="296" y="3" width="64" height="23"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="false"/>
 				</textElement>
 				<text><![CDATA[Match]]></text>
 			</staticText>
 			<line>
-				<reportElement key="line-17" style="default" x="314" y="3" width="1" height="24"/>
+				<reportElement key="line-17" style="default" x="362" y="3" width="1" height="24"/>
 			</line>
 			<line>
 				<reportElement key="line-23" style="default" x="573" y="2" width="1" height="25"/>
@@ -244,27 +244,27 @@
 				<reportElement key="line-26" style="default" positionType="FixRelativeToBottom" x="9" y="27" width="564" height="1"/>
 			</line>
 			<staticText>
-				<reportElement key="staticText-10" style="default" x="315" y="3" width="84" height="23"/>
+				<reportElement key="staticText-10" style="default" x="363" y="3" width="74" height="23"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="false"/>
 				</textElement>
 				<text><![CDATA[Playing Time]]></text>
 			</staticText>
 			<line>
-				<reportElement key="line-17" style="default" x="401" y="3" width="1" height="24"/>
+				<reportElement key="line-17" style="default" x="439" y="3" width="1" height="24"/>
 			</line>
 			<line>
-				<reportElement key="line-17" style="default" x="488" y="3" width="1" height="24"/>
+				<reportElement key="line-17" style="default" x="506" y="3" width="1" height="24"/>
 			</line>
 			<staticText>
-				<reportElement key="staticText-10" style="default" x="402" y="3" width="84" height="23"/>
+				<reportElement key="staticText-10" style="default" x="440" y="3" width="64" height="23"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="false"/>
 				</textElement>
 				<text><![CDATA[Goal]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="staticText-10" style="default" x="489" y="3" width="82" height="23"/>
+				<reportElement key="staticText-10" style="default" x="507" y="3" width="64" height="23"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="false"/>
 				</textElement>
@@ -284,10 +284,10 @@
 				<reportElement key="line-41" style="default" x="62" y="0" width="1" height="18"/>
 			</line>
 			<line>
-				<reportElement key="line-42" style="default" x="227" y="0" width="1" height="18"/>
+				<reportElement key="line-42" style="default" x="295" y="0" width="1" height="18"/>
 			</line>
 			<line>
-				<reportElement key="line-43" style="default" x="314" y="0" width="1" height="18"/>
+				<reportElement key="line-43" style="default" x="362" y="0" width="1" height="18"/>
 			</line>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement key="textField-9" style="default" x="10" y="0" width="52" height="16"/>
@@ -295,33 +295,33 @@
 				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{playerNumber}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement key="textField-10" style="default" x="65" y="0" width="162" height="16"/>
+				<reportElement key="textField-10" style="default" x="65" y="0" width="230" height="16"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{playerName}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement key="textField-11" style="default" x="228" y="0" width="84" height="16"/>
+				<reportElement key="textField-11" style="default" x="296" y="0" width="64" height="16"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{match}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement key="line-43" style="default" x="401" y="0" width="1" height="18"/>
+				<reportElement key="line-43" style="default" x="439" y="0" width="1" height="18"/>
 			</line>
-			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement key="textField-11" style="default" x="315" y="0" width="84" height="16"/>
+			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+				<reportElement key="textField-11" style="default" x="363" y="0" width="74" height="16"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{playingTime}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement key="line-43" style="default" x="488" y="0" width="1" height="18"/>
+				<reportElement key="line-43" style="default" x="506" y="0" width="1" height="18"/>
 			</line>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement key="textField-11" style="default" x="402" y="0" width="84" height="16"/>
+				<reportElement key="textField-11" style="default" x="440" y="0" width="64" height="16"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{goal}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement key="textField-11" style="default" x="489" y="0" width="82" height="16"/>
+				<reportElement key="textField-11" style="default" x="507" y="0" width="64" height="16"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{starter}]]></textFieldExpression>
 			</textField>
