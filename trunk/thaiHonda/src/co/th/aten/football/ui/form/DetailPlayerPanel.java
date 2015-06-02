@@ -899,6 +899,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
 
     private void editPlayerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editPlayerActionPerformed
         // TODO add your handling code here:
+        Sound.getInstance().playClick();
         if (editPlayer.getText().equals("Edit")) {
             editPlayer.setText("Save");
             inputGc.setEditable(true);
