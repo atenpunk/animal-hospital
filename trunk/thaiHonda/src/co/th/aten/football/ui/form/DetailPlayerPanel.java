@@ -16,6 +16,7 @@ import co.th.aten.football.ui.report.ViewReportTestRadarDlg;
 import co.th.aten.football.service.SessionManager;
 import co.th.aten.football.ui.report.PlayersDetailReportDialog;
 import co.th.aten.football.ui.report.ViewReportPieDlg;
+import co.th.aten.football.util.Sound;
 import co.th.aten.football.util.Util;
 import com.jensoft.sw2d.core.view.View2D;
 import java.awt.BorderLayout;
@@ -1021,7 +1022,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         while (modelTable.getRowCount() > 0) {
             modelTable.removeRow(0);
         }
-        if (playersModelList != null) {
+        if (playersModelList != null && playersModelList.size()>0) {
             for (PlayersModel model : playersModelList) {
                 Object[] rowTable = {model.getPlayerNumber(), model.getPlayerName(), model.getMatch(), model.getPlayingTime() + " min", model.getGoal(), model.getStarter()};
                 modelTable.addRow(rowTable);
@@ -1030,6 +1031,9 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
                 row = 0;
                 setDataDetailPlayer();
             }
+            Sound.getInstance().playNotify();
+        }else{
+            Sound.getInstance().playDing();
         }
 //            }
 //        };
