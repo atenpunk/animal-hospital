@@ -790,6 +790,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Report 2"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="report2ButtonActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

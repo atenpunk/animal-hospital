@@ -10,11 +10,14 @@
 package co.th.aten.football.ui.form;
 
 import co.th.aten.football.Configuration;
+import co.th.aten.football.model.PlayersGraphModel;
 import co.th.aten.football.model.PlayersModel;
 import co.th.aten.football.service.PlayersManager;
 import co.th.aten.football.ui.report.ViewReportTestRadarDlg;
 import co.th.aten.football.service.SessionManager;
+import co.th.aten.football.ui.ProcessTransactionDialog;
 import co.th.aten.football.ui.report.PlayersDetailReportDialog;
+import co.th.aten.football.ui.report.PlayersGraphReportDialog;
 import co.th.aten.football.ui.report.ViewReportPieDlg;
 import co.th.aten.football.util.Sound;
 import co.th.aten.football.util.Util;
@@ -29,13 +32,16 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -102,23 +108,6 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-//        String name = "redar.png";
-//        try {
-//            View2D v = view;
-//            int w = (int) view.getBounds().getWidth();
-//            int h = (int) view.getBounds().getHeight();
-//            BufferedImage image = v.getImageView(w, h);
-//            try {
-//                FileOutputStream out = new FileOutputStream(System.getProperty("user.dir") + "/img"
-//                        + File.separator + name);
-//                ImageIO.write(image, "png".toLowerCase(), out);
-//                out.close();
-//            } catch (Exception ex) {
-//                ex.printStackTrace();
-//            }
-//        } catch (Throwable ex) {
-//            ex.printStackTrace();
-//        }
 
         searchText.requestFocus();
         searchText.requestFocusInWindow();
@@ -772,6 +761,11 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
 
         report2Button.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         report2Button.setText("Report 2");
+        report2Button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                report2ButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -1011,8 +1005,148 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
 
     private void report1ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_report1ButtonActionPerformed
         // TODO add your handling code here:
+        Sound.getInstance().playClick();
         new PlayersDetailReportDialog(playersModelList).showDialog();
     }//GEN-LAST:event_report1ButtonActionPerformed
+
+    private void report2ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_report2ButtonActionPerformed
+        // TODO add your handling code here:
+        Sound.getInstance().playClick();
+        List<PlayersGraphModel> playersGraphModel = null;
+        
+        if (playersModelList != null && playersModelList.size() > 0) {
+            playersGraphModel = new ArrayList<PlayersGraphModel>();
+            for (int i = 0; i < playersModelList.size(); i++) {
+                PlayersModel model = playersModelList.get(i);
+                PlayersGraphModel modelGraph = new PlayersGraphModel();
+                modelGraph.setGroup((i + 1));
+                modelGraph.setPlayerId(model.getPlayerId());
+                String nameNumber = "#" + model.getPlayerNumber() + " " + model.getPlayerName();
+                String brid = "";
+                String HeWe = model.getHeight() + "cm/" + model.getWeight() + "kg";
+                String contractDate = "";
+                if (model.getBirthday() != null) {
+                    brid = sdf.format(model.getBirthday());
+                    Date startDate = model.getBirthday();
+                    Date endDate = new Date();
+                    String year = Util.getYear(startDate, endDate);
+                    brid += " (" + year + ")";
+                }
+                if (model.getContractStart() != null && model.getContractEnd() != null) {
+                    contractDate = sdf.format(model.getContractStart()) + " - " + sdf.format(model.getContractEnd());
+                }
+                modelGraph.setPlayerNameNumber(nameNumber);
+                modelGraph.setHeightWeight(HeWe);
+                modelGraph.setBirthdayAge(brid);
+                modelGraph.setContractStartEnd(contractDate);
+                modelGraph.setImage(model.getImage());
+                modelGraph.setGc(model.getGc());
+                modelGraph.setAnnualSalary(model.getAnnualSalary());
+                modelGraph.setSigningFee(model.getSigningFee());
+                modelGraph.setSalaryMonth(model.getSalaryMonth());
+                modelGraph.setGoal(model.getGoal());
+                modelGraph.setPlayingTime(model.getPlayingTime());
+                modelGraph.setMatch(model.getMatch());
+                modelGraph.setWin(model.getWin());
+                modelGraph.setLose(model.getLose());
+                modelGraph.setDraw(model.getDraw());
+                modelGraph.setStarter(model.getStarter());
+
+                String nameRadarFile = "radar_" + modelGraph.getGroup() + ".png";
+                String namePie01File = "pie01_" + modelGraph.getGroup() + ".png";
+                String namePie02File = "pie02_" + modelGraph.getGroup() + ".png";
+                String namePie03File = "pie03_" + modelGraph.getGroup() + ".png";
+                String pathRadar = System.getProperty("user.dir") + "/imgReport" + File.separator + nameRadarFile;
+                String pathPie01 = System.getProperty("user.dir") + "/imgReport" + File.separator + namePie01File;
+                String pathPie02 = System.getProperty("user.dir") + "/imgReport" + File.separator + namePie02File;
+                String pathPie03 = System.getProperty("user.dir") + "/imgReport" + File.separator + namePie03File;
+                try {
+                    ViewReportTestRadarDlg reportRadar = new ViewReportTestRadarDlg(model.getGc(), model.getMatch(), model.getPlayingTime());
+                    View2D view = reportRadar.createView2D();
+                    view.setSize(409, 308);
+                    int w = (int) view.getBounds().getWidth();
+                    int h = (int) view.getBounds().getHeight();
+                    BufferedImage image = view.getImageView(w, h);
+                    try {
+                        FileOutputStream out = new FileOutputStream(pathRadar);
+                        ImageIO.write(image, "png".toLowerCase(), out);
+                        out.close();
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                    modelGraph.setImgRadar(pathRadar);
+                } catch (Throwable ex) {
+                    ex.printStackTrace();
+                }
+                try {
+                    int data01 = ((100 * model.getMatch()) / Configuration.getInt("Match"));
+                    int data02 = 100 - data01;
+                    ViewReportPieDlg reportPieMatch = new ViewReportPieDlg(data02, data01);
+                    View2D view = reportPieMatch.createView2D();
+                    view.setSize(136, 136);
+                    int w = (int) view.getBounds().getWidth();
+                    int h = (int) view.getBounds().getHeight();
+                    BufferedImage image = view.getImageView(w, h);
+                    try {
+                        FileOutputStream out = new FileOutputStream(pathPie01);
+                        ImageIO.write(image, "png".toLowerCase(), out);
+                        out.close();
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                    modelGraph.setImgPieMatch(pathPie01);
+                } catch (Throwable ex) {
+                    ex.printStackTrace();
+                }
+                try {
+                    int data01 = ((100 * model.getPlayingTime()) / Configuration.getInt("PlayingTime"));
+                    int data02 = 100 - data01;
+                    ViewReportPieDlg reportPieTime = new ViewReportPieDlg(data02, data01);
+                    View2D view = reportPieTime.createView2D();
+                    view.setSize(136, 136);
+                    int w = (int) view.getBounds().getWidth();
+                    int h = (int) view.getBounds().getHeight();
+                    BufferedImage image = view.getImageView(w, h);
+                    try {
+                        FileOutputStream out = new FileOutputStream(pathPie02);
+                        ImageIO.write(image, "png".toLowerCase(), out);
+                        out.close();
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                    modelGraph.setImgPiePlayingTime(pathPie02);
+                } catch (Throwable ex) {
+                    ex.printStackTrace();
+                }
+                try {
+                    int data01 = ((100 * model.getStarter()) / Configuration.getInt("Match"));
+                    int data02 = 100 - data01;
+                    ViewReportPieDlg reportPieStart = new ViewReportPieDlg(data02, data01);
+                    View2D view = reportPieStart.createView2D();
+                    view.setSize(136, 136);
+                    int w = (int) view.getBounds().getWidth();
+                    int h = (int) view.getBounds().getHeight();
+                    BufferedImage image = view.getImageView(w, h);
+                    try {
+                        FileOutputStream out = new FileOutputStream(pathPie03);
+                        ImageIO.write(image, "png".toLowerCase(), out);
+                        out.close();
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                    modelGraph.setImgPieStarter(pathPie03);
+                } catch (Throwable ex) {
+                    ex.printStackTrace();
+                }
+                if (modelGraph.getImage() != null) {
+                    modelGraph.setImgPlayer(System.getProperty("user.dir") + "/img" + File.separator + modelGraph.getImage());
+                }
+                playersGraphModel.add(modelGraph);
+            }
+        }
+        
+        new PlayersGraphReportDialog(playersGraphModel).showDialog();
+    }//GEN-LAST:event_report2ButtonActionPerformed
 
     private void searchByKeyWord() {
 //        Runnable r = new Runnable() {
@@ -1023,7 +1157,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         while (modelTable.getRowCount() > 0) {
             modelTable.removeRow(0);
         }
-        if (playersModelList != null && playersModelList.size()>0) {
+        if (playersModelList != null && playersModelList.size() > 0) {
             for (PlayersModel model : playersModelList) {
                 Object[] rowTable = {model.getPlayerNumber(), model.getPlayerName(), model.getMatch(), model.getPlayingTime() + " min", model.getGoal(), model.getStarter()};
                 modelTable.addRow(rowTable);
@@ -1033,7 +1167,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
                 setDataDetailPlayer();
             }
             Sound.getInstance().playNotify();
-        }else{
+        } else {
             Sound.getInstance().playDing();
         }
 //            }
