@@ -14,7 +14,7 @@ import co.th.aten.football.model.PlayersModel;
 import co.th.aten.football.service.PlayersManager;
 import co.th.aten.football.ui.report.ViewReportTestRadarDlg;
 import co.th.aten.football.service.SessionManager;
-import co.th.aten.football.ui.ProcessTransactionDialog;
+import co.th.aten.football.ui.report.PlayersDetailReportDialog;
 import co.th.aten.football.ui.report.ViewReportPieDlg;
 import co.th.aten.football.util.Util;
 import com.jensoft.sw2d.core.view.View2D;
@@ -35,7 +35,6 @@ import java.util.List;
 import java.util.Locale;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -1010,7 +1009,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
 
     private void report1ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_report1ButtonActionPerformed
         // TODO add your handling code here:
-        
+        new PlayersDetailReportDialog(playersModelList).showDialog();
     }//GEN-LAST:event_report1ButtonActionPerformed
 
     private void searchByKeyWord() {

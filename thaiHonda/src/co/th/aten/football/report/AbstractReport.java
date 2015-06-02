@@ -17,8 +17,7 @@ public abstract class AbstractReport {
 
     public AbstractReport() {
         filters = new HashMap<String, Object>();
-        filters.put("logo_exat", "img/logo.jpg");
-        filters.put("logo_file", "img/logo_becl.jpg");
+        filters.put("logo_file", "img/logo_thai_honda.jpg");
     }
 
     public int getReportId() {
