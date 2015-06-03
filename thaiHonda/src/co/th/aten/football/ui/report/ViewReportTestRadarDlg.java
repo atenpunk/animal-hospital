@@ -12,6 +12,7 @@ import com.jensoft.sw2d.core.palette.InputFonts;
 import com.jensoft.sw2d.core.palette.NanoChromatique;
 import com.jensoft.sw2d.core.palette.PetalPalette;
 import com.jensoft.sw2d.core.palette.RosePalette;
+import com.jensoft.sw2d.core.palette.TangoPalette;
 import com.jensoft.sw2d.core.plugin.outline.OutlinePlugin;
 import com.jensoft.sw2d.core.plugin.radar.DimensionMetrics;
 import com.jensoft.sw2d.core.plugin.radar.Radar;
@@ -33,6 +34,7 @@ public class ViewReportTestRadarDlg extends Sw2dDemo {
     private double gc;
     private int match;
     private int playingTime;
+    private int flag;
     private DecimalFormat df = new DecimalFormat("#,###");
     private final Log logger = LogFactory.getLog(getClass());
 
@@ -41,7 +43,7 @@ public class ViewReportTestRadarDlg extends Sw2dDemo {
         try {
             Configuration.loadConfig();
             final TemplateReportFrame templateFrame = new TemplateReportFrame();
-            ViewReportTestRadarDlg report = new ViewReportTestRadarDlg(4000000, 20, 1590);
+            ViewReportTestRadarDlg report = new ViewReportTestRadarDlg(4000000, 20, 1590, 0);
             templateFrame.show(report);
 //            templateFrame.setView(report.getView());
 //            templateFrame.pack();
@@ -65,10 +67,11 @@ public class ViewReportTestRadarDlg extends Sw2dDemo {
         }
     }
 
-    public ViewReportTestRadarDlg(double gc, int match, int playingTime) {
+    public ViewReportTestRadarDlg(double gc, int match, int playingTime, int flag) {
         this.gc = gc;
         this.match = match;
         this.playingTime = playingTime;
+        this.flag = flag;
     }
     private View2D view;
 
@@ -104,7 +107,9 @@ public class ViewReportTestRadarDlg extends Sw2dDemo {
             RadarPlugin radarPlugin = new RadarPlugin();
             radarPlugin.setPriority(100);
             radarWindow2D.registerPlugin(radarPlugin);
-            radarWindow2D.registerPlugin(new OutlinePlugin(Color.BLACK));
+            if (flag == 0) {
+                radarWindow2D.registerPlugin(new OutlinePlugin(Color.BLACK));
+            }
 
             final Radar radar = new Radar(0, 0, 100);
             radar.setRadarPainter(new RadarDefaultPainter());
@@ -140,8 +145,7 @@ public class ViewReportTestRadarDlg extends Sw2dDemo {
             view.registerWindow2D(radarWindow2D);
             try {
                 com.jensoft.sw2d.core.plugin.radar.RadarSurface radarsurface = RadarToolkit
-                        .createSurface("surface1", NanoChromatique.BLUE, ColorPalette.alpha(
-                        RosePalette.LEAFGREEN, 80));
+                        .createSurface("surface1", ColorPalette.alpha(NanoChromatique.BLUE, 240), ColorPalette.alpha(NanoChromatique.BLUE, 80));
                 radar.addSurface(radarsurface);
                 java.awt.Font font3 = InputFonts.getFont(InputFonts.NO_MOVE, 10);
                 GlyphFill glyphfill = new GlyphFill(Color.BLUE, NanoChromatique.BLUE);

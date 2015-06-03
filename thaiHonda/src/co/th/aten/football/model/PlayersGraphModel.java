@@ -4,6 +4,8 @@
  */
 package co.th.aten.football.model;
 
+import java.awt.Image;
+
 /**
  *
  * @author Atenpunk
@@ -16,6 +18,8 @@ public class PlayersGraphModel {
     private String heightWeight;
     private String birthdayAge;
     private String contractStartEnd;
+    private int positionId;
+    private String positionStr;
     private String image;
     private double gc;
     private double annualSalary;
@@ -28,11 +32,14 @@ public class PlayersGraphModel {
     private int lose;
     private int draw;
     private int starter;
+    private String perPlayingTime;
+    private String perMatch;
+    private String perStarter;
     private String imgPlayer;
-    private String imgRadar;
-    private String imgPieMatch;
-    private String imgPiePlayingTime;
-    private String imgPieStarter;
+    private Image inputRadar;
+    private Image inputPieMatch;
+    private Image inputPiePlayingTime;
+    private Image inputPieStarter;
 
     public int getGroup() {
         return group;
@@ -186,36 +193,76 @@ public class PlayersGraphModel {
         this.imgPlayer = imgPlayer;
     }
 
-    public String getImgRadar() {
-        return imgRadar;
+    public String getPerPlayingTime() {
+        return perPlayingTime;
     }
 
-    public void setImgRadar(String imgRadar) {
-        this.imgRadar = imgRadar;
+    public void setPerPlayingTime(String perPlayingTime) {
+        this.perPlayingTime = perPlayingTime;
     }
 
-    public String getImgPieMatch() {
-        return imgPieMatch;
+    public String getPerMatch() {
+        return perMatch;
     }
 
-    public void setImgPieMatch(String imgPieMatch) {
-        this.imgPieMatch = imgPieMatch;
+    public void setPerMatch(String perMatch) {
+        this.perMatch = perMatch;
     }
 
-    public String getImgPiePlayingTime() {
-        return imgPiePlayingTime;
+    public String getPerStarter() {
+        return perStarter;
     }
 
-    public void setImgPiePlayingTime(String imgPiePlayingTime) {
-        this.imgPiePlayingTime = imgPiePlayingTime;
+    public void setPerStarter(String perStarter) {
+        this.perStarter = perStarter;
     }
 
-    public String getImgPieStarter() {
-        return imgPieStarter;
+    public int getPositionId() {
+        return positionId;
     }
 
-    public void setImgPieStarter(String imgPieStarter) {
-        this.imgPieStarter = imgPieStarter;
+    public void setPositionId(int positionId) {
+        this.positionId = positionId;
+    }
+
+    public String getPositionStr() {
+        return positionStr;
+    }
+
+    public void setPositionStr(String positionStr) {
+        this.positionStr = positionStr;
+    }
+
+    public Image getInputRadar() {
+        return inputRadar;
+    }
+
+    public void setInputRadar(Image inputRadar) {
+        this.inputRadar = inputRadar;
+    }
+
+    public Image getInputPieMatch() {
+        return inputPieMatch;
+    }
+
+    public void setInputPieMatch(Image inputPieMatch) {
+        this.inputPieMatch = inputPieMatch;
+    }
+
+    public Image getInputPiePlayingTime() {
+        return inputPiePlayingTime;
+    }
+
+    public void setInputPiePlayingTime(Image inputPiePlayingTime) {
+        this.inputPiePlayingTime = inputPiePlayingTime;
+    }
+
+    public Image getInputPieStarter() {
+        return inputPieStarter;
+    }
+
+    public void setInputPieStarter(Image inputPieStarter) {
+        this.inputPieStarter = inputPieStarter;
     }
 
 }

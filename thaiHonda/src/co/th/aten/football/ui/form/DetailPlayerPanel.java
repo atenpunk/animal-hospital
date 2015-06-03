@@ -15,7 +15,6 @@ import co.th.aten.football.model.PlayersModel;
 import co.th.aten.football.service.PlayersManager;
 import co.th.aten.football.ui.report.ViewReportTestRadarDlg;
 import co.th.aten.football.service.SessionManager;
-import co.th.aten.football.ui.ProcessTransactionDialog;
 import co.th.aten.football.ui.report.PlayersDetailReportDialog;
 import co.th.aten.football.ui.report.PlayersGraphReportDialog;
 import co.th.aten.football.ui.report.ViewReportPieDlg;
@@ -32,7 +31,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -41,7 +39,6 @@ import java.util.List;
 import java.util.Locale;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -253,7 +250,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
             timePanel.setVisible(true);
             matchPanel.setVisible(true);
             startPanel.setVisible(true);
-            ViewReportTestRadarDlg reportRadar = new ViewReportTestRadarDlg(playersModelSelected.getGc(), playersModelSelected.getMatch(), playersModelSelected.getPlayingTime());
+            ViewReportTestRadarDlg reportRadar = new ViewReportTestRadarDlg(playersModelSelected.getGc(), playersModelSelected.getMatch(), playersModelSelected.getPlayingTime(), 0);
             viewRadar = reportRadar.createView2D();
             viewRadar.setSize(409, 308);
             redarPanal.setBackground(Color.WHITE);
@@ -1013,7 +1010,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         Sound.getInstance().playClick();
         List<PlayersGraphModel> playersGraphModel = null;
-        
+
         if (playersModelList != null && playersModelList.size() > 0) {
             playersGraphModel = new ArrayList<PlayersGraphModel>();
             for (int i = 0; i < playersModelList.size(); i++) {
@@ -1039,6 +1036,8 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
                 modelGraph.setHeightWeight(HeWe);
                 modelGraph.setBirthdayAge(brid);
                 modelGraph.setContractStartEnd(contractDate);
+                modelGraph.setPositionId(model.getPositionId());
+                modelGraph.setPositionStr(model.getPositionStr());
                 modelGraph.setImage(model.getImage());
                 modelGraph.setGc(model.getGc());
                 modelGraph.setAnnualSalary(model.getAnnualSalary());
@@ -1051,30 +1050,14 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
                 modelGraph.setLose(model.getLose());
                 modelGraph.setDraw(model.getDraw());
                 modelGraph.setStarter(model.getStarter());
-
-                String nameRadarFile = "radar_" + modelGraph.getGroup() + ".png";
-                String namePie01File = "pie01_" + modelGraph.getGroup() + ".png";
-                String namePie02File = "pie02_" + modelGraph.getGroup() + ".png";
-                String namePie03File = "pie03_" + modelGraph.getGroup() + ".png";
-                String pathRadar = System.getProperty("user.dir") + "/imgReport" + File.separator + nameRadarFile;
-                String pathPie01 = System.getProperty("user.dir") + "/imgReport" + File.separator + namePie01File;
-                String pathPie02 = System.getProperty("user.dir") + "/imgReport" + File.separator + namePie02File;
-                String pathPie03 = System.getProperty("user.dir") + "/imgReport" + File.separator + namePie03File;
                 try {
-                    ViewReportTestRadarDlg reportRadar = new ViewReportTestRadarDlg(model.getGc(), model.getMatch(), model.getPlayingTime());
+                    ViewReportTestRadarDlg reportRadar = new ViewReportTestRadarDlg(model.getGc(), model.getMatch(), model.getPlayingTime(), 1);
                     View2D view = reportRadar.createView2D();
                     view.setSize(409, 308);
                     int w = (int) view.getBounds().getWidth();
                     int h = (int) view.getBounds().getHeight();
                     BufferedImage image = view.getImageView(w, h);
-                    try {
-                        FileOutputStream out = new FileOutputStream(pathRadar);
-                        ImageIO.write(image, "png".toLowerCase(), out);
-                        out.close();
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                    }
-                    modelGraph.setImgRadar(pathRadar);
+                    modelGraph.setInputRadar(image);
                 } catch (Throwable ex) {
                     ex.printStackTrace();
                 }
@@ -1087,14 +1070,8 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
                     int w = (int) view.getBounds().getWidth();
                     int h = (int) view.getBounds().getHeight();
                     BufferedImage image = view.getImageView(w, h);
-                    try {
-                        FileOutputStream out = new FileOutputStream(pathPie01);
-                        ImageIO.write(image, "png".toLowerCase(), out);
-                        out.close();
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                    }
-                    modelGraph.setImgPieMatch(pathPie01);
+                    modelGraph.setInputPieMatch(image);
+                    modelGraph.setPerMatch(data01 + "%");
                 } catch (Throwable ex) {
                     ex.printStackTrace();
                 }
@@ -1107,14 +1084,8 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
                     int w = (int) view.getBounds().getWidth();
                     int h = (int) view.getBounds().getHeight();
                     BufferedImage image = view.getImageView(w, h);
-                    try {
-                        FileOutputStream out = new FileOutputStream(pathPie02);
-                        ImageIO.write(image, "png".toLowerCase(), out);
-                        out.close();
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                    }
-                    modelGraph.setImgPiePlayingTime(pathPie02);
+                    modelGraph.setInputPiePlayingTime(image);
+                    modelGraph.setPerPlayingTime(data01 + "%");
                 } catch (Throwable ex) {
                     ex.printStackTrace();
                 }
@@ -1127,14 +1098,8 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
                     int w = (int) view.getBounds().getWidth();
                     int h = (int) view.getBounds().getHeight();
                     BufferedImage image = view.getImageView(w, h);
-                    try {
-                        FileOutputStream out = new FileOutputStream(pathPie03);
-                        ImageIO.write(image, "png".toLowerCase(), out);
-                        out.close();
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                    }
-                    modelGraph.setImgPieStarter(pathPie03);
+                    modelGraph.setInputPieStarter(image);
+                    modelGraph.setPerStarter(data01 + "%");
                 } catch (Throwable ex) {
                     ex.printStackTrace();
                 }
@@ -1144,7 +1109,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
                 playersGraphModel.add(modelGraph);
             }
         }
-        
+
         new PlayersGraphReportDialog(playersGraphModel).showDialog();
     }//GEN-LAST:event_report2ButtonActionPerformed
 
