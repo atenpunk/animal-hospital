@@ -33,8 +33,11 @@ import org.springframework.richclient.application.Application;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import java.awt.event.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Locale;
@@ -100,26 +103,33 @@ public class AddNewPlayerPanel extends javax.swing.JPanel {
 
         namePlayerText.setFont(new Font("Tahoma", 0, 11));
         positionComboBox.setFont(new Font("Tahoma", 0, 11));
-        birthdayPlayer.setFormats("dd/MM/yyyy");
-        birthdayPlayer.setLocale(Locale.US);
+        birthdayPlayer.setFormats(new SimpleDateFormat("dd/MM/yyyy",Locale.US));
         birthdayPlayer.getMonthView().setDayForeground(Calendar.SATURDAY, Color.BLUE);
         birthdayPlayer.getMonthView().setDayForeground(Calendar.SUNDAY, Color.RED);
         birthdayPlayer.setDate(new Date());
 
-        startContract.setFormats("dd/MM/yyyy");
-        startContract.setLocale(Locale.US);
+        startContract.setFormats(new SimpleDateFormat("dd/MM/yyyy",Locale.US));
         startContract.getMonthView().setDayForeground(Calendar.SATURDAY, Color.BLUE);
         startContract.getMonthView().setDayForeground(Calendar.SUNDAY, Color.RED);
         startContract.setDate(new Date());
 
-        endContract.setFormats("dd/MM/yyyy");
-        endContract.setLocale(Locale.US);
+        endContract.setFormats(new SimpleDateFormat("dd/MM/yyyy",Locale.US));
         endContract.getMonthView().setDayForeground(Calendar.SATURDAY, Color.BLUE);
         endContract.getMonthView().setDayForeground(Calendar.SUNDAY, Color.RED);
         endContract.setDate(new Date());
 
         birthdayPlayer.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
+                Date startDate = birthdayPlayer.getDate();
+                Date endDate = new Date();
+                String agePet = Util.getYearMonth(startDate, endDate);
+                System.out.println(agePet);
+                agePlayerLabel.setText(agePet);
+            }
+        });
+
+        birthdayPlayer.addPropertyChangeListener(new PropertyChangeListener() {
+            public void propertyChange(PropertyChangeEvent e) {
                 Date startDate = birthdayPlayer.getDate();
                 Date endDate = new Date();
                 String agePet = Util.getYearMonth(startDate, endDate);
