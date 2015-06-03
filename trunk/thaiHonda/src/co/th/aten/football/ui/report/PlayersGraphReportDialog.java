@@ -49,8 +49,8 @@ public class PlayersGraphReportDialog extends ApplicationDialog {
         List<JRSaveContributor> newSaveContributors = new LinkedList<JRSaveContributor>();
         JRSaveContributor[] saveContributors = print.getJrViewer().getSaveContributors();
         for (int i = 0; i < saveContributors.length; i++) {
-            if (saveContributors[i] instanceof JRPdfSaveContributor
-                    || saveContributors[i] instanceof JRSingleSheetXlsSaveContributor) {
+            if (saveContributors[i] instanceof JRPdfSaveContributor) {
+//                    || saveContributors[i] instanceof JRSingleSheetXlsSaveContributor) {
                 System.out.println("saveContributors["+i+"] "+saveContributors[i].getDescription());
                 newSaveContributors.add(saveContributors[i]);
             }

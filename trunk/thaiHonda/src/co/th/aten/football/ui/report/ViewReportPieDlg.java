@@ -7,6 +7,7 @@ import java.awt.Font;
 import com.jensoft.sw2d.core.democomponent.Sw2dDemo;
 import com.jensoft.sw2d.core.palette.ColorPalette;
 import com.jensoft.sw2d.core.palette.InputFonts;
+import com.jensoft.sw2d.core.palette.NanoChromatique;
 import com.jensoft.sw2d.core.palette.RosePalette;
 import com.jensoft.sw2d.core.palette.TangoPalette;
 import com.jensoft.sw2d.core.plugin.pie.Pie;
@@ -57,8 +58,8 @@ public class ViewReportPieDlg extends Sw2dDemo {
             PieLinearEffect pielineareffect = new PieLinearEffect();
             pielineareffect.setOffsetRadius(5);
             pie.setPieEffect(pielineareffect);
-            pieslice01 = PieToolkit.createSlice("s1", ColorPalette.alpha(RosePalette.PLUMWINE, 20), data01);
-            pieslice02 = PieToolkit.createSlice("s2", ColorPalette.alpha(TangoPalette.BUTTER2, 240), data02);
+            pieslice01 = PieToolkit.createSlice("s1", ColorPalette.alpha(TangoPalette.BUTTER2, 200), data01);
+            pieslice02 = PieToolkit.createSlice("s2", ColorPalette.alpha(NanoChromatique.BLUE, 200), data02);
             PieToolkit
                     .pushSlices(pie, new PieSlice[]{pieslice01, pieslice02});
             PiePlugin pieplugin = new PiePlugin();
