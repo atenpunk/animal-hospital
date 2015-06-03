@@ -20,4 +20,6 @@ public interface PlayersManager {
     public List<PlayersModel> searchByKeyWord(String word);
 
     public boolean updatePlayers(PlayersModel playersModel);
+    
+    public boolean editPlayers(PlayersModel playersModel);
 }

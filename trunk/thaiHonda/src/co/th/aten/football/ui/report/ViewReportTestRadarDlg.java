@@ -152,13 +152,13 @@ public class ViewReportTestRadarDlg extends Sw2dDemo {
                 RoundMarker roundmarker = new RoundMarker(NanoChromatique.BLUE,
                         Color.WHITE, 3);
                 RadarSurfaceAnchor radarsurfaceanchor = RadarToolkit.createSurfaceAnchor(
-                        radardimension, df.format(gc), gc, StylePosition.Default, 25, glyphfill,
+                        radardimension, (gc==0?"":df.format(gc)), gc, StylePosition.Default, 25, glyphfill,
                         roundmarker, font3);
                 RadarSurfaceAnchor radarsurfaceanchor2 = RadarToolkit.createSurfaceAnchor(
-                        radardimension2, df.format(match), match, StylePosition.Default, 10, glyphfill,
+                        radardimension2, (match==0?"":df.format(match)), match, StylePosition.Default, 10, glyphfill,
                         roundmarker, font3);
                 RadarSurfaceAnchor radarsurfaceanchor4 = RadarToolkit.createSurfaceAnchor(
-                        radardimension4, df.format(playingTime), playingTime, StylePosition.Default, 10, glyphfill,
+                        radardimension4, (playingTime==0?"":df.format(playingTime)), playingTime, StylePosition.Default, 10, glyphfill,
                         roundmarker, font3);
                 RadarToolkit.pushAnchors(radarsurface, new RadarSurfaceAnchor[]{
                     radarsurfaceanchor, radarsurfaceanchor2, radarsurfaceanchor4});

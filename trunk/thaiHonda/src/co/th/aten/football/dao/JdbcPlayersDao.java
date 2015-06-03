@@ -63,6 +63,28 @@ public class JdbcPlayersDao implements PlayersDao {
         return false;
     }
 
+    public boolean editPlayers(PlayersModel playersModel) {
+        logger.debug("Edit Player ID = " + playersModel.getPlayerId());
+        try {
+            String sql = " UPDATE PLAYERS SET PLAYER_NAME = ? "
+                    + " , PLAYER_NUMBER = ? "
+                    + " , HEIGHT = ? "
+                    + " , WEIGHT = ? "
+                    + " , POSITION_ID = ? "
+                    + " , BIRTHDAY = ? "
+                    + " , CONTRACT_START = ? "
+                    + " , CONTRACT_END = ? "
+                    + " , IMAGE_NAME = ? "
+                    + " , UPDATE_BY = ? "
+                    + " , UPDATE_DATE = ? "
+                    + " WHERE PLAYER_ID = ? ";
+            return (this.simpleJdbcTemplate.update(sql, playersModel.getPlayerName(), playersModel.getPlayerNumber(), playersModel.getHeight(), playersModel.getWeight(), playersModel.getPositionId(), playersModel.getBirthday(), playersModel.getContractStart(), playersModel.getContractEnd(), playersModel.getImage(), playersModel.getUpdateBy(), sdfDate.parse(sdfDate.format(playersModel.getUpdateDate())), playersModel.getPlayerId()) > 0) ? true : false;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     public boolean updatePlayers(PlayersModel playersModel) {
         logger.debug("Update Player ID = " + playersModel.getPlayerId());
         try {

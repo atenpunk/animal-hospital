@@ -40,4 +40,8 @@ public class PlayersManagerBean implements PlayersManager {
         this.playersDao = playersDao;
     }
     
+    public boolean editPlayers(PlayersModel playersModel){
+        return playersDao.editPlayers(playersModel);
+    }
+    
 }
