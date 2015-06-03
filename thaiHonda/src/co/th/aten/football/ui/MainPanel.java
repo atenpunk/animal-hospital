@@ -12,6 +12,7 @@ package co.th.aten.football.ui;
 
 import co.th.aten.football.dialog.AddNewPlayerDialog;
 import co.th.aten.football.dialog.DetailPlayerDialog;
+import co.th.aten.football.dialog.EditPlayerDialog;
 import co.th.aten.football.event.LogoutEvent;
 import java.awt.Image;
 import javax.swing.JOptionPane;
@@ -300,6 +301,7 @@ public class MainPanel extends ImagePanel {
 
     private void btEditCustomersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditCustomersActionPerformed
         //        ClaimWizard.getInstance().execute();
+        new EditPlayerDialog().showDialog();
     }//GEN-LAST:event_btEditCustomersActionPerformed
 
     private void btAddCustomersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAddCustomersActionPerformed
