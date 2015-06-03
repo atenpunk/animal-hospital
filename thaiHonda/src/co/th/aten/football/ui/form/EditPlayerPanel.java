@@ -65,10 +65,10 @@ public class EditPlayerPanel extends javax.swing.JPanel {
     private List<PlayersModel> playersModelList;
     private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
     private DecimalFormat df = new DecimalFormat("#,##0");
-    private PlayersModel playersModelSelected;
     private File fileImg;
-    private PlayersModel playersModel;
     private HashMap<String, Integer> mapPosition;
+    private HashMap<Integer, Integer> mapIndexPosition;
+    private PlayersModel playersModelSelected;
     private int row = -1;
     private PositionManager positionManager;
 
@@ -124,7 +124,7 @@ public class EditPlayerPanel extends javax.swing.JPanel {
                 }
             }
         });
-        
+
         numberText.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -160,17 +160,17 @@ public class EditPlayerPanel extends javax.swing.JPanel {
 
         namePlayerText.setFont(new Font("Tahoma", 0, 11));
         positionComboBox.setFont(new Font("Tahoma", 0, 11));
-        birthdayPlayer.setFormats(new SimpleDateFormat("dd/MM/yyyy",Locale.US));
+        birthdayPlayer.setFormats(new SimpleDateFormat("dd/MM/yyyy", Locale.US));
         birthdayPlayer.getMonthView().setDayForeground(Calendar.SATURDAY, Color.BLUE);
         birthdayPlayer.getMonthView().setDayForeground(Calendar.SUNDAY, Color.RED);
         birthdayPlayer.setDate(new Date());
 
-        startContract.setFormats(new SimpleDateFormat("dd/MM/yyyy",Locale.US));
+        startContract.setFormats(new SimpleDateFormat("dd/MM/yyyy", Locale.US));
         startContract.getMonthView().setDayForeground(Calendar.SATURDAY, Color.BLUE);
         startContract.getMonthView().setDayForeground(Calendar.SUNDAY, Color.RED);
         startContract.setDate(new Date());
 
-        endContract.setFormats(new SimpleDateFormat("dd/MM/yyyy",Locale.US));
+        endContract.setFormats(new SimpleDateFormat("dd/MM/yyyy", Locale.US));
         endContract.getMonthView().setDayForeground(Calendar.SATURDAY, Color.BLUE);
         endContract.getMonthView().setDayForeground(Calendar.SUNDAY, Color.RED);
         endContract.setDate(new Date());
@@ -179,9 +179,8 @@ public class EditPlayerPanel extends javax.swing.JPanel {
             public void actionPerformed(ActionEvent arg0) {
                 Date startDate = birthdayPlayer.getDate();
                 Date endDate = new Date();
-                String agePet = Util.getYearMonth(startDate, endDate);
-                System.out.println(agePet);
-                agePlayerLabel.setText(agePet);
+                String agePlayer = Util.getYearMonth(startDate, endDate);
+                agePlayerLabel.setText(agePlayer);
             }
         });
 
@@ -189,29 +188,81 @@ public class EditPlayerPanel extends javax.swing.JPanel {
             public void propertyChange(PropertyChangeEvent e) {
                 Date startDate = birthdayPlayer.getDate();
                 Date endDate = new Date();
-                String agePet = Util.getYearMonth(startDate, endDate);
-                System.out.println(agePet);
-                agePlayerLabel.setText(agePet);
+                String agePlayer = Util.getYearMonth(startDate, endDate);
+                agePlayerLabel.setText(agePlayer);
             }
         });
-        
+
         List<PositionModel> positionList = positionManager.getPositionList();
         if (positionList != null) {
             mapPosition = new HashMap<String, Integer>();
+            mapIndexPosition = new HashMap<Integer, Integer>();
+            int index = 0;
             for (PositionModel model : positionList) {
                 mapPosition.put(model.getEngName(), model.getId());
+                mapIndexPosition.put(model.getId(), index++);
                 positionComboBox.addItem(model.getEngName());
             }
             positionComboBox.setSelectedIndex(-1);
             positionComboBox.setEditable(true);
         }
+
+        namePlayerText.setEnabled(false);
+        numberText.setEnabled(false);
+        heightText.setEnabled(false);
+        weightText.setEnabled(false);
+        positionComboBox.setEnabled(false);
+        agePlayerLabel.setEnabled(false);
+        birthdayPlayer.setEnabled(false);
+        startContract.setEnabled(false);
+        endContract.setEnabled(false);
+        jButton5.setEnabled(false);
+        jButton1.setEnabled(false);
     }
 
     private void setDataDetailPlayer() {
         clearData();
         if (playersModelList != null && playersModelList.size() >= row) {
             playersModelSelected = playersModelList.get(row);
-            
+            namePlayerText.setText(playersModelSelected.getPlayerName());
+            numberText.setText(String.valueOf(playersModelSelected.getPlayerNumber()));
+            heightText.setText(String.valueOf(playersModelSelected.getHeight()));
+            weightText.setText(String.valueOf(playersModelSelected.getWeight()));
+            positionComboBox.setSelectedIndex(mapIndexPosition.get(playersModelSelected.getPositionId()));
+            Date startDate = birthdayPlayer.getDate();
+            Date endDate = new Date();
+            String agePlayer = Util.getYearMonth(startDate, endDate);
+            agePlayerLabel.setText(agePlayer);
+            birthdayPlayer.setDate(playersModelSelected.getBirthday());
+            startContract.setDate(playersModelSelected.getContractStart());
+            endContract.setDate(playersModelSelected.getContractEnd());
+            try {
+                if (playersModelSelected.getImage() != null && playersModelSelected.getImage().length() > 0) {
+                    File fileImg = new File(System.getProperty("user.dir") + "/img" + File.separator + playersModelSelected.getImage());
+                    if (fileImg != null) {
+                        BufferedImage originalImage = ImageIO.read(fileImg);
+                        int type = originalImage.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : originalImage.getType();
+                        BufferedImage resizeImageJpg = resizeImage(originalImage, type, 165, 204);
+                        ImageIcon img = new ImageIcon(resizeImageJpg);
+                        imgLabel.setText("");
+                        imgLabel.setIcon(img);
+                    }
+                }
+            } catch (Exception ex) {
+                logger.info("" + ex);
+                ex.printStackTrace();
+            }
+            namePlayerText.setEnabled(true);
+            numberText.setEnabled(true);
+            heightText.setEnabled(true);
+            weightText.setEnabled(true);
+            positionComboBox.setEnabled(true);
+            agePlayerLabel.setEnabled(true);
+            birthdayPlayer.setEnabled(true);
+            startContract.setEnabled(true);
+            endContract.setEnabled(true);
+            jButton5.setEnabled(true);
+            jButton1.setEnabled(true);
         }
     }
 
@@ -492,6 +543,30 @@ public class EditPlayerPanel extends javax.swing.JPanel {
 
     private void clearData() {
         playersModelSelected = null;
+        namePlayerText.setText("");
+        numberText.setText("");
+        heightText.setText("");
+        weightText.setText("");
+        positionComboBox.setSelectedIndex(-1);
+        agePlayerLabel.setText("");
+        birthdayPlayer.setDate(new Date());
+        startContract.setDate(new Date());
+        endContract.setDate(new Date());
+        imgLabel.setText("NO IMAGE");
+        imgLabel.setIcon(null);
+        fileImg = null;
+
+        namePlayerText.setEnabled(false);
+        numberText.setEnabled(false);
+        heightText.setEnabled(false);
+        weightText.setEnabled(false);
+        positionComboBox.setEnabled(false);
+        agePlayerLabel.setEnabled(false);
+        birthdayPlayer.setEnabled(false);
+        startContract.setEnabled(false);
+        endContract.setEnabled(false);
+        jButton5.setEnabled(false);
+        jButton1.setEnabled(false);
     }
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
@@ -509,7 +584,7 @@ public class EditPlayerPanel extends javax.swing.JPanel {
             if (file != null) {
                 BufferedImage originalImage = ImageIO.read(file);
                 int type = originalImage.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : originalImage.getType();
-                BufferedImage resizeImageJpg = resizeImage(originalImage, type,165, 204);
+                BufferedImage resizeImageJpg = resizeImage(originalImage, type, 165, 204);
                 ImageIcon imgPet = new ImageIcon(resizeImageJpg);
                 imgLabel.setText("");
                 imgLabel.setIcon(imgPet);
@@ -522,27 +597,25 @@ public class EditPlayerPanel extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        int saveConfirm = JOptionPane.showConfirmDialog(null, "Confirm save new player?", "Confirm Save", JOptionPane.OK_OPTION | JOptionPane.CANCEL_OPTION);
-        if (saveConfirm == JOptionPane.OK_OPTION) {
-            if (namePlayerText.getText() != null && namePlayerText.getText().trim().length() > 0) {
-                playersModel = new PlayersModel();
-                int max = playersManager.getMaxPlayersId();
-                playersModel.setPlayerId(max == 0 ? 1 : (max + 1));
-                playersModel.setPlayerName(namePlayerText.getText());
-                playersModel.setPlayerNumber(numberText.getText().trim().length() > 0
-                    ? Integer.parseInt(numberText.getText()) : 0);
-                playersModel.setHeight(heightText.getText().trim().length() > 0
-                    ? Integer.parseInt(heightText.getText()) : 0);
-                playersModel.setWeight(weightText.getText().trim().length() > 0
-                    ? Integer.parseInt(weightText.getText()) : 0);
-                playersModel.setPositionId(positionComboBox.getSelectedIndex() != -1
-                    ? mapPosition.get((String) positionComboBox.getSelectedItem()) : 0);
-                playersModel.setBirthday(birthdayPlayer.getDate());
-                playersModel.setContractStart(startContract.getDate());
-                playersModel.setContractEnd(endContract.getDate());
-                String fileName = playersModel.getPlayerName() + (playersModel.getPlayerNumber() != 0 ? ("_" + playersModel.getPlayerNumber()) : "") + ".jpg";
+        if (namePlayerText.getText() != null && namePlayerText.getText().trim().length() > 0) {
+            int saveConfirm = JOptionPane.showConfirmDialog(null, "Confirm save edit player?", "Confirm Save", JOptionPane.OK_OPTION | JOptionPane.CANCEL_OPTION);
+            if (saveConfirm == JOptionPane.OK_OPTION) {
+                playersModelSelected.setPlayerName(namePlayerText.getText());
+                playersModelSelected.setPlayerNumber(numberText.getText().trim().length() > 0
+                        ? Integer.parseInt(numberText.getText()) : 0);
+                playersModelSelected.setHeight(heightText.getText().trim().length() > 0
+                        ? Integer.parseInt(heightText.getText()) : 0);
+                playersModelSelected.setWeight(weightText.getText().trim().length() > 0
+                        ? Integer.parseInt(weightText.getText()) : 0);
+                playersModelSelected.setPositionId(positionComboBox.getSelectedIndex() != -1
+                        ? mapPosition.get((String) positionComboBox.getSelectedItem()) : 0);
+                playersModelSelected.setBirthday(birthdayPlayer.getDate());
+                playersModelSelected.setContractStart(startContract.getDate());
+                playersModelSelected.setContractEnd(endContract.getDate());
+                String fileName = playersModelSelected.getPlayerName() + (playersModelSelected.getPlayerNumber() != 0 ? ("_" + playersModelSelected.getPlayerNumber()) : "") + ".jpg";
                 try {
                     if (fileImg != null) {
+                        new File(System.getProperty("user.dir") + "/img/" + playersModelSelected.getImage()).delete();
                         File file = new File(System.getProperty("user.dir") + "/img/" + fileName);
                         InputStream is = null;
                         OutputStream os = null;
@@ -558,24 +631,31 @@ public class EditPlayerPanel extends javax.swing.JPanel {
                             is.close();
                             os.close();
                         }
+                        playersModelSelected.setImage(fileName);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                playersModel.setImage(fileName);
-                playersModel.setCreateBy(sessionManager.getUser().getUserId());
-                playersModel.setCreateDate(new Date());
-                playersModel.setUpdateBy(sessionManager.getUser().getUserId());
-                playersModel.setUpdateDate(new Date());
-                boolean chkInsertPlayer = playersManager.insertPlayers(playersModel);
-                if (chkInsertPlayer) {
-                    JOptionPane.showMessageDialog(this, "Save new player complete");
+                playersModelSelected.setUpdateBy(sessionManager.getUser().getUserId());
+                playersModelSelected.setUpdateDate(new Date());
+                boolean chkUpdatePlayer = playersManager.editPlayers(playersModelSelected);
+                if (chkUpdatePlayer) {
+                    playersModelList.set(row, playersModelSelected);
+                    DefaultTableModel modelTable = (DefaultTableModel) searchTable.getModel();
+                    while (modelTable.getRowCount() > 0) {
+                        modelTable.removeRow(0);
+                    }
+                    for (PlayersModel model : playersModelList) {
+                        Object[] rowTable = {model.getPlayerNumber(), model.getPlayerName(), model.getMatch(), df.format(model.getPlayingTime()), model.getGoal(), model.getStarter()};
+                        modelTable.addRow(rowTable);
+                    }
+                    JOptionPane.showMessageDialog(this, "Save edit player complete");
                 } else {
-                    JOptionPane.showMessageDialog(this, "Save new player Fail");
+                    JOptionPane.showMessageDialog(this, "Save edit player Fail");
                 }
-            } else {
-                JOptionPane.showMessageDialog(this, "Please insert name player");
             }
+        } else {
+            JOptionPane.showMessageDialog(this, "Please insert name player");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

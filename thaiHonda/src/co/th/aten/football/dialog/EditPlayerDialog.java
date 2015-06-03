@@ -60,7 +60,7 @@ public class EditPlayerDialog extends ApplicationDialog {
 
     @Override
     protected JComponent createDialogContentPane() {
-        setTitle("Add New Player");
+        setTitle("Edit Player");
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         int height = toolkit.getScreenSize().height;
         int width = toolkit.getScreenSize().width;

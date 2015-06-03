@@ -103,17 +103,17 @@ public class AddNewPlayerPanel extends javax.swing.JPanel {
 
         namePlayerText.setFont(new Font("Tahoma", 0, 11));
         positionComboBox.setFont(new Font("Tahoma", 0, 11));
-        birthdayPlayer.setFormats(new SimpleDateFormat("dd/MM/yyyy",Locale.US));
+        birthdayPlayer.setFormats(new SimpleDateFormat("dd/MM/yyyy", Locale.US));
         birthdayPlayer.getMonthView().setDayForeground(Calendar.SATURDAY, Color.BLUE);
         birthdayPlayer.getMonthView().setDayForeground(Calendar.SUNDAY, Color.RED);
         birthdayPlayer.setDate(new Date());
 
-        startContract.setFormats(new SimpleDateFormat("dd/MM/yyyy",Locale.US));
+        startContract.setFormats(new SimpleDateFormat("dd/MM/yyyy", Locale.US));
         startContract.getMonthView().setDayForeground(Calendar.SATURDAY, Color.BLUE);
         startContract.getMonthView().setDayForeground(Calendar.SUNDAY, Color.RED);
         startContract.setDate(new Date());
 
-        endContract.setFormats(new SimpleDateFormat("dd/MM/yyyy",Locale.US));
+        endContract.setFormats(new SimpleDateFormat("dd/MM/yyyy", Locale.US));
         endContract.getMonthView().setDayForeground(Calendar.SATURDAY, Color.BLUE);
         endContract.getMonthView().setDayForeground(Calendar.SUNDAY, Color.RED);
         endContract.setDate(new Date());
@@ -122,9 +122,8 @@ public class AddNewPlayerPanel extends javax.swing.JPanel {
             public void actionPerformed(ActionEvent arg0) {
                 Date startDate = birthdayPlayer.getDate();
                 Date endDate = new Date();
-                String agePet = Util.getYearMonth(startDate, endDate);
-                System.out.println(agePet);
-                agePlayerLabel.setText(agePet);
+                String agePlayer = Util.getYearMonth(startDate, endDate);
+                agePlayerLabel.setText(agePlayer);
             }
         });
 
@@ -132,9 +131,8 @@ public class AddNewPlayerPanel extends javax.swing.JPanel {
             public void propertyChange(PropertyChangeEvent e) {
                 Date startDate = birthdayPlayer.getDate();
                 Date endDate = new Date();
-                String agePet = Util.getYearMonth(startDate, endDate);
-                System.out.println(agePet);
-                agePlayerLabel.setText(agePet);
+                String agePlayer = Util.getYearMonth(startDate, endDate);
+                agePlayerLabel.setText(agePlayer);
             }
         });
 
@@ -370,9 +368,9 @@ public class AddNewPlayerPanel extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        int saveConfirm = JOptionPane.showConfirmDialog(null, "Confirm save new player?", "Confirm Save", JOptionPane.OK_OPTION | JOptionPane.CANCEL_OPTION);
-        if (saveConfirm == JOptionPane.OK_OPTION) {
-            if (namePlayerText.getText() != null && namePlayerText.getText().trim().length() > 0) {
+        if (namePlayerText.getText() != null && namePlayerText.getText().trim().length() > 0) {
+            int saveConfirm = JOptionPane.showConfirmDialog(null, "Confirm save new player?", "Confirm Save", JOptionPane.OK_OPTION | JOptionPane.CANCEL_OPTION);
+            if (saveConfirm == JOptionPane.OK_OPTION) {
                 playersModel = new PlayersModel();
                 int max = playersManager.getMaxPlayersId();
                 playersModel.setPlayerId(max == 0 ? 1 : (max + 1));
@@ -422,9 +420,9 @@ public class AddNewPlayerPanel extends javax.swing.JPanel {
                 } else {
                     JOptionPane.showMessageDialog(this, "Save new player Fail");
                 }
-            } else {
-                JOptionPane.showMessageDialog(this, "Please insert name player");
             }
+        } else {
+            JOptionPane.showMessageDialog(this, "Please insert name player");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
