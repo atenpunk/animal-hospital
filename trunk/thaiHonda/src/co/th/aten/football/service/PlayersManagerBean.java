@@ -44,4 +44,8 @@ public class PlayersManagerBean implements PlayersManager {
         return playersDao.editPlayers(playersModel);
     }
     
+    public boolean deletePlayer(int playerId){
+        return playersDao.deletePlayer(playerId);
+    }
+    
 }
