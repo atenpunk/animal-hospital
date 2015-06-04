@@ -80,13 +80,17 @@ public class EditPlayerPanel extends javax.swing.JPanel {
         rightRenderer.setHorizontalAlignment(SwingConstants.RIGHT);
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+        searchTable.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
         searchTable.getColumnModel().getColumn(2).setCellRenderer(rightRenderer);
         searchTable.getColumnModel().getColumn(3).setCellRenderer(rightRenderer);
-        searchTable.getColumnModel().getColumn(4).setCellRenderer(rightRenderer);
-        searchTable.getColumnModel().getColumn(5).setCellRenderer(rightRenderer);
-        searchTable.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+        searchTable.getColumnModel().getColumn(5).setCellRenderer(centerRenderer);
+        searchTable.getColumnModel().getColumn(6).setCellRenderer(centerRenderer);
+        searchTable.getColumnModel().getColumn(7).setCellRenderer(centerRenderer);
         searchTable.getColumnModel().getColumn(0).setPreferredWidth(10);
-        searchTable.getColumnModel().getColumn(1).setPreferredWidth(150);
+        searchTable.getColumnModel().getColumn(1).setPreferredWidth(120);
+        searchTable.getColumnModel().getColumn(2).setPreferredWidth(30);
+        searchTable.getColumnModel().getColumn(3).setPreferredWidth(30);
+        searchTable.getColumnModel().getColumn(4).setPreferredWidth(100);
         try {
             File fileImgSearch = new File(System.getProperty("user.dir") + "/img" + File.separator + "search.png");
             if (fileImgSearch != null) {
@@ -116,11 +120,9 @@ public class EditPlayerPanel extends javax.swing.JPanel {
         searchTable.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (e.getClickCount() == 2) {
-                    JTable target = (JTable) e.getSource();
-                    row = target.getSelectedRow();
-                    setDataDetailPlayer();
-                }
+                JTable target = (JTable) e.getSource();
+                row = target.getSelectedRow();
+                setDataDetailPlayer();
             }
         });
 
@@ -474,9 +476,8 @@ public class EditPlayerPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(openButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 41, Short.MAX_VALUE))
         );
 
@@ -500,11 +501,11 @@ public class EditPlayerPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "#", "Name", "Match", "Playing Time", "Goal", "Starter"
+                "#", "Name", "Height", "Weight", "Play", "Birthday", "Contract Start", "Contract End"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -634,6 +635,7 @@ public class EditPlayerPanel extends javax.swing.JPanel {
                         ? Integer.parseInt(weightText.getText()) : 0);
                 playersModelSelected.setPositionId(positionComboBox.getSelectedIndex() != -1
                         ? mapPosition.get((String) positionComboBox.getSelectedItem()) : 0);
+                playersModelSelected.setPositionStr((String) positionComboBox.getSelectedItem());
                 playersModelSelected.setBirthday(birthdayPlayer.getDate());
                 playersModelSelected.setContractStart(startContract.getDate());
                 playersModelSelected.setContractEnd(endContract.getDate());
@@ -671,7 +673,7 @@ public class EditPlayerPanel extends javax.swing.JPanel {
                         modelTable.removeRow(0);
                     }
                     for (PlayersModel model : playersModelList) {
-                        Object[] rowTable = {model.getPlayerNumber(), model.getPlayerName(), model.getMatch(), df.format(model.getPlayingTime()), model.getGoal(), model.getStarter()};
+                        Object[] rowTable = {model.getPlayerNumber(), model.getPlayerName(), model.getHeight(), model.getWeight(), model.getPositionStr(), sdf.format(model.getBirthday()), sdf.format(model.getContractStart()), sdf.format(model.getContractEnd())};
                         modelTable.addRow(rowTable);
                     }
                     JOptionPane.showMessageDialog(this, "Save edit player complete");
@@ -697,7 +699,7 @@ public class EditPlayerPanel extends javax.swing.JPanel {
                     modelTable.removeRow(0);
                 }
                 for (PlayersModel model : playersModelList) {
-                    Object[] rowTable = {model.getPlayerNumber(), model.getPlayerName(), model.getMatch(), df.format(model.getPlayingTime()), model.getGoal(), model.getStarter()};
+                    Object[] rowTable = {model.getPlayerNumber(), model.getPlayerName(), model.getHeight(), model.getWeight(), model.getPositionStr(), sdf.format(model.getBirthday()), sdf.format(model.getContractStart()), sdf.format(model.getContractEnd())};
                     modelTable.addRow(rowTable);
                 }
                 clearData();
@@ -719,7 +721,7 @@ public class EditPlayerPanel extends javax.swing.JPanel {
         }
         if (playersModelList != null && playersModelList.size() > 0) {
             for (PlayersModel model : playersModelList) {
-                Object[] rowTable = {model.getPlayerNumber(), model.getPlayerName(), model.getMatch(), df.format(model.getPlayingTime()), model.getGoal(), model.getStarter()};
+                Object[] rowTable = {model.getPlayerNumber(), model.getPlayerName(), model.getHeight(), model.getWeight(), model.getPositionStr(), sdf.format(model.getBirthday()), sdf.format(model.getContractStart()), sdf.format(model.getContractEnd())};
                 modelTable.addRow(rowTable);
             }
             if (playersModelList.size() == 1) {

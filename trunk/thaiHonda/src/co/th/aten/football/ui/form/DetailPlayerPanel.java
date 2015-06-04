@@ -82,6 +82,9 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         inputWin.setBackground(null);
         inputLose.setBackground(null);
         inputDraw.setBackground(null);
+        matchPieLabel.setVisible(false);
+        playingTimePieLabel.setVisible(false);
+        starterPieLabel.setVisible(false);
         DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
         rightRenderer.setHorizontalAlignment(SwingConstants.RIGHT);
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
@@ -121,11 +124,9 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         searchTable.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (e.getClickCount() == 2) {
-                    JTable target = (JTable) e.getSource();
-                    row = target.getSelectedRow();
-                    setDataDetailPlayer();
-                }
+                JTable target = (JTable) e.getSource();
+                row = target.getSelectedRow();
+                setDataDetailPlayer();
             }
         });
 
@@ -250,6 +251,9 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
             timePanel.setVisible(true);
             matchPanel.setVisible(true);
             startPanel.setVisible(true);
+            matchPieLabel.setVisible(true);
+            playingTimePieLabel.setVisible(true);
+            starterPieLabel.setVisible(true);
             ViewReportTestRadarDlg reportRadar = new ViewReportTestRadarDlg(playersModelSelected.getGc(), playersModelSelected.getMatch(), playersModelSelected.getPlayingTime(), 0);
             viewRadar = reportRadar.createView2D();
             viewRadar.setSize(409, 262);
@@ -367,9 +371,9 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         timePanel = new javax.swing.JPanel();
         startPanel = new javax.swing.JPanel();
         editPlayer = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        matchPieLabel = new javax.swing.JLabel();
+        playingTimePieLabel = new javax.swing.JLabel();
+        starterPieLabel = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         searchText = new javax.swing.JTextField();
         searchButton = new javax.swing.JButton();
@@ -551,17 +555,17 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Match");
+        matchPieLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        matchPieLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        matchPieLabel.setText("Match");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Playing Time");
+        playingTimePieLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        playingTimePieLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        playingTimePieLabel.setText("Playing Time");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Starter");
+        starterPieLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        starterPieLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        starterPieLabel.setText("Starter");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -611,16 +615,16 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
                             .addComponent(editPlayer, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
+                            .addComponent(matchPieLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
                             .addComponent(matchPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(timePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE))
+                            .addComponent(playingTimePieLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(startPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE))))
+                            .addComponent(starterPieLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE))))
                 .addContainerGap(45, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -690,9 +694,9 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
                     .addComponent(matchPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3))
+                    .addComponent(matchPieLabel)
+                    .addComponent(playingTimePieLabel)
+                    .addComponent(starterPieLabel))
                 .addGap(12, 12, 12))
         );
 
@@ -1164,14 +1168,12 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
     private javax.swing.JTextField inputSigningFee;
     private javax.swing.JTextField inputStarting;
     private javax.swing.JTextField inputWin;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel matchPanel;
+    private javax.swing.JLabel matchPieLabel;
     private javax.swing.JLabel nameLabel;
     private javax.swing.JLabel nameLabel1;
     private javax.swing.JLabel nameLabel10;
@@ -1184,6 +1186,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
     private javax.swing.JLabel nameLabel7;
     private javax.swing.JLabel nameLabel8;
     private javax.swing.JLabel nameLabel9;
+    private javax.swing.JLabel playingTimePieLabel;
     private javax.swing.JPanel redarPanal;
     private javax.swing.JButton report1Button;
     private javax.swing.JButton report2Button;
@@ -1191,6 +1194,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
     private javax.swing.JTable searchTable;
     private javax.swing.JTextField searchText;
     private javax.swing.JPanel startPanel;
+    private javax.swing.JLabel starterPieLabel;
     private javax.swing.JPanel timePanel;
     // End of variables declaration//GEN-END:variables
 }
