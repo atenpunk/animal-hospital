@@ -47,7 +47,8 @@ public class ViewReportTestRadarDlg extends Sw2dDemo {
             templateFrame.show(report);
 //            templateFrame.setView(report.getView());
 //            templateFrame.pack();
-            templateFrame.setSize(465, 425);
+            templateFrame.setSize(465, 360);
+//            templateFrame.setSize(865, 660);
             templateFrame.setLocation(250, 120);
 
 //            final TemplateReportFrame templateFrame = new TemplateReportFrame();
@@ -102,7 +103,7 @@ public class ViewReportTestRadarDlg extends Sw2dDemo {
             view.setPlaceHolderAxisNorth(3);
             view.setPlaceHolderAxisSouth(3);
             view.setPlaceHolderAxisWest(3);
-            Window2D radarWindow2D = new Window2D.Linear(-1, 1, -1, 1);
+            Window2D radarWindow2D = new Window2D.Linear(-100, 100, -100, 100);
             radarWindow2D.setName("compatible pie window");
             RadarPlugin radarPlugin = new RadarPlugin();
             radarPlugin.setPriority(100);
@@ -112,6 +113,8 @@ public class ViewReportTestRadarDlg extends Sw2dDemo {
             }
 
             final Radar radar = new Radar(0, 0, 100);
+            radar.setCenterX(-5);
+            radar.setCenterY(-20);
             radar.setRadarPainter(new RadarDefaultPainter());
             final RadarDimension radardimension = new RadarDimension("GC", 90.0D, 0.0D, Configuration.getInt("GC"));
             radardimension.setDimensionPainter(new DimensionDefaultPainter());
@@ -151,15 +154,26 @@ public class ViewReportTestRadarDlg extends Sw2dDemo {
                 GlyphFill glyphfill = new GlyphFill(Color.BLUE, NanoChromatique.BLUE);
                 RoundMarker roundmarker = new RoundMarker(NanoChromatique.BLUE,
                         Color.WHITE, 3);
+//                RadarSurfaceAnchor radarsurfaceanchor = RadarToolkit.createSurfaceAnchor(
+//                        radardimension, (gc==0?"":df.format(gc)), gc, StylePosition.Default, 25, glyphfill,
+//                        roundmarker, font3);
+//                RadarSurfaceAnchor radarsurfaceanchor2 = RadarToolkit.createSurfaceAnchor(
+//                        radardimension2, (match==0?"":df.format(match)), match, StylePosition.Default, 10, glyphfill,
+//                        roundmarker, font3);
+//                RadarSurfaceAnchor radarsurfaceanchor4 = RadarToolkit.createSurfaceAnchor(
+//                        radardimension4, (playingTime==0?"":df.format(playingTime)), playingTime, StylePosition.Default, 10, glyphfill,
+//                        roundmarker, font3);
+                
                 RadarSurfaceAnchor radarsurfaceanchor = RadarToolkit.createSurfaceAnchor(
-                        radardimension, (gc==0?"":df.format(gc)), gc, StylePosition.Default, 25, glyphfill,
+                        radardimension, "", gc, StylePosition.Default, 25, glyphfill,
                         roundmarker, font3);
                 RadarSurfaceAnchor radarsurfaceanchor2 = RadarToolkit.createSurfaceAnchor(
-                        radardimension2, (match==0?"":df.format(match)), match, StylePosition.Default, 10, glyphfill,
+                        radardimension2, "", match, StylePosition.Default, 10, glyphfill,
                         roundmarker, font3);
                 RadarSurfaceAnchor radarsurfaceanchor4 = RadarToolkit.createSurfaceAnchor(
-                        radardimension4, (playingTime==0?"":df.format(playingTime)), playingTime, StylePosition.Default, 10, glyphfill,
+                        radardimension4, "", playingTime, StylePosition.Default, 10, glyphfill,
                         roundmarker, font3);
+                
                 RadarToolkit.pushAnchors(radarsurface, new RadarSurfaceAnchor[]{
                     radarsurfaceanchor, radarsurfaceanchor2, radarsurfaceanchor4});
 

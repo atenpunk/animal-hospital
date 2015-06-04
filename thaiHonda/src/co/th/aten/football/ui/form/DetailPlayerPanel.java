@@ -252,7 +252,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
             startPanel.setVisible(true);
             ViewReportTestRadarDlg reportRadar = new ViewReportTestRadarDlg(playersModelSelected.getGc(), playersModelSelected.getMatch(), playersModelSelected.getPlayingTime(), 0);
             viewRadar = reportRadar.createView2D();
-            viewRadar.setSize(409, 308);
+            viewRadar.setSize(409, 262);
             redarPanal.setBackground(Color.WHITE);
             redarPanal.add(viewRadar, BorderLayout.CENTER);
             int data01 = ((100 * playersModelSelected.getMatch()) / Configuration.getInt("Match"));
@@ -393,7 +393,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         );
         redarPanalLayout.setVerticalGroup(
             redarPanalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 308, Short.MAX_VALUE)
+            .addGap(0, 262, Short.MAX_VALUE)
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -1053,7 +1053,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
                 try {
                     ViewReportTestRadarDlg reportRadar = new ViewReportTestRadarDlg(model.getGc(), model.getMatch(), model.getPlayingTime(), 1);
                     View2D view = reportRadar.createView2D();
-                    view.setSize(409, 308);
+                    view.setSize(409, 262);
                     int w = (int) view.getBounds().getWidth();
                     int h = (int) view.getBounds().getHeight();
                     BufferedImage image = view.getImageView(w, h);
