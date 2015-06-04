@@ -40,7 +40,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.TimeZone;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -89,9 +88,9 @@ public class EditPlayerPanel extends javax.swing.JPanel {
         searchTable.getColumnModel().getColumn(0).setPreferredWidth(10);
         searchTable.getColumnModel().getColumn(1).setPreferredWidth(150);
         try {
-            File fileImg = new File(System.getProperty("user.dir") + "/img" + File.separator + "search.png");
-            if (fileImg != null) {
-                BufferedImage originalImage = ImageIO.read(fileImg);
+            File fileImgSearch = new File(System.getProperty("user.dir") + "/img" + File.separator + "search.png");
+            if (fileImgSearch != null) {
+                BufferedImage originalImage = ImageIO.read(fileImgSearch);
                 int type = originalImage.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : originalImage.getType();
                 BufferedImage resizeImageJpg = resizeImage(originalImage, type, 30, 25);
                 ImageIcon img = new ImageIcon(resizeImageJpg);
@@ -216,8 +215,9 @@ public class EditPlayerPanel extends javax.swing.JPanel {
         birthdayPlayer.setEnabled(false);
         startContract.setEnabled(false);
         endContract.setEnabled(false);
-        jButton5.setEnabled(false);
-        jButton1.setEnabled(false);
+        openButton.setEnabled(false);
+        saveButton.setEnabled(false);
+        deleteButton.setEnabled(false);
     }
 
     private void setDataDetailPlayer() {
@@ -238,9 +238,9 @@ public class EditPlayerPanel extends javax.swing.JPanel {
             endContract.setDate(playersModelSelected.getContractEnd());
             try {
                 if (playersModelSelected.getImage() != null && playersModelSelected.getImage().length() > 0) {
-                    File fileImg = new File(System.getProperty("user.dir") + "/img" + File.separator + playersModelSelected.getImage());
-                    if (fileImg != null) {
-                        BufferedImage originalImage = ImageIO.read(fileImg);
+                    File fileImgPlayer = new File(System.getProperty("user.dir") + "/img" + File.separator + playersModelSelected.getImage());
+                    if (fileImgPlayer != null) {
+                        BufferedImage originalImage = ImageIO.read(fileImgPlayer);
                         int type = originalImage.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : originalImage.getType();
                         BufferedImage resizeImageJpg = resizeImage(originalImage, type, 165, 204);
                         ImageIcon img = new ImageIcon(resizeImageJpg);
@@ -261,8 +261,9 @@ public class EditPlayerPanel extends javax.swing.JPanel {
             birthdayPlayer.setEnabled(true);
             startContract.setEnabled(true);
             endContract.setEnabled(true);
-            jButton5.setEnabled(true);
-            jButton1.setEnabled(true);
+            openButton.setEnabled(true);
+            saveButton.setEnabled(true);
+            deleteButton.setEnabled(true);
         }
     }
 
@@ -285,7 +286,7 @@ public class EditPlayerPanel extends javax.swing.JPanel {
         imgLabel = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jButton5 = new javax.swing.JButton();
+        openButton = new javax.swing.JButton();
         positionComboBox = new javax.swing.JComboBox();
         jLabel9 = new javax.swing.JLabel();
         agePlayerLabel = new javax.swing.JLabel();
@@ -296,7 +297,8 @@ public class EditPlayerPanel extends javax.swing.JPanel {
         birthdayPlayer = new org.jdesktop.swingx.JXDatePicker();
         startContract = new org.jdesktop.swingx.JXDatePicker();
         endContract = new org.jdesktop.swingx.JXDatePicker();
-        jButton1 = new javax.swing.JButton();
+        saveButton = new javax.swing.JButton();
+        deleteButton = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         searchText = new javax.swing.JTextField();
         searchButton = new javax.swing.JButton();
@@ -337,11 +339,11 @@ public class EditPlayerPanel extends javax.swing.JPanel {
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel11.setText("Play");
 
-        jButton5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jButton5.setText("Upload Image");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        openButton.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        openButton.setText("Upload Image");
+        openButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                openButtonActionPerformed(evt);
             }
         });
 
@@ -361,11 +363,19 @@ public class EditPlayerPanel extends javax.swing.JPanel {
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel8.setText("Weight");
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jButton1.setText("Save");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        saveButton.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        saveButton.setText("Save");
+        saveButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                saveButtonActionPerformed(evt);
+            }
+        });
+
+        deleteButton.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        deleteButton.setText("Delete");
+        deleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteButtonActionPerformed(evt);
             }
         });
 
@@ -376,41 +386,51 @@ public class EditPlayerPanel extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(66, 66, 66)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(imgLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(openButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(imgLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE)
-                    .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE))
+                    .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(positionComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(heightText, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(weightText, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(numberText, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(namePlayerText, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(positionComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(heightText, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(weightText, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(numberText, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(namePlayerText, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(birthdayPlayer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(startContract, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(agePlayerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(endContract, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(82, 82, 82))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(birthdayPlayer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(startContract, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(agePlayerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(endContract, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(82, 82, 82))
+                        .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -453,8 +473,10 @@ public class EditPlayerPanel extends javax.swing.JPanel {
                     .addComponent(imgLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(openButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 41, Short.MAX_VALUE))
         );
 
@@ -504,7 +526,7 @@ public class EditPlayerPanel extends javax.swing.JPanel {
                         .addComponent(searchText, javax.swing.GroupLayout.PREFERRED_SIZE, 619, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -565,8 +587,9 @@ public class EditPlayerPanel extends javax.swing.JPanel {
         birthdayPlayer.setEnabled(false);
         startContract.setEnabled(false);
         endContract.setEnabled(false);
-        jButton5.setEnabled(false);
-        jButton1.setEnabled(false);
+        openButton.setEnabled(false);
+        saveButton.setEnabled(false);
+        deleteButton.setEnabled(false);
     }
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
@@ -574,8 +597,9 @@ public class EditPlayerPanel extends javax.swing.JPanel {
         searchByKeyWord();
     }//GEN-LAST:event_searchButtonActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void openButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openButtonActionPerformed
         // TODO add your handling code here:
+        Sound.getInstance().playClick();
         try {
             JFileChooser chooser = new JFileChooser();
             chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -593,10 +617,11 @@ public class EditPlayerPanel extends javax.swing.JPanel {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_openButtonActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         // TODO add your handling code here:
+        Sound.getInstance().playClick();
         if (namePlayerText.getText() != null && namePlayerText.getText().trim().length() > 0) {
             int saveConfirm = JOptionPane.showConfirmDialog(null, "Confirm save edit player?", "Confirm Save", JOptionPane.OK_OPTION | JOptionPane.CANCEL_OPTION);
             if (saveConfirm == JOptionPane.OK_OPTION) {
@@ -657,7 +682,31 @@ public class EditPlayerPanel extends javax.swing.JPanel {
         } else {
             JOptionPane.showMessageDialog(this, "Please insert name player");
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_saveButtonActionPerformed
+
+    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
+        // TODO add your handling code here:
+        Sound.getInstance().playClick();
+        int deleteConfirm = JOptionPane.showConfirmDialog(null, "Confirm delete player?", "Confirm Delete", JOptionPane.OK_OPTION | JOptionPane.CANCEL_OPTION);
+        if (deleteConfirm == JOptionPane.OK_OPTION) {
+            boolean chkUpdatePlayer = playersManager.deletePlayer(playersModelSelected.getPlayerId());
+            if (chkUpdatePlayer) {
+                playersModelList.remove(row);
+                DefaultTableModel modelTable = (DefaultTableModel) searchTable.getModel();
+                while (modelTable.getRowCount() > 0) {
+                    modelTable.removeRow(0);
+                }
+                for (PlayersModel model : playersModelList) {
+                    Object[] rowTable = {model.getPlayerNumber(), model.getPlayerName(), model.getMatch(), df.format(model.getPlayingTime()), model.getGoal(), model.getStarter()};
+                    modelTable.addRow(rowTable);
+                }
+                clearData();
+                JOptionPane.showMessageDialog(this, "Delete player complete");
+            } else {
+                JOptionPane.showMessageDialog(this, "Delete player Fail");
+            }
+        }
+    }//GEN-LAST:event_deleteButtonActionPerformed
 
     private void searchByKeyWord() {
 //        Runnable r = new Runnable() {
@@ -696,11 +745,10 @@ public class EditPlayerPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel agePlayerLabel;
     private org.jdesktop.swingx.JXDatePicker birthdayPlayer;
+    private javax.swing.JButton deleteButton;
     private org.jdesktop.swingx.JXDatePicker endContract;
     private javax.swing.JTextField heightText;
     private javax.swing.JLabel imgLabel;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -715,7 +763,9 @@ public class EditPlayerPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField namePlayerText;
     private javax.swing.JTextField numberText;
+    private javax.swing.JButton openButton;
     private javax.swing.JComboBox positionComboBox;
+    private javax.swing.JButton saveButton;
     private javax.swing.JButton searchButton;
     private javax.swing.JTable searchTable;
     private javax.swing.JTextField searchText;

@@ -22,4 +22,6 @@ public interface PlayersManager {
     public boolean updatePlayers(PlayersModel playersModel);
     
     public boolean editPlayers(PlayersModel playersModel);
+    
+    public boolean deletePlayer(int playerId);
 }

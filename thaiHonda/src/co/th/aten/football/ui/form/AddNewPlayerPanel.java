@@ -16,6 +16,7 @@ import co.th.aten.football.model.PositionModel;
 import co.th.aten.football.service.PlayersManager;
 import co.th.aten.football.service.SessionManager;
 import co.th.aten.football.service.PositionManager;
+import co.th.aten.football.util.Sound;
 import co.th.aten.football.util.Util;
 import java.awt.Color;
 import java.awt.Font;
@@ -368,6 +369,7 @@ public class AddNewPlayerPanel extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        Sound.getInstance().playClick();
         if (namePlayerText.getText() != null && namePlayerText.getText().trim().length() > 0) {
             int saveConfirm = JOptionPane.showConfirmDialog(null, "Confirm save new player?", "Confirm Save", JOptionPane.OK_OPTION | JOptionPane.CANCEL_OPTION);
             if (saveConfirm == JOptionPane.OK_OPTION) {
@@ -428,6 +430,7 @@ public class AddNewPlayerPanel extends javax.swing.JPanel {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
+        Sound.getInstance().playClick();
         try {
             JFileChooser chooser = new JFileChooser();
             chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);

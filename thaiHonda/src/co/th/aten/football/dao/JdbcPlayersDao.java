@@ -41,6 +41,17 @@ public class JdbcPlayersDao implements PlayersDao {
         String sql = "select max(PLAYER_ID) from PLAYERS ";
         return this.simpleJdbcTemplate.queryForInt(sql);
     }
+    
+    public boolean deletePlayer(int playerId){
+        logger.debug("delete Player ID = " + playerId);
+        try {
+            String sql = " DELETE FROM PLAYERS WHERE PLAYER_ID = ? ";
+            return (this.simpleJdbcTemplate.update(sql, playerId) > 0) ? true : false;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 
     public boolean insertPlayers(PlayersModel playersModel) {
         logger.info("Insert Player_ID = " + playersModel.getPlayerId());
