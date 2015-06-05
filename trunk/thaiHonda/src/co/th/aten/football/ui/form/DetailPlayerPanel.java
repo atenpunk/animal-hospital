@@ -124,9 +124,11 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         searchTable.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                JTable target = (JTable) e.getSource();
-                row = target.getSelectedRow();
-                setDataDetailPlayer();
+                if (e.getClickCount() == 2) {
+                    JTable target = (JTable) e.getSource();
+                    row = target.getSelectedRow();
+                    setDataDetailPlayer();
+                }
             }
         });
 

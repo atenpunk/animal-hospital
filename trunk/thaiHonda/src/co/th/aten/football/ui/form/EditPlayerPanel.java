@@ -46,6 +46,8 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import org.springframework.richclient.application.Application;
@@ -117,12 +119,21 @@ public class EditPlayerPanel extends javax.swing.JPanel {
             }
         });
 
+//        searchTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+//            public void valueChanged(ListSelectionEvent event) {
+//                row = searchTable.getSelectedRow();
+//                setDataDetailPlayer();
+//            }
+//        });
+
         searchTable.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                JTable target = (JTable) e.getSource();
-                row = target.getSelectedRow();
-                setDataDetailPlayer();
+                if (e.getClickCount() == 2) {
+                    JTable target = (JTable) e.getSource();
+                    row = target.getSelectedRow();
+                    setDataDetailPlayer();
+                }
             }
         });
 
