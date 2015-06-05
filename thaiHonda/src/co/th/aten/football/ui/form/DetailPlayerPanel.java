@@ -125,6 +125,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2) {
+                    Sound.getInstance().playClick();
                     JTable target = (JTable) e.getSource();
                     row = target.getSelectedRow();
                     setDataDetailPlayer();
