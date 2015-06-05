@@ -1,0 +1,338 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/*
+ *
+ * Created on 9 มิ.ย. 2556, 18:40:06
+ */
+package co.th.aten.football.ui.form;
+
+import co.th.aten.football.model.PlayersModel;
+import co.th.aten.football.service.PlayersManager;
+import co.th.aten.football.service.SessionManager;
+import co.th.aten.football.ui.report.PlayersDetailReportDialog;
+import co.th.aten.football.ui.report.ViewReportComparePlayersRadarDlg;
+import co.th.aten.football.util.Sound;
+import com.jensoft.sw2d.core.view.View2D;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics2D;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.List;
+import java.util.Locale;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import org.springframework.richclient.application.Application;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+/**
+ *
+ * @author Atenpunk
+ */
+public class ComparePlayersPanel extends javax.swing.JPanel {
+
+    private final Log logger = LogFactory.getLog(getClass());
+    private SessionManager sessionManager;
+    private PlayersManager playersManager;
+    private List<PlayersModel> playersModelList;
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
+    private DecimalFormat df = new DecimalFormat("#,##0");
+    private PlayersModel playersModelSelected;
+    private int row = -1;
+    private View2D viewRadar;
+    private View2D viewPieTime;
+    private View2D viewPieMatch;
+    private View2D viewPieStart;
+
+    public ComparePlayersPanel() {
+        this.sessionManager = (SessionManager) Application.services().getService(SessionManager.class);
+        this.playersManager = (PlayersManager) Application.services().getService(PlayersManager.class);
+        initComponents();
+        DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+        rightRenderer.setHorizontalAlignment(SwingConstants.RIGHT);
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+        searchTable.getColumnModel().getColumn(2).setCellRenderer(rightRenderer);
+        searchTable.getColumnModel().getColumn(3).setCellRenderer(rightRenderer);
+        searchTable.getColumnModel().getColumn(4).setCellRenderer(rightRenderer);
+        searchTable.getColumnModel().getColumn(5).setCellRenderer(rightRenderer);
+        searchTable.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+        searchTable.getColumnModel().getColumn(0).setPreferredWidth(10);
+        try {
+            File fileImg = new File(System.getProperty("user.dir") + "/img" + File.separator + "search.png");
+            if (fileImg != null) {
+                BufferedImage originalImage = ImageIO.read(fileImg);
+                int type = originalImage.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : originalImage.getType();
+                BufferedImage resizeImageJpg = resizeImage(originalImage, type, 30, 25);
+                ImageIcon img = new ImageIcon(resizeImageJpg);
+                searchButton.setText("");
+                searchButton.setIcon(img);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        searchText.requestFocus();
+        searchText.requestFocusInWindow();
+        searchText.setFont(new Font("Tahoma", 0, 11));
+        searchText.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    searchByKeyWord();
+                }
+            }
+        });
+
+        searchTable.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    JTable target = (JTable) e.getSource();
+                    row = target.getSelectedRow();
+                    setDataDetailPlayer();
+                }
+            }
+        });
+
+    }
+
+    private void setDataDetailPlayer() {
+        clearData();
+        if (playersModelList != null && playersModelList.size() >= row) {
+            playersModelSelected = playersModelList.get(row);
+            redarPanal.setVisible(true);
+            ViewReportComparePlayersRadarDlg reportRadar = new ViewReportComparePlayersRadarDlg(playersModelSelected.getGc(), playersModelSelected.getMatch(), playersModelSelected.getPlayingTime(), 1);
+            viewRadar = reportRadar.createView2D();
+            viewRadar.setSize(853, 262);
+            redarPanal.setBackground(Color.WHITE);
+            redarPanal.add(viewRadar, BorderLayout.CENTER);
+        }
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jPanel1 = new javax.swing.JPanel();
+        redarPanal = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        searchText = new javax.swing.JTextField();
+        searchButton = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        searchTable = new javax.swing.JTable();
+        report1Button = new javax.swing.JButton();
+
+        setBackground(new java.awt.Color(255, 255, 255));
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detail Player", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
+
+        redarPanal.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout redarPanalLayout = new javax.swing.GroupLayout(redarPanal);
+        redarPanal.setLayout(redarPanalLayout);
+        redarPanalLayout.setHorizontalGroup(
+            redarPanalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        redarPanalLayout.setVerticalGroup(
+            redarPanalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 262, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(redarPanal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(redarPanal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 143, Short.MAX_VALUE))
+        );
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Search", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
+
+        searchText.setToolTipText("Search by player name, number");
+
+        searchButton.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        searchButton.setToolTipText("Search");
+        searchButton.setBorder(null);
+        searchButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchButtonActionPerformed(evt);
+            }
+        });
+
+        searchTable.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        searchTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "#", "Name", "Match", "Playing Time", "Goal", "Starter"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        searchTable.setGridColor(new java.awt.Color(0, 0, 0));
+        jScrollPane2.setViewportView(searchTable);
+
+        report1Button.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        report1Button.setText("Report");
+        report1Button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                report1ButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(searchText, javax.swing.GroupLayout.PREFERRED_SIZE, 619, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(report1Button)
+                        .addGap(0, 109, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2))
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(searchText, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
+                    .addComponent(searchButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(report1Button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        jPanel1.getAccessibleContext().setAccessibleName("Player");
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void clearData() {
+        playersModelSelected = null;
+        redarPanal.setVisible(false);
+        if (viewRadar != null) {
+            redarPanal.remove(viewRadar);
+        }
+    }
+
+    private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
+        // TODO add your handling code here:
+        searchByKeyWord();
+    }//GEN-LAST:event_searchButtonActionPerformed
+
+    private void report1ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_report1ButtonActionPerformed
+        // TODO add your handling code here:
+        Sound.getInstance().playClick();
+        new PlayersDetailReportDialog(playersModelList).showDialog();
+    }//GEN-LAST:event_report1ButtonActionPerformed
+
+    private void searchByKeyWord() {
+//        Runnable r = new Runnable() {
+//            public void run() {
+        clearData();
+        playersModelList = playersManager.searchByKeyWord(searchText.getText());
+        DefaultTableModel modelTable = (DefaultTableModel) searchTable.getModel();
+        while (modelTable.getRowCount() > 0) {
+            modelTable.removeRow(0);
+        }
+        if (playersModelList != null && playersModelList.size() > 0) {
+            for (PlayersModel model : playersModelList) {
+                Object[] rowTable = {model.getPlayerNumber(), model.getPlayerName(), model.getMatch(), df.format(model.getPlayingTime()), model.getGoal(), model.getStarter()};
+                modelTable.addRow(rowTable);
+            }
+            if (playersModelList.size() == 1) {
+                row = 0;
+                setDataDetailPlayer();
+            }
+            Sound.getInstance().playNotify();
+        } else {
+            Sound.getInstance().playDing();
+        }
+//            }
+//        };
+//        new ProcessTransactionDialog(new JFrame(), true, r, "Please wait the system is running...");
+    }
+
+    private static BufferedImage resizeImage(BufferedImage originalImage, int type, int width, int height) {
+        BufferedImage resizedImage = new BufferedImage(width, height, type);
+        Graphics2D g = resizedImage.createGraphics();
+        g.drawImage(originalImage, 0, 0, width, height, null);
+        g.dispose();
+        return resizedImage;
+    }
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JPanel redarPanal;
+    private javax.swing.JButton report1Button;
+    private javax.swing.JButton searchButton;
+    private javax.swing.JTable searchTable;
+    private javax.swing.JTextField searchText;
+    // End of variables declaration//GEN-END:variables
+}
