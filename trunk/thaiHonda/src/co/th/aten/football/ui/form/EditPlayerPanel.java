@@ -46,8 +46,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import org.springframework.richclient.application.Application;
@@ -130,6 +128,7 @@ public class EditPlayerPanel extends javax.swing.JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2) {
+                    Sound.getInstance().playClick();
                     JTable target = (JTable) e.getSource();
                     row = target.getSelectedRow();
                     setDataDetailPlayer();

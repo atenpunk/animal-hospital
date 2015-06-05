@@ -1,6 +1,7 @@
 package co.th.aten.football.ui.report;
 
 import co.th.aten.football.Configuration;
+import co.th.aten.football.model.PlayersModel;
 import java.awt.Color;
 
 import com.jensoft.sw2d.core.democomponent.Sw2dDemo;
@@ -26,14 +27,14 @@ import com.jensoft.sw2d.core.view.View2D;
 import com.jensoft.sw2d.core.window.Window2D;
 import java.awt.BasicStroke;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 public class ViewReportComparePlayersRadarDlg extends Sw2dDemo {
 
-    private double gc;
-    private int match;
-    private int playingTime;
+    private List<PlayersModel> playersModelList;
     private int flag;
     private DecimalFormat df = new DecimalFormat("#,###");
     private final Log logger = LogFactory.getLog(getClass());
@@ -43,7 +44,13 @@ public class ViewReportComparePlayersRadarDlg extends Sw2dDemo {
         try {
             Configuration.loadConfig();
             final TemplateReportFrame templateFrame = new TemplateReportFrame();
-            ViewReportComparePlayersRadarDlg report = new ViewReportComparePlayersRadarDlg(4000000, 20, 1590, 0);
+            List<PlayersModel> playersModelList = new ArrayList<PlayersModel>();
+            PlayersModel model = new PlayersModel();
+            model.setGc(420000d);
+            model.setPlayingTime(1200);
+            model.setStarter(14);
+            playersModelList.add(model);
+            ViewReportComparePlayersRadarDlg report = new ViewReportComparePlayersRadarDlg(playersModelList, 0);
             templateFrame.show(report);
 //            templateFrame.setView(report.getView());
 //            templateFrame.pack();
@@ -68,10 +75,8 @@ public class ViewReportComparePlayersRadarDlg extends Sw2dDemo {
         }
     }
 
-    public ViewReportComparePlayersRadarDlg(double gc, int match, int playingTime, int flag) {
-        this.gc = gc;
-        this.match = match;
-        this.playingTime = playingTime;
+    public ViewReportComparePlayersRadarDlg(List<PlayersModel> playersModelList, int flag) {
+        this.playersModelList = playersModelList;
         this.flag = flag;
     }
     private View2D view;
@@ -147,42 +152,118 @@ public class ViewReportComparePlayersRadarDlg extends Sw2dDemo {
             radarPlugin.addRadar(radar);
             view.registerWindow2D(radarWindow2D);
             try {
-                com.jensoft.sw2d.core.plugin.radar.RadarSurface radarsurface = RadarToolkit
-                        .createSurface("surface1", ColorPalette.alpha(NanoChromatique.BLUE, 240), ColorPalette.alpha(NanoChromatique.BLUE, 80));
-                radar.addSurface(radarsurface);
                 java.awt.Font font3 = InputFonts.getFont(InputFonts.NO_MOVE, 10);
-                GlyphFill glyphfill = new GlyphFill(Color.BLUE, NanoChromatique.BLUE);
-                RoundMarker roundmarker = new RoundMarker(NanoChromatique.BLUE,
-                        Color.WHITE, 3);
-//                RadarSurfaceAnchor radarsurfaceanchor = RadarToolkit.createSurfaceAnchor(
-//                        radardimension, (gc==0?"":df.format(gc)), gc, StylePosition.Default, 25, glyphfill,
-//                        roundmarker, font3);
-//                RadarSurfaceAnchor radarsurfaceanchor2 = RadarToolkit.createSurfaceAnchor(
-//                        radardimension2, (match==0?"":df.format(match)), match, StylePosition.Default, 10, glyphfill,
-//                        roundmarker, font3);
-//                RadarSurfaceAnchor radarsurfaceanchor4 = RadarToolkit.createSurfaceAnchor(
-//                        radardimension4, (playingTime==0?"":df.format(playingTime)), playingTime, StylePosition.Default, 10, glyphfill,
-//                        roundmarker, font3);
+                if (playersModelList != null && playersModelList.size() > 0) {
+                    com.jensoft.sw2d.core.plugin.radar.RadarSurface radarsurface = RadarToolkit
+                            .createSurface("surface1", ColorPalette.alpha(NanoChromatique.BLUE, 240)
+                            , ColorPalette.alpha(NanoChromatique.BLUE, 40));
+                    radar.addSurface(radarsurface);
+                    GlyphFill glyphfill = new GlyphFill(Color.BLUE, NanoChromatique.BLUE);
+                    RoundMarker roundmarker = new RoundMarker(NanoChromatique.BLUE,
+                            Color.WHITE, 3);
+                    RadarSurfaceAnchor radarsurfaceanchor = RadarToolkit.createSurfaceAnchor(
+                            radardimension, "", playersModelList.get(0).getGc(), StylePosition.Default, 25, glyphfill,
+                            roundmarker, font3);
+                    RadarSurfaceAnchor radarsurfaceanchor2 = RadarToolkit.createSurfaceAnchor(
+                            radardimension2, "", playersModelList.get(0).getMatch(), StylePosition.Default, 10, glyphfill,
+                            roundmarker, font3);
+                    RadarSurfaceAnchor radarsurfaceanchor4 = RadarToolkit.createSurfaceAnchor(
+                            radardimension4, "", playersModelList.get(0).getPlayingTime(), StylePosition.Default, 10, glyphfill,
+                            roundmarker, font3);
+                    RadarToolkit.pushAnchors(radarsurface, new RadarSurfaceAnchor[]{
+                        radarsurfaceanchor, radarsurfaceanchor2, radarsurfaceanchor4});
+                }
                 
-                RadarSurfaceAnchor radarsurfaceanchor = RadarToolkit.createSurfaceAnchor(
-                        radardimension, "", gc, StylePosition.Default, 25, glyphfill,
-                        roundmarker, font3);
-                RadarSurfaceAnchor radarsurfaceanchor2 = RadarToolkit.createSurfaceAnchor(
-                        radardimension2, "", match, StylePosition.Default, 10, glyphfill,
-                        roundmarker, font3);
-                RadarSurfaceAnchor radarsurfaceanchor4 = RadarToolkit.createSurfaceAnchor(
-                        radardimension4, "", playingTime, StylePosition.Default, 10, glyphfill,
-                        roundmarker, font3);
+                if (playersModelList != null && playersModelList.size() > 1) {
+                    com.jensoft.sw2d.core.plugin.radar.RadarSurface radarsurface = RadarToolkit
+                            .createSurface("surface1", ColorPalette.alpha(NanoChromatique.GRAY, 240)
+                            , ColorPalette.alpha(NanoChromatique.GRAY, 40));
+                    radar.addSurface(radarsurface);
+                    GlyphFill glyphfill = new GlyphFill(Color.GRAY, NanoChromatique.GRAY);
+                    RoundMarker roundmarker = new RoundMarker(NanoChromatique.GRAY,
+                            Color.WHITE, 3);
+                    RadarSurfaceAnchor radarsurfaceanchor = RadarToolkit.createSurfaceAnchor(
+                            radardimension, "", playersModelList.get(1).getGc(), StylePosition.Default, 25, glyphfill,
+                            roundmarker, font3);
+                    RadarSurfaceAnchor radarsurfaceanchor2 = RadarToolkit.createSurfaceAnchor(
+                            radardimension2, "", playersModelList.get(1).getMatch(), StylePosition.Default, 10, glyphfill,
+                            roundmarker, font3);
+                    RadarSurfaceAnchor radarsurfaceanchor4 = RadarToolkit.createSurfaceAnchor(
+                            radardimension4, "", playersModelList.get(1).getPlayingTime(), StylePosition.Default, 10, glyphfill,
+                            roundmarker, font3);
+                    RadarToolkit.pushAnchors(radarsurface, new RadarSurfaceAnchor[]{
+                        radarsurfaceanchor, radarsurfaceanchor2, radarsurfaceanchor4});
+                }
                 
-                RadarToolkit.pushAnchors(radarsurface, new RadarSurfaceAnchor[]{
-                    radarsurfaceanchor, radarsurfaceanchor2, radarsurfaceanchor4});
-
+                if (playersModelList != null && playersModelList.size() > 2) {
+                    com.jensoft.sw2d.core.plugin.radar.RadarSurface radarsurface = RadarToolkit
+                            .createSurface("surface1", ColorPalette.alpha(NanoChromatique.GREEN, 240)
+                            , ColorPalette.alpha(NanoChromatique.GREEN, 40));
+                    radar.addSurface(radarsurface);
+                    GlyphFill glyphfill = new GlyphFill(Color.GREEN, NanoChromatique.GREEN);
+                    RoundMarker roundmarker = new RoundMarker(NanoChromatique.GREEN,
+                            Color.WHITE, 3);
+                    RadarSurfaceAnchor radarsurfaceanchor = RadarToolkit.createSurfaceAnchor(
+                            radardimension, "", playersModelList.get(2).getGc(), StylePosition.Default, 25, glyphfill,
+                            roundmarker, font3);
+                    RadarSurfaceAnchor radarsurfaceanchor2 = RadarToolkit.createSurfaceAnchor(
+                            radardimension2, "", playersModelList.get(2).getMatch(), StylePosition.Default, 10, glyphfill,
+                            roundmarker, font3);
+                    RadarSurfaceAnchor radarsurfaceanchor4 = RadarToolkit.createSurfaceAnchor(
+                            radardimension4, "", playersModelList.get(2).getPlayingTime(), StylePosition.Default, 10, glyphfill,
+                            roundmarker, font3);
+                    RadarToolkit.pushAnchors(radarsurface, new RadarSurfaceAnchor[]{
+                        radarsurfaceanchor, radarsurfaceanchor2, radarsurfaceanchor4});
+                }
+                
+                if (playersModelList != null && playersModelList.size() > 3) {
+                    com.jensoft.sw2d.core.plugin.radar.RadarSurface radarsurface = RadarToolkit
+                            .createSurface("surface1", ColorPalette.alpha(NanoChromatique.ORANGE, 240)
+                            , ColorPalette.alpha(NanoChromatique.ORANGE, 40));
+                    radar.addSurface(radarsurface);
+                    GlyphFill glyphfill = new GlyphFill(Color.ORANGE, NanoChromatique.ORANGE);
+                    RoundMarker roundmarker = new RoundMarker(NanoChromatique.ORANGE,
+                            Color.WHITE, 3);
+                    RadarSurfaceAnchor radarsurfaceanchor = RadarToolkit.createSurfaceAnchor(
+                            radardimension, "", playersModelList.get(3).getGc(), StylePosition.Default, 25, glyphfill,
+                            roundmarker, font3);
+                    RadarSurfaceAnchor radarsurfaceanchor2 = RadarToolkit.createSurfaceAnchor(
+                            radardimension2, "", playersModelList.get(3).getMatch(), StylePosition.Default, 10, glyphfill,
+                            roundmarker, font3);
+                    RadarSurfaceAnchor radarsurfaceanchor4 = RadarToolkit.createSurfaceAnchor(
+                            radardimension4, "", playersModelList.get(3).getPlayingTime(), StylePosition.Default, 10, glyphfill,
+                            roundmarker, font3);
+                    RadarToolkit.pushAnchors(radarsurface, new RadarSurfaceAnchor[]{
+                        radarsurfaceanchor, radarsurfaceanchor2, radarsurfaceanchor4});
+                }
+                
+                if (playersModelList != null && playersModelList.size() > 4) {
+                    com.jensoft.sw2d.core.plugin.radar.RadarSurface radarsurface = RadarToolkit
+                            .createSurface("surface1", ColorPalette.alpha(NanoChromatique.RED, 240)
+                            , ColorPalette.alpha(NanoChromatique.RED, 40));
+                    radar.addSurface(radarsurface);
+                    GlyphFill glyphfill = new GlyphFill(Color.RED, NanoChromatique.RED);
+                    RoundMarker roundmarker = new RoundMarker(NanoChromatique.RED,
+                            Color.WHITE, 3);
+                    RadarSurfaceAnchor radarsurfaceanchor = RadarToolkit.createSurfaceAnchor(
+                            radardimension, "", playersModelList.get(4).getGc(), StylePosition.Default, 25, glyphfill,
+                            roundmarker, font3);
+                    RadarSurfaceAnchor radarsurfaceanchor2 = RadarToolkit.createSurfaceAnchor(
+                            radardimension2, "", playersModelList.get(4).getMatch(), StylePosition.Default, 10, glyphfill,
+                            roundmarker, font3);
+                    RadarSurfaceAnchor radarsurfaceanchor4 = RadarToolkit.createSurfaceAnchor(
+                            radardimension4, "", playersModelList.get(4).getPlayingTime(), StylePosition.Default, 10, glyphfill,
+                            roundmarker, font3);
+                    RadarToolkit.pushAnchors(radarsurface, new RadarSurfaceAnchor[]{
+                        radarsurfaceanchor, radarsurfaceanchor2, radarsurfaceanchor4});
+                }
+                
                 com.jensoft.sw2d.core.plugin.radar.RadarSurface radarsurface1 = RadarToolkit
                         .createSurface("surface2", Color.WHITE, ColorPalette.alpha(
                         RosePalette.PLUMWINE, 20));
                 radar.addSurface(radarsurface1);
                 view.repaintDevice();
-                glyphfill = new GlyphFill(Color.WHITE, NanoChromatique.ORANGE);
+                GlyphFill glyphfill = new GlyphFill(Color.WHITE, NanoChromatique.ORANGE);
                 RadarSurfaceAnchor radarsurfaceanchor6 = RadarToolkit.createSurfaceAnchor(
                         radardimension, "", Configuration.getDouble("GC"), StylePosition.Default, 10, glyphfill,
                         null, font3);
@@ -197,7 +278,7 @@ public class ViewReportComparePlayersRadarDlg extends Sw2dDemo {
 
                 java.awt.Font font1 = InputFonts.getFont(InputFonts.SANSATION_REGULAR, 12);
                 glyphfill = new GlyphFill(RosePalette.MANDARIN, RosePalette.CHOCOLATE);
-                roundmarker = new RoundMarker(RosePalette.REDWOOD, Color.WHITE, 3);
+                RoundMarker roundmarker = new RoundMarker(RosePalette.REDWOOD, Color.WHITE, 3);
                 DimensionMetrics dimensionmetrics = RadarToolkit.createDimensionMetrics(
                         "", Configuration.getDouble("GC"), StylePosition.Default, 20, glyphfill, roundmarker,
                         font1);

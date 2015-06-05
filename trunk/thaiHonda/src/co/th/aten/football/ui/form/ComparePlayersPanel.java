@@ -28,10 +28,12 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -50,9 +52,9 @@ public class ComparePlayersPanel extends javax.swing.JPanel {
     private SessionManager sessionManager;
     private PlayersManager playersManager;
     private List<PlayersModel> playersModelList;
+    private List<PlayersModel> comparePlayersModelList;
     private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
     private DecimalFormat df = new DecimalFormat("#,##0");
-    private PlayersModel playersModelSelected;
     private int row = -1;
     private View2D viewRadar;
     private View2D viewPieTime;
@@ -73,6 +75,14 @@ public class ComparePlayersPanel extends javax.swing.JPanel {
         searchTable.getColumnModel().getColumn(5).setCellRenderer(rightRenderer);
         searchTable.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
         searchTable.getColumnModel().getColumn(0).setPreferredWidth(10);
+        searchTable.getColumnModel().getColumn(1).setPreferredWidth(120);
+        compareTable.getColumnModel().getColumn(2).setCellRenderer(rightRenderer);
+        compareTable.getColumnModel().getColumn(3).setCellRenderer(rightRenderer);
+        compareTable.getColumnModel().getColumn(4).setCellRenderer(rightRenderer);
+        compareTable.getColumnModel().getColumn(5).setCellRenderer(rightRenderer);
+        compareTable.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+        compareTable.getColumnModel().getColumn(0).setPreferredWidth(10);
+        compareTable.getColumnModel().getColumn(1).setPreferredWidth(120);
         try {
             File fileImg = new File(System.getProperty("user.dir") + "/img" + File.separator + "search.png");
             if (fileImg != null) {
@@ -103,26 +113,92 @@ public class ComparePlayersPanel extends javax.swing.JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2) {
-                    JTable target = (JTable) e.getSource();
-                    row = target.getSelectedRow();
-                    setDataDetailPlayer();
+                    if (comparePlayersModelList == null) {
+                        comparePlayersModelList = new ArrayList<PlayersModel>();
+                    }
+                    Sound.getInstance().playClick();
+                    if (comparePlayersModelList.size() < 5) {
+                        JTable target = (JTable) e.getSource();
+                        row = target.getSelectedRow();
+                        DefaultTableModel modelTable = (DefaultTableModel) searchTable.getModel();
+                        if (modelTable.getRowCount() > row) {
+                            modelTable.removeRow(row);
+                        }
+                        DefaultTableModel modelCompareTable = (DefaultTableModel) compareTable.getModel();
+                        if (playersModelList != null && playersModelList.size() > row) {
+                            PlayersModel playersModel = playersModelList.get(row);
+                            if (!equalsPlayersModel(comparePlayersModelList,playersModel)) {
+                                Object[] rowTable = {playersModel.getPlayerNumber(), playersModel.getPlayerName(), playersModel.getMatch(), df.format(playersModel.getPlayingTime()), playersModel.getGoal(), playersModel.getStarter()};
+                                modelCompareTable.addRow(rowTable);
+                                comparePlayersModelList.add(playersModel);
+                                playersModelList.remove(playersModel);
+                            } else {
+                                playersModelList.remove(playersModel);
+                            }
+                        }
+                        setDataDetailPlayer();
+                        logger.info(" search playersModelList.size()" + playersModelList.size());
+                    } else {
+                        showDialog();
+                    }
                 }
             }
         });
 
+        compareTable.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    Sound.getInstance().playClick();
+                    JTable target = (JTable) e.getSource();
+                    int rowCom = target.getSelectedRow();
+                    DefaultTableModel modelTable = (DefaultTableModel) compareTable.getModel();
+                    if (modelTable.getRowCount() > rowCom) {
+                        modelTable.removeRow(rowCom);
+                    }
+                    DefaultTableModel modelSearchTable = (DefaultTableModel) searchTable.getModel();
+                    if (comparePlayersModelList != null && comparePlayersModelList.size() > rowCom) {
+                        PlayersModel playersModel = comparePlayersModelList.get(rowCom);
+                        if (!equalsPlayersModel(playersModelList,playersModel)) {
+                            Object[] rowTable = {playersModel.getPlayerNumber(), playersModel.getPlayerName(), playersModel.getMatch(), df.format(playersModel.getPlayingTime()), playersModel.getGoal(), playersModel.getStarter()};
+                            modelSearchTable.addRow(rowTable);
+                            playersModelList.add(playersModel);
+                            comparePlayersModelList.remove(playersModel);
+                        } else {
+                            comparePlayersModelList.remove(playersModel);
+                        }
+                    }
+                    setDataDetailPlayer();
+
+                    logger.info(" compare playersModelList.size()" + playersModelList.size());
+                }
+            }
+        });
+    }
+    
+    private boolean equalsPlayersModel(List<PlayersModel> modelList, PlayersModel model){
+        if(modelList!=null && model!=null){
+            for(PlayersModel m:modelList){
+                if(m.getPlayerId()==model.getPlayerId()){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private void showDialog() {
+        JOptionPane.showMessageDialog(this, "Compare max 5 players");
     }
 
     private void setDataDetailPlayer() {
         clearData();
-        if (playersModelList != null && playersModelList.size() >= row) {
-            playersModelSelected = playersModelList.get(row);
-            redarPanal.setVisible(true);
-            ViewReportComparePlayersRadarDlg reportRadar = new ViewReportComparePlayersRadarDlg(playersModelSelected.getGc(), playersModelSelected.getMatch(), playersModelSelected.getPlayingTime(), 1);
-            viewRadar = reportRadar.createView2D();
-            viewRadar.setSize(853, 262);
-            redarPanal.setBackground(Color.WHITE);
-            redarPanal.add(viewRadar, BorderLayout.CENTER);
-        }
+        redarPanal.setVisible(true);
+        ViewReportComparePlayersRadarDlg reportRadar = new ViewReportComparePlayersRadarDlg(comparePlayersModelList, 1);
+        viewRadar = reportRadar.createView2D();
+        viewRadar.setSize(853, 262);
+        redarPanal.setBackground(Color.WHITE);
+        redarPanal.add(viewRadar, BorderLayout.CENTER);
     }
 
     /**
@@ -136,6 +212,8 @@ public class ComparePlayersPanel extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         redarPanal = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        compareTable = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         searchText = new javax.swing.JTextField();
         searchButton = new javax.swing.JButton();
@@ -146,7 +224,7 @@ public class ComparePlayersPanel extends javax.swing.JPanel {
         setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detail Player", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Compare Players", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
 
         redarPanal.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -154,12 +232,33 @@ public class ComparePlayersPanel extends javax.swing.JPanel {
         redarPanal.setLayout(redarPanalLayout);
         redarPanalLayout.setHorizontalGroup(
             redarPanalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 853, Short.MAX_VALUE)
         );
         redarPanalLayout.setVerticalGroup(
             redarPanalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 262, Short.MAX_VALUE)
         );
+
+        compareTable.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        compareTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "#", "Name", "Match", "Playing Time", "Goal", "Starter"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        compareTable.setAutoscrolls(false);
+        compareTable.setGridColor(new java.awt.Color(0, 0, 0));
+        jScrollPane3.setViewportView(compareTable);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -169,12 +268,14 @@ public class ComparePlayersPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(redarPanal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(redarPanal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 143, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
@@ -273,11 +374,11 @@ public class ComparePlayersPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void clearData() {
-        playersModelSelected = null;
         redarPanal.setVisible(false);
         if (viewRadar != null) {
             redarPanal.remove(viewRadar);
         }
+        redarPanal.setVisible(true);
     }
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
@@ -305,14 +406,11 @@ public class ComparePlayersPanel extends javax.swing.JPanel {
                 Object[] rowTable = {model.getPlayerNumber(), model.getPlayerName(), model.getMatch(), df.format(model.getPlayingTime()), model.getGoal(), model.getStarter()};
                 modelTable.addRow(rowTable);
             }
-            if (playersModelList.size() == 1) {
-                row = 0;
-                setDataDetailPlayer();
-            }
             Sound.getInstance().playNotify();
         } else {
             Sound.getInstance().playDing();
         }
+        setDataDetailPlayer();
 //            }
 //        };
 //        new ProcessTransactionDialog(new JFrame(), true, r, "Please wait the system is running...");
@@ -326,9 +424,11 @@ public class ComparePlayersPanel extends javax.swing.JPanel {
         return resizedImage;
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable compareTable;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JPanel redarPanal;
     private javax.swing.JButton report1Button;
     private javax.swing.JButton searchButton;
