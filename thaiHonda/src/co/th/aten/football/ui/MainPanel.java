@@ -14,6 +14,7 @@ import co.th.aten.football.dialog.AddNewPlayerDialog;
 import co.th.aten.football.dialog.ComparePlayersDialog;
 import co.th.aten.football.dialog.DetailPlayerDialog;
 import co.th.aten.football.dialog.EditPlayerDialog;
+import co.th.aten.football.dialog.ReportPlayersDetailDialog;
 import co.th.aten.football.event.LogoutEvent;
 import java.awt.Image;
 import javax.swing.JOptionPane;
@@ -53,7 +54,7 @@ public class MainPanel extends ImagePanel {
         btComparePlayers.setEnabled(true);
         btAddCustomers.setEnabled(true);
         btEditCustomers.setEnabled(true);
-        btEdit.setEnabled(false);
+        btReportPlayersDetail.setEnabled(true);
         btAddStaff.setEnabled(false);
         btChangePassword.setEnabled(false);
         btReport.setEnabled(false);
@@ -76,7 +77,7 @@ public class MainPanel extends ImagePanel {
         jPanel2 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
-        btEdit = new javax.swing.JButton();
+        btReportPlayersDetail = new javax.swing.JButton();
         btReport = new javax.swing.JButton();
         btReport2 = new javax.swing.JButton();
         btSearchCustomers = new javax.swing.JButton();
@@ -112,15 +113,15 @@ public class MainPanel extends ImagePanel {
         jPanel6.setOpaque(false);
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btEdit.setBackground(new java.awt.Color(200, 244, 11));
-        btEdit.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        btEdit.setText(bundle.getString("main.label.defaul")); // NOI18N
-        btEdit.addActionListener(new java.awt.event.ActionListener() {
+        btReportPlayersDetail.setBackground(new java.awt.Color(200, 244, 11));
+        btReportPlayersDetail.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btReportPlayersDetail.setText(bundle.getString("main.label.reportPlayersDetail")); // NOI18N
+        btReportPlayersDetail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btEditActionPerformed(evt);
+                btReportPlayersDetailActionPerformed(evt);
             }
         });
-        jPanel6.add(btEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 120, 370, 80));
+        jPanel6.add(btReportPlayersDetail, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 120, 370, 80));
 
         btReport.setBackground(new java.awt.Color(235, 102, 255));
         btReport.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -332,21 +333,21 @@ public class MainPanel extends ImagePanel {
         //        ChangeOwnerWizard.getInstance().execute();
     }//GEN-LAST:event_btReportActionPerformed
 
-    private void btEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditActionPerformed
+    private void btReportPlayersDetailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btReportPlayersDetailActionPerformed
         // TODO add your handling code here:
-        //        new EditCustomerProfileDialog().showDialog();
-    }//GEN-LAST:event_btEditActionPerformed
+        new ReportPlayersDetailDialog().showDialog();
+    }//GEN-LAST:event_btReportPlayersDetailActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAddCustomers;
     private javax.swing.JButton btAddStaff;
     private javax.swing.JButton btChangePassword;
     private javax.swing.JButton btCheckBalance;
     private javax.swing.JButton btComparePlayers;
-    private javax.swing.JButton btEdit;
     private javax.swing.JButton btEditCustomers;
     private javax.swing.JButton btEoj;
     private javax.swing.JButton btReport;
     private javax.swing.JButton btReport2;
+    private javax.swing.JButton btReportPlayersDetail;
     private javax.swing.JButton btSearchCustomers;
     private javax.swing.JButton btSellStatement;
     private javax.swing.JPanel jPanel2;
