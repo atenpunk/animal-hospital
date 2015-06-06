@@ -304,7 +304,7 @@
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement key="textField-10" style="default" x="11" y="0" width="186" height="16"/>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{playerName}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA["#"+$F{playerNumber}+" "+$F{playerName}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
 				<reportElement key="textField-11" style="default" x="275" y="0" width="64" height="16"/>
