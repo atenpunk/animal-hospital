@@ -5,24 +5,24 @@ import co.th.aten.football.model.PlayersModel;
 import java.awt.Color;
 
 import com.jensoft.sw2d.core.democomponent.Sw2dDemo;
+import com.jensoft.sw2d.core.drawable.text.Label;
 import com.jensoft.sw2d.core.glyphmetrics.StylePosition;
 import com.jensoft.sw2d.core.glyphmetrics.painter.fill.GlyphFill;
 import com.jensoft.sw2d.core.glyphmetrics.painter.marker.RoundMarker;
 import com.jensoft.sw2d.core.palette.ColorPalette;
+import com.jensoft.sw2d.core.palette.FilPalette;
 import com.jensoft.sw2d.core.palette.InputFonts;
 import com.jensoft.sw2d.core.palette.NanoChromatique;
-import com.jensoft.sw2d.core.palette.PetalPalette;
 import com.jensoft.sw2d.core.palette.RosePalette;
+import com.jensoft.sw2d.core.plugin.legend.Legend;
+import com.jensoft.sw2d.core.plugin.legend.LegendConstraints;
+import com.jensoft.sw2d.core.plugin.legend.LegendPlugin;
+import com.jensoft.sw2d.core.plugin.legend.painter.fill.LegendFill1;
 import com.jensoft.sw2d.core.plugin.outline.OutlinePlugin;
 import com.jensoft.sw2d.core.plugin.pie.Pie;
 import com.jensoft.sw2d.core.plugin.pie.PiePlugin;
 import com.jensoft.sw2d.core.plugin.pie.PieSlice;
 import com.jensoft.sw2d.core.plugin.pie.PieToolkit;
-import com.jensoft.sw2d.core.plugin.pie.painter.effect.AbstractPieEffect;
-import com.jensoft.sw2d.core.plugin.pie.painter.effect.PieCompoundEffect;
-import com.jensoft.sw2d.core.plugin.pie.painter.effect.PieLinearEffect;
-import com.jensoft.sw2d.core.plugin.pie.painter.effect.PieReflectionEffect;
-import com.jensoft.sw2d.core.plugin.pie.painter.label.PieBorderLabel;
 import com.jensoft.sw2d.core.plugin.pie.painter.label.PieBoundLabel;
 import com.jensoft.sw2d.core.plugin.radar.DimensionMetrics;
 import com.jensoft.sw2d.core.plugin.radar.Radar;
@@ -42,7 +42,7 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public class ViewReportComparePlayersRadarDlg extends Sw2dDemo {
+public class ViewReportComparePlayersRadarDlg_old extends Sw2dDemo {
 
     private List<PlayersModel> playersModelList;
     private int flag;
@@ -60,7 +60,7 @@ public class ViewReportComparePlayersRadarDlg extends Sw2dDemo {
             model.setPlayingTime(1200);
             model.setStarter(14);
             playersModelList.add(model);
-            ViewReportComparePlayersRadarDlg report = new ViewReportComparePlayersRadarDlg(playersModelList, 0);
+            ViewReportComparePlayersRadarDlg_old report = new ViewReportComparePlayersRadarDlg_old(playersModelList, 0);
             templateFrame.show(report);
 //            templateFrame.setView(report.getView());
 //            templateFrame.pack();
@@ -85,7 +85,7 @@ public class ViewReportComparePlayersRadarDlg extends Sw2dDemo {
         }
     }
 
-    public ViewReportComparePlayersRadarDlg(List<PlayersModel> playersModelList, int flag) {
+    public ViewReportComparePlayersRadarDlg_old(List<PlayersModel> playersModelList, int flag) {
         this.playersModelList = playersModelList;
         this.flag = flag;
     }
@@ -164,10 +164,10 @@ public class ViewReportComparePlayersRadarDlg extends Sw2dDemo {
                 java.awt.Font font3 = InputFonts.getFont(InputFonts.NO_MOVE, 10);
                 if (playersModelList != null && playersModelList.size() > 0) {
                     com.jensoft.sw2d.core.plugin.radar.RadarSurface radarsurface = RadarToolkit
-                            .createSurface("surface1", ColorPalette.alpha(NanoChromatique.RED, 240), ColorPalette.alpha(NanoChromatique.RED, 40));
+                            .createSurface("surface1", ColorPalette.alpha(NanoChromatique.BLUE, 240), ColorPalette.alpha(NanoChromatique.BLUE, 40));
                     radar.addSurface(radarsurface);
-                    GlyphFill glyphfill = new GlyphFill(Color.RED, NanoChromatique.RED);
-                    RoundMarker roundmarker = new RoundMarker(NanoChromatique.RED,
+                    GlyphFill glyphfill = new GlyphFill(Color.BLUE, NanoChromatique.BLUE);
+                    RoundMarker roundmarker = new RoundMarker(NanoChromatique.BLUE,
                             Color.WHITE, 3);
                     RadarSurfaceAnchor radarsurfaceanchor = RadarToolkit.createSurfaceAnchor(
                             radardimension, "", playersModelList.get(0).getGc(), StylePosition.Default, 25, glyphfill,
@@ -180,47 +180,6 @@ public class ViewReportComparePlayersRadarDlg extends Sw2dDemo {
                             roundmarker, font3);
                     RadarToolkit.pushAnchors(radarsurface, new RadarSurfaceAnchor[]{
                         radarsurfaceanchor, radarsurfaceanchor2, radarsurfaceanchor4});
-
-                    
-                    Pie pie = PieToolkit.createPie("pie", 5);
-                    pie.setStartAngleDegree(10D);
-                    PieSlice pieslice = PieToolkit.createSlice("s1", Color.WHITE, 100D, 0);
-                    PieToolkit.pushSlices(pie, new PieSlice[]{pieslice});
-                    pie.setPieNature(com.jensoft.sw2d.core.plugin.pie.Pie.PieNature.PieDevice);
-                    pie.setCenterX(410D);
-                    pie.setCenterY(50D);
-                    PiePlugin pieplugin = new PiePlugin();
-                    pieplugin.setPriority(100);
-                    pieplugin.addPie(pie);
-                    radarWindow2D.registerPlugin(pieplugin);
-                    float af7[] = {0.0F, 0.5F, 1.0F};
-                    Color acolor7[] = {Color.WHITE, Color.WHITE, Color.WHITE};
-                    BasicStroke basicstroke7 = new BasicStroke(0.0F);
-                    Font font7 = InputFonts.getNoMove(12);
-                    PieBoundLabel pieborderlabel = PieToolkit.createBoundLabel(addSpace("#" + playersModelList.get(0).getPlayerNumber() 
-                            + " " + playersModelList.get(0).getPlayerName()),
-                            NanoChromatique.RED, font7);
-                    pieborderlabel
-                            .setStyle(com.jensoft.sw2d.core.plugin.pie.painter.label.AbstractPieSliceLabel.Style.Both);
-                    pieborderlabel.setOutlineStroke(basicstroke7);
-                    pieborderlabel.setShader(af7, acolor7);
-                    pieborderlabel.setOutlineColor(Color.WHITE);
-                    pieborderlabel.setOutlineRound(20);
-                    pieborderlabel.setLabelPaddingX(2);
-                    pieslice.addSliceLabel(pieborderlabel);
-                    Pie pieX = PieToolkit.createPie("pie", 3);
-                    pieX.setStartAngleDegree(10D);
-                    PieSlice piesliceX = PieToolkit.createSlice("s9", NanoChromatique.RED, 100D, 0);
-                    PieToolkit.pushSlices(pieX, new PieSlice[]{piesliceX});
-                    pieX.setPieNature(com.jensoft.sw2d.core.plugin.pie.Pie.PieNature.PieDevice);
-                    pieX.setCenterX(290D);
-                    pieX.setCenterY(50D);
-                    PiePlugin piepluginX = new PiePlugin();
-                    piepluginX.setPriority(100);
-                    piepluginX.addPie(pieX);
-                    radarWindow2D.registerPlugin(piepluginX);
-                    piesliceX.setDivergence(10);
-
                 }
 
                 if (playersModelList != null && playersModelList.size() > 1) {
@@ -241,54 +200,14 @@ public class ViewReportComparePlayersRadarDlg extends Sw2dDemo {
                             roundmarker, font3);
                     RadarToolkit.pushAnchors(radarsurface, new RadarSurfaceAnchor[]{
                         radarsurfaceanchor, radarsurfaceanchor2, radarsurfaceanchor4});
-                    
-                    
-                    Pie pie = PieToolkit.createPie("pie", 5);
-                    pie.setStartAngleDegree(10D);
-                    PieSlice pieslice = PieToolkit.createSlice("s1", Color.WHITE, 100D, 0);
-                    PieToolkit.pushSlices(pie, new PieSlice[]{pieslice});
-                    pie.setPieNature(com.jensoft.sw2d.core.plugin.pie.Pie.PieNature.PieDevice);
-                    pie.setCenterX(410D);
-                    pie.setCenterY(70D);
-                    PiePlugin pieplugin = new PiePlugin();
-                    pieplugin.setPriority(100);
-                    pieplugin.addPie(pie);
-                    radarWindow2D.registerPlugin(pieplugin);
-                    float af7[] = {0.0F, 0.5F, 1.0F};
-                    Color acolor7[] = {Color.WHITE, Color.WHITE, Color.WHITE};
-                    BasicStroke basicstroke7 = new BasicStroke(0.0F);
-                    Font font7 = InputFonts.getNoMove(12);
-                    PieBoundLabel pieborderlabel = PieToolkit.createBoundLabel(addSpace("#" + playersModelList.get(1).getPlayerNumber() 
-                            + " " + playersModelList.get(1).getPlayerName()),
-                            NanoChromatique.PURPLE, font7);
-                    pieborderlabel
-                            .setStyle(com.jensoft.sw2d.core.plugin.pie.painter.label.AbstractPieSliceLabel.Style.Both);
-                    pieborderlabel.setOutlineStroke(basicstroke7);
-                    pieborderlabel.setShader(af7, acolor7);
-                    pieborderlabel.setOutlineColor(Color.WHITE);
-                    pieborderlabel.setOutlineRound(20);
-                    pieborderlabel.setLabelPaddingX(2);
-                    pieslice.addSliceLabel(pieborderlabel);
-                    Pie pieX = PieToolkit.createPie("pie", 3);
-                    pieX.setStartAngleDegree(10D);
-                    PieSlice piesliceX = PieToolkit.createSlice("s9", NanoChromatique.PURPLE, 100D, 0);
-                    PieToolkit.pushSlices(pieX, new PieSlice[]{piesliceX});
-                    pieX.setPieNature(com.jensoft.sw2d.core.plugin.pie.Pie.PieNature.PieDevice);
-                    pieX.setCenterX(290D);
-                    pieX.setCenterY(70D);
-                    PiePlugin piepluginX = new PiePlugin();
-                    piepluginX.setPriority(100);
-                    piepluginX.addPie(pieX);
-                    radarWindow2D.registerPlugin(piepluginX);
-                    piesliceX.setDivergence(10);
                 }
 
                 if (playersModelList != null && playersModelList.size() > 2) {
                     com.jensoft.sw2d.core.plugin.radar.RadarSurface radarsurface = RadarToolkit
-                            .createSurface("surface1", ColorPalette.alpha(NanoChromatique.BLUE, 240), ColorPalette.alpha(NanoChromatique.BLUE, 40));
+                            .createSurface("surface1", ColorPalette.alpha(NanoChromatique.GREEN, 240), ColorPalette.alpha(NanoChromatique.GREEN, 40));
                     radar.addSurface(radarsurface);
-                    GlyphFill glyphfill = new GlyphFill(Color.BLUE, NanoChromatique.BLUE);
-                    RoundMarker roundmarker = new RoundMarker(NanoChromatique.BLUE,
+                    GlyphFill glyphfill = new GlyphFill(Color.GREEN, NanoChromatique.GREEN);
+                    RoundMarker roundmarker = new RoundMarker(NanoChromatique.GREEN,
                             Color.WHITE, 3);
                     RadarSurfaceAnchor radarsurfaceanchor = RadarToolkit.createSurfaceAnchor(
                             radardimension, "", playersModelList.get(2).getGc(), StylePosition.Default, 25, glyphfill,
@@ -301,47 +220,6 @@ public class ViewReportComparePlayersRadarDlg extends Sw2dDemo {
                             roundmarker, font3);
                     RadarToolkit.pushAnchors(radarsurface, new RadarSurfaceAnchor[]{
                         radarsurfaceanchor, radarsurfaceanchor2, radarsurfaceanchor4});
-                    
-                    Pie pie = PieToolkit.createPie("pie", 5);
-                    pie.setStartAngleDegree(10D);
-                    PieSlice pieslice = PieToolkit.createSlice("s1", Color.WHITE, 100D, 0);
-                    PieToolkit.pushSlices(pie, new PieSlice[]{pieslice});
-                    pie.setPieNature(com.jensoft.sw2d.core.plugin.pie.Pie.PieNature.PieDevice);
-                    pie.setCenterX(410D);
-                    pie.setCenterY(90D);
-                    PiePlugin pieplugin = new PiePlugin();
-                    pieplugin.setPriority(100);
-                    pieplugin.addPie(pie);
-                    radarWindow2D.registerPlugin(pieplugin);
-                    float af7[] = {0.0F, 0.5F, 1.0F};
-                    Color acolor7[] = {Color.WHITE, Color.WHITE, Color.WHITE};
-                    BasicStroke basicstroke7 = new BasicStroke(0.0F);
-                    Font font7 = InputFonts.getNoMove(12);
-                    PieBoundLabel pieborderlabel = PieToolkit.createBoundLabel(addSpace("#" + playersModelList.get(2).getPlayerNumber() 
-                            + " " + playersModelList.get(2).getPlayerName()),
-                            NanoChromatique.BLUE, font7);
-                    pieborderlabel
-                            .setStyle(com.jensoft.sw2d.core.plugin.pie.painter.label.AbstractPieSliceLabel.Style.Both);
-                    pieborderlabel.setOutlineStroke(basicstroke7);
-                    pieborderlabel.setShader(af7, acolor7);
-                    pieborderlabel.setOutlineColor(Color.WHITE);
-                    pieborderlabel.setOutlineRound(20);
-                    pieborderlabel.setLabelPaddingX(2);
-                    pieborderlabel.setDefaultStroke(new BasicStroke(20.0F));
-                    pieslice.addSliceLabel(pieborderlabel);
-                    
-                    Pie pieX = PieToolkit.createPie("pie", 3);
-                    pieX.setStartAngleDegree(10D);
-                    PieSlice piesliceX = PieToolkit.createSlice("s9", NanoChromatique.BLUE, 100D, 0);
-                    PieToolkit.pushSlices(pieX, new PieSlice[]{piesliceX});
-                    pieX.setPieNature(com.jensoft.sw2d.core.plugin.pie.Pie.PieNature.PieDevice);
-                    pieX.setCenterX(290D);
-                    pieX.setCenterY(90D);
-                    PiePlugin piepluginX = new PiePlugin();
-                    piepluginX.setPriority(100);
-                    piepluginX.addPie(pieX);
-                    radarWindow2D.registerPlugin(piepluginX);
-                    piesliceX.setDivergence(10);
                 }
 
                 if (playersModelList != null && playersModelList.size() > 3) {
@@ -362,53 +240,14 @@ public class ViewReportComparePlayersRadarDlg extends Sw2dDemo {
                             roundmarker, font3);
                     RadarToolkit.pushAnchors(radarsurface, new RadarSurfaceAnchor[]{
                         radarsurfaceanchor, radarsurfaceanchor2, radarsurfaceanchor4});
-                    
-                    Pie pie = PieToolkit.createPie("pie", 5);
-                    pie.setStartAngleDegree(10D);
-                    PieSlice pieslice = PieToolkit.createSlice("s1", Color.WHITE, 100D, 0);
-                    PieToolkit.pushSlices(pie, new PieSlice[]{pieslice});
-                    pie.setPieNature(com.jensoft.sw2d.core.plugin.pie.Pie.PieNature.PieDevice);
-                    pie.setCenterX(410D);
-                    pie.setCenterY(110D);
-                    PiePlugin pieplugin = new PiePlugin();
-                    pieplugin.setPriority(100);
-                    pieplugin.addPie(pie);
-                    radarWindow2D.registerPlugin(pieplugin);
-                    float af7[] = {0.0F, 0.5F, 1.0F};
-                    Color acolor7[] = {Color.WHITE, Color.WHITE, Color.WHITE};
-                    BasicStroke basicstroke7 = new BasicStroke(0.0F);
-                    Font font7 = InputFonts.getNoMove(12);
-                    PieBoundLabel pieborderlabel = PieToolkit.createBoundLabel(addSpace("#" + playersModelList.get(3).getPlayerNumber() 
-                            + " " + playersModelList.get(3).getPlayerName()),
-                            NanoChromatique.ORANGE, font7);
-                    pieborderlabel
-                            .setStyle(com.jensoft.sw2d.core.plugin.pie.painter.label.AbstractPieSliceLabel.Style.Both);
-                    pieborderlabel.setOutlineStroke(basicstroke7);
-                    pieborderlabel.setShader(af7, acolor7);
-                    pieborderlabel.setOutlineColor(Color.WHITE);
-                    pieborderlabel.setOutlineRound(20);
-                    pieborderlabel.setLabelPaddingX(2);
-                    pieslice.addSliceLabel(pieborderlabel);
-                    Pie pieX = PieToolkit.createPie("pie", 3);
-                    pieX.setStartAngleDegree(10D);
-                    PieSlice piesliceX = PieToolkit.createSlice("s9", NanoChromatique.ORANGE, 100D, 0);
-                    PieToolkit.pushSlices(pieX, new PieSlice[]{piesliceX});
-                    pieX.setPieNature(com.jensoft.sw2d.core.plugin.pie.Pie.PieNature.PieDevice);
-                    pieX.setCenterX(290D);
-                    pieX.setCenterY(110D);
-                    PiePlugin piepluginX = new PiePlugin();
-                    piepluginX.setPriority(100);
-                    piepluginX.addPie(pieX);
-                    radarWindow2D.registerPlugin(piepluginX);
-                    piesliceX.setDivergence(10);
                 }
 
                 if (playersModelList != null && playersModelList.size() > 4) {
                     com.jensoft.sw2d.core.plugin.radar.RadarSurface radarsurface = RadarToolkit
-                            .createSurface("surface1", ColorPalette.alpha(NanoChromatique.GREEN, 240), ColorPalette.alpha(NanoChromatique.GREEN, 40));
+                            .createSurface("surface1", ColorPalette.alpha(NanoChromatique.RED, 240), ColorPalette.alpha(NanoChromatique.RED, 40));
                     radar.addSurface(radarsurface);
-                    GlyphFill glyphfill = new GlyphFill(Color.GREEN, NanoChromatique.GREEN);
-                    RoundMarker roundmarker = new RoundMarker(NanoChromatique.GREEN,
+                    GlyphFill glyphfill = new GlyphFill(Color.RED, NanoChromatique.RED);
+                    RoundMarker roundmarker = new RoundMarker(NanoChromatique.RED,
                             Color.WHITE, 3);
                     RadarSurfaceAnchor radarsurfaceanchor = RadarToolkit.createSurfaceAnchor(
                             radardimension, "", playersModelList.get(4).getGc(), StylePosition.Default, 25, glyphfill,
@@ -421,45 +260,6 @@ public class ViewReportComparePlayersRadarDlg extends Sw2dDemo {
                             roundmarker, font3);
                     RadarToolkit.pushAnchors(radarsurface, new RadarSurfaceAnchor[]{
                         radarsurfaceanchor, radarsurfaceanchor2, radarsurfaceanchor4});
-                    
-                    Pie pie = PieToolkit.createPie("pie", 5);
-                    pie.setStartAngleDegree(10D);
-                    PieSlice pieslice = PieToolkit.createSlice("s1", Color.WHITE, 100D, 0);
-                    PieToolkit.pushSlices(pie, new PieSlice[]{pieslice});
-                    pie.setPieNature(com.jensoft.sw2d.core.plugin.pie.Pie.PieNature.PieDevice);
-                    pie.setCenterX(410D);
-                    pie.setCenterY(130D);
-                    PiePlugin pieplugin = new PiePlugin();
-                    pieplugin.setPriority(100);
-                    pieplugin.addPie(pie);
-                    radarWindow2D.registerPlugin(pieplugin);
-                    float af7[] = {0.0F, 0.5F, 1.0F};
-                    Color acolor7[] = {Color.WHITE, Color.WHITE, Color.WHITE};
-                    BasicStroke basicstroke7 = new BasicStroke(0.0F);
-                    Font font7 = InputFonts.getNoMove(12);
-                    PieBoundLabel pieborderlabel = PieToolkit.createBoundLabel(addSpace("#" + playersModelList.get(4).getPlayerNumber() 
-                            + " " + playersModelList.get(4).getPlayerName()),
-                            NanoChromatique.GREEN, font7);
-                    pieborderlabel
-                            .setStyle(com.jensoft.sw2d.core.plugin.pie.painter.label.AbstractPieSliceLabel.Style.Both);
-                    pieborderlabel.setOutlineStroke(basicstroke7);
-                    pieborderlabel.setShader(af7, acolor7);
-                    pieborderlabel.setOutlineColor(Color.WHITE);
-                    pieborderlabel.setOutlineRound(20);
-                    pieborderlabel.setLabelPaddingX(2);
-                    pieslice.addSliceLabel(pieborderlabel);
-                    Pie pieX = PieToolkit.createPie("pie", 3);
-                    pieX.setStartAngleDegree(10D);
-                    PieSlice piesliceX = PieToolkit.createSlice("s9", NanoChromatique.GREEN, 100D, 0);
-                    PieToolkit.pushSlices(pieX, new PieSlice[]{piesliceX});
-                    pieX.setPieNature(com.jensoft.sw2d.core.plugin.pie.Pie.PieNature.PieDevice);
-                    pieX.setCenterX(290D);
-                    pieX.setCenterY(130D);
-                    PiePlugin piepluginX = new PiePlugin();
-                    piepluginX.setPriority(100);
-                    piepluginX.addPie(pieX);
-                    radarWindow2D.registerPlugin(piepluginX);
-                    piesliceX.setDivergence(10);
                 }
 
                 com.jensoft.sw2d.core.plugin.radar.RadarSurface radarsurface1 = RadarToolkit
@@ -506,22 +306,5 @@ public class ViewReportComparePlayersRadarDlg extends Sw2dDemo {
             logger.info("" + e);
             e.printStackTrace();
         }
-    }
-    
-    private String addSpace(String data){
-        System.out.println(data);
-        System.out.println(data.length());
-        int max = 50;
-        if(data!=null && (data.length()>30)){
-            max = 40;
-        }
-        if(data!=null && (data.length()<max)){
-            int length = data.length();
-            for(int i=length;i<=max;i++){
-                data += " ";
-            }
-        }
-        System.out.println(data.length());
-        return data;
     }
 }

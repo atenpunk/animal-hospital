@@ -57,9 +57,6 @@ public class ComparePlayersPanel extends javax.swing.JPanel {
     private DecimalFormat df = new DecimalFormat("#,##0");
     private int row = -1;
     private View2D viewRadar;
-    private View2D viewPieTime;
-    private View2D viewPieMatch;
-    private View2D viewPieStart;
 
     public ComparePlayersPanel() {
         this.sessionManager = (SessionManager) Application.services().getService(SessionManager.class);
@@ -69,20 +66,20 @@ public class ComparePlayersPanel extends javax.swing.JPanel {
         rightRenderer.setHorizontalAlignment(SwingConstants.RIGHT);
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+        searchTable.getColumnModel().getColumn(1).setCellRenderer(rightRenderer);
         searchTable.getColumnModel().getColumn(2).setCellRenderer(rightRenderer);
         searchTable.getColumnModel().getColumn(3).setCellRenderer(rightRenderer);
         searchTable.getColumnModel().getColumn(4).setCellRenderer(rightRenderer);
         searchTable.getColumnModel().getColumn(5).setCellRenderer(rightRenderer);
-        searchTable.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
-        searchTable.getColumnModel().getColumn(0).setPreferredWidth(10);
-        searchTable.getColumnModel().getColumn(1).setPreferredWidth(120);
+        searchTable.getColumnModel().getColumn(6).setCellRenderer(rightRenderer);
+        searchTable.getColumnModel().getColumn(0).setPreferredWidth(120);
+        compareTable.getColumnModel().getColumn(1).setCellRenderer(rightRenderer);
         compareTable.getColumnModel().getColumn(2).setCellRenderer(rightRenderer);
         compareTable.getColumnModel().getColumn(3).setCellRenderer(rightRenderer);
         compareTable.getColumnModel().getColumn(4).setCellRenderer(rightRenderer);
         compareTable.getColumnModel().getColumn(5).setCellRenderer(rightRenderer);
-        compareTable.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
-        compareTable.getColumnModel().getColumn(0).setPreferredWidth(10);
-        compareTable.getColumnModel().getColumn(1).setPreferredWidth(120);
+        compareTable.getColumnModel().getColumn(6).setCellRenderer(rightRenderer);
+        compareTable.getColumnModel().getColumn(0).setPreferredWidth(120);
         try {
             File fileImg = new File(System.getProperty("user.dir") + "/img" + File.separator + "search.png");
             if (fileImg != null) {
@@ -127,8 +124,8 @@ public class ComparePlayersPanel extends javax.swing.JPanel {
                         DefaultTableModel modelCompareTable = (DefaultTableModel) compareTable.getModel();
                         if (playersModelList != null && playersModelList.size() > row) {
                             PlayersModel playersModel = playersModelList.get(row);
-                            if (!equalsPlayersModel(comparePlayersModelList,playersModel)) {
-                                Object[] rowTable = {playersModel.getPlayerNumber(), playersModel.getPlayerName(), playersModel.getMatch(), df.format(playersModel.getPlayingTime()), playersModel.getGoal(), playersModel.getStarter()};
+                            if (!equalsPlayersModel(comparePlayersModelList, playersModel)) {
+                                Object[] rowTable = {"#" + playersModel.getPlayerNumber() + " " + playersModel.getPlayerName(), df.format(playersModel.getGc()), df.format(playersModel.getAnnualSalary()), df.format(playersModel.getSigningFee()), df.format(playersModel.getSalaryMonth()), df.format(playersModel.getPlayingTime()), playersModel.getMatch()};
                                 modelCompareTable.addRow(rowTable);
                                 comparePlayersModelList.add(playersModel);
                                 playersModelList.remove(playersModel);
@@ -159,8 +156,8 @@ public class ComparePlayersPanel extends javax.swing.JPanel {
                     DefaultTableModel modelSearchTable = (DefaultTableModel) searchTable.getModel();
                     if (comparePlayersModelList != null && comparePlayersModelList.size() > rowCom) {
                         PlayersModel playersModel = comparePlayersModelList.get(rowCom);
-                        if (!equalsPlayersModel(playersModelList,playersModel)) {
-                            Object[] rowTable = {playersModel.getPlayerNumber(), playersModel.getPlayerName(), playersModel.getMatch(), df.format(playersModel.getPlayingTime()), playersModel.getGoal(), playersModel.getStarter()};
+                        if (!equalsPlayersModel(playersModelList, playersModel)) {
+                            Object[] rowTable = {"#" + playersModel.getPlayerNumber() + " " + playersModel.getPlayerName(), df.format(playersModel.getGc()), df.format(playersModel.getAnnualSalary()), df.format(playersModel.getSigningFee()), df.format(playersModel.getSalaryMonth()), df.format(playersModel.getPlayingTime()), playersModel.getMatch()};
                             modelSearchTable.addRow(rowTable);
                             playersModelList.add(playersModel);
                             comparePlayersModelList.remove(playersModel);
@@ -175,11 +172,11 @@ public class ComparePlayersPanel extends javax.swing.JPanel {
             }
         });
     }
-    
-    private boolean equalsPlayersModel(List<PlayersModel> modelList, PlayersModel model){
-        if(modelList!=null && model!=null){
-            for(PlayersModel m:modelList){
-                if(m.getPlayerId()==model.getPlayerId()){
+
+    private boolean equalsPlayersModel(List<PlayersModel> modelList, PlayersModel model) {
+        if (modelList != null && model != null) {
+            for (PlayersModel m : modelList) {
+                if (m.getPlayerId() == model.getPlayerId()) {
                     return true;
                 }
             }
@@ -245,11 +242,11 @@ public class ComparePlayersPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "#", "Name", "Match", "Playing Time", "Goal", "Starter"
+                "", "GC", "Salary", "Signing Fee", "Monthly Salary", "Playing Time", "Matches"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -298,11 +295,11 @@ public class ComparePlayersPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "#", "Name", "Match", "Playing Time", "Goal", "Starter"
+                "", "GC", "Salary", "Signing Fee", "Monthly Salary", "Playing Time", "Matches"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -403,7 +400,7 @@ public class ComparePlayersPanel extends javax.swing.JPanel {
         }
         if (playersModelList != null && playersModelList.size() > 0) {
             for (PlayersModel model : playersModelList) {
-                Object[] rowTable = {model.getPlayerNumber(), model.getPlayerName(), model.getMatch(), df.format(model.getPlayingTime()), model.getGoal(), model.getStarter()};
+                Object[] rowTable = {"#" + model.getPlayerNumber() + " " + model.getPlayerName(), df.format(model.getGc()), df.format(model.getAnnualSalary()), df.format(model.getSigningFee()), df.format(model.getSalaryMonth()), df.format(model.getPlayingTime()), model.getMatch()};
                 modelTable.addRow(rowTable);
             }
             Sound.getInstance().playNotify();

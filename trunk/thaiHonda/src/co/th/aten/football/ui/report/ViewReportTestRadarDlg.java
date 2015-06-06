@@ -116,11 +116,11 @@ public class ViewReportTestRadarDlg extends Sw2dDemo {
             radar.setCenterX(-5);
             radar.setCenterY(-20);
             radar.setRadarPainter(new RadarDefaultPainter());
-            final RadarDimension radardimension = new RadarDimension("GC", 90.0D, 0.0D, Configuration.getInt("GC"));
+            final RadarDimension radardimension = new RadarDimension("GC",NanoChromatique.GRAY, 90.0D, 0.0D, Configuration.getInt("GC"));
             radardimension.setDimensionPainter(new DimensionDefaultPainter());
-            final RadarDimension radardimension2 = new RadarDimension("Match", 210D, 0.0D, Configuration.getInt("Match"));
+            final RadarDimension radardimension2 = new RadarDimension("Match",NanoChromatique.GRAY, 210D, 0.0D, Configuration.getInt("Match"));
             radardimension2.setDimensionPainter(new DimensionDefaultPainter());
-            final RadarDimension radardimension4 = new RadarDimension("Playing Time", 330D, 0.0D, Configuration.getInt("PlayingTime"));
+            final RadarDimension radardimension4 = new RadarDimension("Playing Time",NanoChromatique.GRAY, 330D, 0.0D, Configuration.getInt("PlayingTime"));
             radardimension4.setDimensionPainter(new DimensionDefaultPainter());
 
             RadarToolkit.pushDimensions(radar, new RadarDimension[]{radardimension, radardimension2, radardimension4});
