@@ -12,7 +12,7 @@ package co.th.aten.football.ui.form;
 import co.th.aten.football.model.PlayersModel;
 import co.th.aten.football.service.PlayersManager;
 import co.th.aten.football.service.SessionManager;
-import co.th.aten.football.ui.report.PlayersDetailReportDialog;
+import co.th.aten.football.ui.report.ComparePlayersReportDialog;
 import co.th.aten.football.ui.report.ViewReportComparePlayersRadarDlg;
 import co.th.aten.football.util.Sound;
 import com.jensoft.sw2d.core.view.View2D;
@@ -20,6 +20,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -386,7 +387,15 @@ public class ComparePlayersPanel extends javax.swing.JPanel {
     private void report1ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_report1ButtonActionPerformed
         // TODO add your handling code here:
         Sound.getInstance().playClick();
-        new PlayersDetailReportDialog(playersModelList).showDialog();
+        Image imageRadar = null;;
+        if (viewRadar != null) {
+            viewRadar.setSize(853, 262);
+            int w = (int) viewRadar.getBounds().getWidth();
+            int h = (int) viewRadar.getBounds().getHeight();
+            BufferedImage image = viewRadar.getImageView(w, h);
+            imageRadar = image;
+        }
+        new ComparePlayersReportDialog(comparePlayersModelList,imageRadar).showDialog();
     }//GEN-LAST:event_report1ButtonActionPerformed
 
     private void searchByKeyWord() {
