@@ -181,6 +181,9 @@ public class AddNewPlayerPanel extends javax.swing.JPanel {
         weightText = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Player", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
 
         imgLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
