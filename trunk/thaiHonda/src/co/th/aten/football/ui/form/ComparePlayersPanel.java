@@ -110,7 +110,7 @@ public class ComparePlayersPanel extends javax.swing.JPanel {
         searchTable.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (e.getClickCount() == 2) {
+                if (e.getClickCount() >= 2) {
                     if (comparePlayersModelList == null) {
                         comparePlayersModelList = new ArrayList<PlayersModel>();
                     }
@@ -146,7 +146,7 @@ public class ComparePlayersPanel extends javax.swing.JPanel {
         compareTable.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (e.getClickCount() == 2) {
+                if (e.getClickCount() >= 2) {
                     Sound.getInstance().playClick();
                     JTable target = (JTable) e.getSource();
                     int rowCom = target.getSelectedRow();
