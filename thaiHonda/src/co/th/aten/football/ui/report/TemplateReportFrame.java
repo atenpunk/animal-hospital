@@ -22,6 +22,7 @@ import javax.swing.UIManager;
 import com.jensoft.sw2d.core.democomponent.ImageResource;
 import com.jensoft.sw2d.core.democomponent.Sw2dDemo;
 import com.jensoft.sw2d.core.view.View2D;
+import com.jensoft.core.view.View;
 
 public class TemplateReportFrame extends JFrame {
 
@@ -61,6 +62,30 @@ public class TemplateReportFrame extends JFrame {
 		// c1.setSelected(true);
 
 		masterPane.add(demo.createView2D(), BorderLayout.CENTER);
+		masterPane.add(new PanelButton(), BorderLayout.NORTH);
+		getContentPane().add(masterPane, BorderLayout.CENTER);
+		setVisible(true);
+	}
+        
+        public void show(View view) {
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Exception e) {
+
+		}
+                ImageIcon iconFrame = new ImageIcon(System.getProperty("user.dir") + "/img" + File.separator + "jensoft.png");
+		setIconImage(iconFrame.getImage());
+		setTitle("M7");
+		getContentPane().removeAll();
+		getContentPane().setLayout(new BorderLayout());
+		// setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+		JPanel masterPane = new JPanel();
+		masterPane.setBackground(Color.BLACK);
+
+		masterPane.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+		masterPane.setLayout(new BorderLayout());
+		masterPane.add(view, BorderLayout.CENTER);
 		masterPane.add(new PanelButton(), BorderLayout.NORTH);
 		getContentPane().add(masterPane, BorderLayout.CENTER);
 		setVisible(true);
