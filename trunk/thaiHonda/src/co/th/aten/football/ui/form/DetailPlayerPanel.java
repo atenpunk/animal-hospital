@@ -95,6 +95,15 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         searchTable.getColumnModel().getColumn(5).setCellRenderer(rightRenderer);
         searchTable.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
         searchTable.getColumnModel().getColumn(0).setPreferredWidth(10);
+        
+        jScrollPane2.getViewport().setBackground(Color.WHITE);
+        jScrollPane1.getViewport().setBackground(Color.WHITE);
+        videoTable.getColumnModel().getColumn(0).setPreferredWidth(10);
+        videoTable.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+        videoTable.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+        videoTable.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
+        videoTable.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
+        
         try {
             File fileImg = new File(System.getProperty("user.dir") + "/img" + File.separator + "search.png");
             if (fileImg != null) {
@@ -377,6 +386,9 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         matchPieLabel = new javax.swing.JLabel();
         playingTimePieLabel = new javax.swing.JLabel();
         starterPieLabel = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        videoTable = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         searchText = new javax.swing.JTextField();
         searchButton = new javax.swing.JButton();
@@ -703,6 +715,39 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
                 .addGap(12, 12, 12))
         );
 
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+
+        videoTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "No.", "Upload Date", "Play", "Delete"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(videoTable);
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addGap(0, 39, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -710,15 +755,19 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(redarPanal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(redarPanal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(redarPanal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
@@ -786,7 +835,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
                         .addComponent(report1Button)
                         .addGap(18, 18, 18)
                         .addComponent(report2Button)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 215, Short.MAX_VALUE))
                     .addComponent(jScrollPane2))
                 .addContainerGap())
         );
@@ -1174,6 +1223,8 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel matchPanel;
     private javax.swing.JLabel matchPieLabel;
@@ -1199,5 +1250,6 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
     private javax.swing.JPanel startPanel;
     private javax.swing.JLabel starterPieLabel;
     private javax.swing.JPanel timePanel;
+    private javax.swing.JTable videoTable;
     // End of variables declaration//GEN-END:variables
 }
