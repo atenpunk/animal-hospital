@@ -76,6 +76,7 @@ public class EditPlayerPanel extends javax.swing.JPanel {
         this.playersManager = (PlayersManager) Application.services().getService(PlayersManager.class);
         this.positionManager = (PositionManager) Application.services().getService(PositionManager.class);
         initComponents();
+        jScrollPane2.getViewport().setBackground(Color.WHITE);
         DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
         rightRenderer.setHorizontalAlignment(SwingConstants.RIGHT);
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();

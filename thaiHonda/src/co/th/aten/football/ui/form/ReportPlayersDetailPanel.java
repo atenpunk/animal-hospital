@@ -22,6 +22,7 @@ import co.th.aten.football.ui.report.ViewReportTestRadarDlg;
 import co.th.aten.football.util.Sound;
 import co.th.aten.football.util.Util;
 import com.jensoft.sw2d.core.view.View2D;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.KeyAdapter;
@@ -74,6 +75,8 @@ public class ReportPlayersDetailPanel extends javax.swing.JPanel {
         this.playersManager = (PlayersManager) Application.services().getService(PlayersManager.class);
         this.positionManager = (PositionManager) Application.services().getService(PositionManager.class);
         initComponents();
+        jScrollPane2.getViewport().setBackground(Color.WHITE);
+        jScrollPane3.getViewport().setBackground(Color.WHITE);
         DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
         rightRenderer.setHorizontalAlignment(SwingConstants.RIGHT);
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
