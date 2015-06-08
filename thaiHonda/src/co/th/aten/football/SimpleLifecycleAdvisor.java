@@ -64,7 +64,8 @@ public class SimpleLifecycleAdvisor extends DefaultApplicationLifecycleAdvisor {
         super.onPreWindowOpen(configurer);
         configurer.setShowMenuBar(false);
         configurer.setShowToolBar(false);
-        configurer.setUndecorated(true);
+        configurer.setUndecorated(false);
+        configurer.setTitle("Players Management");
         // Uncomment to hide the menubar, toolbar, or alter window size...
         // configurer.setShowMenuBar(false);
         // configurer.setShowToolBar(false);

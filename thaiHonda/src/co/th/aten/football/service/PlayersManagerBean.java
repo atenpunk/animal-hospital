@@ -15,20 +15,29 @@ import java.util.List;
 public class PlayersManagerBean implements PlayersManager {
 
     private PlayersDao playersDao;
+    private VideoPlayersManager videoPlayersManager;
 
-    public boolean insertPlayers(PlayersModel playersModel){
+    public boolean insertPlayers(PlayersModel playersModel) {
         return playersDao.insertPlayers(playersModel);
     }
 
-    public int getMaxPlayersId(){
+    public int getMaxPlayersId() {
         return playersDao.getMaxPlayersId();
     }
 
-    public List<PlayersModel> searchByKeyWord(String word){
-        return playersDao.searchByKeyWord(word);
+    public List<PlayersModel> searchByKeyWord(String word) {
+        List<PlayersModel> playersModelList = playersDao.searchByKeyWord(word);
+        if (playersModelList != null && playersModelList.size() > 0) {
+            for (int index = 0; index < playersModelList.size(); index++) {
+                PlayersModel playersModel = playersModelList.get(index);
+                playersModel.setVideoModelList(videoPlayersManager.searchByKeyWord(playersModel.getPlayerId()));
+                playersModelList.set(index, playersModel);
+            }
+        }
+        return playersModelList;
     }
 
-    public boolean updatePlayers(PlayersModel playersModel){
+    public boolean updatePlayers(PlayersModel playersModel) {
         return playersDao.updatePlayers(playersModel);
     }
 
@@ -39,13 +48,21 @@ public class PlayersManagerBean implements PlayersManager {
     public void setPlayersDao(PlayersDao playersDao) {
         this.playersDao = playersDao;
     }
-    
-    public boolean editPlayers(PlayersModel playersModel){
+
+    public boolean editPlayers(PlayersModel playersModel) {
         return playersDao.editPlayers(playersModel);
     }
-    
-    public boolean deletePlayer(int playerId){
+
+    public boolean deletePlayer(int playerId) {
         return playersDao.deletePlayer(playerId);
+    }
+
+    public VideoPlayersManager getVideoPlayersManager() {
+        return videoPlayersManager;
+    }
+
+    public void setVideoPlayersManager(VideoPlayersManager videoPlayersManager) {
+        this.videoPlayersManager = videoPlayersManager;
     }
     
 }
