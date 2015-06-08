@@ -26,6 +26,7 @@ import co.th.aten.football.util.Util;
 import com.jensoft.sw2d.core.view.View2D;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.KeyAdapter;
@@ -36,6 +37,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.DecimalFormat;
@@ -44,10 +46,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -111,11 +117,16 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         jScrollPane2.getViewport().setBackground(Color.WHITE);
         jScrollPane1.getViewport().setBackground(Color.WHITE);
         videoTable.getColumnModel().getColumn(0).setPreferredWidth(10);
+        videoTable.getColumnModel().getColumn(1).setPreferredWidth(120);
+        videoTable.getColumnModel().getColumn(2).setPreferredWidth(10);
+        videoTable.getColumnModel().getColumn(3).setPreferredWidth(10);
         videoTable.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
         videoTable.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
         videoTable.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
         videoTable.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
-
+        videoTable.getColumnModel().getColumn(2).setCellRenderer(new ImageRenderer());
+        videoTable.getColumnModel().getColumn(3).setCellRenderer(new ImageRenderer());
+        videoTable.setRowHeight(27);
         try {
             File fileImg = new File(System.getProperty("user.dir") + "/img" + File.separator + "search.png");
             if (fileImg != null) {
@@ -150,6 +161,41 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
                     JTable target = (JTable) e.getSource();
                     row = target.getSelectedRow();
                     setDataDetailPlayer();
+                }
+            }
+        });
+
+        videoTable.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                JTable target = (JTable) e.getSource();
+                int rowVideo = target.getSelectedRow();
+                int columnVideo = target.getSelectedColumn();
+                if (columnVideo == 2) {
+                    Sound.getInstance().playClick();
+                    try {
+                        if (playersModelSelected.getVideoModelList() != null && playersModelSelected.getVideoModelList().size() > rowVideo) {
+                            Runtime.getRuntime().exec(System.getProperty("user.dir")
+                                    + "/VLC/vlc.exe video/" + playersModelSelected.getVideoModelList().get(rowVideo).getVideoName());
+                        }
+                    } catch (IOException ex) {
+                        Logger.getLogger(DetailPlayerPanel.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else if (columnVideo == 3) {
+                    int saveConfirm = JOptionPane.showConfirmDialog(null, "Confirm delete video?", "Confirm Delete", JOptionPane.OK_OPTION | JOptionPane.CANCEL_OPTION);
+                    if (saveConfirm == JOptionPane.OK_OPTION) {
+                        if (playersModelSelected.getVideoModelList() != null && playersModelSelected.getVideoModelList().size() > rowVideo) {
+                            boolean delVideo = videoPlayersManager.deleteVideoByVideoId(playersModelSelected.getVideoModelList().get(rowVideo).getVideoId());
+                            if (delVideo) {
+                                new File(System.getProperty("user.dir") + "/video/" + playersModelSelected.getVideoModelList().get(rowVideo).getVideoName()).delete();
+                                playersModelSelected.getVideoModelList().remove(rowVideo);
+                                setVideoDataTable(playersModelSelected.getVideoModelList());
+                                showMessageDialog("Delete video complete");
+                            } else {
+                                showMessageDialog("Delete video Fail");
+                            }
+                        }
+                    }
                 }
             }
         });
@@ -266,6 +312,10 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         });
     }
 
+    private void showMessageDialog(String mess) {
+        JOptionPane.showMessageDialog(this, mess);
+    }
+
     private void setDataDetailPlayer() {
         clearData();
         if (playersModelList != null && playersModelList.size() >= row) {
@@ -334,15 +384,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
             inputLose.setText(df.format(playersModelSelected.getLose()));
             inputDraw.setText(df.format(playersModelSelected.getDraw()));
             if (playersModelSelected.getVideoModelList() != null && playersModelSelected.getVideoModelList().size() > 0) {
-                DefaultTableModel modelTable = (DefaultTableModel) videoTable.getModel();
-                while (modelTable.getRowCount() > 0) {
-                    modelTable.removeRow(0);
-                }
-                int no = 0;
-                for (VideoModel modelVideo : playersModelSelected.getVideoModelList()) {
-                    Object[] rowTable = {++no, sdf.format(modelVideo.getCreateDate()), "", ""};
-                    modelTable.addRow(rowTable);
-                }
+                setVideoDataTable(playersModelSelected.getVideoModelList());
             }
             try {
                 if (playersModelSelected.getImage() != null && playersModelSelected.getImage().length() > 0) {
@@ -364,6 +406,80 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
 
             // add data video
 
+        }
+    }
+
+    private void setVideoDataTable(List<VideoModel> videoModelList) {
+        try {
+            if (videoModelList != null && videoModelList.size() > 0) {
+                ImageIcon imgDelete = null;
+                File fileDelete = new File(System.getProperty("user.dir") + "/img" + File.separator + "delete.png");
+                if (fileDelete != null) {
+                    BufferedImage originalImage = ImageIO.read(fileDelete);
+                    int type = originalImage.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : originalImage.getType();
+                    BufferedImage resizeImageJpg = resizeImage(originalImage, type, 40, 40);
+                    imgDelete = new ImageIcon(resizeImageJpg);
+                }
+                DefaultTableModel modelTable = (DefaultTableModel) videoTable.getModel();
+                while (modelTable.getRowCount() > 0) {
+                    modelTable.removeRow(0);
+                }
+                int no = 0;
+                for (VideoModel modelVideo : videoModelList) {
+                    Object[] rowTable = {++no, sdf.format(modelVideo.getCreateDate()), "", imgDelete};
+                    modelTable.addRow(rowTable);
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private class ImageRenderer extends DefaultTableCellRenderer {
+
+        JLabel lbl = new JLabel();
+
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+                boolean hasFocus, int row, int column) {
+            if (column == 2) {
+                lbl.setToolTipText("Play");
+                ImageIcon imgPlay = null;
+                File filePlay = new File(System.getProperty("user.dir") + "/img" + File.separator + "play.png");
+                if (filePlay != null) {
+                    try {
+                        BufferedImage originalImage;
+                        originalImage = ImageIO.read(filePlay);
+                        int type = originalImage.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : originalImage.getType();
+                        BufferedImage resizeImageJpg = resizeImage(originalImage, type, 27, 27);
+                        imgPlay = new ImageIcon(resizeImageJpg);
+                    } catch (IOException ex) {
+                        Logger.getLogger(DetailPlayerPanel.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                lbl.setIcon(imgPlay);
+                lbl.setHorizontalAlignment(0);
+                return lbl;
+            } else if (column == 3) {
+                lbl.setToolTipText("Delete");
+                ImageIcon imgDelete = null;
+                File filePlay = new File(System.getProperty("user.dir") + "/img" + File.separator + "delete.png");
+                if (filePlay != null) {
+                    try {
+                        BufferedImage originalImage;
+                        originalImage = ImageIO.read(filePlay);
+                        int type = originalImage.getType() == 0 ? BufferedImage.TYPE_INT_ARGB : originalImage.getType();
+                        BufferedImage resizeImageJpg = resizeImage(originalImage, type, 27, 27);
+                        imgDelete = new ImageIcon(resizeImageJpg);
+                    } catch (IOException ex) {
+                        Logger.getLogger(DetailPlayerPanel.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                lbl.setIcon(imgDelete);
+                lbl.setHorizontalAlignment(0);
+                return lbl;
+            }
+            lbl.setText((String) value);
+            return lbl;
         }
     }
 
@@ -785,10 +901,9 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(addVideoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -808,9 +923,8 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(redarPanal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
@@ -911,7 +1025,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -1279,15 +1393,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
                                 playersModelSelected.setVideoModelList(listVideo);
                             }
                             playersModelList.set(row, playersModelSelected);
-                            DefaultTableModel modelTable = (DefaultTableModel) videoTable.getModel();
-                            while (modelTable.getRowCount() > 0) {
-                                modelTable.removeRow(0);
-                            }
-                            int no = 0;
-                            for (VideoModel modelVideo : playersModelSelected.getVideoModelList()) {
-                                Object[] rowTable = {++no, sdf.format(modelVideo.getCreateDate()), "", ""};
-                                modelTable.addRow(rowTable);
-                            }
+                            setVideoDataTable(playersModelSelected.getVideoModelList());
                         }
                     }
                 };

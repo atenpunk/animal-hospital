@@ -639,7 +639,7 @@ public class EditPlayerPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         Sound.getInstance().playClick();
         if (namePlayerText.getText() != null && namePlayerText.getText().trim().length() > 0) {
-            int saveConfirm = JOptionPane.showConfirmDialog(null, "Confirm save edit player?", "Confirm Save", JOptionPane.OK_OPTION | JOptionPane.CANCEL_OPTION);
+            int saveConfirm = JOptionPane.showConfirmDialog(null, "Confirm save edit player?", "Confirm Edit", JOptionPane.OK_OPTION | JOptionPane.CANCEL_OPTION);
             if (saveConfirm == JOptionPane.OK_OPTION) {
                 playersModelSelected.setPlayerName(namePlayerText.getText());
                 playersModelSelected.setPlayerNumber(numberText.getText().trim().length() > 0
