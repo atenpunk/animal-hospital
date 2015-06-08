@@ -5,6 +5,7 @@
 package co.th.aten.football.model;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -38,6 +39,7 @@ public class PlayersModel {
     private Date createDate;
     private int updateBy;
     private Date updateDate;
+    private List<VideoModel> videoModelList;
 
     public int getPlayerId() {
         return playerId;
@@ -245,6 +247,14 @@ public class PlayersModel {
 
     public void setStarter(int starter) {
         this.starter = starter;
+    }
+
+    public List<VideoModel> getVideoModelList() {
+        return videoModelList;
+    }
+
+    public void setVideoModelList(List<VideoModel> videoModelList) {
+        this.videoModelList = videoModelList;
     }
 
     

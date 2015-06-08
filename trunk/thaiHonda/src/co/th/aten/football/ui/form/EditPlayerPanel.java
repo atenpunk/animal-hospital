@@ -11,9 +11,11 @@ package co.th.aten.football.ui.form;
 
 import co.th.aten.football.model.PlayersModel;
 import co.th.aten.football.model.PositionModel;
+import co.th.aten.football.model.VideoModel;
 import co.th.aten.football.service.PlayersManager;
 import co.th.aten.football.service.PositionManager;
 import co.th.aten.football.service.SessionManager;
+import co.th.aten.football.service.VideoPlayersManager;
 import co.th.aten.football.util.Sound;
 import co.th.aten.football.util.Util;
 import java.awt.Color;
@@ -70,11 +72,13 @@ public class EditPlayerPanel extends javax.swing.JPanel {
     private PlayersModel playersModelSelected;
     private int row = -1;
     private PositionManager positionManager;
+    private VideoPlayersManager videoPlayersManager;
 
     public EditPlayerPanel() {
         this.sessionManager = (SessionManager) Application.services().getService(SessionManager.class);
         this.playersManager = (PlayersManager) Application.services().getService(PlayersManager.class);
         this.positionManager = (PositionManager) Application.services().getService(PositionManager.class);
+        this.videoPlayersManager = (VideoPlayersManager) Application.services().getService(VideoPlayersManager.class);
         initComponents();
         jScrollPane2.getViewport().setBackground(Color.WHITE);
         DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
@@ -704,6 +708,13 @@ public class EditPlayerPanel extends javax.swing.JPanel {
         if (deleteConfirm == JOptionPane.OK_OPTION) {
             boolean chkUpdatePlayer = playersManager.deletePlayer(playersModelSelected.getPlayerId());
             if (chkUpdatePlayer) {
+                new File(System.getProperty("user.dir") + "/img/" + playersModelSelected.getImage()).delete();
+                if(playersModelSelected.getVideoModelList()!=null && playersModelSelected.getVideoModelList().size()>0){
+                    for(VideoModel videoModel : playersModelSelected.getVideoModelList()){
+                        new File(System.getProperty("user.dir") + "/video/" + videoModel.getVideoName()).delete();
+                    }
+                }
+                videoPlayersManager.deleteVideoByPlayerId(playersModelSelected.getPlayerId());
                 playersModelList.remove(row);
                 DefaultTableModel modelTable = (DefaultTableModel) searchTable.getModel();
                 while (modelTable.getRowCount() > 0) {

@@ -12,9 +12,12 @@ package co.th.aten.football.ui.form;
 import co.th.aten.football.Configuration;
 import co.th.aten.football.model.PlayersGraphModel;
 import co.th.aten.football.model.PlayersModel;
+import co.th.aten.football.model.VideoModel;
 import co.th.aten.football.service.PlayersManager;
 import co.th.aten.football.ui.report.ViewReportTestRadarDlg;
 import co.th.aten.football.service.SessionManager;
+import co.th.aten.football.service.VideoPlayersManager;
+import co.th.aten.football.ui.ProcessTransactionDialog;
 import co.th.aten.football.ui.report.PlayersDetailReportDialog;
 import co.th.aten.football.ui.report.PlayersGraphReportDialog;
 import co.th.aten.football.ui.report.ViewReportPieDlg;
@@ -31,6 +34,10 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -39,6 +46,8 @@ import java.util.List;
 import java.util.Locale;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -56,6 +65,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
     private final Log logger = LogFactory.getLog(getClass());
     private SessionManager sessionManager;
     private PlayersManager playersManager;
+    private VideoPlayersManager videoPlayersManager;
     private List<PlayersModel> playersModelList;
     private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
     private DecimalFormat df = new DecimalFormat("#,##0");
@@ -69,6 +79,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
     public DetailPlayerPanel() {
         this.sessionManager = (SessionManager) Application.services().getService(SessionManager.class);
         this.playersManager = (PlayersManager) Application.services().getService(PlayersManager.class);
+        this.videoPlayersManager = (VideoPlayersManager) Application.services().getService(VideoPlayersManager.class);
         initComponents();
         editPlayer.setEnabled(false);
         inputGc.setBackground(null);
@@ -85,6 +96,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         matchPieLabel.setVisible(false);
         playingTimePieLabel.setVisible(false);
         starterPieLabel.setVisible(false);
+        jPanel4.setVisible(false);
         DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
         rightRenderer.setHorizontalAlignment(SwingConstants.RIGHT);
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
@@ -95,7 +107,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         searchTable.getColumnModel().getColumn(5).setCellRenderer(rightRenderer);
         searchTable.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
         searchTable.getColumnModel().getColumn(0).setPreferredWidth(10);
-        
+
         jScrollPane2.getViewport().setBackground(Color.WHITE);
         jScrollPane1.getViewport().setBackground(Color.WHITE);
         videoTable.getColumnModel().getColumn(0).setPreferredWidth(10);
@@ -103,7 +115,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         videoTable.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
         videoTable.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
         videoTable.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
-        
+
         try {
             File fileImg = new File(System.getProperty("user.dir") + "/img" + File.separator + "search.png");
             if (fileImg != null) {
@@ -266,6 +278,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
             matchPieLabel.setVisible(true);
             playingTimePieLabel.setVisible(true);
             starterPieLabel.setVisible(true);
+            jPanel4.setVisible(true);
             ViewReportTestRadarDlg reportRadar = new ViewReportTestRadarDlg(playersModelSelected.getGc(), playersModelSelected.getMatch(), playersModelSelected.getPlayingTime(), 0);
             viewRadar = reportRadar.createView2D();
             viewRadar.setSize(409, 262);
@@ -320,6 +333,17 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
             inputWin.setText(df.format(playersModelSelected.getWin()));
             inputLose.setText(df.format(playersModelSelected.getLose()));
             inputDraw.setText(df.format(playersModelSelected.getDraw()));
+            if (playersModelSelected.getVideoModelList() != null && playersModelSelected.getVideoModelList().size() > 0) {
+                DefaultTableModel modelTable = (DefaultTableModel) videoTable.getModel();
+                while (modelTable.getRowCount() > 0) {
+                    modelTable.removeRow(0);
+                }
+                int no = 0;
+                for (VideoModel modelVideo : playersModelSelected.getVideoModelList()) {
+                    Object[] rowTable = {++no, sdf.format(modelVideo.getCreateDate()), "", ""};
+                    modelTable.addRow(rowTable);
+                }
+            }
             try {
                 if (playersModelSelected.getImage() != null && playersModelSelected.getImage().length() > 0) {
                     File fileImg = new File(System.getProperty("user.dir") + "/img" + File.separator + playersModelSelected.getImage());
@@ -337,6 +361,9 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
                 logger.info("" + ex);
                 ex.printStackTrace();
             }
+
+            // add data video
+
         }
     }
 
@@ -389,6 +416,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         videoTable = new javax.swing.JTable();
+        addVideoButton = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         searchText = new javax.swing.JTextField();
         searchButton = new javax.swing.JButton();
@@ -716,6 +744,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         );
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Video"));
 
         videoTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -735,16 +764,30 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(videoTable);
 
+        addVideoButton.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        addVideoButton.setText("Add Video");
+        addVideoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addVideoButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 397, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(addVideoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addGap(0, 39, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(addVideoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -937,6 +980,16 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         inputWin.setText("");
         inputLose.setText("");
         inputDraw.setText("");
+
+        matchPieLabel.setVisible(false);
+        playingTimePieLabel.setVisible(false);
+        starterPieLabel.setVisible(false);
+        jPanel4.setVisible(false);
+
+        DefaultTableModel modelTable = (DefaultTableModel) videoTable.getModel();
+        while (modelTable.getRowCount() > 0) {
+            modelTable.removeRow(0);
+        }
     }
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
@@ -1169,6 +1222,82 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         new PlayersGraphReportDialog(playersGraphModel).showDialog();
     }//GEN-LAST:event_report2ButtonActionPerformed
 
+    private void addVideoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addVideoButtonActionPerformed
+        // TODO add your handling code here:
+        Sound.getInstance().playClick();
+        try {
+            JFileChooser chooser = new JFileChooser();
+            chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+            chooser.showOpenDialog(null);
+            final File fileVideo = chooser.getSelectedFile();
+            if (fileVideo != null) {
+                Runnable r = new Runnable() {
+                    public void run() {
+                        SimpleDateFormat sdfFile = new SimpleDateFormat("yyyyMMddHHmmss", Locale.US);
+                        int lengthSplit = (fileVideo.getName().replaceAll("\\.", "#")).split("#").length;
+                        String subFile = (fileVideo.getName().replaceAll("\\.", "#")).split("#")[lengthSplit - 1];
+                        String fileName = playersModelSelected.getPlayerName() + "_" + sdfFile.format(new Date()) + "." + subFile;
+                        fileName = fileName.replaceAll(" ", "_");
+                        logger.info("Video File Name = " + fileName);
+                        File fileNew = new File(System.getProperty("user.dir") + "/video/" + fileName);
+                        InputStream is = null;
+                        OutputStream os = null;
+                        try {
+                            is = new FileInputStream(fileVideo);
+                            os = new FileOutputStream(fileNew);
+                            byte[] buffer = new byte[1024];
+                            int length;
+                            while ((length = is.read(buffer)) > 0) {
+                                os.write(buffer, 0, length);
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        } finally {
+                            try {
+                                is.close();
+                                os.close();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        VideoModel videoModel = new VideoModel();
+                        int maxId = videoPlayersManager.getMaxVideoId();
+                        videoModel.setVideoId(maxId + 1);
+                        videoModel.setPlayerId(playersModelSelected.getPlayerId());
+                        videoModel.setVideoName(fileName);
+                        videoModel.setCreateBy(sessionManager.getUser().getUserId());
+                        videoModel.setCreateDate(new Date());
+                        videoModel.setUpdateBy(sessionManager.getUser().getUserId());
+                        videoModel.setUpdateDate(new Date());
+                        boolean insertVideo = videoPlayersManager.insertVideoPlayer(videoModel);
+                        if (insertVideo) {
+                            if (playersModelSelected.getVideoModelList() != null) {
+                                playersModelSelected.getVideoModelList().add(videoModel);
+                            } else {
+                                List<VideoModel> listVideo = new ArrayList<VideoModel>();
+                                listVideo.add(videoModel);
+                                playersModelSelected.setVideoModelList(listVideo);
+                            }
+                            playersModelList.set(row, playersModelSelected);
+                            DefaultTableModel modelTable = (DefaultTableModel) videoTable.getModel();
+                            while (modelTable.getRowCount() > 0) {
+                                modelTable.removeRow(0);
+                            }
+                            int no = 0;
+                            for (VideoModel modelVideo : playersModelSelected.getVideoModelList()) {
+                                Object[] rowTable = {++no, sdf.format(modelVideo.getCreateDate()), "", ""};
+                                modelTable.addRow(rowTable);
+                            }
+                        }
+                    }
+                };
+                new ProcessTransactionDialog(new JFrame(), true, r, "Please wait the system is running...");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_addVideoButtonActionPerformed
+
     private void searchByKeyWord() {
 //        Runnable r = new Runnable() {
 //            public void run() {
@@ -1204,6 +1333,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         return resizedImage;
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addVideoButton;
     private javax.swing.JLabel bridLabel;
     private javax.swing.JLabel contracLabel;
     private javax.swing.JButton editPlayer;

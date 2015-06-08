@@ -59,6 +59,9 @@
     <bean id="positionDao" class="co.th.aten.football.dao.JdbcPositionDao" lazy-init="true" >
         <property name="dataSource" ref="dataSource" />
     </bean>
+    <bean id="videoPlayersDao" class="co.th.aten.football.dao.JdbcVideoPlayersDao" lazy-init="true" >
+        <property name="dataSource" ref="dataSource" />
+    </bean>
 
     <!-- Service -->
     <bean id="sessionManager" class="co.th.aten.football.service.SessionManagerBean" lazy-init="true" >
@@ -68,10 +71,14 @@
     <bean id="loginManager" class="co.th.aten.football.service.LoginManagerBean" lazy-init="true" >
         <property name="userDao" ref="userDao" />
     </bean>
-    <bean id="playersManager" class="co.th.aten.football.service.PlayersManagerBean" lazy-init="true" >
-        <property name="playersDao" ref="playersDao" />
-    </bean>
     <bean id="positionManager" class="co.th.aten.football.service.PositionManagerBean" lazy-init="true" >
         <property name="positionDao" ref="positionDao" />
+    </bean>
+    <bean id="videoPlayersManager" class="co.th.aten.football.service.VideoPlayersManagerBean" lazy-init="true" >
+        <property name="videoPlayersDao" ref="videoPlayersDao" />
+    </bean>
+    <bean id="playersManager" class="co.th.aten.football.service.PlayersManagerBean" lazy-init="true" >
+        <property name="playersDao" ref="playersDao" />
+        <property name="videoPlayersManager" ref="videoPlayersManager" />
     </bean>
 </beans>
