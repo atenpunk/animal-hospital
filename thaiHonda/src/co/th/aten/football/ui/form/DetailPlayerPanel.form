@@ -701,7 +701,7 @@
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="addVideoButton" min="-2" pref="22" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" pref="104" max="32767" attributes="0"/>
+                      <Component id="jScrollPane1" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
