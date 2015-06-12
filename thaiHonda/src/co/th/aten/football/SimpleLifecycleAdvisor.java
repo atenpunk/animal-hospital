@@ -23,6 +23,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.io.IOException;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.richclient.application.Application;
@@ -65,7 +66,8 @@ public class SimpleLifecycleAdvisor extends DefaultApplicationLifecycleAdvisor {
         configurer.setShowMenuBar(false);
         configurer.setShowToolBar(false);
         configurer.setUndecorated(false);
-        configurer.setTitle("Players Management");
+        String build = Application.instance().getDescriptor().getVersion() + " ( " + Application.instance().getDescriptor().getBuildId() + " )";
+        configurer.setTitle("Players Management" + "  v." + build);
         // Uncomment to hide the menubar, toolbar, or alter window size...
         // configurer.setShowMenuBar(false);
         // configurer.setShowToolBar(false);
@@ -74,7 +76,7 @@ public class SimpleLifecycleAdvisor extends DefaultApplicationLifecycleAdvisor {
 //        configurer.setInitialSize(new Dimension((int)env.getMaximumWindowBounds().getWidth(),(int)env.getMaximumWindowBounds().getHeight()));
 
 
-        
+
         SessionManager sessionManager = (SessionManager) Application.services().getService(SessionManager.class);
         try {
             SettingsManager settingsManager = new SettingsManager();
@@ -209,6 +211,9 @@ public class SimpleLifecycleAdvisor extends DefaultApplicationLifecycleAdvisor {
 
         } //DockingUISettings.getInstance().updateUI();
 
+//        boolean confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to exit the application?",
+//                "Confirm Exit", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION;
+//        return confirm;
         return true;
 
 

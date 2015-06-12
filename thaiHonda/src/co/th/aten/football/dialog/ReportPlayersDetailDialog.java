@@ -5,6 +5,7 @@
 package co.th.aten.football.dialog;
 
 import co.th.aten.football.ui.form.ReportPlayersDetailPanel;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
@@ -45,6 +46,7 @@ public class ReportPlayersDetailDialog extends ApplicationDialog {
     @Override
     protected JComponent createButtonBar() {
         JPanel bpanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        bpanel.setBackground(Color.WHITE);
 //        JButton btClose = new JButton("  Close  ");
 //        btClose.setFont(new java.awt.Font("Tahoma", 1, 12));
 //        btClose.setPreferredSize(new java.awt.Dimension(100, 25));

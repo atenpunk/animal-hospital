@@ -71,6 +71,9 @@
     <bean id="loginManager" class="co.th.aten.football.service.LoginManagerBean" lazy-init="true" >
         <property name="userDao" ref="userDao" />
     </bean>
+    <bean id="userManager" class="co.th.aten.football.service.UserManagerBean" lazy-init="true" >
+        <property name="userDao" ref="userDao" />
+    </bean>
     <bean id="positionManager" class="co.th.aten.football.service.PositionManagerBean" lazy-init="true" >
         <property name="positionDao" ref="positionDao" />
     </bean>

@@ -11,6 +11,7 @@
 package co.th.aten.football.ui;
 
 import co.th.aten.football.dialog.AddNewPlayerDialog;
+import co.th.aten.football.dialog.AddStaffDialog;
 import co.th.aten.football.dialog.ComparePlayersDialog;
 import co.th.aten.football.dialog.DetailPlayerDialog;
 import co.th.aten.football.dialog.EditPlayerDialog;
@@ -55,7 +56,7 @@ public class MainPanel extends ImagePanel {
         btAddCustomers.setEnabled(true);
         btEditCustomers.setEnabled(true);
         btReportPlayersDetail.setEnabled(true);
-        btAddStaff.setEnabled(false);
+        btAddStaff.setEnabled(true);
         btChangePassword.setEnabled(false);
         btReport.setEnabled(false);
         btSellStatement.setEnabled(false);
@@ -244,7 +245,7 @@ public class MainPanel extends ImagePanel {
                 btAddStaffActionPerformed(evt);
             }
         });
-        jPanel7.add(btAddStaff, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, 370, -1));
+        jPanel7.add(btAddStaff, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 370, -1));
 
         btChangePassword.setBackground(new java.awt.Color(102, 102, 255));
         btChangePassword.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -255,7 +256,7 @@ public class MainPanel extends ImagePanel {
                 btChangePasswordActionPerformed(evt);
             }
         });
-        jPanel7.add(btChangePassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 30, 370, -1));
+        jPanel7.add(btChangePassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 20, 370, -1));
         jPanel7.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(438, 62, -1, -1));
 
         btEoj.setBackground(new java.awt.Color(255, 204, 204));
@@ -267,7 +268,7 @@ public class MainPanel extends ImagePanel {
                 btEojActionPerformed(evt);
             }
         });
-        jPanel7.add(btEoj, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 30, 370, -1));
+        jPanel7.add(btEoj, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 20, 370, -1));
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -296,7 +297,7 @@ public class MainPanel extends ImagePanel {
     }//GEN-LAST:event_btEojActionPerformed
 
     private void btAddStaffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAddStaffActionPerformed
-//        AddStaffWizard.getInstance().execute();
+        new AddStaffDialog().showDialog();
     }//GEN-LAST:event_btAddStaffActionPerformed
 
     private void btSellStatementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSellStatementActionPerformed

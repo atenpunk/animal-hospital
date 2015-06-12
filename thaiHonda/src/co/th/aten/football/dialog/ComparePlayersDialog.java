@@ -44,6 +44,7 @@ public class ComparePlayersDialog extends ApplicationDialog {
     @Override
     protected JComponent createButtonBar() {
         JPanel bpanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        bpanel.setBackground(Color.WHITE);
 //        JButton btClose = new JButton("  Close  ");
 //        btClose.setFont(new java.awt.Font("Tahoma", 1, 12));
 //        btClose.setPreferredSize(new java.awt.Dimension(100, 25));
