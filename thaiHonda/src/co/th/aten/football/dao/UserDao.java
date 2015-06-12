@@ -23,4 +23,6 @@ public interface UserDao {
     public int getMaxUserId();
     
     public boolean insertStaff(UserModel userModel);
+    
+    public boolean changePassword(int userId, String password);
 }

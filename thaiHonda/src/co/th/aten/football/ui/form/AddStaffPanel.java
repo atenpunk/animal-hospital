@@ -54,7 +54,7 @@ public class AddStaffPanel extends javax.swing.JPanel {
             @Override
             public void keyReleased(KeyEvent e) {
                 passwordStar.setText("");
-                if(passwordField.getText()!=null && passwordField.getText().length()>0){
+                if(new String(passwordField.getPassword())!=null && new String(passwordField.getPassword()).length()>0){
                     passwordStar.setText("");
                 }else{
                     passwordStar.setText("*");
@@ -66,7 +66,7 @@ public class AddStaffPanel extends javax.swing.JPanel {
             @Override
             public void keyReleased(KeyEvent e) {
                 confirmPasswordStar.setText("");
-                if(confirmPasswordField.getText()!=null && confirmPasswordField.getText().length()>0){
+                if(new String(confirmPasswordField.getPassword())!=null && new String(confirmPasswordField.getPassword()).length()>0){
                     confirmPasswordStar.setText("");
                 }else{
                     confirmPasswordStar.setText("*");
@@ -275,17 +275,17 @@ public class AddStaffPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         Sound.getInstance().playClick();
         if ((usernameText.getText() != null && usernameText.getText().trim().length() > 0)
-                && (passwordField.getText() != null && passwordField.getText().trim().length() > 0)
-                && (confirmPasswordField.getText() != null && confirmPasswordField.getText().trim().length() > 0)
+                && (new String(passwordField.getPassword()) != null && new String(passwordField.getPassword()).trim().length() > 0)
+                && (new String(confirmPasswordField.getPassword()) != null && new String(confirmPasswordField.getPassword()).trim().length() > 0)
                 && (nameText.getText() != null && nameText.getText().trim().length() > 0)) {
             int saveConfirm = JOptionPane.showConfirmDialog(null, "Confirm add staff?", "Confirm Add", JOptionPane.OK_OPTION | JOptionPane.CANCEL_OPTION);
             if (saveConfirm == JOptionPane.OK_OPTION) {
-                if (passwordField.getText().equals(confirmPasswordField.getText())) {
+                if (new String(passwordField.getPassword()).equals(new String(confirmPasswordField.getPassword()))) {
                     UserModel userModel = new UserModel();
                     int max = userManager.getMaxUserId();
                     userModel.setUserId(max + 1);
                     userModel.setUserLogin(usernameText.getText());
-                    userModel.setPassword(passwordField.getText());
+                    userModel.setPassword(new String(passwordField.getPassword()));
                     userModel.setUserName(nameText.getText());
                     userModel.setGroup((short) 1);
                     userModel.setMobileHome(phoneNoText.getText());
