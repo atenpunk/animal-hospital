@@ -67,7 +67,7 @@ public class SimpleLifecycleAdvisor extends DefaultApplicationLifecycleAdvisor {
         configurer.setShowToolBar(false);
         configurer.setUndecorated(false);
         String build = Application.instance().getDescriptor().getVersion() + " ( " + Application.instance().getDescriptor().getBuildId() + " )";
-        configurer.setTitle("Players Management" + "  v." + build);
+        configurer.setTitle(java.util.ResourceBundle.getBundle("ui/messages").getString("header.welcome") + "  v." + build);
         // Uncomment to hide the menubar, toolbar, or alter window size...
         // configurer.setShowMenuBar(false);
         // configurer.setShowToolBar(false);
