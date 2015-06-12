@@ -41,7 +41,7 @@ public class JdbcUserDao implements UserDao {
 //        logger.info("Password : "+hash(pass));
         try {
             user = user.replace(" ", "");
-            String sql = "select user_id, user_name, group_id, status from staff where login_name ='"+user+"' and password = '"+hash(pass)+"' ";
+            String sql = "select user_id, user_name, group_id, status , login_name from staff where login_name ='"+user+"' and password = '"+hash(pass)+"' ";
             ParameterizedRowMapper<UserModel> mapper = new ParameterizedRowMapper<UserModel>() {
                 public UserModel mapRow(ResultSet rs, int arg1) throws SQLException {
                     UserModel um = new UserModel();
@@ -49,12 +49,13 @@ public class JdbcUserDao implements UserDao {
                     um.setUserName(rs.getString(2));
                     um.setGroup(rs.getShort(3));
                     um.setStatus(rs.getShort(4));
+                    um.setUserLogin(rs.getString(5));
                     return um;
                 }
             };
             return this.simpleJdbcTemplate.query(sql, mapper).get(0);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.info("Login : "+user+", Error : "+e.getMessage());
         }
         return null;
     }
@@ -74,6 +75,18 @@ public class JdbcUserDao implements UserDao {
             boolean insert = (this.simpleJdbcTemplate.update(sql, userModel.getUserId(), userModel.getUserName(),userModel.getUserLogin()
                     ,hash(userModel.getPassword()),userModel.getGroup(),userModel.getLastLogin(),userModel.getPhoneNo(), userModel.getMobileHome(),userModel.getEmail(),userModel.getStatus()) > 0) ? true : false;
             return insert;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public boolean changePassword(int userId, String password) {
+        logger.debug("Change Password userId = " + userId);
+        try {
+            String sql = " UPDATE STAFF SET PASSWORD = ? "
+                    + " WHERE USER_ID = ? ";
+            return (this.simpleJdbcTemplate.update(sql, hash(password), userId) > 0) ? true : false;
         } catch (Exception e) {
             e.printStackTrace();
         }

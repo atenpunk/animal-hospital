@@ -12,6 +12,7 @@ package co.th.aten.football.ui;
 
 import co.th.aten.football.dialog.AddNewPlayerDialog;
 import co.th.aten.football.dialog.AddStaffDialog;
+import co.th.aten.football.dialog.ChangePasswordStaffDialog;
 import co.th.aten.football.dialog.ComparePlayersDialog;
 import co.th.aten.football.dialog.DetailPlayerDialog;
 import co.th.aten.football.dialog.EditPlayerDialog;
@@ -57,7 +58,7 @@ public class MainPanel extends ImagePanel {
         btEditCustomers.setEnabled(true);
         btReportPlayersDetail.setEnabled(true);
         btAddStaff.setEnabled(true);
-        btChangePassword.setEnabled(false);
+        btChangePassword.setEnabled(true);
         btReport.setEnabled(false);
         btSellStatement.setEnabled(false);
         btReport2.setEnabled(false);
@@ -286,7 +287,7 @@ public class MainPanel extends ImagePanel {
 
     private void btChangePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btChangePasswordActionPerformed
         //Application.instance().getWindowManager().getActiveWindow().getPage().showView("ReceiveSmartcardView");
-//        new ObuReturnDialog().showDialog();
+        new ChangePasswordStaffDialog().showDialog();
     }//GEN-LAST:event_btChangePasswordActionPerformed
 
     private void btEojActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEojActionPerformed

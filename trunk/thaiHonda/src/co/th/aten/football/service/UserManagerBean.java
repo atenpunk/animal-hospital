@@ -31,4 +31,8 @@ public class UserManagerBean implements UserManager {
     public boolean insertStaff(UserModel userModel){
         return userDao.insertStaff(userModel);
     }
+    
+    public boolean changePassword(int userId, String password){
+        return userDao.changePassword(userId, password);
+    }
 }

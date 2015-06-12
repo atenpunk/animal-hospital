@@ -22,4 +22,6 @@ public interface UserManager {
     
     public boolean insertStaff(UserModel userModel);
     
+    public boolean changePassword(int userId, String password);
+    
 }
