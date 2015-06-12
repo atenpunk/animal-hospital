@@ -58,6 +58,27 @@ public class JdbcUserDao implements UserDao {
         }
         return null;
     }
+    
+    public int getMaxUserId() {
+        String sql = "select max(USER_ID) from STAFF ";
+        return this.simpleJdbcTemplate.queryForInt(sql);
+    }
+    
+    public boolean insertStaff(UserModel userModel) {
+        logger.info("Insert Staff UserLogin = " + userModel.getUserLogin());
+        try {
+            String sql = " INSERT INTO STAFF (USER_ID,USER_NAME,LOGIN_NAME,PASSWORD,GROUP_ID "
+                    + " , LAST_LOGIN, PHONE, MOBILE_HONE, EMAIL, STATUS) "
+                    + " VALUES (?, ?, ?, ?, ?, "
+                    + " ?, ?, ?, ?, ?) ";
+            boolean insert = (this.simpleJdbcTemplate.update(sql, userModel.getUserId(), userModel.getUserName(),userModel.getUserLogin()
+                    ,hash(userModel.getPassword()),userModel.getGroup(),userModel.getLastLogin(),userModel.getPhoneNo(), userModel.getMobileHome(),userModel.getEmail(),userModel.getStatus()) > 0) ? true : false;
+            return insert;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 
     public static void main(String[]args){
         try {

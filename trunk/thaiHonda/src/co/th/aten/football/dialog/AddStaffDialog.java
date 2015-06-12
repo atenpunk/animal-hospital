@@ -4,7 +4,7 @@
  */
 package co.th.aten.football.dialog;
 
-import co.th.aten.football.ui.form.EditPlayerPanel;
+import co.th.aten.football.ui.form.AddStaffPanel;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -18,11 +18,11 @@ import org.springframework.richclient.dialog.ApplicationDialog;
  *
  * @author mai
  */
-public class EditPlayerDialog extends ApplicationDialog {
+public class AddStaffDialog extends ApplicationDialog {
 
-    private EditPlayerPanel panel;
+    private AddStaffPanel panel;
 
-    public EditPlayerDialog() {
+    public AddStaffDialog() {
         this.getDialog().setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
     }
 
@@ -62,17 +62,17 @@ public class EditPlayerDialog extends ApplicationDialog {
 
     @Override
     protected JComponent createDialogContentPane() {
-        setTitle("Edit Player");
+        setTitle("Add New Staff");
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         int height = toolkit.getScreenSize().height;
         int width = toolkit.getScreenSize().width;
         System.out.println("--->>>>" + height + ", " + width);
-        height = height - (int) (height * 0.28);
-        width = width - (int) (width * 0.42);
+        height = height - (int) (height * 0.63);
+        width = width - (int) (width * 0.57);
         System.out.println("--->>>>" + height + ", " + width);
         Dimension dimension = new Dimension(width, height);
         if (panel == null) {
-            panel = new EditPlayerPanel();
+            panel = new AddStaffPanel(this);
         }
         panel.setSize(dimension);
         panel.setMaximumSize(dimension);

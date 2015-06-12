@@ -68,8 +68,9 @@ public class InitView extends AbstractView implements ApplicationListener {
 
     @Override
     protected JComponent createControl() {
-        String build = Application.instance().getDescriptor().getVersion() + " ( " + Application.instance().getDescriptor().getBuildId() + " )";
-        ((DefaultViewDescriptor) getDescriptor()).setTitle(getMessage("header.welcome") + "  v." + build);
+//        String build = Application.instance().getDescriptor().getVersion() + " ( " + Application.instance().getDescriptor().getBuildId() + " )";
+//        ((DefaultViewDescriptor) getDescriptor()).setTitle(getMessage("header.welcome") + "  v." + build);
+        ((DefaultViewDescriptor) getDescriptor()).setTitle("");
         if (panel == null) {
             panel = getComponentFactory().createPanel(new BorderLayout());
         }
