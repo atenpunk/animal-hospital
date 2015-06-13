@@ -512,6 +512,9 @@ public class ViewReportComparePlayersRadarDlg extends Sw2dDemo {
         System.out.println(data);
         System.out.println(data.length());
         int max = 50;
+        if(data!=null && (data.length()>20)){
+            max = 45;
+        }
         if(data!=null && (data.length()>30)){
             max = 40;
         }
