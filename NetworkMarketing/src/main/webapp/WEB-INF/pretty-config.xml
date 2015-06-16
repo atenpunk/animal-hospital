@@ -31,6 +31,11 @@
         <view-id>/sec/user/passwd.jsf</view-id>
     </url-mapping>
     
+    <url-mapping id="add_01">
+		<pattern value="/add/add"></pattern>
+		<view-id>/sec/add/add.jsf</view-id>
+	</url-mapping>
+    
 	<!--url-mapping id="subscriber_list">
 		<pattern value="/subscribers"></pattern>
 		<view-id>/sec/subscriber/list.jsf</view-id>
