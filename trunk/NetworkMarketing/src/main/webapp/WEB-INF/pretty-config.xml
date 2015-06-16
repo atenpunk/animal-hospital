@@ -3,9 +3,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="
         http://ocpsoft.com/prettyfaces/2.0.4
-        
         http://ocpsoft.com/xml/ns/prettyfaces/ocpsoft-pretty-faces-2.0.4.xsd">
-    
     
         <url-mapping id="root">
         <pattern value="/"></pattern>
@@ -33,7 +31,7 @@
         <view-id>/sec/user/passwd.jsf</view-id>
     </url-mapping>
     
-	<url-mapping id="subscriber_list">
+	<!--url-mapping id="subscriber_list">
 		<pattern value="/subscribers"></pattern>
 		<view-id>/sec/subscriber/list.jsf</view-id>
 	</url-mapping>
@@ -46,151 +44,6 @@
 		<pattern value="/subscribers/edit/#{id:subscriberController.strSubscriberId}"></pattern>
 		<view-id>/sec/subscriber/edit.jsf</view-id>
 		<action>#{subscriberController.loadEditSubscriber()}</action>      
-	</url-mapping>
-
-	<url-mapping id="station_list">
-		<pattern value="/stations"></pattern>
-		<view-id>/sec/station/list.jsf</view-id>
-		<action>#{stationController.find()}</action>
-	</url-mapping>
-	<url-mapping id="station_view">
-		<pattern value="/stations/#{id:stationController.strStationId}"></pattern>
-		<view-id>/sec/station/view.jsf</view-id>
-		<action>#{stationController.loadStation()}</action>      		
-	</url-mapping>
+	</url-mapping-->
 	
-	<url-mapping id="Display_Total_Amount">
-		<pattern value="/displayTotalAmounts"></pattern>
-		<view-id>/sec/displayTotalAmount/list.jsf</view-id>
-	</url-mapping>	
-	
-	<url-mapping id="tariffTable_list">
-		<pattern value="/tariffTable"></pattern>
-		<view-id>/sec/tariffTable/list.jsf</view-id>
-		<action>#{tariffController.run()}</action>
-	</url-mapping>
-	<url-mapping id="tariffTable_edit">
-		<pattern value="/tariffTable/edit"></pattern>
-		<query-param name="effectiveDate"> #{tariffController.effectiveDate } </query-param>
-		<query-param name="hour"> #{tariffController.hourStr } </query-param>
-		<view-id>/sec/tariffTable/edit.jsf</view-id>
-		<action>#{tariffController.loadEditTariff()}</action>      
-	</url-mapping>
-	
-	<url-mapping id="sale_store">
-		<pattern value="/salesInformations"></pattern>
-		<view-id>/sec/salesInformation/salesInfoList.jsf</view-id>
-		<action>#{saleControll.run()}</action>   
-	</url-mapping>	
-	
-	<url-mapping id="tariffMode_list">
-		<pattern value="/tariffMode"></pattern>
-		<view-id>/sec/tariffMode/list.jsf</view-id>
-		<action>#{tariffModeController.run()}</action>
-	</url-mapping>
-	<url-mapping id="main_formTopup">
-		<pattern value="/topupList"></pattern>
-		<view-id>/sec/topupInformation/topupList.jsf</view-id>
-	</url-mapping>
-	<url-mapping id="main_formCancelTopup">
-		<pattern value="/cancelTopup"></pattern>
-		<view-id>/sec/topupInformation/cancelTopup.jsf</view-id>
-		<action>#{cancelTopupControll.run()}</action>
-	</url-mapping>
-	<url-mapping id="main_formCB">
-		<pattern value="/checkBalance"></pattern>
-		<view-id>/sec/topupInformation/checkBalance.jsf</view-id>
-	</url-mapping>
-	<url-mapping id="main_formTransferCredit">
-		<pattern value="/transfer"></pattern>
-		<view-id>/sec/topupInformation/transfer.jsf</view-id>
-	</url-mapping>
-	
-	<url-mapping id="rpt_1_6">
-		<pattern value="/subscriberDebitsAndCredits"></pattern>
-		<view-id>/sec/subscriber/subscriberDebitsAndCredits.jsf</view-id>
-	</url-mapping>
-	<url-mapping id="rpt_1_7">
-		<pattern value="/subscriberPoints"></pattern>
-		<view-id>/sec/subscriber/subscriberPoints.jsf</view-id>
-	</url-mapping>
-	
-	<url-mapping id="rpt_1_8_a">
-		<pattern value="/volumnReportPerChargerByDateOutlet"></pattern>
-		<view-id>/sec/chargelog/volumnReportPerChargerByDateOutlet.jsf</view-id>
-	</url-mapping>
-	<url-mapping id="rpt_1_8_b">
-		<pattern value="/volumnReportPerChargerByMonthOutlet"></pattern>
-		<view-id>/sec/chargelog/volumnReportPerChargerByMonthOutlet.jsf</view-id>
-	</url-mapping>
-	<url-mapping id="rpt_1_9_a">
-		<pattern value="/volumnReportPerSubscriberByDate"></pattern>
-		<view-id>/sec/chargelog/volumnReportPerSubscriberByDate.jsf</view-id>
-	</url-mapping>
-	<url-mapping id="rpt_1_9_b">
-		<pattern value="/volumnReportPerSubscriberByMonth"></pattern>
-		<view-id>/sec/chargelog/volumnReportPerSubscriberByMonth.jsf</view-id>
-	</url-mapping>
-	<url-mapping id="rpt_2_0">
-		<pattern value="/maReportEnergyCharged"></pattern>
-		<view-id>/sec/chargelog/maReportEnergyCharged.jsf</view-id>
-	</url-mapping>
-	<url-mapping id="rpt_2_1">
-		<pattern value="/maReportChargedCount"></pattern>
-		<view-id>/sec/chargelog/maReportChargedCount.jsf</view-id>
-	</url-mapping>
-	<url-mapping id="rpt_2_11">
-		<pattern value="/subcriberInfo"></pattern>
-		<view-id>/sec/chargelog/subcriberInfo.jsf</view-id>
-	</url-mapping>
-	<url-mapping id="rpt_2_3_a">
-		<pattern value="/SubcriberTimeBaseChargingReportByDate"></pattern>
-		<view-id>/sec/subscriber/subcriberTimeBaseChargingReportByDate.jsf</view-id>
-	</url-mapping>
-	<url-mapping id="rpt_2_3_b">
-		<pattern value="/SubcriberTimeBaseChargingReportByMonth"></pattern>
-		<view-id>/sec/subscriber/subcriberTimeBaseChargingReportByMonth.jsf</view-id>
-	</url-mapping>
-	<url-mapping id="rpt_2_3_aa">
-		<pattern value="/TopupReportByDate"></pattern>
-		<view-id>/sec/subscriber/topUpReportByDate.jsf</view-id>
-	</url-mapping>
-	<url-mapping id="rpt_2_3_aaa">
-		<pattern value="/TopupReportByMonth"></pattern>
-		<view-id>/sec/subscriber/topUpReportByMonth.jsf</view-id>
-	</url-mapping>
-	<url-mapping id="rpt_2_3_sale1">
-		<pattern value="/SaleReportByDate"></pattern>
-		<view-id>/sec/subscriber/saleReportByDate.jsf</view-id>
-	</url-mapping>
-	<url-mapping id="rpt_2_3_sale2">
-		<pattern value="/SaleReportByMonth2"></pattern>
-		<view-id>/sec/subscriber/saleReportByMonth2.jsf</view-id>
-	</url-mapping>
-
-	<!-- San Transfer Report -->
-	<url-mapping id="rpt_2_3_aaaa">
-		<pattern value="/TransferReportByDate"></pattern>
-		<view-id>/sec/subscriber/transferReportByDate.jsf</view-id>
-	</url-mapping>
-	<url-mapping id="rpt_2_3_ab">
-		<pattern value="/TransferReportByMonth"></pattern>
-		<view-id>/sec/subscriber/transferReportByMonth.jsf</view-id>
-	</url-mapping>
-	<url-mapping id="rpt_2_3_c">
-		<pattern value="/SubcriberTimeBaseChargingReportByYear"></pattern>
-		<view-id>/sec/subscriber/subcriberTimeBaseChargingReportByYear.jsf</view-id>
-	</url-mapping>
-	<url-mapping id="rpt_2_4_a">
-		<pattern value="/EnergyBaseChargingReportByDate"></pattern>
-		<view-id>/sec/subscriber/energyBaseChargingReportByDate.jsf</view-id>
-	</url-mapping>
-	<url-mapping id="rpt_2_4_b">
-		<pattern value="/EnergyTimeBaseChargingReportByMonth"></pattern>
-		<view-id>/sec/subscriber/energyBaseChargingReportByMonth.jsf</view-id>
-	</url-mapping>
-	<url-mapping id="rpt_2_4_c">
-		<pattern value="/EnergyTimeBaseChargingReportByYear"></pattern>
-		<view-id>/sec/subscriber/energyBaseChargingReportByYear.jsf</view-id>
-	</url-mapping>
 </pretty-config>

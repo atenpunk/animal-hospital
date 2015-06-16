@@ -45,7 +45,25 @@
 			<to-view-id>/sec/home.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
-		
-	</navigation-rule>	
+	</navigation-rule>
+	
+	<!--navigation-rule id="subscriber_view">
+	<from-view-id>/sec/subscriber/view.xhtml</from-view-id>
+	<navigation-case>
+			<from-action>#{subscriberController.loadEditSubscriber(subscriberController.subscriber.subscriberId)}</from-action>
+			<if>#{subscriberController.subscriber!=null}</if>
+			<to-view-id>/sec/subscriber/edit.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule id="subscriber_edit">
+	<from-view-id>/sec/subscriber/edit.xhtml</from-view-id>
+	<navigation-case>
+			<from-action>#{subscriberController.saveEdit()}</from-action>
+			<if>#{true}</if>
+			<to-view-id>/sec/subscriber/list.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule-->
 	
 </faces-config>
