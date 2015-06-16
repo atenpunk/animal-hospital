@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="SubscriberPointsReport" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<parameter name="showHeader" class="java.lang.Boolean"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="62" splitType="Stretch">
+			<printWhenExpression><![CDATA[$P{showHeader}]]></printWhenExpression>
+			<line>
+				<reportElement x="0" y="0" width="802" height="1"/>
+			</line>
+			<line>
+				<reportElement x="0" y="1" width="1" height="15"/>
+			</line>
+			<line>
+				<reportElement x="0" y="16" width="802" height="1"/>
+			</line>
+			<line>
+				<reportElement x="801" y="1" width="1" height="15"/>
+			</line>
+			<staticText>
+				<reportElement x="1" y="1" width="56" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Print Date : ]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy HH:mm">
+				<reportElement x="57" y="1" width="100" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new Date()]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="157" y="1" width="1" height="15"/>
+			</line>
+			<staticText>
+				<reportElement x="769" y="1" width="16" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma"/>
+				</textElement>
+				<text><![CDATA[of]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="722" y="1" width="31" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma"/>
+				</textElement>
+				<text><![CDATA[Pages]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="785" y="1" width="16" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma"/>
+				</textElement>
+			</textField>
+			<textField>
+				<reportElement x="753" y="1" width="16" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="721" y="1" width="1" height="15"/>
+			</line>
+			<textField>
+				<reportElement x="622" y="1" width="99" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma"/>
+				</textElement>
+			</textField>
+			<staticText>
+				<reportElement x="565" y="1" width="57" height="15"/>
+				<textElement textAlignment="Right">
+					<font fontName="Tahoma" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Print By : ]]></text>
+			</staticText>
+			<line>
+				<reportElement x="564" y="1" width="1" height="15"/>
+			</line>
+			<staticText>
+				<reportElement x="158" y="1" width="406" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Volume Report Per Charger By Date(Outlet)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="60" y="20" width="83" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Tahoma"/>
+				</textElement>
+				<text><![CDATA[Station : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="143" y="20" width="105" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma"/>
+				</textElement>
+			</textField>
+			<staticText>
+				<reportElement x="248" y="20" width="73" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Tahoma"/>
+				</textElement>
+				<text><![CDATA[Outlet ID : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="321" y="20" width="138" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma"/>
+				</textElement>
+			</textField>
+			<staticText>
+				<reportElement x="60" y="41" width="83" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Tahoma"/>
+				</textElement>
+				<text><![CDATA[Start Date : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="248" y="41" width="73" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Tahoma"/>
+				</textElement>
+				<text><![CDATA[End Date : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="143" y="41" width="105" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma"/>
+				</textElement>
+			</textField>
+			<textField>
+				<reportElement x="321" y="41" width="138" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma"/>
+				</textElement>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="32" splitType="Stretch">
+			<printWhenExpression><![CDATA[$P{showHeader}]]></printWhenExpression>
+			<line>
+				<reportElement x="0" y="0" width="802" height="1"/>
+			</line>
+			<line>
+				<reportElement x="0" y="1" width="1" height="30"/>
+			</line>
+			<staticText>
+				<reportElement x="1" y="1" width="25" height="30"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="27" y="1" width="70" height="30"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Station]]></text>
+			</staticText>
+			<line>
+				<reportElement x="26" y="1" width="1" height="30"/>
+			</line>
+			<staticText>
+				<reportElement x="98" y="1" width="96" height="30"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Outlet Name]]></text>
+			</staticText>
+			<line>
+				<reportElement x="97" y="1" width="1" height="30"/>
+			</line>
+			<staticText>
+				<reportElement x="194" y="1" width="90" height="30"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Outlet ID]]></text>
+			</staticText>
+			<line>
+				<reportElement x="194" y="1" width="1" height="30"/>
+			</line>
+			<staticText>
+				<reportElement x="285" y="1" width="90" height="30"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Charge Count]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="376" y="17" width="70" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Max.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="447" y="17" width="70" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="518" y="17" width="70" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Max.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="376" y="1" width="141" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Charge Amont (Baht)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="660" y="17" width="70" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Max.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="731" y="17" width="70" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="660" y="1" width="141" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Charge Time (Min.)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="589" y="17" width="70" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<line>
+				<reportElement x="801" y="1" width="1" height="30"/>
+			</line>
+			<line>
+				<reportElement x="284" y="1" width="1" height="30"/>
+			</line>
+			<line>
+				<reportElement x="375" y="1" width="1" height="30"/>
+			</line>
+			<line>
+				<reportElement x="376" y="16" width="141" height="1"/>
+			</line>
+			<line>
+				<reportElement x="660" y="16" width="141" height="1"/>
+			</line>
+			<line>
+				<reportElement x="0" y="31" width="802" height="1"/>
+			</line>
+			<line>
+				<reportElement x="517" y="1" width="1" height="30"/>
+			</line>
+			<line>
+				<reportElement x="446" y="17" width="1" height="14"/>
+			</line>
+			<line>
+				<reportElement x="659" y="1" width="1" height="30"/>
+			</line>
+			<line>
+				<reportElement x="730" y="17" width="1" height="14"/>
+			</line>
+			<line>
+				<reportElement x="518" y="16" width="141" height="1"/>
+			</line>
+			<line>
+				<reportElement x="588" y="17" width="1" height="14"/>
+			</line>
+			<staticText>
+				<reportElement x="518" y="1" width="141" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="6" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Energy (KW)]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="17" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="15" width="802" height="1"/>
+			</line>
+			<line>
+				<reportElement x="0" y="0" width="1" height="15"/>
+			</line>
+			<line>
+				<reportElement x="26" y="0" width="1" height="15"/>
+			</line>
+			<line>
+				<reportElement x="194" y="0" width="1" height="15"/>
+			</line>
+			<line>
+				<reportElement x="284" y="0" width="1" height="15"/>
+			</line>
+			<line>
+				<reportElement x="375" y="0" width="1" height="15"/>
+			</line>
+			<line>
+				<reportElement x="446" y="0" width="1" height="15"/>
+			</line>
+			<line>
+				<reportElement x="517" y="0" width="1" height="15"/>
+			</line>
+			<line>
+				<reportElement x="588" y="0" width="1" height="15"/>
+			</line>
+			<line>
+				<reportElement x="659" y="0" width="1" height="15"/>
+			</line>
+			<textField>
+				<reportElement x="1" y="0" width="25" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma"/>
+				</textElement>
+			</textField>
+			<textField>
+				<reportElement x="27" y="0" width="70" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma"/>
+				</textElement>
+			</textField>
+			<textField>
+				<reportElement x="98" y="0" width="96" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma"/>
+				</textElement>
+			</textField>
+			<textField>
+				<reportElement x="195" y="0" width="89" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma"/>
+				</textElement>
+			</textField>
+			<textField>
+				<reportElement x="285" y="0" width="90" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma"/>
+				</textElement>
+			</textField>
+			<textField>
+				<reportElement x="376" y="0" width="70" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma"/>
+				</textElement>
+			</textField>
+			<textField>
+				<reportElement x="447" y="0" width="70" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma"/>
+				</textElement>
+			</textField>
+			<textField>
+				<reportElement x="518" y="0" width="70" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma"/>
+				</textElement>
+			</textField>
+			<textField>
+				<reportElement x="589" y="0" width="70" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma"/>
+				</textElement>
+			</textField>
+			<textField>
+				<reportElement x="660" y="0" width="70" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma"/>
+				</textElement>
+			</textField>
+			<textField>
+				<reportElement x="731" y="0" width="70" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma"/>
+				</textElement>
+			</textField>
+			<line>
+				<reportElement x="801" y="0" width="1" height="15"/>
+			</line>
+			<line>
+				<reportElement x="730" y="0" width="1" height="15"/>
+			</line>
+			<line>
+				<reportElement x="97" y="0" width="1" height="15"/>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,79 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:rich="http://richfaces.org/rich"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:pretty="http://ocpsoft.com/prettyfaces"	
+	template="/WEB-INF/templates/template0.xhtml">
+
+<ui:define name="title">login</ui:define>
+	<ui:define name="content">
+    <h:outputStylesheet>
+        .rf-panel-header {
+        color: #0054BD;
+        }
+
+        .panel1 {
+        	vertical-align: top;
+        	width:30%;
+        }
+        .panel2 {
+ 	       vertical-align: top;
+ 	       width:40%;
+        }
+ 
+        .panel3 {
+ 	       vertical-align: top;
+ 	       width:30%;
+        }
+ 
+        .top {
+        width: 200px;
+        height: 100px;
+        }
+ 
+        .head2 {
+        background-image: url();
+        background-color: #4C9600;
+        height: 18px;
+        text-align: center;
+        vertical-align: middle;
+        color: #CFF;
+        padding: 4px 0;
+        }
+ 
+        .body3 {
+        height: 100px;
+        overflow: auto;
+        }
+    </h:outputStylesheet>	 
+		<h:form id="loginForm">
+		<f:metadata>
+			<f:viewParam name="internal" value="0"/>
+		</f:metadata>
+		<h:panelGrid columnClasses="panel1,panel2,panel3" border="0" columns="3" style="width:100%">
+		<div ></div>		
+        <rich:panel >
+            <f:facet name="header"><h:outputText value="#{messages['login.label.header']}" /> </f:facet>
+                <h:panelGrid columns="2" rowClasses="prop" columnClasses="name,value">
+                    <h:outputLabel for="username"><h:outputText value="#{messages['login.label.userName']}:" /></h:outputLabel>
+                    <h:inputText id="username" value="#{credentials.username}" />
+                    <h:outputLabel for="password"><h:outputText value="#{messages['login.label.password']}:" /></h:outputLabel>
+                    <h:inputSecret id="password" value="#{credentials.password}"/>
+                </h:panelGrid>
+            <h:commandButton id="submit" value="#{messages['login.button.login']}" action="#{identity.login}"/>
+            <br/>
+			<br/>
+			<h:outputText value="#{messages['login.button.forgotPassword']}" />
+		</rich:panel>
+		<div style="width:25%"></div>		
+		</h:panelGrid>
+		</h:form>
+	<script >
+		setFocus(#{rich:element('username')});
+	</script>		
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <title>Network Marketing</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <h:outputStylesheet library="css" name="screen.css"/>
+        <h:outputScript library="js" name="solar.js" /> 
+    </h:head>
+    <h:body>
+        <div id="container0">
+           	<div id="user" >
+        	<h:panelGrid columns="1" cellpadding="2" cellspacing="2"  style="width:100%;text-align:center;">
+				<h:messages globalOnly="true" infoClass="info" warnClass="warn" errorClass="error"/>	
+        	</h:panelGrid>        	
+        	</div>        
+            <div id="content">              
+                <ui:insert name="content">                
+                    [Template content will be inserted here]
+                </ui:insert>
+            </div>
+            <div id="footer">
+           <br/>
+    	<h:outputText value="#{app_msgs['app.name']}" />
+    	&#160;<h:outputText value="#{app_msgs['app.version']}" />
+    	<br/>
+    	Copyright &copy; <h:outputText value="#{app_msgs['app.copyright']}" />
+            </div>
+        </div>
+    </h:body>
+</html>

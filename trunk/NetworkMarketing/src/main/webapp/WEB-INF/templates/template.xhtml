@@ -1,0 +1,328 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:pretty="http://ocpsoft.com/prettyfaces">
+<h:head>
+	<title>Network Marketing</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<h:outputStylesheet library="css" name="screen.css" />
+	<h:outputScript library="js" name="solar.js" />
+</h:head>
+<h:body>
+	<div id="container">
+		<div id="user">
+			<h:panelGrid columns="2" cellpadding="2" cellspacing="2"
+				columnClasses="userColumn,logoColumn" styleClass="header">
+				<h:panelGroup>
+					<h:outputText value="#{app_msgs['user.welcome.label']}" />, &#160; <h:outputText
+						value="#{currentUser.userName}" />
+					<br />&#160;&#160;<pretty:link mappingId="logout">
+						<h:outputText value="#{app_msgs['menu.logout.label']}" />
+					</pretty:link>
+					
+				</h:panelGroup>
+				<h:graphicImage value="/resources/gfx/schneider_bannerRIGHT.png" />
+			</h:panelGrid>
+			
+		</div>
+		<div id="messageBar">
+			<h:messages globalOnly="true" infoClass="info" warnClass="warn"
+				errorClass="error" />
+				
+				
+		</div>
+
+		<div id="content">
+			<div id="sidebar">
+
+				<rich:panel id="a"
+					style="background: #EAECEE;border: 0px solid #666666;"
+					rendered="#{currentUserManager.check1}">
+					<h3>Admin</h3>
+					<ul>
+						<li><rich:dropDownMenu label="Master Parameter">
+								<rich:menuItem>
+									<a href="#{request.contextPath}/stations">Station</a>
+								</rich:menuItem>
+								<rich:menuItem>
+									<a href="#{request.contextPath}/subscribers">Subscriber(1)</a>
+								</rich:menuItem>
+								<rich:menuItem>
+									<a href="#{request.contextPath}/tariffTable">Tariff
+										Table(1.3)</a>
+								</rich:menuItem>
+								<rich:menuItem>
+									<a href="#{request.contextPath}/tariffMode">Tariff
+										Mode(1.4)</a>
+								</rich:menuItem>
+							</rich:dropDownMenu></li>
+
+						<li><rich:dropDownMenu label="Report By Subscribers">
+								<rich:menuItem>
+									<pretty:link mappingId="rpt_1_7">Subscriber Points(1.6)</pretty:link>
+								</rich:menuItem>
+								<rich:menuItem>
+									<pretty:link mappingId="rpt_1_6">Subscriber Debits and Credits(1.7)</pretty:link>
+								</rich:menuItem>
+								<rich:menuItem>
+									<pretty:link mappingId="rpt_2_3_a">Subcriber Time Base Charging Report By Date(2.3)</pretty:link>
+								</rich:menuItem>
+								<rich:menuItem>
+									<pretty:link mappingId="rpt_2_3_b">Subcriber Time Base Charging Report By Month(2.3)</pretty:link>
+								</rich:menuItem>
+								<rich:menuItem>
+									<pretty:link mappingId="rpt_2_3_c">Subcriber Time Base Charging Report By Year(2.3)</pretty:link>
+								</rich:menuItem>
+								<rich:menuItem>
+									<pretty:link mappingId="rpt_2_3_aa">Subcriber Topup Report By Date</pretty:link>
+								</rich:menuItem>
+								<rich:menuItem>
+									<pretty:link mappingId="rpt_2_3_aaa">Subcriber Topup Report By Month</pretty:link>
+								</rich:menuItem>
+								<rich:menuItem>
+									<pretty:link mappingId="rpt_2_3_sale1">Subcriber Sale Report By Date</pretty:link>
+								</rich:menuItem>
+								<rich:menuItem>
+									<pretty:link mappingId="rpt_2_3_sale2">Subcriber Sale Report By Month</pretty:link>
+								</rich:menuItem>
+								<rich:menuItem>
+									<pretty:link mappingId="rpt_2_3_aaaa">Transfer Report By Date</pretty:link>
+								</rich:menuItem>
+								<rich:menuItem>
+									<pretty:link mappingId="rpt_2_3_ab">Transfer Report By Month</pretty:link>
+								</rich:menuItem>
+							</rich:dropDownMenu></li>
+
+						<li><rich:dropDownMenu label="Report By Volumn">
+								<rich:menuItem>
+									<pretty:link mappingId="rpt_1_8_a">Volumn Report Per Charger By Date(Outlet)(1.8)</pretty:link>
+								</rich:menuItem>
+								<rich:menuItem>
+									<pretty:link mappingId="rpt_1_8_b">Volumn Report Per Charger By Month(Outlet)(1.8)</pretty:link>
+								</rich:menuItem>
+								<rich:menuItem>
+									<pretty:link mappingId="rpt_1_9_a">Volumn Report Per Subscriber By Date(1.9)</pretty:link>
+								</rich:menuItem>
+								<rich:menuItem>
+									<pretty:link mappingId="rpt_1_9_b">Volumn Report Per Subscriber By Month(1.9)</pretty:link>
+								</rich:menuItem>
+							</rich:dropDownMenu></li>
+
+						<li><rich:dropDownMenu label="Report By Energy">
+								<rich:menuItem>
+									<pretty:link mappingId="rpt_2_4_a">Energy Base Charging Report By Date(2.4)</pretty:link>
+								</rich:menuItem>
+								<rich:menuItem>
+									<pretty:link mappingId="rpt_2_4_b">Energy Base Charging Report By Month(2.4)</pretty:link>
+								</rich:menuItem>
+								<rich:menuItem>
+									<pretty:link mappingId="rpt_2_4_c">Energye Base Charging Report By Year(2.4)</pretty:link>
+								</rich:menuItem>
+
+							</rich:dropDownMenu></li>
+
+						<li><rich:dropDownMenu label="MA Report">
+								<rich:menuItem>
+									<pretty:link mappingId="rpt_2_0">MA Report (Energy Charged)(2.0)</pretty:link>
+								</rich:menuItem>
+								<rich:menuItem>
+									<pretty:link mappingId="rpt_2_1">MA Report (Charged Count)(2.1)</pretty:link>
+								</rich:menuItem>
+
+							</rich:dropDownMenu></li>
+
+					</ul>
+
+
+					<h3>POS</h3>
+					<ul>
+
+						<li><a href="#{request.contextPath}/checkBalance">Check
+								Balance</a></li>
+						<li><a href="#{request.contextPath}/salesInformations">Register(1.5)
+						</a></li>
+						<li><a href="#{request.contextPath}/topupList">Topup(1.5.3)
+						</a></li>
+						<li><a href="#{request.contextPath}/cancelTopup">Cancel
+								Topup(1.5.4) </a></li>
+						<li><a href="#{request.contextPath}/transfer">Transfer
+								Credit(2.2) </a></li>
+					</ul>
+
+				</rich:panel>
+				
+				<rich:panel id="b"
+					style="background: #EAECEE;border: 0px solid #666666;"
+					rendered="#{currentUserManager.check2}">
+					<h3>Admin</h3>
+					<ul>
+						<li><rich:dropDownMenu label="Master Parameter">
+								<rich:menuItem>
+									<a href="#{request.contextPath}/stations">Station</a>
+								</rich:menuItem>
+								<rich:menuItem>
+									<a href="#{request.contextPath}/subscribers">Subscriber(1)</a>
+								</rich:menuItem>
+								<rich:menuItem>
+									<a href="#{request.contextPath}/tariffTable">Tariff
+										Table(1.3)</a>
+								</rich:menuItem>
+								<rich:menuItem>
+									<a href="#{request.contextPath}/tariffMode">Tariff
+										Mode(1.4)</a>
+								</rich:menuItem>
+							</rich:dropDownMenu></li>
+
+						<li><rich:dropDownMenu label="Report By Subscribers">
+								<rich:menuItem>
+									<pretty:link mappingId="rpt_1_7">Subscriber Points(1.6)</pretty:link>
+								</rich:menuItem>
+								<rich:menuItem>
+									<pretty:link mappingId="rpt_1_6">Subscriber Debits and Credits(1.7)</pretty:link>
+								</rich:menuItem>
+								<rich:menuItem>
+									<pretty:link mappingId="rpt_2_3_a">Subcriber Time Base Charging Report By Date(2.3)</pretty:link>
+								</rich:menuItem>
+								<rich:menuItem>
+									<pretty:link mappingId="rpt_2_3_b">Subcriber Time Base Charging Report By Month(2.3)</pretty:link>
+								</rich:menuItem>
+								<rich:menuItem>
+									<pretty:link mappingId="rpt_2_3_c">Subcriber Time Base Charging Report By Year(2.3)</pretty:link>
+								</rich:menuItem>
+								<rich:menuItem>
+									<pretty:link mappingId="rpt_2_3_aa">Subcriber Topup Report By Date</pretty:link>
+								</rich:menuItem>
+								<rich:menuItem>
+									<pretty:link mappingId="rpt_2_3_aaa">Subcriber Topup Report By Month</pretty:link>
+								</rich:menuItem>
+								<rich:menuItem>
+									<pretty:link mappingId="rpt_2_3_sale1">Subcriber Sale Report By Date</pretty:link>
+								</rich:menuItem>
+								<rich:menuItem>
+									<pretty:link mappingId="rpt_2_3_sale2">Subcriber Sale Report By Month</pretty:link>
+								</rich:menuItem>
+								<rich:menuItem>
+									<pretty:link mappingId="rpt_2_3_aaaa">Transfer Report By Date</pretty:link>
+								</rich:menuItem>
+								<rich:menuItem>
+									<pretty:link mappingId="rpt_2_3_ab">Transfer Report By Month</pretty:link>
+								</rich:menuItem>
+							</rich:dropDownMenu></li>
+
+						<li><rich:dropDownMenu label="Report By Volumn">
+								<rich:menuItem>
+									<pretty:link mappingId="rpt_1_8_a">Volumn Report Per Charger By Date(Outlet)(1.8)</pretty:link>
+								</rich:menuItem>
+								<rich:menuItem>
+									<pretty:link mappingId="rpt_1_8_b">Volumn Report Per Charger By Month(Outlet)(1.8)</pretty:link>
+								</rich:menuItem>
+								<rich:menuItem>
+									<pretty:link mappingId="rpt_1_9_a">Volumn Report Per Subscriber By Date(1.9)</pretty:link>
+								</rich:menuItem>
+								<rich:menuItem>
+									<pretty:link mappingId="rpt_1_9_b">Volumn Report Per Subscriber By Month(1.9)</pretty:link>
+								</rich:menuItem>
+							</rich:dropDownMenu></li>
+
+						<li><rich:dropDownMenu label="Report By Energy">
+								<rich:menuItem>
+									<pretty:link mappingId="rpt_2_4_a">Energy Base Charging Report By Date(2.4)</pretty:link>
+								</rich:menuItem>
+								<rich:menuItem>
+									<pretty:link mappingId="rpt_2_4_b">Energy Base Charging Report By Month(2.4)</pretty:link>
+								</rich:menuItem>
+								<rich:menuItem>
+									<pretty:link mappingId="rpt_2_4_c">Energye Base Charging Report By Year(2.4)</pretty:link>
+								</rich:menuItem>
+
+							</rich:dropDownMenu></li>
+
+						<li><rich:dropDownMenu label="MA Report">
+								<rich:menuItem>
+									<pretty:link mappingId="rpt_2_0">MA Report (Energy Charged)(2.0)</pretty:link>
+								</rich:menuItem>
+								<rich:menuItem>
+									<pretty:link mappingId="rpt_2_1">MA Report (Charged Count)(2.1)</pretty:link>
+								</rich:menuItem>
+
+							</rich:dropDownMenu></li>
+
+					</ul>
+
+
+					<h3>POS</h3>
+					<ul>
+
+						<li><a href="#{request.contextPath}/checkBalance">Check
+								Balance</a></li>
+						<li><a href="#{request.contextPath}/salesInformations">Register(1.5)
+						</a></li>
+						<li><a href="#{request.contextPath}/topupList">Topup(1.5.3)
+						</a></li>
+						<li><a href="#{request.contextPath}/cancelTopup">Cancel
+								Topup(1.5.4) </a></li>
+						<li><a href="#{request.contextPath}/transfer">Transfer
+								Credit(2.2) </a></li>
+					</ul>
+
+
+				</rich:panel>
+				
+				
+				
+
+
+			<rich:panel id="c"
+					style="background: #EAECEE;border: 0px solid #666666;"
+					rendered="#{currentUserManager.check3}">
+					
+
+
+					<h3>SUBSCRIBER</h3>
+					
+					<ul>
+
+						<li><pretty:link mappingId="rpt_2_11">SubcriberInfo</pretty:link></li>
+						
+					</ul>
+
+				</rich:panel>
+
+
+
+			
+			
+
+
+
+			</div>
+
+
+
+
+
+
+
+			<div id="content_pad">
+				<ui:insert name="content">
+                
+                    [Template content will be inserted here]
+                </ui:insert>
+			</div>
+		</div>
+		<div id="footer">
+			<br />
+			<h:outputText value="#{app_msgs['app.name']}" />
+			&#160;
+			<h:outputText value="#{app_msgs['app.version']}" />
+			<br /> Copyright &copy;
+			<h:outputText value="#{app_msgs['app.copyright']}" />
+		</div>
+	</div>
+</h:body>
+</html>
