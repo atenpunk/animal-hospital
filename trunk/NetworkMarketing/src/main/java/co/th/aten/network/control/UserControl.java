@@ -10,7 +10,7 @@ import javax.inject.Inject;
 import org.jboss.seam.security.Identity;
 import org.jboss.solder.logging.Logger;
 
-import co.th.aten.network.entity.User;
+import co.th.aten.network.entity.UserLogin;
 import co.th.aten.network.security.Restrictions;
 import co.th.aten.network.security.annotation.Authenticated;
 
@@ -31,7 +31,7 @@ public class UserControl implements Serializable {
 
 	@Inject
 	@Authenticated
-	private Instance<User> user;
+	private Instance<UserLogin> userLogin;
 
 	@Inject
 	Identity identity;
@@ -42,8 +42,8 @@ public class UserControl implements Serializable {
 	//AuditService auditService;
 
 
-	public List<User> getUsersList(String searchString) {
-		User u = user.get();
+	public List<UserLogin> getUsersList(String searchString) {
+		UserLogin u = userLogin.get();
 		if (u != null && identity != null) {
 			log.info("current user id=" + u.getUserId());
 			if (restrictions.isSys(identity)) {
@@ -64,10 +64,10 @@ public class UserControl implements Serializable {
 //				}
 			}
 		}
-		return new ArrayList<User>();
+		return new ArrayList<UserLogin>();
 	}
 
-	public boolean validate(User user) {
+	public boolean validate(UserLogin user) {
 
 		if (!userStore.checkLoginName(user.getUserId(), user.getLoginName())) {
 			return false;

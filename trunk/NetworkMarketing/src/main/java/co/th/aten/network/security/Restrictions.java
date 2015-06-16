@@ -8,7 +8,7 @@ import org.jboss.seam.security.annotations.Secures;
 import org.jboss.solder.logging.Logger;
 
 import co.th.aten.network.Constants;
-import co.th.aten.network.entity.User;
+import co.th.aten.network.entity.UserLogin;
 import co.th.aten.network.security.annotation.Admin;
 import co.th.aten.network.security.annotation.AdminOrSys;
 import co.th.aten.network.security.annotation.Authenticated;
@@ -25,7 +25,7 @@ public class Restrictions {
 
 	@Inject
 	@Authenticated
-	private Instance<User> user;
+	private Instance<UserLogin> user;
 
 	@Secures
 	@Admin

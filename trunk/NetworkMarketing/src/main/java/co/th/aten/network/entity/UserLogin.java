@@ -6,8 +6,8 @@
 package co.th.aten.network.entity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -24,23 +24,23 @@ import javax.persistence.TemporalType;
 
 /**
  *
- * @author KENG
+ * @author Atenpunk
  */
 @Entity
-@Table(name = "user")
+@Table(name = "user_login")
 @NamedQueries({
-    @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
-    @NamedQuery(name = "User.findByUserId", query = "SELECT u FROM User u WHERE u.userId = :userId"),
-    @NamedQuery(name = "User.findByUserName", query = "SELECT u FROM User u WHERE u.userName = :userName"),
-    @NamedQuery(name = "User.findByLoginName", query = "SELECT u FROM User u WHERE u.loginName = :loginName"),
-    @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password"),
-    @NamedQuery(name = "User.findByLastLogin", query = "SELECT u FROM User u WHERE u.lastLogin = :lastLogin"),
-    @NamedQuery(name = "User.findByPhone", query = "SELECT u FROM User u WHERE u.phone = :phone"),
-    @NamedQuery(name = "User.findByMobileHone", query = "SELECT u FROM User u WHERE u.mobileHone = :mobileHone"),
-    @NamedQuery(name = "User.findByEmail", query = "SELECT u FROM User u WHERE u.email = :email"),
-    @NamedQuery(name = "User.findByStatus", query = "SELECT u FROM User u WHERE u.status = :status"),
-    @NamedQuery(name = "User.findByIsForceChange", query = "SELECT u FROM User u WHERE u.isForceChange = :isForceChange")})
-public class User implements Serializable {
+    @NamedQuery(name = "UserLogin.findAll", query = "SELECT u FROM UserLogin u"),
+    @NamedQuery(name = "UserLogin.findByUserId", query = "SELECT u FROM UserLogin u WHERE u.userId = :userId"),
+    @NamedQuery(name = "UserLogin.findByUserName", query = "SELECT u FROM UserLogin u WHERE u.userName = :userName"),
+    @NamedQuery(name = "UserLogin.findByLoginName", query = "SELECT u FROM UserLogin u WHERE u.loginName = :loginName"),
+    @NamedQuery(name = "UserLogin.findByPassword", query = "SELECT u FROM UserLogin u WHERE u.password = :password"),
+    @NamedQuery(name = "UserLogin.findByLastLogin", query = "SELECT u FROM UserLogin u WHERE u.lastLogin = :lastLogin"),
+    @NamedQuery(name = "UserLogin.findByPhone", query = "SELECT u FROM UserLogin u WHERE u.phone = :phone"),
+    @NamedQuery(name = "UserLogin.findByMobileHone", query = "SELECT u FROM UserLogin u WHERE u.mobileHone = :mobileHone"),
+    @NamedQuery(name = "UserLogin.findByEmail", query = "SELECT u FROM UserLogin u WHERE u.email = :email"),
+    @NamedQuery(name = "UserLogin.findByStatus", query = "SELECT u FROM UserLogin u WHERE u.status = :status"),
+    @NamedQuery(name = "UserLogin.findByIsForceChange", query = "SELECT u FROM UserLogin u WHERE u.isForceChange = :isForceChange")})
+public class UserLogin implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -65,11 +65,16 @@ public class User implements Serializable {
     private Integer status;
     @Column(name = "is_force_change")
     private Integer isForceChange;
+    @JoinColumn(name = "group_id", referencedColumnName = "group_id")
+    @ManyToOne
+    private UserGroup groupId;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
+    private Collection<Customer> customerCollection;
 
-    public User() {
+    public UserLogin() {
     }
 
-    public User(Integer userId) {
+    public UserLogin(Integer userId) {
         this.userId = userId;
     }
 
@@ -153,6 +158,22 @@ public class User implements Serializable {
         this.isForceChange = isForceChange;
     }
 
+    public UserGroup getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(UserGroup groupId) {
+        this.groupId = groupId;
+    }
+
+    public Collection<Customer> getCustomerCollection() {
+        return customerCollection;
+    }
+
+    public void setCustomerCollection(Collection<Customer> customerCollection) {
+        this.customerCollection = customerCollection;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -163,10 +184,10 @@ public class User implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof User)) {
+        if (!(object instanceof UserLogin)) {
             return false;
         }
-        User other = (User) object;
+        UserLogin other = (UserLogin) object;
         if ((this.userId == null && other.userId != null) || (this.userId != null && !this.userId.equals(other.userId))) {
             return false;
         }
@@ -175,7 +196,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "co.th.aten.network.entity.User[userId=" + userId + "]";
+        return "co.th.aten.network.entity.UserLogin[userId=" + userId + "]";
     }
 
 }

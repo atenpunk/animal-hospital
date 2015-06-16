@@ -28,7 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.jboss.solder.logging.Logger;
 
-import co.th.aten.network.entity.User;
+import co.th.aten.network.entity.UserLogin;
 import co.th.aten.network.producer.DBDefault;
 import co.th.aten.network.security.annotation.Authenticated;
 
@@ -57,19 +57,19 @@ public class CurrentUserManager implements Serializable{
 	private boolean check2;
 	private boolean check3;
 	
-	private User currentUser;
+	private UserLogin currentUser;
 
     @Produces
     @Authenticated
     @Named("currentUser")
-    public User getCurrentAccount() {
+    public UserLogin getCurrentAccount() {
         return currentUser;
     }
 
     // Injecting HttpServletRequest instead of HttpSession as the latter conflicts with a Weld bean on GlassFish 3.0.1
-    public void onLogin(@Observes @Authenticated User user, HttpServletRequest request) {
+    public void onLogin(@Observes @Authenticated UserLogin user, HttpServletRequest request) {
         currentUser = user;
-        log.infov("set current user,userId={0},loginName={1},userName={2}",currentUser.getUserId(),currentUser.getLoginName(),currentUser.getUserName());
+        log.infov("set current UserLogin,userId={0},loginName={1},userName={2}",currentUser.getUserId(),currentUser.getLoginName(),currentUser.getUserName());
         
         checkPermission(currentUser.getUserId());
         // reward authenticated users with a longer session

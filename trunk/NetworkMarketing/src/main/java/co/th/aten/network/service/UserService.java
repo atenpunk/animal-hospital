@@ -12,9 +12,7 @@ import org.jboss.solder.logging.Logger;
 
 import co.th.aten.network.control.UserControl;
 import co.th.aten.network.control.UserStore;
-import co.th.aten.network.entity.Role;
-import co.th.aten.network.entity.User;
-import co.th.aten.network.entity.UserRole;
+import co.th.aten.network.entity.UserLogin;
 import co.th.aten.network.security.annotation.AdminOrSys;
 import co.th.aten.network.util.HashUtil;
 
@@ -41,24 +39,12 @@ public class UserService implements Serializable {
 
 	//private Users user;
 
-	public User getUser(int userId) {
+	public UserLogin getUser(int userId) {
 		return store.getUser(userId);
 	}
 
-	public Role getRole(int roleId) {
-		return store.getRole(roleId);
-	}
-
-	public Role getRole(String name) {
-		return store.getRole(name);
-	}
-
-	public List<Role> getRoleList() {
-		return store.getRoleList();
-	}
-
-	public User authenticate(String loginName, String password) {
-		log.info("authenticate user");
+	public UserLogin authenticate(String loginName, String password) {
+		log.info("authenticate UserLogin");
 		HashUtil hashUtil = new HashUtil();
 		log.infov("**={0}",hashUtil.hash(password));
 		return store.authicate(loginName, hashUtil.hash(password));
@@ -68,38 +54,9 @@ public class UserService implements Serializable {
 		store.updateLoginTime(userId);
 	}
 
-	public List<UserRole> getUserRole(int userId) {
-		//log.infov("getUserRole,userId={0}",userId);
-		return store.getUserRole(userId);
-	}
-
 	@AdminOrSys
-	public List<User> getUsersList(String searchString) {
+	public List<UserLogin> getUsersList(String searchString) {
 		return control.getUsersList(searchString);
-	}
-
-	public void register(User user, List<UserRole> roles) {
-		store.create(user, roles);
-	}
-	
-//	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-	@AdminOrSys
-	public void create(User user, List<UserRole> roles) {
-		HashUtil hashUtil = new HashUtil();
-		user.setPassword(hashUtil.hash(user.getLoginName()));
-		store.create(user, roles);
-	}
-
-//	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-	@AdminOrSys
-	public void update(User user, List<UserRole> roles) throws Exception {
-		store.update(user, roles);
-	}
-
-//	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-	@AdminOrSys
-	public void delete(int userId) {
-		store.remove(userId);
 	}
 
 //	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
@@ -114,15 +71,9 @@ public class UserService implements Serializable {
 		store.enable(userId);
 	}
 
-	@AdminOrSys
-	public void resetPassword(int userId){
-		store.resetPassword(userId);
-	}
-	
 	public boolean checkLoginName(int userId,String loginName){
 		return store.checkLoginName(userId,loginName);
 	}
-	
 	
 	public boolean checkOldPassword(int userId, String oldPassword) {
 		HashUtil hashUtil = new HashUtil();
@@ -135,7 +86,7 @@ public class UserService implements Serializable {
 	}
 
 	
-	public boolean validate(User user){
+	public boolean validate(UserLogin user){
 		return control.validate(user);
 	}
 	
