@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich"
+	xmlns:pretty="http://ocpsoft.com/prettyfaces" xmlns:s="http://jboss.org/seam/faces"
+	xmlns:sc="http://java.sun.com/jsf/composite/components/seamfaces">
+
+<body>
+	<ui:composition template="/WEB-INF/templates/template.xhtml">
+		<ui:define name="title">Change Password</ui:define>
+		<ui:define name="body">
+			<h:form id="f">
+				<br />
+				<h3>
+					<h:outputText value="#{app_msgs['epi.user.label.forceChange']}" />
+				</h3>
+				<rich:panel rendered="#{not identity.loggedIn}">
+					not logged in.
+				</rich:panel>
+				<rich:panel rendered="#{identity.loggedIn and forceChangeAction.user.isforcechanged == 0}">
+					not force change.
+				</rich:panel>				
+				<rich:panel rendered="#{identity.loggedIn and forceChangeAction.user.isforcechanged == 1}">
+
+					<div id="semantic" class="semantic">
+						<fieldset>
+						<div>
+						<h:outputLabel value="#{app_msgs['epi.user.label.loginName']}:" />
+						<span class="readOnlyInput"><h:outputText value="#{forceChangeAction.user.loginname}" /></span>
+						</div>
+						<div>
+						<h:outputLabel  value="#{app_msgs['epi.user.label.firstName']}: " />
+						<span class="readOnlyInput"><h:outputText value="#{forceChangeAction.user.firstname}"/></span>
+						</div>
+						<div>
+						<h:outputLabel value="#{app_msgs['epi.user.label.lastName']}: " />
+						<span class="readOnlyInput"><h:outputText value="#{forceChangeAction.user.lastname}"/></span>
+						</div>
+							<sc:inputContainer label="#{app_msgs['epi.passwd.label.newPasswd']}">
+								<h:inputSecret id="np" value="#{forceChangeAction.newPassword}" required="true"
+									requiredMessage="#{app_msgs['epi.msg.requiredValue']}" />
+								<rich:tooltip  mode="client" showDelay="100" styleClass="tooltip" layout="block" target="np" >
+									<h:outputText value="#{app_msgs['epi.passwd.hint.password']}" />	
+								</rich:tooltip>									
+							</sc:inputContainer>
+							<sc:inputContainer label="#{app_msgs['epi.passwd.label.confirmPasswd']}">
+								<h:inputSecret id="cp" value="#{forceChangeAction.confirmPassword}" required="true"
+									requiredMessage="#{app_msgs['epi.msg.requiredValue']}" />
+							</sc:inputContainer>
+						</fieldset>
+					</div>
+					<br class="clear" />
+					<h:commandButton value="#{app_msgs['epi.button.save']}"
+						action="#{forceChangeAction.changePassword()}" />
+				</rich:panel>
+				<s:validateForm validatorId="forceChangeValidator" />
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</body>
+</html>
