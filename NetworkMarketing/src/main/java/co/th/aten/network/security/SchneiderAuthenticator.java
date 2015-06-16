@@ -32,8 +32,7 @@ import org.jboss.solder.logging.Logger;
 import org.picketlink.idm.impl.api.PasswordCredential;
 import org.picketlink.idm.impl.api.model.SimpleUser;
 
-import co.th.aten.network.entity.User;
-import co.th.aten.network.entity.UserRole;
+import co.th.aten.network.entity.UserLogin;
 import co.th.aten.network.i18n.DefaultBundleKey;
 import co.th.aten.network.security.annotation.Authenticated;
 import co.th.aten.network.service.UserService;
@@ -60,7 +59,7 @@ public class SchneiderAuthenticator extends BaseAuthenticator implements Authent
 
 	@Inject
 	@Authenticated
-	private Event<User> loginEventSrc;
+	private Event<UserLogin> loginEventSrc;
 
 	@Inject
 	private Identity identity;
@@ -75,7 +74,7 @@ public class SchneiderAuthenticator extends BaseAuthenticator implements Authent
 			setStatus(AuthenticationStatus.FAILURE);
 		}
 		PasswordCredential passwordCredential = (PasswordCredential) credentials.getCredential();
-		User user = userService.authenticate(credentials.getUsername(), passwordCredential.getValue());
+		UserLogin user = userService.authenticate(credentials.getUsername(), passwordCredential.getValue());
 
 		if (user != null) {
 			loginEventSrc.fire(user);
@@ -84,23 +83,23 @@ public class SchneiderAuthenticator extends BaseAuthenticator implements Authent
 			setStatus(AuthenticationStatus.SUCCESS);
 			setUser(new SimpleUser(user.getLoginName()));
 
-			try {
-				List<UserRole> urList = userService.getUserRole(user.getUserId());
-				identity.addGroup("1", "STAFF");
-				for (UserRole ur : urList) {
-					if (ur.getRole().getRoleKey() != null && ur.getRole().getRoleKey().equals("ROLE_USER")) {
-						identity.addRole("user", "1", "STAFF");
-					}
-					if (ur.getRole().getRoleKey() != null && ur.getRole().getRoleKey().equals("ROLE_ADMIN")) {
-						identity.addRole("admin", "1", "STAFF");
-					}
-				}
-				if (urList.size() == 0) {
+//			try {
+//				List<UserRole> urList = userService.getUserRole(user.getUserId());
+//				identity.addGroup("1", "STAFF");
+//				for (UserRole ur : urList) {
+//					if (ur.getRole().getRoleKey() != null && ur.getRole().getRoleKey().equals("ROLE_USER")) {
+//						identity.addRole("user", "1", "STAFF");
+//					}
+//					if (ur.getRole().getRoleKey() != null && ur.getRole().getRoleKey().equals("ROLE_ADMIN")) {
+//						identity.addRole("admin", "1", "STAFF");
+//					}
+//				}
+//				if (urList.size() == 0) {
 					identity.addRole("user", "1", "STAFF");
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+//				}
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
 			return;
 		} else {			
 			// login fail invalid password
