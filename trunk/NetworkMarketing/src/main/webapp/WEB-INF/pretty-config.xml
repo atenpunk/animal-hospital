@@ -35,6 +35,11 @@
 		<pattern value="/add/add"></pattern>
 		<view-id>/sec/add/add.jsf</view-id>
 	</url-mapping>
+	
+	<url-mapping id="tree_01">
+		<pattern value="/customer/tree"></pattern>
+		<view-id>/sec/customer/tree.jsf</view-id>
+	</url-mapping>
     
 	<!--url-mapping id="subscriber_list">
 		<pattern value="/subscribers"></pattern>

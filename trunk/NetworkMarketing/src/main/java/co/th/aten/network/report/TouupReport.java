@@ -8,7 +8,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 
 import co.th.aten.network.model.SalePDFModel;
-import co.th.aten.network.model.TopupModel;
+import co.th.aten.network.model.CustomerModel;
 import co.th.aten.network.model.TopupReportModel;
 
 import net.sf.jasperreports.engine.JREmptyDataSource;
