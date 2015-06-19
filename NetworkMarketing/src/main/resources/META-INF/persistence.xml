@@ -3,7 +3,7 @@
   <persistence-unit name="default" transaction-type="JTA">
     <description>NetworkMarketing Persistence Unit</description>
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
-    <jta-data-source>java:jboss/ds/MySqlDS</jta-data-source>
+    <jta-data-source>java:jboss/ds/MySqlNetwork</jta-data-source>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
     <properties>

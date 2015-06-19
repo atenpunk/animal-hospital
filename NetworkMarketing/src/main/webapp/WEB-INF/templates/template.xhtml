@@ -35,6 +35,26 @@
 				errorClass="error" />
 		</div>
 
+		<rich:toolbar height="26px">
+			<rich:dropDownMenu mode="ajax">
+				<f:facet name="label">
+					<h:panelGrid>
+						<h:outputText value="System" />
+					</h:panelGrid>
+				</f:facet>
+				<rich:menuItem submitMode="client"
+					onclick="document.location.href='#{request.contextPath}/'">
+					<h:outputText value="Home Page" />
+				</rich:menuItem>
+				<rich:menuItem submitMode="client"
+					onclick="document.location.href='#{request.contextPath}/customer/tree'">
+					<h:outputText value="Tree Page" />
+				</rich:menuItem>
+			</rich:dropDownMenu>
+		</rich:toolbar>
+		<br />
+
+
 		<div id="content">
 			<ui:insert name="content">
                     [Template content will be inserted here]

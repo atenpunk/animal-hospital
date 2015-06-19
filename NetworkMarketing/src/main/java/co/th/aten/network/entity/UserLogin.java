@@ -6,10 +6,8 @@
 package co.th.aten.network.entity;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -17,7 +15,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -65,11 +62,12 @@ public class UserLogin implements Serializable {
     private Integer status;
     @Column(name = "is_force_change")
     private Integer isForceChange;
+    @JoinColumn(name = "customer_id", referencedColumnName = "id")
+    @ManyToOne
+    private Customer customerId;
     @JoinColumn(name = "group_id", referencedColumnName = "group_id")
     @ManyToOne
     private UserGroup groupId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
-    private Collection<Customer> customerCollection;
 
     public UserLogin() {
     }
@@ -158,20 +156,20 @@ public class UserLogin implements Serializable {
         this.isForceChange = isForceChange;
     }
 
+    public Customer getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(Customer customerId) {
+        this.customerId = customerId;
+    }
+
     public UserGroup getGroupId() {
         return groupId;
     }
 
     public void setGroupId(UserGroup groupId) {
         this.groupId = groupId;
-    }
-
-    public Collection<Customer> getCustomerCollection() {
-        return customerCollection;
-    }
-
-    public void setCustomerCollection(Collection<Customer> customerCollection) {
-        this.customerCollection = customerCollection;
     }
 
     @Override

@@ -7,16 +7,23 @@
         http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
 
 	<!-- This descriptor activates the JSF 2.0 Servlet -->
+
 	<application>
+		<locale-config>
+			<default-locale>th</default-locale>
+			<supported-locale>en</supported-locale>
+			<supported-locale>th</supported-locale>
+		</locale-config>
 		<resource-bundle>
-			<base-name>messages</base-name>
+			<base-name>messages_th</base-name>
 			<var>messages</var>
 		</resource-bundle>
 		<resource-bundle>
-			<base-name>app_messages</base-name>
+			<base-name>app_messages_th</base-name>
 			<var>app_msgs</var>
 		</resource-bundle>
 	</application>
+
 	<!-- Write your navigation rules here. You are encouraged to use CDI for 
 		creating @Named managed beans. -->
 	<navigation-rule>
@@ -37,7 +44,7 @@
 		<from-view-id>/login.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>failed</from-outcome>
-			<to-view-id>/login.xhtml</to-view-id>			
+			<to-view-id>/login.xhtml</to-view-id>
 		</navigation-case>
 		<navigation-case>
 			<from-action>#{identity.login}</from-action>
@@ -46,24 +53,5 @@
 			<redirect />
 		</navigation-case>
 	</navigation-rule>
-	
-	<!--navigation-rule id="subscriber_view">
-	<from-view-id>/sec/subscriber/view.xhtml</from-view-id>
-	<navigation-case>
-			<from-action>#{subscriberController.loadEditSubscriber(subscriberController.subscriber.subscriberId)}</from-action>
-			<if>#{subscriberController.subscriber!=null}</if>
-			<to-view-id>/sec/subscriber/edit.xhtml</to-view-id>
-			<redirect />
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule id="subscriber_edit">
-	<from-view-id>/sec/subscriber/edit.xhtml</from-view-id>
-	<navigation-case>
-			<from-action>#{subscriberController.saveEdit()}</from-action>
-			<if>#{true}</if>
-			<to-view-id>/sec/subscriber/list.xhtml</to-view-id>
-			<redirect />
-		</navigation-case>
-	</navigation-rule-->
-	
+
 </faces-config>
