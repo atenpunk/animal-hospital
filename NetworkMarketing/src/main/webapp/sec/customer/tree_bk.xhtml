@@ -8,48 +8,69 @@
 	template="/WEB-INF/templates/template.xhtml">
 	<ui:define name="content">
 		<h:form>
-			<rich:panel header="Tree">
+			<rich:panel header="Network Marketing">
 				<rich:panel>
-					
+					<rich:dataTable id="testDataTable"
+						onrowmouseover="this.style.backgroundColor='#F1F1F1'"
+						onrowmouseout="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+						value="#{customerController.customerModelList}" var="item"
+						rows="5">
+						<f:facet name="header">
+							<rich:columnGroup>
+								<rich:column breakRowBefore="true">
+									<h:outputText value="0001" />
+								</rich:column>
+								<rich:column>
+									<h:outputText value="0002" />
+								</rich:column>
+								<rich:column>
+									<h:outputText value="0003" />
+								</rich:column>
+								<rich:column>
+									<h:outputText value="0004" />
+								</rich:column>
+								<rich:column>
+									<h:outputText value="0005" />
+								</rich:column>
+							</rich:columnGroup>
+						</f:facet>
+						<rich:column>
+							<h:outputText value="#{item.customerId}">
+							</h:outputText>
+						</rich:column>
+						<rich:column>
+							<h:outputText value="#{item.firstName}" />
+						</rich:column>
+						<rich:column>
+							<h:outputText value="#{item.regisDate}">
+								<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+							</h:outputText>
+						</rich:column>
+						<rich:column>
+							<h:outputText value="#{item.lowerLeftId}" />
+						</rich:column>
+						<rich:column>
+							<h:outputText value="#{item.lowerRightId}" />
+						</rich:column>
+						<f:facet name="footer">
+							<rich:dataScroller for="testDataTable" />
+						</f:facet>
+					</rich:dataTable>
 				</rich:panel>
 				<br />
-				<rich:panel rendered="#{customerController.customerModel_01 ne null}">
+				<rich:panel>
+					<h:outputText id="htmlStuff" value="#{customerController.html}"
+						escape="false" />
+				</rich:panel>
+				<br />
+				<rich:panel>
 					<table>
 						<tr>
-							<td>
-								<div class="tree">
+							<td><div class="tree">
 									<ul>
-										<li><div
-												style="display: #{customerController.customerModel_01.flagImg02}">
+										<li><div>
 												<a class="tooltip" href="#{request.contextPath}/add/add">
 													<h:graphicImage
-														value="#{customerController.customerModel_01.positionImage}"
-														width="45px" height="45px" /> <br /> <h:outputText
-														value="#{customerController.customerModel_01.customerId}" />
-													<br /> <h:outputText
-														value="#{customerController.customerModel_01.firstName}" />
-													<span> <h:graphicImage class="callout"
-															value="/resources/gfx/callout.gif" /> <h:outputText
-															value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
-															rendered="#{customerController.customerModel_01.detailModelList eq null}" />
-														<rich:dataTable style="background:#fffAF0;"
-															value="#{customerController.customerModel_01.detailModelList}"
-															var="item" rows="5">
-															<rich:column>
-																<h:outputText value="#{item.text}" />
-															</rich:column>
-															<rich:column>
-																<h:outputText value="#{item.value}">
-																</h:outputText>
-															</rich:column>
-														</rich:dataTable>
-												</span>
-												</a>
-											</div>
-											<div
-												style="display: #{customerController.customerModel_01.flagImg03}">
-												<a class="tooltip"
-													href="#{request.contextPath}/customer/tree/#{customerController.customerModel_01.cusId}"> <h:graphicImage
 														value="#{customerController.customerModel_01.positionImage}"
 														width="55px" height="55px" /> <br /> <h:outputText
 														value="#{customerController.customerModel_01.customerId}" />
@@ -79,41 +100,11 @@
 														style="display: #{customerController.customerModel_02.flagImg02}">
 														<h:graphicImage
 															value="#{customerController.customerModel_02.positionImage}"
-															width="40px" height="40px" />
+															width="55px" height="55px" />
 													</div>
 													<div
 														style="display: #{customerController.customerModel_02.flagImg01}">
 														<a class="tooltip" href="#{request.contextPath}/add/add">
-															<h:graphicImage
-																value="#{customerController.customerModel_02.positionImage}"
-																width="45px" height="45px" /> <br /> <h:outputText
-																rendered="#{customerController.customerModel_02.customerId ne null}"
-																value="#{customerController.customerModel_02.customerId}" />
-															<br /> <h:outputText
-																rendered="#{customerController.customerModel_02.firstName ne null}"
-																value="#{customerController.customerModel_02.firstName}" />
-															<span> <h:graphicImage class="callout"
-																	value="/resources/gfx/callout.gif" /> <h:outputText
-																	value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
-																	rendered="#{customerController.customerModel_02.detailModelList eq null}" />
-																<rich:dataTable style="background:#fffAF0;"
-																	rendered="#{customerController.customerModel_02.detailModelList ne null}"
-																	value="#{customerController.customerModel_02.detailModelList}"
-																	var="item" rows="5">
-																	<rich:column>
-																		<h:outputText value="#{item.text}" />
-																	</rich:column>
-																	<rich:column>
-																		<h:outputText value="#{item.value}">
-																		</h:outputText>
-																	</rich:column>
-																</rich:dataTable>
-														</span>
-														</a>
-													</div>
-													<div
-														style="display: #{customerController.customerModel_02.flagImg03}">
-														<a class="tooltip" href="#{request.contextPath}/customer/tree/#{customerController.customerModel_02.cusId}">
 															<h:graphicImage
 																value="#{customerController.customerModel_02.positionImage}"
 																width="55px" height="55px" /> <br /> <h:outputText
@@ -147,41 +138,11 @@
 																style="display: #{customerController.customerModel_04.flagImg02}">
 																<h:graphicImage
 																	value="#{customerController.customerModel_04.positionImage}"
-																	width="40px" height="40px" />
+																	width="55px" height="55px" />
 															</div>
 															<div
 																style="display: #{customerController.customerModel_04.flagImg01}">
 																<a class="tooltip" href="#{request.contextPath}/add/add">
-																	<h:graphicImage
-																		value="#{customerController.customerModel_04.positionImage}"
-																		width="45px" height="45px" /> <br /> <h:outputText
-																		rendered="#{customerController.customerModel_04.customerId ne null}"
-																		value="#{customerController.customerModel_04.customerId}" />
-																	<br /> <h:outputText
-																		rendered="#{customerController.customerModel_04.firstName ne null}"
-																		value="#{customerController.customerModel_04.firstName}" />
-																	<span> <h:graphicImage class="callout"
-																			value="/resources/gfx/callout.gif" /> <h:outputText
-																			value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
-																			rendered="#{customerController.customerModel_04.detailModelList eq null}" />
-																		<rich:dataTable style="background:#fffAF0;"
-																			rendered="#{customerController.customerModel_04.detailModelList ne null}"
-																			value="#{customerController.customerModel_04.detailModelList}"
-																			var="item" rows="5">
-																			<rich:column>
-																				<h:outputText value="#{item.text}" />
-																			</rich:column>
-																			<rich:column>
-																				<h:outputText value="#{item.value}">
-																				</h:outputText>
-																			</rich:column>
-																		</rich:dataTable>
-																</span>
-																</a>
-															</div>
-															<div
-																style="display: #{customerController.customerModel_04.flagImg03}">
-																<a class="tooltip" href="#{request.contextPath}/customer/tree/#{customerController.customerModel_04.cusId}">
 																	<h:graphicImage
 																		value="#{customerController.customerModel_04.positionImage}"
 																		width="55px" height="55px" /> <br /> <h:outputText
@@ -214,42 +175,12 @@
 																		style="display: #{customerController.customerModel_08.flagImg02}">
 																		<h:graphicImage
 																			value="#{customerController.customerModel_08.positionImage}"
-																			width="40px" height="40px" />
+																			width="55px" height="55px" />
 																	</div>
 																	<div
 																		style="display: #{customerController.customerModel_08.flagImg01}">
 																		<a class="tooltip"
 																			href="#{request.contextPath}/add/add"> <h:graphicImage
-																				value="#{customerController.customerModel_08.positionImage}"
-																				width="45px" height="45px" /> <br /> <h:outputText
-																				rendered="#{customerController.customerModel_08.customerId ne null}"
-																				value="#{customerController.customerModel_08.customerId}" />
-																			<br /> <h:outputText
-																				rendered="#{customerController.customerModel_08.firstName ne null}"
-																				value="#{customerController.customerModel_08.firstName}" />
-																			<span> <h:graphicImage class="callout"
-																					value="/resources/gfx/callout.gif" /> <h:outputText
-																					value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
-																					rendered="#{customerController.customerModel_08.detailModelList eq null}" />
-																				<rich:dataTable style="background:#fffAF0;"
-																					rendered="#{customerController.customerModel_08.detailModelList ne null}"
-																					value="#{customerController.customerModel_08.detailModelList}"
-																					var="item" rows="5">
-																					<rich:column>
-																						<h:outputText value="#{item.text}" />
-																					</rich:column>
-																					<rich:column>
-																						<h:outputText value="#{item.value}">
-																						</h:outputText>
-																					</rich:column>
-																				</rich:dataTable>
-																		</span>
-																		</a>
-																	</div>
-																	<div
-																		style="display: #{customerController.customerModel_08.flagImg03}">
-																		<a class="tooltip"
-																			href="#{request.contextPath}/customer/tree/#{customerController.customerModel_08.cusId}"> <h:graphicImage
 																				value="#{customerController.customerModel_08.positionImage}"
 																				width="55px" height="55px" /> <br /> <h:outputText
 																				rendered="#{customerController.customerModel_08.customerId ne null}"
@@ -280,42 +211,12 @@
 																		style="display: #{customerController.customerModel_09.flagImg02}">
 																		<h:graphicImage
 																			value="#{customerController.customerModel_09.positionImage}"
-																			width="40px" height="40px" />
+																			width="55px" height="55px" />
 																	</div>
 																	<div
 																		style="display: #{customerController.customerModel_09.flagImg01}">
 																		<a class="tooltip"
 																			href="#{request.contextPath}/add/add"> <h:graphicImage
-																				value="#{customerController.customerModel_09.positionImage}"
-																				width="45px" height="45px" /> <br /> <h:outputText
-																				rendered="#{customerController.customerModel_09.customerId ne null}"
-																				value="#{customerController.customerModel_09.customerId}" />
-																			<br /> <h:outputText
-																				rendered="#{customerController.customerModel_09.firstName ne null}"
-																				value="#{customerController.customerModel_09.firstName}" />
-																			<span> <h:graphicImage class="callout"
-																					value="/resources/gfx/callout.gif" /> <h:outputText
-																					value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
-																					rendered="#{customerController.customerModel_09.detailModelList eq null}" />
-																				<rich:dataTable style="background:#fffAF0;"
-																					rendered="#{customerController.customerModel_09.detailModelList ne null}"
-																					value="#{customerController.customerModel_09.detailModelList}"
-																					var="item" rows="5">
-																					<rich:column>
-																						<h:outputText value="#{item.text}" />
-																					</rich:column>
-																					<rich:column>
-																						<h:outputText value="#{item.value}">
-																						</h:outputText>
-																					</rich:column>
-																				</rich:dataTable>
-																		</span>
-																		</a>
-																	</div>
-																	<div
-																		style="display: #{customerController.customerModel_09.flagImg03}">
-																		<a class="tooltip"
-																			href="#{request.contextPath}/customer/tree/#{customerController.customerModel_09.cusId}"> <h:graphicImage
 																				value="#{customerController.customerModel_09.positionImage}"
 																				width="55px" height="55px" /> <br /> <h:outputText
 																				rendered="#{customerController.customerModel_09.customerId ne null}"
@@ -348,41 +249,11 @@
 																style="display: #{customerController.customerModel_05.flagImg02}">
 																<h:graphicImage
 																	value="#{customerController.customerModel_05.positionImage}"
-																	width="40px" height="40px" />
+																	width="55px" height="55px" />
 															</div>
 															<div
 																style="display: #{customerController.customerModel_05.flagImg01}">
 																<a class="tooltip" href="#{request.contextPath}/add/add">
-																	<h:graphicImage
-																		value="#{customerController.customerModel_05.positionImage}"
-																		width="45px" height="45px" /> <br /> <h:outputText
-																		rendered="#{customerController.customerModel_05.customerId ne null}"
-																		value="#{customerController.customerModel_05.customerId}" />
-																	<br /> <h:outputText
-																		rendered="#{customerController.customerModel_05.firstName ne null}"
-																		value="#{customerController.customerModel_05.firstName}" />
-																	<span> <h:graphicImage class="callout"
-																			value="/resources/gfx/callout.gif" /> <h:outputText
-																			value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
-																			rendered="#{customerController.customerModel_05.detailModelList eq null}" />
-																		<rich:dataTable style="background:#fffAF0;"
-																			rendered="#{customerController.customerModel_05.detailModelList ne null}"
-																			value="#{customerController.customerModel_05.detailModelList}"
-																			var="item" rows="5">
-																			<rich:column>
-																				<h:outputText value="#{item.text}" />
-																			</rich:column>
-																			<rich:column>
-																				<h:outputText value="#{item.value}">
-																				</h:outputText>
-																			</rich:column>
-																		</rich:dataTable>
-																</span>
-																</a>
-															</div>
-															<div
-																style="display: #{customerController.customerModel_05.flagImg03}">
-																<a class="tooltip" href="#{request.contextPath}/customer/tree/#{customerController.customerModel_05.cusId}">
 																	<h:graphicImage
 																		value="#{customerController.customerModel_05.positionImage}"
 																		width="55px" height="55px" /> <br /> <h:outputText
@@ -415,42 +286,12 @@
 																		style="display: #{customerController.customerModel_10.flagImg02}">
 																		<h:graphicImage
 																			value="#{customerController.customerModel_10.positionImage}"
-																			width="40px" height="40px" />
+																			width="55px" height="55px" />
 																	</div>
 																	<div
 																		style="display: #{customerController.customerModel_10.flagImg01}">
 																		<a class="tooltip"
 																			href="#{request.contextPath}/add/add"> <h:graphicImage
-																				value="#{customerController.customerModel_10.positionImage}"
-																				width="45px" height="45px" /> <br /> <h:outputText
-																				rendered="#{customerController.customerModel_10.customerId ne null}"
-																				value="#{customerController.customerModel_10.customerId}" />
-																			<br /> <h:outputText
-																				rendered="#{customerController.customerModel_10.firstName ne null}"
-																				value="#{customerController.customerModel_10.firstName}" />
-																			<span> <h:graphicImage class="callout"
-																					value="/resources/gfx/callout.gif" /> <h:outputText
-																					value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
-																					rendered="#{customerController.customerModel_10.detailModelList eq null}" />
-																				<rich:dataTable style="background:#fffAF0;"
-																					rendered="#{customerController.customerModel_10.detailModelList ne null}"
-																					value="#{customerController.customerModel_10.detailModelList}"
-																					var="item" rows="5">
-																					<rich:column>
-																						<h:outputText value="#{item.text}" />
-																					</rich:column>
-																					<rich:column>
-																						<h:outputText value="#{item.value}">
-																						</h:outputText>
-																					</rich:column>
-																				</rich:dataTable>
-																		</span>
-																		</a>
-																	</div>
-																	<div
-																		style="display: #{customerController.customerModel_10.flagImg03}">
-																		<a class="tooltip"
-																			href="#{request.contextPath}/customer/tree/#{customerController.customerModel_10.cusId}"> <h:graphicImage
 																				value="#{customerController.customerModel_10.positionImage}"
 																				width="55px" height="55px" /> <br /> <h:outputText
 																				rendered="#{customerController.customerModel_10.customerId ne null}"
@@ -481,42 +322,12 @@
 																		style="display: #{customerController.customerModel_11.flagImg02}">
 																		<h:graphicImage
 																			value="#{customerController.customerModel_11.positionImage}"
-																			width="40px" height="40px" />
+																			width="55px" height="55px" />
 																	</div>
 																	<div
 																		style="display: #{customerController.customerModel_11.flagImg01}">
 																		<a class="tooltip"
 																			href="#{request.contextPath}/add/add"> <h:graphicImage
-																				value="#{customerController.customerModel_11.positionImage}"
-																				width="45px" height="45px" /> <br /> <h:outputText
-																				rendered="#{customerController.customerModel_11.customerId ne null}"
-																				value="#{customerController.customerModel_11.customerId}" />
-																			<br /> <h:outputText
-																				rendered="#{customerController.customerModel_11.firstName ne null}"
-																				value="#{customerController.customerModel_11.firstName}" />
-																			<span> <h:graphicImage class="callout"
-																					value="/resources/gfx/callout.gif" /> <h:outputText
-																					value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
-																					rendered="#{customerController.customerModel_11.detailModelList eq null}" />
-																				<rich:dataTable style="background:#fffAF0;"
-																					rendered="#{customerController.customerModel_11.detailModelList ne null}"
-																					value="#{customerController.customerModel_11.detailModelList}"
-																					var="item" rows="5">
-																					<rich:column>
-																						<h:outputText value="#{item.text}" />
-																					</rich:column>
-																					<rich:column>
-																						<h:outputText value="#{item.value}">
-																						</h:outputText>
-																					</rich:column>
-																				</rich:dataTable>
-																		</span>
-																		</a>
-																	</div>
-																	<div
-																		style="display: #{customerController.customerModel_11.flagImg03}">
-																		<a class="tooltip"
-																			href="#{request.contextPath}/customer/tree/#{customerController.customerModel_11.cusId}"> <h:graphicImage
 																				value="#{customerController.customerModel_11.positionImage}"
 																				width="55px" height="55px" /> <br /> <h:outputText
 																				rendered="#{customerController.customerModel_11.customerId ne null}"
@@ -551,41 +362,11 @@
 														style="display: #{customerController.customerModel_03.flagImg02}">
 														<h:graphicImage
 															value="#{customerController.customerModel_03.positionImage}"
-															width="40px" height="40px" />
+															width="55px" height="55px" />
 													</div>
 													<div
 														style="display: #{customerController.customerModel_03.flagImg01}">
 														<a class="tooltip" href="#{request.contextPath}/add/add">
-															<h:graphicImage
-																value="#{customerController.customerModel_03.positionImage}"
-																width="45px" height="45px" /> <br /> <h:outputText
-																rendered="#{customerController.customerModel_03.customerId ne null}"
-																value="#{customerController.customerModel_03.customerId}" />
-															<br /> <h:outputText
-																rendered="#{customerController.customerModel_03.firstName ne null}"
-																value="#{customerController.customerModel_03.firstName}" />
-															<span> <h:graphicImage class="callout"
-																	value="/resources/gfx/callout.gif" /> <h:outputText
-																	value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
-																	rendered="#{customerController.customerModel_03.detailModelList eq null}" />
-																<rich:dataTable style="background:#fffAF0;"
-																	rendered="#{customerController.customerModel_03.detailModelList ne null}"
-																	value="#{customerController.customerModel_03.detailModelList}"
-																	var="item" rows="5">
-																	<rich:column>
-																		<h:outputText value="#{item.text}" />
-																	</rich:column>
-																	<rich:column>
-																		<h:outputText value="#{item.value}">
-																		</h:outputText>
-																	</rich:column>
-																</rich:dataTable>
-														</span>
-														</a>
-													</div>
-													<div
-														style="display: #{customerController.customerModel_03.flagImg03}">
-														<a class="tooltip" href="#{request.contextPath}/customer/tree/#{customerController.customerModel_03.cusId}">
 															<h:graphicImage
 																value="#{customerController.customerModel_03.positionImage}"
 																width="55px" height="55px" /> <br /> <h:outputText
@@ -618,41 +399,11 @@
 																style="display: #{customerController.customerModel_06.flagImg02}">
 																<h:graphicImage
 																	value="#{customerController.customerModel_06.positionImage}"
-																	width="40px" height="40px" />
+																	width="55px" height="55px" />
 															</div>
 															<div
 																style="display: #{customerController.customerModel_06.flagImg01}">
 																<a class="tooltip" href="#{request.contextPath}/add/add">
-																	<h:graphicImage
-																		value="#{customerController.customerModel_06.positionImage}"
-																		width="45px" height="45px" /> <br /> <h:outputText
-																		rendered="#{customerController.customerModel_06.customerId ne null}"
-																		value="#{customerController.customerModel_06.customerId}" />
-																	<br /> <h:outputText
-																		rendered="#{customerController.customerModel_06.firstName ne null}"
-																		value="#{customerController.customerModel_06.firstName}" />
-																	<span> <h:graphicImage class="callout"
-																			value="/resources/gfx/callout.gif" /> <h:outputText
-																			value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
-																			rendered="#{customerController.customerModel_06.detailModelList eq null}" />
-																		<rich:dataTable style="background:#fffAF0;"
-																			rendered="#{customerController.customerModel_06.detailModelList ne null}"
-																			value="#{customerController.customerModel_06.detailModelList}"
-																			var="item" rows="5">
-																			<rich:column>
-																				<h:outputText value="#{item.text}" />
-																			</rich:column>
-																			<rich:column>
-																				<h:outputText value="#{item.value}">
-																				</h:outputText>
-																			</rich:column>
-																		</rich:dataTable>
-																</span>
-																</a>
-															</div>
-															<div
-																style="display: #{customerController.customerModel_06.flagImg03}">
-																<a class="tooltip" href="#{request.contextPath}/customer/tree/#{customerController.customerModel_06.cusId}">
 																	<h:graphicImage
 																		value="#{customerController.customerModel_06.positionImage}"
 																		width="55px" height="55px" /> <br /> <h:outputText
@@ -685,42 +436,12 @@
 																		style="display: #{customerController.customerModel_12.flagImg02}">
 																		<h:graphicImage
 																			value="#{customerController.customerModel_12.positionImage}"
-																			width="40px" height="40px" />
+																			width="55px" height="55px" />
 																	</div>
 																	<div
 																		style="display: #{customerController.customerModel_12.flagImg01}">
 																		<a class="tooltip"
 																			href="#{request.contextPath}/add/add"> <h:graphicImage
-																				value="#{customerController.customerModel_12.positionImage}"
-																				width="45px" height="45px" /> <br /> <h:outputText
-																				rendered="#{customerController.customerModel_12.customerId ne null}"
-																				value="#{customerController.customerModel_12.customerId}" />
-																			<br /> <h:outputText
-																				rendered="#{customerController.customerModel_12.firstName ne null}"
-																				value="#{customerController.customerModel_12.firstName}" />
-																			<span> <h:graphicImage class="callout"
-																					value="/resources/gfx/callout.gif" /> <h:outputText
-																					value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
-																					rendered="#{customerController.customerModel_12.detailModelList eq null}" />
-																				<rich:dataTable style="background:#fffAF0;"
-																					rendered="#{customerController.customerModel_12.detailModelList ne null}"
-																					value="#{customerController.customerModel_12.detailModelList}"
-																					var="item" rows="5">
-																					<rich:column>
-																						<h:outputText value="#{item.text}" />
-																					</rich:column>
-																					<rich:column>
-																						<h:outputText value="#{item.value}">
-																						</h:outputText>
-																					</rich:column>
-																				</rich:dataTable>
-																		</span>
-																		</a>
-																	</div>
-																	<div
-																		style="display: #{customerController.customerModel_12.flagImg03}">
-																		<a class="tooltip"
-																			href="#{request.contextPath}/customer/tree/#{customerController.customerModel_12.cusId}"> <h:graphicImage
 																				value="#{customerController.customerModel_12.positionImage}"
 																				width="55px" height="55px" /> <br /> <h:outputText
 																				rendered="#{customerController.customerModel_12.customerId ne null}"
@@ -751,42 +472,12 @@
 																		style="display: #{customerController.customerModel_13.flagImg02}">
 																		<h:graphicImage
 																			value="#{customerController.customerModel_13.positionImage}"
-																			width="40px" height="40px" />
+																			width="55px" height="55px" />
 																	</div>
 																	<div
 																		style="display: #{customerController.customerModel_13.flagImg01}">
 																		<a class="tooltip"
 																			href="#{request.contextPath}/add/add"> <h:graphicImage
-																				value="#{customerController.customerModel_13.positionImage}"
-																				width="45px" height="45px" /> <br /> <h:outputText
-																				rendered="#{customerController.customerModel_13.customerId ne null}"
-																				value="#{customerController.customerModel_13.customerId}" />
-																			<br /> <h:outputText
-																				rendered="#{customerController.customerModel_13.firstName ne null}"
-																				value="#{customerController.customerModel_13.firstName}" />
-																			<span> <h:graphicImage class="callout"
-																					value="/resources/gfx/callout.gif" /> <h:outputText
-																					value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
-																					rendered="#{customerController.customerModel_13.detailModelList eq null}" />
-																				<rich:dataTable style="background:#fffAF0;"
-																					rendered="#{customerController.customerModel_13.detailModelList ne null}"
-																					value="#{customerController.customerModel_13.detailModelList}"
-																					var="item" rows="5">
-																					<rich:column>
-																						<h:outputText value="#{item.text}" />
-																					</rich:column>
-																					<rich:column>
-																						<h:outputText value="#{item.value}">
-																						</h:outputText>
-																					</rich:column>
-																				</rich:dataTable>
-																		</span>
-																		</a>
-																	</div>
-																	<div
-																		style="display: #{customerController.customerModel_13.flagImg03}">
-																		<a class="tooltip"
-																			href="#{request.contextPath}/customer/tree/#{customerController.customerModel_13.cusId}"> <h:graphicImage
 																				value="#{customerController.customerModel_13.positionImage}"
 																				width="55px" height="55px" /> <br /> <h:outputText
 																				rendered="#{customerController.customerModel_13.customerId ne null}"
@@ -818,41 +509,11 @@
 																style="display: #{customerController.customerModel_07.flagImg02}">
 																<h:graphicImage
 																	value="#{customerController.customerModel_07.positionImage}"
-																	width="40px" height="40px" />
+																	width="55px" height="55px" />
 															</div>
 															<div
 																style="display: #{customerController.customerModel_07.flagImg01}">
 																<a class="tooltip" href="#{request.contextPath}/add/add">
-																	<h:graphicImage
-																		value="#{customerController.customerModel_07.positionImage}"
-																		width="45px" height="45px" /> <br /> <h:outputText
-																		rendered="#{customerController.customerModel_07.customerId ne null}"
-																		value="#{customerController.customerModel_07.customerId}" />
-																	<br /> <h:outputText
-																		rendered="#{customerController.customerModel_07.firstName ne null}"
-																		value="#{customerController.customerModel_07.firstName}" />
-																	<span> <h:graphicImage class="callout"
-																			value="/resources/gfx/callout.gif" /> <h:outputText
-																			value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
-																			rendered="#{customerController.customerModel_07.detailModelList eq null}" />
-																		<rich:dataTable style="background:#fffAF0;"
-																			rendered="#{customerController.customerModel_07.detailModelList ne null}"
-																			value="#{customerController.customerModel_07.detailModelList}"
-																			var="item" rows="5">
-																			<rich:column>
-																				<h:outputText value="#{item.text}" />
-																			</rich:column>
-																			<rich:column>
-																				<h:outputText value="#{item.value}">
-																				</h:outputText>
-																			</rich:column>
-																		</rich:dataTable>
-																</span>
-																</a>
-															</div>
-															<div
-																style="display: #{customerController.customerModel_07.flagImg03}">
-																<a class="tooltip" href="#{request.contextPath}/customer/tree/#{customerController.customerModel_07.cusId}">
 																	<h:graphicImage
 																		value="#{customerController.customerModel_07.positionImage}"
 																		width="55px" height="55px" /> <br /> <h:outputText
@@ -885,42 +546,12 @@
 																		style="display: #{customerController.customerModel_14.flagImg02}">
 																		<h:graphicImage
 																			value="#{customerController.customerModel_14.positionImage}"
-																			width="40px" height="40px" />
+																			width="55px" height="55px" />
 																	</div>
 																	<div
 																		style="display: #{customerController.customerModel_14.flagImg01}">
 																		<a class="tooltip"
 																			href="#{request.contextPath}/add/add"> <h:graphicImage
-																				value="#{customerController.customerModel_14.positionImage}"
-																				width="45px" height="45px" /> <br /> <h:outputText
-																				rendered="#{customerController.customerModel_14.customerId ne null}"
-																				value="#{customerController.customerModel_14.customerId}" />
-																			<br /> <h:outputText
-																				rendered="#{customerController.customerModel_14.firstName ne null}"
-																				value="#{customerController.customerModel_14.firstName}" />
-																			<span> <h:graphicImage class="callout"
-																					value="/resources/gfx/callout.gif" /> <h:outputText
-																					value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
-																					rendered="#{customerController.customerModel_14.detailModelList eq null}" />
-																				<rich:dataTable style="background:#fffAF0;"
-																					rendered="#{customerController.customerModel_14.detailModelList ne null}"
-																					value="#{customerController.customerModel_14.detailModelList}"
-																					var="item" rows="5">
-																					<rich:column>
-																						<h:outputText value="#{item.text}" />
-																					</rich:column>
-																					<rich:column>
-																						<h:outputText value="#{item.value}">
-																						</h:outputText>
-																					</rich:column>
-																				</rich:dataTable>
-																		</span>
-																		</a>
-																	</div>
-																	<div
-																		style="display: #{customerController.customerModel_14.flagImg03}">
-																		<a class="tooltip"
-																			href="#{request.contextPath}/customer/tree/#{customerController.customerModel_14.cusId}"> <h:graphicImage
 																				value="#{customerController.customerModel_14.positionImage}"
 																				width="55px" height="55px" /> <br /> <h:outputText
 																				rendered="#{customerController.customerModel_14.customerId ne null}"
@@ -951,42 +582,12 @@
 																		style="display: #{customerController.customerModel_15.flagImg02}">
 																		<h:graphicImage
 																			value="#{customerController.customerModel_15.positionImage}"
-																			width="40px" height="40px" />
+																			width="55px" height="55px" />
 																	</div>
 																	<div
 																		style="display: #{customerController.customerModel_15.flagImg01}">
 																		<a class="tooltip"
 																			href="#{request.contextPath}/add/add"> <h:graphicImage
-																				value="#{customerController.customerModel_15.positionImage}"
-																				width="45px" height="45px" /> <br /> <h:outputText
-																				rendered="#{customerController.customerModel_15.customerId ne null}"
-																				value="#{customerController.customerModel_15.customerId}" />
-																			<br /> <h:outputText
-																				rendered="#{customerController.customerModel_15.firstName ne null}"
-																				value="#{customerController.customerModel_15.firstName}" />
-																			<span> <h:graphicImage class="callout"
-																					value="/resources/gfx/callout.gif" /> <h:outputText
-																					value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
-																					rendered="#{customerController.customerModel_15.detailModelList eq null}" />
-																				<rich:dataTable style="background:#fffAF0;"
-																					rendered="#{customerController.customerModel_15.detailModelList ne null}"
-																					value="#{customerController.customerModel_15.detailModelList}"
-																					var="item" rows="5">
-																					<rich:column>
-																						<h:outputText value="#{item.text}" />
-																					</rich:column>
-																					<rich:column>
-																						<h:outputText value="#{item.value}">
-																						</h:outputText>
-																					</rich:column>
-																				</rich:dataTable>
-																		</span>
-																		</a>
-																	</div>
-																	<div
-																		style="display: #{customerController.customerModel_15.flagImg03}">
-																		<a class="tooltip"
-																			href="#{request.contextPath}/customer/tree/#{customerController.customerModel_15.cusId}"> <h:graphicImage
 																				value="#{customerController.customerModel_15.positionImage}"
 																				width="55px" height="55px" /> <br /> <h:outputText
 																				rendered="#{customerController.customerModel_15.customerId ne null}"
@@ -1018,8 +619,7 @@
 												</li>
 											</ul></li>
 									</ul>
-								</div>
-							</td>
+								</div></td>
 						</tr>
 					</table>
 				</rich:panel>

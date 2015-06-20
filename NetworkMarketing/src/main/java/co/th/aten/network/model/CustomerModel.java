@@ -4,11 +4,9 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import co.th.aten.network.entity.UserLogin;
-
 public class CustomerModel implements Serializable {
 	
-	private int id;
+	private int cusId;
     private String customerId;
     private int upperId;
     private int lowerLeftId;
@@ -29,12 +27,13 @@ public class CustomerModel implements Serializable {
     private List<DetailModel> detailModelList;
     private String flagImg01;
     private String flagImg02;
+    private String flagImg03;
     
-	public int getId() {
-		return id;
+	public int getCusId() {
+		return cusId;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setCusId(int cusId) {
+		this.cusId = cusId;
 	}
 	public String getCustomerId() {
 		return customerId;
@@ -156,6 +155,11 @@ public class CustomerModel implements Serializable {
 	public void setFlagImg02(String flagImg02) {
 		this.flagImg02 = flagImg02;
 	}
-	
+	public String getFlagImg03() {
+		return flagImg03;
+	}
+	public void setFlagImg03(String flagImg03) {
+		this.flagImg03 = flagImg03;
+	}	
 	
 }
