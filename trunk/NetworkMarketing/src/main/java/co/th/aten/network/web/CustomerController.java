@@ -54,7 +54,7 @@ public class CustomerController implements Serializable{
 	private EntityManager em;
 
 	private List<CustomerModel> customerModelList;
-	
+
 	private CustomerModel customerModel_01;
 	private CustomerModel customerModel_02;
 	private CustomerModel customerModel_03;
@@ -70,6 +70,9 @@ public class CustomerController implements Serializable{
 	private CustomerModel customerModel_13;
 	private CustomerModel customerModel_14;
 	private CustomerModel customerModel_15;
+
+	private String html;
+	private int customerId;
 	
 	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd",Locale.US);
 
@@ -77,7 +80,7 @@ public class CustomerController implements Serializable{
 	@PostConstruct
 	public void init(){
 		log.info("init method CustomerController");
-		
+
 		customerModelList = new ArrayList<CustomerModel>();
 		List<Customer> CustomerList = em.createQuery("From Customer").getResultList();
 		if(CustomerList!=null){
@@ -85,7 +88,94 @@ public class CustomerController implements Serializable{
 				customerModelList.add(setDataCustomerModel(customer));
 			}
 		}
-		
+
+		if(user.get().getCustomerId()!=null){
+			Customer customer = user.get().getCustomerId();
+			customerId = customer.getId();
+			genTreeModel();
+//			customerId = customer.getId();
+			//			genAutoTagTree(customer.getId());
+		}
+
+	}
+
+	private void genAutoTagTree(){
+		html = "";
+		StringBuffer str = new StringBuffer();
+		str.append("<table>");
+		str.append("<tr>");
+		str.append("<td>");
+		str.append("<div class=\"tree\">");
+		for(int index01=1;index01<2;index01++){
+			str.append("<ul>");
+			str.append("<li>");
+			str.append("<div>");
+			str.append(genData());
+			str.append("</div>");
+			str.append("<ul>");
+			for(int index02=2;index02<4;index02++){
+				str.append("<li>");
+				str.append("<div>");
+				str.append(genData());
+				str.append("</div>");
+				str.append("<ul>");
+				for(int index03=4;index03<6;index03++){
+					str.append("<li>");
+					str.append("<div>");
+					str.append(genData());
+					str.append("</div>");
+					str.append("<ul>");
+					for(int index04=6;index04<8;index04++){
+						str.append("<li>");
+						str.append("<div>");
+						str.append(genData());
+						str.append("</div>");
+						//						str.append("<ul>");
+						//						for(int index05=6;index05<8;index05++){
+						//							str.append("<li>");
+						//							str.append("<div>");
+						//							str.append(genData());
+						//							str.append("</div>");
+						//							str.append("</li>");
+						//						}
+						//						str.append("</ul>");
+						str.append("</li>");
+					}
+					str.append("</ul>");
+					str.append("</li>");
+				}
+				str.append("</ul>");
+				str.append("</li>");
+			}			
+			str.append("</ul>");
+			str.append("</li>");
+			str.append("</ul>");
+		}
+		str.append("</div>");
+		str.append("</td>");
+		str.append("</tr>");
+		str.append("</table>");
+		html = str.toString();
+	}
+
+	private String genData(){
+		StringBuffer str = new StringBuffer();
+		str.append("<a class=\"tooltip\" href=\"#\">");
+		str.append("<img src=\"../resources/gfx/1.png\" width=\"55px\" height=\"55px\"/>");
+		str.append("<br/>");
+		str.append("<h>AAAAAAA</h>");
+		str.append("<br/>");
+		str.append("<h>BBBBBBB</h>");
+		str.append("");
+		str.append("");
+		str.append("");
+		str.append("");
+		str.append("");
+		str.append("</a>");
+		return str.toString();
+	}
+
+	public void genTreeModel(){
 		try{
 			customerModel_01 = null;
 			customerModel_02 = null;
@@ -102,70 +192,68 @@ public class CustomerController implements Serializable{
 			customerModel_13 = null;
 			customerModel_14 = null;
 			customerModel_15 = null;
-			if(user.get().getCustomerId()!=null){
-				Customer customer = user.get().getCustomerId();
-				customerModel_01 = setDataCustomerModel(customer);
-				if(customer.getLowerLeftId()!=null && customer.getLowerLeftId()!=0){
-					customerModel_02 = setDataCustomerModel(getCustomerById(customer.getLowerLeftId().intValue()));
-					if(customerModel_02!=null){
-						if(customerModel_02.getLowerLeftId()!=0){
-							customerModel_04 = setDataCustomerModel(getCustomerById(customerModel_02.getLowerLeftId()));
-							if(customerModel_04!=null){
-								if(customerModel_04.getLowerLeftId()!=0){
-									customerModel_08 = setDataCustomerModel(getCustomerById(customerModel_04.getLowerLeftId()));
-								}
-								if(customerModel_04.getLowerRightId()!=0){
-									customerModel_09 = setDataCustomerModel(getCustomerById(customerModel_04.getLowerRightId()));									
-								}
+			customerModel_01 = setDataCustomerModel(getCustomerById(customerId));
+			if(customerModel_01.getLowerLeftId()!=0){
+				customerModel_02 = setDataCustomerModel(getCustomerById(customerModel_01.getLowerLeftId()));
+				if(customerModel_02!=null){
+					if(customerModel_02.getLowerLeftId()!=0){
+						customerModel_04 = setDataCustomerModel(getCustomerById(customerModel_02.getLowerLeftId()));
+						if(customerModel_04!=null){
+							if(customerModel_04.getLowerLeftId()!=0){
+								customerModel_08 = setDataCustomerModel(getCustomerById(customerModel_04.getLowerLeftId()));
 							}
-						}
-						if(customerModel_02.getLowerRightId()!=0){
-							customerModel_05 = setDataCustomerModel(getCustomerById(customerModel_02.getLowerRightId()));
-							if(customerModel_05!=null){
-								if(customerModel_05.getLowerLeftId()!=0){
-									customerModel_10 = setDataCustomerModel(getCustomerById(customerModel_05.getLowerLeftId()));									
-								}
-								if(customerModel_05.getLowerRightId()!=0){
-									customerModel_11 = setDataCustomerModel(getCustomerById(customerModel_05.getLowerRightId()));									
-								}
+							if(customerModel_04.getLowerRightId()!=0){
+								customerModel_09 = setDataCustomerModel(getCustomerById(customerModel_04.getLowerRightId()));									
 							}
 						}
 					}
-				}
-				if(customer.getLowerRightId()!=null && customer.getLowerRightId()!=0){
-					customerModel_03 = setDataCustomerModel(getCustomerById(customer.getLowerRightId().intValue()));
-					if(customerModel_03!=null){
-						if(customerModel_03.getLowerLeftId()!=0){
-							customerModel_06 = setDataCustomerModel(getCustomerById(customerModel_03.getLowerLeftId()));
-							if(customerModel_06!=null){
-								if(customerModel_06.getLowerLeftId()!=0){
-									customerModel_12 = setDataCustomerModel(getCustomerById(customerModel_06.getLowerLeftId()));									
-								}
-								if(customerModel_06.getLowerRightId()!=0){
-									customerModel_13 = setDataCustomerModel(getCustomerById(customerModel_06.getLowerRightId()));									
-								}
+					if(customerModel_02.getLowerRightId()!=0){
+						customerModel_05 = setDataCustomerModel(getCustomerById(customerModel_02.getLowerRightId()));
+						if(customerModel_05!=null){
+							if(customerModel_05.getLowerLeftId()!=0){
+								customerModel_10 = setDataCustomerModel(getCustomerById(customerModel_05.getLowerLeftId()));									
 							}
-						}
-						if(customerModel_03.getLowerRightId()!=0){
-							customerModel_07 = setDataCustomerModel(getCustomerById(customerModel_03.getLowerRightId()));
-							if(customerModel_07!=null){
-								if(customerModel_07.getLowerLeftId()!=0){
-									customerModel_14 = setDataCustomerModel(getCustomerById(customerModel_07.getLowerLeftId()));									
-								}
-								if(customerModel_07.getLowerRightId()!=0){
-									customerModel_15 = setDataCustomerModel(getCustomerById(customerModel_07.getLowerRightId()));									
-								}
-							}							
+							if(customerModel_05.getLowerRightId()!=0){
+								customerModel_11 = setDataCustomerModel(getCustomerById(customerModel_05.getLowerRightId()));									
+							}
 						}
 					}
 				}
 			}
-			
+			if(customerModel_01.getLowerRightId()!=0){
+				customerModel_03 = setDataCustomerModel(getCustomerById(customerModel_01.getLowerRightId()));
+				if(customerModel_03!=null){
+					if(customerModel_03.getLowerLeftId()!=0){
+						customerModel_06 = setDataCustomerModel(getCustomerById(customerModel_03.getLowerLeftId()));
+						if(customerModel_06!=null){
+							if(customerModel_06.getLowerLeftId()!=0){
+								customerModel_12 = setDataCustomerModel(getCustomerById(customerModel_06.getLowerLeftId()));									
+							}
+							if(customerModel_06.getLowerRightId()!=0){
+								customerModel_13 = setDataCustomerModel(getCustomerById(customerModel_06.getLowerRightId()));									
+							}
+						}
+					}
+					if(customerModel_03.getLowerRightId()!=0){
+						customerModel_07 = setDataCustomerModel(getCustomerById(customerModel_03.getLowerRightId()));
+						if(customerModel_07!=null){
+							if(customerModel_07.getLowerLeftId()!=0){
+								customerModel_14 = setDataCustomerModel(getCustomerById(customerModel_07.getLowerLeftId()));									
+							}
+							if(customerModel_07.getLowerRightId()!=0){
+								customerModel_15 = setDataCustomerModel(getCustomerById(customerModel_07.getLowerRightId()));									
+							}
+						}							
+					}
+				}
+			}
+
 			if(customerModel_01==null){
 				customerModel_01 = new CustomerModel();
 				customerModel_01.setPositionImage("/resources/gfx/addmem.gif");
-				customerModel_01.setFlagImg01("block");
-				customerModel_01.setFlagImg02("none");
+				customerModel_01.setFlagImg01("none");
+				customerModel_01.setFlagImg02("block");
+				customerModel_01.setFlagImg03("none");
 			}
 			if(customerModel_02==null){
 				customerModel_02 = new CustomerModel();
@@ -173,10 +261,12 @@ public class CustomerController implements Serializable{
 					customerModel_02.setPositionImage("/resources/gfx/addmem.gif");
 					customerModel_02.setFlagImg01("block");
 					customerModel_02.setFlagImg02("none");
+					customerModel_02.setFlagImg03("none");
 				}else{
 					customerModel_02.setPositionImage("/resources/gfx/balls_11.gif");
 					customerModel_02.setFlagImg01("none");
 					customerModel_02.setFlagImg02("block");
+					customerModel_02.setFlagImg03("none");
 				}
 			}
 			if(customerModel_03==null){
@@ -185,10 +275,12 @@ public class CustomerController implements Serializable{
 					customerModel_03.setPositionImage("/resources/gfx/addmem.gif");
 					customerModel_03.setFlagImg01("block");
 					customerModel_03.setFlagImg02("none");
+					customerModel_03.setFlagImg03("none");
 				}else{
 					customerModel_03.setPositionImage("/resources/gfx/balls_11.gif");
 					customerModel_03.setFlagImg01("none");
 					customerModel_03.setFlagImg02("block");
+					customerModel_03.setFlagImg03("none");
 				}
 			}
 			if(customerModel_04==null){
@@ -197,10 +289,12 @@ public class CustomerController implements Serializable{
 					customerModel_04.setPositionImage("/resources/gfx/addmem.gif");
 					customerModel_04.setFlagImg01("block");
 					customerModel_04.setFlagImg02("none");
+					customerModel_04.setFlagImg03("none");
 				}else{
 					customerModel_04.setPositionImage("/resources/gfx/balls_11.gif");
 					customerModel_04.setFlagImg01("none");
 					customerModel_04.setFlagImg02("block");
+					customerModel_04.setFlagImg03("none");
 				}
 			}
 			if(customerModel_05==null){
@@ -209,10 +303,12 @@ public class CustomerController implements Serializable{
 					customerModel_05.setPositionImage("/resources/gfx/addmem.gif");
 					customerModel_05.setFlagImg01("block");
 					customerModel_05.setFlagImg02("none");
+					customerModel_05.setFlagImg03("none");
 				}else{
 					customerModel_05.setPositionImage("/resources/gfx/balls_11.gif");
 					customerModel_05.setFlagImg01("none");
 					customerModel_05.setFlagImg02("block");
+					customerModel_05.setFlagImg03("none");
 				}
 			}
 			if(customerModel_06==null){
@@ -221,10 +317,12 @@ public class CustomerController implements Serializable{
 					customerModel_06.setPositionImage("/resources/gfx/addmem.gif");
 					customerModel_06.setFlagImg01("block");
 					customerModel_06.setFlagImg02("none");
+					customerModel_06.setFlagImg03("none");
 				}else{
 					customerModel_06.setPositionImage("/resources/gfx/balls_11.gif");
 					customerModel_06.setFlagImg01("none");
 					customerModel_06.setFlagImg02("block");
+					customerModel_06.setFlagImg03("none");
 				}
 			}
 			if(customerModel_07==null){
@@ -233,10 +331,12 @@ public class CustomerController implements Serializable{
 					customerModel_07.setPositionImage("/resources/gfx/addmem.gif");
 					customerModel_07.setFlagImg01("block");
 					customerModel_07.setFlagImg02("none");
+					customerModel_07.setFlagImg03("none");
 				}else{
 					customerModel_07.setPositionImage("/resources/gfx/balls_11.gif");
 					customerModel_07.setFlagImg01("none");
 					customerModel_07.setFlagImg02("block");
+					customerModel_07.setFlagImg03("none");
 				}
 			}
 			if(customerModel_08==null){
@@ -245,10 +345,12 @@ public class CustomerController implements Serializable{
 					customerModel_08.setPositionImage("/resources/gfx/addmem.gif");
 					customerModel_08.setFlagImg01("block");
 					customerModel_08.setFlagImg02("none");
+					customerModel_08.setFlagImg03("none");
 				}else{
 					customerModel_08.setPositionImage("/resources/gfx/balls_11.gif");
 					customerModel_08.setFlagImg01("none");
 					customerModel_08.setFlagImg02("block");
+					customerModel_08.setFlagImg03("none");
 				}
 			}
 			if(customerModel_09==null){
@@ -257,10 +359,12 @@ public class CustomerController implements Serializable{
 					customerModel_09.setPositionImage("/resources/gfx/addmem.gif");
 					customerModel_09.setFlagImg01("block");
 					customerModel_09.setFlagImg02("none");
+					customerModel_09.setFlagImg03("none");
 				}else{
 					customerModel_09.setPositionImage("/resources/gfx/balls_11.gif");
 					customerModel_09.setFlagImg01("none");
 					customerModel_09.setFlagImg02("block");
+					customerModel_09.setFlagImg03("none");
 				}
 			}
 			if(customerModel_10==null){
@@ -269,10 +373,12 @@ public class CustomerController implements Serializable{
 					customerModel_10.setPositionImage("/resources/gfx/addmem.gif");
 					customerModel_10.setFlagImg01("block");
 					customerModel_10.setFlagImg02("none");
+					customerModel_10.setFlagImg03("none");
 				}else{
 					customerModel_10.setPositionImage("/resources/gfx/balls_11.gif");
 					customerModel_10.setFlagImg01("none");
 					customerModel_10.setFlagImg02("block");
+					customerModel_10.setFlagImg03("none");
 				}
 			}
 			if(customerModel_11==null){
@@ -281,10 +387,12 @@ public class CustomerController implements Serializable{
 					customerModel_11.setPositionImage("/resources/gfx/addmem.gif");
 					customerModel_11.setFlagImg01("block");
 					customerModel_11.setFlagImg02("none");
+					customerModel_11.setFlagImg03("none");
 				}else{
 					customerModel_11.setPositionImage("/resources/gfx/balls_11.gif");
 					customerModel_11.setFlagImg01("none");
 					customerModel_11.setFlagImg02("block");
+					customerModel_11.setFlagImg03("none");
 				}
 			}
 			if(customerModel_12==null){
@@ -293,10 +401,12 @@ public class CustomerController implements Serializable{
 					customerModel_12.setPositionImage("/resources/gfx/addmem.gif");
 					customerModel_12.setFlagImg01("block");
 					customerModel_12.setFlagImg02("none");
+					customerModel_12.setFlagImg03("none");
 				}else{
 					customerModel_12.setPositionImage("/resources/gfx/balls_11.gif");
 					customerModel_12.setFlagImg01("none");
 					customerModel_12.setFlagImg02("block");
+					customerModel_12.setFlagImg03("none");
 				}
 			}
 			if(customerModel_13==null){
@@ -305,10 +415,12 @@ public class CustomerController implements Serializable{
 					customerModel_13.setPositionImage("/resources/gfx/addmem.gif");
 					customerModel_13.setFlagImg01("block");
 					customerModel_13.setFlagImg02("none");
+					customerModel_13.setFlagImg03("none");
 				}else{
 					customerModel_13.setPositionImage("/resources/gfx/balls_11.gif");
 					customerModel_13.setFlagImg01("none");
 					customerModel_13.setFlagImg02("block");
+					customerModel_13.setFlagImg03("none");
 				}
 			}
 			if(customerModel_14==null){
@@ -317,10 +429,12 @@ public class CustomerController implements Serializable{
 					customerModel_14.setPositionImage("/resources/gfx/addmem.gif");
 					customerModel_14.setFlagImg01("block");
 					customerModel_14.setFlagImg02("none");
+					customerModel_14.setFlagImg03("none");
 				}else{
 					customerModel_14.setPositionImage("/resources/gfx/balls_11.gif");
 					customerModel_14.setFlagImg01("none");
 					customerModel_14.setFlagImg02("block");
+					customerModel_14.setFlagImg03("none");
 				}
 			}
 			if(customerModel_15==null){
@@ -329,10 +443,12 @@ public class CustomerController implements Serializable{
 					customerModel_15.setPositionImage("/resources/gfx/addmem.gif");
 					customerModel_15.setFlagImg01("block");
 					customerModel_15.setFlagImg02("none");
+					customerModel_15.setFlagImg03("none");
 				}else{
 					customerModel_15.setPositionImage("/resources/gfx/balls_11.gif");
 					customerModel_15.setFlagImg01("none");
 					customerModel_15.setFlagImg02("block");
+					customerModel_15.setFlagImg03("none");
 				}
 			}
 
@@ -340,12 +456,12 @@ public class CustomerController implements Serializable{
 			e.printStackTrace();
 		}
 	}
-	
+
 	private CustomerModel setDataCustomerModel(Customer customer){
 		try{
 			if(customer!=null){
 				CustomerModel model = new CustomerModel();
-				model.setId(customer.getId());
+				model.setCusId(customer.getId());
 				model.setCustomerId(customer.getCustomerId());
 				model.setUpperId(customer.getUpperId()!=null?customer.getUpperId():0);
 				model.setLowerLeftId(customer.getLowerLeftId()!=null?customer.getLowerLeftId():0);
@@ -373,8 +489,9 @@ public class CustomerController implements Serializable{
 				model.setCreateDate(customer.getCreateDate());
 				model.setUpdateBy(customer.getUpdateBy()!=null?customer.getUpdateBy():0);
 				model.setUpdateDate(customer.getUpdateDate());
-				model.setFlagImg01("block");
+				model.setFlagImg01("none");
 				model.setFlagImg02("none");
+				model.setFlagImg03("block");
 				List<DetailModel> detailModelList = new ArrayList<DetailModel>();
 				DetailModel detailModel = new DetailModel();
 				detailModel.setText("ID");
@@ -535,4 +652,22 @@ public class CustomerController implements Serializable{
 	public void setCustomerModel_15(CustomerModel customerModel_15) {
 		this.customerModel_15 = customerModel_15;
 	}
+
+	public String getHtml() {
+		return html;
+	}
+
+	public void setHtml(String html) {
+		this.html = html;
+	}
+
+	public int getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(int customerId) {
+		this.customerId = customerId;
+	}
+
+
 }

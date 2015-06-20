@@ -6,13 +6,47 @@
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j"
 	template="/WEB-INF/templates/template.xhtml">
-	
+
 	<ui:define name="content">
 		<h:form id="detail">
-			<rich:panel header="Home">
-					
+			<rich:panel style="margin:auto; width : 350px;">
+				<table>
+					<tr align="center">
+						<td><a href="#{request.contextPath}/customer/tree"> 
+						<h:graphicImage
+									value="/resources/gfx/icon_binary_chart.png" width="155px"
+									height="155px" />
+									<br />
+									<h:outputText value="ดูแผนภูมิสายงานไบนารี่ " />
+						</a></td>
+
+						<td><a href="#{request.contextPath}/"> 
+						<h:graphicImage
+									value="/resources/gfx/icon_sponsor_team.png" width="155px"
+									height="155px" />
+									<br />
+									<h:outputText value="ดูแผนภูมิสายงานการแนะนำ  " />
+						</a></td>
+					</tr>
+					<tr style="text-align: center;">
+						<td><a href="#{request.contextPath}/"> 
+						<h:graphicImage
+									value="/resources/gfx/icon_personal_data.png" width="155px"
+									height="155px" />
+									<br />
+									<h:outputText value="ข้อมูล สมาชิก   " />
+						</a></td>
+						<td><a href="#{request.contextPath}/"> 
+						<h:graphicImage
+									value="/resources/gfx/icon_team_sponsor_by_level.png" width="155px"
+									height="155px" />
+									<br />
+									<h:outputText value="รายงาน ทีมงานตามสายการแนะนำ   " />
+						</a></td>
+					</tr>
+				</table>
 			</rich:panel>
 		</h:form>
 	</ui:define>
-	
+
 </ui:composition>
