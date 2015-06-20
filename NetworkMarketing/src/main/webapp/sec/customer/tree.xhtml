@@ -21,7 +21,7 @@
 									<ul>
 										<li><div
 												style="display: #{customerController.customerModel_01.flagImg02}">
-												<a class="tooltip" href="#{request.contextPath}/add/add">
+												<a class="tooltip" href="#{request.contextPath}/add/add/#{customerController.customerModel_01.cusId}/1">
 													<h:graphicImage
 														value="#{customerController.customerModel_01.positionImage}"
 														width="45px" height="45px" /> <br /> <h:outputText
@@ -83,7 +83,7 @@
 													</div>
 													<div
 														style="display: #{customerController.customerModel_02.flagImg01}">
-														<a class="tooltip" href="#{request.contextPath}/add/add">
+														<a class="tooltip" href="#{request.contextPath}/add/add/#{customerController.customerModel_02.upperId}/1">
 															<h:graphicImage
 																value="#{customerController.customerModel_02.positionImage}"
 																width="45px" height="45px" /> <br /> <h:outputText
@@ -151,7 +151,7 @@
 															</div>
 															<div
 																style="display: #{customerController.customerModel_04.flagImg01}">
-																<a class="tooltip" href="#{request.contextPath}/add/add">
+																<a class="tooltip" href="#{request.contextPath}/add/add/#{customerController.customerModel_04.upperId}/1">
 																	<h:graphicImage
 																		value="#{customerController.customerModel_04.positionImage}"
 																		width="45px" height="45px" /> <br /> <h:outputText
@@ -219,7 +219,7 @@
 																	<div
 																		style="display: #{customerController.customerModel_08.flagImg01}">
 																		<a class="tooltip"
-																			href="#{request.contextPath}/add/add"> <h:graphicImage
+																			href="#{request.contextPath}/add/add/#{customerController.customerModel_08.upperId}/1"> <h:graphicImage
 																				value="#{customerController.customerModel_08.positionImage}"
 																				width="45px" height="45px" /> <br /> <h:outputText
 																				rendered="#{customerController.customerModel_08.customerId ne null}"
@@ -285,7 +285,7 @@
 																	<div
 																		style="display: #{customerController.customerModel_09.flagImg01}">
 																		<a class="tooltip"
-																			href="#{request.contextPath}/add/add"> <h:graphicImage
+																			href="#{request.contextPath}/add/add/#{customerController.customerModel_09.upperId}/2"> <h:graphicImage
 																				value="#{customerController.customerModel_09.positionImage}"
 																				width="45px" height="45px" /> <br /> <h:outputText
 																				rendered="#{customerController.customerModel_09.customerId ne null}"
@@ -352,7 +352,7 @@
 															</div>
 															<div
 																style="display: #{customerController.customerModel_05.flagImg01}">
-																<a class="tooltip" href="#{request.contextPath}/add/add">
+																<a class="tooltip" href="#{request.contextPath}/add/add/#{customerController.customerModel_05.upperId}/2">
 																	<h:graphicImage
 																		value="#{customerController.customerModel_05.positionImage}"
 																		width="45px" height="45px" /> <br /> <h:outputText
@@ -420,7 +420,7 @@
 																	<div
 																		style="display: #{customerController.customerModel_10.flagImg01}">
 																		<a class="tooltip"
-																			href="#{request.contextPath}/add/add"> <h:graphicImage
+																			href="#{request.contextPath}/add/add/#{customerController.customerModel_10.upperId}/1"> <h:graphicImage
 																				value="#{customerController.customerModel_10.positionImage}"
 																				width="45px" height="45px" /> <br /> <h:outputText
 																				rendered="#{customerController.customerModel_10.customerId ne null}"
@@ -486,7 +486,7 @@
 																	<div
 																		style="display: #{customerController.customerModel_11.flagImg01}">
 																		<a class="tooltip"
-																			href="#{request.contextPath}/add/add"> <h:graphicImage
+																			href="#{request.contextPath}/add/add/#{customerController.customerModel_11.upperId}/2"> <h:graphicImage
 																				value="#{customerController.customerModel_11.positionImage}"
 																				width="45px" height="45px" /> <br /> <h:outputText
 																				rendered="#{customerController.customerModel_11.customerId ne null}"
@@ -555,7 +555,7 @@
 													</div>
 													<div
 														style="display: #{customerController.customerModel_03.flagImg01}">
-														<a class="tooltip" href="#{request.contextPath}/add/add">
+														<a class="tooltip" href="#{request.contextPath}/add/add/#{customerController.customerModel_03.upperId}/2">
 															<h:graphicImage
 																value="#{customerController.customerModel_03.positionImage}"
 																width="45px" height="45px" /> <br /> <h:outputText
@@ -622,7 +622,7 @@
 															</div>
 															<div
 																style="display: #{customerController.customerModel_06.flagImg01}">
-																<a class="tooltip" href="#{request.contextPath}/add/add">
+																<a class="tooltip" href="#{request.contextPath}/add/add/#{customerController.customerModel_06.upperId}/1">
 																	<h:graphicImage
 																		value="#{customerController.customerModel_06.positionImage}"
 																		width="45px" height="45px" /> <br /> <h:outputText
@@ -690,7 +690,7 @@
 																	<div
 																		style="display: #{customerController.customerModel_12.flagImg01}">
 																		<a class="tooltip"
-																			href="#{request.contextPath}/add/add"> <h:graphicImage
+																			href="#{request.contextPath}/add/add/#{customerController.customerModel_12.upperId}/1"> <h:graphicImage
 																				value="#{customerController.customerModel_12.positionImage}"
 																				width="45px" height="45px" /> <br /> <h:outputText
 																				rendered="#{customerController.customerModel_12.customerId ne null}"
@@ -756,7 +756,7 @@
 																	<div
 																		style="display: #{customerController.customerModel_13.flagImg01}">
 																		<a class="tooltip"
-																			href="#{request.contextPath}/add/add"> <h:graphicImage
+																			href="#{request.contextPath}/add/add/#{customerController.customerModel_13.upperId}/2"> <h:graphicImage
 																				value="#{customerController.customerModel_13.positionImage}"
 																				width="45px" height="45px" /> <br /> <h:outputText
 																				rendered="#{customerController.customerModel_13.customerId ne null}"
@@ -822,7 +822,7 @@
 															</div>
 															<div
 																style="display: #{customerController.customerModel_07.flagImg01}">
-																<a class="tooltip" href="#{request.contextPath}/add/add">
+																<a class="tooltip" href="#{request.contextPath}/add/add/#{customerController.customerModel_07.upperId}/2">
 																	<h:graphicImage
 																		value="#{customerController.customerModel_07.positionImage}"
 																		width="45px" height="45px" /> <br /> <h:outputText
@@ -890,7 +890,7 @@
 																	<div
 																		style="display: #{customerController.customerModel_14.flagImg01}">
 																		<a class="tooltip"
-																			href="#{request.contextPath}/add/add"> <h:graphicImage
+																			href="#{request.contextPath}/add/add/#{customerController.customerModel_14.upperId}/1"> <h:graphicImage
 																				value="#{customerController.customerModel_14.positionImage}"
 																				width="45px" height="45px" /> <br /> <h:outputText
 																				rendered="#{customerController.customerModel_14.customerId ne null}"
@@ -956,7 +956,7 @@
 																	<div
 																		style="display: #{customerController.customerModel_15.flagImg01}">
 																		<a class="tooltip"
-																			href="#{request.contextPath}/add/add"> <h:graphicImage
+																			href="#{request.contextPath}/add/add/#{customerController.customerModel_15.upperId}/2"> <h:graphicImage
 																				value="#{customerController.customerModel_15.positionImage}"
 																				width="45px" height="45px" /> <br /> <h:outputText
 																				rendered="#{customerController.customerModel_15.customerId ne null}"
