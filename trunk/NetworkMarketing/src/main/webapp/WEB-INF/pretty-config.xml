@@ -32,15 +32,18 @@
     </url-mapping>
     
     <url-mapping id="add_01">
-		<pattern value="/add/add"></pattern>
+		<pattern value="/add/add/#{id:addCustomerController.upperLineId}/#{id:addCustomerController.flagUnder}"></pattern>
 		<view-id>/sec/add/add.jsf</view-id>
+		<action>#{addCustomerController.view()}</action> 
 	</url-mapping>
 	
 	<url-mapping id="tree_01">
 		<pattern value="/customer/tree"></pattern>
 		<view-id>/sec/customer/tree.jsf</view-id>
+		<action>#{customerController.genTreeModel()}</action> 
 	</url-mapping>
-	<url-mapping id="tree_01">
+	
+	<url-mapping id="tree_02">
 		<pattern value="/customer/tree/#{id:customerController.customerId}"></pattern>
 		<view-id>/sec/customer/tree.jsf</view-id>
 		<action>#{customerController.genTreeModel()}</action> 

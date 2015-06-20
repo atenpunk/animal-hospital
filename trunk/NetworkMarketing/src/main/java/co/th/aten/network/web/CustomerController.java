@@ -8,6 +8,7 @@ import java.util.Locale;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Instance;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -25,7 +26,8 @@ import co.th.aten.network.producer.DBDefault;
 import co.th.aten.network.security.annotation.Authenticated;
 import co.th.aten.network.util.StringUtil;
 
-@ViewScoped
+//@ViewScoped
+@SessionScoped
 @Named
 public class CustomerController implements Serializable{
 
@@ -73,29 +75,28 @@ public class CustomerController implements Serializable{
 
 	private String html;
 	private int customerId;
-	
+
 	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd",Locale.US);
 
-	@SuppressWarnings("unchecked")
 	@PostConstruct
 	public void init(){
 		log.info("init method CustomerController");
 
-		customerModelList = new ArrayList<CustomerModel>();
-		List<Customer> CustomerList = em.createQuery("From Customer").getResultList();
-		if(CustomerList!=null){
-			for(Customer customer:CustomerList){
-				customerModelList.add(setDataCustomerModel(customer));
-			}
-		}
+		//		customerModelList = new ArrayList<CustomerModel>();
+		//		List<Customer> CustomerList = em.createQuery("From Customer").getResultList();
+		//		if(CustomerList!=null){
+		//			for(Customer customer:CustomerList){
+		//				customerModelList.add(setDataCustomerModel(customer));
+		//			}
+		//		}
 
-		if(user.get().getCustomerId()!=null){
-			Customer customer = user.get().getCustomerId();
-			customerId = customer.getId();
-			genTreeModel();
-//			customerId = customer.getId();
-			//			genAutoTagTree(customer.getId());
-		}
+//		if(user.get().getCustomerId()!=null || customerId!=0){
+//			Customer customer = user.get().getCustomerId();
+//			if(customerId==0){
+//				customerId = customer.getId();
+//			}
+//			genTreeModel();
+//		}
 
 	}
 
@@ -177,6 +178,14 @@ public class CustomerController implements Serializable{
 
 	public void genTreeModel(){
 		try{
+			log.info("------------------- genTreeModel() -------------------");
+			if(user.get().getCustomerId()!=null || customerId!=0){
+				Customer customer = user.get().getCustomerId();
+				if(customerId==0){
+					customerId = customer.getId();
+				}
+			}
+			
 			customerModel_01 = null;
 			customerModel_02 = null;
 			customerModel_03 = null;
@@ -262,6 +271,7 @@ public class CustomerController implements Serializable{
 					customerModel_02.setFlagImg01("block");
 					customerModel_02.setFlagImg02("none");
 					customerModel_02.setFlagImg03("none");
+					customerModel_02.setUpperId(customerModel_01.getCusId());
 				}else{
 					customerModel_02.setPositionImage("/resources/gfx/balls_11.gif");
 					customerModel_02.setFlagImg01("none");
@@ -276,6 +286,7 @@ public class CustomerController implements Serializable{
 					customerModel_03.setFlagImg01("block");
 					customerModel_03.setFlagImg02("none");
 					customerModel_03.setFlagImg03("none");
+					customerModel_03.setUpperId(customerModel_01.getCusId());
 				}else{
 					customerModel_03.setPositionImage("/resources/gfx/balls_11.gif");
 					customerModel_03.setFlagImg01("none");
@@ -290,6 +301,7 @@ public class CustomerController implements Serializable{
 					customerModel_04.setFlagImg01("block");
 					customerModel_04.setFlagImg02("none");
 					customerModel_04.setFlagImg03("none");
+					customerModel_04.setUpperId(customerModel_02.getCusId());
 				}else{
 					customerModel_04.setPositionImage("/resources/gfx/balls_11.gif");
 					customerModel_04.setFlagImg01("none");
@@ -304,6 +316,7 @@ public class CustomerController implements Serializable{
 					customerModel_05.setFlagImg01("block");
 					customerModel_05.setFlagImg02("none");
 					customerModel_05.setFlagImg03("none");
+					customerModel_05.setUpperId(customerModel_02.getCusId());
 				}else{
 					customerModel_05.setPositionImage("/resources/gfx/balls_11.gif");
 					customerModel_05.setFlagImg01("none");
@@ -318,6 +331,7 @@ public class CustomerController implements Serializable{
 					customerModel_06.setFlagImg01("block");
 					customerModel_06.setFlagImg02("none");
 					customerModel_06.setFlagImg03("none");
+					customerModel_06.setUpperId(customerModel_03.getCusId());
 				}else{
 					customerModel_06.setPositionImage("/resources/gfx/balls_11.gif");
 					customerModel_06.setFlagImg01("none");
@@ -332,6 +346,7 @@ public class CustomerController implements Serializable{
 					customerModel_07.setFlagImg01("block");
 					customerModel_07.setFlagImg02("none");
 					customerModel_07.setFlagImg03("none");
+					customerModel_07.setUpperId(customerModel_03.getCusId());
 				}else{
 					customerModel_07.setPositionImage("/resources/gfx/balls_11.gif");
 					customerModel_07.setFlagImg01("none");
@@ -346,6 +361,7 @@ public class CustomerController implements Serializable{
 					customerModel_08.setFlagImg01("block");
 					customerModel_08.setFlagImg02("none");
 					customerModel_08.setFlagImg03("none");
+					customerModel_08.setUpperId(customerModel_04.getCusId());
 				}else{
 					customerModel_08.setPositionImage("/resources/gfx/balls_11.gif");
 					customerModel_08.setFlagImg01("none");
@@ -360,6 +376,7 @@ public class CustomerController implements Serializable{
 					customerModel_09.setFlagImg01("block");
 					customerModel_09.setFlagImg02("none");
 					customerModel_09.setFlagImg03("none");
+					customerModel_09.setUpperId(customerModel_04.getCusId());
 				}else{
 					customerModel_09.setPositionImage("/resources/gfx/balls_11.gif");
 					customerModel_09.setFlagImg01("none");
@@ -374,6 +391,7 @@ public class CustomerController implements Serializable{
 					customerModel_10.setFlagImg01("block");
 					customerModel_10.setFlagImg02("none");
 					customerModel_10.setFlagImg03("none");
+					customerModel_10.setUpperId(customerModel_05.getCusId());
 				}else{
 					customerModel_10.setPositionImage("/resources/gfx/balls_11.gif");
 					customerModel_10.setFlagImg01("none");
@@ -388,6 +406,7 @@ public class CustomerController implements Serializable{
 					customerModel_11.setFlagImg01("block");
 					customerModel_11.setFlagImg02("none");
 					customerModel_11.setFlagImg03("none");
+					customerModel_11.setUpperId(customerModel_05.getCusId());
 				}else{
 					customerModel_11.setPositionImage("/resources/gfx/balls_11.gif");
 					customerModel_11.setFlagImg01("none");
@@ -402,6 +421,7 @@ public class CustomerController implements Serializable{
 					customerModel_12.setFlagImg01("block");
 					customerModel_12.setFlagImg02("none");
 					customerModel_12.setFlagImg03("none");
+					customerModel_12.setUpperId(customerModel_06.getCusId());
 				}else{
 					customerModel_12.setPositionImage("/resources/gfx/balls_11.gif");
 					customerModel_12.setFlagImg01("none");
@@ -416,6 +436,7 @@ public class CustomerController implements Serializable{
 					customerModel_13.setFlagImg01("block");
 					customerModel_13.setFlagImg02("none");
 					customerModel_13.setFlagImg03("none");
+					customerModel_13.setUpperId(customerModel_06.getCusId());
 				}else{
 					customerModel_13.setPositionImage("/resources/gfx/balls_11.gif");
 					customerModel_13.setFlagImg01("none");
@@ -430,6 +451,7 @@ public class CustomerController implements Serializable{
 					customerModel_14.setFlagImg01("block");
 					customerModel_14.setFlagImg02("none");
 					customerModel_14.setFlagImg03("none");
+					customerModel_14.setUpperId(customerModel_07.getCusId());
 				}else{
 					customerModel_14.setPositionImage("/resources/gfx/balls_11.gif");
 					customerModel_14.setFlagImg01("none");
@@ -444,6 +466,7 @@ public class CustomerController implements Serializable{
 					customerModel_15.setFlagImg01("block");
 					customerModel_15.setFlagImg02("none");
 					customerModel_15.setFlagImg03("none");
+					customerModel_15.setUpperId(customerModel_07.getCusId());
 				}else{
 					customerModel_15.setPositionImage("/resources/gfx/balls_11.gif");
 					customerModel_15.setFlagImg01("none");

@@ -53,5 +53,15 @@
 			<redirect />
 		</navigation-case>
 	</navigation-rule>
+	
+	<navigation-rule id="addCustomer">
+	<from-view-id>/sec/add/add.xhtml</from-view-id>
+	<navigation-case>
+			<from-action>#{addCustomerController.addCustomer()}</from-action>
+			<if>#{true}</if>
+			<to-view-id>/sec/customer/tree.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
 
 </faces-config>

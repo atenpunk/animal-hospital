@@ -24,4 +24,17 @@
   SHAPE="480,417,0,0" model-entity="JSFProcessGroup"/>
  <PROCESS-ITEM NAME="rules:#sec#home.xhtml" PATH="/sec/home.xhtml"
   SHAPE="496,273,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#sec#customer#tree.xhtml"
+  PATH="/sec/customer/tree.xhtml" SHAPE="240,545,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#sec#add#add.xhtml" PATH="/sec/add/add.xhtml"
+  SHAPE="32,529,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#sec#add#add.xhtml:0" NAME="item"
+   PATH="/sec/add/add.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID=":#{addCustomerController.addCustomer()}:#sec#customer#tree.xhtml"
+    NAME="output" PATH="/sec/customer/tree.xhtml"
+    TARGET="rules:#sec#customer#tree.xhtml"
+    TITLE="#{addCustomerController.addCustomer()}:[any]" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
 </PROCESS>
