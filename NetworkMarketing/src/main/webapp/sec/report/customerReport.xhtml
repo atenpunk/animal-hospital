@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="content">
+		<h:form>
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="รายงาน ทีมงานตามสายการแนะนำ " />
+				</f:facet>
+				<table>
+					<tr>
+						<td align="left"><h:commandLink value="Print Report" style="width:100px"
+								action="#{directLineReportController.exportReport()}"
+								target="tab" /> &#160;&#160; 
+								<h:commandLink style="width:100px"
+								value="Export CSV"
+								action="#{directLineReportController.exportReportCSV()}"
+								target="tab" /></td>
+					</tr>
+				</table>
+				<rich:dataTable id="testDataTable"
+					onrowmouseover="this.style.backgroundColor='#F1F1F1'"
+					onrowmouseout="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+					value="#{directLineReportController.directLineReportModelList}"
+					var="item" rows="20">
+					<f:facet name="header">
+						<rich:columnGroup>
+							<rich:column breakRowBefore="true">
+								<h:outputText value="ลำดับที่" />
+							</rich:column>
+							<rich:column>
+								<h:outputText value="รหัสสมาชิก" />
+							</rich:column>
+							<rich:column>
+								<h:outputText value="ชื่อ" />
+							</rich:column>
+							<rich:column>
+								<h:outputText value="ตำแหน่ง" />
+							</rich:column>
+							<rich:column>
+								<h:outputText value="วันที่สมัคร" />
+							</rich:column>
+							<rich:column>
+								<h:outputText value="รหัสอัพไลน์" />
+							</rich:column>
+						</rich:columnGroup>
+					</f:facet>
+					<rich:column>
+						<h:outputText value="#{item.index}">
+						</h:outputText>
+					</rich:column>
+					<rich:column>
+						<h:outputText value="#{item.customerId}" />
+					</rich:column>
+					<rich:column>
+						<h:outputText value="#{item.customerName}" />
+					</rich:column>
+					<rich:column>
+						<h:outputText value="#{item.position}" />
+					</rich:column>
+					<rich:column>
+						<h:outputText value="#{item.regisDate}">
+							<f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+						</h:outputText>
+					</rich:column>
+					<rich:column>
+						<h:outputText value="#{item.upperLineId}" />
+					</rich:column>
+					<f:facet name="footer">
+						<rich:dataScroller for="testDataTable" />
+					</f:facet>
+				</rich:dataTable>
+			</rich:panel>
+		</h:form>
+	</ui:define>
+
+</ui:composition>

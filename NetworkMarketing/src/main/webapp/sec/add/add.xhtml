@@ -44,11 +44,11 @@
 					<h:outputText value="รหัสอัพไลน์" />
 					<h:outputText value="" />
 					<h:inputText value="#{addCustomerController.upperLineCusId}"
-						style=" width : 80px;" />
+						disabled="true" style=" width : 80px;" />
 					<h:outputText value="ชื่ออัพไลน์" />
 					<h:outputText value="" />
 					<h:inputText value="#{addCustomerController.upperLineName}"
-						style=" width : 150px;" />
+						disabled="true" style=" width : 150px;" />
 				</h:panelGrid>
 				<h:commandButton id="submit" disabled="#{addCustomerController.chkSave}"
 					onclick="if (!confirm('#{messages['label.comfirm.save']}')) return false"

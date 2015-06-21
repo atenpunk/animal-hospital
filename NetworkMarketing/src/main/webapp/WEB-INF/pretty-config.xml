@@ -49,6 +49,11 @@
 		<action>#{customerController.genTreeModel()}</action> 
 	</url-mapping>
 	
+	<url-mapping id="report_01">
+		<pattern value="/report/customerReport"></pattern>
+		<view-id>/sec/report/customerReport.jsf</view-id>
+	</url-mapping>
+	
 	
     
 	<!--url-mapping id="subscriber_list">

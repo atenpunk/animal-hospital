@@ -7,31 +7,27 @@ import java.util.Map;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 
-import co.th.aten.network.model.SalePDFModel;
-import co.th.aten.network.model.CustomerModel;
-import co.th.aten.network.model.TopupReportModel;
-
 import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.util.JRLoader;
+import co.th.aten.network.model.DirectLineReportModel;
 
 
-public class TouupReport extends AbstractReport {
+public class DirectLineReport extends AbstractReport {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -5326919701601476597L;
 
-	private final String fileName = "/reports/NewTopupReport.jasper";
-//	private final String fileName = "/reports/test.jasper";
+	private final String fileName = "/reports/DirectLineReport.jasper";
 
-	private List<TopupReportModel> model;
+	private List<DirectLineReportModel> model;
 
-	public TouupReport() {
+	public DirectLineReport() {
 		super();
 	}
 
@@ -61,15 +57,11 @@ public class TouupReport extends AbstractReport {
 
 	}
 
-
-
-
-
-	public List<TopupReportModel> getModel() {
+	public List<DirectLineReportModel> getModel() {
 		return model;
 	}
 
-	public void setModel(List<TopupReportModel> model) {
+	public void setModel(List<DirectLineReportModel> model) {
 		this.model = model;
 	}
 
