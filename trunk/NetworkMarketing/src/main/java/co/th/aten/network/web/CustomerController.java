@@ -82,13 +82,13 @@ public class CustomerController implements Serializable{
 	public void init(){
 		log.info("init method CustomerController");
 
-		//		customerModelList = new ArrayList<CustomerModel>();
-		//		List<Customer> CustomerList = em.createQuery("From Customer").getResultList();
-		//		if(CustomerList!=null){
-		//			for(Customer customer:CustomerList){
-		//				customerModelList.add(setDataCustomerModel(customer));
-		//			}
-		//		}
+//				customerModelList = new ArrayList<CustomerModel>();
+//				List<Customer> CustomerList = em.createQuery("From Customer",Customer.class).getResultList();
+//				if(CustomerList!=null){
+//					for(Customer customer:CustomerList){
+//						customerModelList.add(setDataCustomerModel(customer));
+//					}
+//				}
 
 //		if(user.get().getCustomerId()!=null || customerId!=0){
 //			Customer customer = user.get().getCustomerId();
