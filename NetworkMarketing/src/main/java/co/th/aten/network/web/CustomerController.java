@@ -190,7 +190,9 @@ public class CustomerController implements Serializable{
 			}else if(flag!=null && flag.equals("2")){
 				// top
 				if(customerModel_01!=null && customerModel_01.getUpperId()!=0){
-					customerId = customerModel_01.getUpperId();
+					if(customerModel_01.getCusId()!=user.get().getCustomerId().getId()){
+						customerId = customerModel_01.getUpperId();
+					}
 				}
 			}else if(flag!=null && flag.equals("3")){
 				// right
