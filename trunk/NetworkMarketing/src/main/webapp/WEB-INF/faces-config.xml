@@ -15,11 +15,11 @@
 			<supported-locale>th</supported-locale>
 		</locale-config>
 		<resource-bundle>
-			<base-name>messages_th</base-name>
+			<base-name>messages</base-name>
 			<var>messages</var>
 		</resource-bundle>
 		<resource-bundle>
-			<base-name>app_messages_th</base-name>
+			<base-name>app_messages</base-name>
 			<var>app_msgs</var>
 		</resource-bundle>
 	</application>

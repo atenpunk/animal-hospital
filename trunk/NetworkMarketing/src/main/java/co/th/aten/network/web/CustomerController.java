@@ -77,7 +77,7 @@ public class CustomerController implements Serializable{
 	private int customerId;
 
 	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd",Locale.US);
-
+	
 	@PostConstruct
 	public void init(){
 		log.info("init method CustomerController");
