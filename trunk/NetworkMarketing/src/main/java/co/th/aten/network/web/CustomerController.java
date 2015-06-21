@@ -77,26 +77,26 @@ public class CustomerController implements Serializable{
 	private int customerId;
 
 	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd",Locale.US);
-	
+
 	@PostConstruct
 	public void init(){
 		log.info("init method CustomerController");
 
-//				customerModelList = new ArrayList<CustomerModel>();
-//				List<Customer> CustomerList = em.createQuery("From Customer",Customer.class).getResultList();
-//				if(CustomerList!=null){
-//					for(Customer customer:CustomerList){
-//						customerModelList.add(setDataCustomerModel(customer));
-//					}
-//				}
+		//				customerModelList = new ArrayList<CustomerModel>();
+		//				List<Customer> CustomerList = em.createQuery("From Customer",Customer.class).getResultList();
+		//				if(CustomerList!=null){
+		//					for(Customer customer:CustomerList){
+		//						customerModelList.add(setDataCustomerModel(customer));
+		//					}
+		//				}
 
-//		if(user.get().getCustomerId()!=null || customerId!=0){
-//			Customer customer = user.get().getCustomerId();
-//			if(customerId==0){
-//				customerId = customer.getId();
-//			}
-//			genTreeModel();
-//		}
+		if(user.get().getCustomerId()!=null){
+			Customer customer = user.get().getCustomerId();
+			if(customer!=null){
+				customerId = customer.getId();
+			}
+			genTreeModel();
+		}
 
 	}
 
@@ -176,16 +176,83 @@ public class CustomerController implements Serializable{
 		return str.toString();
 	}
 
+	public void genTree(String flag){
+		log.info("flag = "+flag);
+		try{
+			if(flag!=null && flag.equals("0")){
+				// top top
+				customerId = user.get().getCustomerId().getId();
+			}else if(flag!=null && flag.equals("1")){
+				// left
+				if(customerModel_01!=null && customerModel_01.getCusId()!=0){
+					customerId = findLeftLow();
+				}
+			}else if(flag!=null && flag.equals("2")){
+				// top
+				if(customerModel_01!=null && customerModel_01.getUpperId()!=0){
+					customerId = customerModel_01.getUpperId();
+				}
+			}else if(flag!=null && flag.equals("3")){
+				// right
+				if(customerModel_01!=null && customerModel_01.getCusId()!=0){
+					customerId = findRightLow();
+				}
+			}
+			genTreeModel();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+
+	private int findLeftLow(){
+		int leftLow = 0;
+		int id = user.get().getCustomerId().getId();
+		int chk = 0;
+		while(leftLow==0){
+			chk++;
+			Customer customer = getCustomerById(id);
+			if(customer.getLowerLeftId()==null){
+				leftLow = customer.getId().intValue();
+			}else{
+				id = customer.getLowerLeftId();
+			}
+			if(chk>10000){
+				leftLow = user.get().getCustomerId().getId();
+				break;
+			}
+		}
+		return leftLow;
+	}
+
+	private int findRightLow(){
+		int leftLow = 0;
+		int id = user.get().getCustomerId().getId();
+		int chk = 0;
+		while(leftLow==0){
+			chk++;
+			Customer customer = getCustomerById(id);
+			if(customer.getLowerRightId()==null){
+				leftLow = customer.getId().intValue();
+			}else{
+				id = customer.getLowerRightId();
+			}
+			if(chk>10000){
+				leftLow = user.get().getCustomerId().getId();
+				break;
+			}
+		}
+		return leftLow;
+	}
+
 	public void genTreeModel(){
 		try{
-			log.info("------------------- genTreeModel() -------------------");
+			log.info("------------------- genTreeModel() customerId = "+customerId);
 			if(user.get().getCustomerId()!=null || customerId!=0){
 				Customer customer = user.get().getCustomerId();
 				if(customerId==0){
 					customerId = customer.getId();
 				}
 			}
-			
 			customerModel_01 = null;
 			customerModel_02 = null;
 			customerModel_03 = null;

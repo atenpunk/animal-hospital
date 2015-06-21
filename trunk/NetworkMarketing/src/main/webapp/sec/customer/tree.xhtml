@@ -9,70 +9,100 @@
 	<ui:define name="content">
 		<h:form>
 			<rich:panel>
-					<h:panelGrid columns="2">
-						<rich:panel style="width : 350px;height:170px;">
-							<h:panelGrid columns="2">
-								<h:outputText value="รหัสสมาชิก" />
-								<h:outputText value="" />
-								<h:outputText value="วันที่สมัคร" />
-								<h:outputText value="" />
-								<h:outputText value="ตำแหน่ง (ค่าแนะนำ)" />
-								<h:outputText value="" />
-								<h:outputText value="ตำแหน่ง (จับคู่)" />
-								<h:outputText value="" />
-								<h:outputText value="ใบสมัครสมาชิก" />
-								<h:outputText value="" />
-								<h:outputText value="สำเนาบัตรประชาชนผู้สมัครหลัก" />
-								<h:outputText value="" />
-								<h:outputText value="สำเนาบัญชีธนาคารผู้สมัครหลัก" />
-								<h:outputText value="" />
-							</h:panelGrid>
-						</rich:panel>
-						<rich:panel style="width : 350px;height:170px;">
-							<h:panelGrid columns="4">
-								<h:outputText value="PV สะสม" />
-								<h:outputText value="" />
-								<h:outputText value="" />
-								<h:outputText value="" />
-								
-								<h:outputText value="PV ซ้าย (ยกมา)" />
-								<h:outputText value="" />
-								<h:outputText value="PV ขวา (ยกมา)" />
-								<h:outputText value="" />
-								
-								<h:outputText value="PV ซ้าย (ใหม่)" />
-								<h:outputText value="" />
-								<h:outputText value="PV ขวา (ใหม่)" />
-								<h:outputText value="" />
-								
-								<h:outputText value="PV ซ้าย (รวม)" />
-								<h:outputText value="" />
-								<h:outputText value="PV ขวา (รวม)" />
-								<h:outputText value="" />
-								
-								<h:outputText value=" " />
-								<h:outputText value="" />
-								<h:outputText value="" />
-								<h:outputText value="" />
-								
-								<h:outputText value=" " />
-								<h:outputText value="" />
-								<h:outputText value="" />
-								<h:outputText value="" />
-								
-								<h:outputText value=" " />
-								<h:outputText value="" />
-								<h:outputText value="" />
-								<h:outputText value="" />
-							</h:panelGrid>
-						</rich:panel>
-					</h:panelGrid>
+				<h:panelGrid columns="2">
+					<rich:panel style="width : 350px;height:170px;">
+						<h:panelGrid columns="2">
+							<h:outputText value="รหัสสมาชิก" />
+							<h:outputText value="" />
+							<h:outputText value="วันที่สมัคร" />
+							<h:outputText value="" />
+							<h:outputText value="ตำแหน่ง (ค่าแนะนำ)" />
+							<h:outputText value="" />
+							<h:outputText value="ตำแหน่ง (จับคู่)" />
+							<h:outputText value="" />
+							<h:outputText value="ใบสมัครสมาชิก" />
+							<h:outputText value="" />
+							<h:outputText value="สำเนาบัตรประชาชนผู้สมัครหลัก" />
+							<h:outputText value="" />
+							<h:outputText value="สำเนาบัญชีธนาคารผู้สมัครหลัก" />
+							<h:outputText value="" />
+						</h:panelGrid>
+					</rich:panel>
+					<rich:panel style="width : 350px;height:170px;">
+						<h:panelGrid columns="4">
+							<h:outputText value="PV สะสม" />
+							<h:outputText value="" />
+							<h:outputText value="" />
+							<h:outputText value="" />
+
+							<h:outputText value="PV ซ้าย (ยกมา)" />
+							<h:outputText value="" />
+							<h:outputText value="PV ขวา (ยกมา)" />
+							<h:outputText value="" />
+
+							<h:outputText value="PV ซ้าย (ใหม่)" />
+							<h:outputText value="" />
+							<h:outputText value="PV ขวา (ใหม่)" />
+							<h:outputText value="" />
+
+							<h:outputText value="PV ซ้าย (รวม)" />
+							<h:outputText value="" />
+							<h:outputText value="PV ขวา (รวม)" />
+							<h:outputText value="" />
+
+							<h:outputText value=" " />
+							<h:outputText value="" />
+							<h:outputText value="" />
+							<h:outputText value="" />
+
+							<h:outputText value=" " />
+							<h:outputText value="" />
+							<h:outputText value="" />
+							<h:outputText value="" />
+
+							<h:outputText value=" " />
+							<h:outputText value="" />
+							<h:outputText value="" />
+							<h:outputText value="" />
+						</h:panelGrid>
+					</rich:panel>
+				</h:panelGrid>
 				<br />
-				<rich:panel
+				<rich:panel id="panelTree"
 					rendered="#{customerController.customerModel_01 ne null}">
 					<table>
 						<tr>
 							<td>
+							<rich:panel style=" width : 115px; height : 75px;">
+						<table>
+							<tr align="center">
+								<td></td>
+								<td><a4j:commandLink
+										actionListener="#{customerController.genTree('0')}" render="panelTree">
+										<h:graphicImage value="/resources/gfx/go_dup.gif" />
+									</a4j:commandLink></td>
+								<td><a4j:status>
+										<f:facet name="start">
+											<h:graphicImage value="/resources/gfx/spinner.gif" />
+										</f:facet>
+									</a4j:status></td>
+							</tr>
+							<tr align="center">
+								<td><a4j:commandLink
+										actionListener="#{customerController.genTree('1')}" render="panelTree">
+										<h:graphicImage value="/resources/gfx/go_left.gif" />
+									</a4j:commandLink></td>
+								<td><a4j:commandLink
+										actionListener="#{customerController.genTree('2')}" render="panelTree">
+										<h:graphicImage value="/resources/gfx/go_up.gif" />
+									</a4j:commandLink></td>
+								<td><a4j:commandLink
+										actionListener="#{customerController.genTree('3')}" render="panelTree">
+										<h:graphicImage value="/resources/gfx/go_right.gif" />
+									</a4j:commandLink></td>
+							</tr>
+						</table>
+					</rich:panel>
 								<div class="tree">
 									<ul>
 										<li><div
@@ -81,9 +111,8 @@
 													href="#{request.contextPath}/add/add/#{customerController.customerModel_01.cusId}/1">
 													<h:graphicImage
 														value="#{customerController.customerModel_01.positionImage}"
-														width="45px" height="45px" />
-													<span> <h:graphicImage class="callout"
-															value="/resources/gfx/callout.gif" /> <h:outputText
+														width="45px" height="45px" /> <span> <h:graphicImage
+															class="callout" value="/resources/gfx/callout.gif" /> <h:outputText
 															value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
 															rendered="#{customerController.customerModel_01.detailModelList eq null}" />
 														<rich:dataTable style="background:#fffAF0;"
@@ -142,10 +171,9 @@
 															href="#{request.contextPath}/add/add/#{customerController.customerModel_02.upperId}/1">
 															<h:graphicImage
 																value="#{customerController.customerModel_02.positionImage}"
-																width="45px" height="45px" /> 
-															<span> <h:graphicImage class="callout"
-																	value="/resources/gfx/callout.gif" /> <h:outputText
-																	value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
+																width="45px" height="45px" /> <span> <h:graphicImage
+																	class="callout" value="/resources/gfx/callout.gif" />
+																<h:outputText value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
 																	rendered="#{customerController.customerModel_02.detailModelList eq null}" />
 																<rich:dataTable style="background:#fffAF0;"
 																	rendered="#{customerController.customerModel_02.detailModelList ne null}"
@@ -207,10 +235,9 @@
 																	href="#{request.contextPath}/add/add/#{customerController.customerModel_04.upperId}/1">
 																	<h:graphicImage
 																		value="#{customerController.customerModel_04.positionImage}"
-																		width="45px" height="45px" />
-																	<span> <h:graphicImage class="callout"
-																			value="/resources/gfx/callout.gif" /> <h:outputText
-																			value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
+																		width="45px" height="45px" /> <span> <h:graphicImage
+																			class="callout" value="/resources/gfx/callout.gif" />
+																		<h:outputText value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
 																			rendered="#{customerController.customerModel_04.detailModelList eq null}" />
 																		<rich:dataTable style="background:#fffAF0;"
 																			rendered="#{customerController.customerModel_04.detailModelList ne null}"
@@ -271,10 +298,9 @@
 																			href="#{request.contextPath}/add/add/#{customerController.customerModel_08.upperId}/1">
 																			<h:graphicImage
 																				value="#{customerController.customerModel_08.positionImage}"
-																				width="45px" height="45px" />
-																			<span> <h:graphicImage class="callout"
-																					value="/resources/gfx/callout.gif" /> <h:outputText
-																					value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
+																				width="45px" height="45px" /> <span> <h:graphicImage
+																					class="callout" value="/resources/gfx/callout.gif" />
+																				<h:outputText value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
 																					rendered="#{customerController.customerModel_08.detailModelList eq null}" />
 																				<rich:dataTable style="background:#fffAF0;"
 																					rendered="#{customerController.customerModel_08.detailModelList ne null}"
@@ -334,10 +360,9 @@
 																			href="#{request.contextPath}/add/add/#{customerController.customerModel_09.upperId}/2">
 																			<h:graphicImage
 																				value="#{customerController.customerModel_09.positionImage}"
-																				width="45px" height="45px" />
-																			<span> <h:graphicImage class="callout"
-																					value="/resources/gfx/callout.gif" /> <h:outputText
-																					value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
+																				width="45px" height="45px" /> <span> <h:graphicImage
+																					class="callout" value="/resources/gfx/callout.gif" />
+																				<h:outputText value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
 																					rendered="#{customerController.customerModel_09.detailModelList eq null}" />
 																				<rich:dataTable style="background:#fffAF0;"
 																					rendered="#{customerController.customerModel_09.detailModelList ne null}"
@@ -399,10 +424,9 @@
 																	href="#{request.contextPath}/add/add/#{customerController.customerModel_05.upperId}/2">
 																	<h:graphicImage
 																		value="#{customerController.customerModel_05.positionImage}"
-																		width="45px" height="45px" />
-																	<span> <h:graphicImage class="callout"
-																			value="/resources/gfx/callout.gif" /> <h:outputText
-																			value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
+																		width="45px" height="45px" /> <span> <h:graphicImage
+																			class="callout" value="/resources/gfx/callout.gif" />
+																		<h:outputText value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
 																			rendered="#{customerController.customerModel_05.detailModelList eq null}" />
 																		<rich:dataTable style="background:#fffAF0;"
 																			rendered="#{customerController.customerModel_05.detailModelList ne null}"
@@ -463,10 +487,9 @@
 																			href="#{request.contextPath}/add/add/#{customerController.customerModel_10.upperId}/1">
 																			<h:graphicImage
 																				value="#{customerController.customerModel_10.positionImage}"
-																				width="45px" height="45px" />
-																			<span> <h:graphicImage class="callout"
-																					value="/resources/gfx/callout.gif" /> <h:outputText
-																					value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
+																				width="45px" height="45px" /> <span> <h:graphicImage
+																					class="callout" value="/resources/gfx/callout.gif" />
+																				<h:outputText value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
 																					rendered="#{customerController.customerModel_10.detailModelList eq null}" />
 																				<rich:dataTable style="background:#fffAF0;"
 																					rendered="#{customerController.customerModel_10.detailModelList ne null}"
@@ -526,10 +549,9 @@
 																			href="#{request.contextPath}/add/add/#{customerController.customerModel_11.upperId}/2">
 																			<h:graphicImage
 																				value="#{customerController.customerModel_11.positionImage}"
-																				width="45px" height="45px" />
-																			<span> <h:graphicImage class="callout"
-																					value="/resources/gfx/callout.gif" /> <h:outputText
-																					value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
+																				width="45px" height="45px" /> <span> <h:graphicImage
+																					class="callout" value="/resources/gfx/callout.gif" />
+																				<h:outputText value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
 																					rendered="#{customerController.customerModel_11.detailModelList eq null}" />
 																				<rich:dataTable style="background:#fffAF0;"
 																					rendered="#{customerController.customerModel_11.detailModelList ne null}"
@@ -593,10 +615,9 @@
 															href="#{request.contextPath}/add/add/#{customerController.customerModel_03.upperId}/2">
 															<h:graphicImage
 																value="#{customerController.customerModel_03.positionImage}"
-																width="45px" height="45px" /> 
-															<span> <h:graphicImage class="callout"
-																	value="/resources/gfx/callout.gif" /> <h:outputText
-																	value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
+																width="45px" height="45px" /> <span> <h:graphicImage
+																	class="callout" value="/resources/gfx/callout.gif" />
+																<h:outputText value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
 																	rendered="#{customerController.customerModel_03.detailModelList eq null}" />
 																<rich:dataTable style="background:#fffAF0;"
 																	rendered="#{customerController.customerModel_03.detailModelList ne null}"
@@ -657,10 +678,9 @@
 																	href="#{request.contextPath}/add/add/#{customerController.customerModel_06.upperId}/1">
 																	<h:graphicImage
 																		value="#{customerController.customerModel_06.positionImage}"
-																		width="45px" height="45px" />
-																	<span> <h:graphicImage class="callout"
-																			value="/resources/gfx/callout.gif" /> <h:outputText
-																			value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
+																		width="45px" height="45px" /> <span> <h:graphicImage
+																			class="callout" value="/resources/gfx/callout.gif" />
+																		<h:outputText value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
 																			rendered="#{customerController.customerModel_06.detailModelList eq null}" />
 																		<rich:dataTable style="background:#fffAF0;"
 																			rendered="#{customerController.customerModel_06.detailModelList ne null}"
@@ -721,10 +741,9 @@
 																			href="#{request.contextPath}/add/add/#{customerController.customerModel_12.upperId}/1">
 																			<h:graphicImage
 																				value="#{customerController.customerModel_12.positionImage}"
-																				width="45px" height="45px" />
-																			<span> <h:graphicImage class="callout"
-																					value="/resources/gfx/callout.gif" /> <h:outputText
-																					value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
+																				width="45px" height="45px" /> <span> <h:graphicImage
+																					class="callout" value="/resources/gfx/callout.gif" />
+																				<h:outputText value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
 																					rendered="#{customerController.customerModel_12.detailModelList eq null}" />
 																				<rich:dataTable style="background:#fffAF0;"
 																					rendered="#{customerController.customerModel_12.detailModelList ne null}"
@@ -784,10 +803,9 @@
 																			href="#{request.contextPath}/add/add/#{customerController.customerModel_13.upperId}/2">
 																			<h:graphicImage
 																				value="#{customerController.customerModel_13.positionImage}"
-																				width="45px" height="45px" />
-																			<span> <h:graphicImage class="callout"
-																					value="/resources/gfx/callout.gif" /> <h:outputText
-																					value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
+																				width="45px" height="45px" /> <span> <h:graphicImage
+																					class="callout" value="/resources/gfx/callout.gif" />
+																				<h:outputText value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
 																					rendered="#{customerController.customerModel_13.detailModelList eq null}" />
 																				<rich:dataTable style="background:#fffAF0;"
 																					rendered="#{customerController.customerModel_13.detailModelList ne null}"
@@ -848,10 +866,9 @@
 																	href="#{request.contextPath}/add/add/#{customerController.customerModel_07.upperId}/2">
 																	<h:graphicImage
 																		value="#{customerController.customerModel_07.positionImage}"
-																		width="45px" height="45px" />
-																	<span> <h:graphicImage class="callout"
-																			value="/resources/gfx/callout.gif" /> <h:outputText
-																			value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
+																		width="45px" height="45px" /> <span> <h:graphicImage
+																			class="callout" value="/resources/gfx/callout.gif" />
+																		<h:outputText value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
 																			rendered="#{customerController.customerModel_07.detailModelList eq null}" />
 																		<rich:dataTable style="background:#fffAF0;"
 																			rendered="#{customerController.customerModel_07.detailModelList ne null}"
@@ -912,10 +929,9 @@
 																			href="#{request.contextPath}/add/add/#{customerController.customerModel_14.upperId}/1">
 																			<h:graphicImage
 																				value="#{customerController.customerModel_14.positionImage}"
-																				width="45px" height="45px" />
-																			<span> <h:graphicImage class="callout"
-																					value="/resources/gfx/callout.gif" /> <h:outputText
-																					value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
+																				width="45px" height="45px" /> <span> <h:graphicImage
+																					class="callout" value="/resources/gfx/callout.gif" />
+																				<h:outputText value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
 																					rendered="#{customerController.customerModel_14.detailModelList eq null}" />
 																				<rich:dataTable style="background:#fffAF0;"
 																					rendered="#{customerController.customerModel_14.detailModelList ne null}"
@@ -975,10 +991,9 @@
 																			href="#{request.contextPath}/add/add/#{customerController.customerModel_15.upperId}/2">
 																			<h:graphicImage
 																				value="#{customerController.customerModel_15.positionImage}"
-																				width="45px" height="45px" />
-																			<span> <h:graphicImage class="callout"
-																					value="/resources/gfx/callout.gif" /> <h:outputText
-																					value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
+																				width="45px" height="45px" /> <span> <h:graphicImage
+																					class="callout" value="/resources/gfx/callout.gif" />
+																				<h:outputText value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
 																					rendered="#{customerController.customerModel_15.detailModelList eq null}" />
 																				<rich:dataTable style="background:#fffAF0;"
 																					rendered="#{customerController.customerModel_15.detailModelList ne null}"
