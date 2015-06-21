@@ -72,38 +72,41 @@
 					rendered="#{customerController.customerModel_01 ne null}">
 					<table>
 						<tr>
-							<td>
-							<rich:panel style=" width : 115px; height : 75px;">
-						<table>
-							<tr align="center">
-								<td></td>
-								<td><a4j:commandLink
-										actionListener="#{customerController.genTree('0')}" render="panelTree">
-										<h:graphicImage value="/resources/gfx/go_dup.gif" />
-									</a4j:commandLink></td>
-								<td><a4j:status>
-										<f:facet name="start">
-											<h:graphicImage value="/resources/gfx/spinner.gif" />
-										</f:facet>
-									</a4j:status></td>
-							</tr>
-							<tr align="center">
-								<td><a4j:commandLink
-										actionListener="#{customerController.genTree('1')}" render="panelTree">
-										<h:graphicImage value="/resources/gfx/go_left.gif" />
-									</a4j:commandLink></td>
-								<td><a4j:commandLink
-										actionListener="#{customerController.genTree('2')}" render="panelTree">
-										<h:graphicImage value="/resources/gfx/go_up.gif" />
-									</a4j:commandLink></td>
-								<td><a4j:commandLink
-										actionListener="#{customerController.genTree('3')}" render="panelTree">
-										<h:graphicImage value="/resources/gfx/go_right.gif" />
-									</a4j:commandLink></td>
-							</tr>
-						</table>
-					</rich:panel>
-								<div class="tree">
+							<td><rich:panel style=" width : 115px; height : 75px;">
+									<table>
+										<tr align="center">
+											<td></td>
+											<td><a4j:commandLink
+													actionListener="#{customerController.genTree('0')}"
+													render="panelTree">
+													<h:graphicImage value="/resources/gfx/go_dup.gif" />
+												</a4j:commandLink></td>
+											<td><a4j:status>
+													<f:facet name="start">
+														<h:graphicImage value="/resources/gfx/spinner.gif" />
+													</f:facet>
+												</a4j:status></td>
+										</tr>
+										<tr align="center">
+											<td><a4j:commandLink
+													actionListener="#{customerController.genTree('1')}"
+													render="panelTree">
+													<h:graphicImage value="/resources/gfx/go_left.gif" />
+												</a4j:commandLink></td>
+											<td><a4j:commandLink
+													actionListener="#{customerController.genTree('2')}"
+													render="panelTree">
+													<h:graphicImage value="/resources/gfx/go_up.gif" />
+												</a4j:commandLink></td>
+											<td><a4j:commandLink
+													actionListener="#{customerController.genTree('3')}"
+													render="panelTree">
+													<h:graphicImage value="/resources/gfx/go_right.gif" />
+												</a4j:commandLink></td>
+										</tr>
+									</table>
+								</rich:panel></td>
+							<td><div class="tree">
 									<ul>
 										<li><div
 												style="display: #{customerController.customerModel_01.flagImg02}">
@@ -1046,8 +1049,7 @@
 												</li>
 											</ul></li>
 									</ul>
-								</div>
-							</td>
+								</div></td>
 						</tr>
 					</table>
 				</rich:panel>
