@@ -264,7 +264,8 @@ body {
     padding: 0 20px 10px 20px;
     border: 1px solid #666666;
     width: 865px; /* subtract 40px from banner width for padding */
-    background: #FFFFFF url(#{request.contextPath}/resources/gfx/schneider_banner.png) no-repeat;
+    /*background: #FFFFFF url(#{request.contextPath}/resources/gfx/schneider_banner.png) no-repeat;*/
+    background: #FFFFFF url(#{request.contextPath}/resources/gfx/RICHTIME-NETWORK-905.png) no-repeat;
     padding-top: 110px;
 }
 #container {
@@ -272,7 +273,8 @@ body {
     padding: 0 20px 10px 20px;
     border: 1px solid #666666;
     width: 95%; /* subtract 40px from banner width for padding */
-    background: #FFFFFF url(#{request.contextPath}/resources/gfx/schneider_bannerLEFT.png) no-repeat;
+    /*background: #FFFFFF url(#{request.contextPath}/resources/gfx/schneider_bannerLEFT.png) no-repeat;*/
+    background: #FFFFFF url(#{request.contextPath}/resources/gfx/RICHTIME-NETWORK-348.png) no-repeat;
     padding-top: 2px;
 }
 #sidebar {
