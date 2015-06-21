@@ -47,9 +47,24 @@
 					<h:outputText value="Home Page" />
 				</rich:menuItem>
 			</rich:dropDownMenu>
+
+			<rich:toolbarGroup location="right">
+				<h:form>
+					<f:view locale="#{languageController.locale}">
+						<h:commandLink title="ไทย"
+							action="#{languageController.switchLocale('th')}">
+							<h:graphicImage value="/resources/gfx/THflag.png" />
+						</h:commandLink>
+						&#160;						
+					<h:commandLink title="English"
+							action="#{languageController.switchLocale('en')}">
+							<h:graphicImage value="/resources/gfx/ENflag.png" />
+						</h:commandLink>
+					</f:view>
+				</h:form>
+			</rich:toolbarGroup>
 		</rich:toolbar>
 		<br />
-
 
 		<div id="content">
 			<ui:insert name="content">
