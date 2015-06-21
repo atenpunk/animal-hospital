@@ -1,10 +1,9 @@
 package co.th.aten.network.web;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 import javax.annotation.PostConstruct;
@@ -18,10 +17,9 @@ import org.jboss.seam.international.status.MessageFactory;
 import org.jboss.seam.international.status.Messages;
 import org.jboss.solder.logging.Logger;
 
+import co.th.aten.network.control.CustomerControl;
 import co.th.aten.network.entity.Customer;
 import co.th.aten.network.entity.UserLogin;
-import co.th.aten.network.model.CustomerModel;
-import co.th.aten.network.model.DetailModel;
 import co.th.aten.network.producer.DBDefault;
 import co.th.aten.network.security.annotation.Authenticated;
 import co.th.aten.network.util.StringUtil;
@@ -38,8 +36,8 @@ public class AddCustomerController implements Serializable{
 	@Inject
 	Logger log;
 
-	//	@Inject
-	//	private SubscriberService subscriberService;
+	@Inject
+	private CustomerControl customerControl;
 
 	@Inject
 	@Authenticated
@@ -67,9 +65,10 @@ public class AddCustomerController implements Serializable{
 	private String upperLineCusId;
 	private String upperLineName;
 	private int flagUnder;
+	private boolean chkSave;
 
 	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd",Locale.US);
-
+	private DecimalFormat df = new DecimalFormat("000000");
 	@PostConstruct
 	public void init(){
 		log.info("init method AddCustomerController");
@@ -77,10 +76,12 @@ public class AddCustomerController implements Serializable{
 		starTitleName = "*";
 		starFirstName = "*";
 		starLastName = "*";
+		chkSave = true;
 	}
 
 	public void addCustomer(){
 		log.info("##### addCustomer()");
+		log.info("##### user.get().getUserId = "+user.get().getUserId());
 		log.info("##### customerId = "+customerId);
 		log.info("##### titleName = "+titleName);
 		log.info("##### firstName = "+firstName);
@@ -88,6 +89,40 @@ public class AddCustomerController implements Serializable{
 		log.info("##### regisDate = "+sdf.format(regisDate));
 		log.info("##### upperLineId = "+upperLineId);
 		log.info("##### flagUnder = "+flagUnder);
+		try{
+			Customer cus = new Customer();
+			int max = customerControl.customerIdInsert();
+			cus.setId(max);
+			customerId = "N"+df.format(max);
+			cus.setCustomerId(customerId);
+			cus.setUpperId(upperLineId);
+			cus.setLowerLeftId(null);
+			cus.setLowerRightId(null);
+			cus.setDirectId(0);
+			cus.setPositionId(5);
+			cus.setScore(0);
+			cus.setRegisDate(regisDate);
+			cus.setTitleName(titleName);
+			cus.setFirstName(firstName);
+			cus.setLastName(lastName);
+			cus.setStatus(0);
+			cus.setCreateBy(user.get().getUserId());
+			cus.setCreateDate(new Date());
+			cus.setUpdateBy(user.get().getUserId());
+			cus.setUpdateDate(new Date());
+			em.persist(cus);
+			Customer cusUpper = em.find(Customer.class, new Integer(upperLineId));
+			if(flagUnder == 1){
+				cusUpper.setLowerLeftId(max);
+			}else if(flagUnder == 2){
+				cusUpper.setLowerRightId(max);
+			}
+			em.merge(cusUpper);
+			messages.info("Add line success.");
+		}catch(Exception e){
+			e.printStackTrace();
+			messages.error("Add Line fail.");
+		}
 	}
 
 	public void view(){
@@ -104,7 +139,7 @@ public class AddCustomerController implements Serializable{
 				upperLineName = StringUtil.n2b(customerUpper.getTitleName())+" "+StringUtil.n2b(customerUpper.getFirstName())
 						+" "+StringUtil.n2b(customerUpper.getLastName());
 			}
-			
+
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -112,14 +147,19 @@ public class AddCustomerController implements Serializable{
 
 	public void onKeypress(){
 		if(firstName!=null && firstName.trim().length()>0){
-			starFirstName = "";
+			starFirstName = " ";
 		}else{
 			starFirstName = "*";
 		}
 		if(titleName!=null && titleName.trim().length()>0){
-			starTitleName = "";
+			starTitleName = " ";
 		}else{
 			starTitleName = "*";
+		}
+		if(starTitleName.equals("*") || starFirstName.equals("*")){
+			chkSave = true;
+		}else{
+			chkSave = false;
 		}
 	}
 
@@ -219,5 +259,12 @@ public class AddCustomerController implements Serializable{
 		this.flagUnder = flagUnder;
 	}
 
+	public boolean getChkSave() {
+		return chkSave;
+	}
+
+	public void setChkSave(boolean chkSave) {
+		this.chkSave = chkSave;
+	}
 
 }
