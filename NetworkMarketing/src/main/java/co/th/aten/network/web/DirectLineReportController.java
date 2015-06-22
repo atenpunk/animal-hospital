@@ -21,8 +21,8 @@ import net.sf.jasperreports.j2ee.servlets.ImageServlet;
 
 import org.jboss.solder.logging.Logger;
 
-import co.th.aten.network.entity.Customer;
-import co.th.aten.network.entity.Position;
+import co.th.aten.network.entity.MemberCustomer;
+import co.th.aten.network.entity.MemberPosition;
 import co.th.aten.network.model.DirectLineReportModel;
 import co.th.aten.network.producer.DBDefault;
 import co.th.aten.network.report.AbstractReport;
@@ -68,23 +68,23 @@ public class DirectLineReportController implements Serializable {
 		try{
 			log.info("-------------- search");
 			directLineReportModelList = new ArrayList<DirectLineReportModel>();
-			List<Customer> CustomerList = em.createQuery("From Customer",Customer.class).getResultList();
+			List<MemberCustomer> CustomerList = em.createQuery("From MemberCustomer",MemberCustomer.class).getResultList();
 			if(CustomerList!=null){
 				int index = 0;
-				for(Customer customer:CustomerList){
+				for(MemberCustomer customer:CustomerList){
 					DirectLineReportModel model = new DirectLineReportModel();
 					model.setIndex(++index);
-					model.setCustomerId(customer.getCustomerId());
+					model.setCustomerId(customer.getCustomerMember());
 					model.setCustomerName(StringUtil.n2b(customer.getTitleName())+StringUtil.n2b(customer.getFirstName())
 							+" "+StringUtil.n2b(customer.getLastName()));
 					if(customer.getPositionId()!=null && customer.getPositionId().intValue()!=0){
-						Position position = em.find(Position.class, customer.getPositionId());
+						MemberPosition position = em.find(MemberPosition.class, customer.getPositionId());
 						model.setPosition(StringUtil.n2b(position.getEnName()));
 					}					
 					model.setRegisDate(customer.getRegisDate());
 					if(customer.getUpperId()!=null && customer.getUpperId().intValue()!=0){
-						Customer upper = em.find(Customer.class, customer.getUpperId());
-						model.setUpperLineId(upper.getCustomerId());
+						MemberCustomer upper = em.find(MemberCustomer.class, customer.getUpperId());
+						model.setUpperLineId(upper.getCustomerMember());
 					}
 					directLineReportModelList.add(model);
 				}

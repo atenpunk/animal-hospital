@@ -5,7 +5,7 @@
 }
 
 .tree ul {
-	padding-top: 20px;
+	padding-top: 6px;
 	position: relative;
 	transition: all 0.5s;
 	-webkit-transition: all 0.5s;
@@ -17,7 +17,7 @@
 	text-align: center;
 	list-style-type: none;
 	position: relative;
-	padding: 20px 5px 0 5px;
+	padding: 6px 5px 0 5px;
 	transition: all 0.5s;
 	-webkit-transition: all 0.5s;
 	-moz-transition: all 0.5s;
@@ -30,7 +30,7 @@
 	right: 50%;
 	border-top: 2px solid #000000;
 	width: 55%;
-	height: 20px;
+	height: 6px;
 }
 
 .tree li::after {
@@ -73,7 +73,7 @@
 	left: 49%;
 	border-left: 2px solid #000000;
 	width: 0;
-	height: 20px;
+	height: 6px;
 }
 
 .tree li a {

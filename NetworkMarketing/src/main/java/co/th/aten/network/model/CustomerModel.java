@@ -6,12 +6,12 @@ import java.util.List;
 
 public class CustomerModel implements Serializable {
 	
-	private int cusId;
-    private String customerId;
-    private int upperId;
-    private int lowerLeftId;
-    private int lowerRightId;
-    private int directId;
+	private long customerId;
+    private String customerMember;
+    private long upperId;
+    private long lowerLeftId;
+    private long lowerRightId;
+    private long recommendId;
     private int positionId;
     private String positionImage;
     private int score;
@@ -29,41 +29,41 @@ public class CustomerModel implements Serializable {
     private String flagImg02;
     private String flagImg03;
     
-	public int getCusId() {
-		return cusId;
-	}
-	public void setCusId(int cusId) {
-		this.cusId = cusId;
-	}
-	public String getCustomerId() {
+	public long getCustomerId() {
 		return customerId;
 	}
-	public void setCustomerId(String customerId) {
+	public void setCustomerId(long customerId) {
 		this.customerId = customerId;
 	}
-	public int getUpperId() {
+	public String getCustomerMember() {
+		return customerMember;
+	}
+	public void setCustomerMember(String customerMember) {
+		this.customerMember = customerMember;
+	}
+	public long getRecommendId() {
+		return recommendId;
+	}
+	public void setRecommendId(long recommendId) {
+		this.recommendId = recommendId;
+	}
+	public long getUpperId() {
 		return upperId;
 	}
-	public void setUpperId(int upperId) {
+	public void setUpperId(long upperId) {
 		this.upperId = upperId;
 	}
-	public int getLowerLeftId() {
+	public long getLowerLeftId() {
 		return lowerLeftId;
 	}
-	public void setLowerLeftId(int lowerLeftId) {
+	public void setLowerLeftId(long lowerLeftId) {
 		this.lowerLeftId = lowerLeftId;
 	}
-	public int getLowerRightId() {
+	public long getLowerRightId() {
 		return lowerRightId;
 	}
-	public void setLowerRightId(int lowerRightId) {
+	public void setLowerRightId(long lowerRightId) {
 		this.lowerRightId = lowerRightId;
-	}
-	public int getDirectId() {
-		return directId;
-	}
-	public void setDirectId(int directId) {
-		this.directId = directId;
 	}
 	public int getPositionId() {
 		return positionId;
