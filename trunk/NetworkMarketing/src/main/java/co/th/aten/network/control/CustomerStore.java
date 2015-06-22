@@ -7,7 +7,7 @@ import javax.persistence.EntityManager;
 
 import org.jboss.solder.logging.Logger;
 
-import co.th.aten.network.entity.Customer;
+import co.th.aten.network.entity.MemberCustomer;
 import co.th.aten.network.producer.DBDefault;
 
 public class CustomerStore extends BasicStore implements Serializable {
@@ -27,7 +27,7 @@ public class CustomerStore extends BasicStore implements Serializable {
 	public Integer getMaxCustomerId() {
 		log.debug("find getMaxCustomerId");
 		try{
-			Integer max = (Integer)em.createQuery("Select max(id) From Customer")
+			Integer max = (Integer)em.createQuery("Select max(customerId) From MemberCustomer")
 					.getSingleResult();
 			if (max!=null) {
 				return max;
@@ -38,7 +38,7 @@ public class CustomerStore extends BasicStore implements Serializable {
 		return null;
 	}
 
-	public void refresh(Customer customer) {
+	public void refresh(MemberCustomer customer) {
 		em.refresh(customer);
 	}
 }

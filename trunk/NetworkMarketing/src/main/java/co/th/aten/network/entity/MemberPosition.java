@@ -19,10 +19,14 @@ import javax.persistence.Table;
  * @author Atenpunk
  */
 @Entity
-@Table(name = "position")
+@Table(name = "member_position")
 @NamedQueries({
-    @NamedQuery(name = "Position.findAll", query = "SELECT p FROM Position p")})
-public class Position implements Serializable {
+    @NamedQuery(name = "MemberPosition.findAll", query = "SELECT m FROM MemberPosition m"),
+    @NamedQuery(name = "MemberPosition.findByPositionId", query = "SELECT m FROM MemberPosition m WHERE m.positionId = :positionId"),
+    @NamedQuery(name = "MemberPosition.findByThName", query = "SELECT m FROM MemberPosition m WHERE m.thName = :thName"),
+    @NamedQuery(name = "MemberPosition.findByEnName", query = "SELECT m FROM MemberPosition m WHERE m.enName = :enName"),
+    @NamedQuery(name = "MemberPosition.findByImageName", query = "SELECT m FROM MemberPosition m WHERE m.imageName = :imageName")})
+public class MemberPosition implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -32,11 +36,13 @@ public class Position implements Serializable {
     private String thName;
     @Column(name = "en_name")
     private String enName;
+    @Column(name = "image_name")
+    private String imageName;
 
-    public Position() {
+    public MemberPosition() {
     }
 
-    public Position(Integer positionId) {
+    public MemberPosition(Integer positionId) {
         this.positionId = positionId;
     }
 
@@ -64,6 +70,14 @@ public class Position implements Serializable {
         this.enName = enName;
     }
 
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -74,10 +88,10 @@ public class Position implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Position)) {
+        if (!(object instanceof MemberPosition)) {
             return false;
         }
-        Position other = (Position) object;
+        MemberPosition other = (MemberPosition) object;
         if ((this.positionId == null && other.positionId != null) || (this.positionId != null && !this.positionId.equals(other.positionId))) {
             return false;
         }
@@ -86,7 +100,7 @@ public class Position implements Serializable {
 
     @Override
     public String toString() {
-        return "co.th.aten.network.entity.Position[positionId=" + positionId + "]";
+        return "co.th.aten.network.entity.MemberPosition[positionId=" + positionId + "]";
     }
 
 }

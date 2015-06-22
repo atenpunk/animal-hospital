@@ -26,17 +26,7 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "user_login")
 @NamedQueries({
-    @NamedQuery(name = "UserLogin.findAll", query = "SELECT u FROM UserLogin u"),
-    @NamedQuery(name = "UserLogin.findByUserId", query = "SELECT u FROM UserLogin u WHERE u.userId = :userId"),
-    @NamedQuery(name = "UserLogin.findByUserName", query = "SELECT u FROM UserLogin u WHERE u.userName = :userName"),
-    @NamedQuery(name = "UserLogin.findByLoginName", query = "SELECT u FROM UserLogin u WHERE u.loginName = :loginName"),
-    @NamedQuery(name = "UserLogin.findByPassword", query = "SELECT u FROM UserLogin u WHERE u.password = :password"),
-    @NamedQuery(name = "UserLogin.findByLastLogin", query = "SELECT u FROM UserLogin u WHERE u.lastLogin = :lastLogin"),
-    @NamedQuery(name = "UserLogin.findByPhone", query = "SELECT u FROM UserLogin u WHERE u.phone = :phone"),
-    @NamedQuery(name = "UserLogin.findByMobileHone", query = "SELECT u FROM UserLogin u WHERE u.mobileHone = :mobileHone"),
-    @NamedQuery(name = "UserLogin.findByEmail", query = "SELECT u FROM UserLogin u WHERE u.email = :email"),
-    @NamedQuery(name = "UserLogin.findByStatus", query = "SELECT u FROM UserLogin u WHERE u.status = :status"),
-    @NamedQuery(name = "UserLogin.findByIsForceChange", query = "SELECT u FROM UserLogin u WHERE u.isForceChange = :isForceChange")})
+    @NamedQuery(name = "UserLogin.findAll", query = "SELECT u FROM UserLogin u")})
 public class UserLogin implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -62,9 +52,9 @@ public class UserLogin implements Serializable {
     private Integer status;
     @Column(name = "is_force_change")
     private Integer isForceChange;
-    @JoinColumn(name = "customer_id", referencedColumnName = "id")
+    @JoinColumn(name = "customer_id", referencedColumnName = "customer_id")
     @ManyToOne
-    private Customer customerId;
+    private MemberCustomer customerId;
     @JoinColumn(name = "group_id", referencedColumnName = "group_id")
     @ManyToOne
     private UserGroup groupId;
@@ -156,11 +146,11 @@ public class UserLogin implements Serializable {
         this.isForceChange = isForceChange;
     }
 
-    public Customer getCustomerId() {
+    public MemberCustomer getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(Customer customerId) {
+    public void setCustomerId(MemberCustomer customerId) {
         this.customerId = customerId;
     }
 

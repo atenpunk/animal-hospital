@@ -18,7 +18,7 @@ import org.jboss.seam.international.status.Messages;
 import org.jboss.solder.logging.Logger;
 
 import co.th.aten.network.control.CustomerControl;
-import co.th.aten.network.entity.Customer;
+import co.th.aten.network.entity.MemberCustomer;
 import co.th.aten.network.entity.UserLogin;
 import co.th.aten.network.producer.DBDefault;
 import co.th.aten.network.security.annotation.Authenticated;
@@ -90,15 +90,15 @@ public class AddCustomerController implements Serializable{
 		log.info("##### upperLineId = "+upperLineId);
 		log.info("##### flagUnder = "+flagUnder);
 		try{
-			Customer cus = new Customer();
+			MemberCustomer cus = new MemberCustomer();
 			int max = customerControl.customerIdInsert();
-			cus.setId(max);
+			cus.setCustomerId(max);
 			customerId = "N"+df.format(max);
-			cus.setCustomerId(customerId);
+			cus.setCustomerMember(customerId);
 			cus.setUpperId(upperLineId);
 			cus.setLowerLeftId(null);
 			cus.setLowerRightId(null);
-			cus.setDirectId(0);
+			cus.setRecommendId(null);
 			cus.setPositionId(5);
 			cus.setScore(0);
 			cus.setRegisDate(regisDate);
@@ -111,7 +111,7 @@ public class AddCustomerController implements Serializable{
 			cus.setUpdateBy(user.get().getUserId());
 			cus.setUpdateDate(new Date());
 			em.persist(cus);
-			Customer cusUpper = em.find(Customer.class, new Integer(upperLineId));
+			MemberCustomer cusUpper = em.find(MemberCustomer.class, new Integer(upperLineId));
 			if(flagUnder == 1){
 				cusUpper.setLowerLeftId(max);
 			}else if(flagUnder == 2){
@@ -133,9 +133,9 @@ public class AddCustomerController implements Serializable{
 			starTitleName = "*";
 			starFirstName = "*";
 			starLastName = "*";
-			Customer customerUpper = em.find(Customer.class, new Integer(upperLineId));
+			MemberCustomer customerUpper = em.find(MemberCustomer.class, new Integer(upperLineId));
 			if(customerUpper!=null){
-				upperLineCusId = customerUpper.getCustomerId();
+				upperLineCusId = customerUpper.getCustomerMember();
 				upperLineName = StringUtil.n2b(customerUpper.getTitleName())+" "+StringUtil.n2b(customerUpper.getFirstName())
 						+" "+StringUtil.n2b(customerUpper.getLastName());
 			}
