@@ -2,6 +2,7 @@ package co.th.aten.network.web;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -76,8 +77,10 @@ public class CustomerController implements Serializable{
 
 	private String html;
 	private long customerId;
+	private String searchCustomer;
 
 	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd",Locale.US);
+	private DecimalFormat df = new DecimalFormat("0000000");
 
 	@PostConstruct
 	public void init(){
@@ -99,6 +102,57 @@ public class CustomerController implements Serializable{
 			genTreeModel();
 		}
 
+	}
+	
+	public void search(){
+		log.info("##### SEARCH ##### = "+searchCustomer);
+		try{
+			if(searchCustomer!=null && searchCustomer.trim().length()>0){
+				MemberCustomer memSearch = (MemberCustomer)em.createQuery("From MemberCustomer Where customerMember =:customerMember ")
+						.setParameter("customerMember", searchCustomer).getSingleResult();
+				long cusId = memSearch.getCustomerId().longValue();
+				log.info("##### cusId ##### = "+cusId);
+				log.info("##### login ##### = "+user.get().getCustomerId().getCustomerId().intValue());
+				if(cusId > user.get().getCustomerId().getCustomerId().intValue()){
+					String sql = "From MemberCustomer " +
+							" Where customerId = "+user.get().getCustomerId().getCustomerId().intValue();
+					boolean chk = true;
+					while(chk){
+						log.info("SQL + "+sql);
+						String subSql = "";
+						List<MemberCustomer> customerList = em.createQuery(sql,MemberCustomer.class).getResultList();
+						for(MemberCustomer cus:customerList){
+							if(StringUtil.n2b(cus.getLowerLeftId())==cusId || StringUtil.n2b(cus.getLowerRightId())==cusId){
+								customerId = cusId;
+								genTreeModel();
+								chk = false;
+								break;
+							}else{
+								subSql += (cus.getLowerLeftId()==null?"":cus.getLowerLeftId().intValue()+",");
+								subSql += (cus.getLowerRightId()==null?"":cus.getLowerRightId().intValue()+",");
+							}
+						}
+						if(subSql.equals("")){
+							// alert ERROR
+							chk = false;
+							break;
+						}
+						sql = "From MemberCustomer " +
+								" Where customerId in ";
+						subSql = subSql.substring(0, subSql.length()-1);
+						subSql = "("+subSql+")";
+						sql += subSql;
+					}
+				}else if(cusId == user.get().getCustomerId().getCustomerId().intValue()){
+					customerId = cusId;
+					genTreeModel();
+				}else {
+					// alert ERROR
+				}
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 
 	private void genAutoTagTree(){
@@ -765,5 +819,12 @@ public class CustomerController implements Serializable{
 		this.customerId = customerId;
 	}
 
+	public String getSearchCustomer() {
+		return searchCustomer;
+	}
+
+	public void setSearchCustomer(String searchCustomer) {
+		this.searchCustomer = searchCustomer;
+	}
 
 }

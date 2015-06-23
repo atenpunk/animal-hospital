@@ -68,7 +68,7 @@ public class AddCustomerController implements Serializable{
 	private boolean chkSave;
 
 	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd",Locale.US);
-	private DecimalFormat df = new DecimalFormat("000000");
+	private DecimalFormat df = new DecimalFormat("0000000");
 	@PostConstruct
 	public void init(){
 		log.info("init method AddCustomerController");
@@ -93,7 +93,7 @@ public class AddCustomerController implements Serializable{
 			MemberCustomer cus = new MemberCustomer();
 			int max = customerControl.customerIdInsert();
 			cus.setCustomerId(max);
-			customerId = "N"+df.format(max);
+			customerId = df.format(max);
 			cus.setCustomerMember(customerId);
 			cus.setUpperId(upperLineId);
 			cus.setLowerLeftId(null);
