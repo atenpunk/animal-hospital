@@ -67,7 +67,7 @@ public class EditPlayerDialog extends ApplicationDialog {
         int height = toolkit.getScreenSize().height;
         int width = toolkit.getScreenSize().width;
         System.out.println("--->>>>" + height + ", " + width);
-        height = height - (int) (height * 0.28);
+        height = height - (int) (height * 0.23);
         width = width - (int) (width * 0.42);
         System.out.println("--->>>>" + height + ", " + width);
         Dimension dimension = new Dimension(width, height);

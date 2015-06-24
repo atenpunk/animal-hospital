@@ -58,15 +58,11 @@ public class JdbcPlayersDao implements PlayersDao {
         try {
             String sql = " INSERT INTO PLAYERS (PLAYER_ID,PLAYER_NAME,PLAYER_NUMBER,HEIGHT,WEIGHT "
                     + " , POSITION_ID, BIRTHDAY, CONTRACT_START, CONTRACT_END, IMAGE_NAME "
-                    + " , GC, ANNUAL_SALARY, SIGNING_FEE, SALARY_MONTH, GOAL "
-                    + " , PLAYING_TIME, MATCH_NUMBER, WIN, LOSE, DRAW, STARTER "
-                    + " , CREATE_BY, CREATE_DATE, UPDATE_BY, UPDATE_DATE ) "
+                    + " , CLUB, CREATE_BY, CREATE_DATE, UPDATE_BY, UPDATE_DATE ) "
                     + " VALUES (?, ?, ?, ?, ?, "
                     + " ?, ?, ?, ?, ?,"
-                    + " ?, ?, ?, ?, ?,"
-                    + " ?, ?, ?, ?, ?,"
                     + " ?, ?, ?, ?, ?) ";
-            boolean insert = (this.simpleJdbcTemplate.update(sql, playersModel.getPlayerId(), playersModel.getPlayerName(), playersModel.getPlayerNumber(), playersModel.getHeight(), playersModel.getWeight(), playersModel.getPositionId(), sdfDate.parse(sdfDate.format(playersModel.getBirthday())), sdfDate.parse(sdfDate.format(playersModel.getContractStart())), sdfDate.parse(sdfDate.format(playersModel.getContractEnd())), playersModel.getImage(), playersModel.getGc(), playersModel.getAnnualSalary(), playersModel.getSigningFee(), playersModel.getSalaryMonth(), playersModel.getGoal(), playersModel.getPlayingTime(), playersModel.getMatch(), playersModel.getWin(), playersModel.getLose(), playersModel.getDraw(), playersModel.getStarter(), playersModel.getCreateBy(), sdfDate.parse(sdfDate.format(playersModel.getCreateDate())), playersModel.getUpdateBy(), sdfDate.parse(sdfDate.format(playersModel.getUpdateDate()))) > 0) ? true : false;
+            boolean insert = (this.simpleJdbcTemplate.update(sql, playersModel.getPlayerId(), playersModel.getPlayerName(), playersModel.getPlayerNumber(), playersModel.getHeight(), playersModel.getWeight(), playersModel.getPositionId(), sdfDate.parse(sdfDate.format(playersModel.getBirthday())), sdfDate.parse(sdfDate.format(playersModel.getContractStart())), sdfDate.parse(sdfDate.format(playersModel.getContractEnd())), playersModel.getImage(), playersModel.getClub(), playersModel.getCreateBy(), sdfDate.parse(sdfDate.format(playersModel.getCreateDate())), playersModel.getUpdateBy(), sdfDate.parse(sdfDate.format(playersModel.getUpdateDate()))) > 0) ? true : false;
             return insert;
         } catch (Exception e) {
             e.printStackTrace();
@@ -86,47 +82,46 @@ public class JdbcPlayersDao implements PlayersDao {
                     + " , CONTRACT_START = ? "
                     + " , CONTRACT_END = ? "
                     + " , IMAGE_NAME = ? "
+                    + " , CLUB = ? "
                     + " , UPDATE_BY = ? "
                     + " , UPDATE_DATE = ? "
                     + " WHERE PLAYER_ID = ? ";
-            return (this.simpleJdbcTemplate.update(sql, playersModel.getPlayerName(), playersModel.getPlayerNumber(), playersModel.getHeight(), playersModel.getWeight(), playersModel.getPositionId(), playersModel.getBirthday(), playersModel.getContractStart(), playersModel.getContractEnd(), playersModel.getImage(), playersModel.getUpdateBy(), sdfDate.parse(sdfDate.format(playersModel.getUpdateDate())), playersModel.getPlayerId()) > 0) ? true : false;
+            return (this.simpleJdbcTemplate.update(sql, playersModel.getPlayerName(), playersModel.getPlayerNumber(), playersModel.getHeight(), playersModel.getWeight(), playersModel.getPositionId(), playersModel.getBirthday(), playersModel.getContractStart(), playersModel.getContractEnd(), playersModel.getImage(), playersModel.getClub(), playersModel.getUpdateBy(), sdfDate.parse(sdfDate.format(playersModel.getUpdateDate())), playersModel.getPlayerId()) > 0) ? true : false;
         } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
     }
 
-    public boolean updatePlayers(PlayersModel playersModel) {
-        logger.debug("Update Player ID = " + playersModel.getPlayerId());
-        try {
-            String sql = " UPDATE PLAYERS SET GC = ? "
-                    + " , ANNUAL_SALARY = ? "
-                    + " , SIGNING_FEE = ? "
-                    + " , SALARY_MONTH = ? "
-                    + " , GOAL = ? "
-                    + " , PLAYING_TIME = ? "
-                    + " , MATCH_NUMBER = ? "
-                    + " , WIN = ? "
-                    + " , LOSE = ? "
-                    + " , DRAW = ? "
-                    + " , STARTER = ? "
-                    + " , UPDATE_BY = ? "
-                    + " , UPDATE_DATE = ? "
-                    + " WHERE PLAYER_ID = ? ";
-            return (this.simpleJdbcTemplate.update(sql, playersModel.getGc(), playersModel.getAnnualSalary(), playersModel.getSigningFee(), playersModel.getSalaryMonth(), playersModel.getGoal(), playersModel.getPlayingTime(), playersModel.getMatch(), playersModel.getWin(), playersModel.getLose(), playersModel.getDraw(), playersModel.getStarter(), playersModel.getUpdateBy(), sdfDate.parse(sdfDate.format(playersModel.getUpdateDate())), playersModel.getPlayerId()) > 0) ? true : false;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
+//    public boolean updatePlayers(PlayersModel playersModel) {
+//        logger.debug("Update Player ID = " + playersModel.getPlayerId());
+//        try {
+//            String sql = " UPDATE PLAYERS SET GC = ? "
+//                    + " , ANNUAL_SALARY = ? "
+//                    + " , SIGNING_FEE = ? "
+//                    + " , SALARY_MONTH = ? "
+//                    + " , GOAL = ? "
+//                    + " , PLAYING_TIME = ? "
+//                    + " , MATCH_NUMBER = ? "
+//                    + " , WIN = ? "
+//                    + " , LOSE = ? "
+//                    + " , DRAW = ? "
+//                    + " , STARTER = ? "
+//                    + " , UPDATE_BY = ? "
+//                    + " , UPDATE_DATE = ? "
+//                    + " WHERE PLAYER_ID = ? ";
+//            return (this.simpleJdbcTemplate.update(sql, playersModel.getGc(), playersModel.getAnnualSalary(), playersModel.getSigningFee(), playersModel.getSalaryMonth(), playersModel.getGoal(), playersModel.getPlayingTime(), playersModel.getMatch(), playersModel.getWin(), playersModel.getLose(), playersModel.getDraw(), playersModel.getStarter(), playersModel.getUpdateBy(), sdfDate.parse(sdfDate.format(playersModel.getUpdateDate())), playersModel.getPlayerId()) > 0) ? true : false;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return false;
+//    }
 
     public List<PlayersModel> searchByKeyWord(String word) {
         try {
             String sql = " select py.PLAYER_ID, py.PLAYER_NAME, py.PLAYER_NUMBER, py.HEIGHT, py.WEIGHT "
                     + " , py.POSITION_ID, ps.NAME, py.BIRTHDAY, py.CONTRACT_START, py.CONTRACT_END, py.IMAGE_NAME "
-                    + " , py.GC, py.ANNUAL_SALARY, py.SIGNING_FEE, py.SALARY_MONTH, py.GOAL "
-                    + " , py.PLAYING_TIME, py.MATCH_NUMBER, py.WIN, py.LOSE, py.DRAW, py.STARTER "
-                    + " , py.CREATE_BY, py.CREATE_DATE, py.UPDATE_BY, py.UPDATE_DATE "
+                    + " , py.CLUB, py.CREATE_BY, py.CREATE_DATE, py.UPDATE_BY, py.UPDATE_DATE "
                     + " from PLAYERS py "
                     + " left join POSITION ps on(ps.ID = py.POSITION_ID) ";
             if (word != null && !word.equals("")) {
@@ -154,17 +149,18 @@ public class JdbcPlayersDao implements PlayersDao {
                     model.setContractStart(rs.getDate("CONTRACT_START"));
                     model.setContractEnd(rs.getDate("CONTRACT_END"));
                     model.setImage(rs.getString("IMAGE_NAME"));
-                    model.setGc(rs.getDouble("GC"));
-                    model.setAnnualSalary(rs.getDouble("ANNUAL_SALARY"));
-                    model.setSigningFee(rs.getDouble("SIGNING_FEE"));
-                    model.setSalaryMonth(rs.getDouble("SALARY_MONTH"));
-                    model.setGoal(rs.getInt("GOAL"));
-                    model.setPlayingTime(rs.getInt("PLAYING_TIME"));
-                    model.setMatch(rs.getInt("MATCH_NUMBER"));
-                    model.setWin(rs.getInt("WIN"));
-                    model.setLose(rs.getInt("LOSE"));
-                    model.setDraw(rs.getInt("DRAW"));
-                    model.setStarter(rs.getInt("STARTER"));
+                    model.setClub(rs.getString("CLUB"));
+//                    model.setGc(rs.getDouble("GC"));
+//                    model.setAnnualSalary(rs.getDouble("ANNUAL_SALARY"));
+//                    model.setSigningFee(rs.getDouble("SIGNING_FEE"));
+//                    model.setSalaryMonth(rs.getDouble("SALARY_MONTH"));
+//                    model.setGoal(rs.getInt("GOAL"));
+//                    model.setPlayingTime(rs.getInt("PLAYING_TIME"));
+//                    model.setMatch(rs.getInt("MATCH_NUMBER"));
+//                    model.setWin(rs.getInt("WIN"));
+//                    model.setLose(rs.getInt("LOSE"));
+//                    model.setDraw(rs.getInt("DRAW"));
+//                    model.setStarter(rs.getInt("STARTER"));
                     model.setCreateBy(rs.getInt("CREATE_BY"));
                     model.setCreateDate(rs.getDate("CREATE_DATE"));
                     model.setUpdateBy(rs.getInt("UPDATE_BY"));
