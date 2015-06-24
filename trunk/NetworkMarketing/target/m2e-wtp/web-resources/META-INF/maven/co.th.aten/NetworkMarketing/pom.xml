@@ -20,7 +20,7 @@
         <!-- To specify the JBoss AS directory the "Maven way", set the jboss.home property in an active profile in $HOME/.m2/settings.xml -->
         <!-- By default, we assign it to the value of the JBOSS_HOME envrionment variable -->
       <seam.version>3.1.0.Final</seam.version>
-      <richfaces.version>4.2.2.Final</richfaces.version>
+      <richfaces.version>4.3.0.Final</richfaces.version>
       <arquillian.version>1.0.0.Final</arquillian.version>
       <version.org.jboss.resteasy>2.3.2.GA</version.org.jboss.resteasy>
 	  <version.org.apache.httpcomponents>4.1.4</version.org.apache.httpcomponents>  

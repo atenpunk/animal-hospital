@@ -85,8 +85,9 @@
 																</tr>
 															</table>
 														</rich:panel></td>
-													<td><h:inputText
+													<td><h:inputText id="inputMemberId"
 															value="#{customerController.searchCustomer}">
+															<rich:placeholder value="#{app_msgs['inputText.search.memberId']}" />
 														</h:inputText>&#160;<a4j:commandButton
 															value="#{app_msgs['button.search']}"
 															action="#{customerController.search}" render="panelTree"
@@ -112,7 +113,6 @@
 													value="#{customerController.customerModel_01.firstName}" />
 												<rich:tooltip styleClass="tooltip" layout="block">
 													<span style="white-space: nowrap"> <rich:dataTable
-															
 															value="#{customerController.customerModel_01.detailModelList}"
 															var="item" rows="5">
 															<rich:column>
@@ -163,7 +163,7 @@
 															rendered="#{customerController.customerModel_02.firstName ne null}"
 															value="#{customerController.customerModel_02.firstName}" />
 														<rich:tooltip styleClass="tooltip" layout="block">
-															<span> <rich:dataTable 
+															<span> <rich:dataTable
 																	value="#{customerController.customerModel_02.detailModelList}"
 																	var="item" rows="5">
 																	<rich:column>
@@ -196,7 +196,7 @@
 																		class="callout" value="/resources/gfx/callout.gif" />
 																	<h:outputText value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
 																		rendered="#{customerController.customerModel_04.detailModelList eq null}" />
-																	<rich:dataTable 
+																	<rich:dataTable
 																		rendered="#{customerController.customerModel_04.detailModelList ne null}"
 																		value="#{customerController.customerModel_04.detailModelList}"
 																		var="item" rows="5">
@@ -228,7 +228,6 @@
 																	value="#{customerController.customerModel_04.firstName}" />
 																<rich:tooltip styleClass="tooltip" layout="block">
 																	<span> <rich:dataTable
-																			
 																			value="#{customerController.customerModel_04.detailModelList}"
 																			var="item" rows="5">
 																			<rich:column>
@@ -260,7 +259,7 @@
 																				class="callout" value="/resources/gfx/callout.gif" />
 																			<h:outputText value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
 																				rendered="#{customerController.customerModel_08.detailModelList eq null}" />
-																			<rich:dataTable 
+																			<rich:dataTable
 																				rendered="#{customerController.customerModel_08.detailModelList ne null}"
 																				value="#{customerController.customerModel_08.detailModelList}"
 																				var="item" rows="5">
@@ -293,7 +292,6 @@
 																			value="#{customerController.customerModel_08.firstName}" />
 																		<rich:tooltip styleClass="tooltip" layout="block">
 																			<span> <rich:dataTable
-																					
 																					value="#{customerController.customerModel_08.detailModelList}"
 																					var="item" rows="5">
 																					<rich:column>
@@ -324,7 +322,7 @@
 																				class="callout" value="/resources/gfx/callout.gif" />
 																			<h:outputText value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
 																				rendered="#{customerController.customerModel_09.detailModelList eq null}" />
-																			<rich:dataTable 
+																			<rich:dataTable
 																				rendered="#{customerController.customerModel_09.detailModelList ne null}"
 																				value="#{customerController.customerModel_09.detailModelList}"
 																				var="item" rows="5">
@@ -357,7 +355,6 @@
 																			value="#{customerController.customerModel_09.firstName}" />
 																		<rich:tooltip styleClass="tooltip" layout="block">
 																			<span> <rich:dataTable
-																					
 																					value="#{customerController.customerModel_09.detailModelList}"
 																					var="item" rows="5">
 																					<rich:column>
@@ -390,7 +387,7 @@
 																		class="callout" value="/resources/gfx/callout.gif" />
 																	<h:outputText value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
 																		rendered="#{customerController.customerModel_05.detailModelList eq null}" />
-																	<rich:dataTable 
+																	<rich:dataTable
 																		rendered="#{customerController.customerModel_05.detailModelList ne null}"
 																		value="#{customerController.customerModel_05.detailModelList}"
 																		var="item" rows="5">
@@ -422,7 +419,6 @@
 																	value="#{customerController.customerModel_05.firstName}" />
 																<rich:tooltip styleClass="tooltip" layout="block">
 																	<span> <rich:dataTable
-																			
 																			value="#{customerController.customerModel_05.detailModelList}"
 																			var="item" rows="5">
 																			<rich:column>
@@ -454,7 +450,7 @@
 																				class="callout" value="/resources/gfx/callout.gif" />
 																			<h:outputText value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
 																				rendered="#{customerController.customerModel_10.detailModelList eq null}" />
-																			<rich:dataTable 
+																			<rich:dataTable
 																				rendered="#{customerController.customerModel_10.detailModelList ne null}"
 																				value="#{customerController.customerModel_10.detailModelList}"
 																				var="item" rows="5">
@@ -487,7 +483,6 @@
 																			value="#{customerController.customerModel_10.firstName}" />
 																		<rich:tooltip styleClass="tooltip" layout="block">
 																			<span> <rich:dataTable
-																					
 																					value="#{customerController.customerModel_10.detailModelList}"
 																					var="item" rows="5">
 																					<rich:column>
@@ -518,7 +513,7 @@
 																				class="callout" value="/resources/gfx/callout.gif" />
 																			<h:outputText value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
 																				rendered="#{customerController.customerModel_11.detailModelList eq null}" />
-																			<rich:dataTable 
+																			<rich:dataTable
 																				rendered="#{customerController.customerModel_11.detailModelList ne null}"
 																				value="#{customerController.customerModel_11.detailModelList}"
 																				var="item" rows="5">
@@ -551,7 +546,6 @@
 																			value="#{customerController.customerModel_11.firstName}" />
 																		<rich:tooltip styleClass="tooltip" layout="block">
 																			<span> <rich:dataTable
-																					
 																					value="#{customerController.customerModel_11.detailModelList}"
 																					var="item" rows="5">
 																					<rich:column>
@@ -586,7 +580,7 @@
 																class="callout" value="/resources/gfx/callout.gif" /> <h:outputText
 																value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
 																rendered="#{customerController.customerModel_03.detailModelList eq null}" />
-															<rich:dataTable 
+															<rich:dataTable
 																rendered="#{customerController.customerModel_03.detailModelList ne null}"
 																value="#{customerController.customerModel_03.detailModelList}"
 																var="item" rows="5">
@@ -617,7 +611,7 @@
 															rendered="#{customerController.customerModel_03.firstName ne null}"
 															value="#{customerController.customerModel_03.firstName}" />
 														<rich:tooltip styleClass="tooltip" layout="block">
-															<span> <rich:dataTable 
+															<span> <rich:dataTable
 																	value="#{customerController.customerModel_03.detailModelList}"
 																	var="item" rows="5">
 																	<rich:column>
@@ -649,7 +643,7 @@
 																		class="callout" value="/resources/gfx/callout.gif" />
 																	<h:outputText value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
 																		rendered="#{customerController.customerModel_06.detailModelList eq null}" />
-																	<rich:dataTable 
+																	<rich:dataTable
 																		rendered="#{customerController.customerModel_06.detailModelList ne null}"
 																		value="#{customerController.customerModel_06.detailModelList}"
 																		var="item" rows="5">
@@ -681,7 +675,6 @@
 																	value="#{customerController.customerModel_06.firstName}" />
 																<rich:tooltip styleClass="tooltip" layout="block">
 																	<span> <rich:dataTable
-																			
 																			value="#{customerController.customerModel_06.detailModelList}"
 																			var="item" rows="5">
 																			<rich:column>
@@ -713,7 +706,7 @@
 																				class="callout" value="/resources/gfx/callout.gif" />
 																			<h:outputText value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
 																				rendered="#{customerController.customerModel_12.detailModelList eq null}" />
-																			<rich:dataTable 
+																			<rich:dataTable
 																				rendered="#{customerController.customerModel_12.detailModelList ne null}"
 																				value="#{customerController.customerModel_12.detailModelList}"
 																				var="item" rows="5">
@@ -746,7 +739,6 @@
 																			value="#{customerController.customerModel_12.firstName}" />
 																		<rich:tooltip styleClass="tooltip" layout="block">
 																			<span> <rich:dataTable
-																					
 																					value="#{customerController.customerModel_12.detailModelList}"
 																					var="item" rows="5">
 																					<rich:column>
@@ -777,7 +769,7 @@
 																				class="callout" value="/resources/gfx/callout.gif" />
 																			<h:outputText value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
 																				rendered="#{customerController.customerModel_13.detailModelList eq null}" />
-																			<rich:dataTable 
+																			<rich:dataTable
 																				rendered="#{customerController.customerModel_13.detailModelList ne null}"
 																				value="#{customerController.customerModel_13.detailModelList}"
 																				var="item" rows="5">
@@ -810,7 +802,6 @@
 																			value="#{customerController.customerModel_13.firstName}" />
 																		<rich:tooltip styleClass="tooltip" layout="block">
 																			<span> <rich:dataTable
-																					
 																					value="#{customerController.customerModel_13.detailModelList}"
 																					var="item" rows="5">
 																					<rich:column>
@@ -842,7 +833,7 @@
 																		class="callout" value="/resources/gfx/callout.gif" />
 																	<h:outputText value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
 																		rendered="#{customerController.customerModel_07.detailModelList eq null}" />
-																	<rich:dataTable 
+																	<rich:dataTable
 																		rendered="#{customerController.customerModel_07.detailModelList ne null}"
 																		value="#{customerController.customerModel_07.detailModelList}"
 																		var="item" rows="5">
@@ -874,7 +865,6 @@
 																	value="#{customerController.customerModel_07.firstName}" />
 																<rich:tooltip styleClass="tooltip" layout="block">
 																	<span> <rich:dataTable
-																			
 																			value="#{customerController.customerModel_07.detailModelList}"
 																			var="item" rows="5">
 																			<rich:column>
@@ -906,7 +896,7 @@
 																				class="callout" value="/resources/gfx/callout.gif" />
 																			<h:outputText value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
 																				rendered="#{customerController.customerModel_14.detailModelList eq null}" />
-																			<rich:dataTable 
+																			<rich:dataTable
 																				rendered="#{customerController.customerModel_14.detailModelList ne null}"
 																				value="#{customerController.customerModel_14.detailModelList}"
 																				var="item" rows="5">
@@ -939,7 +929,6 @@
 																			value="#{customerController.customerModel_14.firstName}" />
 																		<rich:tooltip styleClass="tooltip" layout="block">
 																			<span> <rich:dataTable
-																					
 																					value="#{customerController.customerModel_14.detailModelList}"
 																					var="item" rows="5">
 																					<rich:column>
@@ -970,7 +959,7 @@
 																				class="callout" value="/resources/gfx/callout.gif" />
 																			<h:outputText value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
 																				rendered="#{customerController.customerModel_15.detailModelList eq null}" />
-																			<rich:dataTable 
+																			<rich:dataTable
 																				rendered="#{customerController.customerModel_15.detailModelList ne null}"
 																				value="#{customerController.customerModel_15.detailModelList}"
 																				var="item" rows="5">
@@ -1003,7 +992,6 @@
 																			value="#{customerController.customerModel_15.firstName}" />
 																		<rich:tooltip styleClass="tooltip" layout="block">
 																			<span> <rich:dataTable
-																					
 																					value="#{customerController.customerModel_15.detailModelList}"
 																					var="item" rows="5">
 																					<rich:column>
