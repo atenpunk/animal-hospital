@@ -56,6 +56,9 @@
     <bean id="playersDao" class="co.th.aten.football.dao.JdbcPlayersDao" lazy-init="true" >
         <property name="dataSource" ref="dataSource" />
     </bean>
+    <bean id="yearlyDao" class="co.th.aten.football.dao.JdbcYearlyDao" lazy-init="true" >
+        <property name="dataSource" ref="dataSource" />
+    </bean>
     <bean id="positionDao" class="co.th.aten.football.dao.JdbcPositionDao" lazy-init="true" >
         <property name="dataSource" ref="dataSource" />
     </bean>
@@ -84,4 +87,7 @@
         <property name="playersDao" ref="playersDao" />
         <property name="videoPlayersManager" ref="videoPlayersManager" />
     </bean>
+    <bean id="yearlyManager" class="co.th.aten.football.service.YearlyManagerBean" lazy-init="true" >
+        <property name="yearlyDao" ref="yearlyDao" />
+    </bean>    
 </beans>

@@ -37,9 +37,9 @@ public class PlayersManagerBean implements PlayersManager {
         return playersModelList;
     }
 
-    public boolean updatePlayers(PlayersModel playersModel) {
-        return playersDao.updatePlayers(playersModel);
-    }
+//    public boolean updatePlayers(PlayersModel playersModel) {
+//        return playersDao.updatePlayers(playersModel);
+//    }
 
     public PlayersDao getPlayersDao() {
         return playersDao;

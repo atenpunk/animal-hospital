@@ -13,10 +13,12 @@ import co.th.aten.football.Configuration;
 import co.th.aten.football.model.PlayersGraphModel;
 import co.th.aten.football.model.PlayersModel;
 import co.th.aten.football.model.VideoModel;
+import co.th.aten.football.model.YearlyModel;
 import co.th.aten.football.service.PlayersManager;
 import co.th.aten.football.ui.report.ViewReportTestRadarDlg;
 import co.th.aten.football.service.SessionManager;
 import co.th.aten.football.service.VideoPlayersManager;
+import co.th.aten.football.service.YearlyManager;
 import co.th.aten.football.ui.ProcessTransactionDialog;
 import co.th.aten.football.ui.report.PlayersDetailReportDialog;
 import co.th.aten.football.ui.report.PlayersGraphReportDialog;
@@ -71,11 +73,13 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
     private final Log logger = LogFactory.getLog(getClass());
     private SessionManager sessionManager;
     private PlayersManager playersManager;
+    private YearlyManager yearlyManager;
     private VideoPlayersManager videoPlayersManager;
     private List<PlayersModel> playersModelList;
     private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
     private DecimalFormat df = new DecimalFormat("#,##0");
     private PlayersModel playersModelSelected;
+    private int selectedRowYearly;
     private int row = -1;
     private View2D viewRadar;
     private View2D viewPieTime;
@@ -86,6 +90,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         this.sessionManager = (SessionManager) Application.services().getService(SessionManager.class);
         this.playersManager = (PlayersManager) Application.services().getService(PlayersManager.class);
         this.videoPlayersManager = (VideoPlayersManager) Application.services().getService(VideoPlayersManager.class);
+        this.yearlyManager = (YearlyManager) Application.services().getService(YearlyManager.class);
         initComponents();
         editPlayer.setEnabled(false);
         inputGc.setBackground(null);
@@ -99,6 +104,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         inputWin.setBackground(null);
         inputLose.setBackground(null);
         inputDraw.setBackground(null);
+        inputSubstitution.setBackground(null);
         matchPieLabel.setVisible(false);
         playingTimePieLabel.setVisible(false);
         starterPieLabel.setVisible(false);
@@ -107,15 +113,16 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         rightRenderer.setHorizontalAlignment(SwingConstants.RIGHT);
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-        searchTable.getColumnModel().getColumn(2).setCellRenderer(rightRenderer);
-        searchTable.getColumnModel().getColumn(3).setCellRenderer(rightRenderer);
-        searchTable.getColumnModel().getColumn(4).setCellRenderer(rightRenderer);
-        searchTable.getColumnModel().getColumn(5).setCellRenderer(rightRenderer);
+//        searchTable.getColumnModel().getColumn(2).setCellRenderer(rightRenderer);
+        searchTable.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
+        searchTable.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
+        searchTable.getColumnModel().getColumn(5).setCellRenderer(centerRenderer);
         searchTable.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
         searchTable.getColumnModel().getColumn(0).setPreferredWidth(10);
 
         jScrollPane2.getViewport().setBackground(Color.WHITE);
         jScrollPane1.getViewport().setBackground(Color.WHITE);
+        jScrollPane3.getViewport().setBackground(Color.WHITE);
         videoTable.getColumnModel().getColumn(0).setPreferredWidth(10);
         videoTable.getColumnModel().getColumn(1).setPreferredWidth(120);
         videoTable.getColumnModel().getColumn(2).setPreferredWidth(10);
@@ -161,6 +168,18 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
                     JTable target = (JTable) e.getSource();
                     row = target.getSelectedRow();
                     setDataDetailPlayer();
+                }
+            }
+        });
+
+        yearlyTable.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() >= 2) {
+                    Sound.getInstance().playClick();
+                    JTable target = (JTable) e.getSource();
+                    selectedRowYearly = target.getSelectedRow();
+                    setDataYearlyPlayer();
                 }
             }
         });
@@ -280,6 +299,16 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
                 }
             }
         });
+        inputSubstitution.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char character = e.getKeyChar();
+                if (((character < '0') || (character > '9'))
+                        && (character != '\b')) {
+                    e.consume();
+                }
+            }
+        });
         inputWin.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -319,7 +348,11 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
     private void setDataDetailPlayer() {
         clearData();
         if (playersModelList != null && playersModelList.size() >= row) {
-            editPlayer.setEnabled(true);
+            if (playersModelList.get(row).getYearlyList() != null && playersModelList.get(row).getYearlyList().size() == 1) {
+                selectedRowYearly = 0;
+            } else {
+                selectedRowYearly = -1;
+            }
             playersModelSelected = playersModelList.get(row);
             redarPanal.setVisible(true);
             timePanel.setVisible(true);
@@ -329,32 +362,58 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
             playingTimePieLabel.setVisible(true);
             starterPieLabel.setVisible(true);
             jPanel4.setVisible(true);
-            ViewReportTestRadarDlg reportRadar = new ViewReportTestRadarDlg(playersModelSelected.getGc(), playersModelSelected.getMatch(), playersModelSelected.getPlayingTime(), 0);
-            viewRadar = reportRadar.createView2D();
-            viewRadar.setSize(409, 262);
-            redarPanal.setBackground(Color.WHITE);
-            redarPanal.add(viewRadar, BorderLayout.CENTER);
-            int data01 = ((100 * playersModelSelected.getMatch()) / Configuration.getInt("Match"));
-            int data02 = 100 - data01;
-            ViewReportPieDlg reportPieMatch = new ViewReportPieDlg(data02, data01);
-            viewPieMatch = reportPieMatch.createView2D();
-            viewPieMatch.setSize(136, 136);
-            matchPanel.setBackground(Color.WHITE);
-            matchPanel.add(viewPieMatch, BorderLayout.CENTER);
-            data01 = ((100 * playersModelSelected.getPlayingTime()) / Configuration.getInt("PlayingTime"));
-            data02 = 100 - data01;
-            ViewReportPieDlg reportPieTime = new ViewReportPieDlg(data02, data01);
-            viewPieTime = reportPieTime.createView2D();
-            viewPieTime.setSize(136, 136);
-            timePanel.setBackground(Color.WHITE);
-            timePanel.add(viewPieTime, BorderLayout.CENTER);
-            data01 = ((100 * playersModelSelected.getStarter()) / Configuration.getInt("Match"));
-            data02 = 100 - data01;
-            ViewReportPieDlg reportPieStart = new ViewReportPieDlg(data02, data01);
-            viewPieStart = reportPieStart.createView2D();
-            viewPieStart.setSize(136, 136);
-            startPanel.setBackground(Color.WHITE);
-            startPanel.add(viewPieStart, BorderLayout.CENTER);
+
+            if (selectedRowYearly == 0) {
+                editPlayer.setEnabled(true);
+                ViewReportTestRadarDlg reportRadar = new ViewReportTestRadarDlg(playersModelSelected.getYearlyList().get(selectedRowYearly).getGc(), playersModelSelected.getYearlyList().get(selectedRowYearly).getMatch(), playersModelSelected.getYearlyList().get(selectedRowYearly).getPlayingTime(), 0);
+                viewRadar = reportRadar.createView2D();
+                viewRadar.setSize(409, 262);
+                redarPanal.setBackground(Color.WHITE);
+                redarPanal.add(viewRadar, BorderLayout.CENTER);
+                int data01 = ((100 * playersModelSelected.getYearlyList().get(selectedRowYearly).getMatch()) / Configuration.getInt("Match"));
+                int data02 = 100 - data01;
+                ViewReportPieDlg reportPieMatch = new ViewReportPieDlg(data02, data01);
+                viewPieMatch = reportPieMatch.createView2D();
+                viewPieMatch.setSize(136, 136);
+                matchPanel.setBackground(Color.WHITE);
+                matchPanel.add(viewPieMatch, BorderLayout.CENTER);
+                data01 = ((100 * playersModelSelected.getYearlyList().get(selectedRowYearly).getPlayingTime()) / Configuration.getInt("PlayingTime"));
+                data02 = 100 - data01;
+                ViewReportPieDlg reportPieTime = new ViewReportPieDlg(data02, data01);
+                viewPieTime = reportPieTime.createView2D();
+                viewPieTime.setSize(136, 136);
+                timePanel.setBackground(Color.WHITE);
+                timePanel.add(viewPieTime, BorderLayout.CENTER);
+                data01 = ((100 * playersModelSelected.getYearlyList().get(selectedRowYearly).getStarter()) / Configuration.getInt("Match"));
+                data02 = 100 - data01;
+                ViewReportPieDlg reportPieStart = new ViewReportPieDlg(data02, data01);
+                viewPieStart = reportPieStart.createView2D();
+                viewPieStart.setSize(136, 136);
+                startPanel.setBackground(Color.WHITE);
+                startPanel.add(viewPieStart, BorderLayout.CENTER);
+
+                inputGc.setText(df.format(playersModelSelected.getYearlyList().get(selectedRowYearly).getGc()));
+                inputAnnualSalary.setText(df.format(playersModelSelected.getYearlyList().get(selectedRowYearly).getAnnualSalary()));
+                inputSigningFee.setText(df.format(playersModelSelected.getYearlyList().get(selectedRowYearly).getSigningFee()));
+                inputSalaryMonth.setText(df.format(playersModelSelected.getYearlyList().get(selectedRowYearly).getSalaryMonth()));
+                if (playersModelSelected.getPositionId() == 1) {// 1 = GK
+                    inputGoal.setText(df.format(playersModelSelected.getYearlyList().get(selectedRowYearly).getCleanSheet()));
+                } else {
+                    inputGoal.setText(df.format(playersModelSelected.getYearlyList().get(selectedRowYearly).getGoal()));
+                }
+                inputPlayingTime.setText(df.format(playersModelSelected.getYearlyList().get(selectedRowYearly).getPlayingTime()));
+                inputMatch.setText(df.format(playersModelSelected.getYearlyList().get(selectedRowYearly).getMatch()));
+                inputStarting.setText(df.format(playersModelSelected.getYearlyList().get(selectedRowYearly).getStarter()));
+                inputSubstitution.setText(df.format(playersModelSelected.getYearlyList().get(selectedRowYearly).getSubstitution()));
+                inputWin.setText(df.format(playersModelSelected.getYearlyList().get(selectedRowYearly).getWin()));
+                inputLose.setText(df.format(playersModelSelected.getYearlyList().get(selectedRowYearly).getLose()));
+                inputDraw.setText(df.format(playersModelSelected.getYearlyList().get(selectedRowYearly).getDraw()));
+            }
+            if (playersModelSelected.getPositionId() == 1) {// 1 = GK
+                goalLabel.setText("Clean Sheet");
+            } else {
+                goalLabel.setText("Goal");
+            }
             nameLabel.setText("#" + playersModelSelected.getPlayerNumber() + " " + playersModelSelected.getPlayerName());
             String brid = "";
             String HeWe = playersModelSelected.getHeight() + "cm/" + playersModelSelected.getWeight() + "kg";
@@ -372,20 +431,11 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
             bridLabel.setText(brid);
             higthLabel.setText(HeWe);
             contracLabel.setText(contractDate);
-            inputGc.setText(df.format(playersModelSelected.getGc()));
-            inputAnnualSalary.setText(df.format(playersModelSelected.getAnnualSalary()));
-            inputSigningFee.setText(df.format(playersModelSelected.getSigningFee()));
-            inputSalaryMonth.setText(df.format(playersModelSelected.getSalaryMonth()));
-            inputGoal.setText(df.format(playersModelSelected.getGoal()));
-            inputPlayingTime.setText(df.format(playersModelSelected.getPlayingTime()));
-            inputMatch.setText(df.format(playersModelSelected.getMatch()));
-            inputStarting.setText(df.format(playersModelSelected.getStarter()));
-            inputWin.setText(df.format(playersModelSelected.getWin()));
-            inputLose.setText(df.format(playersModelSelected.getLose()));
-            inputDraw.setText(df.format(playersModelSelected.getDraw()));
+            clubLabel.setText(playersModelSelected.getClub());
             if (playersModelSelected.getVideoModelList() != null && playersModelSelected.getVideoModelList().size() > 0) {
                 setVideoDataTable(playersModelSelected.getVideoModelList());
             }
+            setYearlyDataTable(playersModelSelected.getYearlyList());
             try {
                 if (playersModelSelected.getImage() != null && playersModelSelected.getImage().length() > 0) {
                     File fileImg = new File(System.getProperty("user.dir") + "/img" + File.separator + playersModelSelected.getImage());
@@ -403,9 +453,69 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
                 logger.info("" + ex);
                 ex.printStackTrace();
             }
-
             // add data video
+        }
+    }
 
+    private void setDataYearlyPlayer() {
+        clearData();
+        if (playersModelList != null && playersModelList.get(row).getYearlyList() != null
+                && playersModelList.get(row).getYearlyList().size() >= selectedRowYearly) {
+
+            editPlayer.setEnabled(true);
+            playersModelSelected = playersModelList.get(row);
+            redarPanal.setVisible(true);
+            timePanel.setVisible(true);
+            matchPanel.setVisible(true);
+            startPanel.setVisible(true);
+            matchPieLabel.setVisible(true);
+            playingTimePieLabel.setVisible(true);
+            starterPieLabel.setVisible(true);
+            jPanel4.setVisible(true);
+
+            ViewReportTestRadarDlg reportRadar = new ViewReportTestRadarDlg(playersModelSelected.getYearlyList().get(selectedRowYearly).getGc(), playersModelSelected.getYearlyList().get(selectedRowYearly).getMatch(), playersModelSelected.getYearlyList().get(selectedRowYearly).getPlayingTime(), 0);
+            viewRadar = reportRadar.createView2D();
+            viewRadar.setSize(409, 262);
+            redarPanal.setBackground(Color.WHITE);
+            redarPanal.add(viewRadar, BorderLayout.CENTER);
+            int data01 = ((100 * playersModelSelected.getYearlyList().get(selectedRowYearly).getMatch()) / Configuration.getInt("Match"));
+            int data02 = 100 - data01;
+            ViewReportPieDlg reportPieMatch = new ViewReportPieDlg(data02, data01);
+            viewPieMatch = reportPieMatch.createView2D();
+            viewPieMatch.setSize(136, 136);
+            matchPanel.setBackground(Color.WHITE);
+            matchPanel.add(viewPieMatch, BorderLayout.CENTER);
+            data01 = ((100 * playersModelSelected.getYearlyList().get(selectedRowYearly).getPlayingTime()) / Configuration.getInt("PlayingTime"));
+            data02 = 100 - data01;
+            ViewReportPieDlg reportPieTime = new ViewReportPieDlg(data02, data01);
+            viewPieTime = reportPieTime.createView2D();
+            viewPieTime.setSize(136, 136);
+            timePanel.setBackground(Color.WHITE);
+            timePanel.add(viewPieTime, BorderLayout.CENTER);
+            data01 = ((100 * playersModelSelected.getYearlyList().get(selectedRowYearly).getStarter()) / Configuration.getInt("Match"));
+            data02 = 100 - data01;
+            ViewReportPieDlg reportPieStart = new ViewReportPieDlg(data02, data01);
+            viewPieStart = reportPieStart.createView2D();
+            viewPieStart.setSize(136, 136);
+            startPanel.setBackground(Color.WHITE);
+            startPanel.add(viewPieStart, BorderLayout.CENTER);
+
+            inputGc.setText(df.format(playersModelSelected.getYearlyList().get(selectedRowYearly).getGc()));
+            inputAnnualSalary.setText(df.format(playersModelSelected.getYearlyList().get(selectedRowYearly).getAnnualSalary()));
+            inputSigningFee.setText(df.format(playersModelSelected.getYearlyList().get(selectedRowYearly).getSigningFee()));
+            inputSalaryMonth.setText(df.format(playersModelSelected.getYearlyList().get(selectedRowYearly).getSalaryMonth()));
+            if(playersModelSelected.getPositionId()==1){// 1 = GK
+                inputGoal.setText(df.format(playersModelSelected.getYearlyList().get(selectedRowYearly).getCleanSheet()));
+            }else{
+                inputGoal.setText(df.format(playersModelSelected.getYearlyList().get(selectedRowYearly).getGoal()));
+            }
+            inputPlayingTime.setText(df.format(playersModelSelected.getYearlyList().get(selectedRowYearly).getPlayingTime()));
+            inputMatch.setText(df.format(playersModelSelected.getYearlyList().get(selectedRowYearly).getMatch()));
+            inputStarting.setText(df.format(playersModelSelected.getYearlyList().get(selectedRowYearly).getStarter()));
+            inputSubstitution.setText(df.format(playersModelSelected.getYearlyList().get(selectedRowYearly).getSubstitution()));
+            inputWin.setText(df.format(playersModelSelected.getYearlyList().get(selectedRowYearly).getWin()));
+            inputLose.setText(df.format(playersModelSelected.getYearlyList().get(selectedRowYearly).getLose()));
+            inputDraw.setText(df.format(playersModelSelected.getYearlyList().get(selectedRowYearly).getDraw()));
         }
     }
 
@@ -427,6 +537,23 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
                 int no = 0;
                 for (VideoModel modelVideo : videoModelList) {
                     Object[] rowTable = {++no, sdf.format(modelVideo.getCreateDate()), "", imgDelete};
+                    modelTable.addRow(rowTable);
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void setYearlyDataTable(List<YearlyModel> yearlyModelList) {
+        try {
+            if (yearlyModelList != null && yearlyModelList.size() > 0) {
+                DefaultTableModel modelTable = (DefaultTableModel) videoTable.getModel();
+                while (modelTable.getRowCount() > 0) {
+                    modelTable.removeRow(0);
+                }
+                for (YearlyModel yearlyModel : yearlyModelList) {
+                    Object[] rowTable = {yearlyModel.getYearlyId(), yearlyModel.getGc(), yearlyModel.getMatch(), yearlyModel.getPlayingTime()};
                     modelTable.addRow(rowTable);
                 }
             }
@@ -503,12 +630,12 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         nameLabel1 = new javax.swing.JLabel();
         nameLabel2 = new javax.swing.JLabel();
         nameLabel3 = new javax.swing.JLabel();
-        nameLabel4 = new javax.swing.JLabel();
+        matchLabel = new javax.swing.JLabel();
         nameLabel5 = new javax.swing.JLabel();
         nameLabel6 = new javax.swing.JLabel();
         nameLabel7 = new javax.swing.JLabel();
         nameLabel8 = new javax.swing.JLabel();
-        nameLabel9 = new javax.swing.JLabel();
+        goalLabel = new javax.swing.JLabel();
         nameLabel10 = new javax.swing.JLabel();
         inputGc = new javax.swing.JTextField();
         inputAnnualSalary = new javax.swing.JTextField();
@@ -523,12 +650,17 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         nameLabel11 = new javax.swing.JLabel();
         inputDraw = new javax.swing.JTextField();
         matchPanel = new javax.swing.JPanel();
-        timePanel = new javax.swing.JPanel();
-        startPanel = new javax.swing.JPanel();
-        editPlayer = new javax.swing.JButton();
         matchPieLabel = new javax.swing.JLabel();
+        timePanel = new javax.swing.JPanel();
         playingTimePieLabel = new javax.swing.JLabel();
+        startPanel = new javax.swing.JPanel();
         starterPieLabel = new javax.swing.JLabel();
+        editPlayer = new javax.swing.JButton();
+        clubLabel = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        yearlyTable = new javax.swing.JTable();
+        nameLabel12 = new javax.swing.JLabel();
+        inputSubstitution = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         videoTable = new javax.swing.JTable();
@@ -539,7 +671,6 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         searchTable = new javax.swing.JTable();
         report1Button = new javax.swing.JButton();
-        report2Button = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -590,9 +721,9 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         nameLabel3.setText("Annual Salary");
         nameLabel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        nameLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        nameLabel4.setText("Match");
-        nameLabel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        matchLabel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        matchLabel.setText("Match");
+        matchLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         nameLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         nameLabel5.setText("Signing Fee");
@@ -610,9 +741,9 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         nameLabel8.setText("Win");
         nameLabel8.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        nameLabel9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        nameLabel9.setText("Goal");
-        nameLabel9.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        goalLabel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        goalLabel.setText("Goal");
+        goalLabel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         nameLabel10.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         nameLabel10.setText("Lose");
@@ -668,41 +799,65 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
 
         matchPanel.setBackground(new java.awt.Color(255, 255, 255));
 
+        matchPieLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        matchPieLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        matchPieLabel.setText("Match");
+
         javax.swing.GroupLayout matchPanelLayout = new javax.swing.GroupLayout(matchPanel);
         matchPanel.setLayout(matchPanelLayout);
         matchPanelLayout.setHorizontalGroup(
             matchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(matchPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(matchPieLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
+                .addContainerGap())
         );
         matchPanelLayout.setVerticalGroup(
             matchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 136, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, matchPanelLayout.createSequentialGroup()
+                .addGap(0, 122, Short.MAX_VALUE)
+                .addComponent(matchPieLabel))
         );
 
         timePanel.setBackground(new java.awt.Color(255, 255, 255));
+
+        playingTimePieLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        playingTimePieLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        playingTimePieLabel.setText("Playing Time");
 
         javax.swing.GroupLayout timePanelLayout = new javax.swing.GroupLayout(timePanel);
         timePanel.setLayout(timePanelLayout);
         timePanelLayout.setHorizontalGroup(
             timePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addComponent(playingTimePieLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
         );
         timePanelLayout.setVerticalGroup(
             timePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 136, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, timePanelLayout.createSequentialGroup()
+                .addGap(0, 122, Short.MAX_VALUE)
+                .addComponent(playingTimePieLabel))
         );
 
         startPanel.setBackground(new java.awt.Color(255, 255, 255));
+
+        starterPieLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        starterPieLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        starterPieLabel.setText("Starter");
 
         javax.swing.GroupLayout startPanelLayout = new javax.swing.GroupLayout(startPanel);
         startPanel.setLayout(startPanelLayout);
         startPanelLayout.setHorizontalGroup(
             startPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, startPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(starterPieLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
+                .addContainerGap())
         );
         startPanelLayout.setVerticalGroup(
             startPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 136, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, startPanelLayout.createSequentialGroup()
+                .addGap(0, 122, Short.MAX_VALUE)
+                .addComponent(starterPieLabel))
         );
 
         editPlayer.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -714,30 +869,49 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
             }
         });
 
-        matchPieLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        matchPieLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        matchPieLabel.setText("Match");
+        clubLabel.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        clubLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
-        playingTimePieLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        playingTimePieLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        playingTimePieLabel.setText("Playing Time");
+        yearlyTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
 
-        starterPieLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        starterPieLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        starterPieLabel.setText("Starter");
+            },
+            new String [] {
+                "Year", "GC", "Match", "Playing Time"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(yearlyTable);
+
+        nameLabel12.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        nameLabel12.setText("Substitution");
+        nameLabel12.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        inputSubstitution.setEditable(false);
+        inputSubstitution.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        inputSubstitution.setPreferredSize(new java.awt.Dimension(6, 19));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(contracLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(higthLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(bridLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(nameLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(imgPlayer, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(contracLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(bridLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(imgPlayer, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
+                        .addComponent(clubLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
+                        .addComponent(nameLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(higthLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -745,118 +919,118 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
                             .addComponent(nameLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(nameLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(nameLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(nameLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(goalLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                            .addComponent(matchLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(inputSalaryMonth, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(inputSigningFee, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(inputAnnualSalary, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(inputGc, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(inputGoal, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(inputGoal, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(inputMatch, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(nameLabel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(nameLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(nameLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(nameLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(nameLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(nameLabel12, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addComponent(nameLabel10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(nameLabel11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(inputPlayingTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(inputMatch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(inputPlayingTime, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
                             .addComponent(inputStarting, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(inputWin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(inputLose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(inputDraw, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(editPlayer, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)))
+                            .addComponent(inputSubstitution, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(editPlayer, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(matchPieLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
-                            .addComponent(matchPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(matchPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(timePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(playingTimePieLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE))
+                        .addComponent(timePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(startPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(starterPieLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE))))
+                        .addComponent(startPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(45, Short.MAX_VALUE))
+            .addComponent(jScrollPane3)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(imgPlayer, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(nameLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(inputPlayingTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(imgPlayer, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(nameLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(inputMatch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(nameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(4, 4, 4)
+                        .addComponent(bridLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(nameLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(inputStarting, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(higthLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(nameLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(inputWin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(nameLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(inputLose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(nameLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(inputDraw, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(editPlayer, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(contracLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(clubLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(nameLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(inputGc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(nameLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(inputAnnualSalary, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(nameLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(inputSigningFee, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(nameLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(inputSalaryMonth, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(nameLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(inputGoal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(nameLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(inputGc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(nameLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(inputAnnualSalary, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(nameLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(inputStarting, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(nameLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(inputSigningFee, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(nameLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(inputSubstitution, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(nameLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(inputSalaryMonth, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(goalLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(inputGoal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(matchLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(inputMatch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(16, 16, 16))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(nameLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(inputPlayingTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(68, 68, 68)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(nameLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(inputWin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(nameLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(inputLose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(nameLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(inputDraw, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(14, 14, 14))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(editPlayer, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(timePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(startPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(matchPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(nameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(bridLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(higthLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(contracLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(timePanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(startPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(matchPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(matchPieLabel)
-                    .addComponent(playingTimePieLabel)
-                    .addComponent(starterPieLabel))
-                .addGap(12, 12, 12))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
@@ -903,7 +1077,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addComponent(addVideoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -947,7 +1121,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "#", "Name", "Match", "Playing Time", "Goal", "Starter"
+                "#", "Name", "Club", "Play", "Contract Start", "Contract End"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -969,14 +1143,6 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
             }
         });
 
-        report2Button.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        report2Button.setText("Report 2");
-        report2Button.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                report2ButtonActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -990,9 +1156,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
                         .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(report1Button)
-                        .addGap(18, 18, 18)
-                        .addComponent(report2Button)
-                        .addGap(0, 215, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane2))
                 .addContainerGap())
         );
@@ -1002,8 +1166,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(searchText, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
                     .addComponent(searchButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(report1Button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(report2Button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(report1Button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
                 .addContainerGap())
@@ -1025,7 +1188,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -1045,6 +1208,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         inputPlayingTime.setEditable(false);
         inputMatch.setEditable(false);
         inputStarting.setEditable(false);
+        inputSubstitution.setEditable(false);
         inputWin.setEditable(false);
         inputLose.setEditable(false);
         inputDraw.setEditable(false);
@@ -1057,6 +1221,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         inputPlayingTime.setBackground(null);
         inputMatch.setBackground(null);
         inputStarting.setBackground(null);
+        inputSubstitution.setBackground(null);
         inputWin.setBackground(null);
         inputLose.setBackground(null);
         inputDraw.setBackground(null);
@@ -1083,6 +1248,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         bridLabel.setText("");
         higthLabel.setText("");
         contracLabel.setText("");
+        clubLabel.setText("");
         inputGc.setText("");
         inputAnnualSalary.setText("");
         inputSigningFee.setText("");
@@ -1091,6 +1257,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         inputPlayingTime.setText("");
         inputMatch.setText("");
         inputStarting.setText("");
+        inputSubstitution.setText("");
         inputWin.setText("");
         inputLose.setText("");
         inputDraw.setText("");
@@ -1124,6 +1291,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
             inputPlayingTime.setEditable(true);
             inputMatch.setEditable(true);
             inputStarting.setEditable(true);
+            inputSubstitution.setEditable(true);
             inputWin.setEditable(true);
             inputLose.setEditable(true);
             inputDraw.setEditable(true);
@@ -1136,6 +1304,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
             inputPlayingTime.setText(inputPlayingTime.getText().replaceAll(",", ""));
             inputMatch.setText(inputMatch.getText().replaceAll(",", ""));
             inputStarting.setText(inputStarting.getText().replaceAll(",", ""));
+            inputSubstitution.setText(inputSubstitution.getText().replaceAll(",", ""));
             inputWin.setText(inputWin.getText().replaceAll(",", ""));
             inputLose.setText(inputLose.getText().replaceAll(",", ""));
             inputDraw.setText(inputDraw.getText().replaceAll(",", ""));
@@ -1148,6 +1317,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
             inputPlayingTime.setBackground(new Color(204, 255, 204));
             inputMatch.setBackground(new Color(204, 255, 204));
             inputStarting.setBackground(new Color(204, 255, 204));
+            inputSubstitution.setBackground(new Color(204, 255, 204));
             inputWin.setBackground(new Color(204, 255, 204));
             inputLose.setBackground(new Color(204, 255, 204));
             inputDraw.setBackground(new Color(204, 255, 204));
@@ -1155,32 +1325,40 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
 //            Runnable r = new Runnable() {
 //                public void run() {
             if (playersModelSelected != null) {
-                playersModelSelected.setGc((inputGc.getText() != null && inputGc.getText().trim().length() > 0)
+                playersModelSelected.getYearlyList().get(selectedRowYearly).setGc((inputGc.getText() != null && inputGc.getText().trim().length() > 0)
                         ? Double.parseDouble(inputGc.getText().replaceAll(",", "")) : 0d);
-                playersModelSelected.setAnnualSalary((inputAnnualSalary.getText() != null && inputAnnualSalary.getText().trim().length() > 0)
+                playersModelSelected.getYearlyList().get(selectedRowYearly).setAnnualSalary((inputAnnualSalary.getText() != null && inputAnnualSalary.getText().trim().length() > 0)
                         ? Double.parseDouble(inputAnnualSalary.getText().replaceAll(",", "")) : 0d);
-                playersModelSelected.setSigningFee((inputSigningFee.getText() != null && inputSigningFee.getText().trim().length() > 0)
+                playersModelSelected.getYearlyList().get(selectedRowYearly).setSigningFee((inputSigningFee.getText() != null && inputSigningFee.getText().trim().length() > 0)
                         ? Double.parseDouble(inputSigningFee.getText().replaceAll(",", "")) : 0d);
-                playersModelSelected.setSalaryMonth((inputSalaryMonth.getText() != null && inputSalaryMonth.getText().trim().length() > 0)
+                playersModelSelected.getYearlyList().get(selectedRowYearly).setSalaryMonth((inputSalaryMonth.getText() != null && inputSalaryMonth.getText().trim().length() > 0)
                         ? Double.parseDouble(inputSalaryMonth.getText().replaceAll(",", "")) : 0d);
-                playersModelSelected.setGoal((inputGoal.getText() != null && inputGoal.getText().trim().length() > 0)
-                        ? Integer.parseInt(inputGoal.getText().replaceAll(",", "")) : 0);
-                playersModelSelected.setPlayingTime((inputPlayingTime.getText() != null && inputPlayingTime.getText().trim().length() > 0)
+                playersModelSelected.getYearlyList().get(selectedRowYearly).setPlayingTime((inputPlayingTime.getText() != null && inputPlayingTime.getText().trim().length() > 0)
                         ? Integer.parseInt(inputPlayingTime.getText().replaceAll(",", "")) : 0);
-                playersModelSelected.setMatch((inputMatch.getText() != null && inputMatch.getText().trim().length() > 0)
+                playersModelSelected.getYearlyList().get(selectedRowYearly).setMatch((inputMatch.getText() != null && inputMatch.getText().trim().length() > 0)
                         ? Integer.parseInt(inputMatch.getText().replaceAll(",", "")) : 0);
-                playersModelSelected.setStarter((inputStarting.getText() != null && inputStarting.getText().trim().length() > 0)
+                playersModelSelected.getYearlyList().get(selectedRowYearly).setStarter((inputStarting.getText() != null && inputStarting.getText().trim().length() > 0)
                         ? Integer.parseInt(inputStarting.getText().replaceAll(",", "")) : 0);
-                playersModelSelected.setWin((inputWin.getText() != null && inputWin.getText().trim().length() > 0)
+                playersModelSelected.getYearlyList().get(selectedRowYearly).setSubstitution((inputSubstitution.getText() != null && inputSubstitution.getText().trim().length() > 0)
+                        ? Integer.parseInt(inputSubstitution.getText().replaceAll(",", "")) : 0);
+                playersModelSelected.getYearlyList().get(selectedRowYearly).setWin((inputWin.getText() != null && inputWin.getText().trim().length() > 0)
                         ? Integer.parseInt(inputWin.getText().replaceAll(",", "")) : 0);
-                playersModelSelected.setLose((inputLose.getText() != null && inputLose.getText().trim().length() > 0)
+                playersModelSelected.getYearlyList().get(selectedRowYearly).setLose((inputLose.getText() != null && inputLose.getText().trim().length() > 0)
                         ? Integer.parseInt(inputLose.getText().replaceAll(",", "")) : 0);
-                playersModelSelected.setDraw((inputDraw.getText() != null && inputDraw.getText().trim().length() > 0)
+                playersModelSelected.getYearlyList().get(selectedRowYearly).setDraw((inputDraw.getText() != null && inputDraw.getText().trim().length() > 0)
                         ? Integer.parseInt(inputDraw.getText().replaceAll(",", "")) : 0);
+                if (playersModelSelected.getPositionId() == 1) {// 1 = GK
+                    playersModelSelected.getYearlyList().get(selectedRowYearly).setCleanSheet((inputGoal.getText() != null && inputGoal.getText().trim().length() > 0)
+                            ? Integer.parseInt(inputGoal.getText().replaceAll(",", "")) : 0);
+                } else {
+                    playersModelSelected.getYearlyList().get(selectedRowYearly).setGoal((inputGoal.getText() != null && inputGoal.getText().trim().length() > 0)
+                            ? Integer.parseInt(inputGoal.getText().replaceAll(",", "")) : 0);
+                }
+
                 playersModelSelected.setUpdateBy(sessionManager.getUser().getUserId());
                 playersModelSelected.setUpdateDate(new Date());
             }
-            boolean update = playersManager.updatePlayers(playersModelSelected);
+            boolean update = yearlyManager.updateYearly(playersModelSelected.getYearlyList().get(selectedRowYearly));
             if (update) {
                 playersModelList.set(row, playersModelSelected);
                 DefaultTableModel modelTable = (DefaultTableModel) searchTable.getModel();
@@ -1188,7 +1366,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
                     modelTable.removeRow(0);
                 }
                 for (PlayersModel model : playersModelList) {
-                    Object[] rowTable = {model.getPlayerNumber(), model.getPlayerName(), model.getMatch(), df.format(model.getPlayingTime()), model.getGoal(), model.getStarter()};
+                    Object[] rowTable = {model.getPlayerNumber(), model.getPlayerName(), model.getClub(), model.getPositionStr(), sdf.format(model.getContractStart()), sdf.format(model.getContractEnd())};
                     modelTable.addRow(rowTable);
                 }
                 setDataDetailPlayer();
@@ -1202,6 +1380,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
             inputPlayingTime.setEditable(false);
             inputMatch.setEditable(false);
             inputStarting.setEditable(false);
+            inputSubstitution.setEditable(false);
             inputWin.setEditable(false);
             inputLose.setEditable(false);
             inputDraw.setEditable(false);
@@ -1214,6 +1393,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
             inputPlayingTime.setBackground(null);
             inputMatch.setBackground(null);
             inputStarting.setBackground(null);
+            inputSubstitution.setBackground(null);
             inputWin.setBackground(null);
             inputLose.setBackground(null);
             inputDraw.setBackground(null);
@@ -1228,113 +1408,6 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         Sound.getInstance().playClick();
         new PlayersDetailReportDialog(playersModelList).showDialog();
     }//GEN-LAST:event_report1ButtonActionPerformed
-
-    private void report2ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_report2ButtonActionPerformed
-        // TODO add your handling code here:
-        Sound.getInstance().playClick();
-        List<PlayersGraphModel> playersGraphModel = null;
-
-        if (playersModelList != null && playersModelList.size() > 0) {
-            playersGraphModel = new ArrayList<PlayersGraphModel>();
-            for (int i = 0; i < playersModelList.size(); i++) {
-                PlayersModel model = playersModelList.get(i);
-                PlayersGraphModel modelGraph = new PlayersGraphModel();
-                modelGraph.setGroup((i + 1));
-                modelGraph.setPlayerId(model.getPlayerId());
-                String nameNumber = "#" + model.getPlayerNumber() + " " + model.getPlayerName();
-                String brid = "";
-                String HeWe = model.getHeight() + "cm/" + model.getWeight() + "kg";
-                String contractDate = "";
-                if (model.getBirthday() != null) {
-                    brid = sdf.format(model.getBirthday());
-                    Date startDate = model.getBirthday();
-                    Date endDate = new Date();
-                    String year = Util.getYear(startDate, endDate);
-                    brid += " (" + year + ")";
-                }
-                if (model.getContractStart() != null && model.getContractEnd() != null) {
-                    contractDate = sdf.format(model.getContractStart()) + " - " + sdf.format(model.getContractEnd());
-                }
-                modelGraph.setPlayerNameNumber(nameNumber);
-                modelGraph.setHeightWeight(HeWe);
-                modelGraph.setBirthdayAge(brid);
-                modelGraph.setContractStartEnd(contractDate);
-                modelGraph.setPositionId(model.getPositionId());
-                modelGraph.setPositionStr(model.getPositionStr());
-                modelGraph.setImage(model.getImage());
-                modelGraph.setGc(model.getGc());
-                modelGraph.setAnnualSalary(model.getAnnualSalary());
-                modelGraph.setSigningFee(model.getSigningFee());
-                modelGraph.setSalaryMonth(model.getSalaryMonth());
-                modelGraph.setGoal(model.getGoal());
-                modelGraph.setPlayingTime(model.getPlayingTime());
-                modelGraph.setMatch(model.getMatch());
-                modelGraph.setWin(model.getWin());
-                modelGraph.setLose(model.getLose());
-                modelGraph.setDraw(model.getDraw());
-                modelGraph.setStarter(model.getStarter());
-                try {
-                    ViewReportTestRadarDlg reportRadar = new ViewReportTestRadarDlg(model.getGc(), model.getMatch(), model.getPlayingTime(), 1);
-                    View2D view = reportRadar.createView2D();
-                    view.setSize(409, 262);
-                    int w = (int) view.getBounds().getWidth();
-                    int h = (int) view.getBounds().getHeight();
-                    BufferedImage image = view.getImageView(w, h);
-                    modelGraph.setInputRadar(image);
-                } catch (Throwable ex) {
-                    ex.printStackTrace();
-                }
-                try {
-                    int data01 = ((100 * model.getMatch()) / Configuration.getInt("Match"));
-                    int data02 = 100 - data01;
-                    ViewReportPieDlg reportPieMatch = new ViewReportPieDlg(data02, data01);
-                    View2D view = reportPieMatch.createView2D();
-                    view.setSize(136, 136);
-                    int w = (int) view.getBounds().getWidth();
-                    int h = (int) view.getBounds().getHeight();
-                    BufferedImage image = view.getImageView(w, h);
-                    modelGraph.setInputPieMatch(image);
-                    modelGraph.setPerMatch(data01 + "%");
-                } catch (Throwable ex) {
-                    ex.printStackTrace();
-                }
-                try {
-                    int data01 = ((100 * model.getPlayingTime()) / Configuration.getInt("PlayingTime"));
-                    int data02 = 100 - data01;
-                    ViewReportPieDlg reportPieTime = new ViewReportPieDlg(data02, data01);
-                    View2D view = reportPieTime.createView2D();
-                    view.setSize(136, 136);
-                    int w = (int) view.getBounds().getWidth();
-                    int h = (int) view.getBounds().getHeight();
-                    BufferedImage image = view.getImageView(w, h);
-                    modelGraph.setInputPiePlayingTime(image);
-                    modelGraph.setPerPlayingTime(data01 + "%");
-                } catch (Throwable ex) {
-                    ex.printStackTrace();
-                }
-                try {
-                    int data01 = ((100 * model.getStarter()) / Configuration.getInt("Match"));
-                    int data02 = 100 - data01;
-                    ViewReportPieDlg reportPieStart = new ViewReportPieDlg(data02, data01);
-                    View2D view = reportPieStart.createView2D();
-                    view.setSize(136, 136);
-                    int w = (int) view.getBounds().getWidth();
-                    int h = (int) view.getBounds().getHeight();
-                    BufferedImage image = view.getImageView(w, h);
-                    modelGraph.setInputPieStarter(image);
-                    modelGraph.setPerStarter(data01 + "%");
-                } catch (Throwable ex) {
-                    ex.printStackTrace();
-                }
-                if (modelGraph.getImage() != null) {
-                    modelGraph.setImgPlayer(System.getProperty("user.dir") + "/img" + File.separator + modelGraph.getImage());
-                }
-                playersGraphModel.add(modelGraph);
-            }
-        }
-
-        new PlayersGraphReportDialog(playersGraphModel).showDialog();
-    }//GEN-LAST:event_report2ButtonActionPerformed
 
     private void addVideoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addVideoButtonActionPerformed
         // TODO add your handling code here:
@@ -1415,7 +1488,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         }
         if (playersModelList != null && playersModelList.size() > 0) {
             for (PlayersModel model : playersModelList) {
-                Object[] rowTable = {model.getPlayerNumber(), model.getPlayerName(), model.getMatch(), df.format(model.getPlayingTime()), model.getGoal(), model.getStarter()};
+                Object[] rowTable = {model.getPlayerNumber(), model.getPlayerName(), model.getClub(), model.getPositionStr(), sdf.format(model.getContractStart()), sdf.format(model.getContractEnd())};
                 modelTable.addRow(rowTable);
             }
             if (playersModelList.size() == 1) {
@@ -1441,8 +1514,10 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addVideoButton;
     private javax.swing.JLabel bridLabel;
+    private javax.swing.JLabel clubLabel;
     private javax.swing.JLabel contracLabel;
     private javax.swing.JButton editPlayer;
+    private javax.swing.JLabel goalLabel;
     private javax.swing.JLabel higthLabel;
     private javax.swing.JLabel imgPlayer;
     private javax.swing.JTextField inputAnnualSalary;
@@ -1455,6 +1530,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
     private javax.swing.JTextField inputSalaryMonth;
     private javax.swing.JTextField inputSigningFee;
     private javax.swing.JTextField inputStarting;
+    private javax.swing.JTextField inputSubstitution;
     private javax.swing.JTextField inputWin;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -1462,24 +1538,24 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JLabel matchLabel;
     private javax.swing.JPanel matchPanel;
     private javax.swing.JLabel matchPieLabel;
     private javax.swing.JLabel nameLabel;
     private javax.swing.JLabel nameLabel1;
     private javax.swing.JLabel nameLabel10;
     private javax.swing.JLabel nameLabel11;
+    private javax.swing.JLabel nameLabel12;
     private javax.swing.JLabel nameLabel2;
     private javax.swing.JLabel nameLabel3;
-    private javax.swing.JLabel nameLabel4;
     private javax.swing.JLabel nameLabel5;
     private javax.swing.JLabel nameLabel6;
     private javax.swing.JLabel nameLabel7;
     private javax.swing.JLabel nameLabel8;
-    private javax.swing.JLabel nameLabel9;
     private javax.swing.JLabel playingTimePieLabel;
     private javax.swing.JPanel redarPanal;
     private javax.swing.JButton report1Button;
-    private javax.swing.JButton report2Button;
     private javax.swing.JButton searchButton;
     private javax.swing.JTable searchTable;
     private javax.swing.JTextField searchText;
@@ -1487,5 +1563,6 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
     private javax.swing.JLabel starterPieLabel;
     private javax.swing.JPanel timePanel;
     private javax.swing.JTable videoTable;
+    private javax.swing.JTable yearlyTable;
     // End of variables declaration//GEN-END:variables
 }

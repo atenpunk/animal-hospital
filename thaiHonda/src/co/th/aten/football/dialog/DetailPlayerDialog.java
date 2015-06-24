@@ -9,9 +9,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
@@ -44,16 +41,17 @@ public class DetailPlayerDialog extends ApplicationDialog {
     @Override
     protected JComponent createButtonBar() {
         JPanel bpanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        JButton btClose = new JButton("  Close  ");
-        btClose.setFont(new java.awt.Font("Tahoma", 1, 12));
-        btClose.setPreferredSize(new java.awt.Dimension(100, 25));
-        btClose.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
-        });
         bpanel.setBackground(Color.WHITE);
-        bpanel.add(btClose);
+//        JButton btClose = new JButton("  Close  ");
+//        btClose.setFont(new java.awt.Font("Tahoma", 1, 12));
+//        btClose.setPreferredSize(new java.awt.Dimension(100, 25));
+//        btClose.addActionListener(new ActionListener() {
+//            public void actionPerformed(ActionEvent e) {
+//                onCancel();
+//            }
+//        });
+//        bpanel.setBackground(Color.WHITE);
+//        bpanel.add(btClose);
         return bpanel;
     }
 

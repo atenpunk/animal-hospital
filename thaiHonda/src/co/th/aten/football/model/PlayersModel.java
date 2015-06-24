@@ -14,6 +14,7 @@ import java.util.List;
 public class PlayersModel {
 
     private int playerId;
+    private List<YearlyModel> yearlyList;
     private String playerName;
     private int playerNumber;
     private int height;
@@ -24,6 +25,9 @@ public class PlayersModel {
     private Date contractStart;
     private Date contractEnd;
     private String image;
+    private String club;
+    
+    // for selected
     private double gc;
     private double annualSalary;
     private double signingFee;
@@ -257,5 +261,21 @@ public class PlayersModel {
         this.videoModelList = videoModelList;
     }
 
+    public List<YearlyModel> getYearlyList() {
+        return yearlyList;
+    }
+
+    public void setYearlyList(List<YearlyModel> yearlyList) {
+        this.yearlyList = yearlyList;
+    }    
+
+    public String getClub() {
+        return club;
+    }
+
+    public void setClub(String club) {
+        this.club = club;
+    }
+    
     
 }
