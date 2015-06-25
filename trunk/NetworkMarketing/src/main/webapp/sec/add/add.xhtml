@@ -7,7 +7,6 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	template="/WEB-INF/templates/template.xhtml">
 	<ui:define name="content">
-
 		<rich:panel>
 			<h:form id="addLine">
 				<f:facet name="header">
@@ -16,43 +15,44 @@
 				<h:panelGrid columns="3" id="panelGrid">
 					<h:outputText value="รหัสสมาชิก" />
 					<h:outputText value="" />
-					<h:inputText value="#{addCustomerController.customerId}"
+					<h:inputText value=""
 						disabled="true" style=" width : 80px;" />
 					<h:outputText value="คำนำหน้าชื่อ" />
-					<h:outputText value="#{addCustomerController.starTitleName}"
+					<h:outputText value="#{customerController.starTitleName}"
 						id="starTitle" style="COLOR: #ff0000;" />
-					<h:inputText value="#{addCustomerController.titleName}"
+					<h:inputText value="#{customerController.titleName}"
 						style=" width : 80px;">
 						<a4j:ajax event="keyup" render="starTitle,submit"
-							listener="#{addCustomerController.onKeypress()}" />
+							listener="#{customerController.onKeypress()}" />
 					</h:inputText>
 					<h:outputText value="ชื่อ" />
-					<h:outputText value="#{addCustomerController.starFirstName}"
+					<h:outputText value="#{customerController.starFirstName}"
 						id="starName" style="COLOR: #ff0000;" />
-					<h:inputText value="#{addCustomerController.firstName}"
+					<h:inputText value="#{customerController.firstName}"
 						style=" width : 150px;">
 						<a4j:ajax event="keyup" render="starName,submit"
-							listener="#{addCustomerController.onKeypress()}" />
+							listener="#{customerController.onKeypress()}" />
 					</h:inputText>
 					<h:outputText value="วันที่สมัคร" />
 					<h:outputText value="" />
 					<a4j:outputPanel id="startDay" layout="block">
 						<rich:calendar style=" width : 90px;"
-							value="#{addCustomerController.regisDate}"
+							value="#{customerController.regisDate}"
 							datePattern="dd/MM/yyyy" required="true" />
 					</a4j:outputPanel>
 					<h:outputText value="รหัสอัพไลน์" />
 					<h:outputText value="" />
-					<h:inputText value="#{addCustomerController.upperLineCusId}"
+					<h:inputText value="#{customerController.upperLineCusId}"
 						disabled="true" style=" width : 80px;" />
 					<h:outputText value="ชื่ออัพไลน์" />
 					<h:outputText value="" />
-					<h:inputText value="#{addCustomerController.upperLineName}"
+					<h:inputText value="#{customerController.upperLineName}"
 						disabled="true" style=" width : 150px;" />
 				</h:panelGrid>
-				<h:commandButton id="submit" disabled="#{addCustomerController.chkSave}"
+				<h:commandButton id="submit"
+					disabled="#{customerController.chkSave}"
 					onclick="if (!confirm('#{messages['label.comfirm.save']}')) return false"
-					value="บันทึก" action="#{addCustomerController.addCustomer()}"
+					value="บันทึก" action="#{customerController.confirmAddMember()}"
 					style=" width : 80px;" />
 			</h:form>
 		</rich:panel>
