@@ -24,4 +24,6 @@ public interface PlayersManager {
     public boolean editPlayers(PlayersModel playersModel);
     
     public boolean deletePlayer(int playerId);
+    
+    public List<PlayersModel> searchAllDataByKeyWord(String word);
 }

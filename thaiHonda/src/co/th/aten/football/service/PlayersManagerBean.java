@@ -65,4 +65,7 @@ public class PlayersManagerBean implements PlayersManager {
         this.videoPlayersManager = videoPlayersManager;
     }
     
+    public List<PlayersModel> searchAllDataByKeyWord(String word){
+        return playersDao.searchAllDataByKeyWord(word);
+    }
 }

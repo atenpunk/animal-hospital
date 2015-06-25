@@ -26,8 +26,14 @@ public class PlayersModel {
     private Date contractEnd;
     private String image;
     private String club;
+    private List<VideoModel> videoModelList;
+    private int createBy;
+    private Date createDate;
+    private int updateBy;
+    private Date updateDate;
     
-    // for selected
+    // for report
+    private int yearlyId;
     private double gc;
     private double annualSalary;
     private double signingFee;
@@ -39,11 +45,8 @@ public class PlayersModel {
     private int lose;
     private int draw;
     private int starter;
-    private int createBy;
-    private Date createDate;
-    private int updateBy;
-    private Date updateDate;
-    private List<VideoModel> videoModelList;
+    private int cleanSheet;
+    private int substitution;
 
     public int getPlayerId() {
         return playerId;
@@ -276,6 +279,29 @@ public class PlayersModel {
     public void setClub(String club) {
         this.club = club;
     }
-    
+
+    public int getYearlyId() {
+        return yearlyId;
+    }
+
+    public void setYearlyId(int yearlyId) {
+        this.yearlyId = yearlyId;
+    }
+
+    public int getCleanSheet() {
+        return cleanSheet;
+    }
+
+    public void setCleanSheet(int cleanSheet) {
+        this.cleanSheet = cleanSheet;
+    }
+
+    public int getSubstitution() {
+        return substitution;
+    }
+
+    public void setSubstitution(int substitution) {
+        this.substitution = substitution;
+    }
     
 }
