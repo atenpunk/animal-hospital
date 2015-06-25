@@ -25,5 +25,5 @@ public interface YearlyDao {
 
     public boolean updateYearly(YearlyModel yearlyModel);
     
-    public boolean deleteYearly(int yearlyId,int playerId);
+    public boolean deleteYearly(int playerId);
 }

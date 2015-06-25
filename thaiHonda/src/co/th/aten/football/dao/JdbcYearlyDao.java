@@ -37,12 +37,11 @@ public class JdbcYearlyDao implements YearlyDao {
         this.simpleJdbcTemplate = new SimpleJdbcTemplate(dataSource);
     }
 
-    public boolean deleteYearly(int yearlyId,int playerId){
-        logger.debug("delete Yearly ID = " + yearlyId);
-        logger.debug("delete Player ID = " + playerId);
+    public boolean deleteYearly(int playerId){
+        logger.debug("delete Yearly Player ID = " + playerId);
         try {
-            String sql = " DELETE FROM YEARLY WHERE YEARLY_ID = ? AND PLAYER_ID = ? ";
-            return (this.simpleJdbcTemplate.update(sql, yearlyId, playerId) > 0) ? true : false;
+            String sql = " DELETE FROM YEARLY WHERE PLAYER_ID = ? ";
+            return (this.simpleJdbcTemplate.update(sql, playerId) > 0) ? true : false;
         } catch (Exception e) {
             e.printStackTrace();
         }

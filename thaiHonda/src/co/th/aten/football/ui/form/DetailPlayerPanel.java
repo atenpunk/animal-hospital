@@ -45,6 +45,7 @@ import java.io.OutputStream;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -92,6 +93,15 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         this.videoPlayersManager = (VideoPlayersManager) Application.services().getService(VideoPlayersManager.class);
         this.yearlyManager = (YearlyManager) Application.services().getService(YearlyManager.class);
         initComponents();
+        SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy", Locale.US);
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.YEAR, 3);
+        for (int i = 1; i < 6; i++) {
+            cal.add(Calendar.YEAR, -1);
+            seasonComboBox.addItem(yearFormat.format(cal.getTime()));
+        }
+        seasonComboBox.setSelectedIndex(2);
+
         editPlayer.setEnabled(false);
         inputGc.setBackground(null);
         inputAnnualSalary.setBackground(null);
@@ -106,6 +116,9 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         inputDraw.setBackground(null);
         inputSubstitution.setBackground(null);
         matchPieLabel.setVisible(false);
+        addSeasonButton.setVisible(false);
+        seasonComboBox.setVisible(false);
+        jScrollPane3.setVisible(false);
         playingTimePieLabel.setVisible(false);
         starterPieLabel.setVisible(false);
         jPanel4.setVisible(false);
@@ -134,6 +147,11 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         videoTable.getColumnModel().getColumn(2).setCellRenderer(new ImageRenderer());
         videoTable.getColumnModel().getColumn(3).setCellRenderer(new ImageRenderer());
         videoTable.setRowHeight(27);
+
+        yearlyTable.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+        yearlyTable.getColumnModel().getColumn(1).setCellRenderer(rightRenderer);
+        yearlyTable.getColumnModel().getColumn(2).setCellRenderer(rightRenderer);
+        yearlyTable.getColumnModel().getColumn(3).setCellRenderer(rightRenderer);
         try {
             File fileImg = new File(System.getProperty("user.dir") + "/img" + File.separator + "search.png");
             if (fileImg != null) {
@@ -359,6 +377,9 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
             matchPanel.setVisible(true);
             startPanel.setVisible(true);
             matchPieLabel.setVisible(true);
+            addSeasonButton.setVisible(true);
+            seasonComboBox.setVisible(true);
+            jScrollPane3.setVisible(true);
             playingTimePieLabel.setVisible(true);
             starterPieLabel.setVisible(true);
             jPanel4.setVisible(true);
@@ -458,17 +479,18 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
     }
 
     private void setDataYearlyPlayer() {
-        clearData();
-        if (playersModelList != null && playersModelList.get(row).getYearlyList() != null
-                && playersModelList.get(row).getYearlyList().size() >= selectedRowYearly) {
-
+        clearDataForYearly();
+        if (playersModelSelected.getYearlyList() != null
+                && playersModelSelected.getYearlyList().size() >= selectedRowYearly) {
             editPlayer.setEnabled(true);
-            playersModelSelected = playersModelList.get(row);
             redarPanal.setVisible(true);
             timePanel.setVisible(true);
             matchPanel.setVisible(true);
             startPanel.setVisible(true);
             matchPieLabel.setVisible(true);
+            addSeasonButton.setVisible(true);
+            seasonComboBox.setVisible(true);
+            jScrollPane3.setVisible(true);
             playingTimePieLabel.setVisible(true);
             starterPieLabel.setVisible(true);
             jPanel4.setVisible(true);
@@ -504,9 +526,9 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
             inputAnnualSalary.setText(df.format(playersModelSelected.getYearlyList().get(selectedRowYearly).getAnnualSalary()));
             inputSigningFee.setText(df.format(playersModelSelected.getYearlyList().get(selectedRowYearly).getSigningFee()));
             inputSalaryMonth.setText(df.format(playersModelSelected.getYearlyList().get(selectedRowYearly).getSalaryMonth()));
-            if(playersModelSelected.getPositionId()==1){// 1 = GK
+            if (playersModelSelected.getPositionId() == 1) {// 1 = GK
                 inputGoal.setText(df.format(playersModelSelected.getYearlyList().get(selectedRowYearly).getCleanSheet()));
-            }else{
+            } else {
                 inputGoal.setText(df.format(playersModelSelected.getYearlyList().get(selectedRowYearly).getGoal()));
             }
             inputPlayingTime.setText(df.format(playersModelSelected.getYearlyList().get(selectedRowYearly).getPlayingTime()));
@@ -548,12 +570,12 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
     private void setYearlyDataTable(List<YearlyModel> yearlyModelList) {
         try {
             if (yearlyModelList != null && yearlyModelList.size() > 0) {
-                DefaultTableModel modelTable = (DefaultTableModel) videoTable.getModel();
+                DefaultTableModel modelTable = (DefaultTableModel) yearlyTable.getModel();
                 while (modelTable.getRowCount() > 0) {
                     modelTable.removeRow(0);
                 }
                 for (YearlyModel yearlyModel : yearlyModelList) {
-                    Object[] rowTable = {yearlyModel.getYearlyId(), yearlyModel.getGc(), yearlyModel.getMatch(), yearlyModel.getPlayingTime()};
+                    Object[] rowTable = {yearlyModel.getYearlyId(), df.format(yearlyModel.getGc()), df.format(yearlyModel.getMatch()), df.format(yearlyModel.getPlayingTime())};
                     modelTable.addRow(rowTable);
                 }
             }
@@ -650,17 +672,19 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         nameLabel11 = new javax.swing.JLabel();
         inputDraw = new javax.swing.JTextField();
         matchPanel = new javax.swing.JPanel();
-        matchPieLabel = new javax.swing.JLabel();
         timePanel = new javax.swing.JPanel();
-        playingTimePieLabel = new javax.swing.JLabel();
         startPanel = new javax.swing.JPanel();
-        starterPieLabel = new javax.swing.JLabel();
         editPlayer = new javax.swing.JButton();
         clubLabel = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         yearlyTable = new javax.swing.JTable();
         nameLabel12 = new javax.swing.JLabel();
         inputSubstitution = new javax.swing.JTextField();
+        matchPieLabel = new javax.swing.JLabel();
+        playingTimePieLabel = new javax.swing.JLabel();
+        starterPieLabel = new javax.swing.JLabel();
+        addSeasonButton = new javax.swing.JButton();
+        seasonComboBox = new javax.swing.JComboBox();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         videoTable = new javax.swing.JTable();
@@ -799,65 +823,41 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
 
         matchPanel.setBackground(new java.awt.Color(255, 255, 255));
 
-        matchPieLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        matchPieLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        matchPieLabel.setText("Match");
-
         javax.swing.GroupLayout matchPanelLayout = new javax.swing.GroupLayout(matchPanel);
         matchPanel.setLayout(matchPanelLayout);
         matchPanelLayout.setHorizontalGroup(
             matchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(matchPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(matchPieLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGap(0, 136, Short.MAX_VALUE)
         );
         matchPanelLayout.setVerticalGroup(
             matchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, matchPanelLayout.createSequentialGroup()
-                .addGap(0, 122, Short.MAX_VALUE)
-                .addComponent(matchPieLabel))
+            .addGap(0, 136, Short.MAX_VALUE)
         );
 
         timePanel.setBackground(new java.awt.Color(255, 255, 255));
-
-        playingTimePieLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        playingTimePieLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        playingTimePieLabel.setText("Playing Time");
 
         javax.swing.GroupLayout timePanelLayout = new javax.swing.GroupLayout(timePanel);
         timePanel.setLayout(timePanelLayout);
         timePanelLayout.setHorizontalGroup(
             timePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(playingTimePieLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
+            .addGap(0, 136, Short.MAX_VALUE)
         );
         timePanelLayout.setVerticalGroup(
             timePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, timePanelLayout.createSequentialGroup()
-                .addGap(0, 122, Short.MAX_VALUE)
-                .addComponent(playingTimePieLabel))
+            .addGap(0, 136, Short.MAX_VALUE)
         );
 
         startPanel.setBackground(new java.awt.Color(255, 255, 255));
-
-        starterPieLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        starterPieLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        starterPieLabel.setText("Starter");
 
         javax.swing.GroupLayout startPanelLayout = new javax.swing.GroupLayout(startPanel);
         startPanel.setLayout(startPanelLayout);
         startPanelLayout.setHorizontalGroup(
             startPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, startPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(starterPieLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGap(0, 136, Short.MAX_VALUE)
         );
         startPanelLayout.setVerticalGroup(
             startPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, startPanelLayout.createSequentialGroup()
-                .addGap(0, 122, Short.MAX_VALUE)
-                .addComponent(starterPieLabel))
+            .addGap(0, 136, Short.MAX_VALUE)
         );
 
         editPlayer.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -898,19 +898,43 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         inputSubstitution.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         inputSubstitution.setPreferredSize(new java.awt.Dimension(6, 19));
 
+        matchPieLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        matchPieLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        matchPieLabel.setText("Match");
+
+        playingTimePieLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        playingTimePieLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        playingTimePieLabel.setText("Playing Time");
+
+        starterPieLabel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        starterPieLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        starterPieLabel.setText("Starter");
+
+        addSeasonButton.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        addSeasonButton.setText("Add Season");
+        addSeasonButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addSeasonButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane3)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(contracLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(bridLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(imgPlayer, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
-                        .addComponent(clubLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
-                        .addComponent(nameLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(higthLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(contracLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(bridLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(imgPlayer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(clubLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(nameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(higthLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(addSeasonButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(seasonComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -950,13 +974,20 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(editPlayer, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(matchPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(matchPieLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(playingTimePieLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(matchPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(timePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(timePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(startPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(45, Short.MAX_VALUE))
-            .addComponent(jScrollPane3)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(startPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(starterPieLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1029,8 +1060,15 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
                             .addComponent(timePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(startPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(matchPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(7, 7, 7)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(matchPieLabel)
+                    .addComponent(playingTimePieLabel)
+                    .addComponent(starterPieLabel)
+                    .addComponent(addSeasonButton)
+                    .addComponent(seasonComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
@@ -1054,7 +1092,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(videoTable);
 
-        addVideoButton.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        addVideoButton.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
         addVideoButton.setText("Add Video");
         addVideoButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1087,7 +1125,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 45, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(redarPanal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -1156,7 +1194,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
                         .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(report1Button)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 314, Short.MAX_VALUE))
                     .addComponent(jScrollPane2))
                 .addContainerGap())
         );
@@ -1196,6 +1234,64 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         jPanel1.getAccessibleContext().setAccessibleName("Player");
     }// </editor-fold>//GEN-END:initComponents
 
+    private void clearDataForYearly(){
+        editPlayer.setEnabled(false);
+        editPlayer.setText("Edit");
+        inputGc.setEditable(false);
+        inputAnnualSalary.setEditable(false);
+        inputSigningFee.setEditable(false);
+        inputSalaryMonth.setEditable(false);
+        inputGoal.setEditable(false);
+        inputPlayingTime.setEditable(false);
+        inputMatch.setEditable(false);
+        inputStarting.setEditable(false);
+        inputSubstitution.setEditable(false);
+        inputWin.setEditable(false);
+        inputLose.setEditable(false);
+        inputDraw.setEditable(false);
+
+        inputGc.setBackground(null);
+        inputAnnualSalary.setBackground(null);
+        inputSigningFee.setBackground(null);
+        inputSalaryMonth.setBackground(null);
+        inputGoal.setBackground(null);
+        inputPlayingTime.setBackground(null);
+        inputMatch.setBackground(null);
+        inputStarting.setBackground(null);
+        inputSubstitution.setBackground(null);
+        inputWin.setBackground(null);
+        inputLose.setBackground(null);
+        inputDraw.setBackground(null);
+
+        redarPanal.setVisible(false);
+        timePanel.setVisible(false);
+        matchPanel.setVisible(false);
+        startPanel.setVisible(false);
+        if (viewRadar != null) {
+            redarPanal.remove(viewRadar);
+        }
+        if (viewPieTime != null) {
+            timePanel.remove(viewPieTime);
+        }
+        if (viewPieMatch != null) {
+            matchPanel.remove(viewPieMatch);
+        }
+        if (viewPieStart != null) {
+            startPanel.remove(viewPieStart);
+        }
+        inputGc.setText("");
+        inputAnnualSalary.setText("");
+        inputSigningFee.setText("");
+        inputSalaryMonth.setText("");
+        inputGoal.setText("");
+        inputPlayingTime.setText("");
+        inputMatch.setText("");
+        inputStarting.setText("");
+        inputSubstitution.setText("");
+        inputWin.setText("");
+        inputLose.setText("");
+        inputDraw.setText("");
+    }
     private void clearData() {
         playersModelSelected = null;
         editPlayer.setEnabled(false);
@@ -1263,6 +1359,9 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         inputDraw.setText("");
 
         matchPieLabel.setVisible(false);
+        addSeasonButton.setVisible(false);
+        seasonComboBox.setVisible(false);
+        jScrollPane3.setVisible(false);
         playingTimePieLabel.setVisible(false);
         starterPieLabel.setVisible(false);
         jPanel4.setVisible(false);
@@ -1271,6 +1370,11 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         while (modelTable.getRowCount() > 0) {
             modelTable.removeRow(0);
         }
+        DefaultTableModel modelTableYear = (DefaultTableModel) yearlyTable.getModel();
+        while (modelTableYear.getRowCount() > 0) {
+            modelTableYear.removeRow(0);
+        }
+
     }
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
@@ -1361,15 +1465,8 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
             boolean update = yearlyManager.updateYearly(playersModelSelected.getYearlyList().get(selectedRowYearly));
             if (update) {
                 playersModelList.set(row, playersModelSelected);
-                DefaultTableModel modelTable = (DefaultTableModel) searchTable.getModel();
-                while (modelTable.getRowCount() > 0) {
-                    modelTable.removeRow(0);
-                }
-                for (PlayersModel model : playersModelList) {
-                    Object[] rowTable = {model.getPlayerNumber(), model.getPlayerName(), model.getClub(), model.getPositionStr(), sdf.format(model.getContractStart()), sdf.format(model.getContractEnd())};
-                    modelTable.addRow(rowTable);
-                }
-                setDataDetailPlayer();
+                setYearlyDataTable(playersModelSelected.getYearlyList());
+                setDataYearlyPlayer();
             }
             editPlayer.setText("Edit");
             inputGc.setEditable(false);
@@ -1477,6 +1574,42 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_addVideoButtonActionPerformed
 
+    private void addSeasonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addSeasonButtonActionPerformed
+        // TODO add your handling code here:
+        int saveConfirm = JOptionPane.showConfirmDialog(null, "Confirm add season?", "Confirm add season", JOptionPane.OK_OPTION | JOptionPane.CANCEL_OPTION);
+        if (saveConfirm == JOptionPane.OK_OPTION) {
+            boolean chk = true;
+            int yearId = Integer.parseInt((String) seasonComboBox.getSelectedItem());
+            if (playersModelSelected.getYearlyList() != null) {
+                for (YearlyModel model : playersModelSelected.getYearlyList()) {
+                    if (model.getYearlyId() == yearId) {
+                        chk = false;
+                    }
+                }
+            }
+            if (chk) {
+                YearlyModel model = new YearlyModel();
+                model.setYearlyId(yearId);
+                model.setPlayerId(playersModelSelected.getPlayerId());
+                model.setCreateBy(sessionManager.getUser().getUserId());
+                model.setCreateDate(new Date());
+                model.setUpdateBy(sessionManager.getUser().getUserId());
+                model.setUpdateDate(new Date());
+                yearlyManager.insertYearly(model);
+                if (playersModelSelected.getYearlyList() == null) {
+                    List<YearlyModel> modelList = new ArrayList<YearlyModel>();
+                    modelList.add(model);
+                    playersModelSelected.setYearlyList(modelList);
+                } else {
+                    playersModelSelected.getYearlyList().add(0, model);
+                }
+                setYearlyDataTable(playersModelSelected.getYearlyList());
+            } else {
+                JOptionPane.showMessageDialog(null, "season has data");
+            }
+        }
+    }//GEN-LAST:event_addSeasonButtonActionPerformed
+
     private void searchByKeyWord() {
 //        Runnable r = new Runnable() {
 //            public void run() {
@@ -1487,6 +1620,10 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
             modelTable.removeRow(0);
         }
         if (playersModelList != null && playersModelList.size() > 0) {
+            for (int i = 0; i < playersModelList.size(); i++) {
+                List<YearlyModel> list = yearlyManager.getYearlyList(playersModelList.get(i).getPlayerId());
+                playersModelList.get(i).setYearlyList(list);
+            }
             for (PlayersModel model : playersModelList) {
                 Object[] rowTable = {model.getPlayerNumber(), model.getPlayerName(), model.getClub(), model.getPositionStr(), sdf.format(model.getContractStart()), sdf.format(model.getContractEnd())};
                 modelTable.addRow(rowTable);
@@ -1512,6 +1649,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         return resizedImage;
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addSeasonButton;
     private javax.swing.JButton addVideoButton;
     private javax.swing.JLabel bridLabel;
     private javax.swing.JLabel clubLabel;
@@ -1559,6 +1697,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
     private javax.swing.JButton searchButton;
     private javax.swing.JTable searchTable;
     private javax.swing.JTextField searchText;
+    private javax.swing.JComboBox seasonComboBox;
     private javax.swing.JPanel startPanel;
     private javax.swing.JLabel starterPieLabel;
     private javax.swing.JPanel timePanel;

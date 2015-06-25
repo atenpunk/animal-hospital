@@ -28,8 +28,8 @@ public class YearlyManagerBean implements YearlyManager {
         return yearlyDao.updateYearly(yearlyModel);
     }
 
-    public boolean deleteYearly(int yearlyId, int playerId) {
-        return yearlyDao.deleteYearly(yearlyId, playerId);
+    public boolean deleteYearly(int playerId) {
+        return yearlyDao.deleteYearly(playerId);
     }
 
     public YearlyDao getYearlyDao() {
