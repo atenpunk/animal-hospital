@@ -126,7 +126,7 @@ public class JdbcPlayersDao implements PlayersDao {
                     + " left join POSITION ps on(ps.ID = py.POSITION_ID) ";
             if (word != null && !word.equals("")) {
                 sql += " where py.PLAYER_NAME like '%" + word + "%' "
-                        + " or ps.NAME like '%" + word + "%' ";
+                        + " or ps.NAME like '%" + word.toUpperCase() + "%' ";
                 try {
                     int number = Integer.parseInt(word);
                     sql += " or py.PLAYER_NUMBER = " + number + " ";
@@ -175,4 +175,72 @@ public class JdbcPlayersDao implements PlayersDao {
         }
         return null;
     }
+    
+    
+    public List<PlayersModel> searchAllDataByKeyWord(String word) {
+        try {
+            String sql = " select py.PLAYER_ID as playerId, py.PLAYER_NAME, py.PLAYER_NUMBER, py.HEIGHT, py.WEIGHT "
+                    + " , py.POSITION_ID, ps.NAME, py.BIRTHDAY, py.CONTRACT_START, py.CONTRACT_END, py.IMAGE_NAME, py.CLUB "
+                    + " , yy.GC, yy.ANNUAL_SALARY, yy.SIGNING_FEE, yy.SALARY_MONTH, yy.GOAL "
+                    + " , yy.PLAYING_TIME, yy.MATCH_NUMBER, yy.WIN, yy.LOSE, yy.DRAW, yy.STARTER "
+                    + " , yy.CLEAN_SHEET , yy.SUBSTITUTION , yy.YEARLY_ID "
+                    + " from YEARLY yy "
+                    + " left join PLAYERS py on(py.PLAYER_ID = yy.PLAYER_ID) "
+                    + " left join POSITION ps on(ps.ID = py.POSITION_ID) ";
+            if (word != null && !word.equals("")) {
+                sql += " where py.PLAYER_NAME like '%" + word + "%' "
+                        + " or ps.NAME like '%" + word.toUpperCase() + "%' ";
+                try {
+                    int number = Integer.parseInt(word);
+                    sql += " or py.PLAYER_NUMBER = " + number + " ";
+                } catch (Exception e) {
+                }
+            }
+            sql += " order by py.PLAYER_NUMBER, yy.YEARLY_ID";
+            ParameterizedRowMapper<PlayersModel> mapper = new ParameterizedRowMapper<PlayersModel>() {
+                @Override
+                public PlayersModel mapRow(ResultSet rs, int arg1) throws SQLException {
+                    PlayersModel model = new PlayersModel();
+                    model.setPlayerId(rs.getInt("playerId"));
+                    model.setPlayerName(rs.getString("PLAYER_NAME"));
+                    model.setPlayerNumber(rs.getInt("PLAYER_NUMBER"));
+                    model.setHeight(rs.getInt("HEIGHT"));
+                    model.setWeight(rs.getInt("WEIGHT"));
+                    model.setPositionId(rs.getInt("POSITION_ID"));
+                    model.setPositionStr(rs.getString("NAME"));
+                    model.setBirthday(rs.getDate("BIRTHDAY"));
+                    model.setContractStart(rs.getDate("CONTRACT_START"));
+                    model.setContractEnd(rs.getDate("CONTRACT_END"));
+                    model.setImage(rs.getString("IMAGE_NAME"));
+                    model.setClub(rs.getString("CLUB"));
+                    
+                    model.setYearlyId(rs.getInt("YEARLY_ID"));
+                    model.setGc(rs.getDouble("GC"));
+                    model.setAnnualSalary(rs.getDouble("ANNUAL_SALARY"));
+                    model.setSigningFee(rs.getDouble("SIGNING_FEE"));
+                    model.setSalaryMonth(rs.getDouble("SALARY_MONTH"));
+                    model.setGoal(rs.getInt("GOAL"));
+                    model.setPlayingTime(rs.getInt("PLAYING_TIME"));
+                    model.setMatch(rs.getInt("MATCH_NUMBER"));
+                    model.setWin(rs.getInt("WIN"));
+                    model.setLose(rs.getInt("LOSE"));
+                    model.setDraw(rs.getInt("DRAW"));
+                    model.setStarter(rs.getInt("STARTER"));
+                    model.setCleanSheet(rs.getInt("CLEAN_SHEET"));
+                    model.setSubstitution(rs.getInt("SUBSTITUTION"));
+//                    model.setCreateBy(rs.getInt("CREATE_BY"));
+//                    model.setCreateDate(rs.getDate("CREATE_DATE"));
+//                    model.setUpdateBy(rs.getInt("UPDATE_BY"));
+//                    model.setUpdateDate(rs.getDate("UPDATE_DATE"));
+                    return model;
+                }
+            };
+            return this.simpleJdbcTemplate.query(sql, mapper);
+        } catch (Exception e) {
+            logger.info("" + e);
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
 }

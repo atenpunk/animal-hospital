@@ -198,7 +198,7 @@ public class ViewReportComparePlayersRadarDlg extends Sw2dDemo {
                     BasicStroke basicstroke7 = new BasicStroke(0.0F);
                     Font font7 = InputFonts.getNoMove(12);
                     PieBoundLabel pieborderlabel = PieToolkit.createBoundLabel(addSpace("#" + playersModelList.get(0).getPlayerNumber() 
-                            + " " + playersModelList.get(0).getPlayerName()),
+                            + " " + playersModelList.get(0).getPlayerName()+" ("+playersModelList.get(0).getYearlyId()+")"),
                             NanoChromatique.RED, font7);
                     pieborderlabel
                             .setStyle(com.jensoft.sw2d.core.plugin.pie.painter.label.AbstractPieSliceLabel.Style.Both);
@@ -259,7 +259,7 @@ public class ViewReportComparePlayersRadarDlg extends Sw2dDemo {
                     BasicStroke basicstroke7 = new BasicStroke(0.0F);
                     Font font7 = InputFonts.getNoMove(12);
                     PieBoundLabel pieborderlabel = PieToolkit.createBoundLabel(addSpace("#" + playersModelList.get(1).getPlayerNumber() 
-                            + " " + playersModelList.get(1).getPlayerName()),
+                            + " " + playersModelList.get(1).getPlayerName()+" ("+playersModelList.get(1).getYearlyId()+")"),
                             NanoChromatique.PURPLE, font7);
                     pieborderlabel
                             .setStyle(com.jensoft.sw2d.core.plugin.pie.painter.label.AbstractPieSliceLabel.Style.Both);
@@ -318,7 +318,7 @@ public class ViewReportComparePlayersRadarDlg extends Sw2dDemo {
                     BasicStroke basicstroke7 = new BasicStroke(0.0F);
                     Font font7 = InputFonts.getNoMove(12);
                     PieBoundLabel pieborderlabel = PieToolkit.createBoundLabel(addSpace("#" + playersModelList.get(2).getPlayerNumber() 
-                            + " " + playersModelList.get(2).getPlayerName()),
+                            + " " + playersModelList.get(2).getPlayerName()+" ("+playersModelList.get(2).getYearlyId()+")"),
                             NanoChromatique.BLUE, font7);
                     pieborderlabel
                             .setStyle(com.jensoft.sw2d.core.plugin.pie.painter.label.AbstractPieSliceLabel.Style.Both);
@@ -379,7 +379,7 @@ public class ViewReportComparePlayersRadarDlg extends Sw2dDemo {
                     BasicStroke basicstroke7 = new BasicStroke(0.0F);
                     Font font7 = InputFonts.getNoMove(12);
                     PieBoundLabel pieborderlabel = PieToolkit.createBoundLabel(addSpace("#" + playersModelList.get(3).getPlayerNumber() 
-                            + " " + playersModelList.get(3).getPlayerName()),
+                            + " " + playersModelList.get(3).getPlayerName()+" ("+playersModelList.get(3).getYearlyId()+")"),
                             NanoChromatique.ORANGE, font7);
                     pieborderlabel
                             .setStyle(com.jensoft.sw2d.core.plugin.pie.painter.label.AbstractPieSliceLabel.Style.Both);
@@ -438,7 +438,7 @@ public class ViewReportComparePlayersRadarDlg extends Sw2dDemo {
                     BasicStroke basicstroke7 = new BasicStroke(0.0F);
                     Font font7 = InputFonts.getNoMove(12);
                     PieBoundLabel pieborderlabel = PieToolkit.createBoundLabel(addSpace("#" + playersModelList.get(4).getPlayerNumber() 
-                            + " " + playersModelList.get(4).getPlayerName()),
+                            + " " + playersModelList.get(4).getPlayerName()+" ("+playersModelList.get(4).getYearlyId()+")"),
                             NanoChromatique.GREEN, font7);
                     pieborderlabel
                             .setStyle(com.jensoft.sw2d.core.plugin.pie.painter.label.AbstractPieSliceLabel.Style.Both);

@@ -366,7 +366,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
     private void setDataDetailPlayer() {
         clearData();
         if (playersModelList != null && playersModelList.size() >= row) {
-            if (playersModelList.get(row).getYearlyList() != null && playersModelList.get(row).getYearlyList().size() == 1) {
+            if (playersModelList.get(row).getYearlyList() != null && playersModelList.get(row).getYearlyList().size() > 0) {
                 selectedRowYearly = 0;
             } else {
                 selectedRowYearly = -1;
