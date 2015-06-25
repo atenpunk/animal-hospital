@@ -32,9 +32,8 @@
     </url-mapping>
     
     <url-mapping id="add_01">
-		<pattern value="/add/add/#{id:addCustomerController.upperLineId}/#{id:addCustomerController.flagUnder}"></pattern>
+		<pattern value="/add/add"></pattern>
 		<view-id>/sec/add/add.jsf</view-id>
-		<action>#{addCustomerController.view()}</action> 
 	</url-mapping>
 	
 	<url-mapping id="tree_01">

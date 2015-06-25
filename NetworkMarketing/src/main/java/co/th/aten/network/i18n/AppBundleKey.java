@@ -33,6 +33,9 @@ public class AppBundleKey extends BundleKey {
     public AppBundleKey(String key) {
         super(APP_BUNDLE_NAME, key);
     }
+    public AppBundleKey(String key,String language) {
+        super(APP_BUNDLE_NAME+"_"+language, key);
+    }
     
 //    public AppBundleKey(String key,String value) {
 //        super(EPI_BUNDLE_NAME, key);

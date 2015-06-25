@@ -36,17 +36,7 @@
 		</div>
 
 		<rich:toolbar height="26px">
-			<rich:dropDownMenu mode="ajax">
-				<f:facet name="label">
-					<h:panelGrid>
-						<h:outputText value="System" />
-					</h:panelGrid>
-				</f:facet>
-				<rich:menuItem submitMode="client"
-					onclick="document.location.href='#{request.contextPath}/'">
-					<h:outputText value="Home Page" />
-				</rich:menuItem>
-			</rich:dropDownMenu>
+		<a href="#{request.contextPath}/">#{app_msgs['menu.label.home']}</a>
 
 			<rich:toolbarGroup location="right">
 				<h:form>

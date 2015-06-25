@@ -5,13 +5,14 @@ import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Instance;
 import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
@@ -20,8 +21,10 @@ import org.jboss.seam.international.status.MessageFactory;
 import org.jboss.seam.international.status.Messages;
 import org.jboss.solder.logging.Logger;
 
+import co.th.aten.network.control.CustomerControl;
 import co.th.aten.network.entity.MemberCustomer;
 import co.th.aten.network.entity.UserLogin;
+import co.th.aten.network.i18n.AppBundleKey;
 import co.th.aten.network.model.CustomerModel;
 import co.th.aten.network.model.DetailModel;
 import co.th.aten.network.producer.DBDefault;
@@ -81,18 +84,28 @@ public class CustomerController implements Serializable{
 
 	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd",Locale.US);
 	private DecimalFormat df = new DecimalFormat("0000000");
+	// ######################## ADD MEMBER #########################
+	@Inject
+	private CustomerControl customerControl;
+	private String memberStr;
+	private String titleName;
+	private String starTitleName;
+	private String firstName;
+	private String starFirstName;
+	private String lastName;
+	private String starLastName;
+	private Date regisDate;
+	private long upperLineId;
+	private String upperLineCusId;
+	private String upperLineName;
+	private long flagUnder;
+	private boolean chkSave;
+	// ######################## ADD MEMBER #########################
 
 	@PostConstruct
 	public void init(){
 		log.info("init method CustomerController");
-
-		//				customerModelList = new ArrayList<CustomerModel>();
-		//				List<MemberCustomer> CustomerList = em.createQuery("From MemberCustomer",MemberCustomer.class).getResultList();
-		//				if(CustomerList!=null){
-		//					for(MemberCustomer customer:CustomerList){
-		//						customerModelList.add(setDataCustomerModel(customer));
-		//					}
-		//				}
+		chkSave = true;
 
 		if(user.get().getCustomerId()!=null){
 			MemberCustomer customer = user.get().getCustomerId();
@@ -105,11 +118,40 @@ public class CustomerController implements Serializable{
 	}
 	
 	public void search(){
+		long startTime = System.currentTimeMillis();
 		log.info("##### SEARCH ##### = "+searchCustomer);
+		customerModel_01 = null;
+		customerModel_02 = null;
+		customerModel_03 = null;
+		customerModel_04 = null;
+		customerModel_05 = null;
+		customerModel_06 = null;
+		customerModel_07 = null;
+		customerModel_08 = null;
+		customerModel_09 = null;
+		customerModel_10 = null;
+		customerModel_11 = null;
+		customerModel_12 = null;
+		customerModel_13 = null;
+		customerModel_14 = null;
+		customerModel_15 = null;
 		try{
 			if(searchCustomer!=null && searchCustomer.trim().length()>0){
-				MemberCustomer memSearch = (MemberCustomer)em.createQuery("From MemberCustomer Where customerMember =:customerMember ")
-						.setParameter("customerMember", searchCustomer).getSingleResult();
+				MemberCustomer memSearch = null;
+				boolean chkNumber = false;
+				try{
+					Integer.parseInt(searchCustomer);
+					chkNumber = true;
+				}catch(Exception ex){
+					log.info("Error : "+ex.getMessage());
+				}
+				if(chkNumber){
+					memSearch = (MemberCustomer)em.createQuery("From MemberCustomer Where customerMember =:customerMember ")
+							.setParameter("customerMember", searchCustomer).getSingleResult();
+				}else{
+					memSearch = (MemberCustomer)em.createQuery("From MemberCustomer Where firstName =:firstName ")
+							.setParameter("firstName", searchCustomer).getSingleResult();
+				}
 				long cusId = memSearch.getCustomerId().longValue();
 				log.info("##### cusId ##### = "+cusId);
 				log.info("##### login ##### = "+user.get().getCustomerId().getCustomerId().intValue());
@@ -143,16 +185,25 @@ public class CustomerController implements Serializable{
 						subSql = "("+subSql+")";
 						sql += subSql;
 					}
+					if(customerModel_01==null){
+						messages.info(new AppBundleKey("error.label.searchOutLine",FacesContext.getCurrentInstance().getViewRoot().getLocale().getLanguage()));
+					}
 				}else if(cusId == user.get().getCustomerId().getCustomerId().intValue()){
 					customerId = cusId;
 					genTreeModel();
 				}else {
 					// alert ERROR
+					messages.info(new AppBundleKey("error.label.searchOutLine",FacesContext.getCurrentInstance().getViewRoot().getLocale().getLanguage()));
 				}
+			}else{
+				messages.info(new AppBundleKey("error.label.pleaseInputText",FacesContext.getCurrentInstance().getViewRoot().getLocale().getLanguage()));
 			}
 		}catch(Exception e){
-			e.printStackTrace();
+			log.info("Error : "+e.getMessage());
+			messages.info(new AppBundleKey("error.label.searchOutLine",FacesContext.getCurrentInstance().getViewRoot().getLocale().getLanguage()));
 		}
+		long endTime = System.currentTimeMillis();
+		log.info("search() Time = "+((endTime-startTime)/1000d)+"s");
 	}
 
 	private void genAutoTagTree(){
@@ -232,6 +283,7 @@ public class CustomerController implements Serializable{
 	}
 
 	public void genTree(String flag,long cusId){
+		long startTime = System.currentTimeMillis();
 		log.info("flag = "+flag);
 		log.info("cusId = "+cusId);
 		try{
@@ -262,6 +314,8 @@ public class CustomerController implements Serializable{
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+		long endTime = System.currentTimeMillis();
+		log.info("genTree(String flag,long cusId) Time = "+((endTime-startTime)/1000d)+"s");
 	}
 
 	private int findLeftLow(){
@@ -631,7 +685,7 @@ public class CustomerController implements Serializable{
 				}
 				model.setScore(customer.getScore()!=null?customer.getScore():0);
 				model.setRegisDate(customer.getRegisDate());
-				model.setFirstName(StringUtil.n2b(customer.getTitleName())+" "+StringUtil.n2b(customer.getFirstName()));
+				model.setFirstName(StringUtil.n2b(customer.getFirstName()));
 				model.setLastName(customer.getLastName());
 				model.setName(StringUtil.n2b(customer.getTitleName())+StringUtil.n2b(customer.getFirstName())+" "+StringUtil.n2b(customer.getLastName()));
 				model.setStatus(customer.getStatus()!=null?customer.getStatus():0);
@@ -674,6 +728,98 @@ public class CustomerController implements Serializable{
 		}
 		return null;
 	}
+	
+	// ########################### ADD MEMBER ##############################	
+	public void viewAddMember(){
+		try{
+			log.info("####### viewAddMember() 1");
+			log.info("####### upperLineId = "+upperLineId);
+			log.info("####### flagUnder = "+flagUnder);
+			starTitleName = "*";
+			starFirstName = "*";
+			starLastName = "*";
+			MemberCustomer customerUpper = em.find(MemberCustomer.class, new Integer(new BigDecimal(upperLineId).intValue()));
+			if(customerUpper!=null){
+				upperLineCusId = customerUpper.getCustomerMember();
+				upperLineName = StringUtil.n2b(customerUpper.getTitleName())+" "+StringUtil.n2b(customerUpper.getFirstName())
+						+" "+StringUtil.n2b(customerUpper.getLastName());
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	public void confirmAddMember(){
+		log.info("##### addCustomer()");
+		log.info("##### user.get().getUserId = "+user.get().getUserId());
+		log.info("##### memberStr = "+memberStr);
+		log.info("##### titleName = "+titleName);
+		log.info("##### firstName = "+firstName);
+		log.info("##### lastName = "+lastName);
+		log.info("##### regisDate = "+sdf.format(regisDate));
+		log.info("##### upperLineId = "+upperLineId);
+		log.info("##### flagUnder = "+flagUnder);
+		try{
+			MemberCustomer cusUpper = em.find(MemberCustomer.class, new Integer(new BigDecimal(upperLineId).intValue()));
+			if((flagUnder==1 && cusUpper.getLowerLeftId()==null)
+					|| (flagUnder==2 && cusUpper.getLowerRightId()==null)){
+				MemberCustomer cus = new MemberCustomer();
+				int max = customerControl.customerIdInsert();
+				cus.setCustomerId(max);
+				memberStr = df.format(max);
+				cus.setCustomerMember(memberStr);
+				cus.setUpperId(new BigDecimal(upperLineId).intValue());
+				cus.setLowerLeftId(null);
+				cus.setLowerRightId(null);
+				cus.setRecommendId(null);
+				cus.setPositionId(5);
+				cus.setScore(0);
+				cus.setRegisDate(regisDate);
+				cus.setTitleName(titleName);
+				cus.setFirstName(firstName);
+				cus.setLastName(lastName);
+				cus.setStatus(0);
+				cus.setCreateBy(user.get().getUserId());
+				cus.setCreateDate(new Date());
+				cus.setUpdateBy(user.get().getUserId());
+				cus.setUpdateDate(new Date());
+				em.persist(cus);
+				if(flagUnder == 1){
+					cusUpper.setLowerLeftId(max);
+				}else if(flagUnder == 2){
+					cusUpper.setLowerRightId(max);
+				}
+				em.merge(cusUpper);
+				messages.info("Add line success.");
+				genTreeModel();
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			messages.error("Add Line fail.");
+		}
+		upperLineId = 0;
+		flagUnder = 0;
+		chkSave = true;
+	}
+	
+	public void onKeypress(){
+		if(firstName!=null && firstName.trim().length()>0){
+			starFirstName = " ";
+		}else{
+			starFirstName = "*";
+		}
+		if(titleName!=null && titleName.trim().length()>0){
+			starTitleName = " ";
+		}else{
+			starTitleName = "*";
+		}
+		if(starTitleName.equals("*") || starFirstName.equals("*")){
+			chkSave = true;
+		}else{
+			chkSave = false;
+		}
+	}
+	// ########################### ADD MEMBER ##############################
 
 	public List<CustomerModel> getCustomerModelList() {
 		return customerModelList;
@@ -827,4 +973,107 @@ public class CustomerController implements Serializable{
 		this.searchCustomer = searchCustomer;
 	}
 
+	public String getMemberStr() {
+		return memberStr;
+	}
+
+	public void setMemberStr(String memberStr) {
+		this.memberStr = memberStr;
+	}
+
+	public String getTitleName() {
+		return titleName;
+	}
+
+	public void setTitleName(String titleName) {
+		this.titleName = titleName;
+	}
+
+	public String getStarTitleName() {
+		return starTitleName;
+	}
+
+	public void setStarTitleName(String starTitleName) {
+		this.starTitleName = starTitleName;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getStarFirstName() {
+		return starFirstName;
+	}
+
+	public void setStarFirstName(String starFirstName) {
+		this.starFirstName = starFirstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getStarLastName() {
+		return starLastName;
+	}
+
+	public void setStarLastName(String starLastName) {
+		this.starLastName = starLastName;
+	}
+
+	public Date getRegisDate() {
+		return regisDate;
+	}
+
+	public void setRegisDate(Date regisDate) {
+		this.regisDate = regisDate;
+	}
+
+	public long getUpperLineId() {
+		return upperLineId;
+	}
+
+	public void setUpperLineId(long upperLineId) {
+		this.upperLineId = upperLineId;
+	}
+
+	public String getUpperLineCusId() {
+		return upperLineCusId;
+	}
+
+	public void setUpperLineCusId(String upperLineCusId) {
+		this.upperLineCusId = upperLineCusId;
+	}
+
+	public String getUpperLineName() {
+		return upperLineName;
+	}
+
+	public void setUpperLineName(String upperLineName) {
+		this.upperLineName = upperLineName;
+	}
+
+	public long getFlagUnder() {
+		return flagUnder;
+	}
+
+	public void setFlagUnder(long flagUnder) {
+		this.flagUnder = flagUnder;
+	}
+
+	public boolean isChkSave() {
+		return chkSave;
+	}
+
+	public void setChkSave(boolean chkSave) {
+		this.chkSave = chkSave;
+	}
 }
