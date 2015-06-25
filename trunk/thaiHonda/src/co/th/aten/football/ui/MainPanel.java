@@ -59,7 +59,7 @@ public class MainPanel extends ImagePanel {
         btReportPlayersDetail.setEnabled(true);
         btAddStaff.setEnabled(true);
         btChangePassword.setEnabled(true);
-        btReport.setEnabled(false);
+        btReport.setEnabled(true);
         btSellStatement.setEnabled(false);
         btReport2.setEnabled(false);
         btCheckBalance.setEnabled(false);

@@ -96,7 +96,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy", Locale.US);
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.YEAR, 3);
-        for (int i = 1; i < 6; i++) {
+        for (int i = 1; i < 7; i++) {
             cal.add(Calendar.YEAR, -1);
             seasonComboBox.addItem(yearFormat.format(cal.getTime()));
         }
@@ -1604,6 +1604,8 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
                     playersModelSelected.getYearlyList().add(0, model);
                 }
                 setYearlyDataTable(playersModelSelected.getYearlyList());
+                selectedRowYearly = 0;
+                setDataYearlyPlayer();
             } else {
                 JOptionPane.showMessageDialog(null, "season has data");
             }
