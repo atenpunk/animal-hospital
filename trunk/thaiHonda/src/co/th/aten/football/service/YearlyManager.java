@@ -19,5 +19,5 @@ public interface YearlyManager {
 
     public boolean updateYearly(YearlyModel yearlyModel);
     
-    public boolean deleteYearly(int yearlyId,int playerId);
+    public boolean deleteYearly(int playerId);
 }

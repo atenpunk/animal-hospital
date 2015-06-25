@@ -16,6 +16,7 @@ import co.th.aten.football.service.PlayersManager;
 import co.th.aten.football.service.PositionManager;
 import co.th.aten.football.service.SessionManager;
 import co.th.aten.football.service.VideoPlayersManager;
+import co.th.aten.football.service.YearlyManager;
 import co.th.aten.football.util.Sound;
 import co.th.aten.football.util.Util;
 import java.awt.Color;
@@ -63,6 +64,7 @@ public class EditPlayerPanel extends javax.swing.JPanel {
     private final Log logger = LogFactory.getLog(getClass());
     private SessionManager sessionManager;
     private PlayersManager playersManager;
+    private YearlyManager yearlyManager;
     private List<PlayersModel> playersModelList;
     private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
     private DecimalFormat df = new DecimalFormat("#,##0");
@@ -79,6 +81,7 @@ public class EditPlayerPanel extends javax.swing.JPanel {
         this.playersManager = (PlayersManager) Application.services().getService(PlayersManager.class);
         this.positionManager = (PositionManager) Application.services().getService(PositionManager.class);
         this.videoPlayersManager = (VideoPlayersManager) Application.services().getService(VideoPlayersManager.class);
+        this.yearlyManager = (YearlyManager) Application.services().getService(YearlyManager.class);
         initComponents();
         jScrollPane2.getViewport().setBackground(Color.WHITE);
         DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
@@ -729,6 +732,7 @@ public class EditPlayerPanel extends javax.swing.JPanel {
         if (deleteConfirm == JOptionPane.OK_OPTION) {
             boolean chkUpdatePlayer = playersManager.deletePlayer(playersModelSelected.getPlayerId());
             if (chkUpdatePlayer) {
+                yearlyManager.deleteYearly(playersModelSelected.getPlayerId());
                 new File(System.getProperty("user.dir") + "/img/" + playersModelSelected.getImage()).delete();
                 if(playersModelSelected.getVideoModelList()!=null && playersModelSelected.getVideoModelList().size()>0){
                     for(VideoModel videoModel : playersModelSelected.getVideoModelList()){
