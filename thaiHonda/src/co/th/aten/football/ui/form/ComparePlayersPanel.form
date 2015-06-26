@@ -21,13 +21,13 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="jPanel3" min="-2" pref="871" max="-2" attributes="0"/>
                   <Component id="jPanel1" max="32767" attributes="0"/>
-                  <Component id="jPanel3" alignment="1" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -66,9 +66,9 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="jScrollPane3" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="redarPanal" max="32767" attributes="0"/>
+                      <Component id="jScrollPane3" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -95,7 +95,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="853" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -118,7 +118,7 @@
                   <Font name="Tahoma" size="12" style="0"/>
                 </Property>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="8" rowCount="0">
+                  <Table columnCount="11" rowCount="0">
                     <Column editable="false" title="" type="java.lang.Object"/>
                     <Column editable="false" title="Season" type="java.lang.Object"/>
                     <Column editable="false" title="GC" type="java.lang.Object"/>
@@ -127,6 +127,9 @@
                     <Column editable="false" title="Monthly Salary" type="java.lang.Object"/>
                     <Column editable="false" title="Playing Time" type="java.lang.Object"/>
                     <Column editable="false" title="Matches" type="java.lang.Object"/>
+                    <Column editable="false" title="Goal" type="java.lang.Object"/>
+                    <Column editable="false" title="Starter" type="java.lang.Object"/>
+                    <Column editable="false" title="Substitution" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="autoscrolls" type="boolean" value="false"/>
@@ -156,20 +159,26 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="searchText" min="-2" pref="619" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="searchButton" min="-2" pref="30" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="report1Button" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="109" max="32767" attributes="0"/>
+                          <Component id="jScrollPane2" min="-2" pref="840" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
-                      <Component id="jScrollPane2" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Component id="searchText" min="-2" pref="562" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jLabel1" min="-2" pref="47" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="seasonComboBox" min="-2" pref="62" max="-2" attributes="1"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="searchButton" min="-2" pref="30" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="report1Button" min="-2" pref="83" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -177,7 +186,11 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="searchText" alignment="0" pref="25" max="32767" attributes="0"/>
+                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                          <Component id="searchText" alignment="3" pref="25" max="32767" attributes="0"/>
+                          <Component id="seasonComboBox" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                          <Component id="jLabel1" alignment="3" max="32767" attributes="0"/>
+                      </Group>
                       <Component id="searchButton" alignment="0" max="32767" attributes="0"/>
                       <Component id="report1Button" alignment="0" max="32767" attributes="0"/>
                   </Group>
@@ -221,7 +234,7 @@
                   <Font name="Tahoma" size="12" style="0"/>
                 </Property>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="8" rowCount="0">
+                  <Table columnCount="11" rowCount="0">
                     <Column editable="false" title="" type="java.lang.Object"/>
                     <Column editable="false" title="Season" type="java.lang.Object"/>
                     <Column editable="false" title="GC" type="java.lang.Object"/>
@@ -229,7 +242,10 @@
                     <Column editable="false" title="Signing Fee" type="java.lang.Object"/>
                     <Column editable="false" title="Monthly Salary" type="java.lang.Object"/>
                     <Column editable="false" title="Playing Time" type="java.lang.Object"/>
-                    <Column editable="false" title="Matches" type="java.lang.Object"/>
+                    <Column editable="true" title="Matches" type="java.lang.Object"/>
+                    <Column editable="true" title="Goal" type="java.lang.Object"/>
+                    <Column editable="true" title="Starter" type="java.lang.Object"/>
+                    <Column editable="false" title="Substitution" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="gridColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -249,6 +265,21 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="report1ButtonActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="seasonComboBox">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="0"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel1">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="11" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Season"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

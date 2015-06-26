@@ -39,4 +39,8 @@ public class YearlyManagerBean implements YearlyManager {
     public void setYearlyDao(YearlyDao yearlyDao) {
         this.yearlyDao = yearlyDao;
     }
+    
+    public List<Integer> getYearlyIdList(){
+        return yearlyDao.getYearlyIdList();
+    }
 }

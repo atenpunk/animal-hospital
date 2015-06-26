@@ -4,7 +4,6 @@
  */
 package co.th.aten.football.dao;
 
-import co.th.aten.football.model.PlayersModel;
 import co.th.aten.football.model.YearlyModel;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -122,6 +121,26 @@ public class JdbcYearlyDao implements YearlyDao {
                     yearlyModel.setUpdateBy(rs.getInt("UPDATE_BY"));
                     yearlyModel.setUpdateDate(rs.getDate("UPDATE_DATE"));
                     return yearlyModel;
+                }
+            };
+            return this.simpleJdbcTemplate.query(sql, mapper);
+        } catch (Exception e) {
+            logger.info("" + e);
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    public List<Integer> getYearlyIdList() {
+        try {
+            String sql = " select YEARLY_ID from YEARLY "
+                    + " group by YEARLY_ID "
+                    + " order by YEARLY_ID desc ";
+            ParameterizedRowMapper<Integer> mapper = new ParameterizedRowMapper<Integer>() {
+                @Override
+                public Integer mapRow(ResultSet rs, int arg1) throws SQLException {
+                    Integer integer = new Integer(rs.getInt("YEARLY_ID"));
+                    return integer;
                 }
             };
             return this.simpleJdbcTemplate.query(sql, mapper);
