@@ -5,7 +5,6 @@
 
 package co.th.aten.football.dao;
 
-import co.th.aten.football.model.PlayersModel;
 import co.th.aten.football.model.YearlyModel;
 import java.util.List;
 import javax.sql.DataSource;
@@ -26,4 +25,6 @@ public interface YearlyDao {
     public boolean updateYearly(YearlyModel yearlyModel);
     
     public boolean deleteYearly(int playerId);
+    
+    public List<Integer> getYearlyIdList();
 }

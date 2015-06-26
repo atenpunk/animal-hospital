@@ -41,8 +41,8 @@ public class JdbcPlayersDao implements PlayersDao {
         String sql = "select max(PLAYER_ID) from PLAYERS ";
         return this.simpleJdbcTemplate.queryForInt(sql);
     }
-    
-    public boolean deletePlayer(int playerId){
+
+    public boolean deletePlayer(int playerId) {
         logger.debug("delete Player ID = " + playerId);
         try {
             String sql = " DELETE FROM PLAYERS WHERE PLAYER_ID = ? ";
@@ -116,7 +116,6 @@ public class JdbcPlayersDao implements PlayersDao {
 //        }
 //        return false;
 //    }
-
     public List<PlayersModel> searchByKeyWord(String word) {
         try {
             String sql = " select py.PLAYER_ID, py.PLAYER_NAME, py.PLAYER_NUMBER, py.HEIGHT, py.WEIGHT "
@@ -175,9 +174,8 @@ public class JdbcPlayersDao implements PlayersDao {
         }
         return null;
     }
-    
-    
-    public List<PlayersModel> searchAllDataByKeyWord(String word) {
+
+    public List<PlayersModel> searchAllDataByKeyWord(String word, Integer yearId) {
         try {
             String sql = " select py.PLAYER_ID as playerId, py.PLAYER_NAME, py.PLAYER_NUMBER, py.HEIGHT, py.WEIGHT "
                     + " , py.POSITION_ID, ps.NAME, py.BIRTHDAY, py.CONTRACT_START, py.CONTRACT_END, py.IMAGE_NAME, py.CLUB "
@@ -188,15 +186,25 @@ public class JdbcPlayersDao implements PlayersDao {
                     + " left join PLAYERS py on(py.PLAYER_ID = yy.PLAYER_ID) "
                     + " left join POSITION ps on(ps.ID = py.POSITION_ID) ";
             if (word != null && !word.equals("")) {
-                sql += " where py.PLAYER_NAME like '%" + word + "%' "
+                sql += " where (py.PLAYER_NAME like '%" + word + "%' "
                         + " or ps.NAME like '%" + word.toUpperCase() + "%' ";
                 try {
                     int number = Integer.parseInt(word);
                     sql += " or py.PLAYER_NUMBER = " + number + " ";
                 } catch (Exception e) {
                 }
+                sql += ")";
+                if (yearId != null) {
+                    sql += " and yy.YEARLY_ID = " + yearId + " ";
+                }
+            }else{
+                if (yearId != null) {
+                    sql += " where yy.YEARLY_ID = " + yearId + " ";
+                }
             }
             sql += " order by py.PLAYER_NUMBER, yy.YEARLY_ID";
+            System.out.println("SQL : " + sql);
+            
             ParameterizedRowMapper<PlayersModel> mapper = new ParameterizedRowMapper<PlayersModel>() {
                 @Override
                 public PlayersModel mapRow(ResultSet rs, int arg1) throws SQLException {
@@ -213,7 +221,7 @@ public class JdbcPlayersDao implements PlayersDao {
                     model.setContractEnd(rs.getDate("CONTRACT_END"));
                     model.setImage(rs.getString("IMAGE_NAME"));
                     model.setClub(rs.getString("CLUB"));
-                    
+
                     model.setYearlyId(rs.getInt("YEARLY_ID"));
                     model.setGc(rs.getDouble("GC"));
                     model.setAnnualSalary(rs.getDouble("ANNUAL_SALARY"));
@@ -242,5 +250,4 @@ public class JdbcPlayersDao implements PlayersDao {
         }
         return null;
     }
-    
 }

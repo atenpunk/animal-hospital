@@ -25,5 +25,5 @@ public interface PlayersManager {
     
     public boolean deletePlayer(int playerId);
     
-    public List<PlayersModel> searchAllDataByKeyWord(String word);
+    public List<PlayersModel> searchAllDataByKeyWord(String word,Integer yearId);
 }

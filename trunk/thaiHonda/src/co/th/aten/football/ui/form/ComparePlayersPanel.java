@@ -12,6 +12,7 @@ package co.th.aten.football.ui.form;
 import co.th.aten.football.model.PlayersModel;
 import co.th.aten.football.service.PlayersManager;
 import co.th.aten.football.service.SessionManager;
+import co.th.aten.football.service.YearlyManager;
 import co.th.aten.football.ui.report.ComparePlayersReportDialog;
 import co.th.aten.football.ui.report.ViewReportComparePlayersRadarDlg;
 import co.th.aten.football.util.Sound;
@@ -52,6 +53,7 @@ public class ComparePlayersPanel extends javax.swing.JPanel {
     private final Log logger = LogFactory.getLog(getClass());
     private SessionManager sessionManager;
     private PlayersManager playersManager;
+    private YearlyManager yearlyManager;
     private List<PlayersModel> playersModelList;
     private List<PlayersModel> comparePlayersModelList;
     private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
@@ -62,6 +64,7 @@ public class ComparePlayersPanel extends javax.swing.JPanel {
     public ComparePlayersPanel() {
         this.sessionManager = (SessionManager) Application.services().getService(SessionManager.class);
         this.playersManager = (PlayersManager) Application.services().getService(PlayersManager.class);
+        this.yearlyManager = (YearlyManager) Application.services().getService(YearlyManager.class);
         initComponents();
         jScrollPane2.getViewport().setBackground(Color.WHITE);
         jScrollPane3.getViewport().setBackground(Color.WHITE);
@@ -76,7 +79,12 @@ public class ComparePlayersPanel extends javax.swing.JPanel {
         searchTable.getColumnModel().getColumn(5).setCellRenderer(rightRenderer);
         searchTable.getColumnModel().getColumn(6).setCellRenderer(rightRenderer);
         searchTable.getColumnModel().getColumn(7).setCellRenderer(rightRenderer);
-        searchTable.getColumnModel().getColumn(0).setPreferredWidth(120);
+        searchTable.getColumnModel().getColumn(8).setCellRenderer(rightRenderer);
+        searchTable.getColumnModel().getColumn(9).setCellRenderer(rightRenderer);
+        searchTable.getColumnModel().getColumn(10).setCellRenderer(rightRenderer);
+        searchTable.getColumnModel().getColumn(0).setPreferredWidth(140);
+        searchTable.getColumnModel().getColumn(8).setPreferredWidth(40);
+        searchTable.getColumnModel().getColumn(9).setPreferredWidth(40);
         compareTable.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
         compareTable.getColumnModel().getColumn(2).setCellRenderer(rightRenderer);
         compareTable.getColumnModel().getColumn(3).setCellRenderer(rightRenderer);
@@ -84,7 +92,21 @@ public class ComparePlayersPanel extends javax.swing.JPanel {
         compareTable.getColumnModel().getColumn(5).setCellRenderer(rightRenderer);
         compareTable.getColumnModel().getColumn(6).setCellRenderer(rightRenderer);
         compareTable.getColumnModel().getColumn(7).setCellRenderer(rightRenderer);
-        compareTable.getColumnModel().getColumn(0).setPreferredWidth(120);
+        compareTable.getColumnModel().getColumn(8).setCellRenderer(rightRenderer);
+        compareTable.getColumnModel().getColumn(9).setCellRenderer(rightRenderer);
+        compareTable.getColumnModel().getColumn(10).setCellRenderer(rightRenderer);
+        compareTable.getColumnModel().getColumn(0).setPreferredWidth(140);
+        compareTable.getColumnModel().getColumn(8).setPreferredWidth(40);
+        compareTable.getColumnModel().getColumn(9).setPreferredWidth(40);
+        List<Integer> yearIdList = yearlyManager.getYearlyIdList();
+        if (yearIdList != null && yearIdList.size() > 0) {
+            seasonComboBox.addItem(null);
+            for (Integer yearId : yearIdList) {
+                seasonComboBox.addItem(yearId);
+            }
+            seasonComboBox.setSelectedIndex(0);
+        }
+
         try {
             File fileImg = new File(System.getProperty("user.dir") + "/img" + File.separator + "search.png");
             if (fileImg != null) {
@@ -130,7 +152,7 @@ public class ComparePlayersPanel extends javax.swing.JPanel {
                         if (playersModelList != null && playersModelList.size() > row) {
                             PlayersModel playersModel = playersModelList.get(row);
                             if (!equalsPlayersModel(comparePlayersModelList, playersModel)) {
-                                Object[] rowTable = {"#" + playersModel.getPlayerNumber() + " " + playersModel.getPlayerName(),playersModel.getYearlyId(), df.format(playersModel.getGc()), df.format(playersModel.getAnnualSalary()), df.format(playersModel.getSigningFee()), df.format(playersModel.getSalaryMonth()), df.format(playersModel.getPlayingTime()), playersModel.getMatch()};
+                                Object[] rowTable = {"#" + playersModel.getPlayerNumber() + " " + playersModel.getPlayerName(), playersModel.getYearlyId(), df.format(playersModel.getGc()), df.format(playersModel.getAnnualSalary()), df.format(playersModel.getSigningFee()), df.format(playersModel.getSalaryMonth()), df.format(playersModel.getPlayingTime()), playersModel.getMatch(), playersModel.getGoal(), playersModel.getStarter(), playersModel.getSubstitution()};
                                 modelCompareTable.addRow(rowTable);
                                 comparePlayersModelList.add(playersModel);
                                 playersModelList.remove(playersModel);
@@ -162,7 +184,7 @@ public class ComparePlayersPanel extends javax.swing.JPanel {
                     if (comparePlayersModelList != null && comparePlayersModelList.size() > rowCom) {
                         PlayersModel playersModel = comparePlayersModelList.get(rowCom);
                         if (!equalsPlayersModel(playersModelList, playersModel)) {
-                            Object[] rowTable = {"#" + playersModel.getPlayerNumber() + " " + playersModel.getPlayerName(),playersModel.getYearlyId(), df.format(playersModel.getGc()), df.format(playersModel.getAnnualSalary()), df.format(playersModel.getSigningFee()), df.format(playersModel.getSalaryMonth()), df.format(playersModel.getPlayingTime()), playersModel.getMatch()};
+                            Object[] rowTable = {"#" + playersModel.getPlayerNumber() + " " + playersModel.getPlayerName(), playersModel.getYearlyId(), df.format(playersModel.getGc()), df.format(playersModel.getAnnualSalary()), df.format(playersModel.getSigningFee()), df.format(playersModel.getSalaryMonth()), df.format(playersModel.getPlayingTime()), playersModel.getMatch(), playersModel.getGoal(), playersModel.getStarter(), playersModel.getSubstitution()};
                             modelSearchTable.addRow(rowTable);
                             playersModelList.add(playersModel);
                             comparePlayersModelList.remove(playersModel);
@@ -181,7 +203,7 @@ public class ComparePlayersPanel extends javax.swing.JPanel {
     private boolean equalsPlayersModel(List<PlayersModel> modelList, PlayersModel model) {
         if (modelList != null && model != null) {
             for (PlayersModel m : modelList) {
-                if (m.getPlayerId() == model.getPlayerId() && m.getYearlyId()==model.getYearlyId()) {
+                if (m.getPlayerId() == model.getPlayerId() && m.getYearlyId() == model.getYearlyId()) {
                     return true;
                 }
             }
@@ -222,6 +244,8 @@ public class ComparePlayersPanel extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         searchTable = new javax.swing.JTable();
         report1Button = new javax.swing.JButton();
+        seasonComboBox = new javax.swing.JComboBox();
+        jLabel1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -234,7 +258,7 @@ public class ComparePlayersPanel extends javax.swing.JPanel {
         redarPanal.setLayout(redarPanalLayout);
         redarPanalLayout.setHorizontalGroup(
             redarPanalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 853, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         redarPanalLayout.setVerticalGroup(
             redarPanalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -247,11 +271,11 @@ public class ComparePlayersPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "", "Season", "GC", "Salary", "Signing Fee", "Monthly Salary", "Playing Time", "Matches"
+                "", "Season", "GC", "Salary", "Signing Fee", "Monthly Salary", "Playing Time", "Matches", "Goal", "Starter", "Substitution"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -268,9 +292,9 @@ public class ComparePlayersPanel extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane3)
-                    .addComponent(redarPanal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(redarPanal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -301,11 +325,11 @@ public class ComparePlayersPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "", "Season", "GC", "Salary", "Signing Fee", "Monthly Salary", "Playing Time", "Matches"
+                "", "Season", "GC", "Salary", "Signing Fee", "Monthly Salary", "Playing Time", "Matches", "Goal", "Starter", "Substitution"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, true, true, true, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -323,6 +347,9 @@ public class ComparePlayersPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel1.setText("Season");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -331,20 +358,28 @@ public class ComparePlayersPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(searchText, javax.swing.GroupLayout.PREFERRED_SIZE, 619, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 840, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(searchText, javax.swing.GroupLayout.PREFERRED_SIZE, 562, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(seasonComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(report1Button)
-                        .addGap(0, 109, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2))
-                .addContainerGap())
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(report1Button, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(55, 55, 55))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(searchText, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(searchText, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
+                        .addComponent(seasonComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(searchButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(report1Button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -358,10 +393,10 @@ public class ComparePlayersPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 871, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -400,21 +435,21 @@ public class ComparePlayersPanel extends javax.swing.JPanel {
             BufferedImage image = viewRadar.getImageView(w, h);
             imageRadar = image;
         }
-        new ComparePlayersReportDialog(comparePlayersModelList,imageRadar).showDialog();
+        new ComparePlayersReportDialog(comparePlayersModelList, imageRadar).showDialog();
     }//GEN-LAST:event_report1ButtonActionPerformed
 
     private void searchByKeyWord() {
 //        Runnable r = new Runnable() {
 //            public void run() {
         clearData();
-        playersModelList = playersManager.searchAllDataByKeyWord(searchText.getText());
+        playersModelList = playersManager.searchAllDataByKeyWord(searchText.getText(),(Integer)seasonComboBox.getSelectedItem());
         DefaultTableModel modelTable = (DefaultTableModel) searchTable.getModel();
         while (modelTable.getRowCount() > 0) {
             modelTable.removeRow(0);
         }
         if (playersModelList != null && playersModelList.size() > 0) {
             for (PlayersModel model : playersModelList) {
-                Object[] rowTable = {"#" + model.getPlayerNumber() + " " + model.getPlayerName(),model.getYearlyId(), df.format(model.getGc()), df.format(model.getAnnualSalary()), df.format(model.getSigningFee()), df.format(model.getSalaryMonth()), df.format(model.getPlayingTime()), model.getMatch()};
+                Object[] rowTable = {"#" + model.getPlayerNumber() + " " + model.getPlayerName(), model.getYearlyId(), df.format(model.getGc()), df.format(model.getAnnualSalary()), df.format(model.getSigningFee()), df.format(model.getSalaryMonth()), df.format(model.getPlayingTime()), model.getMatch(), model.getGoal(), model.getStarter(), model.getSubstitution()};
                 modelTable.addRow(rowTable);
             }
             Sound.getInstance().playNotify();
@@ -436,6 +471,7 @@ public class ComparePlayersPanel extends javax.swing.JPanel {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable compareTable;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
@@ -445,5 +481,6 @@ public class ComparePlayersPanel extends javax.swing.JPanel {
     private javax.swing.JButton searchButton;
     private javax.swing.JTable searchTable;
     private javax.swing.JTextField searchText;
+    private javax.swing.JComboBox seasonComboBox;
     // End of variables declaration//GEN-END:variables
 }
