@@ -118,7 +118,7 @@
 					<imageExpression class="java.lang.String"><![CDATA[$F{imgPlayer}]]></imageExpression>
 				</image>
 				<image hAlign="Center" vAlign="Middle" onErrorType="Blank">
-					<reportElement key="image-player" style="solar" x="328" y="1" width="238" height="131"/>
+					<reportElement key="image-player" style="solar" x="348" y="57" width="224" height="131"/>
 					<imageExpression class="java.awt.Image"><![CDATA[$F{inputRadar}]]></imageExpression>
 				</image>
 				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
