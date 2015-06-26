@@ -16,6 +16,7 @@ import co.th.aten.football.model.PositionModel;
 import co.th.aten.football.service.PlayersManager;
 import co.th.aten.football.service.PositionManager;
 import co.th.aten.football.service.SessionManager;
+import co.th.aten.football.service.YearlyManager;
 import co.th.aten.football.ui.report.PlayersGraphReportDialog;
 import co.th.aten.football.ui.report.ViewReportPieDlg;
 import co.th.aten.football.ui.report.ViewReportTestRadarDlg;
@@ -59,6 +60,7 @@ public class ReportPlayersDetailPanel extends javax.swing.JPanel {
     private final Log logger = LogFactory.getLog(getClass());
     private SessionManager sessionManager;
     private PlayersManager playersManager;
+    private YearlyManager yearlyManager;
     private List<PlayersModel> playersModelList;
     private List<PlayersModel> selectedPlayersModelList;
     private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
@@ -74,6 +76,7 @@ public class ReportPlayersDetailPanel extends javax.swing.JPanel {
         this.sessionManager = (SessionManager) Application.services().getService(SessionManager.class);
         this.playersManager = (PlayersManager) Application.services().getService(PlayersManager.class);
         this.positionManager = (PositionManager) Application.services().getService(PositionManager.class);
+        this.yearlyManager = (YearlyManager) Application.services().getService(YearlyManager.class);
         initComponents();
         jScrollPane2.getViewport().setBackground(Color.WHITE);
         jScrollPane3.getViewport().setBackground(Color.WHITE);
@@ -82,14 +85,20 @@ public class ReportPlayersDetailPanel extends javax.swing.JPanel {
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
         searchTable.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+        searchTable.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
+        searchTable.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
         searchTable.getColumnModel().getColumn(0).setPreferredWidth(10);
         searchTable.getColumnModel().getColumn(1).setPreferredWidth(100);
-        searchTable.getColumnModel().getColumn(2).setPreferredWidth(90);
+        searchTable.getColumnModel().getColumn(2).setPreferredWidth(60);
+        searchTable.getColumnModel().getColumn(3).setPreferredWidth(50);
 
         reportTable.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+        reportTable.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
+        reportTable.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
         reportTable.getColumnModel().getColumn(0).setPreferredWidth(10);
         reportTable.getColumnModel().getColumn(1).setPreferredWidth(100);
-        reportTable.getColumnModel().getColumn(2).setPreferredWidth(90);
+        reportTable.getColumnModel().getColumn(2).setPreferredWidth(60);
+        reportTable.getColumnModel().getColumn(3).setPreferredWidth(50);
         try {
             File fileImgSearch = new File(System.getProperty("user.dir") + "/img" + File.separator + "search.png");
             if (fileImgSearch != null) {
@@ -102,6 +111,15 @@ public class ReportPlayersDetailPanel extends javax.swing.JPanel {
             }
         } catch (Exception ex) {
             ex.printStackTrace();
+        }
+        
+        List<Integer> yearIdList = yearlyManager.getYearlyIdList();
+        if (yearIdList != null && yearIdList.size() > 0) {
+            seasonComboBox.addItem(null);
+            for (Integer yearId : yearIdList) {
+                seasonComboBox.addItem(yearId);
+            }
+            seasonComboBox.setSelectedIndex(1);
         }
 
         searchText.requestFocus();
@@ -176,6 +194,8 @@ public class ReportPlayersDetailPanel extends javax.swing.JPanel {
         jScrollPane3 = new javax.swing.JScrollPane();
         searchTable = new javax.swing.JTable();
         reportButton = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        seasonComboBox = new javax.swing.JComboBox();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -199,11 +219,11 @@ public class ReportPlayersDetailPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "#", "Name", "Play"
+                "#", "Name", "Season", "Play"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -247,11 +267,11 @@ public class ReportPlayersDetailPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "#", "Name", "Play"
+                "#", "Name", "Season", "Play"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -270,6 +290,9 @@ public class ReportPlayersDetailPanel extends javax.swing.JPanel {
                 reportButtonActionPerformed(evt);
             }
         });
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel1.setText("Season");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -291,6 +314,10 @@ public class ReportPlayersDetailPanel extends javax.swing.JPanel {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(searchText)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(seasonComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(reportButton, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -300,7 +327,11 @@ public class ReportPlayersDetailPanel extends javax.swing.JPanel {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(searchText, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(searchText, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(seasonComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(searchButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(reportButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -372,7 +403,7 @@ public class ReportPlayersDetailPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         Sound.getInstance().playClick();
         List<PlayersGraphModel> playersGraphModel = null;
-
+        
         if (selectedPlayersModelList != null && selectedPlayersModelList.size() > 0) {
             playersGraphModel = new ArrayList<PlayersGraphModel>();
             for (int i = 0; i < selectedPlayersModelList.size(); i++) {
@@ -412,6 +443,10 @@ public class ReportPlayersDetailPanel extends javax.swing.JPanel {
                 modelGraph.setLose(model.getLose());
                 modelGraph.setDraw(model.getDraw());
                 modelGraph.setStarter(model.getStarter());
+                modelGraph.setSeason("Season "+model.getYearlyId());
+                modelGraph.setCleanSheet(model.getCleanSheet());
+                modelGraph.setSubstitution(model.getSubstitution());
+                modelGraph.setClub(model.getClub());
                 try {
                     ViewReportTestRadarDlg reportRadar = new ViewReportTestRadarDlg(model.getGc(), model.getMatch(), model.getPlayingTime(), 1);
                     View2D view = reportRadar.createView2D();
@@ -577,14 +612,14 @@ public class ReportPlayersDetailPanel extends javax.swing.JPanel {
 //        Runnable r = new Runnable() {
 //            public void run() {
         clearData();
-        playersModelList = playersManager.searchByKeyWord(searchText.getText());
+        playersModelList = playersManager.searchAllDataByKeyWord(searchText.getText(),(Integer)seasonComboBox.getSelectedItem());
         DefaultTableModel modelTable = (DefaultTableModel) searchTable.getModel();
         while (modelTable.getRowCount() > 0) {
             modelTable.removeRow(0);
         }
         if (playersModelList != null && playersModelList.size() > 0) {
             for (PlayersModel model : playersModelList) {
-                Object[] rowTable = {model.getPlayerNumber(), model.getPlayerName(), model.getPositionStr()};
+                Object[] rowTable = {model.getPlayerNumber(), model.getPlayerName(), model.getYearlyId(), model.getPositionStr()};
                 modelTable.addRow(rowTable);
             }
             Sound.getInstance().playNotify();
@@ -608,6 +643,7 @@ public class ReportPlayersDetailPanel extends javax.swing.JPanel {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -616,5 +652,6 @@ public class ReportPlayersDetailPanel extends javax.swing.JPanel {
     private javax.swing.JButton searchButton;
     private javax.swing.JTable searchTable;
     private javax.swing.JTextField searchText;
+    private javax.swing.JComboBox seasonComboBox;
     // End of variables declaration//GEN-END:variables
 }
