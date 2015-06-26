@@ -92,7 +92,6 @@ public class CustomerController implements Serializable{
 	private String starTitleName;
 	private String firstName;
 	private String starFirstName;
-	private String lastName;
 	private String starLastName;
 	private Date regisDate;
 	private long upperLineId;
@@ -755,7 +754,6 @@ public class CustomerController implements Serializable{
 		log.info("##### memberStr = "+memberStr);
 		log.info("##### titleName = "+titleName);
 		log.info("##### firstName = "+firstName);
-		log.info("##### lastName = "+lastName);
 		log.info("##### regisDate = "+sdf.format(regisDate));
 		log.info("##### upperLineId = "+upperLineId);
 		log.info("##### flagUnder = "+flagUnder);
@@ -777,7 +775,6 @@ public class CustomerController implements Serializable{
 				cus.setRegisDate(regisDate);
 				cus.setTitleName(titleName);
 				cus.setFirstName(firstName);
-				cus.setLastName(lastName);
 				cus.setStatus(0);
 				cus.setCreateBy(user.get().getUserId());
 				cus.setCreateDate(new Date());
@@ -1011,14 +1008,6 @@ public class CustomerController implements Serializable{
 
 	public void setStarFirstName(String starFirstName) {
 		this.starFirstName = starFirstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
 	}
 
 	public String getStarLastName() {
