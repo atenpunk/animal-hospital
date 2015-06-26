@@ -694,7 +694,6 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         searchButton = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         searchTable = new javax.swing.JTable();
-        report1Button = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -1173,14 +1172,6 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         searchTable.setGridColor(new java.awt.Color(0, 0, 0));
         jScrollPane2.setViewportView(searchTable);
 
-        report1Button.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        report1Button.setText("Report 1");
-        report1Button.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                report1ButtonActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -1192,9 +1183,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
                         .addComponent(searchText, javax.swing.GroupLayout.PREFERRED_SIZE, 619, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(report1Button)
-                        .addGap(0, 314, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane2))
                 .addContainerGap())
         );
@@ -1203,8 +1192,7 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(searchText, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
-                    .addComponent(searchButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(report1Button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(searchButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
                 .addContainerGap())
@@ -1500,12 +1488,6 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_editPlayerActionPerformed
 
-    private void report1ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_report1ButtonActionPerformed
-        // TODO add your handling code here:
-        Sound.getInstance().playClick();
-        new PlayersDetailReportDialog(playersModelList).showDialog();
-    }//GEN-LAST:event_report1ButtonActionPerformed
-
     private void addVideoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addVideoButtonActionPerformed
         // TODO add your handling code here:
         Sound.getInstance().playClick();
@@ -1695,7 +1677,6 @@ public class DetailPlayerPanel extends javax.swing.JPanel {
     private javax.swing.JLabel nameLabel8;
     private javax.swing.JLabel playingTimePieLabel;
     private javax.swing.JPanel redarPanal;
-    private javax.swing.JButton report1Button;
     private javax.swing.JButton searchButton;
     private javax.swing.JTable searchTable;
     private javax.swing.JTextField searchText;

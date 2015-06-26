@@ -202,7 +202,7 @@ public class JdbcPlayersDao implements PlayersDao {
                     sql += " where yy.YEARLY_ID = " + yearId + " ";
                 }
             }
-            sql += " order by py.PLAYER_NUMBER, yy.YEARLY_ID";
+            sql += " order by py.PLAYER_NUMBER, py.POSITION_ID, yy.YEARLY_ID";
             System.out.println("SQL : " + sql);
             
             ParameterizedRowMapper<PlayersModel> mapper = new ParameterizedRowMapper<PlayersModel>() {
