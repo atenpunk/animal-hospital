@@ -104,7 +104,7 @@ public class ComparePlayersPanel extends javax.swing.JPanel {
             for (Integer yearId : yearIdList) {
                 seasonComboBox.addItem(yearId);
             }
-            seasonComboBox.setSelectedIndex(0);
+            seasonComboBox.setSelectedIndex(1);
         }
 
         try {

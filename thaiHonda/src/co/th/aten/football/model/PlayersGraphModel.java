@@ -13,6 +13,8 @@ import java.awt.Image;
 public class PlayersGraphModel {
 
     private int group;
+    private String season;
+    private String club;
     private int playerId;
     private String playerNameNumber;
     private String heightWeight;
@@ -26,12 +28,14 @@ public class PlayersGraphModel {
     private double signingFee;
     private double salaryMonth;
     private int goal;
+    private int cleanSheet;
     private int playingTime;
     private int match;
     private int win;
     private int lose;
     private int draw;
     private int starter;
+    private int substitution;
     private String perPlayingTime;
     private String perMatch;
     private String perStarter;
@@ -263,6 +267,38 @@ public class PlayersGraphModel {
 
     public void setInputPieStarter(Image inputPieStarter) {
         this.inputPieStarter = inputPieStarter;
+    }
+
+    public String getSeason() {
+        return season;
+    }
+
+    public void setSeason(String season) {
+        this.season = season;
+    }
+
+    public int getCleanSheet() {
+        return cleanSheet;
+    }
+
+    public void setCleanSheet(int cleanSheet) {
+        this.cleanSheet = cleanSheet;
+    }
+
+    public int getSubstitution() {
+        return substitution;
+    }
+
+    public void setSubstitution(int substitution) {
+        this.substitution = substitution;
+    }
+
+    public String getClub() {
+        return club;
+    }
+
+    public void setClub(String club) {
+        this.club = club;
     }
 
 }
