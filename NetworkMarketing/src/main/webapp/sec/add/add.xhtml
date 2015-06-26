@@ -7,54 +7,333 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	template="/WEB-INF/templates/template.xhtml">
 	<ui:define name="content">
-		<rich:panel>
-			<h:form id="addLine">
+		<h:form id="addLine">
+
+			<rich:panel>
 				<f:facet name="header">
-					<h:outputText value="เพิ่มสมาชิก" />
+					<h:outputText value="#{app_msgs['label.pageAddMember.header']}" />
 				</f:facet>
-				<h:panelGrid columns="3" id="panelGrid">
-					<h:outputText value="รหัสสมาชิก" />
-					<h:outputText value="" />
-					<h:inputText value=""
-						disabled="true" style=" width : 80px;" />
-					<h:outputText value="คำนำหน้าชื่อ" />
-					<h:outputText value="#{customerController.starTitleName}"
-						id="starTitle" style="COLOR: #ff0000;" />
-					<h:inputText value="#{customerController.titleName}"
-						style=" width : 80px;">
-						<a4j:ajax event="keyup" render="starTitle,submit"
-							listener="#{customerController.onKeypress()}" />
-					</h:inputText>
-					<h:outputText value="ชื่อ" />
-					<h:outputText value="#{customerController.starFirstName}"
-						id="starName" style="COLOR: #ff0000;" />
-					<h:inputText value="#{customerController.firstName}"
-						style=" width : 150px;">
-						<a4j:ajax event="keyup" render="starName,submit"
-							listener="#{customerController.onKeypress()}" />
-					</h:inputText>
-					<h:outputText value="วันที่สมัคร" />
-					<h:outputText value="" />
-					<a4j:outputPanel id="startDay" layout="block">
-						<rich:calendar style=" width : 90px;"
-							value="#{customerController.regisDate}"
-							datePattern="dd/MM/yyyy" required="true" />
-					</a4j:outputPanel>
-					<h:outputText value="รหัสอัพไลน์" />
-					<h:outputText value="" />
-					<h:inputText value="#{customerController.upperLineCusId}"
-						disabled="true" style=" width : 80px;" />
-					<h:outputText value="ชื่ออัพไลน์" />
-					<h:outputText value="" />
-					<h:inputText value="#{customerController.upperLineName}"
-						disabled="true" style=" width : 150px;" />
+				<h:panelGrid columns="2">
+					<rich:panel style=" width : 50%; height:520px;">
+						<f:facet name="header">
+							<h:outputText
+								value="#{app_msgs['label.pageAddMember.detailMember']}" />
+						</f:facet>
+						<h:panelGrid columns="3">
+							<h:outputText value="#{app_msgs['label.pageAddMember.memberId']}" />
+							<h:outputText value="" />
+							<h:inputText value="" disabled="true" style=" width : 80px;">
+								<rich:placeholder
+									value="#{app_msgs['label.pageAddMember.systemGenAuto']}" />
+							</h:inputText>
+
+							<h:outputText
+								value="#{app_msgs['label.pageAddMember.regisDate']}" />
+							<h:outputText value="" />
+							<a4j:outputPanel id="regisDay" layout="block">
+								<rich:calendar style=" width : 90px;"
+									value="#{customerController.regisDate}"
+									datePattern="dd/MM/yyyy" required="true" />
+							</a4j:outputPanel>
+
+							<h:outputText
+								value="#{app_msgs['label.pageAddMember.titleName']}" />
+							<h:outputText value="#{customerController.starTitleName}"
+								id="starTitle" style="COLOR: #ff0000;" />
+							<h:inputText value="#{customerController.titleName}"
+								style=" width : 80px;">
+								<a4j:ajax event="keyup" render="starTitle,saveId"
+									listener="#{customerController.onKeypress()}" />
+							</h:inputText>
+
+							<h:outputText
+								value="#{app_msgs['label.pageAddMember.nameOrCompany']}" />
+							<h:outputText value="#{customerController.starFirstName}"
+								id="starName" style="COLOR: #ff0000;" />
+							<h:inputText value="#{customerController.firstName}"
+								style=" width : 150px;">
+								<a4j:ajax event="keyup" render="starName,saveId"
+									listener="#{customerController.onKeypress()}" />
+							</h:inputText>
+
+							<h:outputText
+								value="#{app_msgs['label.pageAddMember.nameBusiness']}" />
+							<h:outputText value="" />
+							<h:inputText value="" style=" width : 150px;">
+							</h:inputText>
+
+							<h:outputText value="#{app_msgs['label.pageAddMember.sex']}" />
+							<h:outputText value="#{customerController.starSex}" id="starSex"
+								style="COLOR: #ff0000;" />
+							<h:selectOneRadio value="">
+								<f:selectItem itemValue="1"
+									itemLabel="#{app_msgs['label.pageAddMember.male']}" />
+								<f:selectItem itemValue="2"
+									itemLabel="#{app_msgs['label.pageAddMember.female']}" />
+							</h:selectOneRadio>
+
+							<h:outputText
+								value="#{app_msgs['label.pageAddMember.birthDate']}" />
+							<h:outputText value="#{customerController.starBirthDay}"
+								id="starBirthDay" style="COLOR: #ff0000;" />
+							<a4j:outputPanel id="birchDay" layout="block">
+								<rich:calendar style=" width : 90px;" value=""
+									datePattern="dd/MM/yyyy" required="true" />
+							</a4j:outputPanel>
+
+							<h:outputText
+								value="#{app_msgs['label.pageAddMember.nationality']}" />
+							<h:outputText value="" />
+							<h:inputText value="" />
+
+							<h:outputText
+								value="#{app_msgs['label.pageAddMember.personalIdPassport']}" />
+							<h:outputText value="#{customerController.starPersonalId}"
+								id="starPersonalId" style="COLOR: #ff0000;" />
+							<h:inputText value="" />
+
+							<h:outputText
+								value="#{app_msgs['label.pageAddMember.companyID']}" />
+							<h:outputText value="" />
+							<h:inputText value="" />
+
+							<h:outputText
+								value="#{app_msgs['label.pageAddMember.telephone']}" />
+							<h:outputText value="" />
+							<h:inputText value="" />
+
+							<h:outputText value="#{app_msgs['label.pageAddMember.mobile']}" />
+							<h:outputText value="" />
+							<h:inputText value="" />
+
+							<h:outputText value="#{app_msgs['label.pageAddMember.fax']}" />
+							<h:outputText value="" />
+							<h:inputText value="" />
+
+							<h:outputText value="#{app_msgs['label.pageAddMember.email']}" />
+							<h:outputText value="" />
+							<h:inputText value="" />
+
+						</h:panelGrid>
+					</rich:panel>
+					<rich:panel style=" width : 50%; height:520px; border: 0px;">
+					</rich:panel>
+					<rich:panel style=" width : 50%; height:120px;">
+						<f:facet name="header">
+							<h:outputText
+								value="#{app_msgs['label.pageAddMember.detailUpLine']}" />
+						</f:facet>
+						<h:panelGrid columns="3">
+							<h:outputText value="#{app_msgs['label.pageAddMember.upLineId']}" />
+							<h:outputText value="#{customerController.starUpperLineId}"
+								id="starUpperLineId" style="COLOR: #ff0000;" />
+							<h:inputText value="#{customerController.upperLineCusId}"
+								disabled="true" style=" width : 80px;" />
+
+							<h:outputText
+								value="#{app_msgs['label.pageAddMember.upLineName']}" />
+							<h:outputText value="#{customerController.starUpperLineName}"
+								id="starUpperLineName" style="COLOR: #ff0000;" />
+							<h:inputText value="#{customerController.upperLineName}"
+								disabled="true" style=" width : 150px;" />
+
+							<h:outputText value="#{app_msgs['label.pageAddMember.side']}" />
+							<h:outputText value="#{customerController.starSide}"
+								id="starSide" style="COLOR: #ff0000;" />
+							<h:selectOneRadio value="">
+								<f:selectItem itemValue="1"
+									itemLabel="#{app_msgs['label.pageAddMember.left']}" />
+								<f:selectItem itemValue="2"
+									itemLabel="#{app_msgs['label.pageAddMember.right']}" />
+							</h:selectOneRadio>
+
+						</h:panelGrid>
+					</rich:panel>
+					<rich:panel style=" width : 50%; height:120px;"">
+						<f:facet name="header">
+							<h:outputText
+								value="#{app_msgs['label.pageAddMember.detailRecommend']}" />
+						</f:facet>
+						<h:panelGrid columns="3">
+							<h:outputText
+								value="#{app_msgs['label.pageAddMember.recommendId']}" />
+							<h:outputText value="#{customerController.starRecomendId}"
+								id="starRecomendId" style="COLOR: #ff0000;" />
+							<h:inputText value="" style=" width : 80px;" />
+
+							<h:outputText
+								value="#{app_msgs['label.pageAddMember.recommendName']}" />
+							<h:outputText value="#{customerController.starRecomendName}"
+								id="starRecomendName" style="COLOR: #ff0000;" />
+							<h:inputText value="" style=" width : 150px;" />
+						</h:panelGrid>
+					</rich:panel>
+					<rich:panel style=" width : 50%; height:280px;">
+						<f:facet name="header">
+							<h:outputText
+								value="#{app_msgs['label.pageAddMember.addressMember']}" />
+						</f:facet>
+						<h:panelGrid columns="3">
+							<h:outputText
+								value="#{app_msgs['label.pageAddMember.addressNo']}" />
+							<h:outputText value="" />
+							<h:inputText value="" />
+
+							<h:outputText
+								value="#{app_msgs['label.pageAddMember.addressBuilding']}" />
+							<h:outputText value="" />
+							<h:inputText value="" />
+
+							<h:outputText
+								value="#{app_msgs['label.pageAddMember.addressVillage']}" />
+							<h:outputText value="" />
+							<h:inputText value="" />
+
+							<h:outputText
+								value="#{app_msgs['label.pageAddMember.addressLane']}" />
+							<h:outputText value="" />
+							<h:inputText value="" />
+
+							<h:outputText
+								value="#{app_msgs['label.pageAddMember.addressRoad']}" />
+							<h:outputText value="" />
+							<h:inputText value="" />
+
+
+							<h:outputText
+								value="#{app_msgs['label.pageAddMember.addressProvince']}" />
+							<h:outputText value="#{customerController.starProvince}"
+								id="starProvince" style="COLOR: #ff0000;" />
+							<h:inputText value="" />
+
+							<h:outputText
+								value="#{app_msgs['label.pageAddMember.addressDistrict']}" />
+							<h:outputText value="#{customerController.starDistrict}"
+								id="starDistrict" style="COLOR: #ff0000;" />
+							<h:inputText value="" />
+
+							<h:outputText
+								value="#{app_msgs['label.pageAddMember.addressTumpun']}" />
+							<h:outputText value="#{customerController.starTumpun}"
+								id="starTumpun" style="COLOR: #ff0000;" />
+							<h:inputText value="" />
+
+							<h:outputText
+								value="#{app_msgs['label.pageAddMember.addressPostCode']}" />
+							<h:outputText value="" />
+							<h:inputText value="" />
+
+						</h:panelGrid>
+					</rich:panel>
+
+					<rich:panel style=" width : 50%; height:280px;">
+						<f:facet name="header">
+							<h:outputText
+								value="#{app_msgs['label.pageAddMember.addressSendDocument']}" />
+						</f:facet>
+					</rich:panel>
+
+					<rich:panel style=" width : 50%; height:200px;">
+						<f:facet name="header">
+							<h:outputText
+								value="#{app_msgs['label.pageAddMember.informationBeneficiaries']}" />
+						</f:facet>
+						<h:panelGrid columns="3">
+							<h:outputText value="#{app_msgs['label.pageAddMember.bank']}" />
+							<h:outputText value="" />
+							<h:inputText value="" />
+
+							<h:outputText value="#{app_msgs['label.pageAddMember.branch']}" />
+							<h:outputText value="" />
+							<h:inputText value="" />
+
+							<h:outputText value="#{app_msgs['label.pageAddMember.accType']}" />
+							<h:outputText value="" />
+							<h:inputText value="" />
+
+							<h:outputText value="#{app_msgs['label.pageAddMember.accNo']}" />
+							<h:outputText value="" />
+							<h:inputText value="" />
+
+							<h:outputText value="#{app_msgs['label.pageAddMember.accName']}" />
+							<h:outputText value="" />
+							<h:inputText value="" />
+
+							<h:outputText value="#{app_msgs['label.pageAddMember.remark']}" />
+							<h:outputText value="" />
+							<h:inputText value="" />
+						</h:panelGrid>
+
+					</rich:panel>
+
+					<rich:panel style=" width : 50%; height:200px;">
+						<f:facet name="header">
+							<h:outputText
+								value="#{app_msgs['label.pageAddMember.otherDetail']}" />
+						</f:facet>
+						<h:panelGrid columns="5">
+							<h:outputText
+								value="#{app_msgs['label.pageAddMember.receiveDocument']}" />
+							<h:outputText value="" />
+							<h:selectOneRadio value="">
+								<f:selectItem itemValue="1"
+									itemLabel="#{app_msgs['label.pageAddMember.delivery']}" />
+								<f:selectItem itemValue="2"
+									itemLabel="#{app_msgs['label.pageAddMember.pickup']}" />
+							</h:selectOneRadio>
+							<h:outputText value="" />
+							<h:outputText value="" />
+
+							<h:outputText
+								value="#{app_msgs['label.pageAddMember.documentFully']}" />
+							<h:outputText value="#{customerController.starDocumentFully}"
+								id="starDocumentFully" style="COLOR: #ff0000;" />
+							<h:selectBooleanCheckbox value="false" />
+							<h:outputText value="#{app_msgs['label.pageAddMember.application']}" />
+							<a4j:outputPanel id="appDay" layout="block">
+								<rich:calendar style=" width : 90px;" value=""
+									datePattern="dd/MM/yyyy" required="true" />
+							</a4j:outputPanel>
+							
+							<h:outputText value="" />
+							<h:outputText value="" />
+							<h:selectBooleanCheckbox value="false" />
+							<h:outputText value="#{app_msgs['label.pageAddMember.copyPersonalCard']}" />
+							<a4j:outputPanel id="personalCardDay" layout="block">
+								<rich:calendar style=" width : 90px;" value=""
+									datePattern="dd/MM/yyyy" required="true" />
+							</a4j:outputPanel>
+							
+							<h:outputText value="" />
+							<h:outputText value="" />
+							<h:selectBooleanCheckbox value="false" />
+							<h:outputText value="#{app_msgs['label.pageAddMember.copyBookBank']}" />
+							<a4j:outputPanel id="bookBankDay" layout="block">
+								<rich:calendar style=" width : 90px;" value=""
+									datePattern="dd/MM/yyyy" required="true" />
+							</a4j:outputPanel>
+
+						</h:panelGrid>
+					</rich:panel>
+
+
+
+					<h:panelGrid columns="3">
+						<h:commandButton id="saveId"
+							disabled="#{customerController.chkSave}"
+							onclick="if (!confirm('#{messages['label.comfirm.save']}')) return false"
+							value="#{app_msgs['button.save']}"
+							action="#{customerController.confirmAddMember()}"
+							style=" width : 80px;" />
+						<h:commandButton id="cancleId"
+							disabled="#{customerController.chkSave}"
+							onclick="if (!confirm('#{messages['label.comfirm.save']}')) return false"
+							value="#{app_msgs['button.cancle']}"
+							action="#{customerController.confirmAddMember()}"
+							style=" width : 80px;" />
+					</h:panelGrid>
 				</h:panelGrid>
-				<h:commandButton id="submit"
-					disabled="#{customerController.chkSave}"
-					onclick="if (!confirm('#{messages['label.comfirm.save']}')) return false"
-					value="บันทึก" action="#{customerController.confirmAddMember()}"
-					style=" width : 80px;" />
-			</h:form>
-		</rich:panel>
+			</rich:panel>
+		</h:form>
 	</ui:define>
 </ui:composition>
