@@ -16,6 +16,7 @@ import co.th.aten.football.dialog.ChangePasswordStaffDialog;
 import co.th.aten.football.dialog.ComparePlayersDialog;
 import co.th.aten.football.dialog.DetailPlayerDialog;
 import co.th.aten.football.dialog.EditPlayerDialog;
+import co.th.aten.football.dialog.ReportDetailDialog;
 import co.th.aten.football.dialog.ReportPlayersDetailDialog;
 import co.th.aten.football.event.LogoutEvent;
 import java.awt.Image;
@@ -333,6 +334,7 @@ public class MainPanel extends ImagePanel {
 
     private void btReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btReportActionPerformed
         //        ChangeOwnerWizard.getInstance().execute();
+        new ReportDetailDialog().showDialog();
     }//GEN-LAST:event_btReportActionPerformed
 
     private void btReportPlayersDetailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btReportPlayersDetailActionPerformed
