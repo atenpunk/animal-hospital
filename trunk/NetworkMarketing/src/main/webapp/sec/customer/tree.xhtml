@@ -89,15 +89,21 @@
 									<ul>
 										<li><div
 												style="display: #{customerController.customerModel_01.flagImg02}">
-												<a class="tooltip"
-													href="#{request.contextPath}/add/add/#{customerController.customerModel_01.customerId}/1">
+												<h:commandLink action="#{customerController.viewAddMember}"
+													class="tooltip">
 													<h:graphicImage
 														value="#{customerController.customerModel_01.positionImage}"
-														width="45px" height="45px" /> <span> <h:graphicImage
-															class="callout" value="/resources/gfx/callout.gif" /> <h:outputText
-															value="คลิกเพื่อเพิ่มข้อมูลสมาชิก" />
-												</span>
-												</a>
+														width="45px" height="45px" />
+													<span> <h:graphicImage class="callout"
+															value="/resources/gfx/callout.gif" /> <h:outputText
+															value="#{app_msgs['label.pageTree.clickAddMember']}" />
+													</span>
+													<a4j:param name="upperLineId"
+														value="#{customerController.customerModel_01.upperId}"
+														assignTo="#{customerController.upperLineId}" />
+													<a4j:param name="flagUnder" value="0"
+														assignTo="#{customerController.flagUnder}" />
+												</h:commandLink>
 											</div>
 											<div
 												style="display: #{customerController.customerModel_01.flagImg03}">
@@ -146,7 +152,7 @@
 																width="45px" height="45px" />
 															<span> <h:graphicImage class="callout"
 																	value="/resources/gfx/callout.gif" /> <h:outputText
-																	value="คลิกเพื่อเพิ่มข้อมูลสมาชิก" />
+																	value="#{app_msgs['label.pageTree.clickAddMember']}" />
 															</span>
 															<a4j:param name="upperLineId"
 																value="#{customerController.customerModel_02.upperId}"
@@ -196,28 +202,22 @@
 															</div>
 															<div
 																style="display: #{customerController.customerModel_04.flagImg01}">
-																<a class="tooltip"
-																	href="#{request.contextPath}/add/add/#{customerController.customerModel_04.upperId}/1">
+																<h:commandLink
+																	action="#{customerController.viewAddMember}"
+																	class="tooltip">
 																	<h:graphicImage
 																		value="#{customerController.customerModel_04.positionImage}"
-																		width="45px" height="45px" /> <span> <h:graphicImage
-																			class="callout" value="/resources/gfx/callout.gif" />
-																		<h:outputText value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
-																			rendered="#{customerController.customerModel_04.detailModelList eq null}" />
-																		<rich:dataTable
-																			rendered="#{customerController.customerModel_04.detailModelList ne null}"
-																			value="#{customerController.customerModel_04.detailModelList}"
-																			var="item" rows="5">
-																			<rich:column>
-																				<h:outputText value="#{item.text}" />
-																			</rich:column>
-																			<rich:column>
-																				<h:outputText value="#{item.value}">
-																				</h:outputText>
-																			</rich:column>
-																		</rich:dataTable>
-																</span>
-																</a>
+																		width="45px" height="45px" />
+																	<span> <h:graphicImage class="callout"
+																			value="/resources/gfx/callout.gif" /> <h:outputText
+																			value="#{app_msgs['label.pageTree.clickAddMember']}" />
+																	</span>
+																	<a4j:param name="upperLineId"
+																		value="#{customerController.customerModel_04.upperId}"
+																		assignTo="#{customerController.upperLineId}" />
+																	<a4j:param name="flagUnder" value="1"
+																		assignTo="#{customerController.flagUnder}" />
+																</h:commandLink>
 															</div>
 															<div
 																style="display: #{customerController.customerModel_04.flagImg03}">
@@ -259,28 +259,22 @@
 																	</div>
 																	<div
 																		style="display: #{customerController.customerModel_08.flagImg01}">
-																		<a class="tooltip"
-																			href="#{request.contextPath}/add/add/#{customerController.customerModel_08.upperId}/1">
+																		<h:commandLink
+																			action="#{customerController.viewAddMember}"
+																			class="tooltip">
 																			<h:graphicImage
 																				value="#{customerController.customerModel_08.positionImage}"
-																				width="45px" height="45px" /> <span> <h:graphicImage
-																					class="callout" value="/resources/gfx/callout.gif" />
-																				<h:outputText value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
-																					rendered="#{customerController.customerModel_08.detailModelList eq null}" />
-																				<rich:dataTable
-																					rendered="#{customerController.customerModel_08.detailModelList ne null}"
-																					value="#{customerController.customerModel_08.detailModelList}"
-																					var="item" rows="5">
-																					<rich:column>
-																						<h:outputText value="#{item.text}" />
-																					</rich:column>
-																					<rich:column>
-																						<h:outputText value="#{item.value}">
-																						</h:outputText>
-																					</rich:column>
-																				</rich:dataTable>
-																		</span>
-																		</a>
+																				width="45px" height="45px" />
+																			<span> <h:graphicImage class="callout"
+																					value="/resources/gfx/callout.gif" /> <h:outputText
+																					value="#{app_msgs['label.pageTree.clickAddMember']}" />
+																			</span>
+																			<a4j:param name="upperLineId"
+																				value="#{customerController.customerModel_08.upperId}"
+																				assignTo="#{customerController.upperLineId}" />
+																			<a4j:param name="flagUnder" value="1"
+																				assignTo="#{customerController.flagUnder}" />
+																		</h:commandLink>
 																	</div>
 																	<div
 																		style="display: #{customerController.customerModel_08.flagImg03}">
@@ -322,28 +316,22 @@
 																	</div>
 																	<div
 																		style="display: #{customerController.customerModel_09.flagImg01}">
-																		<a class="tooltip"
-																			href="#{request.contextPath}/add/add/#{customerController.customerModel_09.upperId}/2">
+																		<h:commandLink
+																			action="#{customerController.viewAddMember}"
+																			class="tooltip">
 																			<h:graphicImage
 																				value="#{customerController.customerModel_09.positionImage}"
-																				width="45px" height="45px" /> <span> <h:graphicImage
-																					class="callout" value="/resources/gfx/callout.gif" />
-																				<h:outputText value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
-																					rendered="#{customerController.customerModel_09.detailModelList eq null}" />
-																				<rich:dataTable
-																					rendered="#{customerController.customerModel_09.detailModelList ne null}"
-																					value="#{customerController.customerModel_09.detailModelList}"
-																					var="item" rows="5">
-																					<rich:column>
-																						<h:outputText value="#{item.text}" />
-																					</rich:column>
-																					<rich:column>
-																						<h:outputText value="#{item.value}">
-																						</h:outputText>
-																					</rich:column>
-																				</rich:dataTable>
-																		</span>
-																		</a>
+																				width="45px" height="45px" />
+																			<span> <h:graphicImage class="callout"
+																					value="/resources/gfx/callout.gif" /> <h:outputText
+																					value="#{app_msgs['label.pageTree.clickAddMember']}" />
+																			</span>
+																			<a4j:param name="upperLineId"
+																				value="#{customerController.customerModel_09.upperId}"
+																				assignTo="#{customerController.upperLineId}" />
+																			<a4j:param name="flagUnder" value="2"
+																				assignTo="#{customerController.flagUnder}" />
+																		</h:commandLink>
 																	</div>
 																	<div
 																		style="display: #{customerController.customerModel_09.flagImg03}">
@@ -387,28 +375,22 @@
 															</div>
 															<div
 																style="display: #{customerController.customerModel_05.flagImg01}">
-																<a class="tooltip"
-																	href="#{request.contextPath}/add/add/#{customerController.customerModel_05.upperId}/2">
+																<h:commandLink
+																	action="#{customerController.viewAddMember}"
+																	class="tooltip">
 																	<h:graphicImage
 																		value="#{customerController.customerModel_05.positionImage}"
-																		width="45px" height="45px" /> <span> <h:graphicImage
-																			class="callout" value="/resources/gfx/callout.gif" />
-																		<h:outputText value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
-																			rendered="#{customerController.customerModel_05.detailModelList eq null}" />
-																		<rich:dataTable
-																			rendered="#{customerController.customerModel_05.detailModelList ne null}"
-																			value="#{customerController.customerModel_05.detailModelList}"
-																			var="item" rows="5">
-																			<rich:column>
-																				<h:outputText value="#{item.text}" />
-																			</rich:column>
-																			<rich:column>
-																				<h:outputText value="#{item.value}">
-																				</h:outputText>
-																			</rich:column>
-																		</rich:dataTable>
-																</span>
-																</a>
+																		width="45px" height="45px" />
+																	<span> <h:graphicImage class="callout"
+																			value="/resources/gfx/callout.gif" /> <h:outputText
+																			value="#{app_msgs['label.pageTree.clickAddMember']}" />
+																	</span>
+																	<a4j:param name="upperLineId"
+																		value="#{customerController.customerModel_05.upperId}"
+																		assignTo="#{customerController.upperLineId}" />
+																	<a4j:param name="flagUnder" value="2"
+																		assignTo="#{customerController.flagUnder}" />
+																</h:commandLink>
 															</div>
 															<div
 																style="display: #{customerController.customerModel_05.flagImg03}">
@@ -450,28 +432,22 @@
 																	</div>
 																	<div
 																		style="display: #{customerController.customerModel_10.flagImg01}">
-																		<a class="tooltip"
-																			href="#{request.contextPath}/add/add/#{customerController.customerModel_10.upperId}/1">
+																		<h:commandLink
+																			action="#{customerController.viewAddMember}"
+																			class="tooltip">
 																			<h:graphicImage
 																				value="#{customerController.customerModel_10.positionImage}"
-																				width="45px" height="45px" /> <span> <h:graphicImage
-																					class="callout" value="/resources/gfx/callout.gif" />
-																				<h:outputText value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
-																					rendered="#{customerController.customerModel_10.detailModelList eq null}" />
-																				<rich:dataTable
-																					rendered="#{customerController.customerModel_10.detailModelList ne null}"
-																					value="#{customerController.customerModel_10.detailModelList}"
-																					var="item" rows="5">
-																					<rich:column>
-																						<h:outputText value="#{item.text}" />
-																					</rich:column>
-																					<rich:column>
-																						<h:outputText value="#{item.value}">
-																						</h:outputText>
-																					</rich:column>
-																				</rich:dataTable>
-																		</span>
-																		</a>
+																				width="45px" height="45px" />
+																			<span> <h:graphicImage class="callout"
+																					value="/resources/gfx/callout.gif" /> <h:outputText
+																					value="#{app_msgs['label.pageTree.clickAddMember']}" />
+																			</span>
+																			<a4j:param name="upperLineId"
+																				value="#{customerController.customerModel_10.upperId}"
+																				assignTo="#{customerController.upperLineId}" />
+																			<a4j:param name="flagUnder" value="1"
+																				assignTo="#{customerController.flagUnder}" />
+																		</h:commandLink>
 																	</div>
 																	<div
 																		style="display: #{customerController.customerModel_10.flagImg03}">
@@ -513,28 +489,22 @@
 																	</div>
 																	<div
 																		style="display: #{customerController.customerModel_11.flagImg01}">
-																		<a class="tooltip"
-																			href="#{request.contextPath}/add/add/#{customerController.customerModel_11.upperId}/2">
+																		<h:commandLink
+																			action="#{customerController.viewAddMember}"
+																			class="tooltip">
 																			<h:graphicImage
 																				value="#{customerController.customerModel_11.positionImage}"
-																				width="45px" height="45px" /> <span> <h:graphicImage
-																					class="callout" value="/resources/gfx/callout.gif" />
-																				<h:outputText value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
-																					rendered="#{customerController.customerModel_11.detailModelList eq null}" />
-																				<rich:dataTable
-																					rendered="#{customerController.customerModel_11.detailModelList ne null}"
-																					value="#{customerController.customerModel_11.detailModelList}"
-																					var="item" rows="5">
-																					<rich:column>
-																						<h:outputText value="#{item.text}" />
-																					</rich:column>
-																					<rich:column>
-																						<h:outputText value="#{item.value}">
-																						</h:outputText>
-																					</rich:column>
-																				</rich:dataTable>
-																		</span>
-																		</a>
+																				width="45px" height="45px" />
+																			<span> <h:graphicImage class="callout"
+																					value="/resources/gfx/callout.gif" /> <h:outputText
+																					value="#{app_msgs['label.pageTree.clickAddMember']}" />
+																			</span>
+																			<a4j:param name="upperLineId"
+																				value="#{customerController.customerModel_11.upperId}"
+																				assignTo="#{customerController.upperLineId}" />
+																			<a4j:param name="flagUnder" value="2"
+																				assignTo="#{customerController.flagUnder}" />
+																		</h:commandLink>
 																	</div>
 																	<div
 																		style="display: #{customerController.customerModel_11.flagImg03}">
@@ -580,28 +550,22 @@
 													</div>
 													<div
 														style="display: #{customerController.customerModel_03.flagImg01}">
-														<a class="tooltip"
-															href="#{request.contextPath}/add/add/#{customerController.customerModel_03.upperId}/2">
+														<h:commandLink
+															action="#{customerController.viewAddMember}"
+															class="tooltip">
 															<h:graphicImage
 																value="#{customerController.customerModel_03.positionImage}"
-																width="45px" height="45px" /> <span> <h:graphicImage
-																	class="callout" value="/resources/gfx/callout.gif" />
-																<h:outputText value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
-																	rendered="#{customerController.customerModel_03.detailModelList eq null}" />
-																<rich:dataTable
-																	rendered="#{customerController.customerModel_03.detailModelList ne null}"
-																	value="#{customerController.customerModel_03.detailModelList}"
-																	var="item" rows="5">
-																	<rich:column>
-																		<h:outputText value="#{item.text}" />
-																	</rich:column>
-																	<rich:column>
-																		<h:outputText value="#{item.value}">
-																		</h:outputText>
-																	</rich:column>
-																</rich:dataTable>
-														</span>
-														</a>
+																width="45px" height="45px" />
+															<span> <h:graphicImage class="callout"
+																	value="/resources/gfx/callout.gif" /> <h:outputText
+																	value="#{app_msgs['label.pageTree.clickAddMember']}" />
+															</span>
+															<a4j:param name="upperLineId"
+																value="#{customerController.customerModel_03.upperId}"
+																assignTo="#{customerController.upperLineId}" />
+															<a4j:param name="flagUnder" value="2"
+																assignTo="#{customerController.flagUnder}" />
+														</h:commandLink>
 													</div>
 													<div
 														style="display: #{customerController.customerModel_03.flagImg03}">
@@ -643,28 +607,22 @@
 															</div>
 															<div
 																style="display: #{customerController.customerModel_06.flagImg01}">
-																<a class="tooltip"
-																	href="#{request.contextPath}/add/add/#{customerController.customerModel_06.upperId}/1">
+																<h:commandLink
+																	action="#{customerController.viewAddMember}"
+																	class="tooltip">
 																	<h:graphicImage
 																		value="#{customerController.customerModel_06.positionImage}"
-																		width="45px" height="45px" /> <span> <h:graphicImage
-																			class="callout" value="/resources/gfx/callout.gif" />
-																		<h:outputText value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
-																			rendered="#{customerController.customerModel_06.detailModelList eq null}" />
-																		<rich:dataTable
-																			rendered="#{customerController.customerModel_06.detailModelList ne null}"
-																			value="#{customerController.customerModel_06.detailModelList}"
-																			var="item" rows="5">
-																			<rich:column>
-																				<h:outputText value="#{item.text}" />
-																			</rich:column>
-																			<rich:column>
-																				<h:outputText value="#{item.value}">
-																				</h:outputText>
-																			</rich:column>
-																		</rich:dataTable>
-																</span>
-																</a>
+																		width="45px" height="45px" />
+																	<span> <h:graphicImage class="callout"
+																			value="/resources/gfx/callout.gif" /> <h:outputText
+																			value="#{app_msgs['label.pageTree.clickAddMember']}" />
+																	</span>
+																	<a4j:param name="upperLineId"
+																		value="#{customerController.customerModel_06.upperId}"
+																		assignTo="#{customerController.upperLineId}" />
+																	<a4j:param name="flagUnder" value="1"
+																		assignTo="#{customerController.flagUnder}" />
+																</h:commandLink>
 															</div>
 															<div
 																style="display: #{customerController.customerModel_06.flagImg03}">
@@ -706,28 +664,22 @@
 																	</div>
 																	<div
 																		style="display: #{customerController.customerModel_12.flagImg01}">
-																		<a class="tooltip"
-																			href="#{request.contextPath}/add/add/#{customerController.customerModel_12.upperId}/1">
+																		<h:commandLink
+																			action="#{customerController.viewAddMember}"
+																			class="tooltip">
 																			<h:graphicImage
 																				value="#{customerController.customerModel_12.positionImage}"
-																				width="45px" height="45px" /> <span> <h:graphicImage
-																					class="callout" value="/resources/gfx/callout.gif" />
-																				<h:outputText value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
-																					rendered="#{customerController.customerModel_12.detailModelList eq null}" />
-																				<rich:dataTable
-																					rendered="#{customerController.customerModel_12.detailModelList ne null}"
-																					value="#{customerController.customerModel_12.detailModelList}"
-																					var="item" rows="5">
-																					<rich:column>
-																						<h:outputText value="#{item.text}" />
-																					</rich:column>
-																					<rich:column>
-																						<h:outputText value="#{item.value}">
-																						</h:outputText>
-																					</rich:column>
-																				</rich:dataTable>
-																		</span>
-																		</a>
+																				width="45px" height="45px" />
+																			<span> <h:graphicImage class="callout"
+																					value="/resources/gfx/callout.gif" /> <h:outputText
+																					value="#{app_msgs['label.pageTree.clickAddMember']}" />
+																			</span>
+																			<a4j:param name="upperLineId"
+																				value="#{customerController.customerModel_12.upperId}"
+																				assignTo="#{customerController.upperLineId}" />
+																			<a4j:param name="flagUnder" value="1"
+																				assignTo="#{customerController.flagUnder}" />
+																		</h:commandLink>
 																	</div>
 																	<div
 																		style="display: #{customerController.customerModel_12.flagImg03}">
@@ -769,28 +721,22 @@
 																	</div>
 																	<div
 																		style="display: #{customerController.customerModel_13.flagImg01}">
-																		<a class="tooltip"
-																			href="#{request.contextPath}/add/add/#{customerController.customerModel_13.upperId}/2">
+																		<h:commandLink
+																			action="#{customerController.viewAddMember}"
+																			class="tooltip">
 																			<h:graphicImage
 																				value="#{customerController.customerModel_13.positionImage}"
-																				width="45px" height="45px" /> <span> <h:graphicImage
-																					class="callout" value="/resources/gfx/callout.gif" />
-																				<h:outputText value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
-																					rendered="#{customerController.customerModel_13.detailModelList eq null}" />
-																				<rich:dataTable
-																					rendered="#{customerController.customerModel_13.detailModelList ne null}"
-																					value="#{customerController.customerModel_13.detailModelList}"
-																					var="item" rows="5">
-																					<rich:column>
-																						<h:outputText value="#{item.text}" />
-																					</rich:column>
-																					<rich:column>
-																						<h:outputText value="#{item.value}">
-																						</h:outputText>
-																					</rich:column>
-																				</rich:dataTable>
-																		</span>
-																		</a>
+																				width="45px" height="45px" />
+																			<span> <h:graphicImage class="callout"
+																					value="/resources/gfx/callout.gif" /> <h:outputText
+																					value="#{app_msgs['label.pageTree.clickAddMember']}" />
+																			</span>
+																			<a4j:param name="upperLineId"
+																				value="#{customerController.customerModel_13.upperId}"
+																				assignTo="#{customerController.upperLineId}" />
+																			<a4j:param name="flagUnder" value="2"
+																				assignTo="#{customerController.flagUnder}" />
+																		</h:commandLink>
 																	</div>
 																	<div
 																		style="display: #{customerController.customerModel_13.flagImg03}">
@@ -833,28 +779,22 @@
 															</div>
 															<div
 																style="display: #{customerController.customerModel_07.flagImg01}">
-																<a class="tooltip"
-																	href="#{request.contextPath}/add/add/#{customerController.customerModel_07.upperId}/2">
+																<h:commandLink
+																	action="#{customerController.viewAddMember}"
+																	class="tooltip">
 																	<h:graphicImage
 																		value="#{customerController.customerModel_07.positionImage}"
-																		width="45px" height="45px" /> <span> <h:graphicImage
-																			class="callout" value="/resources/gfx/callout.gif" />
-																		<h:outputText value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
-																			rendered="#{customerController.customerModel_07.detailModelList eq null}" />
-																		<rich:dataTable
-																			rendered="#{customerController.customerModel_07.detailModelList ne null}"
-																			value="#{customerController.customerModel_07.detailModelList}"
-																			var="item" rows="5">
-																			<rich:column>
-																				<h:outputText value="#{item.text}" />
-																			</rich:column>
-																			<rich:column>
-																				<h:outputText value="#{item.value}">
-																				</h:outputText>
-																			</rich:column>
-																		</rich:dataTable>
-																</span>
-																</a>
+																		width="45px" height="45px" />
+																	<span> <h:graphicImage class="callout"
+																			value="/resources/gfx/callout.gif" /> <h:outputText
+																			value="#{app_msgs['label.pageTree.clickAddMember']}" />
+																	</span>
+																	<a4j:param name="upperLineId"
+																		value="#{customerController.customerModel_07.upperId}"
+																		assignTo="#{customerController.upperLineId}" />
+																	<a4j:param name="flagUnder" value="2"
+																		assignTo="#{customerController.flagUnder}" />
+																</h:commandLink>
 															</div>
 															<div
 																style="display: #{customerController.customerModel_07.flagImg03}">
@@ -896,28 +836,22 @@
 																	</div>
 																	<div
 																		style="display: #{customerController.customerModel_14.flagImg01}">
-																		<a class="tooltip"
-																			href="#{request.contextPath}/add/add/#{customerController.customerModel_14.upperId}/1">
+																		<h:commandLink
+																			action="#{customerController.viewAddMember}"
+																			class="tooltip">
 																			<h:graphicImage
 																				value="#{customerController.customerModel_14.positionImage}"
-																				width="45px" height="45px" /> <span> <h:graphicImage
-																					class="callout" value="/resources/gfx/callout.gif" />
-																				<h:outputText value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
-																					rendered="#{customerController.customerModel_14.detailModelList eq null}" />
-																				<rich:dataTable
-																					rendered="#{customerController.customerModel_14.detailModelList ne null}"
-																					value="#{customerController.customerModel_14.detailModelList}"
-																					var="item" rows="5">
-																					<rich:column>
-																						<h:outputText value="#{item.text}" />
-																					</rich:column>
-																					<rich:column>
-																						<h:outputText value="#{item.value}">
-																						</h:outputText>
-																					</rich:column>
-																				</rich:dataTable>
-																		</span>
-																		</a>
+																				width="45px" height="45px" />
+																			<span> <h:graphicImage class="callout"
+																					value="/resources/gfx/callout.gif" /> <h:outputText
+																					value="#{app_msgs['label.pageTree.clickAddMember']}" />
+																			</span>
+																			<a4j:param name="upperLineId"
+																				value="#{customerController.customerModel_14.upperId}"
+																				assignTo="#{customerController.upperLineId}" />
+																			<a4j:param name="flagUnder" value="1"
+																				assignTo="#{customerController.flagUnder}" />
+																		</h:commandLink>
 																	</div>
 																	<div
 																		style="display: #{customerController.customerModel_14.flagImg03}">
@@ -959,28 +893,22 @@
 																	</div>
 																	<div
 																		style="display: #{customerController.customerModel_15.flagImg01}">
-																		<a class="tooltip"
-																			href="#{request.contextPath}/add/add/#{customerController.customerModel_15.upperId}/2">
+																		<h:commandLink
+																			action="#{customerController.viewAddMember}"
+																			class="tooltip">
 																			<h:graphicImage
 																				value="#{customerController.customerModel_15.positionImage}"
-																				width="45px" height="45px" /> <span> <h:graphicImage
-																					class="callout" value="/resources/gfx/callout.gif" />
-																				<h:outputText value="คลิกเพื่อเพิ่มข้อมูลสมาชิก"
-																					rendered="#{customerController.customerModel_15.detailModelList eq null}" />
-																				<rich:dataTable
-																					rendered="#{customerController.customerModel_15.detailModelList ne null}"
-																					value="#{customerController.customerModel_15.detailModelList}"
-																					var="item" rows="5">
-																					<rich:column>
-																						<h:outputText value="#{item.text}" />
-																					</rich:column>
-																					<rich:column>
-																						<h:outputText value="#{item.value}">
-																						</h:outputText>
-																					</rich:column>
-																				</rich:dataTable>
-																		</span>
-																		</a>
+																				width="45px" height="45px" />
+																			<span> <h:graphicImage class="callout"
+																					value="/resources/gfx/callout.gif" /> <h:outputText
+																					value="#{app_msgs['label.pageTree.clickAddMember']}" />
+																			</span>
+																			<a4j:param name="upperLineId"
+																				value="#{customerController.customerModel_15.upperId}"
+																				assignTo="#{customerController.upperLineId}" />
+																			<a4j:param name="flagUnder" value="2"
+																				assignTo="#{customerController.flagUnder}" />
+																		</h:commandLink>
 																	</div>
 																	<div
 																		style="display: #{customerController.customerModel_15.flagImg03}">
