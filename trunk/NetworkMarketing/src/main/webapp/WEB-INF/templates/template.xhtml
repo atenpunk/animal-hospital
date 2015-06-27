@@ -20,9 +20,15 @@
 			<h:panelGrid columns="2" cellpadding="2" cellspacing="2"
 				columnClasses="userColumn,logoColumn" styleClass="header">
 				<h:panelGroup>
-					<h:outputText value="#{app_msgs['user.welcome.label']}" />, &#160; <h:outputText
-						value="#{currentUser.userName}" />
-					<br />&#160;&#160;<pretty:link mappingId="logout">
+					<h:outputText value="#{app_msgs['user.welcome.label']}" style="FONT-WEIGHT: bold;"/>, &#160; <h:outputText
+						value="#{currentUser.userName}" style="FONT-WEIGHT: bold;"/>
+					<br />
+					<br />
+					<h:outputText value="E-money" style="FONT-WEIGHT: bold;"/>&#160;&#160;<h:outputText value="0.00" style="FONT-WEIGHT: bold;"/>
+					<br />
+					<br />
+					<br />
+					&#160;&#160;<pretty:link mappingId="logout">
 						<h:outputText value="#{app_msgs['menu.logout.label']}" />
 					</pretty:link>
 				</h:panelGroup>

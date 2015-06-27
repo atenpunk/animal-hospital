@@ -141,7 +141,7 @@
 														style="display: #{customerController.customerModel_02.flagImg02}">
 														<h:graphicImage
 															value="#{customerController.customerModel_02.positionImage}"
-															width="30px" height="30px" />
+															width="35px" height="35px" />
 													</div>
 													<div
 														style="display: #{customerController.customerModel_02.flagImg01}">
@@ -199,7 +199,7 @@
 																style="display: #{customerController.customerModel_04.flagImg02}">
 																<h:graphicImage
 																	value="#{customerController.customerModel_04.positionImage}"
-																	width="30px" height="30px" />
+																	width="35px" height="35px" />
 															</div>
 															<div
 																style="display: #{customerController.customerModel_04.flagImg01}">
@@ -256,7 +256,7 @@
 																		style="display: #{customerController.customerModel_08.flagImg02}">
 																		<h:graphicImage
 																			value="#{customerController.customerModel_08.positionImage}"
-																			width="30px" height="30px" />
+																			width="35px" height="35px" />
 																	</div>
 																	<div
 																		style="display: #{customerController.customerModel_08.flagImg01}">
@@ -313,7 +313,7 @@
 																		style="display: #{customerController.customerModel_09.flagImg02}">
 																		<h:graphicImage
 																			value="#{customerController.customerModel_09.positionImage}"
-																			width="30px" height="30px" />
+																			width="35px" height="35px" />
 																	</div>
 																	<div
 																		style="display: #{customerController.customerModel_09.flagImg01}">
@@ -372,7 +372,7 @@
 																style="display: #{customerController.customerModel_05.flagImg02}">
 																<h:graphicImage
 																	value="#{customerController.customerModel_05.positionImage}"
-																	width="30px" height="30px" />
+																	width="35px" height="35px" />
 															</div>
 															<div
 																style="display: #{customerController.customerModel_05.flagImg01}">
@@ -429,7 +429,7 @@
 																		style="display: #{customerController.customerModel_10.flagImg02}">
 																		<h:graphicImage
 																			value="#{customerController.customerModel_10.positionImage}"
-																			width="30px" height="30px" />
+																			width="35px" height="35px" />
 																	</div>
 																	<div
 																		style="display: #{customerController.customerModel_10.flagImg01}">
@@ -486,7 +486,7 @@
 																		style="display: #{customerController.customerModel_11.flagImg02}">
 																		<h:graphicImage
 																			value="#{customerController.customerModel_11.positionImage}"
-																			width="30px" height="30px" />
+																			width="35px" height="35px" />
 																	</div>
 																	<div
 																		style="display: #{customerController.customerModel_11.flagImg01}">
@@ -547,7 +547,7 @@
 														style="display: #{customerController.customerModel_03.flagImg02}">
 														<h:graphicImage
 															value="#{customerController.customerModel_03.positionImage}"
-															width="30px" height="30px" />
+															width="35px" height="35px" />
 													</div>
 													<div
 														style="display: #{customerController.customerModel_03.flagImg01}">
@@ -604,7 +604,7 @@
 																style="display: #{customerController.customerModel_06.flagImg02}">
 																<h:graphicImage
 																	value="#{customerController.customerModel_06.positionImage}"
-																	width="30px" height="30px" />
+																	width="35px" height="35px" />
 															</div>
 															<div
 																style="display: #{customerController.customerModel_06.flagImg01}">
@@ -661,7 +661,7 @@
 																		style="display: #{customerController.customerModel_12.flagImg02}">
 																		<h:graphicImage
 																			value="#{customerController.customerModel_12.positionImage}"
-																			width="30px" height="30px" />
+																			width="35px" height="35px" />
 																	</div>
 																	<div
 																		style="display: #{customerController.customerModel_12.flagImg01}">
@@ -718,7 +718,7 @@
 																		style="display: #{customerController.customerModel_13.flagImg02}">
 																		<h:graphicImage
 																			value="#{customerController.customerModel_13.positionImage}"
-																			width="30px" height="30px" />
+																			width="35px" height="35px" />
 																	</div>
 																	<div
 																		style="display: #{customerController.customerModel_13.flagImg01}">
@@ -776,7 +776,7 @@
 																style="display: #{customerController.customerModel_07.flagImg02}">
 																<h:graphicImage
 																	value="#{customerController.customerModel_07.positionImage}"
-																	width="30px" height="30px" />
+																	width="35px" height="35px" />
 															</div>
 															<div
 																style="display: #{customerController.customerModel_07.flagImg01}">
@@ -833,7 +833,7 @@
 																		style="display: #{customerController.customerModel_14.flagImg02}">
 																		<h:graphicImage
 																			value="#{customerController.customerModel_14.positionImage}"
-																			width="30px" height="30px" />
+																			width="35px" height="35px" />
 																	</div>
 																	<div
 																		style="display: #{customerController.customerModel_14.flagImg01}">
@@ -890,7 +890,7 @@
 																		style="display: #{customerController.customerModel_15.flagImg02}">
 																		<h:graphicImage
 																			value="#{customerController.customerModel_15.positionImage}"
-																			width="30px" height="30px" />
+																			width="35px" height="35px" />
 																	</div>
 																	<div
 																		style="display: #{customerController.customerModel_15.flagImg01}">
@@ -953,45 +953,46 @@
 						</tr>
 					</table>
 				</rich:panel>
-				<h:panelGrid columns="2">
+				<h:panelGrid columns="2"
+					rendered="#{customerController.customerModel_01 ne null}">
 					<rich:panel style="width : 350px;height:170px;">
 						<h:panelGrid columns="2">
-							<h:outputText value="รหัสสมาชิก" />
-							<h:outputText value="" />
-							<h:outputText value="วันที่สมัคร" />
-							<h:outputText value="" />
-							<h:outputText value="ตำแหน่ง (ค่าแนะนำ)" />
-							<h:outputText value="" />
-							<h:outputText value="ตำแหน่ง (จับคู่)" />
-							<h:outputText value="" />
-							<h:outputText value="ใบสมัครสมาชิก" />
-							<h:outputText value="" />
-							<h:outputText value="สำเนาบัตรประชาชนผู้สมัครหลัก" />
-							<h:outputText value="" />
-							<h:outputText value="สำเนาบัญชีธนาคารผู้สมัครหลัก" />
-							<h:outputText value="" />
+							<h:outputText value="#{app_msgs['label.pageTree.memberStr']}" style="FONT-WEIGHT: bold;"/>
+							<h:outputText value="#{customerController.detailCustomerStr}" />
+							<h:outputText value="#{app_msgs['label.pageTree.regisDate']}" style="FONT-WEIGHT: bold;"/>
+							<h:outputText value="#{customerController.detailRegisDate}" />
+							<h:outputText value="#{app_msgs['label.pageTree.posRecomment']}" style="FONT-WEIGHT: bold;"/>
+							<h:outputText value="#{customerController.detailPosRecomment}" />
+							<h:outputText value="#{app_msgs['label.pageTree.posMatch']}" style="FONT-WEIGHT: bold;"/>
+							<h:outputText value="#{customerController.detailPosMatch}" />
+							<h:outputText value="#{app_msgs['label.pageTree.documentRegis']}" style="FONT-WEIGHT: bold;"/>
+							<h:outputText value="#{customerController.detailDocumentRegis}" />
+							<h:outputText value="#{app_msgs['label.pageTree.documentPersonalCard']}" style="FONT-WEIGHT: bold;"/>
+							<h:outputText value="#{customerController.detailDocumentPersonalCard}" />
+							<h:outputText value="#{app_msgs['label.pageTree.documentBookBank']}" style="FONT-WEIGHT: bold;"/>
+							<h:outputText value="#{customerController.detailDocumentBookBank}" />
 						</h:panelGrid>
 					</rich:panel>
 					<rich:panel style="width : 350px;height:170px;">
 						<h:panelGrid columns="4">
-							<h:outputText value="PV สะสม" />
+							<h:outputText value="PV สะสม" style="FONT-WEIGHT: bold;"/>
 							<h:outputText value="" />
 							<h:outputText value="" />
 							<h:outputText value="" />
 
-							<h:outputText value="PV ซ้าย (ยกมา)" />
+							<h:outputText value="PV ซ้าย (ยกมา)" style="FONT-WEIGHT: bold;"/>
 							<h:outputText value="" />
-							<h:outputText value="PV ขวา (ยกมา)" />
-							<h:outputText value="" />
-
-							<h:outputText value="PV ซ้าย (ใหม่)" />
-							<h:outputText value="" />
-							<h:outputText value="PV ขวา (ใหม่)" />
+							<h:outputText value="PV ขวา (ยกมา)" style="FONT-WEIGHT: bold;"/>
 							<h:outputText value="" />
 
-							<h:outputText value="PV ซ้าย (รวม)" />
+							<h:outputText value="PV ซ้าย (ใหม่)" style="FONT-WEIGHT: bold;"/>
 							<h:outputText value="" />
-							<h:outputText value="PV ขวา (รวม)" />
+							<h:outputText value="PV ขวา (ใหม่)" style="FONT-WEIGHT: bold;"/>
+							<h:outputText value="" />
+
+							<h:outputText value="PV ซ้าย (รวม)" style="FONT-WEIGHT: bold;"/>
+							<h:outputText value="" />
+							<h:outputText value="PV ขวา (รวม)" style="FONT-WEIGHT: bold;"/>
 							<h:outputText value="" />
 
 							<h:outputText value=" " />

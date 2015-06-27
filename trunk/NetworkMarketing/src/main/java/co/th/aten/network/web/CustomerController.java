@@ -27,6 +27,7 @@ import co.th.aten.network.entity.AddressDistricts;
 import co.th.aten.network.entity.AddressProvinces;
 import co.th.aten.network.entity.MasterBank;
 import co.th.aten.network.entity.MemberCustomer;
+import co.th.aten.network.entity.MemberPosition;
 import co.th.aten.network.entity.UserLogin;
 import co.th.aten.network.i18n.AppBundleKey;
 import co.th.aten.network.model.CustomerModel;
@@ -86,6 +87,21 @@ public class CustomerController implements Serializable{
 	private String html;
 	private long customerId;
 	private String searchCustomer;
+	
+	private String detailCustomerStr;
+	private String detailRegisDate;
+	private String detailPosRecomment;
+	private String detailPosMatch;
+	private String detailDocumentRegis;
+	private String detailDocumentPersonalCard;
+	private String detailDocumentBookBank;
+//	private String detailPv;
+//	private String detailPv;
+//	private String detailPv;
+//	private String detailPv;
+//	private String detailPv;
+//	private String detailPv;
+//	private String detailPv;
 
 	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd",Locale.US);
 	private DecimalFormat df = new DecimalFormat("0000000");
@@ -642,6 +658,20 @@ public class CustomerController implements Serializable{
 			customerModel_14 = null;
 			customerModel_15 = null;
 			customerModel_01 = setDataCustomerModel(getCustomerById(customerId));
+			
+			detailCustomerStr = customerModel_01.getCustomerMember();
+			detailRegisDate = customerModel_01.getRegisDate()!=null?sdf.format(customerModel_01.getRegisDate()):"";
+			detailPosRecomment = "";
+			if(customerModel_01.getPositionId()!=0){
+				MemberPosition memberPosition = em.find(MemberPosition.class, new Integer(customerModel_01.getPositionId()));
+				detailPosMatch = memberPosition.getEnName();
+			}else{
+				detailPosMatch = "";
+			}
+			detailDocumentRegis = customerModel_01.getDateDocumentFully()!=null?sdf.format(customerModel_01.getDateDocumentFully()):"";
+			detailDocumentPersonalCard = customerModel_01.getDateCopyPersonalCard()!=null?sdf.format(customerModel_01.getDateCopyPersonalCard()):"";
+			detailDocumentBookBank = customerModel_01.getDateCopyBookBank()!=null?sdf.format(customerModel_01.getDateCopyBookBank()):"";
+			
 			if(customerModel_01.getLowerLeftId()!=0){
 				customerModel_02 = setDataCustomerModel(getCustomerById(customerModel_01.getLowerLeftId()));
 				if(customerModel_02!=null){
@@ -955,6 +985,9 @@ public class CustomerController implements Serializable{
 				model.setFlagImg01("none");
 				model.setFlagImg02("none");
 				model.setFlagImg03("block");
+				model.setDateDocumentFully(customer.getDateDocumentFully());
+				model.setDateCopyPersonalCard(customer.getDateCopyPersonalCard());
+				model.setDateCopyBookBank(customer.getDateCopyBookBank());
 				List<DetailModel> detailModelList = new ArrayList<DetailModel>();
 				DetailModel detailModel = new DetailModel();
 				detailModel.setText("ID");
@@ -2144,6 +2177,62 @@ public class CustomerController implements Serializable{
 
 	public void setRecomendStrId(String recomendStrId) {
 		this.recomendStrId = recomendStrId;
+	}
+
+	public String getDetailCustomerStr() {
+		return detailCustomerStr;
+	}
+
+	public void setDetailCustomerStr(String detailCustomerStr) {
+		this.detailCustomerStr = detailCustomerStr;
+	}
+
+	public String getDetailRegisDate() {
+		return detailRegisDate;
+	}
+
+	public void setDetailRegisDate(String detailRegisDate) {
+		this.detailRegisDate = detailRegisDate;
+	}
+
+	public String getDetailPosRecomment() {
+		return detailPosRecomment;
+	}
+
+	public void setDetailPosRecomment(String detailPosRecomment) {
+		this.detailPosRecomment = detailPosRecomment;
+	}
+
+	public String getDetailPosMatch() {
+		return detailPosMatch;
+	}
+
+	public void setDetailPosMatch(String detailPosMatch) {
+		this.detailPosMatch = detailPosMatch;
+	}
+
+	public String getDetailDocumentRegis() {
+		return detailDocumentRegis;
+	}
+
+	public void setDetailDocumentRegis(String detailDocumentRegis) {
+		this.detailDocumentRegis = detailDocumentRegis;
+	}
+
+	public String getDetailDocumentPersonalCard() {
+		return detailDocumentPersonalCard;
+	}
+
+	public void setDetailDocumentPersonalCard(String detailDocumentPersonalCard) {
+		this.detailDocumentPersonalCard = detailDocumentPersonalCard;
+	}
+
+	public String getDetailDocumentBookBank() {
+		return detailDocumentBookBank;
+	}
+
+	public void setDetailDocumentBookBank(String detailDocumentBookBank) {
+		this.detailDocumentBookBank = detailDocumentBookBank;
 	}
 	
 	
