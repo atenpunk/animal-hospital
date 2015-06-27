@@ -30,7 +30,8 @@ import javax.persistence.Table;
     @NamedQuery(name = "AddressDistricts.findByDistrictNameEng", query = "SELECT a FROM AddressDistricts a WHERE a.districtNameEng = :districtNameEng"),
     @NamedQuery(name = "AddressDistricts.findByAmphurId", query = "SELECT a FROM AddressDistricts a WHERE a.amphurId = :amphurId"),
     @NamedQuery(name = "AddressDistricts.findByProvinceId", query = "SELECT a FROM AddressDistricts a WHERE a.provinceId = :provinceId"),
-    @NamedQuery(name = "AddressDistricts.findByGeoId", query = "SELECT a FROM AddressDistricts a WHERE a.geoId = :geoId")})
+    @NamedQuery(name = "AddressDistricts.findByGeoId", query = "SELECT a FROM AddressDistricts a WHERE a.geoId = :geoId"),
+    @NamedQuery(name = "AddressDistricts.findByPostCode", query = "SELECT a FROM AddressDistricts a WHERE a.postCode = :postCode")})
 public class AddressDistricts implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -56,6 +57,8 @@ public class AddressDistricts implements Serializable {
     @Basic(optional = false)
     @Column(name = "GEO_ID")
     private int geoId;
+    @Column(name = "POST_CODE")
+    private String postCode;
 
     public AddressDistricts() {
     }
@@ -128,6 +131,14 @@ public class AddressDistricts implements Serializable {
 
     public void setGeoId(int geoId) {
         this.geoId = geoId;
+    }
+
+    public String getPostCode() {
+        return postCode;
+    }
+
+    public void setPostCode(String postCode) {
+        this.postCode = postCode;
     }
 
     @Override
