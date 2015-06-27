@@ -119,7 +119,8 @@ public class CustomerController implements Serializable{
 	private String starSide;
 	private int side;
 	private String starRecomendId;
-	private String recomendId;
+	private int recomendId;
+	private String recomendStrId;
 	private String starRecomendName;
 	private String recomendName;
 
@@ -1011,19 +1012,20 @@ public class CustomerController implements Serializable{
 
 	public void findRecomend(){
 		log.info("##### searchRecomend()");
-		log.info("##### recomendId = "+recomendId);
+		log.info("##### recomendStrId = "+recomendStrId);
 		recomendName = "";
-		if(recomendId!=null && recomendId.trim().length()>0){
+		if(recomendStrId!=null && recomendStrId.trim().length()>0){
 			MemberCustomer customerRecommend = null;
 			try{
 				customerRecommend = (MemberCustomer)em.createQuery("From MemberCustomer " +
 						" Where customerMember=:customerMember")
-						.setParameter("customerMember", recomendId)
+						.setParameter("customerMember", recomendStrId)
 						.getSingleResult();
 			}catch(Exception e){
 				log.info("Error : "+e.getMessage());
 			}
 			if(customerRecommend!=null){
+				recomendId = customerRecommend.getCustomerId();
 				recomendName = StringUtil.n2b(customerRecommend.getTitleName())+" "+StringUtil.n2b(customerRecommend.getFirstName())
 						+" "+StringUtil.n2b(customerRecommend.getLastName());
 			}else{
@@ -1037,6 +1039,10 @@ public class CustomerController implements Serializable{
 	public void cancleAddMember(){
 		log.info("##### cancleAddMember()");
 		log.info("##### customerId = "+customerId);
+		upperLineId = 0;
+		flagUnder = 0;
+		chkSave = true;
+		
 		memberStr = "";
 		titleName = "";
 		starTitleName = "";
@@ -1063,7 +1069,8 @@ public class CustomerController implements Serializable{
 		starSide = "";
 		side = 0;
 		starRecomendId = "";
-		recomendId = "";
+		recomendStrId = "";
+		recomendId = 0;
 		starRecomendName = "";
 		recomendName = "";
 		addressNo = "";
@@ -1158,7 +1165,6 @@ public class CustomerController implements Serializable{
 			districtIdSendDoc = -1;
 			addressPostCodeSendDoc = "";
 		}
-		
 	}
 
 	public void confirmAddMember(){
@@ -1181,51 +1187,160 @@ public class CustomerController implements Serializable{
 		log.info("##### amphurId = "+amphurId);
 		log.info("##### districtId = "+districtId);
 		log.info("##### addressPostCode = "+addressPostCode);
-//		try{
-//			MemberCustomer cusUpper = em.find(MemberCustomer.class, new Integer(new BigDecimal(upperLineId).intValue()));
-//			if((flagUnder==1 && cusUpper.getLowerLeftId()==null)
-//					|| (flagUnder==2 && cusUpper.getLowerRightId()==null)){
-//				MemberCustomer cus = new MemberCustomer();
-//				int max = customerControl.customerIdInsert();
-//				cus.setCustomerId(max);
-//				memberStr = df.format(max);
-//				cus.setCustomerMember(memberStr);
-//				cus.setUpperId(new BigDecimal(upperLineId).intValue());
-//				cus.setLowerLeftId(null);
-//				cus.setLowerRightId(null);
-//				cus.setRecommendId(null);
-//				cus.setPositionId(5);
-//				cus.setScore(0);
-//				cus.setRegisDate(regisDate);
-//				cus.setTitleName(titleName);
-//				cus.setFirstName(firstName);
-//				
-//				
-//				
-//				
-//				
-//				cus.setStatus(0);
-//				cus.setCreateBy(user.get().getUserId());
-//				cus.setCreateDate(new Date());
-//				cus.setUpdateBy(user.get().getUserId());
-//				cus.setUpdateDate(new Date());
-//				em.persist(cus);
-//				if(flagUnder == 1){
-//					cusUpper.setLowerLeftId(max);
-//				}else if(flagUnder == 2){
-//					cusUpper.setLowerRightId(max);
-//				}
-//				em.merge(cusUpper);
+		try{
+			MemberCustomer cusUpper = em.find(MemberCustomer.class, new Integer(new BigDecimal(upperLineId).intValue()));
+			if((flagUnder==1 && cusUpper.getLowerLeftId()==null)
+					|| (flagUnder==2 && cusUpper.getLowerRightId()==null)){
+				MemberCustomer cus = new MemberCustomer();
+				int max = customerControl.customerIdInsert();
+				cus.setCustomerId(max);
+				memberStr = df.format(max);
+				cus.setCustomerMember(memberStr);
+				cus.setUpperId(new BigDecimal(upperLineId).intValue());
+				cus.setLowerLeftId(null);
+				cus.setLowerRightId(null);
+				cus.setRecommendId(recomendId);
+				cus.setPositionId(5);
+				cus.setScore(0);
+				cus.setRegisDate(regisDate);
+				cus.setTitleName(titleName);
+				cus.setFirstName(firstName);
+				
+				cus.setSex(sex);
+				cus.setBirthDay(birthDay);
+				cus.setNationality(nationality);
+				cus.setPersonalId(personalId);
+				cus.setCompanyID(companyID);
+				cus.setTelephone(telephone);
+				cus.setMobile(mobile);
+				cus.setFax(fax);
+				cus.setEmail(email);
+				cus.setAddressNo(addressNo);
+				cus.setAddressBuilding(addressBuilding);
+				cus.setAddressVillage(addressVillage);
+				cus.setAddressLane(addressLane);
+				cus.setAddressRoad(addressRoad);
+				cus.setProvinceId(provinceId);
+				cus.setAmphurId(amphurId);
+				cus.setDistrictId(districtId);
+				cus.setAddressNoSendDoc(addressNoSendDoc);
+				cus.setAddressBuildingSendDoc(addressBuildingSendDoc);
+				cus.setAddressVillageSendDoc(addressVillageSendDoc);
+				cus.setAddressLaneSendDoc(addressLaneSendDoc);
+				cus.setAddressRoadSendDoc(addressRoadSendDoc);
+				cus.setProvinceIdSendDoc(provinceIdSendDoc);
+				cus.setAmphurIdSendDoc(amphurIdSendDoc);
+				cus.setDistrictIdSendDoc(districtIdSendDoc);
+				cus.setChkSameAddress(chkSameAddress?1:0);
+				cus.setBankId(bankId);
+				cus.setBankBranch(branch);
+				cus.setBankaccountType(accType);
+				cus.setBankaccountNo(accNo);
+				cus.setBankaccountName(accName);
+				cus.setRemark(remark);
+				cus.setReceiveDocument(receiveDocument);
+				cus.setDateDocumentFully(chkDocumentFully?dateDocumentFully:null);
+				cus.setDateCopyPersonalCard(chkCopyPersonalCard?dateCopyPersonalCard:null);
+				cus.setDateCopyBookBank(chkCopyBookBank?dateCopyBookBank:null);
+				
+				cus.setStatus(0);
+				cus.setCreateBy(user.get().getUserId());
+				cus.setCreateDate(new Date());
+				cus.setUpdateBy(user.get().getUserId());
+				cus.setUpdateDate(new Date());
+				em.persist(cus);
+				if(flagUnder == 1){
+					cusUpper.setLowerLeftId(max);
+				}else if(flagUnder == 2){
+					cusUpper.setLowerRightId(max);
+				}
+				em.merge(cusUpper);
 //				messages.info(new AppBundleKey("error.label.addMemberSuccess",FacesContext.getCurrentInstance().getViewRoot().getLocale().getLanguage()));
-//				genTreeModel();
-//			}
-//		}catch(Exception e){
-//			e.printStackTrace();
-//			messages.error(new AppBundleKey("error.label.addMemberFail",FacesContext.getCurrentInstance().getViewRoot().getLocale().getLanguage()));
-//		}
+				genTreeModel();
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			messages.error(new AppBundleKey("error.label.addMemberFail",FacesContext.getCurrentInstance().getViewRoot().getLocale().getLanguage()));
+		}
 		upperLineId = 0;
 		flagUnder = 0;
 		chkSave = true;
+		
+		memberStr = "";
+		titleName = "";
+		starTitleName = "";
+		firstName = "";
+		starFirstName = "";
+		businessName = "";
+		regisDate = null;
+		sex = 0;
+		starSex = "";
+		starBirthDay = "";
+		birthDay = null;
+		nationality = "";
+		starPersonalId = "";
+		personalId = "";
+		companyID = "";
+		telephone = "";
+		mobile = "";
+		fax = "";
+		email = "";
+		starUpperLineId = "";
+		upperLineMemberId = "";
+		starUpperLineName = "";
+		upperLineName = "";
+		starSide = "";
+		side = 0;
+		starRecomendId = "";
+		recomendStrId = "";
+		recomendId = 0;
+		starRecomendName = "";
+		recomendName = "";
+		addressNo = "";
+		addressBuilding = "";
+		addressVillage = "";
+		addressLane = "";
+		addressRoad = "";
+		starProvince = "";
+		provinceId = -1;
+		starAmphur = "";
+		amphurId = -1;
+		starDistrict = "";
+		districtId = -1;
+		addressPostCode = "";
+		addressNoSendDoc = "";
+		addressBuildingSendDoc = "";
+		addressVillageSendDoc = "";
+		addressLaneSendDoc = "";
+		addressRoadSendDoc = "";
+		starProvinceSendDoc = "";
+		provinceIdSendDoc = -1;
+		starAmphurSendDoc = "";
+		amphurIdSendDoc = -1;
+		starDistrictSendDoc = "";
+		districtIdSendDoc = -1;
+		addressPostCodeSendDoc = "";
+		bankId = -1;
+		branch = "";
+		accType = 1;
+		accNo = "";
+		accName = "";
+		remark = "";
+		receiveDocument = 0;
+		starDocumentFully = "";
+		chkDocumentFully = false;
+		dateDocumentFully = null;
+		chkCopyPersonalCard = false;
+		dateCopyPersonalCard = null;
+		chkCopyBookBank = false;
+		dateCopyBookBank = null;
+		upperLineId = 0;
+		flagUnder = 0;
+		chkSave = false;
+		amphurList = null;
+		districtList = null;
+		amphurSendDocList = null;
+		districtSendDocList = null;
 	}
 
 	public void onKeypress(){
@@ -1639,14 +1754,6 @@ public class CustomerController implements Serializable{
 		this.starRecomendId = starRecomendId;
 	}
 
-	public String getRecomendId() {
-		return recomendId;
-	}
-
-	public void setRecomendId(String recomendId) {
-		this.recomendId = recomendId;
-	}
-
 	public String getStarRecomendName() {
 		return starRecomendName;
 	}
@@ -2030,4 +2137,14 @@ public class CustomerController implements Serializable{
 	public void setChkSameAddress(boolean chkSameAddress) {
 		this.chkSameAddress = chkSameAddress;
 	}
+
+	public String getRecomendStrId() {
+		return recomendStrId;
+	}
+
+	public void setRecomendStrId(String recomendStrId) {
+		this.recomendStrId = recomendStrId;
+	}
+	
+	
 }
