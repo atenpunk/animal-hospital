@@ -4,6 +4,10 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 public class CustomerModel implements Serializable {
 	
 	private long customerId;
@@ -28,6 +32,9 @@ public class CustomerModel implements Serializable {
     private String flagImg01;
     private String flagImg02;
     private String flagImg03;
+    private Date dateDocumentFully;
+    private Date dateCopyPersonalCard;
+    private Date dateCopyBookBank;
     
 	public long getCustomerId() {
 		return customerId;
@@ -160,6 +167,24 @@ public class CustomerModel implements Serializable {
 	}
 	public void setFlagImg03(String flagImg03) {
 		this.flagImg03 = flagImg03;
+	}
+	public Date getDateDocumentFully() {
+		return dateDocumentFully;
+	}
+	public void setDateDocumentFully(Date dateDocumentFully) {
+		this.dateDocumentFully = dateDocumentFully;
+	}
+	public Date getDateCopyPersonalCard() {
+		return dateCopyPersonalCard;
+	}
+	public void setDateCopyPersonalCard(Date dateCopyPersonalCard) {
+		this.dateCopyPersonalCard = dateCopyPersonalCard;
+	}
+	public Date getDateCopyBookBank() {
+		return dateCopyBookBank;
+	}
+	public void setDateCopyBookBank(Date dateCopyBookBank) {
+		this.dateCopyBookBank = dateCopyBookBank;
 	}	
 	
 }
