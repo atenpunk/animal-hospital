@@ -53,20 +53,30 @@
 			<redirect />
 		</navigation-case>
 	</navigation-rule>
-	
+
 	<navigation-rule id="addToTree">
-	<from-view-id>/sec/add/add.xhtml</from-view-id>
-	<navigation-case>
+		<from-view-id>/sec/add/add.xhtml</from-view-id>
+		<navigation-case>
 			<from-action>#{customerController.confirmAddMember()}</from-action>
 			<if>#{true}</if>
 			<to-view-id>/sec/customer/tree.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
 	</navigation-rule>
-	
+
+	<navigation-rule id="cancleAddToTree">
+		<from-view-id>/sec/add/add.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{customerController.cancleAddMember()}</from-action>
+			<if>#{true}</if>
+			<to-view-id>/sec/customer/tree.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
 	<navigation-rule id="treeToAdd">
-	<from-view-id>/sec/customer/tree.xhtml</from-view-id>
-	<navigation-case>
+		<from-view-id>/sec/customer/tree.xhtml</from-view-id>
+		<navigation-case>
 			<from-action>#{customerController.viewAddMember}</from-action>
 			<if>#{true}</if>
 			<to-view-id>/sec/add/add.xhtml</to-view-id>

@@ -45,5 +45,13 @@
     TARGET="rules:#sec#customer#tree.xhtml"
     TITLE="#{customerController.confirmAddMember()}:[any]" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
+  <PROCESS-ITEM ID="rules:#sec#add#add.xhtml:1" NAME="item1"
+   PATH="/sec/add/add.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID=":#{customerController.cancleAddMember()}:#sec#customer#tree.xhtml"
+    NAME="output" PATH="/sec/customer/tree.xhtml"
+    TARGET="rules:#sec#customer#tree.xhtml"
+    TITLE="#{customerController.cancleAddMember()}:[any]" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
  </PROCESS-ITEM>
 </PROCESS>
