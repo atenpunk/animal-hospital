@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	template="/WEB-INF/templates/template.xhtml">
+	<h:outputStylesheet>
+        .tooltip {
+        background-color: #{ a4jSkin.generalBackgroundColor};
+        border-width:3px;
+        }
+        .tooltip-custom-body {
+        background-color: orange;
+        }
+ 
+        .tooltip-text {
+        width: 350px;
+        height: 80px;
+        cursor: arrow;
+        border-width: 2px;
+        text-align: center;
+        display: table-cell;
+        vertical-align: middle;
+        }
+ 
+        .tooltipData {
+        font-weight: bold;
+        }
+    </h:outputStylesheet>
+	<ui:define name="content">
+		<h:form>
+			<rich:panel id="mainPanel" style="overflow: scroll;">
+				<table>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+				</table>
+				<rich:panel id="panelTree" style="border: 0px; width : 1500px;">
+					<h:outputText id="htmlStuff" value="#{treeSuggestController.html}"
+						escape="false" />
+				</rich:panel>
+			</rich:panel>
+		</h:form>
+	</ui:define>
+
+</ui:composition>
