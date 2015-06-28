@@ -46,6 +46,11 @@
 		<view-id>/sec/customer/profile.jsf</view-id>
 	</url-mapping>
 	
+	<url-mapping id="changePassword_01">
+		<pattern value="/user/passwd"></pattern>
+		<view-id>/sec/user/passwd.jsf</view-id>
+	</url-mapping>
+	
 	<url-mapping id="tree_02">
 		<pattern value="/customer/tree/#{id:customerController.customerId}"></pattern>
 		<view-id>/sec/customer/tree.jsf</view-id>

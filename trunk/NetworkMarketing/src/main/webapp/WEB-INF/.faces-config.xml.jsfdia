@@ -64,4 +64,14 @@
     TITLE="#{editCustomerController.cancleEditMember()}:[any]" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#sec#user#passwd.xhtml"
+  PATH="/sec/user/passwd.xhtml" SHAPE="256,145,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#sec#user#passwd.xhtml:0" NAME="item"
+   PATH="/sec/user/passwd.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID=":#{passwordValidationController.storeNewPassword()}:#login.xhtml"
+    NAME="output" PATH="/login.xhtml" TARGET="rules:#login.xhtml"
+    TITLE="#{passwordValidationController.storeNewPassword()}:[any]" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
 </PROCESS>
