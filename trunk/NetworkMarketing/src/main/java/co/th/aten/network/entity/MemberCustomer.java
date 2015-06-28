@@ -195,6 +195,14 @@ public class MemberCustomer implements Serializable {
     @Column(name = "date_Copy_Book_Bank")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateCopyBookBank;
+    @Column(name = "business_name")
+    private String businessName;
+    @Column(name = "chk_Document_Fully")
+    private Integer chkDocumentFully;
+    @Column(name = "chk_Copy_Personal_Card")
+    private Integer chkCopyPersonalCard;
+    @Column(name = "chk_Copy_Book_Bank")
+    private Integer chkCopyBookBank;
 
     public MemberCustomer() {
     }
@@ -627,7 +635,39 @@ public class MemberCustomer implements Serializable {
         this.dateCopyBookBank = dateCopyBookBank;
     }
 
-    @Override
+    public String getBusinessName() {
+		return businessName;
+	}
+
+	public void setBusinessName(String businessName) {
+		this.businessName = businessName;
+	}
+
+	public Integer getChkDocumentFully() {
+		return chkDocumentFully;
+	}
+
+	public void setChkDocumentFully(Integer chkDocumentFully) {
+		this.chkDocumentFully = chkDocumentFully;
+	}
+
+	public Integer getChkCopyPersonalCard() {
+		return chkCopyPersonalCard;
+	}
+
+	public void setChkCopyPersonalCard(Integer chkCopyPersonalCard) {
+		this.chkCopyPersonalCard = chkCopyPersonalCard;
+	}
+
+	public Integer getChkCopyBookBank() {
+		return chkCopyBookBank;
+	}
+
+	public void setChkCopyBookBank(Integer chkCopyBookBank) {
+		this.chkCopyBookBank = chkCopyBookBank;
+	}
+
+	@Override
     public int hashCode() {
         int hash = 0;
         hash += (customerId != null ? customerId.hashCode() : 0);

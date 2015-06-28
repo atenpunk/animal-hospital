@@ -1199,6 +1199,24 @@ public class CustomerController implements Serializable{
 			addressPostCodeSendDoc = "";
 		}
 	}
+	
+	public void checkDocumentRegis(){
+		if(!chkDocumentFully){
+			dateDocumentFully = null;
+		}
+	}
+	
+	public void checkDocumentPersonalCard(){
+		if(!chkCopyPersonalCard){
+			dateCopyPersonalCard = null;
+		}
+	}
+	
+	public void checkDocumentBookBank(){
+		if(!chkCopyBookBank){
+			dateCopyBookBank = null;
+		}
+	}
 
 	public void confirmAddMember(){
 		log.info("##### addCustomer()");
@@ -1238,6 +1256,7 @@ public class CustomerController implements Serializable{
 				cus.setRegisDate(regisDate);
 				cus.setTitleName(titleName);
 				cus.setFirstName(firstName);
+				cus.setBusinessName(businessName);
 				
 				cus.setSex(sex);
 				cus.setBirthDay(birthDay);
@@ -1272,6 +1291,9 @@ public class CustomerController implements Serializable{
 				cus.setBankaccountName(accName);
 				cus.setRemark(remark);
 				cus.setReceiveDocument(receiveDocument);
+				cus.setChkDocumentFully(chkDocumentFully?1:0);
+				cus.setChkCopyPersonalCard(chkCopyPersonalCard?1:0);
+				cus.setChkCopyBookBank(chkCopyBookBank?1:0);
 				cus.setDateDocumentFully(chkDocumentFully?dateDocumentFully:null);
 				cus.setDateCopyPersonalCard(chkCopyPersonalCard?dateCopyPersonalCard:null);
 				cus.setDateCopyBookBank(chkCopyBookBank?dateCopyBookBank:null);
