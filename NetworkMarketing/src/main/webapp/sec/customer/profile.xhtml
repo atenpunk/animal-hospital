@@ -7,10 +7,11 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	template="/WEB-INF/templates/template.xhtml">
 	<ui:define name="content">
+		<br />
 		<h:form id="addLine">
 			<rich:panel>
 				<f:facet name="header">
-					<h:outputText value="#{app_msgs['label.pageAddMember.header']}" />
+					<h:outputText value="#{app_msgs['label.pageEditMember.header']}" />
 				</f:facet>
 				<h:panelGrid columns="2">
 
@@ -21,22 +22,22 @@
 						</f:facet>
 						<h:panelGrid columns="3">
 							<h:outputText value="#{app_msgs['label.pageAddMember.upLineId']}" />
-							<h:outputText value="#{customerController.starUpperLineId}"
+							<h:outputText value="#{editCustomerController.starUpperLineId}"
 								id="starUpperLineId" style="COLOR: #ff0000;" />
-							<h:inputText value="#{customerController.upperLineMemberId}"
+							<h:inputText value="#{editCustomerController.upperLineMemberId}"
 								disabled="true" style=" width : 80px;" />
 
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.upLineName']}" />
-							<h:outputText value="#{customerController.starUpperLineName}"
+							<h:outputText value="#{editCustomerController.starUpperLineName}"
 								id="starUpperLineName" style="COLOR: #ff0000;" />
-							<h:inputText value="#{customerController.upperLineName}"
+							<h:inputText value="#{editCustomerController.upperLineName}"
 								disabled="true" style=" width : 150px;" />
 
 							<h:outputText value="#{app_msgs['label.pageAddMember.side']}" />
-							<h:outputText value="#{customerController.starSide}"
+							<h:outputText value="#{editCustomerController.starSide}"
 								id="starSide" style="COLOR: #ff0000;" />
-							<h:selectOneRadio value="#{customerController.side}"
+							<h:selectOneRadio value="#{editCustomerController.side}"
 								disabled="true">
 								<f:selectItem itemValue="1"
 									itemLabel="#{app_msgs['label.pageAddMember.left']}" />
@@ -51,35 +52,21 @@
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.detailRecommend']}" />
 						</f:facet>
-						<h:panelGrid columns="5" id="panelRecommendId">
+						<h:panelGrid columns="3" id="panelRecommendId">
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.recommendId']}" />
-							<h:outputText value="#{customerController.starRecomendId}"
+							<h:outputText value="#{editCustomerController.starRecomendId}"
 								id="starRecomendId" style="COLOR: #ff0000;" />
-							<h:inputText value="#{customerController.recomendStrId}"
-								style=" width : 80px;" />
-							<a4j:commandButton value="#{app_msgs['button.search']}"
-								action="#{customerController.findRecomend()}"
-								render="panelRecommendId"></a4j:commandButton>
-							<a4j:status>
-								<f:facet name="start">
-									<h:graphicImage value="/resources/gfx/spinner.gif" />
-								</f:facet>
-							</a4j:status>
-
+							<h:inputText value="#{editCustomerController.recomendStrId}"
+								disabled="true" style=" width : 80px;" />
 
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.recommendName']}" />
-							<h:outputText value="#{customerController.starRecomendName}"
+							<h:outputText value="#{editCustomerController.starRecomendName}"
 								id="starRecomendName" style="COLOR: #ff0000;" />
 							<h:inputText id="recomendNameId"
-								value="#{customerController.recomendName}"
+								value="#{editCustomerController.recomendName}" disabled="true"
 								style=" width : 150px;" />
-							<h:outputText value="" />
-							<h:outputText value="" />
-							<h:outputText value="" />
-							<h:outputText value="" />
-							<h:messages style="color:red;margin:8px;" />
 						</h:panelGrid>
 					</rich:panel>
 				</h:panelGrid>
@@ -92,22 +79,21 @@
 						<h:panelGrid columns="7">
 							<h:outputText value="#{app_msgs['label.pageAddMember.memberId']}" />
 							<h:outputText value="" />
-							<h:inputText
-								value="#{app_msgs['label.pageAddMember.systemGenAuto']}"
+							<h:inputText value="#{editCustomerController.memberStr}"
 								disabled="true" style=" width : 80px;" />
 
 							<div style="width: 40px;"></div>
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.nationality']}" />
 							<h:outputText value="" />
-							<h:inputText value="#{customerController.nationality}" />
+							<h:inputText value="#{editCustomerController.nationality}" />
 
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.regisDate']}" />
 							<h:outputText value="" />
 							<a4j:outputPanel id="regisDay" layout="block">
 								<rich:calendar style=" width : 90px;"
-									value="#{customerController.regisDate}"
+									value="#{editCustomerController.regisDate}"
 									datePattern="dd/MM/yyyy" />
 							</a4j:outputPanel>
 
@@ -115,18 +101,18 @@
 							<div style="width: 40px;"></div>
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.personalIdPassport']}" />
-							<h:outputText value="#{customerController.starPersonalId}"
+							<h:outputText value="#{editCustomerController.starPersonalId}"
 								id="starPersonalId" style="COLOR: #ff0000;" />
-							<h:inputText value="#{customerController.personalId}" />
+							<h:inputText value="#{editCustomerController.personalId}" />
 
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.titleName']}" />
-							<h:outputText value="#{customerController.starTitleName}"
+							<h:outputText value="#{editCustomerController.starTitleName}"
 								id="starTitle" style="COLOR: #ff0000;" />
-							<h:inputText value="#{customerController.titleName}"
+							<h:inputText value="#{editCustomerController.titleName}"
 								style=" width : 80px;">
 								<a4j:ajax event="keyup" render="starTitle,saveId"
-									listener="#{customerController.onKeypress()}" />
+									listener="#{editCustomerController.onKeypress()}" />
 							</h:inputText>
 
 							<div style="width: 40px;"></div>
@@ -134,16 +120,16 @@
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.companyID']}" />
 							<h:outputText value="" />
-							<h:inputText value="#{customerController.companyID}" />
+							<h:inputText value="#{editCustomerController.companyID}" />
 
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.nameOrCompany']}" />
-							<h:outputText value="#{customerController.starFirstName}"
+							<h:outputText value="#{editCustomerController.starFirstName}"
 								id="starName" style="COLOR: #ff0000;" />
-							<h:inputText value="#{customerController.firstName}"
+							<h:inputText value="#{editCustomerController.firstName}"
 								style=" width : 150px;">
 								<a4j:ajax event="keyup" render="starName,saveId"
-									listener="#{customerController.onKeypress()}" />
+									listener="#{editCustomerController.onKeypress()}" />
 							</h:inputText>
 
 							<div style="width: 40px;"></div>
@@ -151,12 +137,12 @@
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.telephone']}" />
 							<h:outputText value="" />
-							<h:inputText value="#{customerController.telephone}" />
+							<h:inputText value="#{editCustomerController.telephone}" />
 
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.nameBusiness']}" />
 							<h:outputText value="" />
-							<h:inputText value="#{customerController.businessName}"
+							<h:inputText value="#{editCustomerController.businessName}"
 								style=" width : 150px;">
 							</h:inputText>
 
@@ -164,12 +150,12 @@
 
 							<h:outputText value="#{app_msgs['label.pageAddMember.mobile']}" />
 							<h:outputText value="" />
-							<h:inputText value="#{customerController.mobile}" />
+							<h:inputText value="#{editCustomerController.mobile}" />
 
 							<h:outputText value="#{app_msgs['label.pageAddMember.sex']}" />
-							<h:outputText value="#{customerController.starSex}" id="starSex"
-								style="COLOR: #ff0000;" />
-							<h:selectOneRadio value="#{customerController.sex}">
+							<h:outputText value="#{editCustomerController.starSex}"
+								id="starSex" style="COLOR: #ff0000;" />
+							<h:selectOneRadio value="#{editCustomerController.sex}">
 								<f:selectItem itemValue="1"
 									itemLabel="#{app_msgs['label.pageAddMember.male']}" />
 								<f:selectItem itemValue="2"
@@ -180,28 +166,29 @@
 
 							<h:outputText value="#{app_msgs['label.pageAddMember.fax']}" />
 							<h:outputText value="" />
-							<h:inputText value="#{customerController.fax}" />
+							<h:inputText value="#{editCustomerController.fax}" />
 
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.birthDate']}" />
-							<h:outputText value="#{customerController.starBirthDay}"
+							<h:outputText value="#{editCustomerController.starBirthDay}"
 								id="starBirthDay" style="COLOR: #ff0000;" />
 							<a4j:outputPanel id="birchDay" layout="block">
 								<rich:calendar style=" width : 90px;"
-									value="#{customerController.birthDay}" datePattern="dd/MM/yyyy" />
+									value="#{editCustomerController.birthDay}"
+									datePattern="dd/MM/yyyy" />
 							</a4j:outputPanel>
 
 							<div style="width: 40px;"></div>
 
 							<h:outputText value="#{app_msgs['label.pageAddMember.email']}" />
 							<h:outputText value="" />
-							<h:inputText value="#{customerController.email}" />
+							<h:inputText value="#{editCustomerController.email}" />
 
 						</h:panelGrid>
 					</rich:panel>
 				</h:panelGrid>
 				<h:panelGrid columns="2">
-					<rich:panel style=" width : 350px;height:270px;">
+					<rich:panel style=" width : 350px;height:280px;">
 						<f:facet name="header">
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.addressMember']}" />
@@ -210,73 +197,73 @@
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.addressNo']}" />
 							<h:outputText value="" />
-							<h:inputText value="#{customerController.addressNo}">
+							<h:inputText value="#{editCustomerController.addressNo}">
 								<a4j:ajax event="change" />
 							</h:inputText>
 
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.addressBuilding']}" />
 							<h:outputText value="" />
-							<h:inputText value="#{customerController.addressBuilding}">
+							<h:inputText value="#{editCustomerController.addressBuilding}">
 								<a4j:ajax event="change" />
 							</h:inputText>
 
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.addressVillage']}" />
 							<h:outputText value="" />
-							<h:inputText value="#{customerController.addressVillage}">
+							<h:inputText value="#{editCustomerController.addressVillage}">
 								<a4j:ajax event="change" />
 							</h:inputText>
 
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.addressLane']}" />
 							<h:outputText value="" />
-							<h:inputText value="#{customerController.addressLane}">
+							<h:inputText value="#{editCustomerController.addressLane}">
 								<a4j:ajax event="change" />
 							</h:inputText>
 
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.addressRoad']}" />
 							<h:outputText value="" />
-							<h:inputText value="#{customerController.addressRoad}">
+							<h:inputText value="#{editCustomerController.addressRoad}">
 								<a4j:ajax event="change" />
 							</h:inputText>
 
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.addressProvince']}" />
-							<h:outputText value="#{customerController.starProvince}"
+							<h:outputText value="#{editCustomerController.starProvince}"
 								id="starProvince" style="COLOR: #ff0000;" />
-							<h:selectOneMenu value="#{customerController.provinceId}"
+							<h:selectOneMenu value="#{editCustomerController.provinceId}"
 								style=" width : 150px;">
 								<a4j:ajax event="change" render="dropDownAmphur"
-									listener="#{customerController.onChangeProvince}" />
-								<f:selectItems value="#{customerController.provinceList}"
+									listener="#{editCustomerController.onChangeProvince}" />
+								<f:selectItems value="#{editCustomerController.provinceList}"
 									var="item" itemLabel="#{item.thLabel}"
 									itemValue="#{item.intKey}"></f:selectItems>
 							</h:selectOneMenu>
 
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.addressAmphur']}" />
-							<h:outputText value="#{customerController.starAmphur}"
+							<h:outputText value="#{editCustomerController.starAmphur}"
 								id="starAmphur" style="COLOR: #ff0000;" />
-							<h:selectOneMenu value="#{customerController.amphurId}"
+							<h:selectOneMenu value="#{editCustomerController.amphurId}"
 								id="dropDownAmphur" style=" width : 150px;">
 								<a4j:ajax event="change" render="dropDownDistrict"
-									listener="#{customerController.onChangeAmphur}" />
-								<f:selectItems value="#{customerController.amphurList}"
+									listener="#{editCustomerController.onChangeAmphur}" />
+								<f:selectItems value="#{editCustomerController.amphurList}"
 									var="item" itemLabel="#{item.thLabel}"
 									itemValue="#{item.intKey}"></f:selectItems>
 							</h:selectOneMenu>
 
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.addressDistrict']}" />
-							<h:outputText value="#{customerController.starDistrict}"
+							<h:outputText value="#{editCustomerController.starDistrict}"
 								id="starDistrict" style="COLOR: #ff0000;" />
-							<h:selectOneMenu value="#{customerController.districtId}"
+							<h:selectOneMenu value="#{editCustomerController.districtId}"
 								id="dropDownDistrict" style=" width : 150px;">
 								<a4j:ajax event="change" render="postCodeId"
-									listener="#{customerController.onChangeDistrict}" />
-								<f:selectItems value="#{customerController.districtList}"
+									listener="#{editCustomerController.onChangeDistrict}" />
+								<f:selectItems value="#{editCustomerController.districtList}"
 									var="item" itemLabel="#{item.thLabel}"
 									itemValue="#{item.intKey}"></f:selectItems>
 							</h:selectOneMenu>
@@ -285,20 +272,20 @@
 								value="#{app_msgs['label.pageAddMember.addressPostCode']}" />
 							<h:outputText value="" />
 							<h:inputText id="postCodeId"
-								value="#{customerController.addressPostCode}" />
+								value="#{editCustomerController.addressPostCode}" />
 						</h:panelGrid>
 					</rich:panel>
 
-					<rich:panel style=" width : 350px;height:270px;">
+					<rich:panel style=" width : 350px;height:280px;">
 						<f:facet name="header">
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.addressSendDocument']}" />
 						</f:facet>
 						<h:panelGrid columns="2">
 							<h:selectBooleanCheckbox
-								value="#{customerController.chkSameAddress}">
+								value="#{editCustomerController.chkSameAddress}">
 								<a4j:ajax event="click" render="panelAddressSendDocID"
-									listener="#{customerController.sameAddress}"></a4j:ajax>
+									listener="#{editCustomerController.sameAddress}"></a4j:ajax>
 							</h:selectBooleanCheckbox>
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.addressSendDocumentSame']}" />
@@ -307,63 +294,72 @@
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.addressNo']}" />
 							<h:outputText value="" />
-							<h:inputText value="#{customerController.addressNoSendDoc}" />
+							<h:inputText value="#{editCustomerController.addressNoSendDoc}" />
 
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.addressBuilding']}" />
 							<h:outputText value="" />
-							<h:inputText value="#{customerController.addressBuildingSendDoc}" />
+							<h:inputText
+								value="#{editCustomerController.addressBuildingSendDoc}" />
 
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.addressVillage']}" />
 							<h:outputText value="" />
-							<h:inputText value="#{customerController.addressVillageSendDoc}" />
+							<h:inputText
+								value="#{editCustomerController.addressVillageSendDoc}" />
 
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.addressLane']}" />
 							<h:outputText value="" />
-							<h:inputText value="#{customerController.addressLaneSendDoc}" />
+							<h:inputText value="#{editCustomerController.addressLaneSendDoc}" />
 
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.addressRoad']}" />
 							<h:outputText value="" />
-							<h:inputText value="#{customerController.addressRoadSendDoc}" />
+							<h:inputText value="#{editCustomerController.addressRoadSendDoc}" />
 
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.addressProvince']}" />
-							<h:outputText value="#{customerController.starProvinceSendDoc}"
+							<h:outputText
+								value="#{editCustomerController.starProvinceSendDoc}"
 								id="starProvinceSendDoc" style="COLOR: #ff0000;" />
-							<h:selectOneMenu value="#{customerController.provinceIdSendDoc}"
+							<h:selectOneMenu
+								value="#{editCustomerController.provinceIdSendDoc}"
 								style=" width : 150px;">
 								<a4j:ajax event="change" render="dropDownAmphurSendDoc"
-									listener="#{customerController.onChangeProvinceSendDoc}" />
-								<f:selectItems value="#{customerController.provinceSendDocList}"
+									listener="#{editCustomerController.onChangeProvinceSendDoc}" />
+								<f:selectItems
+									value="#{editCustomerController.provinceSendDocList}"
 									var="item" itemLabel="#{item.thLabel}"
 									itemValue="#{item.intKey}"></f:selectItems>
 							</h:selectOneMenu>
 
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.addressAmphur']}" />
-							<h:outputText value="#{customerController.starAmphurSendDoc}"
+							<h:outputText value="#{editCustomerController.starAmphurSendDoc}"
 								id="starAmphurSendDoc" style="COLOR: #ff0000;" />
-							<h:selectOneMenu value="#{customerController.amphurIdSendDoc}"
+							<h:selectOneMenu
+								value="#{editCustomerController.amphurIdSendDoc}"
 								id="dropDownAmphurSendDoc" style=" width : 150px;">
 								<a4j:ajax event="change" render="dropDownDistrictSendDoc"
-									listener="#{customerController.onChangeAmphurSendDoc}" />
-								<f:selectItems value="#{customerController.amphurSendDocList}"
-									var="item" itemLabel="#{item.thLabel}"
-									itemValue="#{item.intKey}"></f:selectItems>
+									listener="#{editCustomerController.onChangeAmphurSendDoc}" />
+								<f:selectItems
+									value="#{editCustomerController.amphurSendDocList}" var="item"
+									itemLabel="#{item.thLabel}" itemValue="#{item.intKey}"></f:selectItems>
 							</h:selectOneMenu>
 
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.addressDistrict']}" />
-							<h:outputText value="#{customerController.starDistrictSendDoc}"
+							<h:outputText
+								value="#{editCustomerController.starDistrictSendDoc}"
 								id="starDistrictSendDoc" style="COLOR: #ff0000;" />
-							<h:selectOneMenu value="#{customerController.districtIdSendDoc}"
+							<h:selectOneMenu
+								value="#{editCustomerController.districtIdSendDoc}"
 								id="dropDownDistrictSendDoc" style=" width : 150px;">
 								<a4j:ajax event="change" render="postCodeIdSendDoc"
-									listener="#{customerController.onChangeDistrictSendDoc}" />
-								<f:selectItems value="#{customerController.districtSendDocList}"
+									listener="#{editCustomerController.onChangeDistrictSendDoc}" />
+								<f:selectItems
+									value="#{editCustomerController.districtSendDocList}"
 									var="item" itemLabel="#{item.thLabel}"
 									itemValue="#{item.intKey}"></f:selectItems>
 							</h:selectOneMenu>
@@ -372,7 +368,7 @@
 								value="#{app_msgs['label.pageAddMember.addressPostCode']}" />
 							<h:outputText value="" />
 							<h:inputText id="postCodeIdSendDoc"
-								value="#{customerController.addressPostCodeSendDoc}" />
+								value="#{editCustomerController.addressPostCodeSendDoc}" />
 
 						</h:panelGrid>
 					</rich:panel>
@@ -385,34 +381,35 @@
 						<h:panelGrid columns="3">
 							<h:outputText value="#{app_msgs['label.pageAddMember.bank']}" />
 							<h:outputText value="" />
-							<h:selectOneMenu value="#{customerController.bankId}"
+							<h:selectOneMenu value="#{editCustomerController.bankId}"
 								style=" width : 150px;" id="dropDownBank">
-								<f:selectItems value="#{customerController.bankList}" var="item"
-									itemLabel="#{item.thLabel}" itemValue="#{item.intKey}"></f:selectItems>
+								<f:selectItems value="#{editCustomerController.bankList}"
+									var="item" itemLabel="#{item.thLabel}"
+									itemValue="#{item.intKey}"></f:selectItems>
 							</h:selectOneMenu>
 
 							<h:outputText value="#{app_msgs['label.pageAddMember.branch']}" />
 							<h:outputText value="" />
-							<h:inputText value="#{customerController.branch}" />
+							<h:inputText value="#{editCustomerController.branch}" />
 
 							<h:outputText value="#{app_msgs['label.pageAddMember.accType']}" />
 							<h:outputText value="" />
-							<h:selectOneRadio value="#{customerController.accType}">
+							<h:selectOneRadio value="#{editCustomerController.accType}">
 								<f:selectItem itemValue="1"
 									itemLabel="#{app_msgs['label.pageAddMember.accTypeSaving']}" />
 							</h:selectOneRadio>
 
 							<h:outputText value="#{app_msgs['label.pageAddMember.accNo']}" />
 							<h:outputText value="" />
-							<h:inputText value="#{customerController.accNo}" />
+							<h:inputText value="#{editCustomerController.accNo}" />
 
 							<h:outputText value="#{app_msgs['label.pageAddMember.accName']}" />
 							<h:outputText value="" />
-							<h:inputText value="#{customerController.accName}" />
+							<h:inputText value="#{editCustomerController.accName}" />
 
 							<h:outputText value="#{app_msgs['label.pageAddMember.remark']}" />
 							<h:outputText value="" />
-							<h:inputText value="#{customerController.remark}" />
+							<h:inputText value="#{editCustomerController.remark}" />
 						</h:panelGrid>
 
 					</rich:panel>
@@ -425,7 +422,8 @@
 						<h:panelGrid columns="2">
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.receiveDocument']}" />
-							<h:selectOneRadio value="#{customerController.receiveDocument}">
+							<h:selectOneRadio
+								value="#{editCustomerController.receiveDocument}">
 								<f:selectItem itemValue="1"
 									itemLabel="#{app_msgs['label.pageAddMember.delivery']}" />
 								<f:selectItem itemValue="2"
@@ -435,67 +433,73 @@
 						<h:panelGrid columns="5">
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.documentFully']}" />
-							<h:outputText value="#{customerController.starDocumentFully}"
+							<h:outputText value="#{editCustomerController.starDocumentFully}"
 								id="starDocumentFully" style="COLOR: #ff0000;" />
 							<h:selectBooleanCheckbox
-								value="#{customerController.chkDocumentFully}">
-								<a4j:ajax event="click" render="appDay,panelRecommendId"
-									listener="#{customerController.checkDocumentRegis}"></a4j:ajax>
+								value="#{editCustomerController.chkDocumentFully}">
+								<a4j:ajax event="click" render="appDay,panelGridEditId"
+									listener="#{editCustomerController.checkDocumentRegis}"></a4j:ajax>
 							</h:selectBooleanCheckbox>
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.application']}" />
 							<a4j:outputPanel id="appDay" layout="block">
 								<rich:calendar style=" width : 90px;"
-									disabled="#{not customerController.chkDocumentFully}"
-									value="#{customerController.dateDocumentFully}"
+									disabled="#{not editCustomerController.chkDocumentFully}"
+									value="#{editCustomerController.dateDocumentFully}"
 									datePattern="dd/MM/yyyy" />
 							</a4j:outputPanel>
 
 							<h:outputText value="" />
 							<h:outputText value="" />
 							<h:selectBooleanCheckbox
-								value="#{customerController.chkCopyPersonalCard}">
-								<a4j:ajax event="click" render="personalCardDay,panelRecommendId"
-									listener="#{customerController.checkDocumentPersonalCard}"></a4j:ajax>
+								value="#{editCustomerController.chkCopyPersonalCard}">
+								<a4j:ajax event="click" render="personalCardDay,panelGridEditId"
+									listener="#{editCustomerController.checkDocumentPersonalCard}"></a4j:ajax>
 							</h:selectBooleanCheckbox>
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.copyPersonalCard']}" />
 							<a4j:outputPanel id="personalCardDay" layout="block">
 								<rich:calendar style=" width : 90px;"
-									disabled="#{not customerController.chkCopyPersonalCard}"
-									value="#{customerController.dateCopyPersonalCard}"
+									disabled="#{not editCustomerController.chkCopyPersonalCard}"
+									value="#{editCustomerController.dateCopyPersonalCard}"
 									datePattern="dd/MM/yyyy" />
 							</a4j:outputPanel>
 
 							<h:outputText value="" />
 							<h:outputText value="" />
 							<h:selectBooleanCheckbox
-								value="#{customerController.chkCopyBookBank}">
-								<a4j:ajax event="click" render="bookBankDay,panelRecommendId"
-									listener="#{customerController.checkDocumentBookBank}"></a4j:ajax>
+								value="#{editCustomerController.chkCopyBookBank}">
+								<a4j:ajax event="click" render="bookBankDay,panelGridEditId"
+									listener="#{editCustomerController.checkDocumentBookBank}"></a4j:ajax>
 							</h:selectBooleanCheckbox>
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.copyBookBank']}" />
 							<a4j:outputPanel id="bookBankDay" layout="block">
-								<rich:calendar style=" width : 90px;" disabled="#{not customerController.chkCopyBookBank}"
-									value="#{customerController.dateCopyBookBank}"
+								<rich:calendar style=" width : 90px;" disabled="#{not editCustomerController.chkCopyBookBank}"
+									value="#{editCustomerController.dateCopyBookBank}"
 									datePattern="dd/MM/yyyy" />
 							</a4j:outputPanel>
 						</h:panelGrid>
 					</rich:panel>
 
 
-					<h:panelGrid columns="2">
-						<h:commandButton id="saveId"
-							disabled="#{customerController.chkSave}"
-							onclick="if (!confirm('#{messages['label.comfirm.save']}')) return false"
-							value="#{app_msgs['button.save']}"
-							action="#{customerController.confirmAddMember()}"
-							style=" width : 80px;" />
+					<h:panelGrid columns="4" id="panelGridEditId">
+						<a4j:commandButton id="saveId"
+							disabled="#{editCustomerController.chkSave}"
+							onclick="if (!confirm('#{app_msgs['label.comfirm.edit']}')) return false"
+							value="#{app_msgs['button.edit']}"
+							action="#{editCustomerController.confirmEditMember()}"
+							render="panelGridEditId" style=" width : 80px;" />
 						<h:commandButton id="cancleId"
 							value="#{app_msgs['button.cancle']}"
-							action="#{customerController.cancleAddMember()}"
+							action="#{editCustomerController.cancleEditMember()}"
 							style=" width : 80px;" />
+						<a4j:status>
+							<f:facet name="start">
+								<h:graphicImage value="/resources/gfx/spinner.gif" />
+							</f:facet>
+						</a4j:status>
+						<h:messages style="color:red;margin:8px;" />
 					</h:panelGrid>
 				</h:panelGrid>
 			</rich:panel>

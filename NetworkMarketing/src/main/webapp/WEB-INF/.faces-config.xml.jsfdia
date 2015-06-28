@@ -54,4 +54,14 @@
     TITLE="#{customerController.cancleAddMember()}:[any]" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#sec#customer#profile.xhtml"
+  PATH="/sec/customer/profile.xhtml" SHAPE="256,433,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#sec#customer#profile.xhtml:0" NAME="item"
+   PATH="/sec/customer/profile.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID=":#{editCustomerController.cancleEditMember()}:#sec#home.xhtml"
+    NAME="output" PATH="/sec/home.xhtml" TARGET="rules:#sec#home.xhtml"
+    TITLE="#{editCustomerController.cancleEditMember()}:[any]" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
 </PROCESS>

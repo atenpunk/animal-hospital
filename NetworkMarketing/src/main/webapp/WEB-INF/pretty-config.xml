@@ -41,6 +41,11 @@
 		<view-id>/sec/customer/tree.jsf</view-id>
 	</url-mapping>
 	
+	<url-mapping id="profile_01">
+		<pattern value="/customer/profile"></pattern>
+		<view-id>/sec/customer/profile.jsf</view-id>
+	</url-mapping>
+	
 	<url-mapping id="tree_02">
 		<pattern value="/customer/tree/#{id:customerController.customerId}"></pattern>
 		<view-id>/sec/customer/tree.jsf</view-id>

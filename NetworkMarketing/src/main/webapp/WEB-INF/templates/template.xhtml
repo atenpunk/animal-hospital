@@ -20,11 +20,13 @@
 			<h:panelGrid columns="2" cellpadding="2" cellspacing="2"
 				columnClasses="userColumn,logoColumn" styleClass="header">
 				<h:panelGroup>
-					<h:outputText value="#{app_msgs['user.welcome.label']}" style="FONT-WEIGHT: bold;"/>, &#160; <h:outputText
-						value="#{currentUser.userName}" style="FONT-WEIGHT: bold;"/>
+					<h:outputText value="#{app_msgs['user.welcome.label']}"
+						style="FONT-WEIGHT: bold;" />, &#160; <h:outputText
+						value="#{currentUser.userName}" style="FONT-WEIGHT: bold;" />
 					<br />
 					<br />
-					<h:outputText value="E-money" style="FONT-WEIGHT: bold;"/>&#160;&#160;<h:outputText value="0.00" style="FONT-WEIGHT: bold;"/>
+					<h:outputText value="E-money" style="FONT-WEIGHT: bold;" />&#160;&#160;<h:outputText
+						value="0.00" style="FONT-WEIGHT: bold;" />
 					<br />
 					<br />
 					<br />
@@ -42,7 +44,20 @@
 		</div>
 
 		<rich:toolbar height="26px">
-		<a href="#{request.contextPath}/">#{app_msgs['menu.label.home']}</a>
+			<a href="#{request.contextPath}/">#{app_msgs['menu.label.home']}</a>
+			<rich:dropDownMenu>
+				<f:facet name="label">
+					<h:panelGroup>
+						<h:outputText value="#{app_msgs['menu.label.profile']}" />
+					</h:panelGroup>
+				</f:facet>
+				<rich:menuItem submitMode="ajax"
+					label="#{app_msgs['menu.label.editProfile']}"
+					onclick="document.location.href='#{request.contextPath}/customer/profile'" />
+				<rich:menuItem submitMode="ajax"
+					label="#{app_msgs['menu.label.editPassword']}"
+					onclick="document.location.href=''" />
+			</rich:dropDownMenu>
 
 			<rich:toolbarGroup location="right">
 				<h:form>

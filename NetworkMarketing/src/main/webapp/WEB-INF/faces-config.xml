@@ -73,6 +73,16 @@
 			<redirect />
 		</navigation-case>
 	</navigation-rule>
+	
+	<navigation-rule id="cancleEditToHome">
+		<from-view-id>/sec/customer/profile.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{editCustomerController.cancleEditMember()}</from-action>
+			<if>#{true}</if>
+			<to-view-id>/sec/home.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
 
 	<navigation-rule id="treeToAdd">
 		<from-view-id>/sec/customer/tree.xhtml</from-view-id>
