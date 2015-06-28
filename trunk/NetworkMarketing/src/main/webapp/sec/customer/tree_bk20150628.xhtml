@@ -1,0 +1,1993 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	template="/WEB-INF/templates/template.xhtml">
+	<h:outputStylesheet>
+        .tooltip {
+        background-color: #{ a4jSkin.generalBackgroundColor};
+        border-width:3px;
+        }
+        .tooltip-custom-body {
+        background-color: orange;
+        }
+ 
+        .tooltip-text {
+        width: 350px;
+        height: 80px;
+        cursor: arrow;
+        border-width: 2px;
+        text-align: center;
+        display: table-cell;
+        vertical-align: middle;
+        }
+ 
+        .tooltipData {
+        font-weight: bold;
+        }
+    </h:outputStylesheet>
+	<ui:define name="content">
+		<h:form>
+			<rich:panel id="mainPanel">
+				<table>
+					<tr>
+						<td><rich:panel style=" width : 115px; height : 75px;">
+								<table>
+									<tr align="center">
+										<td></td>
+										<td><a4j:commandLink
+												actionListener="#{customerController.genTree('0',0)}"
+												render="mainPanel">
+												<h:graphicImage value="/resources/gfx/go_dup.gif" />
+											</a4j:commandLink></td>
+										<td></td>
+									</tr>
+									<tr align="center">
+										<td><a4j:commandLink
+												actionListener="#{customerController.genTree('1',0)}"
+												render="mainPanel">
+												<h:graphicImage value="/resources/gfx/go_left.gif" />
+											</a4j:commandLink></td>
+										<td><a4j:commandLink
+												actionListener="#{customerController.genTree('2',0)}"
+												render="mainPanel">
+												<h:graphicImage value="/resources/gfx/go_up.gif" />
+											</a4j:commandLink></td>
+										<td><a4j:commandLink
+												actionListener="#{customerController.genTree('3',0)}"
+												render="mainPanel">
+												<h:graphicImage value="/resources/gfx/go_right.gif" />
+											</a4j:commandLink></td>
+									</tr>
+								</table>
+							</rich:panel></td>
+						<td><h:inputText id="inputMemberId"
+								value="#{customerController.searchCustomer}">
+								<rich:placeholder
+									value="#{app_msgs['inputText.search.memberId']}" />
+							</h:inputText>&#160;<a4j:commandButton id="searchId"
+								value="#{app_msgs['button.search']}"
+								action="#{customerController.search}" render="mainPanel"
+								style=" width : 80px;"></a4j:commandButton></td>
+						<td><a4j:status>
+								<f:facet name="start">
+									<h:graphicImage value="/resources/gfx/spinner.gif" />
+								</f:facet>
+							</a4j:status></td>
+						<td><h:messages style="color:red;margin:8px;" /></td>
+					</tr>
+				</table>
+				<rich:panel id="panelTree" style="border: 0px;"
+					rendered="#{customerController.customerModel_01 ne null}">
+					<table>
+						<tr>
+							<td>
+								<div class="tree">
+									<ul>
+										<li><div
+												style="display: #{customerController.customerModel_01.flagImg02}">
+												<h:commandLink action="#{customerController.viewAddMember}"
+													class="tooltip">
+													<h:graphicImage
+														value="#{customerController.customerModel_01.positionImage}"
+														width="28px" height="28px" />
+													<span> <h:graphicImage class="callout"
+															value="/resources/gfx/callout.gif" /> <h:outputText
+															value="#{app_msgs['label.pageTree.clickAddMember']}" />
+													</span>
+													<a4j:param name="upperLineId"
+														value="#{customerController.customerModel_01.upperId}"
+														assignTo="#{customerController.upperLineId}" />
+													<a4j:param name="flagUnder" value="0"
+														assignTo="#{customerController.flagUnder}" />
+												</h:commandLink>
+											</div>
+											<div
+												style="display: #{customerController.customerModel_01.flagImg03}">
+												<a4j:commandLink styleClass="tooltip" render="mainPanel"
+													action="#{customerController.genTree('-1',customerController.customerModel_01.customerId)}">
+													<h:graphicImage
+														value="#{customerController.customerModel_01.positionImage}"
+														width="42px" height="42px" />
+													<br />
+													<h:outputText
+														value="#{customerController.customerModel_01.customerMember}" />
+													<br />
+													<h:outputText
+														value="#{customerController.customerModel_01.firstName}" />
+													<rich:tooltip styleClass="tooltip" layout="block">
+														<span style="white-space: nowrap"> <rich:dataTable
+																value="#{customerController.customerModel_01.detailModelList}"
+																var="item" rows="5">
+																<rich:column>
+																	<h:outputText value="#{item.text}" />
+																</rich:column>
+																<rich:column>
+																	<h:outputText value="#{item.value}">
+																	</h:outputText>
+																</rich:column>
+															</rich:dataTable>
+														</span>
+													</rich:tooltip>
+												</a4j:commandLink>
+											</div>
+											<ul>
+												<li>
+													<div
+														style="display: #{customerController.customerModel_02.flagImg02}">
+														<h:graphicImage
+															value="#{customerController.customerModel_02.positionImage}"
+															width="26px" height="26px" />
+													</div>
+													<div
+														style="display: #{customerController.customerModel_02.flagImg01}">
+														<h:commandLink
+															action="#{customerController.viewAddMember}"
+															class="tooltip">
+															<h:graphicImage
+																value="#{customerController.customerModel_02.positionImage}"
+																width="28px" height="28px" />
+															<span> <h:graphicImage class="callout"
+																	value="/resources/gfx/callout.gif" /> <h:outputText
+																	value="#{app_msgs['label.pageTree.clickAddMember']}" />
+															</span>
+															<a4j:param name="upperLineId"
+																value="#{customerController.customerModel_02.upperId}"
+																assignTo="#{customerController.upperLineId}" />
+															<a4j:param name="flagUnder" value="1"
+																assignTo="#{customerController.flagUnder}" />
+														</h:commandLink>
+													</div>
+													<div
+														style="display: #{customerController.customerModel_02.flagImg03}">
+														<a4j:commandLink styleClass="tooltip" render="mainPanel"
+															action="#{customerController.genTree('-1',customerController.customerModel_02.customerId)}">
+															<h:graphicImage
+																value="#{customerController.customerModel_02.positionImage}"
+																width="42px" height="42px" />
+															<br />
+															<h:outputText
+																rendered="#{customerController.customerModel_02.customerMember ne null}"
+																value="#{customerController.customerModel_02.customerMember}" />
+															<br />
+															<h:outputText
+																rendered="#{customerController.customerModel_02.firstName ne null}"
+																value="#{customerController.customerModel_02.firstName}" />
+															<rich:tooltip styleClass="tooltip" layout="block">
+																<span> <rich:dataTable
+																		value="#{customerController.customerModel_02.detailModelList}"
+																		var="item" rows="5">
+																		<rich:column>
+																			<h:outputText value="#{item.text}" />
+																		</rich:column>
+																		<rich:column>
+																			<h:outputText value="#{item.value}">
+																			</h:outputText>
+																		</rich:column>
+																	</rich:dataTable>
+																</span>
+															</rich:tooltip>
+														</a4j:commandLink>
+													</div>
+													<ul>
+														<li>
+															<div
+																style="display: #{customerController.customerModel_04.flagImg02}">
+																<h:graphicImage
+																	value="#{customerController.customerModel_04.positionImage}"
+																	width="26px" height="26px" />
+															</div>
+															<div
+																style="display: #{customerController.customerModel_04.flagImg01}">
+																<h:commandLink
+																	action="#{customerController.viewAddMember}"
+																	class="tooltip">
+																	<h:graphicImage
+																		value="#{customerController.customerModel_04.positionImage}"
+																		width="28px" height="28px" />
+																	<span> <h:graphicImage class="callout"
+																			value="/resources/gfx/callout.gif" /> <h:outputText
+																			value="#{app_msgs['label.pageTree.clickAddMember']}" />
+																	</span>
+																	<a4j:param name="upperLineId"
+																		value="#{customerController.customerModel_04.upperId}"
+																		assignTo="#{customerController.upperLineId}" />
+																	<a4j:param name="flagUnder" value="1"
+																		assignTo="#{customerController.flagUnder}" />
+																</h:commandLink>
+															</div>
+															<div
+																style="display: #{customerController.customerModel_04.flagImg03}">
+																<a4j:commandLink styleClass="tooltip" render="mainPanel"
+																	action="#{customerController.genTree('-1',customerController.customerModel_04.customerId)}">
+																	<h:graphicImage
+																		value="#{customerController.customerModel_04.positionImage}"
+																		width="42px" height="42px" />
+																	<br />
+																	<h:outputText
+																		rendered="#{customerController.customerModel_04.customerMember ne null}"
+																		value="#{customerController.customerModel_04.customerMember}" />
+																	<br />
+																	<h:outputText
+																		rendered="#{customerController.customerModel_04.firstName ne null}"
+																		value="#{customerController.customerModel_04.firstName}" />
+																	<rich:tooltip styleClass="tooltip" layout="block">
+																		<span> <rich:dataTable
+																				value="#{customerController.customerModel_04.detailModelList}"
+																				var="item" rows="5">
+																				<rich:column>
+																					<h:outputText value="#{item.text}" />
+																				</rich:column>
+																				<rich:column>
+																					<h:outputText value="#{item.value}">
+																					</h:outputText>
+																				</rich:column>
+																			</rich:dataTable>
+																		</span>
+																	</rich:tooltip>
+																</a4j:commandLink>
+															</div>
+															<ul>
+																<li><div
+																		style="display: #{customerController.customerModel_08.flagImg02}">
+																		<h:graphicImage
+																			value="#{customerController.customerModel_08.positionImage}"
+																			width="26px" height="26px" />
+																	</div>
+																	<div
+																		style="display: #{customerController.customerModel_08.flagImg01}">
+																		<h:commandLink
+																			action="#{customerController.viewAddMember}"
+																			class="tooltip">
+																			<h:graphicImage
+																				value="#{customerController.customerModel_08.positionImage}"
+																				width="28px" height="28px" />
+																			<span> <h:graphicImage class="callout"
+																					value="/resources/gfx/callout.gif" /> <h:outputText
+																					value="#{app_msgs['label.pageTree.clickAddMember']}" />
+																			</span>
+																			<a4j:param name="upperLineId"
+																				value="#{customerController.customerModel_08.upperId}"
+																				assignTo="#{customerController.upperLineId}" />
+																			<a4j:param name="flagUnder" value="1"
+																				assignTo="#{customerController.flagUnder}" />
+																		</h:commandLink>
+																	</div>
+																	<div
+																		style="display: #{customerController.customerModel_08.flagImg03}">
+																		<a4j:commandLink styleClass="tooltip"
+																			render="mainPanel"
+																			action="#{customerController.genTree('-1',customerController.customerModel_08.customerId)}">
+																			<h:graphicImage
+																				value="#{customerController.customerModel_08.positionImage}"
+																				width="42px" height="42px" />
+																			<br />
+																			<h:outputText
+																				rendered="#{customerController.customerModel_08.customerMember ne null}"
+																				value="#{customerController.customerModel_08.customerMember}" />
+																			<br />
+																			<h:outputText
+																				rendered="#{customerController.customerModel_08.firstName ne null}"
+																				value="#{customerController.customerModel_08.firstName}" />
+																			<rich:tooltip styleClass="tooltip" layout="block">
+																				<span> <rich:dataTable
+																						value="#{customerController.customerModel_08.detailModelList}"
+																						var="item" rows="5">
+																						<rich:column>
+																							<h:outputText value="#{item.text}" />
+																						</rich:column>
+																						<rich:column>
+																							<h:outputText value="#{item.value}">
+																							</h:outputText>
+																						</rich:column>
+																					</rich:dataTable>
+																				</span>
+																			</rich:tooltip>
+																		</a4j:commandLink>
+																	</div> <!-- 
+																	<ul>
+																<li><div
+																		style="display: #{customerController.customerModel_4_16.flagImg02}">
+																		<h:graphicImage
+																			value="#{customerController.customerModel_4_16.positionImage}"
+																			width="26px" height="26px" />
+																	</div>
+																	<div
+																		style="display: #{customerController.customerModel_4_16.flagImg01}">
+																		<h:commandLink
+															action="#{customerController.viewAddMember}"
+															class="tooltip">
+															<h:graphicImage
+																value="#{customerController.customerModel_4_16.positionImage}"
+																width="28px" height="28px" />
+															<span> <h:graphicImage class="callout"
+																	value="/resources/gfx/callout.gif" /> <h:outputText
+																	value="#{app_msgs['label.pageTree.clickAddMember']}" />
+															</span>
+															<a4j:param name="upperLineId"
+																value="#{customerController.customerModel_4_16.upperId}"
+																assignTo="#{customerController.upperLineId}" />
+															<a4j:param name="flagUnder" value="1"
+																assignTo="#{customerController.flagUnder}" />
+														</h:commandLink>
+																	</div>
+																	<div
+																		style="display: #{customerController.customerModel_4_16.flagImg03}">
+																		<a4j:commandLink styleClass="tooltip"
+																			render="mainPanel"
+																			action="#{customerController.genTree('-1',customerController.customerModel_4_16.customerId)}">
+																			<h:graphicImage
+																				value="#{customerController.customerModel_4_16.positionImage}"
+																				width="42px" height="42px" />
+																			<br />
+																			<h:outputText
+																				rendered="#{customerController.customerModel_4_16.customerMember ne null}"
+																				value="#{customerController.customerModel_4_16.customerMember}" />
+																			<br />
+																			<h:outputText
+																				rendered="#{customerController.customerModel_4_16.firstName ne null}"
+																				value="#{customerController.customerModel_4_16.firstName}" />
+																			<rich:tooltip styleClass="tooltip" layout="block">
+																				<span> <rich:dataTable
+																						value="#{customerController.customerModel_4_16.detailModelList}"
+																						var="item" rows="5">
+																						<rich:column>
+																							<h:outputText value="#{item.text}" />
+																						</rich:column>
+																						<rich:column>
+																							<h:outputText value="#{item.value}">
+																							</h:outputText>
+																						</rich:column>
+																					</rich:dataTable>
+																				</span>
+																			</rich:tooltip>
+																		</a4j:commandLink>
+																	</div>
+																	</li>
+																	
+																	<li><div
+																		style="display: #{customerController.customerModel_4_17.flagImg02}">
+																		<h:graphicImage
+																			value="#{customerController.customerModel_4_17.positionImage}"
+																			width="26px" height="26px" />
+																	</div>
+																	<div
+																		style="display: #{customerController.customerModel_4_17.flagImg01}">
+																		<h:commandLink
+															action="#{customerController.viewAddMember}"
+															class="tooltip">
+															<h:graphicImage
+																value="#{customerController.customerModel_4_17.positionImage}"
+																width="28px" height="28px" />
+															<span> <h:graphicImage class="callout"
+																	value="/resources/gfx/callout.gif" /> <h:outputText
+																	value="#{app_msgs['label.pageTree.clickAddMember']}" />
+															</span>
+															<a4j:param name="upperLineId"
+																value="#{customerController.customerModel_4_17.upperId}"
+																assignTo="#{customerController.upperLineId}" />
+															<a4j:param name="flagUnder" value="1"
+																assignTo="#{customerController.flagUnder}" />
+														</h:commandLink>
+																	</div>
+																	<div
+																		style="display: #{customerController.customerModel_4_17.flagImg03}">
+																		<a4j:commandLink styleClass="tooltip"
+																			render="mainPanel"
+																			action="#{customerController.genTree('-1',customerController.customerModel_4_17.customerId)}">
+																			<h:graphicImage
+																				value="#{customerController.customerModel_4_17.positionImage}"
+																				width="42px" height="42px" />
+																			<br />
+																			<h:outputText
+																				rendered="#{customerController.customerModel_4_17.customerMember ne null}"
+																				value="#{customerController.customerModel_4_17.customerMember}" />
+																			<br />
+																			<h:outputText
+																				rendered="#{customerController.customerModel_4_17.firstName ne null}"
+																				value="#{customerController.customerModel_4_17.firstName}" />
+																			<rich:tooltip styleClass="tooltip" layout="block">
+																				<span> <rich:dataTable
+																						value="#{customerController.customerModel_4_17.detailModelList}"
+																						var="item" rows="5">
+																						<rich:column>
+																							<h:outputText value="#{item.text}" />
+																						</rich:column>
+																						<rich:column>
+																							<h:outputText value="#{item.value}">
+																							</h:outputText>
+																						</rich:column>
+																					</rich:dataTable>
+																				</span>
+																			</rich:tooltip>
+																		</a4j:commandLink>
+																	</div>
+																	</li>
+																	</ul>
+																	 --></li>
+																<li><div
+																		style="display: #{customerController.customerModel_09.flagImg02}">
+																		<h:graphicImage
+																			value="#{customerController.customerModel_09.positionImage}"
+																			width="26px" height="26px" />
+																	</div>
+																	<div
+																		style="display: #{customerController.customerModel_09.flagImg01}">
+																		<h:commandLink
+																			action="#{customerController.viewAddMember}"
+																			class="tooltip">
+																			<h:graphicImage
+																				value="#{customerController.customerModel_09.positionImage}"
+																				width="28px" height="28px" />
+																			<span> <h:graphicImage class="callout"
+																					value="/resources/gfx/callout.gif" /> <h:outputText
+																					value="#{app_msgs['label.pageTree.clickAddMember']}" />
+																			</span>
+																			<a4j:param name="upperLineId"
+																				value="#{customerController.customerModel_09.upperId}"
+																				assignTo="#{customerController.upperLineId}" />
+																			<a4j:param name="flagUnder" value="2"
+																				assignTo="#{customerController.flagUnder}" />
+																		</h:commandLink>
+																	</div>
+																	<div
+																		style="display: #{customerController.customerModel_09.flagImg03}">
+																		<a4j:commandLink styleClass="tooltip"
+																			render="mainPanel"
+																			action="#{customerController.genTree('-1',customerController.customerModel_09.customerId)}">
+																			<h:graphicImage
+																				value="#{customerController.customerModel_09.positionImage}"
+																				width="42px" height="42px" />
+																			<br />
+																			<h:outputText
+																				rendered="#{customerController.customerModel_09.customerMember ne null}"
+																				value="#{customerController.customerModel_09.customerMember}" />
+																			<br />
+																			<h:outputText
+																				rendered="#{customerController.customerModel_09.firstName ne null}"
+																				value="#{customerController.customerModel_09.firstName}" />
+																			<rich:tooltip styleClass="tooltip" layout="block">
+																				<span> <rich:dataTable
+																						value="#{customerController.customerModel_09.detailModelList}"
+																						var="item" rows="5">
+																						<rich:column>
+																							<h:outputText value="#{item.text}" />
+																						</rich:column>
+																						<rich:column>
+																							<h:outputText value="#{item.value}">
+																							</h:outputText>
+																						</rich:column>
+																					</rich:dataTable>
+																				</span>
+																			</rich:tooltip>
+																		</a4j:commandLink>
+																	</div> <!-- 
+																	<ul>
+																<li><div
+																		style="display: #{customerController.customerModel_4_18.flagImg02}">
+																		<h:graphicImage
+																			value="#{customerController.customerModel_4_18.positionImage}"
+																			width="26px" height="26px" />
+																	</div>
+																	<div
+																		style="display: #{customerController.customerModel_4_18.flagImg01}">
+																		<h:commandLink
+															action="#{customerController.viewAddMember}"
+															class="tooltip">
+															<h:graphicImage
+																value="#{customerController.customerModel_4_18.positionImage}"
+																width="28px" height="28px" />
+															<span> <h:graphicImage class="callout"
+																	value="/resources/gfx/callout.gif" /> <h:outputText
+																	value="#{app_msgs['label.pageTree.clickAddMember']}" />
+															</span>
+															<a4j:param name="upperLineId"
+																value="#{customerController.customerModel_4_18.upperId}"
+																assignTo="#{customerController.upperLineId}" />
+															<a4j:param name="flagUnder" value="1"
+																assignTo="#{customerController.flagUnder}" />
+														</h:commandLink>
+																	</div>
+																	<div
+																		style="display: #{customerController.customerModel_4_18.flagImg03}">
+																		<a4j:commandLink styleClass="tooltip"
+																			render="mainPanel"
+																			action="#{customerController.genTree('-1',customerController.customerModel_4_18.customerId)}">
+																			<h:graphicImage
+																				value="#{customerController.customerModel_4_18.positionImage}"
+																				width="42px" height="42px" />
+																			<br />
+																			<h:outputText
+																				rendered="#{customerController.customerModel_4_18.customerMember ne null}"
+																				value="#{customerController.customerModel_4_18.customerMember}" />
+																			<br />
+																			<h:outputText
+																				rendered="#{customerController.customerModel_4_18.firstName ne null}"
+																				value="#{customerController.customerModel_4_18.firstName}" />
+																			<rich:tooltip styleClass="tooltip" layout="block">
+																				<span> <rich:dataTable
+																						value="#{customerController.customerModel_4_18.detailModelList}"
+																						var="item" rows="5">
+																						<rich:column>
+																							<h:outputText value="#{item.text}" />
+																						</rich:column>
+																						<rich:column>
+																							<h:outputText value="#{item.value}">
+																							</h:outputText>
+																						</rich:column>
+																					</rich:dataTable>
+																				</span>
+																			</rich:tooltip>
+																		</a4j:commandLink>
+																	</div>
+																	</li>
+																	
+																	<li><div
+																		style="display: #{customerController.customerModel_4_19.flagImg02}">
+																		<h:graphicImage
+																			value="#{customerController.customerModel_4_19.positionImage}"
+																			width="26px" height="26px" />
+																	</div>
+																	<div
+																		style="display: #{customerController.customerModel_4_19.flagImg01}">
+																		<h:commandLink
+															action="#{customerController.viewAddMember}"
+															class="tooltip">
+															<h:graphicImage
+																value="#{customerController.customerModel_4_19.positionImage}"
+																width="28px" height="28px" />
+															<span> <h:graphicImage class="callout"
+																	value="/resources/gfx/callout.gif" /> <h:outputText
+																	value="#{app_msgs['label.pageTree.clickAddMember']}" />
+															</span>
+															<a4j:param name="upperLineId"
+																value="#{customerController.customerModel_4_19.upperId}"
+																assignTo="#{customerController.upperLineId}" />
+															<a4j:param name="flagUnder" value="1"
+																assignTo="#{customerController.flagUnder}" />
+														</h:commandLink>
+																	</div>
+																	<div
+																		style="display: #{customerController.customerModel_4_19.flagImg03}">
+																		<a4j:commandLink styleClass="tooltip"
+																			render="mainPanel"
+																			action="#{customerController.genTree('-1',customerController.customerModel_4_19.customerId)}">
+																			<h:graphicImage
+																				value="#{customerController.customerModel_4_19.positionImage}"
+																				width="42px" height="42px" />
+																			<br />
+																			<h:outputText
+																				rendered="#{customerController.customerModel_4_19.customerMember ne null}"
+																				value="#{customerController.customerModel_4_19.customerMember}" />
+																			<br />
+																			<h:outputText
+																				rendered="#{customerController.customerModel_4_19.firstName ne null}"
+																				value="#{customerController.customerModel_4_19.firstName}" />
+																			<rich:tooltip styleClass="tooltip" layout="block">
+																				<span> <rich:dataTable
+																						value="#{customerController.customerModel_4_19.detailModelList}"
+																						var="item" rows="5">
+																						<rich:column>
+																							<h:outputText value="#{item.text}" />
+																						</rich:column>
+																						<rich:column>
+																							<h:outputText value="#{item.value}">
+																							</h:outputText>
+																						</rich:column>
+																					</rich:dataTable>
+																				</span>
+																			</rich:tooltip>
+																		</a4j:commandLink>
+																	</div>
+																	</li>
+																	</ul>
+																	 --></li>
+															</ul>
+														</li>
+														<li><div
+																style="display: #{customerController.customerModel_05.flagImg02}">
+																<h:graphicImage
+																	value="#{customerController.customerModel_05.positionImage}"
+																	width="26px" height="26px" />
+															</div>
+															<div
+																style="display: #{customerController.customerModel_05.flagImg01}">
+																<h:commandLink
+																	action="#{customerController.viewAddMember}"
+																	class="tooltip">
+																	<h:graphicImage
+																		value="#{customerController.customerModel_05.positionImage}"
+																		width="28px" height="28px" />
+																	<span> <h:graphicImage class="callout"
+																			value="/resources/gfx/callout.gif" /> <h:outputText
+																			value="#{app_msgs['label.pageTree.clickAddMember']}" />
+																	</span>
+																	<a4j:param name="upperLineId"
+																		value="#{customerController.customerModel_05.upperId}"
+																		assignTo="#{customerController.upperLineId}" />
+																	<a4j:param name="flagUnder" value="2"
+																		assignTo="#{customerController.flagUnder}" />
+																</h:commandLink>
+															</div>
+															<div
+																style="display: #{customerController.customerModel_05.flagImg03}">
+																<a4j:commandLink styleClass="tooltip" render="mainPanel"
+																	action="#{customerController.genTree('-1',customerController.customerModel_05.customerId)}">
+																	<h:graphicImage
+																		value="#{customerController.customerModel_05.positionImage}"
+																		width="42px" height="42px" />
+																	<br />
+																	<h:outputText
+																		rendered="#{customerController.customerModel_05.customerMember ne null}"
+																		value="#{customerController.customerModel_05.customerMember}" />
+																	<br />
+																	<h:outputText
+																		rendered="#{customerController.customerModel_05.firstName ne null}"
+																		value="#{customerController.customerModel_05.firstName}" />
+																	<rich:tooltip styleClass="tooltip" layout="block">
+																		<span> <rich:dataTable
+																				value="#{customerController.customerModel_05.detailModelList}"
+																				var="item" rows="5">
+																				<rich:column>
+																					<h:outputText value="#{item.text}" />
+																				</rich:column>
+																				<rich:column>
+																					<h:outputText value="#{item.value}">
+																					</h:outputText>
+																				</rich:column>
+																			</rich:dataTable>
+																		</span>
+																	</rich:tooltip>
+																</a4j:commandLink>
+															</div>
+															<ul>
+																<li><div
+																		style="display: #{customerController.customerModel_10.flagImg02}">
+																		<h:graphicImage
+																			value="#{customerController.customerModel_10.positionImage}"
+																			width="26px" height="26px" />
+																	</div>
+																	<div
+																		style="display: #{customerController.customerModel_10.flagImg01}">
+																		<h:commandLink
+																			action="#{customerController.viewAddMember}"
+																			class="tooltip">
+																			<h:graphicImage
+																				value="#{customerController.customerModel_10.positionImage}"
+																				width="28px" height="28px" />
+																			<span> <h:graphicImage class="callout"
+																					value="/resources/gfx/callout.gif" /> <h:outputText
+																					value="#{app_msgs['label.pageTree.clickAddMember']}" />
+																			</span>
+																			<a4j:param name="upperLineId"
+																				value="#{customerController.customerModel_10.upperId}"
+																				assignTo="#{customerController.upperLineId}" />
+																			<a4j:param name="flagUnder" value="1"
+																				assignTo="#{customerController.flagUnder}" />
+																		</h:commandLink>
+																	</div>
+																	<div
+																		style="display: #{customerController.customerModel_10.flagImg03}">
+																		<a4j:commandLink styleClass="tooltip"
+																			render="mainPanel"
+																			action="#{customerController.genTree('-1',customerController.customerModel_10.customerId)}">
+																			<h:graphicImage
+																				value="#{customerController.customerModel_10.positionImage}"
+																				width="42px" height="42px" />
+																			<br />
+																			<h:outputText
+																				rendered="#{customerController.customerModel_10.customerMember ne null}"
+																				value="#{customerController.customerModel_10.customerMember}" />
+																			<br />
+																			<h:outputText
+																				rendered="#{customerController.customerModel_10.firstName ne null}"
+																				value="#{customerController.customerModel_10.firstName}" />
+																			<rich:tooltip styleClass="tooltip" layout="block">
+																				<span> <rich:dataTable
+																						value="#{customerController.customerModel_10.detailModelList}"
+																						var="item" rows="5">
+																						<rich:column>
+																							<h:outputText value="#{item.text}" />
+																						</rich:column>
+																						<rich:column>
+																							<h:outputText value="#{item.value}">
+																							</h:outputText>
+																						</rich:column>
+																					</rich:dataTable>
+																				</span>
+																			</rich:tooltip>
+																		</a4j:commandLink>
+																	</div> <!-- 
+																	<ul>
+																<li><div
+																		style="display: #{customerController.customerModel_4_20.flagImg02}">
+																		<h:graphicImage
+																			value="#{customerController.customerModel_4_20.positionImage}"
+																			width="26px" height="26px" />
+																	</div>
+																	<div
+																		style="display: #{customerController.customerModel_4_20.flagImg01}">
+																		<h:commandLink
+															action="#{customerController.viewAddMember}"
+															class="tooltip">
+															<h:graphicImage
+																value="#{customerController.customerModel_4_20.positionImage}"
+																width="28px" height="28px" />
+															<span> <h:graphicImage class="callout"
+																	value="/resources/gfx/callout.gif" /> <h:outputText
+																	value="#{app_msgs['label.pageTree.clickAddMember']}" />
+															</span>
+															<a4j:param name="upperLineId"
+																value="#{customerController.customerModel_4_20.upperId}"
+																assignTo="#{customerController.upperLineId}" />
+															<a4j:param name="flagUnder" value="1"
+																assignTo="#{customerController.flagUnder}" />
+														</h:commandLink>
+																	</div>
+																	<div
+																		style="display: #{customerController.customerModel_4_20.flagImg03}">
+																		<a4j:commandLink styleClass="tooltip"
+																			render="mainPanel"
+																			action="#{customerController.genTree('-1',customerController.customerModel_4_20.customerId)}">
+																			<h:graphicImage
+																				value="#{customerController.customerModel_4_20.positionImage}"
+																				width="42px" height="42px" />
+																			<br />
+																			<h:outputText
+																				rendered="#{customerController.customerModel_4_20.customerMember ne null}"
+																				value="#{customerController.customerModel_4_20.customerMember}" />
+																			<br />
+																			<h:outputText
+																				rendered="#{customerController.customerModel_4_20.firstName ne null}"
+																				value="#{customerController.customerModel_4_20.firstName}" />
+																			<rich:tooltip styleClass="tooltip" layout="block">
+																				<span> <rich:dataTable
+																						value="#{customerController.customerModel_4_20.detailModelList}"
+																						var="item" rows="5">
+																						<rich:column>
+																							<h:outputText value="#{item.text}" />
+																						</rich:column>
+																						<rich:column>
+																							<h:outputText value="#{item.value}">
+																							</h:outputText>
+																						</rich:column>
+																					</rich:dataTable>
+																				</span>
+																			</rich:tooltip>
+																		</a4j:commandLink>
+																	</div>
+																	</li>
+																	
+																	<li><div
+																		style="display: #{customerController.customerModel_4_21.flagImg02}">
+																		<h:graphicImage
+																			value="#{customerController.customerModel_4_21.positionImage}"
+																			width="26px" height="26px" />
+																	</div>
+																	<div
+																		style="display: #{customerController.customerModel_4_21.flagImg01}">
+																		<h:commandLink
+															action="#{customerController.viewAddMember}"
+															class="tooltip">
+															<h:graphicImage
+																value="#{customerController.customerModel_4_21.positionImage}"
+																width="28px" height="28px" />
+															<span> <h:graphicImage class="callout"
+																	value="/resources/gfx/callout.gif" /> <h:outputText
+																	value="#{app_msgs['label.pageTree.clickAddMember']}" />
+															</span>
+															<a4j:param name="upperLineId"
+																value="#{customerController.customerModel_4_21.upperId}"
+																assignTo="#{customerController.upperLineId}" />
+															<a4j:param name="flagUnder" value="1"
+																assignTo="#{customerController.flagUnder}" />
+														</h:commandLink>
+																	</div>
+																	<div
+																		style="display: #{customerController.customerModel_4_21.flagImg03}">
+																		<a4j:commandLink styleClass="tooltip"
+																			render="mainPanel"
+																			action="#{customerController.genTree('-1',customerController.customerModel_4_21.customerId)}">
+																			<h:graphicImage
+																				value="#{customerController.customerModel_4_21.positionImage}"
+																				width="42px" height="42px" />
+																			<br />
+																			<h:outputText
+																				rendered="#{customerController.customerModel_4_21.customerMember ne null}"
+																				value="#{customerController.customerModel_4_21.customerMember}" />
+																			<br />
+																			<h:outputText
+																				rendered="#{customerController.customerModel_4_21.firstName ne null}"
+																				value="#{customerController.customerModel_4_21.firstName}" />
+																			<rich:tooltip styleClass="tooltip" layout="block">
+																				<span> <rich:dataTable
+																						value="#{customerController.customerModel_4_21.detailModelList}"
+																						var="item" rows="5">
+																						<rich:column>
+																							<h:outputText value="#{item.text}" />
+																						</rich:column>
+																						<rich:column>
+																							<h:outputText value="#{item.value}">
+																							</h:outputText>
+																						</rich:column>
+																					</rich:dataTable>
+																				</span>
+																			</rich:tooltip>
+																		</a4j:commandLink>
+																	</div>
+																	</li>
+																	</ul>
+																	 --></li>
+																<li><div
+																		style="display: #{customerController.customerModel_11.flagImg02}">
+																		<h:graphicImage
+																			value="#{customerController.customerModel_11.positionImage}"
+																			width="26px" height="26px" />
+																	</div>
+																	<div
+																		style="display: #{customerController.customerModel_11.flagImg01}">
+																		<h:commandLink
+																			action="#{customerController.viewAddMember}"
+																			class="tooltip">
+																			<h:graphicImage
+																				value="#{customerController.customerModel_11.positionImage}"
+																				width="28px" height="28px" />
+																			<span> <h:graphicImage class="callout"
+																					value="/resources/gfx/callout.gif" /> <h:outputText
+																					value="#{app_msgs['label.pageTree.clickAddMember']}" />
+																			</span>
+																			<a4j:param name="upperLineId"
+																				value="#{customerController.customerModel_11.upperId}"
+																				assignTo="#{customerController.upperLineId}" />
+																			<a4j:param name="flagUnder" value="2"
+																				assignTo="#{customerController.flagUnder}" />
+																		</h:commandLink>
+																	</div>
+																	<div
+																		style="display: #{customerController.customerModel_11.flagImg03}">
+																		<a4j:commandLink styleClass="tooltip"
+																			render="mainPanel"
+																			action="#{customerController.genTree('-1',customerController.customerModel_11.customerId)}">
+																			<h:graphicImage
+																				value="#{customerController.customerModel_11.positionImage}"
+																				width="42px" height="42px" />
+																			<br />
+																			<h:outputText
+																				rendered="#{customerController.customerModel_11.customerMember ne null}"
+																				value="#{customerController.customerModel_11.customerMember}" />
+																			<br />
+																			<h:outputText
+																				rendered="#{customerController.customerModel_11.firstName ne null}"
+																				value="#{customerController.customerModel_11.firstName}" />
+																			<rich:tooltip styleClass="tooltip" layout="block">
+																				<span> <rich:dataTable
+																						value="#{customerController.customerModel_11.detailModelList}"
+																						var="item" rows="5">
+																						<rich:column>
+																							<h:outputText value="#{item.text}" />
+																						</rich:column>
+																						<rich:column>
+																							<h:outputText value="#{item.value}">
+																							</h:outputText>
+																						</rich:column>
+																					</rich:dataTable>
+																				</span>
+																			</rich:tooltip>
+																		</a4j:commandLink>
+																	</div> <!-- 
+																	
+																	
+																	<ul>
+																<li><div
+																		style="display: #{customerController.customerModel_4_22.flagImg02}">
+																		<h:graphicImage
+																			value="#{customerController.customerModel_4_22.positionImage}"
+																			width="26px" height="26px" />
+																	</div>
+																	<div
+																		style="display: #{customerController.customerModel_4_22.flagImg01}">
+																		<h:commandLink
+															action="#{customerController.viewAddMember}"
+															class="tooltip">
+															<h:graphicImage
+																value="#{customerController.customerModel_4_22.positionImage}"
+																width="28px" height="28px" />
+															<span> <h:graphicImage class="callout"
+																	value="/resources/gfx/callout.gif" /> <h:outputText
+																	value="#{app_msgs['label.pageTree.clickAddMember']}" />
+															</span>
+															<a4j:param name="upperLineId"
+																value="#{customerController.customerModel_4_22.upperId}"
+																assignTo="#{customerController.upperLineId}" />
+															<a4j:param name="flagUnder" value="1"
+																assignTo="#{customerController.flagUnder}" />
+														</h:commandLink>
+																	</div>
+																	<div
+																		style="display: #{customerController.customerModel_4_22.flagImg03}">
+																		<a4j:commandLink styleClass="tooltip"
+																			render="mainPanel"
+																			action="#{customerController.genTree('-1',customerController.customerModel_4_22.customerId)}">
+																			<h:graphicImage
+																				value="#{customerController.customerModel_4_22.positionImage}"
+																				width="42px" height="42px" />
+																			<br />
+																			<h:outputText
+																				rendered="#{customerController.customerModel_4_22.customerMember ne null}"
+																				value="#{customerController.customerModel_4_22.customerMember}" />
+																			<br />
+																			<h:outputText
+																				rendered="#{customerController.customerModel_4_22.firstName ne null}"
+																				value="#{customerController.customerModel_4_22.firstName}" />
+																			<rich:tooltip styleClass="tooltip" layout="block">
+																				<span> <rich:dataTable
+																						value="#{customerController.customerModel_4_22.detailModelList}"
+																						var="item" rows="5">
+																						<rich:column>
+																							<h:outputText value="#{item.text}" />
+																						</rich:column>
+																						<rich:column>
+																							<h:outputText value="#{item.value}">
+																							</h:outputText>
+																						</rich:column>
+																					</rich:dataTable>
+																				</span>
+																			</rich:tooltip>
+																		</a4j:commandLink>
+																	</div>
+																	</li>
+																	
+																	<li><div
+																		style="display: #{customerController.customerModel_4_23.flagImg02}">
+																		<h:graphicImage
+																			value="#{customerController.customerModel_4_23.positionImage}"
+																			width="26px" height="26px" />
+																	</div>
+																	<div
+																		style="display: #{customerController.customerModel_4_23.flagImg01}">
+																		<h:commandLink
+															action="#{customerController.viewAddMember}"
+															class="tooltip">
+															<h:graphicImage
+																value="#{customerController.customerModel_4_23.positionImage}"
+																width="28px" height="28px" />
+															<span> <h:graphicImage class="callout"
+																	value="/resources/gfx/callout.gif" /> <h:outputText
+																	value="#{app_msgs['label.pageTree.clickAddMember']}" />
+															</span>
+															<a4j:param name="upperLineId"
+																value="#{customerController.customerModel_4_23.upperId}"
+																assignTo="#{customerController.upperLineId}" />
+															<a4j:param name="flagUnder" value="1"
+																assignTo="#{customerController.flagUnder}" />
+														</h:commandLink>
+																	</div>
+																	<div
+																		style="display: #{customerController.customerModel_4_23.flagImg03}">
+																		<a4j:commandLink styleClass="tooltip"
+																			render="mainPanel"
+																			action="#{customerController.genTree('-1',customerController.customerModel_4_23.customerId)}">
+																			<h:graphicImage
+																				value="#{customerController.customerModel_4_23.positionImage}"
+																				width="42px" height="42px" />
+																			<br />
+																			<h:outputText
+																				rendered="#{customerController.customerModel_4_23.customerMember ne null}"
+																				value="#{customerController.customerModel_4_23.customerMember}" />
+																			<br />
+																			<h:outputText
+																				rendered="#{customerController.customerModel_4_23.firstName ne null}"
+																				value="#{customerController.customerModel_4_23.firstName}" />
+																			<rich:tooltip styleClass="tooltip" layout="block">
+																				<span> <rich:dataTable
+																						value="#{customerController.customerModel_4_23.detailModelList}"
+																						var="item" rows="5">
+																						<rich:column>
+																							<h:outputText value="#{item.text}" />
+																						</rich:column>
+																						<rich:column>
+																							<h:outputText value="#{item.value}">
+																							</h:outputText>
+																						</rich:column>
+																					</rich:dataTable>
+																				</span>
+																			</rich:tooltip>
+																		</a4j:commandLink>
+																	</div>
+																	</li>
+																	</ul>
+																	 --></li>
+															</ul></li>
+													</ul>
+												</li>
+												<li>
+													<div
+														style="display: #{customerController.customerModel_03.flagImg02}">
+														<h:graphicImage
+															value="#{customerController.customerModel_03.positionImage}"
+															width="26px" height="26px" />
+													</div>
+													<div
+														style="display: #{customerController.customerModel_03.flagImg01}">
+														<h:commandLink
+															action="#{customerController.viewAddMember}"
+															class="tooltip">
+															<h:graphicImage
+																value="#{customerController.customerModel_03.positionImage}"
+																width="28px" height="28px" />
+															<span> <h:graphicImage class="callout"
+																	value="/resources/gfx/callout.gif" /> <h:outputText
+																	value="#{app_msgs['label.pageTree.clickAddMember']}" />
+															</span>
+															<a4j:param name="upperLineId"
+																value="#{customerController.customerModel_03.upperId}"
+																assignTo="#{customerController.upperLineId}" />
+															<a4j:param name="flagUnder" value="2"
+																assignTo="#{customerController.flagUnder}" />
+														</h:commandLink>
+													</div>
+													<div
+														style="display: #{customerController.customerModel_03.flagImg03}">
+														<a4j:commandLink styleClass="tooltip" render="mainPanel"
+															action="#{customerController.genTree('-1',customerController.customerModel_03.customerId)}">
+															<h:graphicImage
+																value="#{customerController.customerModel_03.positionImage}"
+																width="42px" height="42px" />
+															<br />
+															<h:outputText
+																rendered="#{customerController.customerModel_03.customerMember ne null}"
+																value="#{customerController.customerModel_03.customerMember}" />
+															<br />
+															<h:outputText
+																rendered="#{customerController.customerModel_03.firstName ne null}"
+																value="#{customerController.customerModel_03.firstName}" />
+															<rich:tooltip styleClass="tooltip" layout="block">
+																<span> <rich:dataTable
+																		value="#{customerController.customerModel_03.detailModelList}"
+																		var="item" rows="5">
+																		<rich:column>
+																			<h:outputText value="#{item.text}" />
+																		</rich:column>
+																		<rich:column>
+																			<h:outputText value="#{item.value}">
+																			</h:outputText>
+																		</rich:column>
+																	</rich:dataTable>
+																</span>
+															</rich:tooltip>
+														</a4j:commandLink>
+													</div>
+													<ul>
+														<li><div
+																style="display: #{customerController.customerModel_06.flagImg02}">
+																<h:graphicImage
+																	value="#{customerController.customerModel_06.positionImage}"
+																	width="26px" height="26px" />
+															</div>
+															<div
+																style="display: #{customerController.customerModel_06.flagImg01}">
+																<h:commandLink
+																	action="#{customerController.viewAddMember}"
+																	class="tooltip">
+																	<h:graphicImage
+																		value="#{customerController.customerModel_06.positionImage}"
+																		width="28px" height="28px" />
+																	<span> <h:graphicImage class="callout"
+																			value="/resources/gfx/callout.gif" /> <h:outputText
+																			value="#{app_msgs['label.pageTree.clickAddMember']}" />
+																	</span>
+																	<a4j:param name="upperLineId"
+																		value="#{customerController.customerModel_06.upperId}"
+																		assignTo="#{customerController.upperLineId}" />
+																	<a4j:param name="flagUnder" value="1"
+																		assignTo="#{customerController.flagUnder}" />
+																</h:commandLink>
+															</div>
+															<div
+																style="display: #{customerController.customerModel_06.flagImg03}">
+																<a4j:commandLink styleClass="tooltip" render="mainPanel"
+																	action="#{customerController.genTree('-1',customerController.customerModel_06.customerId)}">
+																	<h:graphicImage
+																		value="#{customerController.customerModel_06.positionImage}"
+																		width="42px" height="42px" />
+																	<br />
+																	<h:outputText
+																		rendered="#{customerController.customerModel_06.customerMember ne null}"
+																		value="#{customerController.customerModel_06.customerMember}" />
+																	<br />
+																	<h:outputText
+																		rendered="#{customerController.customerModel_06.firstName ne null}"
+																		value="#{customerController.customerModel_06.firstName}" />
+																	<rich:tooltip styleClass="tooltip" layout="block">
+																		<span> <rich:dataTable
+																				value="#{customerController.customerModel_06.detailModelList}"
+																				var="item" rows="5">
+																				<rich:column>
+																					<h:outputText value="#{item.text}" />
+																				</rich:column>
+																				<rich:column>
+																					<h:outputText value="#{item.value}">
+																					</h:outputText>
+																				</rich:column>
+																			</rich:dataTable>
+																		</span>
+																	</rich:tooltip>
+																</a4j:commandLink>
+															</div>
+															<ul>
+																<li><div
+																		style="display: #{customerController.customerModel_12.flagImg02}">
+																		<h:graphicImage
+																			value="#{customerController.customerModel_12.positionImage}"
+																			width="26px" height="26px" />
+																	</div>
+																	<div
+																		style="display: #{customerController.customerModel_12.flagImg01}">
+																		<h:commandLink
+																			action="#{customerController.viewAddMember}"
+																			class="tooltip">
+																			<h:graphicImage
+																				value="#{customerController.customerModel_12.positionImage}"
+																				width="28px" height="28px" />
+																			<span> <h:graphicImage class="callout"
+																					value="/resources/gfx/callout.gif" /> <h:outputText
+																					value="#{app_msgs['label.pageTree.clickAddMember']}" />
+																			</span>
+																			<a4j:param name="upperLineId"
+																				value="#{customerController.customerModel_12.upperId}"
+																				assignTo="#{customerController.upperLineId}" />
+																			<a4j:param name="flagUnder" value="1"
+																				assignTo="#{customerController.flagUnder}" />
+																		</h:commandLink>
+																	</div>
+																	<div
+																		style="display: #{customerController.customerModel_12.flagImg03}">
+																		<a4j:commandLink styleClass="tooltip"
+																			render="mainPanel"
+																			action="#{customerController.genTree('-1',customerController.customerModel_12.customerId)}">
+																			<h:graphicImage
+																				value="#{customerController.customerModel_12.positionImage}"
+																				width="42px" height="42px" />
+																			<br />
+																			<h:outputText
+																				rendered="#{customerController.customerModel_12.customerMember ne null}"
+																				value="#{customerController.customerModel_12.customerMember}" />
+																			<br />
+																			<h:outputText
+																				rendered="#{customerController.customerModel_12.firstName ne null}"
+																				value="#{customerController.customerModel_12.firstName}" />
+																			<rich:tooltip styleClass="tooltip" layout="block">
+																				<span> <rich:dataTable
+																						value="#{customerController.customerModel_12.detailModelList}"
+																						var="item" rows="5">
+																						<rich:column>
+																							<h:outputText value="#{item.text}" />
+																						</rich:column>
+																						<rich:column>
+																							<h:outputText value="#{item.value}">
+																							</h:outputText>
+																						</rich:column>
+																					</rich:dataTable>
+																				</span>
+																			</rich:tooltip>
+																		</a4j:commandLink>
+																	</div> <!-- 
+																	<ul>
+																<li><div
+																		style="display: #{customerController.customerModel_4_24.flagImg02}">
+																		<h:graphicImage
+																			value="#{customerController.customerModel_4_24.positionImage}"
+																			width="26px" height="26px" />
+																	</div>
+																	<div
+																		style="display: #{customerController.customerModel_4_24.flagImg01}">
+																		<h:commandLink
+															action="#{customerController.viewAddMember}"
+															class="tooltip">
+															<h:graphicImage
+																value="#{customerController.customerModel_4_24.positionImage}"
+																width="28px" height="28px" />
+															<span> <h:graphicImage class="callout"
+																	value="/resources/gfx/callout.gif" /> <h:outputText
+																	value="#{app_msgs['label.pageTree.clickAddMember']}" />
+															</span>
+															<a4j:param name="upperLineId"
+																value="#{customerController.customerModel_4_24.upperId}"
+																assignTo="#{customerController.upperLineId}" />
+															<a4j:param name="flagUnder" value="1"
+																assignTo="#{customerController.flagUnder}" />
+														</h:commandLink>
+																	</div>
+																	<div
+																		style="display: #{customerController.customerModel_4_24.flagImg03}">
+																		<a4j:commandLink styleClass="tooltip"
+																			render="mainPanel"
+																			action="#{customerController.genTree('-1',customerController.customerModel_4_24.customerId)}">
+																			<h:graphicImage
+																				value="#{customerController.customerModel_4_24.positionImage}"
+																				width="42px" height="42px" />
+																			<br />
+																			<h:outputText
+																				rendered="#{customerController.customerModel_4_24.customerMember ne null}"
+																				value="#{customerController.customerModel_4_24.customerMember}" />
+																			<br />
+																			<h:outputText
+																				rendered="#{customerController.customerModel_4_24.firstName ne null}"
+																				value="#{customerController.customerModel_4_24.firstName}" />
+																			<rich:tooltip styleClass="tooltip" layout="block">
+																				<span> <rich:dataTable
+																						value="#{customerController.customerModel_4_24.detailModelList}"
+																						var="item" rows="5">
+																						<rich:column>
+																							<h:outputText value="#{item.text}" />
+																						</rich:column>
+																						<rich:column>
+																							<h:outputText value="#{item.value}">
+																							</h:outputText>
+																						</rich:column>
+																					</rich:dataTable>
+																				</span>
+																			</rich:tooltip>
+																		</a4j:commandLink>
+																	</div>
+																	</li>
+																	
+																	<li><div
+																		style="display: #{customerController.customerModel_4_25.flagImg02}">
+																		<h:graphicImage
+																			value="#{customerController.customerModel_4_25.positionImage}"
+																			width="26px" height="26px" />
+																	</div>
+																	<div
+																		style="display: #{customerController.customerModel_4_25.flagImg01}">
+																		<h:commandLink
+															action="#{customerController.viewAddMember}"
+															class="tooltip">
+															<h:graphicImage
+																value="#{customerController.customerModel_4_25.positionImage}"
+																width="28px" height="28px" />
+															<span> <h:graphicImage class="callout"
+																	value="/resources/gfx/callout.gif" /> <h:outputText
+																	value="#{app_msgs['label.pageTree.clickAddMember']}" />
+															</span>
+															<a4j:param name="upperLineId"
+																value="#{customerController.customerModel_4_25.upperId}"
+																assignTo="#{customerController.upperLineId}" />
+															<a4j:param name="flagUnder" value="1"
+																assignTo="#{customerController.flagUnder}" />
+														</h:commandLink>
+																	</div>
+																	<div
+																		style="display: #{customerController.customerModel_4_25.flagImg03}">
+																		<a4j:commandLink styleClass="tooltip"
+																			render="mainPanel"
+																			action="#{customerController.genTree('-1',customerController.customerModel_4_25.customerId)}">
+																			<h:graphicImage
+																				value="#{customerController.customerModel_4_25.positionImage}"
+																				width="42px" height="42px" />
+																			<br />
+																			<h:outputText
+																				rendered="#{customerController.customerModel_4_25.customerMember ne null}"
+																				value="#{customerController.customerModel_4_25.customerMember}" />
+																			<br />
+																			<h:outputText
+																				rendered="#{customerController.customerModel_4_25.firstName ne null}"
+																				value="#{customerController.customerModel_4_25.firstName}" />
+																			<rich:tooltip styleClass="tooltip" layout="block">
+																				<span> <rich:dataTable
+																						value="#{customerController.customerModel_4_25.detailModelList}"
+																						var="item" rows="5">
+																						<rich:column>
+																							<h:outputText value="#{item.text}" />
+																						</rich:column>
+																						<rich:column>
+																							<h:outputText value="#{item.value}">
+																							</h:outputText>
+																						</rich:column>
+																					</rich:dataTable>
+																				</span>
+																			</rich:tooltip>
+																		</a4j:commandLink>
+																	</div>
+																	</li>
+																	</ul>
+																	 --></li>
+																<li><div
+																		style="display: #{customerController.customerModel_13.flagImg02}">
+																		<h:graphicImage
+																			value="#{customerController.customerModel_13.positionImage}"
+																			width="26px" height="26px" />
+																	</div>
+																	<div
+																		style="display: #{customerController.customerModel_13.flagImg01}">
+																		<h:commandLink
+																			action="#{customerController.viewAddMember}"
+																			class="tooltip">
+																			<h:graphicImage
+																				value="#{customerController.customerModel_13.positionImage}"
+																				width="28px" height="28px" />
+																			<span> <h:graphicImage class="callout"
+																					value="/resources/gfx/callout.gif" /> <h:outputText
+																					value="#{app_msgs['label.pageTree.clickAddMember']}" />
+																			</span>
+																			<a4j:param name="upperLineId"
+																				value="#{customerController.customerModel_13.upperId}"
+																				assignTo="#{customerController.upperLineId}" />
+																			<a4j:param name="flagUnder" value="2"
+																				assignTo="#{customerController.flagUnder}" />
+																		</h:commandLink>
+																	</div>
+																	<div
+																		style="display: #{customerController.customerModel_13.flagImg03}">
+																		<a4j:commandLink styleClass="tooltip"
+																			render="mainPanel"
+																			action="#{customerController.genTree('-1',customerController.customerModel_13.customerId)}">
+																			<h:graphicImage
+																				value="#{customerController.customerModel_13.positionImage}"
+																				width="42px" height="42px" />
+																			<br />
+																			<h:outputText
+																				rendered="#{customerController.customerModel_13.customerMember ne null}"
+																				value="#{customerController.customerModel_13.customerMember}" />
+																			<br />
+																			<h:outputText
+																				rendered="#{customerController.customerModel_13.firstName ne null}"
+																				value="#{customerController.customerModel_13.firstName}" />
+																			<rich:tooltip styleClass="tooltip" layout="block">
+																				<span> <rich:dataTable
+																						value="#{customerController.customerModel_13.detailModelList}"
+																						var="item" rows="5">
+																						<rich:column>
+																							<h:outputText value="#{item.text}" />
+																						</rich:column>
+																						<rich:column>
+																							<h:outputText value="#{item.value}">
+																							</h:outputText>
+																						</rich:column>
+																					</rich:dataTable>
+																				</span>
+																			</rich:tooltip>
+																		</a4j:commandLink>
+																	</div> <!-- 
+																	<ul>
+																<li><div
+																		style="display: #{customerController.customerModel_4_26.flagImg02}">
+																		<h:graphicImage
+																			value="#{customerController.customerModel_4_26.positionImage}"
+																			width="26px" height="26px" />
+																	</div>
+																	<div
+																		style="display: #{customerController.customerModel_4_26.flagImg01}">
+																		<h:commandLink
+															action="#{customerController.viewAddMember}"
+															class="tooltip">
+															<h:graphicImage
+																value="#{customerController.customerModel_4_26.positionImage}"
+																width="28px" height="28px" />
+															<span> <h:graphicImage class="callout"
+																	value="/resources/gfx/callout.gif" /> <h:outputText
+																	value="#{app_msgs['label.pageTree.clickAddMember']}" />
+															</span>
+															<a4j:param name="upperLineId"
+																value="#{customerController.customerModel_4_26.upperId}"
+																assignTo="#{customerController.upperLineId}" />
+															<a4j:param name="flagUnder" value="1"
+																assignTo="#{customerController.flagUnder}" />
+														</h:commandLink>
+																	</div>
+																	<div
+																		style="display: #{customerController.customerModel_4_26.flagImg03}">
+																		<a4j:commandLink styleClass="tooltip"
+																			render="mainPanel"
+																			action="#{customerController.genTree('-1',customerController.customerModel_4_26.customerId)}">
+																			<h:graphicImage
+																				value="#{customerController.customerModel_4_26.positionImage}"
+																				width="42px" height="42px" />
+																			<br />
+																			<h:outputText
+																				rendered="#{customerController.customerModel_4_26.customerMember ne null}"
+																				value="#{customerController.customerModel_4_26.customerMember}" />
+																			<br />
+																			<h:outputText
+																				rendered="#{customerController.customerModel_4_26.firstName ne null}"
+																				value="#{customerController.customerModel_4_26.firstName}" />
+																			<rich:tooltip styleClass="tooltip" layout="block">
+																				<span> <rich:dataTable
+																						value="#{customerController.customerModel_4_26.detailModelList}"
+																						var="item" rows="5">
+																						<rich:column>
+																							<h:outputText value="#{item.text}" />
+																						</rich:column>
+																						<rich:column>
+																							<h:outputText value="#{item.value}">
+																							</h:outputText>
+																						</rich:column>
+																					</rich:dataTable>
+																				</span>
+																			</rich:tooltip>
+																		</a4j:commandLink>
+																	</div>
+																	</li>
+																	
+																	<li><div
+																		style="display: #{customerController.customerModel_4_27.flagImg02}">
+																		<h:graphicImage
+																			value="#{customerController.customerModel_4_27.positionImage}"
+																			width="26px" height="26px" />
+																	</div>
+																	<div
+																		style="display: #{customerController.customerModel_4_27.flagImg01}">
+																		<h:commandLink
+															action="#{customerController.viewAddMember}"
+															class="tooltip">
+															<h:graphicImage
+																value="#{customerController.customerModel_4_27.positionImage}"
+																width="28px" height="28px" />
+															<span> <h:graphicImage class="callout"
+																	value="/resources/gfx/callout.gif" /> <h:outputText
+																	value="#{app_msgs['label.pageTree.clickAddMember']}" />
+															</span>
+															<a4j:param name="upperLineId"
+																value="#{customerController.customerModel_4_27.upperId}"
+																assignTo="#{customerController.upperLineId}" />
+															<a4j:param name="flagUnder" value="1"
+																assignTo="#{customerController.flagUnder}" />
+														</h:commandLink>
+																	</div>
+																	<div
+																		style="display: #{customerController.customerModel_4_27.flagImg03}">
+																		<a4j:commandLink styleClass="tooltip"
+																			render="mainPanel"
+																			action="#{customerController.genTree('-1',customerController.customerModel_4_27.customerId)}">
+																			<h:graphicImage
+																				value="#{customerController.customerModel_4_27.positionImage}"
+																				width="42px" height="42px" />
+																			<br />
+																			<h:outputText
+																				rendered="#{customerController.customerModel_4_27.customerMember ne null}"
+																				value="#{customerController.customerModel_4_27.customerMember}" />
+																			<br />
+																			<h:outputText
+																				rendered="#{customerController.customerModel_4_27.firstName ne null}"
+																				value="#{customerController.customerModel_4_27.firstName}" />
+																			<rich:tooltip styleClass="tooltip" layout="block">
+																				<span> <rich:dataTable
+																						value="#{customerController.customerModel_4_27.detailModelList}"
+																						var="item" rows="5">
+																						<rich:column>
+																							<h:outputText value="#{item.text}" />
+																						</rich:column>
+																						<rich:column>
+																							<h:outputText value="#{item.value}">
+																							</h:outputText>
+																						</rich:column>
+																					</rich:dataTable>
+																				</span>
+																			</rich:tooltip>
+																		</a4j:commandLink>
+																	</div>
+																	</li>
+																	</ul>
+																	 --></li>
+															</ul></li>
+														<li><div
+																style="display: #{customerController.customerModel_07.flagImg02}">
+																<h:graphicImage
+																	value="#{customerController.customerModel_07.positionImage}"
+																	width="26px" height="26px" />
+															</div>
+															<div
+																style="display: #{customerController.customerModel_07.flagImg01}">
+																<h:commandLink
+																	action="#{customerController.viewAddMember}"
+																	class="tooltip">
+																	<h:graphicImage
+																		value="#{customerController.customerModel_07.positionImage}"
+																		width="28px" height="28px" />
+																	<span> <h:graphicImage class="callout"
+																			value="/resources/gfx/callout.gif" /> <h:outputText
+																			value="#{app_msgs['label.pageTree.clickAddMember']}" />
+																	</span>
+																	<a4j:param name="upperLineId"
+																		value="#{customerController.customerModel_07.upperId}"
+																		assignTo="#{customerController.upperLineId}" />
+																	<a4j:param name="flagUnder" value="2"
+																		assignTo="#{customerController.flagUnder}" />
+																</h:commandLink>
+															</div>
+															<div
+																style="display: #{customerController.customerModel_07.flagImg03}">
+																<a4j:commandLink styleClass="tooltip" render="mainPanel"
+																	action="#{customerController.genTree('-1',customerController.customerModel_07.customerId)}">
+																	<h:graphicImage
+																		value="#{customerController.customerModel_07.positionImage}"
+																		width="42px" height="42px" />
+																	<br />
+																	<h:outputText
+																		rendered="#{customerController.customerModel_07.customerMember ne null}"
+																		value="#{customerController.customerModel_07.customerMember}" />
+																	<br />
+																	<h:outputText
+																		rendered="#{customerController.customerModel_07.firstName ne null}"
+																		value="#{customerController.customerModel_07.firstName}" />
+																	<rich:tooltip styleClass="tooltip" layout="block">
+																		<span> <rich:dataTable
+																				value="#{customerController.customerModel_07.detailModelList}"
+																				var="item" rows="5">
+																				<rich:column>
+																					<h:outputText value="#{item.text}" />
+																				</rich:column>
+																				<rich:column>
+																					<h:outputText value="#{item.value}">
+																					</h:outputText>
+																				</rich:column>
+																			</rich:dataTable>
+																		</span>
+																	</rich:tooltip>
+																</a4j:commandLink>
+															</div>
+															<ul>
+																<li><div
+																		style="display: #{customerController.customerModel_14.flagImg02}">
+																		<h:graphicImage
+																			value="#{customerController.customerModel_14.positionImage}"
+																			width="26px" height="26px" />
+																	</div>
+																	<div
+																		style="display: #{customerController.customerModel_14.flagImg01}">
+																		<h:commandLink
+																			action="#{customerController.viewAddMember}"
+																			class="tooltip">
+																			<h:graphicImage
+																				value="#{customerController.customerModel_14.positionImage}"
+																				width="28px" height="28px" />
+																			<span> <h:graphicImage class="callout"
+																					value="/resources/gfx/callout.gif" /> <h:outputText
+																					value="#{app_msgs['label.pageTree.clickAddMember']}" />
+																			</span>
+																			<a4j:param name="upperLineId"
+																				value="#{customerController.customerModel_14.upperId}"
+																				assignTo="#{customerController.upperLineId}" />
+																			<a4j:param name="flagUnder" value="1"
+																				assignTo="#{customerController.flagUnder}" />
+																		</h:commandLink>
+																	</div>
+																	<div
+																		style="display: #{customerController.customerModel_14.flagImg03}">
+																		<a4j:commandLink styleClass="tooltip"
+																			render="mainPanel"
+																			action="#{customerController.genTree('-1',customerController.customerModel_14.customerId)}">
+																			<h:graphicImage
+																				value="#{customerController.customerModel_14.positionImage}"
+																				width="42px" height="42px" />
+																			<br />
+																			<h:outputText
+																				rendered="#{customerController.customerModel_14.customerMember ne null}"
+																				value="#{customerController.customerModel_14.customerMember}" />
+																			<br />
+																			<h:outputText
+																				rendered="#{customerController.customerModel_14.firstName ne null}"
+																				value="#{customerController.customerModel_14.firstName}" />
+																			<rich:tooltip styleClass="tooltip" layout="block">
+																				<span> <rich:dataTable
+																						value="#{customerController.customerModel_14.detailModelList}"
+																						var="item" rows="5">
+																						<rich:column>
+																							<h:outputText value="#{item.text}" />
+																						</rich:column>
+																						<rich:column>
+																							<h:outputText value="#{item.value}">
+																							</h:outputText>
+																						</rich:column>
+																					</rich:dataTable>
+																				</span>
+																			</rich:tooltip>
+																		</a4j:commandLink>
+																	</div> <!-- 
+																	<ul>
+																<li><div
+																		style="display: #{customerController.customerModel_4_28.flagImg02}">
+																		<h:graphicImage
+																			value="#{customerController.customerModel_4_28.positionImage}"
+																			width="26px" height="26px" />
+																	</div>
+																	<div
+																		style="display: #{customerController.customerModel_4_28.flagImg01}">
+																		<h:commandLink
+															action="#{customerController.viewAddMember}"
+															class="tooltip">
+															<h:graphicImage
+																value="#{customerController.customerModel_4_28.positionImage}"
+																width="28px" height="28px" />
+															<span> <h:graphicImage class="callout"
+																	value="/resources/gfx/callout.gif" /> <h:outputText
+																	value="#{app_msgs['label.pageTree.clickAddMember']}" />
+															</span>
+															<a4j:param name="upperLineId"
+																value="#{customerController.customerModel_4_28.upperId}"
+																assignTo="#{customerController.upperLineId}" />
+															<a4j:param name="flagUnder" value="1"
+																assignTo="#{customerController.flagUnder}" />
+														</h:commandLink>
+																	</div>
+																	<div
+																		style="display: #{customerController.customerModel_4_28.flagImg03}">
+																		<a4j:commandLink styleClass="tooltip"
+																			render="mainPanel"
+																			action="#{customerController.genTree('-1',customerController.customerModel_4_28.customerId)}">
+																			<h:graphicImage
+																				value="#{customerController.customerModel_4_28.positionImage}"
+																				width="42px" height="42px" />
+																			<br />
+																			<h:outputText
+																				rendered="#{customerController.customerModel_4_28.customerMember ne null}"
+																				value="#{customerController.customerModel_4_28.customerMember}" />
+																			<br />
+																			<h:outputText
+																				rendered="#{customerController.customerModel_4_28.firstName ne null}"
+																				value="#{customerController.customerModel_4_28.firstName}" />
+																			<rich:tooltip styleClass="tooltip" layout="block">
+																				<span> <rich:dataTable
+																						value="#{customerController.customerModel_4_28.detailModelList}"
+																						var="item" rows="5">
+																						<rich:column>
+																							<h:outputText value="#{item.text}" />
+																						</rich:column>
+																						<rich:column>
+																							<h:outputText value="#{item.value}">
+																							</h:outputText>
+																						</rich:column>
+																					</rich:dataTable>
+																				</span>
+																			</rich:tooltip>
+																		</a4j:commandLink>
+																	</div>
+																	</li>
+																	
+																	<li><div
+																		style="display: #{customerController.customerModel_4_29.flagImg02}">
+																		<h:graphicImage
+																			value="#{customerController.customerModel_4_29.positionImage}"
+																			width="26px" height="26px" />
+																	</div>
+																	<div
+																		style="display: #{customerController.customerModel_4_29.flagImg01}">
+																		<h:commandLink
+															action="#{customerController.viewAddMember}"
+															class="tooltip">
+															<h:graphicImage
+																value="#{customerController.customerModel_4_29.positionImage}"
+																width="28px" height="28px" />
+															<span> <h:graphicImage class="callout"
+																	value="/resources/gfx/callout.gif" /> <h:outputText
+																	value="#{app_msgs['label.pageTree.clickAddMember']}" />
+															</span>
+															<a4j:param name="upperLineId"
+																value="#{customerController.customerModel_4_29.upperId}"
+																assignTo="#{customerController.upperLineId}" />
+															<a4j:param name="flagUnder" value="1"
+																assignTo="#{customerController.flagUnder}" />
+														</h:commandLink>
+																	</div>
+																	<div
+																		style="display: #{customerController.customerModel_4_29.flagImg03}">
+																		<a4j:commandLink styleClass="tooltip"
+																			render="mainPanel"
+																			action="#{customerController.genTree('-1',customerController.customerModel_4_29.customerId)}">
+																			<h:graphicImage
+																				value="#{customerController.customerModel_4_29.positionImage}"
+																				width="42px" height="42px" />
+																			<br />
+																			<h:outputText
+																				rendered="#{customerController.customerModel_4_29.customerMember ne null}"
+																				value="#{customerController.customerModel_4_29.customerMember}" />
+																			<br />
+																			<h:outputText
+																				rendered="#{customerController.customerModel_4_29.firstName ne null}"
+																				value="#{customerController.customerModel_4_29.firstName}" />
+																			<rich:tooltip styleClass="tooltip" layout="block">
+																				<span> <rich:dataTable
+																						value="#{customerController.customerModel_4_29.detailModelList}"
+																						var="item" rows="5">
+																						<rich:column>
+																							<h:outputText value="#{item.text}" />
+																						</rich:column>
+																						<rich:column>
+																							<h:outputText value="#{item.value}">
+																							</h:outputText>
+																						</rich:column>
+																					</rich:dataTable>
+																				</span>
+																			</rich:tooltip>
+																		</a4j:commandLink>
+																	</div>
+																	</li>
+																	</ul>
+																	 --></li>
+																<li><div
+																		style="display: #{customerController.customerModel_15.flagImg02}">
+																		<h:graphicImage
+																			value="#{customerController.customerModel_15.positionImage}"
+																			width="26px" height="26px" />
+																	</div>
+																	<div
+																		style="display: #{customerController.customerModel_15.flagImg01}">
+																		<h:commandLink
+																			action="#{customerController.viewAddMember}"
+																			class="tooltip">
+																			<h:graphicImage
+																				value="#{customerController.customerModel_15.positionImage}"
+																				width="28px" height="28px" />
+																			<span> <h:graphicImage class="callout"
+																					value="/resources/gfx/callout.gif" /> <h:outputText
+																					value="#{app_msgs['label.pageTree.clickAddMember']}" />
+																			</span>
+																			<a4j:param name="upperLineId"
+																				value="#{customerController.customerModel_15.upperId}"
+																				assignTo="#{customerController.upperLineId}" />
+																			<a4j:param name="flagUnder" value="2"
+																				assignTo="#{customerController.flagUnder}" />
+																		</h:commandLink>
+																	</div>
+																	<div
+																		style="display: #{customerController.customerModel_15.flagImg03}">
+																		<a4j:commandLink styleClass="tooltip"
+																			render="mainPanel"
+																			action="#{customerController.genTree('-1',customerController.customerModel_15.customerId)}">
+																			<h:graphicImage
+																				value="#{customerController.customerModel_15.positionImage}"
+																				width="42px" height="42px" />
+																			<br />
+																			<h:outputText
+																				rendered="#{customerController.customerModel_15.customerMember ne null}"
+																				value="#{customerController.customerModel_15.customerMember}" />
+																			<br />
+																			<h:outputText
+																				rendered="#{customerController.customerModel_15.firstName ne null}"
+																				value="#{customerController.customerModel_15.firstName}" />
+																			<rich:tooltip styleClass="tooltip" layout="block">
+																				<span> <rich:dataTable
+																						value="#{customerController.customerModel_15.detailModelList}"
+																						var="item" rows="5">
+																						<rich:column>
+																							<h:outputText value="#{item.text}" />
+																						</rich:column>
+																						<rich:column>
+																							<h:outputText value="#{item.value}">
+																							</h:outputText>
+																						</rich:column>
+																					</rich:dataTable>
+																				</span>
+																			</rich:tooltip>
+																		</a4j:commandLink>
+																	</div> <!-- 
+																	<ul>
+																<li><div
+																		style="display: #{customerController.customerModel_4_30.flagImg02}">
+																		<h:graphicImage
+																			value="#{customerController.customerModel_4_30.positionImage}"
+																			width="26px" height="26px" />
+																	</div>
+																	<div
+																		style="display: #{customerController.customerModel_4_30.flagImg01}">
+																		<h:commandLink
+															action="#{customerController.viewAddMember}"
+															class="tooltip">
+															<h:graphicImage
+																value="#{customerController.customerModel_4_30.positionImage}"
+																width="28px" height="28px" />
+															<span> <h:graphicImage class="callout"
+																	value="/resources/gfx/callout.gif" /> <h:outputText
+																	value="#{app_msgs['label.pageTree.clickAddMember']}" />
+															</span>
+															<a4j:param name="upperLineId"
+																value="#{customerController.customerModel_4_30.upperId}"
+																assignTo="#{customerController.upperLineId}" />
+															<a4j:param name="flagUnder" value="1"
+																assignTo="#{customerController.flagUnder}" />
+														</h:commandLink>
+																	</div>
+																	<div
+																		style="display: #{customerController.customerModel_4_30.flagImg03}">
+																		<a4j:commandLink styleClass="tooltip"
+																			render="mainPanel"
+																			action="#{customerController.genTree('-1',customerController.customerModel_4_30.customerId)}">
+																			<h:graphicImage
+																				value="#{customerController.customerModel_4_30.positionImage}"
+																				width="42px" height="42px" />
+																			<br />
+																			<h:outputText
+																				rendered="#{customerController.customerModel_4_30.customerMember ne null}"
+																				value="#{customerController.customerModel_4_30.customerMember}" />
+																			<br />
+																			<h:outputText
+																				rendered="#{customerController.customerModel_4_30.firstName ne null}"
+																				value="#{customerController.customerModel_4_30.firstName}" />
+																			<rich:tooltip styleClass="tooltip" layout="block">
+																				<span> <rich:dataTable
+																						value="#{customerController.customerModel_4_30.detailModelList}"
+																						var="item" rows="5">
+																						<rich:column>
+																							<h:outputText value="#{item.text}" />
+																						</rich:column>
+																						<rich:column>
+																							<h:outputText value="#{item.value}">
+																							</h:outputText>
+																						</rich:column>
+																					</rich:dataTable>
+																				</span>
+																			</rich:tooltip>
+																		</a4j:commandLink>
+																	</div>
+																	</li>
+																	
+																	<li><div
+																		style="display: #{customerController.customerModel_4_31.flagImg02}">
+																		<h:graphicImage
+																			value="#{customerController.customerModel_4_31.positionImage}"
+																			width="26px" height="26px" />
+																	</div>
+																	<div
+																		style="display: #{customerController.customerModel_4_31.flagImg01}">
+																		<h:commandLink
+															action="#{customerController.viewAddMember}"
+															class="tooltip">
+															<h:graphicImage
+																value="#{customerController.customerModel_4_31.positionImage}"
+																width="28px" height="28px" />
+															<span> <h:graphicImage class="callout"
+																	value="/resources/gfx/callout.gif" /> <h:outputText
+																	value="#{app_msgs['label.pageTree.clickAddMember']}" />
+															</span>
+															<a4j:param name="upperLineId"
+																value="#{customerController.customerModel_4_31.upperId}"
+																assignTo="#{customerController.upperLineId}" />
+															<a4j:param name="flagUnder" value="1"
+																assignTo="#{customerController.flagUnder}" />
+														</h:commandLink>
+																	</div>
+																	<div
+																		style="display: #{customerController.customerModel_4_31.flagImg03}">
+																		<a4j:commandLink styleClass="tooltip"
+																			render="mainPanel"
+																			action="#{customerController.genTree('-1',customerController.customerModel_4_31.customerId)}">
+																			<h:graphicImage
+																				value="#{customerController.customerModel_4_31.positionImage}"
+																				width="42px" height="42px" />
+																			<br />
+																			<h:outputText
+																				rendered="#{customerController.customerModel_4_31.customerMember ne null}"
+																				value="#{customerController.customerModel_4_31.customerMember}" />
+																			<br />
+																			<h:outputText
+																				rendered="#{customerController.customerModel_4_31.firstName ne null}"
+																				value="#{customerController.customerModel_4_31.firstName}" />
+																			<rich:tooltip styleClass="tooltip" layout="block">
+																				<span> <rich:dataTable
+																						value="#{customerController.customerModel_4_31.detailModelList}"
+																						var="item" rows="5">
+																						<rich:column>
+																							<h:outputText value="#{item.text}" />
+																						</rich:column>
+																						<rich:column>
+																							<h:outputText value="#{item.value}">
+																							</h:outputText>
+																						</rich:column>
+																					</rich:dataTable>
+																				</span>
+																			</rich:tooltip>
+																		</a4j:commandLink>
+																	</div>
+																	</li>
+																	</ul>
+																	 --></li>
+															</ul></li>
+													</ul>
+												</li>
+											</ul></li>
+									</ul>
+								</div>
+							</td>
+						</tr>
+					</table>
+				</rich:panel>
+				<h:panelGrid columns="2"
+					rendered="#{customerController.customerModel_01 ne null}">
+					<rich:panel style="width : 350px;height:170px;">
+						<h:panelGrid columns="2">
+							<h:outputText value="#{app_msgs['label.pageTree.memberStr']}"
+								style="FONT-WEIGHT: bold;" />
+							<h:outputText value="#{customerController.detailCustomerStr}" />
+							<h:outputText value="#{app_msgs['label.pageTree.regisDate']}"
+								style="FONT-WEIGHT: bold;" />
+							<h:outputText value="#{customerController.detailRegisDate}" />
+							<h:outputText value="#{app_msgs['label.pageTree.posRecomment']}"
+								style="FONT-WEIGHT: bold;" />
+							<h:outputText value="#{customerController.detailPosRecomment}" />
+							<h:outputText value="#{app_msgs['label.pageTree.posMatch']}"
+								style="FONT-WEIGHT: bold;" />
+							<h:outputText value="#{customerController.detailPosMatch}" />
+							<h:outputText value="#{app_msgs['label.pageTree.documentRegis']}"
+								style="FONT-WEIGHT: bold;" />
+							<h:outputText value="#{customerController.detailDocumentRegis}" />
+							<h:outputText
+								value="#{app_msgs['label.pageTree.documentPersonalCard']}"
+								style="FONT-WEIGHT: bold;" />
+							<h:outputText
+								value="#{customerController.detailDocumentPersonalCard}" />
+							<h:outputText
+								value="#{app_msgs['label.pageTree.documentBookBank']}"
+								style="FONT-WEIGHT: bold;" />
+							<h:outputText
+								value="#{customerController.detailDocumentBookBank}" />
+						</h:panelGrid>
+					</rich:panel>
+					<rich:panel style="width : 350px;height:170px;">
+						<h:panelGrid columns="4">
+							<h:outputText value="PV สะสม : " style="FONT-WEIGHT: bold;" />
+							<h:outputText value="0.00" />
+							<h:outputText value="" />
+							<h:outputText value="" />
+
+							<h:outputText value="PV ซ้าย (ยกมา) : "
+								style="FONT-WEIGHT: bold;" />
+							<h:outputText value="0.00" />
+							<h:outputText value="PV ขวา (ยกมา) : " style="FONT-WEIGHT: bold;" />
+							<h:outputText value="0.00" />
+
+							<h:outputText value="PV ซ้าย (ใหม่) : "
+								style="FONT-WEIGHT: bold;" />
+							<h:outputText value="0.00" />
+							<h:outputText value="PV ขวา (ใหม่) : " style="FONT-WEIGHT: bold;" />
+							<h:outputText value="0.00" />
+
+							<h:outputText value="PV ซ้าย (รวม) : " style="FONT-WEIGHT: bold;" />
+							<h:outputText value="0.00" />
+							<h:outputText value="PV ขวา (รวม) : " style="FONT-WEIGHT: bold;" />
+							<h:outputText value="0.00" />
+
+							<h:outputText value="" />
+							<h:outputText value="" />
+							<h:outputText value="" />
+							<h:outputText value="" />
+
+							<h:outputText value="" />
+							<h:outputText value="" />
+							<h:outputText value="" />
+							<h:outputText value="" />
+
+							<h:outputText value="" />
+							<h:outputText value="" />
+							<h:outputText value="" />
+							<h:outputText value="" />
+						</h:panelGrid>
+					</rich:panel>
+				</h:panelGrid>
+			</rich:panel>
+		</h:form>
+	</ui:define>
+
+</ui:composition>
