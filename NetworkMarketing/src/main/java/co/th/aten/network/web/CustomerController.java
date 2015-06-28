@@ -84,22 +84,22 @@ public class CustomerController implements Serializable{
 	private CustomerModel customerModel_14;
 	private CustomerModel customerModel_15;
 
-	private CustomerModel customerModel_4_16;
-	private CustomerModel customerModel_4_17;
-	private CustomerModel customerModel_4_18;
-	private CustomerModel customerModel_4_19;
-	private CustomerModel customerModel_4_20;
-	private CustomerModel customerModel_4_21;
-	private CustomerModel customerModel_4_22;
-	private CustomerModel customerModel_4_23;
-	private CustomerModel customerModel_4_24;
-	private CustomerModel customerModel_4_25;
-	private CustomerModel customerModel_4_26;
-	private CustomerModel customerModel_4_27;
-	private CustomerModel customerModel_4_28;
-	private CustomerModel customerModel_4_29;
-	private CustomerModel customerModel_4_30;
-	private CustomerModel customerModel_4_31;
+//	private CustomerModel customerModel_4_16;
+//	private CustomerModel customerModel_4_17;
+//	private CustomerModel customerModel_4_18;
+//	private CustomerModel customerModel_4_19;
+//	private CustomerModel customerModel_4_20;
+//	private CustomerModel customerModel_4_21;
+//	private CustomerModel customerModel_4_22;
+//	private CustomerModel customerModel_4_23;
+//	private CustomerModel customerModel_4_24;
+//	private CustomerModel customerModel_4_25;
+//	private CustomerModel customerModel_4_26;
+//	private CustomerModel customerModel_4_27;
+//	private CustomerModel customerModel_4_28;
+//	private CustomerModel customerModel_4_29;
+//	private CustomerModel customerModel_4_30;
+//	private CustomerModel customerModel_4_31;
 
 	private String html;
 	private long customerId;
@@ -427,6 +427,23 @@ public class CustomerController implements Serializable{
 		customerModel_13 = null;
 		customerModel_14 = null;
 		customerModel_15 = null;
+		
+//		customerModel_4_16 = null;
+//		customerModel_4_17 = null;
+//		customerModel_4_18 = null;
+//		customerModel_4_19 = null;
+//		customerModel_4_20 = null;
+//		customerModel_4_21 = null;
+//		customerModel_4_22 = null;
+//		customerModel_4_23 = null;
+//		customerModel_4_24 = null;
+//		customerModel_4_25 = null;
+//		customerModel_4_26 = null;
+//		customerModel_4_27 = null;
+//		customerModel_4_28 = null;
+//		customerModel_4_29 = null;
+//		customerModel_4_30 = null;
+//		customerModel_4_31 = null;
 		try{
 			if(searchCustomer!=null && searchCustomer.trim().length()>0){
 				MemberCustomer memSearch = null;
@@ -675,22 +692,22 @@ public class CustomerController implements Serializable{
 			customerModel_14 = null;
 			customerModel_15 = null;
 
-			customerModel_4_16 = null;
-			customerModel_4_17 = null;
-			customerModel_4_18 = null;
-			customerModel_4_19 = null;
-			customerModel_4_20 = null;
-			customerModel_4_21 = null;
-			customerModel_4_22 = null;
-			customerModel_4_23 = null;
-			customerModel_4_24 = null;
-			customerModel_4_25 = null;
-			customerModel_4_26 = null;
-			customerModel_4_27 = null;
-			customerModel_4_28 = null;
-			customerModel_4_29 = null;
-			customerModel_4_30 = null;
-			customerModel_4_31 = null;
+//			customerModel_4_16 = null;
+//			customerModel_4_17 = null;
+//			customerModel_4_18 = null;
+//			customerModel_4_19 = null;
+//			customerModel_4_20 = null;
+//			customerModel_4_21 = null;
+//			customerModel_4_22 = null;
+//			customerModel_4_23 = null;
+//			customerModel_4_24 = null;
+//			customerModel_4_25 = null;
+//			customerModel_4_26 = null;
+//			customerModel_4_27 = null;
+//			customerModel_4_28 = null;
+//			customerModel_4_29 = null;
+//			customerModel_4_30 = null;
+//			customerModel_4_31 = null;
 
 			customerModel_01 = setDataCustomerModel(getCustomerById(customerId));
 
@@ -715,25 +732,25 @@ public class CustomerController implements Serializable{
 						if(customerModel_04!=null){
 							if(customerModel_04.getLowerLeftId()!=0){
 								customerModel_08 = setDataCustomerModel(getCustomerById(customerModel_04.getLowerLeftId()));
-								if(customerModel_08!=null){
-									if(customerModel_08.getLowerLeftId()!=0){
-										customerModel_4_16 = setDataCustomerModel(getCustomerById(customerModel_08.getLowerLeftId()));
-									}
-									if(customerModel_08.getLowerRightId()!=0){
-										customerModel_4_17 = setDataCustomerModel(getCustomerById(customerModel_08.getLowerRightId()));
-									}
-								}
+//								if(customerModel_08!=null){
+//									if(customerModel_08.getLowerLeftId()!=0){
+//										customerModel_4_16 = setDataCustomerModel(getCustomerById(customerModel_08.getLowerLeftId()));
+//									}
+//									if(customerModel_08.getLowerRightId()!=0){
+//										customerModel_4_17 = setDataCustomerModel(getCustomerById(customerModel_08.getLowerRightId()));
+//									}
+//								}
 							}
 							if(customerModel_04.getLowerRightId()!=0){
 								customerModel_09 = setDataCustomerModel(getCustomerById(customerModel_04.getLowerRightId()));
-								if(customerModel_09!=null){
-									if(customerModel_09.getLowerLeftId()!=0){
-										customerModel_4_18 = setDataCustomerModel(getCustomerById(customerModel_09.getLowerLeftId()));
-									}
-									if(customerModel_09.getLowerRightId()!=0){
-										customerModel_4_19 = setDataCustomerModel(getCustomerById(customerModel_09.getLowerRightId()));
-									}
-								}
+//								if(customerModel_09!=null){
+//									if(customerModel_09.getLowerLeftId()!=0){
+//										customerModel_4_18 = setDataCustomerModel(getCustomerById(customerModel_09.getLowerLeftId()));
+//									}
+//									if(customerModel_09.getLowerRightId()!=0){
+//										customerModel_4_19 = setDataCustomerModel(getCustomerById(customerModel_09.getLowerRightId()));
+//									}
+//								}
 							}
 						}
 					}
@@ -742,25 +759,25 @@ public class CustomerController implements Serializable{
 						if(customerModel_05!=null){
 							if(customerModel_05.getLowerLeftId()!=0){
 								customerModel_10 = setDataCustomerModel(getCustomerById(customerModel_05.getLowerLeftId()));	
-								if(customerModel_10!=null){
-									if(customerModel_10.getLowerLeftId()!=0){
-										customerModel_4_20 = setDataCustomerModel(getCustomerById(customerModel_10.getLowerLeftId()));
-									}
-									if(customerModel_10.getLowerRightId()!=0){
-										customerModel_4_21 = setDataCustomerModel(getCustomerById(customerModel_10.getLowerRightId()));
-									}
-								}
+//								if(customerModel_10!=null){
+//									if(customerModel_10.getLowerLeftId()!=0){
+//										customerModel_4_20 = setDataCustomerModel(getCustomerById(customerModel_10.getLowerLeftId()));
+//									}
+//									if(customerModel_10.getLowerRightId()!=0){
+//										customerModel_4_21 = setDataCustomerModel(getCustomerById(customerModel_10.getLowerRightId()));
+//									}
+//								}
 							}
 							if(customerModel_05.getLowerRightId()!=0){
 								customerModel_11 = setDataCustomerModel(getCustomerById(customerModel_05.getLowerRightId()));	
-								if(customerModel_11!=null){
-									if(customerModel_11.getLowerLeftId()!=0){
-										customerModel_4_22 = setDataCustomerModel(getCustomerById(customerModel_11.getLowerLeftId()));
-									}
-									if(customerModel_11.getLowerRightId()!=0){
-										customerModel_4_23 = setDataCustomerModel(getCustomerById(customerModel_11.getLowerRightId()));
-									}
-								}
+//								if(customerModel_11!=null){
+//									if(customerModel_11.getLowerLeftId()!=0){
+//										customerModel_4_22 = setDataCustomerModel(getCustomerById(customerModel_11.getLowerLeftId()));
+//									}
+//									if(customerModel_11.getLowerRightId()!=0){
+//										customerModel_4_23 = setDataCustomerModel(getCustomerById(customerModel_11.getLowerRightId()));
+//									}
+//								}
 							}
 						}
 					}
@@ -774,25 +791,25 @@ public class CustomerController implements Serializable{
 						if(customerModel_06!=null){
 							if(customerModel_06.getLowerLeftId()!=0){
 								customerModel_12 = setDataCustomerModel(getCustomerById(customerModel_06.getLowerLeftId()));
-								if(customerModel_12!=null){
-									if(customerModel_12.getLowerLeftId()!=0){
-										customerModel_4_24 = setDataCustomerModel(getCustomerById(customerModel_12.getLowerLeftId()));
-									}
-									if(customerModel_12.getLowerRightId()!=0){
-										customerModel_4_25 = setDataCustomerModel(getCustomerById(customerModel_12.getLowerRightId()));
-									}
-								}
+//								if(customerModel_12!=null){
+//									if(customerModel_12.getLowerLeftId()!=0){
+//										customerModel_4_24 = setDataCustomerModel(getCustomerById(customerModel_12.getLowerLeftId()));
+//									}
+//									if(customerModel_12.getLowerRightId()!=0){
+//										customerModel_4_25 = setDataCustomerModel(getCustomerById(customerModel_12.getLowerRightId()));
+//									}
+//								}
 							}
 							if(customerModel_06.getLowerRightId()!=0){
 								customerModel_13 = setDataCustomerModel(getCustomerById(customerModel_06.getLowerRightId()));	
-								if(customerModel_13!=null){
-									if(customerModel_13.getLowerLeftId()!=0){
-										customerModel_4_26 = setDataCustomerModel(getCustomerById(customerModel_13.getLowerLeftId()));
-									}
-									if(customerModel_13.getLowerRightId()!=0){
-										customerModel_4_27 = setDataCustomerModel(getCustomerById(customerModel_13.getLowerRightId()));
-									}
-								}
+//								if(customerModel_13!=null){
+//									if(customerModel_13.getLowerLeftId()!=0){
+//										customerModel_4_26 = setDataCustomerModel(getCustomerById(customerModel_13.getLowerLeftId()));
+//									}
+//									if(customerModel_13.getLowerRightId()!=0){
+//										customerModel_4_27 = setDataCustomerModel(getCustomerById(customerModel_13.getLowerRightId()));
+//									}
+//								}
 							}
 						}
 					}
@@ -801,25 +818,25 @@ public class CustomerController implements Serializable{
 						if(customerModel_07!=null){
 							if(customerModel_07.getLowerLeftId()!=0){
 								customerModel_14 = setDataCustomerModel(getCustomerById(customerModel_07.getLowerLeftId()));
-								if(customerModel_14!=null){
-									if(customerModel_14.getLowerLeftId()!=0){
-										customerModel_4_28 = setDataCustomerModel(getCustomerById(customerModel_14.getLowerLeftId()));
-									}
-									if(customerModel_14.getLowerRightId()!=0){
-										customerModel_4_29 = setDataCustomerModel(getCustomerById(customerModel_14.getLowerRightId()));
-									}
-								}
+//								if(customerModel_14!=null){
+//									if(customerModel_14.getLowerLeftId()!=0){
+//										customerModel_4_28 = setDataCustomerModel(getCustomerById(customerModel_14.getLowerLeftId()));
+//									}
+//									if(customerModel_14.getLowerRightId()!=0){
+//										customerModel_4_29 = setDataCustomerModel(getCustomerById(customerModel_14.getLowerRightId()));
+//									}
+//								}
 							}
 							if(customerModel_07.getLowerRightId()!=0){
 								customerModel_15 = setDataCustomerModel(getCustomerById(customerModel_07.getLowerRightId()));	
-								if(customerModel_15!=null){
-									if(customerModel_15.getLowerLeftId()!=0){
-										customerModel_4_30 = setDataCustomerModel(getCustomerById(customerModel_15.getLowerLeftId()));
-									}
-									if(customerModel_15.getLowerRightId()!=0){
-										customerModel_4_31 = setDataCustomerModel(getCustomerById(customerModel_15.getLowerRightId()));
-									}
-								}
+//								if(customerModel_15!=null){
+//									if(customerModel_15.getLowerLeftId()!=0){
+//										customerModel_4_30 = setDataCustomerModel(getCustomerById(customerModel_15.getLowerLeftId()));
+//									}
+//									if(customerModel_15.getLowerRightId()!=0){
+//										customerModel_4_31 = setDataCustomerModel(getCustomerById(customerModel_15.getLowerRightId()));
+//									}
+//								}
 							}
 						}							
 					}
@@ -1044,263 +1061,246 @@ public class CustomerController implements Serializable{
 				}
 			}
 
-
-
-			if(customerModel_4_16==null){
-				customerModel_4_16 = new CustomerModel();
-				if(customerModel_08.getCustomerMember()!=null){
-					customerModel_4_16.setPositionImage("/resources/gfx/addmem.gif");
-					customerModel_4_16.setFlagImg01("block");
-					customerModel_4_16.setFlagImg02("none");
-					customerModel_4_16.setFlagImg03("none");
-					customerModel_4_16.setUpperId(customerModel_08.getCustomerId());
-				}else{
-					customerModel_4_16.setPositionImage("/resources/gfx/balls_11.gif");
-					customerModel_4_16.setFlagImg01("none");
-					customerModel_4_16.setFlagImg02("block");
-					customerModel_4_16.setFlagImg03("none");
-				}
-			}
-
-			if(customerModel_4_17==null){
-				customerModel_4_17 = new CustomerModel();
-				if(customerModel_08.getCustomerMember()!=null){
-					customerModel_4_17.setPositionImage("/resources/gfx/addmem.gif");
-					customerModel_4_17.setFlagImg01("block");
-					customerModel_4_17.setFlagImg02("none");
-					customerModel_4_17.setFlagImg03("none");
-					customerModel_4_17.setUpperId(customerModel_08.getCustomerId());
-				}else{
-					customerModel_4_17.setPositionImage("/resources/gfx/balls_11.gif");
-					customerModel_4_17.setFlagImg01("none");
-					customerModel_4_17.setFlagImg02("block");
-					customerModel_4_17.setFlagImg03("none");
-				}
-			}
-
-			if(customerModel_4_18==null){
-				customerModel_4_18 = new CustomerModel();
-				if(customerModel_09.getCustomerMember()!=null){
-					customerModel_4_18.setPositionImage("/resources/gfx/addmem.gif");
-					customerModel_4_18.setFlagImg01("block");
-					customerModel_4_18.setFlagImg02("none");
-					customerModel_4_18.setFlagImg03("none");
-					customerModel_4_18.setUpperId(customerModel_09.getCustomerId());
-				}else{
-					customerModel_4_18.setPositionImage("/resources/gfx/balls_11.gif");
-					customerModel_4_18.setFlagImg01("none");
-					customerModel_4_18.setFlagImg02("block");
-					customerModel_4_18.setFlagImg03("none");
-				}
-			}
-
-			if(customerModel_4_19==null){
-				customerModel_4_19 = new CustomerModel();
-				if(customerModel_09.getCustomerMember()!=null){
-					customerModel_4_19.setPositionImage("/resources/gfx/addmem.gif");
-					customerModel_4_19.setFlagImg01("block");
-					customerModel_4_19.setFlagImg02("none");
-					customerModel_4_19.setFlagImg03("none");
-					customerModel_4_19.setUpperId(customerModel_09.getCustomerId());
-				}else{
-					customerModel_4_19.setPositionImage("/resources/gfx/balls_11.gif");
-					customerModel_4_19.setFlagImg01("none");
-					customerModel_4_19.setFlagImg02("block");
-					customerModel_4_19.setFlagImg03("none");
-				}
-			}
-
-			if(customerModel_4_20==null){
-				customerModel_4_20 = new CustomerModel();
-				if(customerModel_10.getCustomerMember()!=null){
-					customerModel_4_20.setPositionImage("/resources/gfx/addmem.gif");
-					customerModel_4_20.setFlagImg01("block");
-					customerModel_4_20.setFlagImg02("none");
-					customerModel_4_20.setFlagImg03("none");
-					customerModel_4_20.setUpperId(customerModel_10.getCustomerId());
-				}else{
-					customerModel_4_20.setPositionImage("/resources/gfx/balls_11.gif");
-					customerModel_4_20.setFlagImg01("none");
-					customerModel_4_20.setFlagImg02("block");
-					customerModel_4_20.setFlagImg03("none");
-				}
-			}
-
-			if(customerModel_4_21==null){
-				customerModel_4_21 = new CustomerModel();
-				if(customerModel_10.getCustomerMember()!=null){
-					customerModel_4_21.setPositionImage("/resources/gfx/addmem.gif");
-					customerModel_4_21.setFlagImg01("block");
-					customerModel_4_21.setFlagImg02("none");
-					customerModel_4_21.setFlagImg03("none");
-					customerModel_4_21.setUpperId(customerModel_10.getCustomerId());
-				}else{
-					customerModel_4_21.setPositionImage("/resources/gfx/balls_11.gif");
-					customerModel_4_21.setFlagImg01("none");
-					customerModel_4_21.setFlagImg02("block");
-					customerModel_4_21.setFlagImg03("none");
-				}
-			}
-
-			if(customerModel_4_22==null){
-				customerModel_4_22 = new CustomerModel();
-				if(customerModel_11.getCustomerMember()!=null){
-					customerModel_4_22.setPositionImage("/resources/gfx/addmem.gif");
-					customerModel_4_22.setFlagImg01("block");
-					customerModel_4_22.setFlagImg02("none");
-					customerModel_4_22.setFlagImg03("none");
-					customerModel_4_22.setUpperId(customerModel_11.getCustomerId());
-				}else{
-					customerModel_4_22.setPositionImage("/resources/gfx/balls_11.gif");
-					customerModel_4_22.setFlagImg01("none");
-					customerModel_4_22.setFlagImg02("block");
-					customerModel_4_22.setFlagImg03("none");
-				}
-			}
-
-			if(customerModel_4_23==null){
-				customerModel_4_23 = new CustomerModel();
-				if(customerModel_11.getCustomerMember()!=null){
-					customerModel_4_23.setPositionImage("/resources/gfx/addmem.gif");
-					customerModel_4_23.setFlagImg01("block");
-					customerModel_4_23.setFlagImg02("none");
-					customerModel_4_23.setFlagImg03("none");
-					customerModel_4_23.setUpperId(customerModel_11.getCustomerId());
-				}else{
-					customerModel_4_23.setPositionImage("/resources/gfx/balls_11.gif");
-					customerModel_4_23.setFlagImg01("none");
-					customerModel_4_23.setFlagImg02("block");
-					customerModel_4_23.setFlagImg03("none");
-				}
-			}
-
-			if(customerModel_4_24==null){
-				customerModel_4_24 = new CustomerModel();
-				if(customerModel_12.getCustomerMember()!=null){
-					customerModel_4_24.setPositionImage("/resources/gfx/addmem.gif");
-					customerModel_4_24.setFlagImg01("block");
-					customerModel_4_24.setFlagImg02("none");
-					customerModel_4_24.setFlagImg03("none");
-					customerModel_4_24.setUpperId(customerModel_12.getCustomerId());
-				}else{
-					customerModel_4_24.setPositionImage("/resources/gfx/balls_11.gif");
-					customerModel_4_24.setFlagImg01("none");
-					customerModel_4_24.setFlagImg02("block");
-					customerModel_4_24.setFlagImg03("none");
-				}
-			}
-
-			if(customerModel_4_25==null){
-				customerModel_4_25 = new CustomerModel();
-				if(customerModel_12.getCustomerMember()!=null){
-					customerModel_4_25.setPositionImage("/resources/gfx/addmem.gif");
-					customerModel_4_25.setFlagImg01("block");
-					customerModel_4_25.setFlagImg02("none");
-					customerModel_4_25.setFlagImg03("none");
-					customerModel_4_25.setUpperId(customerModel_12.getCustomerId());
-				}else{
-					customerModel_4_25.setPositionImage("/resources/gfx/balls_11.gif");
-					customerModel_4_25.setFlagImg01("none");
-					customerModel_4_25.setFlagImg02("block");
-					customerModel_4_25.setFlagImg03("none");
-				}
-			}
-
-			if(customerModel_4_26==null){
-				customerModel_4_26 = new CustomerModel();
-				if(customerModel_13.getCustomerMember()!=null){
-					customerModel_4_26.setPositionImage("/resources/gfx/addmem.gif");
-					customerModel_4_26.setFlagImg01("block");
-					customerModel_4_26.setFlagImg02("none");
-					customerModel_4_26.setFlagImg03("none");
-					customerModel_4_26.setUpperId(customerModel_13.getCustomerId());
-				}else{
-					customerModel_4_26.setPositionImage("/resources/gfx/balls_11.gif");
-					customerModel_4_26.setFlagImg01("none");
-					customerModel_4_26.setFlagImg02("block");
-					customerModel_4_26.setFlagImg03("none");
-				}
-			}
-
-			if(customerModel_4_27==null){
-				customerModel_4_27 = new CustomerModel();
-				if(customerModel_13.getCustomerMember()!=null){
-					customerModel_4_27.setPositionImage("/resources/gfx/addmem.gif");
-					customerModel_4_27.setFlagImg01("block");
-					customerModel_4_27.setFlagImg02("none");
-					customerModel_4_27.setFlagImg03("none");
-					customerModel_4_27.setUpperId(customerModel_13.getCustomerId());
-				}else{
-					customerModel_4_27.setPositionImage("/resources/gfx/balls_11.gif");
-					customerModel_4_27.setFlagImg01("none");
-					customerModel_4_27.setFlagImg02("block");
-					customerModel_4_27.setFlagImg03("none");
-				}
-			}
-
-			if(customerModel_4_28==null){
-				customerModel_4_28 = new CustomerModel();
-				if(customerModel_14.getCustomerMember()!=null){
-					customerModel_4_28.setPositionImage("/resources/gfx/addmem.gif");
-					customerModel_4_28.setFlagImg01("block");
-					customerModel_4_28.setFlagImg02("none");
-					customerModel_4_28.setFlagImg03("none");
-					customerModel_4_28.setUpperId(customerModel_14.getCustomerId());
-				}else{
-					customerModel_4_28.setPositionImage("/resources/gfx/balls_11.gif");
-					customerModel_4_28.setFlagImg01("none");
-					customerModel_4_28.setFlagImg02("block");
-					customerModel_4_28.setFlagImg03("none");
-				}
-			}
-
-			if(customerModel_4_29==null){
-				customerModel_4_29 = new CustomerModel();
-				if(customerModel_14.getCustomerMember()!=null){
-					customerModel_4_29.setPositionImage("/resources/gfx/addmem.gif");
-					customerModel_4_29.setFlagImg01("block");
-					customerModel_4_29.setFlagImg02("none");
-					customerModel_4_29.setFlagImg03("none");
-					customerModel_4_29.setUpperId(customerModel_14.getCustomerId());
-				}else{
-					customerModel_4_29.setPositionImage("/resources/gfx/balls_11.gif");
-					customerModel_4_29.setFlagImg01("none");
-					customerModel_4_29.setFlagImg02("block");
-					customerModel_4_29.setFlagImg03("none");
-				}
-			}
-
-			if(customerModel_4_30==null){
-				customerModel_4_30 = new CustomerModel();
-				if(customerModel_15.getCustomerMember()!=null){
-					customerModel_4_30.setPositionImage("/resources/gfx/addmem.gif");
-					customerModel_4_30.setFlagImg01("block");
-					customerModel_4_30.setFlagImg02("none");
-					customerModel_4_30.setFlagImg03("none");
-					customerModel_4_30.setUpperId(customerModel_15.getCustomerId());
-				}else{
-					customerModel_4_30.setPositionImage("/resources/gfx/balls_11.gif");
-					customerModel_4_30.setFlagImg01("none");
-					customerModel_4_30.setFlagImg02("block");
-					customerModel_4_30.setFlagImg03("none");
-				}
-			}
-
-			if(customerModel_4_31==null){
-				customerModel_4_31 = new CustomerModel();
-				if(customerModel_15.getCustomerMember()!=null){
-					customerModel_4_31.setPositionImage("/resources/gfx/addmem.gif");
-					customerModel_4_31.setFlagImg01("block");
-					customerModel_4_31.setFlagImg02("none");
-					customerModel_4_31.setFlagImg03("none");
-					customerModel_4_31.setUpperId(customerModel_15.getCustomerId());
-				}else{
-					customerModel_4_31.setPositionImage("/resources/gfx/balls_11.gif");
-					customerModel_4_31.setFlagImg01("none");
-					customerModel_4_31.setFlagImg02("block");
-					customerModel_4_31.setFlagImg03("none");
-				}
-			}
+//			if(customerModel_4_16==null){
+//				customerModel_4_16 = new CustomerModel();
+//				if(customerModel_08.getCustomerMember()!=null){
+//					customerModel_4_16.setPositionImage("/resources/gfx/addmem.gif");
+//					customerModel_4_16.setFlagImg01("block");
+//					customerModel_4_16.setFlagImg02("none");
+//					customerModel_4_16.setFlagImg03("none");
+//					customerModel_4_16.setUpperId(customerModel_08.getCustomerId());
+//				}else{
+//					customerModel_4_16.setPositionImage("/resources/gfx/balls_11.gif");
+//					customerModel_4_16.setFlagImg01("none");
+//					customerModel_4_16.setFlagImg02("block");
+//					customerModel_4_16.setFlagImg03("none");
+//				}
+//			}
+//			if(customerModel_4_17==null){
+//				customerModel_4_17 = new CustomerModel();
+//				if(customerModel_08.getCustomerMember()!=null){
+//					customerModel_4_17.setPositionImage("/resources/gfx/addmem.gif");
+//					customerModel_4_17.setFlagImg01("block");
+//					customerModel_4_17.setFlagImg02("none");
+//					customerModel_4_17.setFlagImg03("none");
+//					customerModel_4_17.setUpperId(customerModel_08.getCustomerId());
+//				}else{
+//					customerModel_4_17.setPositionImage("/resources/gfx/balls_11.gif");
+//					customerModel_4_17.setFlagImg01("none");
+//					customerModel_4_17.setFlagImg02("block");
+//					customerModel_4_17.setFlagImg03("none");
+//				}
+//			}
+//			if(customerModel_4_18==null){
+//				customerModel_4_18 = new CustomerModel();
+//				if(customerModel_09.getCustomerMember()!=null){
+//					customerModel_4_18.setPositionImage("/resources/gfx/addmem.gif");
+//					customerModel_4_18.setFlagImg01("block");
+//					customerModel_4_18.setFlagImg02("none");
+//					customerModel_4_18.setFlagImg03("none");
+//					customerModel_4_18.setUpperId(customerModel_09.getCustomerId());
+//				}else{
+//					customerModel_4_18.setPositionImage("/resources/gfx/balls_11.gif");
+//					customerModel_4_18.setFlagImg01("none");
+//					customerModel_4_18.setFlagImg02("block");
+//					customerModel_4_18.setFlagImg03("none");
+//				}
+//			}
+//			if(customerModel_4_19==null){
+//				customerModel_4_19 = new CustomerModel();
+//				if(customerModel_09.getCustomerMember()!=null){
+//					customerModel_4_19.setPositionImage("/resources/gfx/addmem.gif");
+//					customerModel_4_19.setFlagImg01("block");
+//					customerModel_4_19.setFlagImg02("none");
+//					customerModel_4_19.setFlagImg03("none");
+//					customerModel_4_19.setUpperId(customerModel_09.getCustomerId());
+//				}else{
+//					customerModel_4_19.setPositionImage("/resources/gfx/balls_11.gif");
+//					customerModel_4_19.setFlagImg01("none");
+//					customerModel_4_19.setFlagImg02("block");
+//					customerModel_4_19.setFlagImg03("none");
+//				}
+//			}
+//			if(customerModel_4_20==null){
+//				customerModel_4_20 = new CustomerModel();
+//				if(customerModel_10.getCustomerMember()!=null){
+//					customerModel_4_20.setPositionImage("/resources/gfx/addmem.gif");
+//					customerModel_4_20.setFlagImg01("block");
+//					customerModel_4_20.setFlagImg02("none");
+//					customerModel_4_20.setFlagImg03("none");
+//					customerModel_4_20.setUpperId(customerModel_10.getCustomerId());
+//				}else{
+//					customerModel_4_20.setPositionImage("/resources/gfx/balls_11.gif");
+//					customerModel_4_20.setFlagImg01("none");
+//					customerModel_4_20.setFlagImg02("block");
+//					customerModel_4_20.setFlagImg03("none");
+//				}
+//			}
+//			if(customerModel_4_21==null){
+//				customerModel_4_21 = new CustomerModel();
+//				if(customerModel_10.getCustomerMember()!=null){
+//					customerModel_4_21.setPositionImage("/resources/gfx/addmem.gif");
+//					customerModel_4_21.setFlagImg01("block");
+//					customerModel_4_21.setFlagImg02("none");
+//					customerModel_4_21.setFlagImg03("none");
+//					customerModel_4_21.setUpperId(customerModel_10.getCustomerId());
+//				}else{
+//					customerModel_4_21.setPositionImage("/resources/gfx/balls_11.gif");
+//					customerModel_4_21.setFlagImg01("none");
+//					customerModel_4_21.setFlagImg02("block");
+//					customerModel_4_21.setFlagImg03("none");
+//				}
+//			}
+//			if(customerModel_4_22==null){
+//				customerModel_4_22 = new CustomerModel();
+//				if(customerModel_11.getCustomerMember()!=null){
+//					customerModel_4_22.setPositionImage("/resources/gfx/addmem.gif");
+//					customerModel_4_22.setFlagImg01("block");
+//					customerModel_4_22.setFlagImg02("none");
+//					customerModel_4_22.setFlagImg03("none");
+//					customerModel_4_22.setUpperId(customerModel_11.getCustomerId());
+//				}else{
+//					customerModel_4_22.setPositionImage("/resources/gfx/balls_11.gif");
+//					customerModel_4_22.setFlagImg01("none");
+//					customerModel_4_22.setFlagImg02("block");
+//					customerModel_4_22.setFlagImg03("none");
+//				}
+//			}
+//			if(customerModel_4_23==null){
+//				customerModel_4_23 = new CustomerModel();
+//				if(customerModel_11.getCustomerMember()!=null){
+//					customerModel_4_23.setPositionImage("/resources/gfx/addmem.gif");
+//					customerModel_4_23.setFlagImg01("block");
+//					customerModel_4_23.setFlagImg02("none");
+//					customerModel_4_23.setFlagImg03("none");
+//					customerModel_4_23.setUpperId(customerModel_11.getCustomerId());
+//				}else{
+//					customerModel_4_23.setPositionImage("/resources/gfx/balls_11.gif");
+//					customerModel_4_23.setFlagImg01("none");
+//					customerModel_4_23.setFlagImg02("block");
+//					customerModel_4_23.setFlagImg03("none");
+//				}
+//			}
+//			if(customerModel_4_24==null){
+//				customerModel_4_24 = new CustomerModel();
+//				if(customerModel_12.getCustomerMember()!=null){
+//					customerModel_4_24.setPositionImage("/resources/gfx/addmem.gif");
+//					customerModel_4_24.setFlagImg01("block");
+//					customerModel_4_24.setFlagImg02("none");
+//					customerModel_4_24.setFlagImg03("none");
+//					customerModel_4_24.setUpperId(customerModel_12.getCustomerId());
+//				}else{
+//					customerModel_4_24.setPositionImage("/resources/gfx/balls_11.gif");
+//					customerModel_4_24.setFlagImg01("none");
+//					customerModel_4_24.setFlagImg02("block");
+//					customerModel_4_24.setFlagImg03("none");
+//				}
+//			}
+//			if(customerModel_4_25==null){
+//				customerModel_4_25 = new CustomerModel();
+//				if(customerModel_12.getCustomerMember()!=null){
+//					customerModel_4_25.setPositionImage("/resources/gfx/addmem.gif");
+//					customerModel_4_25.setFlagImg01("block");
+//					customerModel_4_25.setFlagImg02("none");
+//					customerModel_4_25.setFlagImg03("none");
+//					customerModel_4_25.setUpperId(customerModel_12.getCustomerId());
+//				}else{
+//					customerModel_4_25.setPositionImage("/resources/gfx/balls_11.gif");
+//					customerModel_4_25.setFlagImg01("none");
+//					customerModel_4_25.setFlagImg02("block");
+//					customerModel_4_25.setFlagImg03("none");
+//				}
+//			}
+//			if(customerModel_4_26==null){
+//				customerModel_4_26 = new CustomerModel();
+//				if(customerModel_13.getCustomerMember()!=null){
+//					customerModel_4_26.setPositionImage("/resources/gfx/addmem.gif");
+//					customerModel_4_26.setFlagImg01("block");
+//					customerModel_4_26.setFlagImg02("none");
+//					customerModel_4_26.setFlagImg03("none");
+//					customerModel_4_26.setUpperId(customerModel_13.getCustomerId());
+//				}else{
+//					customerModel_4_26.setPositionImage("/resources/gfx/balls_11.gif");
+//					customerModel_4_26.setFlagImg01("none");
+//					customerModel_4_26.setFlagImg02("block");
+//					customerModel_4_26.setFlagImg03("none");
+//				}
+//			}
+//			if(customerModel_4_27==null){
+//				customerModel_4_27 = new CustomerModel();
+//				if(customerModel_13.getCustomerMember()!=null){
+//					customerModel_4_27.setPositionImage("/resources/gfx/addmem.gif");
+//					customerModel_4_27.setFlagImg01("block");
+//					customerModel_4_27.setFlagImg02("none");
+//					customerModel_4_27.setFlagImg03("none");
+//					customerModel_4_27.setUpperId(customerModel_13.getCustomerId());
+//				}else{
+//					customerModel_4_27.setPositionImage("/resources/gfx/balls_11.gif");
+//					customerModel_4_27.setFlagImg01("none");
+//					customerModel_4_27.setFlagImg02("block");
+//					customerModel_4_27.setFlagImg03("none");
+//				}
+//			}
+//			if(customerModel_4_28==null){
+//				customerModel_4_28 = new CustomerModel();
+//				if(customerModel_14.getCustomerMember()!=null){
+//					customerModel_4_28.setPositionImage("/resources/gfx/addmem.gif");
+//					customerModel_4_28.setFlagImg01("block");
+//					customerModel_4_28.setFlagImg02("none");
+//					customerModel_4_28.setFlagImg03("none");
+//					customerModel_4_28.setUpperId(customerModel_14.getCustomerId());
+//				}else{
+//					customerModel_4_28.setPositionImage("/resources/gfx/balls_11.gif");
+//					customerModel_4_28.setFlagImg01("none");
+//					customerModel_4_28.setFlagImg02("block");
+//					customerModel_4_28.setFlagImg03("none");
+//				}
+//			}
+//			if(customerModel_4_29==null){
+//				customerModel_4_29 = new CustomerModel();
+//				if(customerModel_14.getCustomerMember()!=null){
+//					customerModel_4_29.setPositionImage("/resources/gfx/addmem.gif");
+//					customerModel_4_29.setFlagImg01("block");
+//					customerModel_4_29.setFlagImg02("none");
+//					customerModel_4_29.setFlagImg03("none");
+//					customerModel_4_29.setUpperId(customerModel_14.getCustomerId());
+//				}else{
+//					customerModel_4_29.setPositionImage("/resources/gfx/balls_11.gif");
+//					customerModel_4_29.setFlagImg01("none");
+//					customerModel_4_29.setFlagImg02("block");
+//					customerModel_4_29.setFlagImg03("none");
+//				}
+//			}
+//			if(customerModel_4_30==null){
+//				customerModel_4_30 = new CustomerModel();
+//				if(customerModel_15.getCustomerMember()!=null){
+//					customerModel_4_30.setPositionImage("/resources/gfx/addmem.gif");
+//					customerModel_4_30.setFlagImg01("block");
+//					customerModel_4_30.setFlagImg02("none");
+//					customerModel_4_30.setFlagImg03("none");
+//					customerModel_4_30.setUpperId(customerModel_15.getCustomerId());
+//				}else{
+//					customerModel_4_30.setPositionImage("/resources/gfx/balls_11.gif");
+//					customerModel_4_30.setFlagImg01("none");
+//					customerModel_4_30.setFlagImg02("block");
+//					customerModel_4_30.setFlagImg03("none");
+//				}
+//			}
+//			if(customerModel_4_31==null){
+//				customerModel_4_31 = new CustomerModel();
+//				if(customerModel_15.getCustomerMember()!=null){
+//					customerModel_4_31.setPositionImage("/resources/gfx/addmem.gif");
+//					customerModel_4_31.setFlagImg01("block");
+//					customerModel_4_31.setFlagImg02("none");
+//					customerModel_4_31.setFlagImg03("none");
+//					customerModel_4_31.setUpperId(customerModel_15.getCustomerId());
+//				}else{
+//					customerModel_4_31.setPositionImage("/resources/gfx/balls_11.gif");
+//					customerModel_4_31.setFlagImg01("none");
+//					customerModel_4_31.setFlagImg02("block");
+//					customerModel_4_31.setFlagImg03("none");
+//				}
+//			}
 
 		}catch(Exception e){
 			e.printStackTrace();
@@ -2616,134 +2616,6 @@ public class CustomerController implements Serializable{
 
 	public void setDetailDocumentBookBank(String detailDocumentBookBank) {
 		this.detailDocumentBookBank = detailDocumentBookBank;
-	}
-
-	public CustomerModel getCustomerModel_4_16() {
-		return customerModel_4_16;
-	}
-
-	public void setCustomerModel_4_16(CustomerModel customerModel_4_16) {
-		this.customerModel_4_16 = customerModel_4_16;
-	}
-
-	public CustomerModel getCustomerModel_4_17() {
-		return customerModel_4_17;
-	}
-
-	public void setCustomerModel_4_17(CustomerModel customerModel_4_17) {
-		this.customerModel_4_17 = customerModel_4_17;
-	}
-
-	public CustomerModel getCustomerModel_4_18() {
-		return customerModel_4_18;
-	}
-
-	public void setCustomerModel_4_18(CustomerModel customerModel_4_18) {
-		this.customerModel_4_18 = customerModel_4_18;
-	}
-
-	public CustomerModel getCustomerModel_4_19() {
-		return customerModel_4_19;
-	}
-
-	public void setCustomerModel_4_19(CustomerModel customerModel_4_19) {
-		this.customerModel_4_19 = customerModel_4_19;
-	}
-
-	public CustomerModel getCustomerModel_4_20() {
-		return customerModel_4_20;
-	}
-
-	public void setCustomerModel_4_20(CustomerModel customerModel_4_20) {
-		this.customerModel_4_20 = customerModel_4_20;
-	}
-
-	public CustomerModel getCustomerModel_4_21() {
-		return customerModel_4_21;
-	}
-
-	public void setCustomerModel_4_21(CustomerModel customerModel_4_21) {
-		this.customerModel_4_21 = customerModel_4_21;
-	}
-
-	public CustomerModel getCustomerModel_4_22() {
-		return customerModel_4_22;
-	}
-
-	public void setCustomerModel_4_22(CustomerModel customerModel_4_22) {
-		this.customerModel_4_22 = customerModel_4_22;
-	}
-
-	public CustomerModel getCustomerModel_4_23() {
-		return customerModel_4_23;
-	}
-
-	public void setCustomerModel_4_23(CustomerModel customerModel_4_23) {
-		this.customerModel_4_23 = customerModel_4_23;
-	}
-
-	public CustomerModel getCustomerModel_4_24() {
-		return customerModel_4_24;
-	}
-
-	public void setCustomerModel_4_24(CustomerModel customerModel_4_24) {
-		this.customerModel_4_24 = customerModel_4_24;
-	}
-
-	public CustomerModel getCustomerModel_4_25() {
-		return customerModel_4_25;
-	}
-
-	public void setCustomerModel_4_25(CustomerModel customerModel_4_25) {
-		this.customerModel_4_25 = customerModel_4_25;
-	}
-
-	public CustomerModel getCustomerModel_4_26() {
-		return customerModel_4_26;
-	}
-
-	public void setCustomerModel_4_26(CustomerModel customerModel_4_26) {
-		this.customerModel_4_26 = customerModel_4_26;
-	}
-
-	public CustomerModel getCustomerModel_4_27() {
-		return customerModel_4_27;
-	}
-
-	public void setCustomerModel_4_27(CustomerModel customerModel_4_27) {
-		this.customerModel_4_27 = customerModel_4_27;
-	}
-
-	public CustomerModel getCustomerModel_4_28() {
-		return customerModel_4_28;
-	}
-
-	public void setCustomerModel_4_28(CustomerModel customerModel_4_28) {
-		this.customerModel_4_28 = customerModel_4_28;
-	}
-
-	public CustomerModel getCustomerModel_4_29() {
-		return customerModel_4_29;
-	}
-
-	public void setCustomerModel_4_29(CustomerModel customerModel_4_29) {
-		this.customerModel_4_29 = customerModel_4_29;
-	}
-
-	public CustomerModel getCustomerModel_4_30() {
-		return customerModel_4_30;
-	}
-
-	public void setCustomerModel_4_30(CustomerModel customerModel_4_30) {
-		this.customerModel_4_30 = customerModel_4_30;
-	}
-
-	public CustomerModel getCustomerModel_4_31() {
-		return customerModel_4_31;
-	}
-
-	public void setCustomerModel_4_31(CustomerModel customerModel_4_31) {
-		this.customerModel_4_31 = customerModel_4_31;
 	}
 
 }
