@@ -41,6 +41,17 @@
 		<view-id>/sec/customer/tree.jsf</view-id>
 	</url-mapping>
 	
+	<url-mapping id="tree_02">
+		<pattern value="/customer/tree/#{id:customerController.customerId}"></pattern>
+		<view-id>/sec/customer/tree.jsf</view-id>
+		<action>#{customerController.genTreeModel()}</action> 
+	</url-mapping>
+	
+	<url-mapping id="tree_03">
+		<pattern value="/customer/treeSuggest"></pattern>
+		<view-id>/sec/customer/treeSuggest.jsf</view-id>
+	</url-mapping>
+	
 	<url-mapping id="profile_01">
 		<pattern value="/customer/profile"></pattern>
 		<view-id>/sec/customer/profile.jsf</view-id>
@@ -51,32 +62,9 @@
 		<view-id>/sec/user/passwd.jsf</view-id>
 	</url-mapping>
 	
-	<url-mapping id="tree_02">
-		<pattern value="/customer/tree/#{id:customerController.customerId}"></pattern>
-		<view-id>/sec/customer/tree.jsf</view-id>
-		<action>#{customerController.genTreeModel()}</action> 
-	</url-mapping>
-	
 	<url-mapping id="report_01">
 		<pattern value="/report/customerReport"></pattern>
 		<view-id>/sec/report/customerReport.jsf</view-id>
 	</url-mapping>
-	
-	
-    
-	<!--url-mapping id="subscriber_list">
-		<pattern value="/subscribers"></pattern>
-		<view-id>/sec/subscriber/list.jsf</view-id>
-	</url-mapping>
-	<url-mapping id="subscriber_view">
-		<pattern value="/subscribers/#{id:subscriberController.strSubscriberId}"></pattern>
-		<view-id>/sec/subscriber/view.jsf</view-id>
-		<action>#{subscriberController.loadSubscriber()}</action>      
-	</url-mapping>
-	<url-mapping id="subscriber_edit">
-		<pattern value="/subscribers/edit/#{id:subscriberController.strSubscriberId}"></pattern>
-		<view-id>/sec/subscriber/edit.jsf</view-id>
-		<action>#{subscriberController.loadEditSubscriber()}</action>      
-	</url-mapping-->
 	
 </pretty-config>
