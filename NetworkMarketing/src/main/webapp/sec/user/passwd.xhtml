@@ -1,63 +1,100 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich"
-	xmlns:pretty="http://ocpsoft.com/prettyfaces" xmlns:s="http://jboss.org/seam/faces"
-	xmlns:sc="http://java.sun.com/jsf/composite/components/seamfaces">
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:pretty="http://ocpsoft.com/prettyfaces"
+	template="/WEB-INF/templates/template.xhtml">
 
-<body>
-	<ui:composition template="/WEB-INF/views/templates/template2.xhtml">
-		<ui:define name="title">EPI - Change Password</ui:define>
-		<ui:define name="body">
-			<h:form id="f">
-				<br />
-				<h3>
-					<h:outputText value="#{app_msgs['epi.user.label.header']}" />
-				</h3>
-				<rich:panel rendered="#{not identity.loggedIn}" >
-					not logged in.
-				</rich:panel>
-				<rich:panel rendered="#{identity.loggedIn}" >
-					<div id="semantic" class="semantic">
-						<fieldset>
-						<div>
-						<h:outputLabel value="#{app_msgs['epi.user.label.loginName']}:" />
-						<span class="readOnlyInput"><h:outputText value="#{changePasswordAction.user.loginname}" /></span>
-						</div>
-						<div>
-						<h:outputLabel  value="#{app_msgs['epi.user.label.firstName']}: " />
-						<span class="readOnlyInput"><h:outputText  value="#{changePasswordAction.user.firstname}" /></span>
-						</div>
-						<div>
-						<h:outputLabel value="#{app_msgs['epi.user.label.lastName']}: " />
-						<span class="readOnlyInput"><h:outputText value="#{changePasswordAction.user.lastname}" readonly="true"/></span>
-						</div>
-							<sc:inputContainer label="#{app_msgs['epi.passwd.label.oldPasswd']}" >
-								<h:inputSecret id="op"  value="#{changePasswordAction.oldPassword}" required="true" 
-								requiredMessage="#{app_msgs['epi.msg.requiredValue']}" />
-							</sc:inputContainer>
-							<sc:inputContainer label="#{app_msgs['epi.passwd.label.newPasswd']}">
-								<h:inputSecret id="np" value="#{changePasswordAction.newPassword}" required="true" 
-								requiredMessage="#{app_msgs['epi.msg.requiredValue']}" />
-								<rich:tooltip  mode="client" showDelay="100" styleClass="tooltip" layout="block" target="np" >
-									<h:outputText value="#{app_msgs['epi.passwd.hint.password']}" />	
-								</rich:tooltip>
-							</sc:inputContainer>
-							<sc:inputContainer label="#{app_msgs['epi.passwd.label.confirmPasswd']}">
-								<h:inputSecret id="cp" value="#{changePasswordAction.confirmPassword}" required="true" 
-								requiredMessage="#{app_msgs['epi.msg.requiredValue']}" />
-							</sc:inputContainer>
-						</fieldset>
-					</div>
-					<br class="clear" />
-					<h:commandButton value="#{app_msgs['epi.button.save']}" action="#{changePasswordAction.changePassword()}" />
-					&#160;	    
-					<h:button value="#{app_msgs['epi.button.cancel']}" outcome="cancel"></h:button>
+	<ui:define name="title">login</ui:define>
+	<ui:define name="content">
+		<h:outputStylesheet>
+        .rf-panel-header {
+        color: #0054BD;
+        }
 
+        .panel1 {
+        	vertical-align: top;
+        	width:30%;
+        }
+        .panel2 {
+ 	       vertical-align: top;
+ 	       width:40%;
+        }
+ 
+        .panel3 {
+ 	       vertical-align: top;
+ 	       width:30%;
+        }
+ 
+        .top {
+        width: 200px;
+        height: 100px;
+        }
+ 
+        .head2 {
+        background-image: url();
+        background-color: #4C9600;
+        height: 18px;
+        text-align: center;
+        vertical-align: middle;
+        color: #CFF;
+        padding: 4px 0;
+        }
+ 
+        .body3 {
+        height: 100px;
+        overflow: auto;
+        }
+    </h:outputStylesheet>
+		<h:form id="formChangePassword">
+			<h:panelGrid columnClasses="panel1,panel2,panel3" border="0"
+				columns="3" style="width:100%">
+				<div></div>
+				<rich:panel>
+					<f:facet name="header">
+						<h:outputText
+							value="#{app_msgs['label.pageChangePassword.header']}" />
+					</f:facet>
+					<h:panelGrid columns="2">
+						<h:outputText
+							value="#{app_msgs['label.pageChangePassword.memberId']}:" />
+						<h:outputText value="#{passwordValidationController.memberId}" />
+						<h:outputText
+							value="#{app_msgs['label.pageChangePassword.memberName']}:" />
+						<h:outputText value="#{passwordValidationController.memberName}" />
+						<h:outputText
+							value="#{app_msgs['label.pageChangePassword.oldPassword']}:" />
+						<h:inputSecret value="#{passwordValidationController.xxxPassword}" />
+						<h:outputText
+							value="#{app_msgs['label.pageChangePassword.newPassword']}:" />
+						<h:inputSecret value="#{passwordValidationController.newPassword}" />
+						<h:outputText
+							value="#{app_msgs['label.pageChangePassword.confirmNewPassword']}:" />
+						<h:inputSecret
+							value="#{passwordValidationController.confirmNewPossword}" />
+					</h:panelGrid>
+					<h:panelGrid columns="3" id="gridChangePassword">
+						<a4j:commandButton style="width:80px"
+							value="#{app_msgs['button.confirm']}"
+							onclick="if (!confirm('#{app_msgs['label.comfirm.changePassword']}')) return false"
+							action="#{passwordValidationController.storeNewPassword()}"
+							render="gridChangePassword" />
+						<a4j:status>
+							<f:facet name="start">
+								<h:graphicImage value="/resources/gfx/spinner.gif" />
+							</f:facet>
+						</a4j:status>
+						<h:messages globalOnly="true" infoClass="info" warnClass="warn"
+							errorClass="error" />
+					</h:panelGrid>
+					<br />
 				</rich:panel>
-				<s:validateForm validatorId="changePasswordValidator"  />
-			</h:form>
-		</ui:define>
-	</ui:composition>
-</body>
-</html>
+				<div style="width: 25%"></div>
+			</h:panelGrid>
+		</h:form>
+	</ui:define>
+</ui:composition>

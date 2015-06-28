@@ -83,6 +83,16 @@
 			<redirect />
 		</navigation-case>
 	</navigation-rule>
+	
+	<navigation-rule id="editPasswordToHome">
+		<from-view-id>/sec/user/passwd.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{passwordValidationController.storeNewPassword()}</from-action>
+			<if>#{passwordValidationController.chkSuccess}</if>
+			<to-view-id>/login.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
 
 	<navigation-rule id="treeToAdd">
 		<from-view-id>/sec/customer/tree.xhtml</from-view-id>
