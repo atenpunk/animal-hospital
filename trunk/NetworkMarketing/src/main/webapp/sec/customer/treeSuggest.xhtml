@@ -30,19 +30,55 @@
         }
     </h:outputStylesheet>
 	<ui:define name="content">
+		<br />
 		<h:form>
-			<rich:panel id="mainPanel" style="overflow: scroll;">
+			<rich:panel id="mainPanel">
+				<f:facet name="header">
+					<h:outputText value="#{app_msgs['label.pageTreeSuggest.header']}" />
+				</f:facet>
 				<table>
 					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
+						<td><rich:panel style=" width : 55px; height : 75px;">
+								<table>
+									<tr align="center">
+										<td><a4j:commandLink
+												actionListener="#{treeSuggestController.genTreeSuggest('0')}"
+												render="mainPanel">
+												<h:graphicImage value="/resources/gfx/go_dup.gif" />
+											</a4j:commandLink></td>
+									</tr>
+									<tr align="center">
+										<td><a4j:commandLink
+												actionListener="#{treeSuggestController.genTreeSuggest('2')}"
+												render="mainPanel">
+												<h:graphicImage value="/resources/gfx/go_up.gif" />
+											</a4j:commandLink></td>
+									</tr>
+								</table>
+							</rich:panel></td>
+						<td><h:inputText id="inputMemberId"
+								value="#{treeSuggestController.searchCustomer}">
+								<rich:placeholder
+									value="#{app_msgs['inputText.search.memberId']}" />
+							</h:inputText>&#160;<a4j:commandButton id="searchId"
+								value="#{app_msgs['button.search']}"
+								action="#{treeSuggestController.search}" render="mainPanel"
+								style=" width : 80px;"></a4j:commandButton></td>
+						<td><a4j:status>
+								<f:facet name="start">
+									<h:graphicImage value="/resources/gfx/spinner.gif" />
+								</f:facet>
+							</a4j:status></td>
+						<td><h:messages style="color:red;margin:8px;" /></td>
 					</tr>
 				</table>
-				<rich:panel id="panelTree" style="border: 0px; width : 4000px;">
-					<h:outputText id="htmlStuff" value="#{treeSuggestController.html}"
-						escape="false" />
+
+				<rich:panel rendered="#{treeSuggestController.html ne ''}"
+					id="panelTree" style="overflow: scroll; border: 0px;">
+					<rich:panel style="border: 0px; width : 2000px;">
+						<h:outputText id="htmlStuff" value="#{treeSuggestController.html}"
+							escape="false" />
+					</rich:panel>
 				</rich:panel>
 			</rich:panel>
 		</h:form>

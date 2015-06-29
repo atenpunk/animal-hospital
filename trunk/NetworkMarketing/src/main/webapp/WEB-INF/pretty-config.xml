@@ -50,6 +50,7 @@
 	<url-mapping id="tree_03">
 		<pattern value="/customer/treeSuggest"></pattern>
 		<view-id>/sec/customer/treeSuggest.jsf</view-id>
+		<action>#{treeSuggestController.action()}</action>
 	</url-mapping>
 	
 	<url-mapping id="profile_01">
