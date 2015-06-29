@@ -271,6 +271,7 @@ public class EditCustomerController implements Serializable{
 			e.printStackTrace();
 		}
 
+		long startTime2 = System.currentTimeMillis();
 		provinceList = new ArrayList<DropDownModel>();
 		provinceSendDocList = new ArrayList<DropDownModel>();
 		List<AddressProvinces> provinList = em.createQuery("From AddressProvinces",AddressProvinces.class).getResultList();
@@ -292,8 +293,9 @@ public class EditCustomerController implements Serializable{
 		}
 		amphurList = new ArrayList<DropDownModel>();
 		amphurSendDocList = new ArrayList<DropDownModel>();
-		List<AddressAmphures> dataList = em.createQuery("From AddressAmphures"
+		List<AddressAmphures> dataList = em.createQuery("From AddressAmphures Where provinceId=:provinceId"
 				,AddressAmphures.class)
+				.setParameter("provinceId", provinceId)
 				.getResultList();
 		if(dataList!=null){
 			for(AddressAmphures data:dataList){
@@ -302,19 +304,42 @@ public class EditCustomerController implements Serializable{
 				model.setThLabel(data.getAmphurName());
 				model.setEnLabel(data.getAmphurNameEng());
 				amphurList.add(model);
-				amphurSendDocList.add(model);
 			}
 			DropDownModel model = new DropDownModel();
 			model.setIntKey(-1);
 			model.setThLabel("");
 			model.setEnLabel("");
 			amphurList.add(0,model);
+		}
+		dataList = em.createQuery("From AddressAmphures Where provinceId=:provinceId"
+				,AddressAmphures.class)
+				.setParameter("provinceId", provinceIdSendDoc)
+				.getResultList();
+		if(dataList!=null){
+			for(AddressAmphures data:dataList){
+				DropDownModel model = new DropDownModel();
+				model.setIntKey(data.getAmphurId());
+				model.setThLabel(data.getAmphurName());
+				model.setEnLabel(data.getAmphurNameEng());
+				amphurSendDocList.add(model);
+			}
+			DropDownModel model = new DropDownModel();
+			model.setIntKey(-1);
+			model.setThLabel("");
+			model.setEnLabel("");
 			amphurSendDocList.add(0,model);
 		}
+		
+		
+		
 		districtList = new ArrayList<DropDownModel>();
 		districtSendDocList = new ArrayList<DropDownModel>();
-		List<AddressDistricts> dataDisList = em.createQuery("From AddressDistricts "
+		List<AddressDistricts> dataDisList = em.createQuery("From AddressDistricts " +
+				" Where amphurId=:amphurId " +
+				" And provinceId=:provinceId "
 				,AddressDistricts.class)
+				.setParameter("amphurId", amphurId)
+				.setParameter("provinceId", provinceId)
 				.getResultList();
 		if(dataDisList!=null){
 			for(AddressDistricts data:dataDisList){
@@ -323,15 +348,36 @@ public class EditCustomerController implements Serializable{
 				model.setThLabel(data.getDistrictName());
 				model.setEnLabel(data.getDistrictNameEng());
 				districtList.add(model);
-				districtSendDocList.add(model);
 			}
 			DropDownModel model = new DropDownModel();
 			model.setIntKey(-1);
 			model.setThLabel("");
 			model.setEnLabel("");
 			districtList.add(0,model);
+		}
+		dataDisList = em.createQuery("From AddressDistricts " +
+				" Where amphurId=:amphurId " +
+				" And provinceId=:provinceId "
+				,AddressDistricts.class)
+				.setParameter("amphurId", amphurIdSendDoc)
+				.setParameter("provinceId", provinceIdSendDoc)
+				.getResultList();
+		if(dataDisList!=null){
+			for(AddressDistricts data:dataDisList){
+				DropDownModel model = new DropDownModel();
+				model.setIntKey(data.getDistrictId());
+				model.setThLabel(data.getDistrictName());
+				model.setEnLabel(data.getDistrictNameEng());
+				districtSendDocList.add(model);
+			}
+			DropDownModel model = new DropDownModel();
+			model.setIntKey(-1);
+			model.setThLabel("");
+			model.setEnLabel("");
 			districtSendDocList.add(0,model);
 		}
+		long endTime2 = System.currentTimeMillis();
+		log.info("SQL Time = "+((endTime2-startTime2)/1000d)+"s");
 
 		bankList = new ArrayList<DropDownModel>();
 		List<MasterBank> masterBankList = em.createQuery("From MasterBank",MasterBank.class).getResultList();

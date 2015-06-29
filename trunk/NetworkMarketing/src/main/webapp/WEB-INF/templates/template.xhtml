@@ -94,5 +94,41 @@
 			<h:outputText value="#{app_msgs['app.copyright']}" />
 		</div>
 	</div>
+	
+	
+	<rich:popupPanel id="panelProgress" width="210" height="100"
+			autosized="true">
+				<table width="200">
+					<tr>
+						<td align="center" valign="middle"><h:graphicImage
+							value="/resources/image/progressBar.gif" /></td>
+					</tr>
+					<tr>
+						<td align="center" valign="middle">
+						#{app_msgs['label.wait']}</td>
+					</tr>
+				</table>
+		</rich:popupPanel>
+		
 </h:body>
+<h:outputScript>
+	function startProgress(){
+          #{rich:component('panelProgress')}.show();
+     }
+
+     function endProgress(){                   
+          #{rich:component('panelProgress')}.hide();
+     } 
+     function confirmMsg(msg){
+     		var x= false;
+            if(confirm(msg)) {
+                  startProgress();
+                  x=true;
+            }else{
+                  noAct=false;
+                  x= false;
+            }   
+            return x;                        
+     }
+</h:outputScript>
 </html>
