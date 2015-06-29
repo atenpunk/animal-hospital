@@ -58,7 +58,7 @@
 							<h:outputText value="#{editCustomerController.starRecomendId}"
 								id="starRecomendId" style="COLOR: #ff0000;" />
 							<h:inputText value="#{editCustomerController.recomendStrId}"
-								disabled="true" style=" width : 80px;" />
+								maxlength="20" disabled="true" style=" width : 80px;" />
 
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.recommendName']}" />
@@ -86,7 +86,8 @@
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.nationality']}" />
 							<h:outputText value="" />
-							<h:inputText value="#{editCustomerController.nationality}" />
+							<h:inputText maxlength="100"
+								value="#{editCustomerController.nationality}" />
 
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.regisDate']}" />
@@ -103,13 +104,15 @@
 								value="#{app_msgs['label.pageAddMember.personalIdPassport']}" />
 							<h:outputText value="#{editCustomerController.starPersonalId}"
 								id="starPersonalId" style="COLOR: #ff0000;" />
-							<h:inputText value="#{editCustomerController.personalId}" />
+							<h:inputText maxlength="100"
+								value="#{editCustomerController.personalId}" />
 
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.titleName']}" />
 							<h:outputText value="#{editCustomerController.starTitleName}"
 								id="starTitle" style="COLOR: #ff0000;" />
-							<h:inputText value="#{editCustomerController.titleName}"
+							<h:inputText maxlength="100"
+								value="#{editCustomerController.titleName}"
 								style=" width : 80px;">
 								<a4j:ajax event="keyup" render="starTitle,saveId"
 									listener="#{editCustomerController.onKeypress()}" />
@@ -120,13 +123,15 @@
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.companyID']}" />
 							<h:outputText value="" />
-							<h:inputText value="#{editCustomerController.companyID}" />
+							<h:inputText maxlength="100"
+								value="#{editCustomerController.companyID}" />
 
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.nameOrCompany']}" />
 							<h:outputText value="#{editCustomerController.starFirstName}"
 								id="starName" style="COLOR: #ff0000;" />
-							<h:inputText value="#{editCustomerController.firstName}"
+							<h:inputText maxlength="100"
+								value="#{editCustomerController.firstName}"
 								style=" width : 150px;">
 								<a4j:ajax event="keyup" render="starName,saveId"
 									listener="#{editCustomerController.onKeypress()}" />
@@ -137,12 +142,14 @@
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.telephone']}" />
 							<h:outputText value="" />
-							<h:inputText value="#{editCustomerController.telephone}" />
+							<h:inputText maxlength="100"
+								value="#{editCustomerController.telephone}" />
 
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.nameBusiness']}" />
 							<h:outputText value="" />
-							<h:inputText value="#{editCustomerController.businessName}"
+							<h:inputText maxlength="100"
+								value="#{editCustomerController.businessName}"
 								style=" width : 150px;">
 							</h:inputText>
 
@@ -150,7 +157,8 @@
 
 							<h:outputText value="#{app_msgs['label.pageAddMember.mobile']}" />
 							<h:outputText value="" />
-							<h:inputText value="#{editCustomerController.mobile}" />
+							<h:inputText maxlength="100"
+								value="#{editCustomerController.mobile}" />
 
 							<h:outputText value="#{app_msgs['label.pageAddMember.sex']}" />
 							<h:outputText value="#{editCustomerController.starSex}"
@@ -166,7 +174,8 @@
 
 							<h:outputText value="#{app_msgs['label.pageAddMember.fax']}" />
 							<h:outputText value="" />
-							<h:inputText value="#{editCustomerController.fax}" />
+							<h:inputText maxlength="100"
+								value="#{editCustomerController.fax}" />
 
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.birthDate']}" />
@@ -182,7 +191,8 @@
 
 							<h:outputText value="#{app_msgs['label.pageAddMember.email']}" />
 							<h:outputText value="" />
-							<h:inputText value="#{editCustomerController.email}" />
+							<h:inputText maxlength="100"
+								value="#{editCustomerController.email}" />
 
 						</h:panelGrid>
 					</rich:panel>
@@ -197,35 +207,40 @@
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.addressNo']}" />
 							<h:outputText value="" />
-							<h:inputText value="#{editCustomerController.addressNo}">
+							<h:inputText maxlength="100"
+								value="#{editCustomerController.addressNo}">
 								<a4j:ajax event="change" />
 							</h:inputText>
 
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.addressBuilding']}" />
 							<h:outputText value="" />
-							<h:inputText value="#{editCustomerController.addressBuilding}">
+							<h:inputText maxlength="100"
+								value="#{editCustomerController.addressBuilding}">
 								<a4j:ajax event="change" />
 							</h:inputText>
 
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.addressVillage']}" />
 							<h:outputText value="" />
-							<h:inputText value="#{editCustomerController.addressVillage}">
+							<h:inputText maxlength="100"
+								value="#{editCustomerController.addressVillage}">
 								<a4j:ajax event="change" />
 							</h:inputText>
 
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.addressLane']}" />
 							<h:outputText value="" />
-							<h:inputText value="#{editCustomerController.addressLane}">
+							<h:inputText maxlength="100"
+								value="#{editCustomerController.addressLane}">
 								<a4j:ajax event="change" />
 							</h:inputText>
 
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.addressRoad']}" />
 							<h:outputText value="" />
-							<h:inputText value="#{editCustomerController.addressRoad}">
+							<h:inputText maxlength="100"
+								value="#{editCustomerController.addressRoad}">
 								<a4j:ajax event="change" />
 							</h:inputText>
 
@@ -271,7 +286,7 @@
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.addressPostCode']}" />
 							<h:outputText value="" />
-							<h:inputText id="postCodeId"
+							<h:inputText maxlength="100" id="postCodeId"
 								value="#{editCustomerController.addressPostCode}" />
 						</h:panelGrid>
 					</rich:panel>
@@ -294,29 +309,32 @@
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.addressNo']}" />
 							<h:outputText value="" />
-							<h:inputText value="#{editCustomerController.addressNoSendDoc}" />
+							<h:inputText maxlength="100"
+								value="#{editCustomerController.addressNoSendDoc}" />
 
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.addressBuilding']}" />
 							<h:outputText value="" />
-							<h:inputText
+							<h:inputText maxlength="100"
 								value="#{editCustomerController.addressBuildingSendDoc}" />
 
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.addressVillage']}" />
 							<h:outputText value="" />
-							<h:inputText
+							<h:inputText maxlength="100"
 								value="#{editCustomerController.addressVillageSendDoc}" />
 
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.addressLane']}" />
 							<h:outputText value="" />
-							<h:inputText value="#{editCustomerController.addressLaneSendDoc}" />
+							<h:inputText maxlength="100"
+								value="#{editCustomerController.addressLaneSendDoc}" />
 
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.addressRoad']}" />
 							<h:outputText value="" />
-							<h:inputText value="#{editCustomerController.addressRoadSendDoc}" />
+							<h:inputText maxlength="100"
+								value="#{editCustomerController.addressRoadSendDoc}" />
 
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.addressProvince']}" />
@@ -367,7 +385,7 @@
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.addressPostCode']}" />
 							<h:outputText value="" />
-							<h:inputText id="postCodeIdSendDoc"
+							<h:inputText maxlength="100" id="postCodeIdSendDoc"
 								value="#{editCustomerController.addressPostCodeSendDoc}" />
 
 						</h:panelGrid>
@@ -390,7 +408,8 @@
 
 							<h:outputText value="#{app_msgs['label.pageAddMember.branch']}" />
 							<h:outputText value="" />
-							<h:inputText value="#{editCustomerController.branch}" />
+							<h:inputText maxlength="100"
+								value="#{editCustomerController.branch}" />
 
 							<h:outputText value="#{app_msgs['label.pageAddMember.accType']}" />
 							<h:outputText value="" />
@@ -401,15 +420,18 @@
 
 							<h:outputText value="#{app_msgs['label.pageAddMember.accNo']}" />
 							<h:outputText value="" />
-							<h:inputText value="#{editCustomerController.accNo}" />
+							<h:inputText maxlength="100"
+								value="#{editCustomerController.accNo}" />
 
 							<h:outputText value="#{app_msgs['label.pageAddMember.accName']}" />
 							<h:outputText value="" />
-							<h:inputText value="#{editCustomerController.accName}" />
+							<h:inputText maxlength="100"
+								value="#{editCustomerController.accName}" />
 
 							<h:outputText value="#{app_msgs['label.pageAddMember.remark']}" />
 							<h:outputText value="" />
-							<h:inputText value="#{editCustomerController.remark}" />
+							<h:inputText maxlength="100"
+								value="#{editCustomerController.remark}" />
 						</h:panelGrid>
 
 					</rich:panel>
@@ -475,7 +497,8 @@
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.copyBookBank']}" />
 							<a4j:outputPanel id="bookBankDay" layout="block">
-								<rich:calendar style=" width : 90px;" disabled="#{not editCustomerController.chkCopyBookBank}"
+								<rich:calendar style=" width : 90px;"
+									disabled="#{not editCustomerController.chkCopyBookBank}"
 									value="#{editCustomerController.dateCopyBookBank}"
 									datePattern="dd/MM/yyyy" />
 							</a4j:outputPanel>
@@ -486,8 +509,8 @@
 					<h:panelGrid columns="4" id="panelGridEditId">
 						<a4j:commandButton id="saveId"
 							disabled="#{editCustomerController.chkSave}"
-							onclick="if (!confirm('#{app_msgs['label.comfirm.edit']}')) return false"
-							value="#{app_msgs['button.edit']}"
+							onclick="confirmMsg('#{app_msgs['label.comfirm.edit']}');"
+							oncomplete="endProgress();" value="#{app_msgs['button.edit']}"
 							action="#{editCustomerController.confirmEditMember()}"
 							render="panelGridEditId" style=" width : 80px;" />
 						<h:commandButton id="cancleId"
