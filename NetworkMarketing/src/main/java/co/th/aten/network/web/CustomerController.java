@@ -458,8 +458,10 @@ public class CustomerController implements Serializable{
 					memSearch = (MemberCustomer)em.createQuery("From MemberCustomer Where customerMember =:customerMember ")
 							.setParameter("customerMember", searchCustomer).getSingleResult();
 				}else{
-					memSearch = (MemberCustomer)em.createQuery("From MemberCustomer Where firstName =:firstName ")
-							.setParameter("firstName", searchCustomer).getSingleResult();
+					searchCustomer = searchCustomer.replaceAll(" or ", "");
+					searchCustomer = searchCustomer.replaceAll(" OR ", "");
+					memSearch = (MemberCustomer)em.createQuery("From MemberCustomer Where firstName like '%"+searchCustomer+"%' ")
+							.getResultList().get(0);
 				}
 				long cusId = memSearch.getCustomerId().longValue();
 				log.info("##### cusId ##### = "+cusId);
@@ -1331,7 +1333,11 @@ public class CustomerController implements Serializable{
 				}
 				model.setScore(customer.getScore()!=null?customer.getScore():0);
 				model.setRegisDate(customer.getRegisDate());
-				model.setFirstName(StringUtil.n2b(customer.getFirstName()));
+				String firstName = StringUtil.n2b(customer.getFirstName()).split(" ")[0];
+				if(firstName!=null && firstName.length()>9){
+					firstName = firstName.substring(0, 9);
+				}
+				model.setFirstName(firstName);
 				model.setLastName(customer.getLastName());
 				model.setName(StringUtil.n2b(customer.getTitleName())+StringUtil.n2b(customer.getFirstName())+" "+StringUtil.n2b(customer.getLastName()));
 				model.setStatus(customer.getStatus()!=null?customer.getStatus():0);
