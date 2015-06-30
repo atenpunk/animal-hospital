@@ -1624,7 +1624,8 @@ public class CustomerController implements Serializable{
 				cus.setTitleName(titleName);
 				cus.setFirstName(firstName);
 				cus.setBusinessName(businessName);
-
+				
+				cus.setSide(side);
 				cus.setSex(sex);
 				cus.setBirthDay(birthDay);
 				cus.setNationality(nationality);

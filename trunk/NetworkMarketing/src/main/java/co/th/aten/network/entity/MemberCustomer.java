@@ -203,7 +203,9 @@ public class MemberCustomer implements Serializable {
     private Integer chkCopyPersonalCard;
     @Column(name = "chk_Copy_Book_Bank")
     private Integer chkCopyBookBank;
-
+    @Column(name = "side")
+    private Integer side;
+    
     public MemberCustomer() {
     }
 
@@ -665,6 +667,14 @@ public class MemberCustomer implements Serializable {
 
 	public void setChkCopyBookBank(Integer chkCopyBookBank) {
 		this.chkCopyBookBank = chkCopyBookBank;
+	}
+
+	public Integer getSide() {
+		return side;
+	}
+
+	public void setSide(Integer side) {
+		this.side = side;
 	}
 
 	@Override
