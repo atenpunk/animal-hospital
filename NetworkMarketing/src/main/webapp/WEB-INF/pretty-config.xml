@@ -57,7 +57,7 @@
 		<pattern value="/customer/profile"></pattern>
 		<view-id>/sec/customer/profile.jsf</view-id>
 	</url-mapping>
-	
+		
 	<url-mapping id="changePassword_01">
 		<pattern value="/user/passwd"></pattern>
 		<view-id>/sec/user/passwd.jsf</view-id>
@@ -66,6 +66,11 @@
 	<url-mapping id="report_01">
 		<pattern value="/report/customerReport"></pattern>
 		<view-id>/sec/report/customerReport.jsf</view-id>
+	</url-mapping>
+	
+	<url-mapping id="report_02">
+		<pattern value="/report/teamBinaryReport"></pattern>
+		<view-id>/sec/report/teamBinaryReport.jsf</view-id>
 	</url-mapping>
 	
 </pretty-config>

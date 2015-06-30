@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="content">
+	<br />
+		<h:form>
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText
+						value="#{app_msgs['label.menuInfoFlowTeam.reportTeamBinary']}" />
+				</f:facet>
+				<table>
+					<tr>
+						<td><h:inputText id="inputMemberId"
+								value="#{teamBinaryReportController.searchCustomer}">
+								<rich:placeholder
+									value="#{app_msgs['inputText.search.memberId']}" />
+							</h:inputText>&#160;<a4j:commandButton id="searchId"
+								value="#{app_msgs['button.search']}"
+								action="#{teamBinaryReportController.search}" render="testDataTable"
+								style=" width : 80px;"></a4j:commandButton></td>
+						<td><a4j:status>
+								<f:facet name="start">
+									<h:graphicImage value="/resources/gfx/spinner.gif" />
+								</f:facet>
+							</a4j:status></td>
+						<td><h:messages style="color:red;margin:8px;" /></td>
+					</tr>
+				</table>
+				<br />
+				<rich:dataTable id="testDataTable" style="width : 100%;"
+					onrowmouseover="this.style.backgroundColor='#F1F1F1'"
+					onrowmouseout="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+					value="#{teamBinaryReportController.teamBinaryReportModelList}"
+					var="item" rows="20">
+					<f:facet name="header">
+						<rich:columnGroup>
+							<rich:column breakRowBefore="true">
+								<h:outputText value="ลำดับที่" />
+							</rich:column>
+							<rich:column>
+								<h:outputText value="รหัสสมาชิก" />
+							</rich:column>
+							<rich:column>
+								<h:outputText value="ชื่อ" />
+							</rich:column>
+							<rich:column>
+								<h:outputText value="จับคู่" />
+							</rich:column>
+							<rich:column>
+								<h:outputText value="แนะนำ" />
+							</rich:column>
+							<rich:column>
+								<h:outputText value="เกรียติยศ" />
+							</rich:column>
+							<rich:column>
+								<h:outputText value="ฝั่ง" />
+							</rich:column>
+						</rich:columnGroup>
+					</f:facet>
+					<rich:column>
+						<h:outputText value="#{item.index}">
+						</h:outputText>
+					</rich:column>
+					<rich:column style="text-align:center">
+						<h:outputText value="#{item.customerId}" />
+					</rich:column>
+					<rich:column>
+						<h:outputText value="#{item.customerName}" />
+					</rich:column>
+					<rich:column>
+						<h:outputText value="#{item.position}" />
+					</rich:column>
+					<rich:column>
+						<h:outputText value="#{item.recomment}" />
+					</rich:column>
+					<rich:column>
+						<h:outputText value="#{item.honor}" />
+					</rich:column>
+					<rich:column style="text-align:center">
+						<h:outputText value="#{item.side}" />
+					</rich:column>
+					<f:facet name="footer">
+						<rich:dataScroller for="testDataTable" />
+					</f:facet>
+				</rich:dataTable>
+			</rich:panel>
+		</h:form>
+	</ui:define>
+
+</ui:composition>
