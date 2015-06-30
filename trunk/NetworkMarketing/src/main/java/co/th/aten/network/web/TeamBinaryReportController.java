@@ -13,6 +13,7 @@ import javax.persistence.EntityManager;
 import org.jboss.seam.international.status.MessageFactory;
 import org.jboss.seam.international.status.Messages;
 import org.jboss.solder.logging.Logger;
+import org.richfaces.component.SortOrder;
 
 import co.th.aten.network.entity.MemberCustomer;
 import co.th.aten.network.entity.MemberPosition;
@@ -44,6 +45,14 @@ public class TeamBinaryReportController implements Serializable{
 	@DBDefault
 	private EntityManager em;
 
+	private SortOrder orderOrder = SortOrder.unsorted;
+	private SortOrder memberIdOrder = SortOrder.unsorted;
+	private SortOrder memberNameOrder = SortOrder.unsorted;
+	private SortOrder positionOrder = SortOrder.unsorted;
+	private SortOrder recommentOrder = SortOrder.unsorted;
+	private SortOrder honorOrder = SortOrder.unsorted;
+	private SortOrder sideOrder = SortOrder.unsorted;
+
 	private List<TeamBinaryReportModel> teamBinaryReportModelList;
 	private String searchCustomer;
 
@@ -51,7 +60,113 @@ public class TeamBinaryReportController implements Serializable{
 	public void init(){
 		log.info("init method TeamBinaryReportController");
 		teamBinaryReportModelList = new ArrayList<TeamBinaryReportModel>();
+		searchCustomer = "";
 		report(null);
+	}
+	
+	public void sortByOrder() {
+		log.info("-------> sortByOrder()");
+		memberIdOrder = SortOrder.unsorted;
+		memberNameOrder = SortOrder.unsorted;
+		positionOrder = SortOrder.unsorted;
+		recommentOrder = SortOrder.unsorted;
+		honorOrder = SortOrder.unsorted;
+		sideOrder = SortOrder.unsorted;
+		if (orderOrder.equals(SortOrder.ascending)) {
+			setOrderOrder(SortOrder.descending);
+		} else {
+			setOrderOrder(SortOrder.ascending);
+		}
+	}
+
+	public void sortByMemberId() {
+		log.info("-------> sortByMemberId()");
+		orderOrder = SortOrder.unsorted;
+		memberNameOrder = SortOrder.unsorted;
+		positionOrder = SortOrder.unsorted;
+		recommentOrder = SortOrder.unsorted;
+		honorOrder = SortOrder.unsorted;
+		sideOrder = SortOrder.unsorted;
+		if (memberIdOrder.equals(SortOrder.ascending)) {
+			setMemberIdOrder(SortOrder.descending);
+		} else {
+			setMemberIdOrder(SortOrder.ascending);
+		}
+	}
+	
+	public void sortByMemberName() {
+		log.info("-------> sortByMemberName()");
+		orderOrder = SortOrder.unsorted;
+		memberIdOrder = SortOrder.unsorted;
+		positionOrder = SortOrder.unsorted;
+		recommentOrder = SortOrder.unsorted;
+		honorOrder = SortOrder.unsorted;
+		sideOrder = SortOrder.unsorted;
+		if (memberNameOrder.equals(SortOrder.ascending)) {
+			setMemberNameOrder(SortOrder.descending);
+		} else {
+			setMemberNameOrder(SortOrder.ascending);
+		}
+	}
+	
+	public void sortByPosition() {
+		log.info("-------> sortByPosition()");
+		orderOrder = SortOrder.unsorted;
+		memberIdOrder = SortOrder.unsorted;
+		memberNameOrder = SortOrder.unsorted;
+		recommentOrder = SortOrder.unsorted;
+		honorOrder = SortOrder.unsorted;
+		sideOrder = SortOrder.unsorted;
+		if (positionOrder.equals(SortOrder.ascending)) {
+			setPositionOrder(SortOrder.descending);
+		} else {
+			setPositionOrder(SortOrder.ascending);
+		}
+	}
+	
+	public void sortByRecomment() {
+		log.info("-------> sortByRecomment()");
+		orderOrder = SortOrder.unsorted;
+		memberIdOrder = SortOrder.unsorted;
+		memberNameOrder = SortOrder.unsorted;
+		positionOrder = SortOrder.unsorted;
+		honorOrder = SortOrder.unsorted;
+		sideOrder = SortOrder.unsorted;
+		if (recommentOrder.equals(SortOrder.ascending)) {
+			setRecommentOrder(SortOrder.descending);
+		} else {
+			setRecommentOrder(SortOrder.ascending);
+		}
+	}
+	
+	public void sortByHonor() {
+		log.info("-------> sortByHonor()");
+		orderOrder = SortOrder.unsorted;
+		memberIdOrder = SortOrder.unsorted;
+		memberNameOrder = SortOrder.unsorted;
+		positionOrder = SortOrder.unsorted;
+		recommentOrder = SortOrder.unsorted;
+		sideOrder = SortOrder.unsorted;
+		if (honorOrder.equals(SortOrder.ascending)) {
+			setHonorOrder(SortOrder.descending);
+		} else {
+			setHonorOrder(SortOrder.ascending);
+		}
+	}
+	
+	public void sortBySide() {
+		log.info("-------> sortBySide()");
+		orderOrder = SortOrder.unsorted;
+		memberIdOrder = SortOrder.unsorted;
+		memberNameOrder = SortOrder.unsorted;
+		positionOrder = SortOrder.unsorted;
+		recommentOrder = SortOrder.unsorted;
+		honorOrder = SortOrder.unsorted;
+		if (sideOrder.equals(SortOrder.ascending)) {
+			setSideOrder(SortOrder.descending);
+		} else {
+			setSideOrder(SortOrder.ascending);
+		}
 	}
 
 	public void report(MemberCustomer memSearch){
@@ -108,6 +223,13 @@ public class TeamBinaryReportController implements Serializable{
 		long startTime = System.currentTimeMillis();
 		log.info("##### SEARCH ##### = "+searchCustomer);
 		teamBinaryReportModelList = new ArrayList<TeamBinaryReportModel>();
+		orderOrder = SortOrder.unsorted;
+		memberIdOrder = SortOrder.unsorted;
+		memberNameOrder = SortOrder.unsorted;
+		positionOrder = SortOrder.unsorted;
+		recommentOrder = SortOrder.unsorted;
+		honorOrder = SortOrder.unsorted;
+		sideOrder = SortOrder.unsorted;
 		try{
 			if(searchCustomer!=null && searchCustomer.trim().length()>0){
 				MemberCustomer memSearch = null;
@@ -128,9 +250,9 @@ public class TeamBinaryReportController implements Serializable{
 							.getResultList().get(0);
 				}
 				long cusId = memSearch.getCustomerId().longValue();
-				log.info("##### cusId ##### = "+cusId);
-				log.info("##### login ##### = "+currentUser.getCurrentAccount().getCustomerId().getCustomerId().intValue());
-				if(cusId >= currentUser.getCurrentAccount().getCustomerId().getCustomerId().intValue()){
+				log.info("***** cusId ##### = "+cusId);
+				log.info("***** login ##### = "+currentUser.getCurrentAccount().getCustomerId().getCustomerId().intValue());
+				if(cusId > currentUser.getCurrentAccount().getCustomerId().getCustomerId().longValue()){
 					String sql = "From MemberCustomer " +
 							" Where customerId = "+currentUser.getCurrentAccount().getCustomerId().getCustomerId().intValue();
 					boolean chk = true;
@@ -159,6 +281,8 @@ public class TeamBinaryReportController implements Serializable{
 						subSql = "("+subSql+")";
 						sql += subSql;
 					}
+				}else if(cusId == currentUser.getCurrentAccount().getCustomerId().getCustomerId().intValue()){
+					report(memSearch);
 				}
 			}else{
 				report(null);
@@ -185,6 +309,62 @@ public class TeamBinaryReportController implements Serializable{
 
 	public void setSearchCustomer(String searchCustomer) {
 		this.searchCustomer = searchCustomer;
+	}
+
+	public SortOrder getMemberIdOrder() {
+		return memberIdOrder;
+	}
+
+	public void setMemberIdOrder(SortOrder memberIdOrder) {
+		this.memberIdOrder = memberIdOrder;
+	}
+
+	public SortOrder getMemberNameOrder() {
+		return memberNameOrder;
+	}
+
+	public void setMemberNameOrder(SortOrder memberNameOrder) {
+		this.memberNameOrder = memberNameOrder;
+	}
+
+	public SortOrder getPositionOrder() {
+		return positionOrder;
+	}
+
+	public void setPositionOrder(SortOrder positionOrder) {
+		this.positionOrder = positionOrder;
+	}
+
+	public SortOrder getRecommentOrder() {
+		return recommentOrder;
+	}
+
+	public void setRecommentOrder(SortOrder recommentOrder) {
+		this.recommentOrder = recommentOrder;
+	}
+
+	public SortOrder getHonorOrder() {
+		return honorOrder;
+	}
+
+	public void setHonorOrder(SortOrder honorOrder) {
+		this.honorOrder = honorOrder;
+	}
+
+	public SortOrder getSideOrder() {
+		return sideOrder;
+	}
+
+	public void setSideOrder(SortOrder sideOrder) {
+		this.sideOrder = sideOrder;
+	}
+
+	public SortOrder getOrderOrder() {
+		return orderOrder;
+	}
+
+	public void setOrderOrder(SortOrder orderOrder) {
+		this.orderOrder = orderOrder;
 	}
 
 }
