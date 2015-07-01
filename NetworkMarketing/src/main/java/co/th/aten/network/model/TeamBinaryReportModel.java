@@ -10,7 +10,8 @@ public class TeamBinaryReportModel implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private int index;	
-	private String customerId;
+	private int customerId;
+	private String customerCode;
 	private String customerName;
 	private String position;	
 	private String recomment;
@@ -23,11 +24,17 @@ public class TeamBinaryReportModel implements Serializable {
 	public void setIndex(int index) {
 		this.index = index;
 	}
-	public String getCustomerId() {
+	public int getCustomerId() {
 		return customerId;
 	}
-	public void setCustomerId(String customerId) {
+	public void setCustomerId(int customerId) {
 		this.customerId = customerId;
+	}
+	public String getCustomerCode() {
+		return customerCode;
+	}
+	public void setCustomerCode(String customerCode) {
+		this.customerCode = customerCode;
 	}
 	public String getCustomerName() {
 		return customerName;

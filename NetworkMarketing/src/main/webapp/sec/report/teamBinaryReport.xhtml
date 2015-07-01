@@ -23,7 +23,7 @@
 							</h:inputText>&#160;<a4j:commandButton id="searchId"
 								value="#{app_msgs['button.search']}"
 								action="#{teamBinaryReportController.search}"
-								render="testDataTable" style=" width : 80px;"></a4j:commandButton></td>
+								render="testDataTable,panelCountSideId" style=" width : 80px;"></a4j:commandButton></td>
 						<td><a4j:status>
 								<f:facet name="start">
 									<h:graphicImage value="/resources/gfx/spinner_old.gif" />
@@ -33,11 +33,25 @@
 					</tr>
 				</table>
 				<br />
+				<h:panelGrid columns="2" id="panelCountSideId"
+					style="width : 100%;text-align:center;">
+					<a4j:commandLink
+						value="#{app_msgs['label.menuInfoFlowTeam.reportTeamBinary.countLeftSide']} #{teamBinaryReportController.countLeftSide} #{app_msgs['label.menuInfoFlowTeam.reportTeamBinary.person']}"
+						render="fromReportId"
+						action="#{teamBinaryReportController.genDataSide(1)}"
+						style="FONT-WEIGHT: bold;#{teamBinaryReportController.styleLeft}"></a4j:commandLink>
+					<a4j:commandLink
+						value="#{app_msgs['label.menuInfoFlowTeam.reportTeamBinary.countRightSide']} #{teamBinaryReportController.countRightSid} #{app_msgs['label.menuInfoFlowTeam.reportTeamBinary.person']}"
+						render="fromReportId"
+						action="#{teamBinaryReportController.genDataSide(2)}"
+						style="FONT-WEIGHT: bold;#{teamBinaryReportController.styleRight}"></a4j:commandLink>
+				</h:panelGrid>
+				<br />
 				<rich:dataTable id="testDataTable" style="width : 100%;"
 					onrowmouseover="this.style.backgroundColor='#F1F1F1'"
 					onrowmouseout="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
 					value="#{teamBinaryReportController.teamBinaryReportModelList}"
-					var="item" rows="20">
+					var="item" rows="100">
 					<rich:column sortBy="#{item.index}" sortType="custom"
 						sortOrder="#{teamBinaryReportController.orderOrder}">
 						<f:facet name="header">
@@ -57,7 +71,9 @@
 								render="fromReportId"
 								action="#{teamBinaryReportController.sortByMemberId}" />
 						</f:facet>
-						<h:outputText value="#{item.customerId}" />
+						<a href="#{request.contextPath}/customer/tree?id=#{item.customerCode}"> <h:outputText
+								value="#{item.customerCode}" />
+						</a>
 					</rich:column>
 					<rich:column sortBy="#{item.customerName}" sortType="custom"
 						sortOrder="#{teamBinaryReportController.memberNameOrder}">
