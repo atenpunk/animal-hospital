@@ -2,69 +2,101 @@
 <pretty-config xmlns="http://ocpsoft.com/prettyfaces/2.0.4"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="
-        http://ocpsoft.com/prettyfaces/2.0.4 http://ocpsoft.com/xml/ns/prettyfaces/ocpsoft-pretty-faces-2.0.4.xsd">
-        
-        <url-mapping id="root">
-        <pattern value="/"></pattern>
-        <view-id>/sec/home.jsf</view-id>
-    </url-mapping>
-    
-    <url-mapping id="login">
-        <pattern value="/login"></pattern>
-        <view-id>/login.jsf</view-id>
-    </url-mapping>
-           
-    <url-mapping id="logout">
-        <pattern value="/logout"></pattern>
-        <view-id >/login.jsf</view-id>
-        <action>#{identity.logout}</action>
-    </url-mapping>
-    
-    <url-mapping id="denied">
-        <pattern value="/denied"></pattern>
-        <view-id>/denied.jsf</view-id>
-    </url-mapping>
-    
-     <url-mapping id="passwd">
-        <pattern value="/user/passwd"></pattern>
-        <view-id>/sec/user/passwd.jsf</view-id>
-    </url-mapping>
-    
-    <url-mapping id="add_01">
+        http://ocpsoft.com/prettyfaces/2.0.4
+        http://ocpsoft.com/xml/ns/prettyfaces/ocpsoft-pretty-faces-2.0.4.xsd">
+
+	<url-mapping id="root">
+		<pattern value="/"></pattern>
+		<view-id>/sec/home.jsf</view-id>
+		<action>#{menuActiveController.homeActive()}</action>
+	</url-mapping>
+	
+	<url-mapping id="menu_01">
+		<pattern value="/menuProfile"></pattern>
+		<view-id>/sec/menuProfile.jsf</view-id>
+		<action>#{menuActiveController.profileActive()}</action>
+	</url-mapping>
+	
+	<url-mapping id="menu_02">
+		<pattern value="/menuFlowTeam"></pattern>
+		<view-id>/sec/menuFlowTeam.jsf</view-id>
+		<action>#{menuActiveController.flowTeamActive()}</action>
+	</url-mapping>
+	
+	<url-mapping id="menu_03">
+		<pattern value="/menuInfoSuggest"></pattern>
+		<view-id>/sec/menuInfoSuggest.jsf</view-id>
+		<action>#{menuActiveController.suggestActive()}</action>
+	</url-mapping>
+	
+	<url-mapping id="menu_04">
+		<pattern value="/menuTrading"></pattern>
+		<view-id>/sec/menuTrading.jsf</view-id>
+		<action>#{menuActiveController.tradingActive()}</action>
+	</url-mapping>
+	
+	<url-mapping id="menu_05">
+		<pattern value="/menuReport"></pattern>
+		<view-id>/sec/menuReport.jsf</view-id>
+		<action>#{menuActiveController.reportActive()}</action>
+	</url-mapping>
+
+	<url-mapping id="login">
+		<pattern value="/login"></pattern>
+		<view-id>/login.jsf</view-id>
+	</url-mapping>
+
+	<url-mapping id="logout">
+		<pattern value="/logout"></pattern>
+		<view-id>/login.jsf</view-id>
+		<action>#{identity.logout}</action>
+	</url-mapping>
+
+	<url-mapping id="denied">
+		<pattern value="/denied"></pattern>
+		<view-id>/denied.jsf</view-id>
+	</url-mapping>
+
+	<url-mapping id="passwd">
+		<pattern value="/user/passwd"></pattern>
+		<view-id>/sec/user/passwd.jsf</view-id>
+	</url-mapping>
+
+	<url-mapping id="add_01">
 		<pattern value="/add/add"></pattern>
 		<view-id>/sec/add/add.jsf</view-id>
 	</url-mapping>
-	
+
 	<url-mapping id="tree_01">
 		<pattern value="/customer/tree"></pattern>
 		<view-id>/sec/customer/tree.jsf</view-id>
 		<action>#{customerController.genTreeModelOther()}</action>
 	</url-mapping>
-	
+
 	<url-mapping id="tree_03">
 		<pattern value="/customer/treeSuggest"></pattern>
 		<view-id>/sec/customer/treeSuggest.jsf</view-id>
 		<action>#{treeSuggestController.action()}</action>
 	</url-mapping>
-	
+
 	<url-mapping id="profile_01">
 		<pattern value="/customer/profile"></pattern>
 		<view-id>/sec/customer/profile.jsf</view-id>
 	</url-mapping>
-		
+
 	<url-mapping id="changePassword_01">
 		<pattern value="/user/passwd"></pattern>
 		<view-id>/sec/user/passwd.jsf</view-id>
 	</url-mapping>
-	
+
 	<url-mapping id="report_01">
 		<pattern value="/report/customerReport"></pattern>
 		<view-id>/sec/report/customerReport.jsf</view-id>
 	</url-mapping>
-	
+
 	<url-mapping id="report_02">
 		<pattern value="/report/teamBinaryReport"></pattern>
 		<view-id>/sec/report/teamBinaryReport.jsf</view-id>
 	</url-mapping>
-	
+
 </pretty-config>

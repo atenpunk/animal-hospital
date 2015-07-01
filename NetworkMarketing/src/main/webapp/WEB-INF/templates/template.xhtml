@@ -12,6 +12,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<h:outputStylesheet library="css" name="screen.css" />
 	<h:outputStylesheet library="css" name="tree.css" />
+	<h:outputStylesheet library="css" name="mainMenu.css" />
 	<h:outputScript library="js" name="solar.js" />
 </h:head>
 <h:body>
@@ -30,37 +31,33 @@
 					<br />
 					<br />
 					<br />
+					<br />
 					&#160;&#160;<pretty:link mappingId="logout">
 						<h:outputText value="#{app_msgs['menu.logout.label']}" />
 					</pretty:link>
 				</h:panelGroup>
-				<h:graphicImage value="/resources/gfx/schneider_bannerRIGHT.png" />
 			</h:panelGrid>
-
 		</div>
 		<div id="messageBar">
 			<h:messages globalOnly="true" infoClass="info" warnClass="warn"
 				errorClass="error" />
 		</div>
 
-		<rich:toolbar height="26px">
-			<a href="#{request.contextPath}/">#{app_msgs['menu.label.home']}</a>
-			<rich:dropDownMenu>
-				<f:facet name="label">
-					<h:panelGroup>
-						<h:outputText value="#{app_msgs['menu.label.profile']}" />
-					</h:panelGroup>
-				</f:facet>
-				<rich:menuItem submitMode="ajax"
-					label="#{app_msgs['menu.label.editProfile']}"
-					onclick="document.location.href='#{request.contextPath}/customer/profile'" />
-				<rich:menuItem submitMode="ajax"
-					label="#{app_msgs['menu.label.editPassword']}"
-					onclick="document.location.href='#{request.contextPath}/user/passwd'" />
-			</rich:dropDownMenu>
-
-			<rich:toolbarGroup location="right">
-				<h:form>
+		<div id='cssmenu'>
+			<ul>
+				<li class='#{menuActiveController.menuHome}'><a
+					href='#{request.contextPath}/'>#{app_msgs['menu.label.home']}</a></li>
+				<li class='#{menuActiveController.menuProfile}'><a
+					href='#{request.contextPath}/menuProfile'>#{app_msgs['menu.label.profile']}</a></li>
+				<li class='#{menuActiveController.menuFlowTeam}'><a
+					href='#{request.contextPath}/menuFlowTeam'>#{app_msgs['menu.label.flowTeam']}</a></li>
+				<li class='#{menuActiveController.menuInfoSuggest}'><a
+					href='#{request.contextPath}/menuInfoSuggest'>#{app_msgs['menu.label.infoSuggest']}</a></li>
+				<li class='#{menuActiveController.menuTrading}'><a
+					href='#{request.contextPath}/menuTrading'>#{app_msgs['menu.label.infoTrading']}</a></li>
+				<li class="#{menuActiveController.menuReport}"><a
+					href='#{request.contextPath}/menuReport'>#{app_msgs['menu.label.report']}</a></li>
+				<h:form style="float:right; text-align:right; list-style:none;">
 					<f:view locale="#{languageController.locale}">
 						<h:commandLink title="ไทย"
 							action="#{languageController.switchLocale('th')}">
@@ -78,8 +75,9 @@
 						</h:commandLink>
 					</f:view>
 				</h:form>
-			</rich:toolbarGroup>
-		</rich:toolbar>
+			</ul>
+		</div>
+
 		<div id="content">
 			<ui:insert name="content">
                     [Template content will be inserted here]
@@ -94,22 +92,21 @@
 			<h:outputText value="#{app_msgs['app.copyright']}" />
 		</div>
 	</div>
-	
-	
+
+
 	<rich:popupPanel id="panelProgress" width="210" height="100"
-			autosized="true">
-				<table width="200">
-					<tr>
-						<td align="center" valign="middle"><h:graphicImage
-							value="/resources/image/progressBar.gif" /></td>
-					</tr>
-					<tr>
-						<td align="center" valign="middle">
-						#{app_msgs['label.wait']}</td>
-					</tr>
-				</table>
-		</rich:popupPanel>
-		
+		autosized="true">
+		<table width="200">
+			<tr>
+				<td align="center" valign="middle"><h:graphicImage
+						value="/resources/image/progressBar.gif" /></td>
+			</tr>
+			<tr>
+				<td align="center" valign="middle">#{app_msgs['label.wait']}</td>
+			</tr>
+		</table>
+	</rich:popupPanel>
+
 </h:body>
 <h:outputScript>
 	function startProgress(){
