@@ -55,15 +55,23 @@ public class TeamBinaryReportController implements Serializable{
 
 	private List<TeamBinaryReportModel> teamBinaryReportModelList;
 	private String searchCustomer;
+	private int countLeftSide;
+	private int countRightSid;
+	private String styleLeft;
+	private String styleRight;
 
 	@PostConstruct
 	public void init(){
 		log.info("init method TeamBinaryReportController");
 		teamBinaryReportModelList = new ArrayList<TeamBinaryReportModel>();
 		searchCustomer = "";
+		countLeftSide = 0;
+		countRightSid = 0;
+		styleLeft = "";
+		styleRight = "";
 		report(null);
 	}
-	
+
 	public void sortByOrder() {
 		log.info("-------> sortByOrder()");
 		memberIdOrder = SortOrder.unsorted;
@@ -93,7 +101,7 @@ public class TeamBinaryReportController implements Serializable{
 			setMemberIdOrder(SortOrder.ascending);
 		}
 	}
-	
+
 	public void sortByMemberName() {
 		log.info("-------> sortByMemberName()");
 		orderOrder = SortOrder.unsorted;
@@ -108,7 +116,7 @@ public class TeamBinaryReportController implements Serializable{
 			setMemberNameOrder(SortOrder.ascending);
 		}
 	}
-	
+
 	public void sortByPosition() {
 		log.info("-------> sortByPosition()");
 		orderOrder = SortOrder.unsorted;
@@ -123,7 +131,7 @@ public class TeamBinaryReportController implements Serializable{
 			setPositionOrder(SortOrder.ascending);
 		}
 	}
-	
+
 	public void sortByRecomment() {
 		log.info("-------> sortByRecomment()");
 		orderOrder = SortOrder.unsorted;
@@ -138,7 +146,7 @@ public class TeamBinaryReportController implements Serializable{
 			setRecommentOrder(SortOrder.ascending);
 		}
 	}
-	
+
 	public void sortByHonor() {
 		log.info("-------> sortByHonor()");
 		orderOrder = SortOrder.unsorted;
@@ -153,7 +161,7 @@ public class TeamBinaryReportController implements Serializable{
 			setHonorOrder(SortOrder.ascending);
 		}
 	}
-	
+
 	public void sortBySide() {
 		log.info("-------> sortBySide()");
 		orderOrder = SortOrder.unsorted;
@@ -174,6 +182,8 @@ public class TeamBinaryReportController implements Serializable{
 			TeamBinaryReportModel model = setDataModel(memSearch,1);
 			teamBinaryReportModelList.add(model);
 		}else{
+			countLeftSide = 0;
+			countRightSid = 0;
 			String sql = "From MemberCustomer " +
 					" Where customerId = "+currentUser.getCurrentAccount().getCustomerId().getCustomerId().intValue();
 			boolean chk = true;
@@ -184,6 +194,15 @@ public class TeamBinaryReportController implements Serializable{
 				List<MemberCustomer> customerList = em.createQuery(sql,MemberCustomer.class).getResultList();
 				for(MemberCustomer cus:customerList){
 					TeamBinaryReportModel model = setDataModel(cus,++index);
+					if(memSearch==null){
+						if(cus.getCustomerId().intValue() != currentUser.getCurrentAccount().getCustomerId().getCustomerId().intValue()){
+							if(cus.getSide()!=null && cus.getSide().intValue()==1){
+								countLeftSide++;
+							}else if(cus.getSide()!=null && cus.getSide().intValue()==2){
+								countRightSid++;
+							}
+						}
+					}
 					teamBinaryReportModelList.add(model);
 					subSql += (cus.getLowerLeftId()==null?"":cus.getLowerLeftId().intValue()+",");
 					subSql += (cus.getLowerRightId()==null?"":cus.getLowerRightId().intValue()+",");
@@ -201,10 +220,54 @@ public class TeamBinaryReportController implements Serializable{
 		}
 	}
 
+	public void genDataSide(long side){
+		styleLeft = "";
+		styleRight = "";
+		try{
+			if(side==1){
+				styleLeft = "FONT-SIZE: medium;BACKGROUND-COLOR: #ff0000;COLOR: #ffffff;";
+			}else{
+				styleRight = "FONT-SIZE: medium;BACKGROUND-COLOR: #ff0000;COLOR: #ffffff;";
+			}
+			teamBinaryReportModelList = new ArrayList<TeamBinaryReportModel>();
+			String sql = "From MemberCustomer " +
+					" Where customerId = "+currentUser.getCurrentAccount().getCustomerId().getCustomerId().intValue();
+			boolean chk = true;
+			int index = 0;
+			while(chk){
+				log.info("SQL + "+sql);
+				String subSql = "";
+				List<MemberCustomer> customerList = em.createQuery(sql,MemberCustomer.class).getResultList();
+				for(MemberCustomer cus:customerList){
+					if(cus.getCustomerId().intValue() != currentUser.getCurrentAccount().getCustomerId().getCustomerId().intValue()){
+						if(cus.getSide()!=null && cus.getSide().intValue()==side){
+							TeamBinaryReportModel model = setDataModel(cus,++index);
+							teamBinaryReportModelList.add(model);
+						}
+					}
+					subSql += (cus.getLowerLeftId()==null?"":cus.getLowerLeftId().intValue()+",");
+					subSql += (cus.getLowerRightId()==null?"":cus.getLowerRightId().intValue()+",");
+				}
+				if(subSql.equals("")){
+					chk = false;
+					break;
+				}
+				sql = "From MemberCustomer " +
+						" Where customerId in ";
+				subSql = subSql.substring(0, subSql.length()-1);
+				subSql = "("+subSql+")";
+				sql += subSql;
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+
 	private TeamBinaryReportModel setDataModel(MemberCustomer memSearch, int index){
 		TeamBinaryReportModel model = new TeamBinaryReportModel();
 		model.setIndex(index);
-		model.setCustomerId(memSearch.getCustomerMember());
+		model.setCustomerId(StringUtil.n2b(memSearch.getCustomerId()));
+		model.setCustomerCode(memSearch.getCustomerMember());
 		model.setCustomerName(memSearch.getFirstName());
 		if(memSearch.getPositionId()!=null && memSearch.getPositionId().intValue()!=0){
 			MemberPosition position = em.find(MemberPosition.class, memSearch.getPositionId());
@@ -212,7 +275,8 @@ public class TeamBinaryReportController implements Serializable{
 		}	
 		model.setRecomment("");
 		model.setHonor("");
-		if(memSearch.getSide()!=null){
+		if(memSearch.getSide()!=null 
+				&& memSearch.getCustomerId().intValue() != currentUser.getCurrentAccount().getCustomerId().getCustomerId().intValue()){
 			MemberSide memberSide = em.find(MemberSide.class, memSearch.getSide());
 			model.setSide(memberSide!=null?memberSide.getThName():"");
 		}
@@ -223,6 +287,8 @@ public class TeamBinaryReportController implements Serializable{
 		long startTime = System.currentTimeMillis();
 		log.info("##### SEARCH ##### = "+searchCustomer);
 		teamBinaryReportModelList = new ArrayList<TeamBinaryReportModel>();
+		styleLeft = "";
+		styleRight = "";
 		orderOrder = SortOrder.unsorted;
 		memberIdOrder = SortOrder.unsorted;
 		memberNameOrder = SortOrder.unsorted;
@@ -365,6 +431,38 @@ public class TeamBinaryReportController implements Serializable{
 
 	public void setOrderOrder(SortOrder orderOrder) {
 		this.orderOrder = orderOrder;
+	}
+
+	public int getCountLeftSide() {
+		return countLeftSide;
+	}
+
+	public void setCountLeftSide(int countLeftSide) {
+		this.countLeftSide = countLeftSide;
+	}
+
+	public int getCountRightSid() {
+		return countRightSid;
+	}
+
+	public void setCountRightSid(int countRightSid) {
+		this.countRightSid = countRightSid;
+	}
+
+	public String getStyleLeft() {
+		return styleLeft;
+	}
+
+	public void setStyleLeft(String styleLeft) {
+		this.styleLeft = styleLeft;
+	}
+
+	public String getStyleRight() {
+		return styleRight;
+	}
+
+	public void setStyleRight(String styleRight) {
+		this.styleRight = styleRight;
 	}
 
 }

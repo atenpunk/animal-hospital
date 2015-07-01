@@ -2,8 +2,7 @@
 <pretty-config xmlns="http://ocpsoft.com/prettyfaces/2.0.4"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="
-        http://ocpsoft.com/prettyfaces/2.0.4
-        http://ocpsoft.com/xml/ns/prettyfaces/ocpsoft-pretty-faces-2.0.4.xsd">
+        http://ocpsoft.com/prettyfaces/2.0.4 http://ocpsoft.com/xml/ns/prettyfaces/ocpsoft-pretty-faces-2.0.4.xsd">
         
         <url-mapping id="root">
         <pattern value="/"></pattern>
@@ -39,12 +38,7 @@
 	<url-mapping id="tree_01">
 		<pattern value="/customer/tree"></pattern>
 		<view-id>/sec/customer/tree.jsf</view-id>
-	</url-mapping>
-	
-	<url-mapping id="tree_02">
-		<pattern value="/customer/tree/#{id:customerController.customerId}"></pattern>
-		<view-id>/sec/customer/tree.jsf</view-id>
-		<action>#{customerController.genTreeModel()}</action> 
+		<action>#{customerController.genTreeModelOther()}</action>
 	</url-mapping>
 	
 	<url-mapping id="tree_03">
