@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	template="/WEB-INF/templates/template.xhtml">
+
+	<ui:define name="content">
+		<h:form id="detail">
+		<br />
+			<rich:panel style="margin:auto; width : 350px;">
+				<table>
+					<tr align="center">
+						<td><a href="#{request.contextPath}/customer/tree"> 
+						<h:graphicImage
+									value="/resources/gfx/icon_binary_chart.png" width="155px"
+									height="155px" />
+									<br />
+									<h:outputText value="#{app_msgs['label.menuInfoFlowTeam.flowChartMembers']}" />
+						</a></td>
+
+						<td><a href="#{request.contextPath}/customer/treeSuggest"> 
+						<h:graphicImage
+									value="/resources/gfx/icon_sponsor_team.png" width="155px"
+									height="155px" />
+									<br />
+									<h:outputText value="#{app_msgs['label.menuInfoFlowTeam.flowChartSuggest']}" />
+						</a></td>
+					</tr>
+					<tr style="text-align: center;">
+						<td><a href="#{request.contextPath}/report/teamBinaryReport"> 
+						<h:graphicImage
+									value="/resources/gfx/icon_binary_chart.png" width="155px"
+									height="155px" />
+									<br />
+									<h:outputText value="#{app_msgs['label.menuInfoFlowTeam.reportTeamBinary']}" />
+						</a></td>
+						<td><a href="#{request.contextPath}/report/customerReport"> 
+						<h:graphicImage
+									value="/resources/gfx/icon_team_sponsor_by_level.png" width="155px"
+									height="155px" />
+									<br />
+									<h:outputText value="รายงาน ทีมงานตามสายการแนะนำ   " />
+						</a></td>
+					</tr>
+				</table>
+			</rich:panel>
+		</h:form>
+	</ui:define>
+
+</ui:composition>
