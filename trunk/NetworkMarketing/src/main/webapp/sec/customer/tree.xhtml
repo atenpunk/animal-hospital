@@ -30,8 +30,13 @@
         }
     </h:outputStylesheet>
 	<ui:define name="content">
+	<br />
 		<h:form>
 			<rich:panel id="mainPanel">
+			<f:facet name="header">
+					<h:outputText
+						value="#{app_msgs['label.menuInfoFlowTeam.flowChartMembers']}" />
+				</f:facet>
 				<table>
 					<tr>
 						<td><rich:panel style=" width : 115px; height : 75px;">
