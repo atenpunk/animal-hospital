@@ -6,12 +6,144 @@
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j"
 	template="/WEB-INF/templates/template.xhtml">
-
 	<ui:define name="content">
-		<h:form id="detail">
 		<br />
-			<rich:panel style="margin:auto; width : 350px;">
-				
+		<h:form id="fromReportId">
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{app_msgs['menu.label.infoSuggest']}" />
+				</f:facet>
+				<table>
+					<tr>
+						<td><h:inputText id="inputMemberId"
+								value="#{suggestReportController.searchCustomer}">
+								<rich:placeholder
+									value="#{app_msgs['inputText.search.memberId']}" />
+							</h:inputText>&#160;<a4j:commandButton id="searchId"
+								value="#{app_msgs['button.search']}"
+								action="#{suggestReportController.search}"
+								render="testDataTable,panelCountSideId" style=" width : 80px;"></a4j:commandButton></td>
+						<td><a4j:status>
+								<f:facet name="start">
+									<h:graphicImage value="/resources/gfx/spinner_old.gif" />
+								</f:facet>
+							</a4j:status></td>
+						<td><h:messages style="color:red;margin:8px;" /></td>
+					</tr>
+				</table>
+				<br />
+				<rich:dataTable id="testDataTable" style="width : 100%;"
+					onrowmouseover="this.style.backgroundColor='#F1F1F1'"
+					onrowmouseout="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+					value="#{suggestReportController.infoSuggestReportModelList}"
+					var="item" rows="100">
+					<rich:column style="text-align:center">
+						<f:facet name="header">
+							<h:outputText value="" />
+						</f:facet>
+						<a target="tab"
+							href="#{request.contextPath}/customer/tree?id=#{item.customerCode}">
+							<h:outputText
+								value="#{app_msgs['label.menuInfoFlowTeam.reportTeamBinary.flow']}" />
+						</a>
+					</rich:column>
+					<rich:column style="text-align:center">
+						<f:facet name="header">
+							<h:outputText value="" />
+						</f:facet>
+						<h:commandLink
+							value="#{app_msgs['label.menuInfoFlowTeam.reportTeamBinary.team']}"
+							action="#{suggestReportController.search(item.customerCode)}"
+							target="tab" />
+					</rich:column>
+					<rich:column sortBy="#{item.index}" sortType="custom"
+						sortOrder="#{suggestReportController.orderOrder}">
+						<f:facet name="header">
+							<a4j:commandLink
+								value="#{app_msgs['label.menuInfoFlowTeam.reportTeamBinary.order']}"
+								render="fromReportId"
+								action="#{suggestReportController.sortByOrder}" />
+						</f:facet>
+						<h:outputText value="#{item.index}" />
+					</rich:column>
+					<rich:column style="text-align:center" sortBy="#{item.customerId}"
+						sortType="custom"
+						sortOrder="#{suggestReportController.memberIdOrder}">
+						<f:facet name="header">
+							<a4j:commandLink
+								value="#{app_msgs['label.menuInfoFlowTeam.reportTeamBinary.memberId']}"
+								render="fromReportId"
+								action="#{suggestReportController.sortByMemberId}" />
+						</f:facet>
+						<h:outputText value="#{item.customerCode}" />
+					</rich:column>
+					<rich:column sortBy="#{item.customerName}" sortType="custom"
+						sortOrder="#{suggestReportController.memberNameOrder}">
+						<f:facet name="header">
+							<a4j:commandLink
+								value="#{app_msgs['label.menuInfoFlowTeam.reportTeamBinary.name']}"
+								render="fromReportId"
+								action="#{suggestReportController.sortByMemberName}" />
+						</f:facet>
+						<h:outputText value="#{item.customerName}" />
+					</rich:column>
+					<rich:column style="text-align:center" sortBy="#{item.regisDate}"
+						sortType="custom"
+						sortOrder="#{suggestReportController.regisDateOrder}">
+						<f:facet name="header">
+							<a4j:commandLink
+								value="#{app_msgs['label.menuInfoFlowTeam.reportTeamBinary.regisDate']}"
+								render="fromReportId"
+								action="#{suggestReportController.sortByRegisDate}" />
+						</f:facet>
+						<h:outputText value="#{item.regisDate}">
+							<f:convertDateTime pattern="yyyy-MM-dd" />
+						</h:outputText>
+					</rich:column>
+					<rich:column sortBy="#{item.position}" sortType="custom"
+						sortOrder="#{suggestReportController.positionOrder}">
+						<f:facet name="header">
+							<a4j:commandLink
+								value="#{app_msgs['label.menuInfoFlowTeam.reportTeamBinary.position']}"
+								render="fromReportId"
+								action="#{suggestReportController.sortByPosition}" />
+						</f:facet>
+						<h:outputText value="#{item.position}" />
+					</rich:column>
+					<rich:column sortBy="#{item.recomment}" sortType="custom"
+						sortOrder="#{suggestReportController.recommentOrder}">
+						<f:facet name="header">
+							<a4j:commandLink
+								value="#{app_msgs['label.menuInfoFlowTeam.reportTeamBinary.recomment']}"
+								render="fromReportId"
+								action="#{suggestReportController.sortByRecomment}" />
+						</f:facet>
+						<h:outputText value="#{item.recomment}" />
+					</rich:column>
+					<rich:column sortBy="#{item.honor}" sortType="custom"
+						sortOrder="#{suggestReportController.honorOrder}">
+						<f:facet name="header">
+							<a4j:commandLink
+								value="#{app_msgs['label.menuInfoFlowTeam.reportTeamBinary.honor']}"
+								render="fromReportId"
+								action="#{suggestReportController.sortByHonor}" />
+						</f:facet>
+						<h:outputText value="#{item.honor}" />
+					</rich:column>
+					<rich:column style="text-align:center" sortBy="#{item.side}"
+						sortType="custom" sortOrder="#{suggestReportController.sideOrder}">
+						<f:facet name="header">
+							<a4j:commandLink
+								value="#{app_msgs['label.menuInfoFlowTeam.reportTeamBinary.side']}"
+								render="fromReportId"
+								action="#{suggestReportController.sortBySide}" />
+						</f:facet>
+						<h:outputText value="#{item.side}" />
+					</rich:column>
+					<f:facet name="footer">
+						<rich:dataScroller for="testDataTable" />
+					</f:facet>
+				</rich:dataTable>
 			</rich:panel>
 		</h:form>
 	</ui:define>

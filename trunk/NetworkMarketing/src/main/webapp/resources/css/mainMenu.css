@@ -51,8 +51,8 @@
 }
 #cssmenu > ul > li > a {
   z-index: 2;
-  padding: 18px 25px 12px 25px;
-  font-size: 15px;
+  padding: 10px 25px 7px 25px;
+  font-size: 14px;
   font-weight: 400;
   text-decoration: none;
   color: #444444;

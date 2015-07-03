@@ -8,10 +8,94 @@
 	template="/WEB-INF/templates/template.xhtml">
 
 	<ui:define name="content">
-		<h:form id="detail">
 		<br />
-			<rich:panel style="margin:auto; width : 350px;">
-				
+		<h:form id="detail">
+			<rich:panel style="width : 100%; border: 0px;">
+				<h:panelGrid columns="2" style="width : 100%">
+					<rich:panel style=" width : 450px;">
+						<f:facet name="header">
+							<h:outputText
+								value="#{app_msgs['menu.label.profile']} : #{currentUser.userName}" />
+						</f:facet>
+						<h:panelGrid columns="2">
+							<h:outputText value="#{app_msgs['label.pageTree.memberStr']}"
+								style="FONT-WEIGHT: bold;" />
+							<h:outputText value="#{currentUser.customerId.customerMember}" />
+							<h:outputText value="#{app_msgs['label.pageTree.regisDate']}"
+								style="FONT-WEIGHT: bold;" />
+							<h:outputText value="#{currentUser.customerId.regisDate}">
+								<f:convertDateTime pattern="yyyy-MM-dd" />
+							</h:outputText>
+							<h:outputText value="#{app_msgs['label.pageTree.posRecomment']}"
+								style="FONT-WEIGHT: bold;" />
+							<h:outputText value="" />
+							<h:outputText value="#{app_msgs['label.pageTree.posMatch']}"
+								style="FONT-WEIGHT: bold;" />
+							<h:outputText value="" />
+							<h:outputText value="#{app_msgs['label.pageTree.documentRegis']}"
+								style="FONT-WEIGHT: bold;" />
+							<h:outputText value="#{currentUser.customerId.dateDocumentFully}">
+								<f:convertDateTime pattern="yyyy-MM-dd" />
+							</h:outputText>
+							<h:outputText
+								value="#{app_msgs['label.pageTree.documentPersonalCard']}"
+								style="FONT-WEIGHT: bold;" />
+							<h:outputText
+								value="#{currentUser.customerId.dateCopyPersonalCard}">
+								<f:convertDateTime pattern="yyyy-MM-dd" />
+							</h:outputText>
+							<h:outputText
+								value="#{app_msgs['label.pageTree.documentBookBank']}"
+								style="FONT-WEIGHT: bold;" />
+							<h:outputText value="#{currentUser.customerId.dateCopyBookBank}">
+								<f:convertDateTime pattern="yyyy-MM-dd" />
+							</h:outputText>
+						</h:panelGrid>
+					</rich:panel>
+					<rich:panel style=" width : auto; border: 0px;">
+						<table>
+							<tr align="center">
+								<td><a href="#{request.contextPath}/customer/profile">
+										<h:graphicImage value="/resources/image/member.gif"
+											width="155px" height="155px" /> <br /> <h:outputText
+											value="#{app_msgs['menu.label.editProfile']}" />
+								</a></td>
+								<td><a href="#{request.contextPath}/user/passwd"> <h:graphicImage
+											value="/resources/image/Changepassword.jpg" width="155px"
+											height="155px" /> <br /> <h:outputText
+											value="#{app_msgs['menu.label.editPassword']}" />
+								</a></td>
+							</tr>
+						</table>
+					</rich:panel>
+
+
+					<rich:panel style="width : 450px;">
+						<h:panelGrid columns="4">
+							<h:outputText value="PV สะสม : " style="FONT-WEIGHT: bold;" />
+							<h:outputText value="0.00" />
+							<h:outputText value="" />
+							<h:outputText value="" />
+
+							<h:outputText value="PV ซ้าย (ยกมา) : "
+								style="FONT-WEIGHT: bold;" />
+							<h:outputText value="0.00" />
+							<h:outputText value="PV ขวา (ยกมา) : " style="FONT-WEIGHT: bold;" />
+							<h:outputText value="0.00" />
+
+							<h:outputText value="PV ซ้าย (ใหม่) : "
+								style="FONT-WEIGHT: bold;" />
+							<h:outputText value="0.00" />
+							<h:outputText value="PV ขวา (ใหม่) : " style="FONT-WEIGHT: bold;" />
+							<h:outputText value="0.00" />
+
+							<h:outputText value="PV ซ้าย (รวม) : " style="FONT-WEIGHT: bold;" />
+							<h:outputText value="0.00" />
+							<h:outputText value="PV ขวา (รวม) : " style="FONT-WEIGHT: bold;" />
+							<h:outputText value="0.00" />
+						</h:panelGrid>
+					</rich:panel>
+				</h:panelGrid>
 			</rich:panel>
 		</h:form>
 	</ui:define>
