@@ -18,7 +18,7 @@ import org.richfaces.component.SortOrder;
 import co.th.aten.network.entity.MemberCustomer;
 import co.th.aten.network.entity.MemberPosition;
 import co.th.aten.network.entity.MemberSide;
-import co.th.aten.network.model.TeamBinaryReportModel;
+import co.th.aten.network.model.InfoSuggestReportModel;
 import co.th.aten.network.producer.DBDefault;
 import co.th.aten.network.security.CurrentUserManager;
 import co.th.aten.network.util.StringUtil;
@@ -48,26 +48,29 @@ public class SuggestReportController implements Serializable{
 	private SortOrder orderOrder = SortOrder.unsorted;
 	private SortOrder memberIdOrder = SortOrder.unsorted;
 	private SortOrder memberNameOrder = SortOrder.unsorted;
+	private SortOrder regisDateOrder = SortOrder.unsorted;
 	private SortOrder positionOrder = SortOrder.unsorted;
 	private SortOrder recommentOrder = SortOrder.unsorted;
 	private SortOrder honorOrder = SortOrder.unsorted;
 	private SortOrder sideOrder = SortOrder.unsorted;
 
-	private List<TeamBinaryReportModel> teamBinaryReportModelList;
+	private List<InfoSuggestReportModel> infoSuggestReportModelList;
 	private String searchCustomer;
 
 	@PostConstruct
 	public void init(){
-		log.info("init method TeamBinaryReportController");
-		teamBinaryReportModelList = new ArrayList<TeamBinaryReportModel>();
+		log.info("init method SuggestReportController");
+		infoSuggestReportModelList = new ArrayList<InfoSuggestReportModel>();
 		searchCustomer = "";
-		report(null);
+		if(currentUser.getCurrentAccount().getCustomerId()!=null)
+			report(currentUser.getCurrentAccount().getCustomerId().getCustomerId().intValue());
 	}
 
 	public void sortByOrder() {
 		log.info("-------> sortByOrder()");
 		memberIdOrder = SortOrder.unsorted;
 		memberNameOrder = SortOrder.unsorted;
+		regisDateOrder = SortOrder.unsorted;
 		positionOrder = SortOrder.unsorted;
 		recommentOrder = SortOrder.unsorted;
 		honorOrder = SortOrder.unsorted;
@@ -83,6 +86,7 @@ public class SuggestReportController implements Serializable{
 		log.info("-------> sortByMemberId()");
 		orderOrder = SortOrder.unsorted;
 		memberNameOrder = SortOrder.unsorted;
+		regisDateOrder = SortOrder.unsorted;
 		positionOrder = SortOrder.unsorted;
 		recommentOrder = SortOrder.unsorted;
 		honorOrder = SortOrder.unsorted;
@@ -99,6 +103,7 @@ public class SuggestReportController implements Serializable{
 		orderOrder = SortOrder.unsorted;
 		memberIdOrder = SortOrder.unsorted;
 		positionOrder = SortOrder.unsorted;
+		regisDateOrder = SortOrder.unsorted;
 		recommentOrder = SortOrder.unsorted;
 		honorOrder = SortOrder.unsorted;
 		sideOrder = SortOrder.unsorted;
@@ -113,6 +118,7 @@ public class SuggestReportController implements Serializable{
 		log.info("-------> sortByPosition()");
 		orderOrder = SortOrder.unsorted;
 		memberIdOrder = SortOrder.unsorted;
+		regisDateOrder = SortOrder.unsorted;
 		memberNameOrder = SortOrder.unsorted;
 		recommentOrder = SortOrder.unsorted;
 		honorOrder = SortOrder.unsorted;
@@ -129,6 +135,7 @@ public class SuggestReportController implements Serializable{
 		orderOrder = SortOrder.unsorted;
 		memberIdOrder = SortOrder.unsorted;
 		memberNameOrder = SortOrder.unsorted;
+		regisDateOrder = SortOrder.unsorted;
 		positionOrder = SortOrder.unsorted;
 		honorOrder = SortOrder.unsorted;
 		sideOrder = SortOrder.unsorted;
@@ -144,6 +151,7 @@ public class SuggestReportController implements Serializable{
 		orderOrder = SortOrder.unsorted;
 		memberIdOrder = SortOrder.unsorted;
 		memberNameOrder = SortOrder.unsorted;
+		regisDateOrder = SortOrder.unsorted;
 		positionOrder = SortOrder.unsorted;
 		recommentOrder = SortOrder.unsorted;
 		sideOrder = SortOrder.unsorted;
@@ -158,6 +166,7 @@ public class SuggestReportController implements Serializable{
 		log.info("-------> sortBySide()");
 		orderOrder = SortOrder.unsorted;
 		memberIdOrder = SortOrder.unsorted;
+		regisDateOrder = SortOrder.unsorted;
 		memberNameOrder = SortOrder.unsorted;
 		positionOrder = SortOrder.unsorted;
 		recommentOrder = SortOrder.unsorted;
@@ -169,44 +178,47 @@ public class SuggestReportController implements Serializable{
 		}
 	}
 
-	public void report(MemberCustomer memSearch){
-		if(memSearch!=null){
-			TeamBinaryReportModel model = setDataModel(memSearch,1);
-			teamBinaryReportModelList.add(model);
-		}else{
-			String sql = "From MemberCustomer " +
-					" Where customerId = "+currentUser.getCurrentAccount().getCustomerId().getCustomerId().intValue();
-			boolean chk = true;
-			int index = 0;
-			while(chk){
-				log.info("SQL + "+sql);
-				String subSql = "";
-				List<MemberCustomer> customerList = em.createQuery(sql,MemberCustomer.class).getResultList();
-				for(MemberCustomer cus:customerList){
-					TeamBinaryReportModel model = setDataModel(cus,++index);
-					teamBinaryReportModelList.add(model);
-					subSql += (cus.getLowerLeftId()==null?"":cus.getLowerLeftId().intValue()+",");
-					subSql += (cus.getLowerRightId()==null?"":cus.getLowerRightId().intValue()+",");
-				}
-				if(subSql.equals("")){
-					chk = false;
-					break;
-				}
-				sql = "From MemberCustomer " +
-						" Where customerId in ";
-				subSql = subSql.substring(0, subSql.length()-1);
-				subSql = "("+subSql+")";
-				sql += subSql;
-			}
+	public void sortByRegisDate() {
+		log.info("-------> sortByRegisDate()");
+		orderOrder = SortOrder.unsorted;
+		memberIdOrder = SortOrder.unsorted;
+		memberNameOrder = SortOrder.unsorted;
+		positionOrder = SortOrder.unsorted;
+		recommentOrder = SortOrder.unsorted;
+		honorOrder = SortOrder.unsorted;
+		sideOrder = SortOrder.unsorted;
+		if (regisDateOrder.equals(SortOrder.ascending)) {
+			setRegisDateOrder(SortOrder.descending);
+		} else {
+			setRegisDateOrder(SortOrder.ascending);
 		}
 	}
 
-	private TeamBinaryReportModel setDataModel(MemberCustomer memSearch, int index){
-		TeamBinaryReportModel model = new TeamBinaryReportModel();
+	public void report(int recommendId){
+		String sql = "From MemberCustomer " +
+				" Where recommendId =:recommendId ";
+		log.info("report recommendId = "+recommendId);
+		log.info("report SQL = "+sql);
+		List<MemberCustomer> customerList = em.createQuery(sql,MemberCustomer.class)
+				.setParameter("recommendId", new Integer(recommendId))
+				.getResultList();
+		int index = 0;
+		MemberCustomer memberModel = em.find(MemberCustomer.class, new Integer(recommendId));
+		InfoSuggestReportModel model = setDataModel(memberModel,++index);
+		infoSuggestReportModelList.add(model);
+		for(MemberCustomer cus:customerList){
+			InfoSuggestReportModel modelMem = setDataModel(cus,++index);
+			infoSuggestReportModelList.add(modelMem);
+		}
+	}
+
+	private InfoSuggestReportModel setDataModel(MemberCustomer memSearch, int index){
+		InfoSuggestReportModel model = new InfoSuggestReportModel();
 		model.setIndex(index);
 		model.setCustomerId(StringUtil.n2b(memSearch.getCustomerId()));
 		model.setCustomerCode(memSearch.getCustomerMember());
 		model.setCustomerName(memSearch.getFirstName());
+		model.setRegisDate(memSearch.getRegisDate());
 		if(memSearch.getPositionId()!=null && memSearch.getPositionId().intValue()!=0){
 			MemberPosition position = em.find(MemberPosition.class, memSearch.getPositionId());
 			model.setPosition(StringUtil.n2b(position.getEnName()));
@@ -224,10 +236,11 @@ public class SuggestReportController implements Serializable{
 	public void search(){
 		long startTime = System.currentTimeMillis();
 		log.info("##### SEARCH ##### = "+searchCustomer);
-		teamBinaryReportModelList = new ArrayList<TeamBinaryReportModel>();
+		infoSuggestReportModelList = new ArrayList<InfoSuggestReportModel>();
 		orderOrder = SortOrder.unsorted;
 		memberIdOrder = SortOrder.unsorted;
 		memberNameOrder = SortOrder.unsorted;
+		regisDateOrder = SortOrder.unsorted;
 		positionOrder = SortOrder.unsorted;
 		recommentOrder = SortOrder.unsorted;
 		honorOrder = SortOrder.unsorted;
@@ -263,8 +276,8 @@ public class SuggestReportController implements Serializable{
 						String subSql = "";
 						List<MemberCustomer> customerList = em.createQuery(sql,MemberCustomer.class).getResultList();
 						for(MemberCustomer cus:customerList){
-							if(StringUtil.n2b(cus.getLowerLeftId())==cusId || StringUtil.n2b(cus.getLowerRightId())==cusId){
-								report(memSearch);
+							if(StringUtil.n2b(cus.getCustomerId())==cusId){
+								report(cus.getCustomerId().intValue());
 								chk = false;
 								break;
 							}else{
@@ -284,10 +297,10 @@ public class SuggestReportController implements Serializable{
 						sql += subSql;
 					}
 				}else if(cusId == currentUser.getCurrentAccount().getCustomerId().getCustomerId().intValue()){
-					report(memSearch);
+					report(memSearch.getCustomerId().intValue());
 				}
 			}else{
-				report(null);
+				report(currentUser.getCurrentAccount().getCustomerId().getCustomerId().intValue());
 			}
 		}catch(Exception e){
 			log.info("Error : "+e.getMessage());
@@ -295,14 +308,84 @@ public class SuggestReportController implements Serializable{
 		long endTime = System.currentTimeMillis();
 		log.info("search() Time = "+((endTime-startTime)/1000d)+"s");
 	}
-
-	public List<TeamBinaryReportModel> getTeamBinaryReportModelList() {
-		return teamBinaryReportModelList;
-	}
-
-	public void setTeamBinaryReportModelList(
-			List<TeamBinaryReportModel> teamBinaryReportModelList) {
-		this.teamBinaryReportModelList = teamBinaryReportModelList;
+	
+	
+	public void search(String searchCustomer){
+		this.searchCustomer = searchCustomer;
+		long startTime = System.currentTimeMillis();
+		log.info("##### SEARCH ##### = "+searchCustomer);
+		infoSuggestReportModelList = new ArrayList<InfoSuggestReportModel>();
+		orderOrder = SortOrder.unsorted;
+		memberIdOrder = SortOrder.unsorted;
+		memberNameOrder = SortOrder.unsorted;
+		regisDateOrder = SortOrder.unsorted;
+		positionOrder = SortOrder.unsorted;
+		recommentOrder = SortOrder.unsorted;
+		honorOrder = SortOrder.unsorted;
+		sideOrder = SortOrder.unsorted;
+		try{
+			if(searchCustomer!=null && searchCustomer.trim().length()>0){
+				MemberCustomer memSearch = null;
+				boolean chkNumber = false;
+				try{
+					Integer.parseInt(searchCustomer);
+					chkNumber = true;
+				}catch(Exception ex){
+					log.info("Error : "+ex.getMessage());
+				}
+				if(chkNumber){
+					memSearch = (MemberCustomer)em.createQuery("From MemberCustomer Where customerMember =:customerMember ")
+							.setParameter("customerMember", searchCustomer).getSingleResult();
+				}else{
+					searchCustomer = searchCustomer.replaceAll(" or ", "");
+					searchCustomer = searchCustomer.replaceAll(" OR ", "");
+					memSearch = (MemberCustomer)em.createQuery("From MemberCustomer Where firstName like '%"+searchCustomer+"%' ")
+							.getResultList().get(0);
+				}
+				long cusId = memSearch.getCustomerId().longValue();
+				log.info("***** cusId ##### = "+cusId);
+				log.info("***** login ##### = "+currentUser.getCurrentAccount().getCustomerId().getCustomerId().intValue());
+				if(cusId > currentUser.getCurrentAccount().getCustomerId().getCustomerId().longValue()){
+					String sql = "From MemberCustomer " +
+							" Where customerId = "+currentUser.getCurrentAccount().getCustomerId().getCustomerId().intValue();
+					boolean chk = true;
+					while(chk){
+						log.info("SQL + "+sql);
+						String subSql = "";
+						List<MemberCustomer> customerList = em.createQuery(sql,MemberCustomer.class).getResultList();
+						for(MemberCustomer cus:customerList){
+							if(StringUtil.n2b(cus.getCustomerId())==cusId){
+								report(cus.getCustomerId().intValue());
+								chk = false;
+								break;
+							}else{
+								subSql += (cus.getLowerLeftId()==null?"":cus.getLowerLeftId().intValue()+",");
+								subSql += (cus.getLowerRightId()==null?"":cus.getLowerRightId().intValue()+",");
+							}
+						}
+						if(subSql.equals("")){
+							// alert ERROR
+							chk = false;
+							break;
+						}
+						sql = "From MemberCustomer " +
+								" Where customerId in ";
+						subSql = subSql.substring(0, subSql.length()-1);
+						subSql = "("+subSql+")";
+						sql += subSql;
+					}
+				}else if(cusId == currentUser.getCurrentAccount().getCustomerId().getCustomerId().intValue()){
+					report(memSearch.getCustomerId().intValue());
+				}
+			}else{
+				report(currentUser.getCurrentAccount().getCustomerId().getCustomerId().intValue());
+			}
+		}catch(Exception e){
+			log.info("Error : "+e.getMessage());
+		}
+		this.searchCustomer = "";
+		long endTime = System.currentTimeMillis();
+		log.info("search() Time = "+((endTime-startTime)/1000d)+"s");
 	}
 
 	public String getSearchCustomer() {
@@ -368,4 +451,22 @@ public class SuggestReportController implements Serializable{
 	public void setOrderOrder(SortOrder orderOrder) {
 		this.orderOrder = orderOrder;
 	}
+
+	public List<InfoSuggestReportModel> getInfoSuggestReportModelList() {
+		return infoSuggestReportModelList;
+	}
+
+	public void setInfoSuggestReportModelList(
+			List<InfoSuggestReportModel> infoSuggestReportModelList) {
+		this.infoSuggestReportModelList = infoSuggestReportModelList;
+	}
+
+	public SortOrder getRegisDateOrder() {
+		return regisDateOrder;
+	}
+
+	public void setRegisDateOrder(SortOrder regisDateOrder) {
+		this.regisDateOrder = regisDateOrder;
+	}
+
 }
