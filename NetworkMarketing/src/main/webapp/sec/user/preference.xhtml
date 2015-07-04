@@ -11,14 +11,14 @@
 		<div>
 			<h:form id="configForm" prependId="false">
 				<h3>
-					<h:outputText value="#{app_msgs['epi.userPreference.label.header']}" />
+					<h:outputText style="font-size: 13px;" value="#{app_msgs['epi.userPreference.label.header']}" />
 				</h3>
 				<rich:panel>
-					<h:outputText value="#{app_msgs['epi.passwd.label.passwd']}:" />
-					<prettyfaces:link mappingId="passwd"><h:outputText value="#{app_msgs['epi.passwd.label.header']}:" /></prettyfaces:link>
+					<h:outputText style="font-size: 13px;" value="#{app_msgs['epi.passwd.label.passwd']}:" />
+					<prettyfaces:link mappingId="passwd"><h:outputText style="font-size: 13px;" value="#{app_msgs['epi.passwd.label.header']}:" /></prettyfaces:link>
 					<br/>
 					<div class="line" />
-					<h:outputText value="#{app_msgs['epi.userPreference.label.lang']}:" />
+					<h:outputText style="font-size: 13px;" value="#{app_msgs['epi.userPreference.label.lang']}:" />
 					<h:selectOneMenu value="#{userPreferenceController.selectedLocale}">
 						<f:selectItem itemValue="en_US" itemLabel="english" />
 						<f:selectItem itemValue="th_TH" itemLabel="ภาษาไทย" />

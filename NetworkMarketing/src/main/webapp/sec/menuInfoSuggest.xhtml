@@ -11,7 +11,7 @@
 		<h:form id="fromReportId">
 			<rich:panel>
 				<f:facet name="header">
-					<h:outputText value="#{app_msgs['menu.label.infoSuggest']}" />
+					<h:outputText style="font-size: 13px;" value="#{app_msgs['menu.label.infoSuggest']}" />
 				</f:facet>
 				<table>
 					<tr>
@@ -39,17 +39,17 @@
 					var="item" rows="100">
 					<rich:column style="text-align:center">
 						<f:facet name="header">
-							<h:outputText value="" />
+							<h:outputText style="font-size: 13px;" value="" />
 						</f:facet>
 						<a target="tab"
 							href="#{request.contextPath}/customer/tree?id=#{item.customerCode}">
-							<h:outputText
+							<h:outputText style="font-size: 13px;"
 								value="#{app_msgs['label.menuInfoFlowTeam.reportTeamBinary.flow']}" />
 						</a>
 					</rich:column>
 					<rich:column style="text-align:center">
 						<f:facet name="header">
-							<h:outputText value="" />
+							<h:outputText style="font-size: 13px;" value="" />
 						</f:facet>
 						<h:commandLink
 							value="#{app_msgs['label.menuInfoFlowTeam.reportTeamBinary.team']}"
@@ -64,7 +64,7 @@
 								render="fromReportId"
 								action="#{suggestReportController.sortByOrder}" />
 						</f:facet>
-						<h:outputText value="#{item.index}" />
+						<h:outputText style="font-size: 13px;" value="#{item.index}" />
 					</rich:column>
 					<rich:column style="text-align:center" sortBy="#{item.customerId}"
 						sortType="custom"
@@ -75,7 +75,7 @@
 								render="fromReportId"
 								action="#{suggestReportController.sortByMemberId}" />
 						</f:facet>
-						<h:outputText value="#{item.customerCode}" />
+						<h:outputText style="font-size: 13px;" value="#{item.customerCode}" />
 					</rich:column>
 					<rich:column sortBy="#{item.customerName}" sortType="custom"
 						sortOrder="#{suggestReportController.memberNameOrder}">
@@ -85,7 +85,7 @@
 								render="fromReportId"
 								action="#{suggestReportController.sortByMemberName}" />
 						</f:facet>
-						<h:outputText value="#{item.customerName}" />
+						<h:outputText style="font-size: 13px;" value="#{item.customerName}" />
 					</rich:column>
 					<rich:column style="text-align:center" sortBy="#{item.regisDate}"
 						sortType="custom"
@@ -96,7 +96,7 @@
 								render="fromReportId"
 								action="#{suggestReportController.sortByRegisDate}" />
 						</f:facet>
-						<h:outputText value="#{item.regisDate}">
+						<h:outputText style="font-size: 13px;" value="#{item.regisDate}">
 							<f:convertDateTime pattern="yyyy-MM-dd" />
 						</h:outputText>
 					</rich:column>
@@ -108,7 +108,7 @@
 								render="fromReportId"
 								action="#{suggestReportController.sortByPosition}" />
 						</f:facet>
-						<h:outputText value="#{item.position}" />
+						<h:outputText style="font-size: 13px;" value="#{item.position}" />
 					</rich:column>
 					<rich:column sortBy="#{item.recomment}" sortType="custom"
 						sortOrder="#{suggestReportController.recommentOrder}">
@@ -118,7 +118,7 @@
 								render="fromReportId"
 								action="#{suggestReportController.sortByRecomment}" />
 						</f:facet>
-						<h:outputText value="#{item.recomment}" />
+						<h:outputText style="font-size: 13px;" value="#{item.recomment}" />
 					</rich:column>
 					<rich:column sortBy="#{item.honor}" sortType="custom"
 						sortOrder="#{suggestReportController.honorOrder}">
@@ -128,7 +128,7 @@
 								render="fromReportId"
 								action="#{suggestReportController.sortByHonor}" />
 						</f:facet>
-						<h:outputText value="#{item.honor}" />
+						<h:outputText style="font-size: 13px;" value="#{item.honor}" />
 					</rich:column>
 					<rich:column style="text-align:center" sortBy="#{item.side}"
 						sortType="custom" sortOrder="#{suggestReportController.sideOrder}">
@@ -138,7 +138,7 @@
 								render="fromReportId"
 								action="#{suggestReportController.sortBySide}" />
 						</f:facet>
-						<h:outputText value="#{item.side}" />
+						<h:outputText style="font-size: 13px;" value="#{item.side}" />
 					</rich:column>
 					<f:facet name="footer">
 						<rich:dataScroller for="testDataTable" />

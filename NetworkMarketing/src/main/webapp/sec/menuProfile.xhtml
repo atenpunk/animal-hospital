@@ -14,40 +14,42 @@
 				<h:panelGrid columns="2" style="width : 100%">
 					<rich:panel style=" width : 450px;">
 						<f:facet name="header">
-							<h:outputText
+							<h:outputText style="font-size: 13px;"
 								value="#{app_msgs['menu.label.profile']} : #{currentUser.userName}" />
 						</f:facet>
 						<h:panelGrid columns="2">
-							<h:outputText value="#{app_msgs['label.pageTree.memberStr']}"
-								style="FONT-WEIGHT: bold;" />
-							<h:outputText value="#{currentUser.customerId.customerMember}" />
-							<h:outputText value="#{app_msgs['label.pageTree.regisDate']}"
-								style="FONT-WEIGHT: bold;" />
-							<h:outputText value="#{currentUser.customerId.regisDate}">
+							<h:outputText style="font-size: 13px;FONT-WEIGHT: bold;"
+								value="#{app_msgs['label.pageTree.memberStr']}" />
+							<h:outputText style="font-size: 13px;"
+								value="#{currentUser.customerId.customerMember}" />
+							<h:outputText style="font-size: 13px;FONT-WEIGHT: bold;"
+								value="#{app_msgs['label.pageTree.regisDate']}" />
+							<h:outputText style="font-size: 13px;"
+								value="#{currentUser.customerId.regisDate}">
 								<f:convertDateTime pattern="yyyy-MM-dd" />
 							</h:outputText>
-							<h:outputText value="#{app_msgs['label.pageTree.posRecomment']}"
-								style="FONT-WEIGHT: bold;" />
-							<h:outputText value="" />
-							<h:outputText value="#{app_msgs['label.pageTree.posMatch']}"
-								style="FONT-WEIGHT: bold;" />
-							<h:outputText value="" />
-							<h:outputText value="#{app_msgs['label.pageTree.documentRegis']}"
-								style="FONT-WEIGHT: bold;" />
-							<h:outputText value="#{currentUser.customerId.dateDocumentFully}">
+							<h:outputText style="font-size: 13px;FONT-WEIGHT: bold;"
+								value="#{app_msgs['label.pageTree.posRecomment']}" />
+							<h:outputText style="font-size: 13px;" value="" />
+							<h:outputText style="font-size: 13px;FONT-WEIGHT: bold;"
+								value="#{app_msgs['label.pageTree.posMatch']}" />
+							<h:outputText style="font-size: 13px;" value="" />
+							<h:outputText style="font-size: 13px;FONT-WEIGHT: bold;"
+								value="#{app_msgs['label.pageTree.documentRegis']}" />
+							<h:outputText style="font-size: 13px;"
+								value="#{currentUser.customerId.dateDocumentFully}">
 								<f:convertDateTime pattern="yyyy-MM-dd" />
 							</h:outputText>
-							<h:outputText
-								value="#{app_msgs['label.pageTree.documentPersonalCard']}"
-								style="FONT-WEIGHT: bold;" />
-							<h:outputText
+							<h:outputText style="font-size: 13px;FONT-WEIGHT: bold;"
+								value="#{app_msgs['label.pageTree.documentPersonalCard']}" />
+							<h:outputText style="font-size: 13px;"
 								value="#{currentUser.customerId.dateCopyPersonalCard}">
 								<f:convertDateTime pattern="yyyy-MM-dd" />
 							</h:outputText>
-							<h:outputText
-								value="#{app_msgs['label.pageTree.documentBookBank']}"
-								style="FONT-WEIGHT: bold;" />
-							<h:outputText value="#{currentUser.customerId.dateCopyBookBank}">
+							<h:outputText style="font-size: 13px;FONT-WEIGHT: bold;"
+								value="#{app_msgs['label.pageTree.documentBookBank']}" />
+							<h:outputText style="font-size: 13px;"
+								value="#{currentUser.customerId.dateCopyBookBank}">
 								<f:convertDateTime pattern="yyyy-MM-dd" />
 							</h:outputText>
 						</h:panelGrid>
@@ -57,14 +59,14 @@
 							<tr align="center">
 								<td><a href="#{request.contextPath}/customer/profile">
 										<h:graphicImage value="/resources/image/member.gif"
-											width="155px" height="155px" /> <br /> <h:outputText
-											value="#{app_msgs['menu.label.editProfile']}" />
-								</a></td>
+											width="155px" height="155px" />
+								</a><br /> <h:outputText style="font-size: 13px;"
+										value="#{app_msgs['menu.label.editProfile']}" /></td>
 								<td><a href="#{request.contextPath}/user/passwd"> <h:graphicImage
 											value="/resources/image/Changepassword.jpg" width="155px"
-											height="155px" /> <br /> <h:outputText
-											value="#{app_msgs['menu.label.editPassword']}" />
-								</a></td>
+											height="155px" />
+								</a><br /> <h:outputText style="font-size: 13px;"
+										value="#{app_msgs['menu.label.editPassword']}" /></td>
 							</tr>
 						</table>
 					</rich:panel>
@@ -72,27 +74,47 @@
 
 					<rich:panel style="width : 450px;">
 						<h:panelGrid columns="4">
-							<h:outputText value="PV สะสม : " style="FONT-WEIGHT: bold;" />
-							<h:outputText value="0.00" />
-							<h:outputText value="" />
-							<h:outputText value="" />
+							<h:outputText style="font-size: 13px;FONT-WEIGHT: bold;"
+								value="PV สะสม : " />
+							<h:outputText style="font-size: 13px;" value="0.00" />
+							<h:outputText style="font-size: 13px;" value="" />
+							<h:outputText style="font-size: 13px;" value="" />
 
-							<h:outputText value="PV ซ้าย (ยกมา) : "
-								style="FONT-WEIGHT: bold;" />
-							<h:outputText value="0.00" />
-							<h:outputText value="PV ขวา (ยกมา) : " style="FONT-WEIGHT: bold;" />
-							<h:outputText value="0.00" />
+							<h:outputText style="font-size: 13px;FONT-WEIGHT: bold;"
+								value="PV ซ้าย (ยกมา) : " />
+							<h:outputText style="font-size: 13px;" value="0.00" />
+							<h:outputText style="font-size: 13px;FONT-WEIGHT: bold;"
+								value="PV ขวา (ยกมา) : " />
+							<h:outputText style="font-size: 13px;" value="0.00" />
 
-							<h:outputText value="PV ซ้าย (ใหม่) : "
-								style="FONT-WEIGHT: bold;" />
-							<h:outputText value="0.00" />
-							<h:outputText value="PV ขวา (ใหม่) : " style="FONT-WEIGHT: bold;" />
-							<h:outputText value="0.00" />
+							<h:outputText style="font-size: 13px;FONT-WEIGHT: bold;"
+								value="PV ซ้าย (ใหม่) : " />
+							<h:outputText style="font-size: 13px;" value="0.00" />
+							<h:outputText style="font-size: 13px;FONT-WEIGHT: bold;"
+								value="PV ขวา (ใหม่) : " />
+							<h:outputText style="font-size: 13px;" value="0.00" />
 
-							<h:outputText value="PV ซ้าย (รวม) : " style="FONT-WEIGHT: bold;" />
-							<h:outputText value="0.00" />
-							<h:outputText value="PV ขวา (รวม) : " style="FONT-WEIGHT: bold;" />
-							<h:outputText value="0.00" />
+							<h:outputText style="font-size: 13px;FONT-WEIGHT: bold;"
+								value="PV ซ้าย (รวม) : " />
+							<h:outputText style="font-size: 13px;" value="0.00" />
+							<h:outputText style="font-size: 13px;FONT-WEIGHT: bold;"
+								value="PV ขวา (รวม) : " />
+							<h:outputText style="font-size: 13px;" value="0.00" />
+
+							<h:outputText style="font-size: 13px;" value="" />
+							<h:outputText style="font-size: 13px;" value="" />
+							<h:outputText style="font-size: 13px;" value="" />
+							<h:outputText style="font-size: 13px;" value="" />
+
+							<h:outputText style="font-size: 13px;" value="" />
+							<h:outputText style="font-size: 13px;" value="" />
+							<h:outputText style="font-size: 13px;" value="" />
+							<h:outputText style="font-size: 13px;" value="" />
+
+							<h:outputText style="font-size: 13px;" value="" />
+							<h:outputText style="font-size: 13px;" value="" />
+							<h:outputText style="font-size: 13px;" value="" />
+							<h:outputText style="font-size: 13px;" value="" />
 						</h:panelGrid>
 					</rich:panel>
 				</h:panelGrid>

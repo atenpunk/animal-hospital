@@ -34,7 +34,7 @@
 		<h:form>
 			<rich:panel id="mainPanel">
 				<f:facet name="header">
-					<h:outputText value="#{app_msgs['label.pageTreeSuggest.header']}" />
+					<h:outputText style="font-size: 13px;" value="#{app_msgs['label.pageTreeSuggest.header']}" />
 				</f:facet>
 				<table>
 					<tr>
@@ -76,7 +76,7 @@
 				<rich:panel rendered="#{treeSuggestController.html ne ''}"
 					id="panelTree" style="overflow: scroll; border: 0px;">
 					<rich:panel style="border: 0px; width : 2000px;">
-						<h:outputText id="htmlStuff" value="#{treeSuggestController.html}"
+						<h:outputText style="font-size: 13px;" id="htmlStuff" value="#{treeSuggestController.html}"
 							escape="false" />
 					</rich:panel>
 				</rich:panel>
