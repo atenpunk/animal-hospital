@@ -11,7 +11,7 @@
 		<h:form id="fromReportId">
 			<rich:panel>
 				<f:facet name="header">
-					<h:outputText
+					<h:outputText style="font-size: 13px;"
 						value="#{app_msgs['label.menuInfoFlowTeam.reportTeamBinary']}" />
 				</f:facet>
 				<table>
@@ -60,7 +60,7 @@
 								render="fromReportId"
 								action="#{teamBinaryReportController.sortByOrder}" />
 						</f:facet>
-						<h:outputText value="#{item.index}" />
+						<h:outputText style="font-size: 13px;" value="#{item.index}" />
 					</rich:column>
 					<rich:column style="text-align:center" sortBy="#{item.customerId}"
 						sortType="custom"
@@ -71,7 +71,7 @@
 								render="fromReportId"
 								action="#{teamBinaryReportController.sortByMemberId}" />
 						</f:facet>
-						<a href="#{request.contextPath}/customer/tree?id=#{item.customerCode}"> <h:outputText
+						<a href="#{request.contextPath}/customer/tree?id=#{item.customerCode}"> <h:outputText style="font-size: 13px;"
 								value="#{item.customerCode}" />
 						</a>
 					</rich:column>
@@ -83,7 +83,7 @@
 								render="fromReportId"
 								action="#{teamBinaryReportController.sortByMemberName}" />
 						</f:facet>
-						<h:outputText value="#{item.customerName}" />
+						<h:outputText style="font-size: 13px;" value="#{item.customerName}" />
 					</rich:column>
 					<rich:column sortBy="#{item.position}" sortType="custom"
 						sortOrder="#{teamBinaryReportController.positionOrder}">
@@ -93,7 +93,7 @@
 								render="fromReportId"
 								action="#{teamBinaryReportController.sortByPosition}" />
 						</f:facet>
-						<h:outputText value="#{item.position}" />
+						<h:outputText style="font-size: 13px;" value="#{item.position}" />
 					</rich:column>
 					<rich:column sortBy="#{item.recomment}" sortType="custom"
 						sortOrder="#{teamBinaryReportController.recommentOrder}">
@@ -103,7 +103,7 @@
 								render="fromReportId"
 								action="#{teamBinaryReportController.sortByRecomment}" />
 						</f:facet>
-						<h:outputText value="#{item.recomment}" />
+						<h:outputText style="font-size: 13px;" value="#{item.recomment}" />
 					</rich:column>
 					<rich:column sortBy="#{item.honor}" sortType="custom"
 						sortOrder="#{teamBinaryReportController.honorOrder}">
@@ -113,7 +113,7 @@
 								render="fromReportId"
 								action="#{teamBinaryReportController.sortByHonor}" />
 						</f:facet>
-						<h:outputText value="#{item.honor}" />
+						<h:outputText style="font-size: 13px;" value="#{item.honor}" />
 					</rich:column>
 					<rich:column style="text-align:center" sortBy="#{item.side}"
 						sortType="custom"
@@ -124,7 +124,7 @@
 								render="fromReportId"
 								action="#{teamBinaryReportController.sortBySide}" />
 						</f:facet>
-						<h:outputText value="#{item.side}" />
+						<h:outputText style="font-size: 13px;" value="#{item.side}" />
 					</rich:column>
 					<f:facet name="footer">
 						<rich:dataScroller for="testDataTable" />

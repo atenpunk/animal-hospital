@@ -21,18 +21,21 @@
 			<h:panelGrid columns="2" cellpadding="2" cellspacing="2"
 				columnClasses="userColumn,logoColumn" styleClass="header">
 				<h:panelGroup>
-					<h:outputText value="#{app_msgs['user.welcome.label']}"
-						style="FONT-WEIGHT: bold;" />, &#160; <h:outputText
-						value="#{currentUser.userName}" style="FONT-WEIGHT: bold;" />
+					<h:outputText style="font-size: 14px;FONT-WEIGHT: bold;"
+						value="#{app_msgs['user.welcome.label']}" />
+					, &#160; <h:outputText style="font-size: 13px;FONT-WEIGHT: bold;"
+						value="#{currentUser.userName}" />
 					<br />
 					<br />
-					<h:outputText value="E-money" style="FONT-WEIGHT: bold;" />&#160;&#160;<h:outputText
-						value="0.00" style="FONT-WEIGHT: bold;" />
+					<h:outputText style="font-size: 14px;FONT-WEIGHT: bold;"
+						value="E-money" />&#160;&#160;<h:outputText
+						style="font-size: 13px;FONT-WEIGHT: bold;" value="0.00" />
 					<br />
 					<br />
 					<br />
 					&#160;&#160;<pretty:link mappingId="logout">
-						<h:outputText value="#{app_msgs['menu.logout.label']}" />
+						<h:outputText style="font-size: 13px;"
+							value="#{app_msgs['menu.logout.label']}" />
 					</pretty:link>
 				</h:panelGroup>
 			</h:panelGrid>
@@ -84,11 +87,15 @@
 		</div>
 		<div id="footer">
 			<br />
-			<h:outputText value="#{app_msgs['app.name']}" />
+			<h:outputText style="font-size: 10px;"
+				value="#{app_msgs['app.name']}" />
 			&#160;
-			<h:outputText value="#{app_msgs['app.version']}" />
-			<br /> Copyright &copy;
-			<h:outputText value="#{app_msgs['app.copyright']}" />
+			<h:outputText style="font-size: 10px;"
+				value="#{app_msgs['app.version']}" />
+			<br /> <h:outputText style="font-size: 10px;"
+				value="Copyright" /> &copy;
+			<h:outputText style="font-size: 10px;"
+				value="#{app_msgs['app.copyright']}" />
 		</div>
 	</div>
 
