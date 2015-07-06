@@ -16,20 +16,20 @@
 				</f:facet>
 				<table>
 					<tr>
-						<td><h:inputText id="inputMemberId"
+						<td><h:inputText id="inputMemberId" style="font-size: 13px;"
 								value="#{teamBinaryReportController.searchCustomer}">
 								<rich:placeholder
 									value="#{app_msgs['inputText.search.memberId']}" />
 							</h:inputText>&#160;<a4j:commandButton id="searchId"
 								value="#{app_msgs['button.search']}"
 								action="#{teamBinaryReportController.search}"
-								render="testDataTable,panelCountSideId" style=" width : 80px;"></a4j:commandButton></td>
+								render="testDataTable,panelCountSideId" style="font-size: 13px; width : 80px;"></a4j:commandButton></td>
 						<td><a4j:status>
 								<f:facet name="start">
 									<h:graphicImage value="/resources/gfx/spinner_old.gif" />
 								</f:facet>
 							</a4j:status></td>
-						<td><h:messages style="color:red;margin:8px;" /></td>
+						<td><h:messages style="font-size: 13px;color:red;margin:8px;" /></td>
 					</tr>
 				</table>
 				<br />
@@ -39,12 +39,12 @@
 						value="#{app_msgs['label.menuInfoFlowTeam.reportTeamBinary.countLeftSide']} #{teamBinaryReportController.countLeftSide} #{app_msgs['label.menuInfoFlowTeam.reportTeamBinary.person']}"
 						render="fromReportId"
 						action="#{teamBinaryReportController.genDataSide(1)}"
-						style="FONT-WEIGHT: bold;#{teamBinaryReportController.styleLeft}"></a4j:commandLink>
+						style="font-size: 13px;FONT-WEIGHT: bold;#{teamBinaryReportController.styleLeft}"></a4j:commandLink>
 					<a4j:commandLink
 						value="#{app_msgs['label.menuInfoFlowTeam.reportTeamBinary.countRightSide']} #{teamBinaryReportController.countRightSid} #{app_msgs['label.menuInfoFlowTeam.reportTeamBinary.person']}"
 						render="fromReportId"
 						action="#{teamBinaryReportController.genDataSide(2)}"
-						style="FONT-WEIGHT: bold;#{teamBinaryReportController.styleRight}"></a4j:commandLink>
+						style="font-size: 13px;FONT-WEIGHT: bold;#{teamBinaryReportController.styleRight}"></a4j:commandLink>
 				</h:panelGrid>
 				<br />
 				<rich:dataTable id="testDataTable" style="width : 100%;"
@@ -55,7 +55,7 @@
 					<rich:column sortBy="#{item.index}" sortType="custom"
 						sortOrder="#{teamBinaryReportController.orderOrder}">
 						<f:facet name="header">
-							<a4j:commandLink
+							<a4j:commandLink style="font-size: 13px;"
 								value="#{app_msgs['label.menuInfoFlowTeam.reportTeamBinary.order']}"
 								render="fromReportId"
 								action="#{teamBinaryReportController.sortByOrder}" />
@@ -66,19 +66,19 @@
 						sortType="custom"
 						sortOrder="#{teamBinaryReportController.memberIdOrder}">
 						<f:facet name="header">
-							<a4j:commandLink
+							<a4j:commandLink style="font-size: 13px;"
 								value="#{app_msgs['label.menuInfoFlowTeam.reportTeamBinary.memberId']}"
 								render="fromReportId"
 								action="#{teamBinaryReportController.sortByMemberId}" />
 						</f:facet>
-						<a href="#{request.contextPath}/customer/tree?id=#{item.customerCode}"> <h:outputText style="font-size: 13px;"
-								value="#{item.customerCode}" />
+						<a href="#{request.contextPath}/customer/tree?id=#{item.customerCode}" style="font-size: 13px;"> 
+						#{item.customerCode}
 						</a>
 					</rich:column>
 					<rich:column sortBy="#{item.customerName}" sortType="custom"
 						sortOrder="#{teamBinaryReportController.memberNameOrder}">
 						<f:facet name="header">
-							<a4j:commandLink
+							<a4j:commandLink style="font-size: 13px;"
 								value="#{app_msgs['label.menuInfoFlowTeam.reportTeamBinary.name']}"
 								render="fromReportId"
 								action="#{teamBinaryReportController.sortByMemberName}" />
@@ -88,7 +88,7 @@
 					<rich:column sortBy="#{item.position}" sortType="custom"
 						sortOrder="#{teamBinaryReportController.positionOrder}">
 						<f:facet name="header">
-							<a4j:commandLink
+							<a4j:commandLink style="font-size: 13px;"
 								value="#{app_msgs['label.menuInfoFlowTeam.reportTeamBinary.position']}"
 								render="fromReportId"
 								action="#{teamBinaryReportController.sortByPosition}" />
@@ -98,7 +98,7 @@
 					<rich:column sortBy="#{item.recomment}" sortType="custom"
 						sortOrder="#{teamBinaryReportController.recommentOrder}">
 						<f:facet name="header">
-							<a4j:commandLink
+							<a4j:commandLink style="font-size: 13px;"
 								value="#{app_msgs['label.menuInfoFlowTeam.reportTeamBinary.recomment']}"
 								render="fromReportId"
 								action="#{teamBinaryReportController.sortByRecomment}" />
@@ -108,7 +108,7 @@
 					<rich:column sortBy="#{item.honor}" sortType="custom"
 						sortOrder="#{teamBinaryReportController.honorOrder}">
 						<f:facet name="header">
-							<a4j:commandLink
+							<a4j:commandLink style="font-size: 13px;"
 								value="#{app_msgs['label.menuInfoFlowTeam.reportTeamBinary.honor']}"
 								render="fromReportId"
 								action="#{teamBinaryReportController.sortByHonor}" />
@@ -119,7 +119,7 @@
 						sortType="custom"
 						sortOrder="#{teamBinaryReportController.sideOrder}">
 						<f:facet name="header">
-							<a4j:commandLink
+							<a4j:commandLink style="font-size: 13px;"
 								value="#{app_msgs['label.menuInfoFlowTeam.reportTeamBinary.side']}"
 								render="fromReportId"
 								action="#{teamBinaryReportController.sortBySide}" />
