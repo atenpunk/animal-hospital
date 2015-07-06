@@ -20,9 +20,9 @@
 				<name>dummyTriggerName</name>
 				<job-name>AJob</job-name>
 				<job-group>AGroup</job-group>
-				<!-- It will run every 5 seconds -->
-				<!--cron-expression>0/5 * * * * ?</cron-expression -->
-				<cron-expression>0 36 13 * * ?</cron-expression>
+				<!-- It will run every 30 seconds -->
+				<!-- cron-expression>0/30 * * * * ?</cron-expression -->
+				<cron-expression>0 0 0 * * ?</cron-expression>
 			</cron>
 		</trigger>
 	</schedule>
