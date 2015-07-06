@@ -328,15 +328,17 @@ public class TreeSuggestController implements Serializable{
 		str.append("<a class=\"tooltip\" href=\""+url+"\">");
 		String img = "";
 		if(customer.getPositionId()==1){
-			img = "../resources/gfx/1.png";
+			img = "../resources/image/DIS.png";
 		}else if(customer.getPositionId()==2){
-			img = "../resources/gfx/2.png";
+			img = "../resources/image/EX.png";
 		}else if(customer.getPositionId()==3){
-			img = "../resources/gfx/3.png";
+			img = "../resources/image/PRO.png";
 		}else if(customer.getPositionId()==4){
-			img = "../resources/gfx/4.png";
+			img = "../resources/image/DP.png";
 		}else if(customer.getPositionId()==5){
-			img = "../resources/gfx/5.png";
+			img = "../resources/image/SP.png";
+		}else if(customer.getPositionId()==6){
+			img = "../resources/image/YT.png";
 		}
 		str.append("<img src=\""+img+"\" width=\"55px\" height=\"55px\"/>");
 		str.append("<br/>");
