@@ -22,7 +22,8 @@ public class ScheduledProcessor {
 	@Inject
 	Logger log;
  
-    @Schedule(hour="14",minute = "17")
+//	@Schedule(hour="*",minute = "*",second="0/10")
+    @Schedule(hour="0",minute = "1")
     public void execute() {
     	try{
 			log.info("##### Start ScheduledProcessor #####");
