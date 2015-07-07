@@ -107,22 +107,19 @@ public class CustomerController implements Serializable{
 	private String searchCustomer;
 
 	private String detailCustomerStr;
+	private String detailNameMember;
 	private String detailRegisDate;
-	private String detailPosRecomment;
 	private String detailPosMatch;
-	private String detailDocumentRegis;
-	private String detailDocumentPersonalCard;
-	private String detailDocumentBookBank;
-	//	private String detailPv;
-	//	private String detailPv;
-	//	private String detailPv;
-	//	private String detailPv;
-	//	private String detailPv;
-	//	private String detailPv;
-	//	private String detailPv;
+	private String detailScore;
+	private String detailMatchUse;
+	private String detailMatchRemain;
+	private String detailScoreLeft;
+	private String detailScoreRight;
+	
 
 	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd",Locale.US);
 	private DecimalFormat df = new DecimalFormat("0000000");
+	private DecimalFormat df2 = new DecimalFormat("#,##0");
 
 	// ######################## ADD MEMBER #########################
 	@Inject
@@ -517,83 +514,7 @@ public class CustomerController implements Serializable{
 		long endTime = System.currentTimeMillis();
 		log.info("search() Time = "+((endTime-startTime)/1000d)+"s");
 	}
-
-	private void genAutoTagTree(){
-		html = "";
-		StringBuffer str = new StringBuffer();
-		str.append("<table>");
-		str.append("<tr>");
-		str.append("<td>");
-		str.append("<div class=\"tree\">");
-		for(int index01=1;index01<2;index01++){
-			str.append("<ul>");
-			str.append("<li>");
-			str.append("<div>");
-			str.append(genData());
-			str.append("</div>");
-			str.append("<ul>");
-			for(int index02=2;index02<4;index02++){
-				str.append("<li>");
-				str.append("<div>");
-				str.append(genData());
-				str.append("</div>");
-				str.append("<ul>");
-				for(int index03=4;index03<6;index03++){
-					str.append("<li>");
-					str.append("<div>");
-					str.append(genData());
-					str.append("</div>");
-					str.append("<ul>");
-					for(int index04=6;index04<8;index04++){
-						str.append("<li>");
-						str.append("<div>");
-						str.append(genData());
-						str.append("</div>");
-						//						str.append("<ul>");
-						//						for(int index05=6;index05<8;index05++){
-						//							str.append("<li>");
-						//							str.append("<div>");
-						//							str.append(genData());
-						//							str.append("</div>");
-						//							str.append("</li>");
-						//						}
-						//						str.append("</ul>");
-						str.append("</li>");
-					}
-					str.append("</ul>");
-					str.append("</li>");
-				}
-				str.append("</ul>");
-				str.append("</li>");
-			}			
-			str.append("</ul>");
-			str.append("</li>");
-			str.append("</ul>");
-		}
-		str.append("</div>");
-		str.append("</td>");
-		str.append("</tr>");
-		str.append("</table>");
-		html = str.toString();
-	}
-
-	private String genData(){
-		StringBuffer str = new StringBuffer();
-		str.append("<a class=\"tooltip\" href=\"#\">");
-		str.append("<img src=\"../resources/gfx/1.png\" width=\"55px\" height=\"55px\"/>");
-		str.append("<br/>");
-		str.append("<h>AAAAAAA</h>");
-		str.append("<br/>");
-		str.append("<h>BBBBBBB</h>");
-		str.append("");
-		str.append("");
-		str.append("");
-		str.append("");
-		str.append("");
-		str.append("</a>");
-		return str.toString();
-	}
-
+	
 	public void genTree(String flag,long cusId){
 		long startTime = System.currentTimeMillis();
 		log.info("flag = "+flag);
@@ -753,6 +674,16 @@ public class CustomerController implements Serializable{
 					customerId = customer.getCustomerId();
 				}
 			}
+			detailCustomerStr = "";
+			detailNameMember = "";
+			detailRegisDate = "";
+			detailPosMatch = "";
+			detailScore = df2.format(0);
+			detailMatchUse = df2.format(0);
+			detailMatchRemain = df2.format(0);
+			detailScoreLeft = df2.format(0);
+			detailScoreRight = df2.format(0);
+			
 			customerModel_01 = null;
 			customerModel_02 = null;
 			customerModel_03 = null;
@@ -789,17 +720,14 @@ public class CustomerController implements Serializable{
 			customerModel_01 = setDataCustomerModel(getCustomerById(customerId));
 
 			detailCustomerStr = customerModel_01.getCustomerMember();
+			detailNameMember = customerModel_01.getName();
 			detailRegisDate = customerModel_01.getRegisDate()!=null?sdf.format(customerModel_01.getRegisDate()):"";
-			detailPosRecomment = "";
 			if(customerModel_01.getPositionId()!=0){
 				MemberPosition memberPosition = em.find(MemberPosition.class, new Integer(customerModel_01.getPositionId()));
 				detailPosMatch = memberPosition.getEnName();
 			}else{
 				detailPosMatch = "";
 			}
-			detailDocumentRegis = customerModel_01.getDateDocumentFully()!=null?sdf.format(customerModel_01.getDateDocumentFully()):"";
-			detailDocumentPersonalCard = customerModel_01.getDateCopyPersonalCard()!=null?sdf.format(customerModel_01.getDateCopyPersonalCard()):"";
-			detailDocumentBookBank = customerModel_01.getDateCopyBookBank()!=null?sdf.format(customerModel_01.getDateCopyBookBank()):"";
 
 			if(customerModel_01.getLowerLeftId()!=0){
 				customerModel_02 = setDataCustomerModel(getCustomerById(customerModel_01.getLowerLeftId()));
@@ -2662,14 +2590,6 @@ public class CustomerController implements Serializable{
 		this.detailRegisDate = detailRegisDate;
 	}
 
-	public String getDetailPosRecomment() {
-		return detailPosRecomment;
-	}
-
-	public void setDetailPosRecomment(String detailPosRecomment) {
-		this.detailPosRecomment = detailPosRecomment;
-	}
-
 	public String getDetailPosMatch() {
 		return detailPosMatch;
 	}
@@ -2678,27 +2598,53 @@ public class CustomerController implements Serializable{
 		this.detailPosMatch = detailPosMatch;
 	}
 
-	public String getDetailDocumentRegis() {
-		return detailDocumentRegis;
+	public String getDetailNameMember() {
+		return detailNameMember;
 	}
 
-	public void setDetailDocumentRegis(String detailDocumentRegis) {
-		this.detailDocumentRegis = detailDocumentRegis;
+	public void setDetailNameMember(String detailNameMember) {
+		this.detailNameMember = detailNameMember;
 	}
 
-	public String getDetailDocumentPersonalCard() {
-		return detailDocumentPersonalCard;
+	public String getDetailScore() {
+		return detailScore;
 	}
 
-	public void setDetailDocumentPersonalCard(String detailDocumentPersonalCard) {
-		this.detailDocumentPersonalCard = detailDocumentPersonalCard;
+	public void setDetailScore(String detailScore) {
+		this.detailScore = detailScore;
 	}
 
-	public String getDetailDocumentBookBank() {
-		return detailDocumentBookBank;
+	public String getDetailMatchUse() {
+		return detailMatchUse;
 	}
 
-	public void setDetailDocumentBookBank(String detailDocumentBookBank) {
-		this.detailDocumentBookBank = detailDocumentBookBank;
+	public void setDetailMatchUse(String detailMatchUse) {
+		this.detailMatchUse = detailMatchUse;
 	}
+
+	public String getDetailMatchRemain() {
+		return detailMatchRemain;
+	}
+
+	public void setDetailMatchRemain(String detailMatchRemain) {
+		this.detailMatchRemain = detailMatchRemain;
+	}
+
+	public String getDetailScoreLeft() {
+		return detailScoreLeft;
+	}
+
+	public void setDetailScoreLeft(String detailScoreLeft) {
+		this.detailScoreLeft = detailScoreLeft;
+	}
+
+	public String getDetailScoreRight() {
+		return detailScoreRight;
+	}
+
+	public void setDetailScoreRight(String detailScoreRight) {
+		this.detailScoreRight = detailScoreRight;
+	}
+	
+	
 }

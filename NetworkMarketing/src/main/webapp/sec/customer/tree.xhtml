@@ -30,11 +30,11 @@
         }
     </h:outputStylesheet>
 	<ui:define name="content">
-	<br />
+		<br />
 		<h:form>
 			<rich:panel id="mainPanel">
-			<f:facet name="header">
-					<h:outputText
+				<f:facet name="header">
+					<h:outputText style="font-size: 13px;"
 						value="#{app_msgs['label.menuInfoFlowTeam.flowChartMembers']}" />
 				</f:facet>
 				<table>
@@ -69,14 +69,14 @@
 									</tr>
 								</table>
 							</rich:panel></td>
-						<td><h:inputText id="inputMemberId"
+						<td><h:inputText id="inputMemberId" style="font-size: 13px;"
 								value="#{customerController.searchCustomer}">
 								<rich:placeholder
 									value="#{app_msgs['inputText.search.memberId']}" />
 							</h:inputText>&#160;<a4j:commandButton id="searchId"
 								value="#{app_msgs['button.search']}"
 								action="#{customerController.search}" render="mainPanel"
-								style=" width : 80px;"></a4j:commandButton></td>
+								style="font-size: 13px; width : 80px;"></a4j:commandButton></td>
 						<td><a4j:status>
 								<f:facet name="start">
 									<h:graphicImage value="/resources/gfx/spinner.gif" />
@@ -94,22 +94,21 @@
 									<ul>
 										<li><div
 												style="display: #{customerController.customerModel_01.flagImg02}">
-												<h:commandLink
-															action="#{customerController.viewAddMember}"
-															class="tooltip">
-															<h:graphicImage
-																value="#{customerController.customerModel_01.positionImage}"
-																width="45px" height="45px" />
-															<span> <h:graphicImage class="callout"
-																	value="/resources/gfx/callout.gif" /> <h:outputText
-																	value="#{app_msgs['label.pageTree.clickAddMember']}" />
-															</span>
-															<a4j:param name="upperLineId"
-																value="#{customerController.customerModel_01.upperId}"
-																assignTo="#{customerController.upperLineId}" />
-															<a4j:param name="flagUnder" value="0"
-																assignTo="#{customerController.flagUnder}" />
-														</h:commandLink>
+												<h:commandLink action="#{customerController.viewAddMember}"
+													class="tooltip">
+													<h:graphicImage
+														value="#{customerController.customerModel_01.positionImage}"
+														width="45px" height="45px" />
+													<span> <h:graphicImage class="callout"
+															value="/resources/gfx/callout.gif" /> <h:outputText
+															value="#{app_msgs['label.pageTree.clickAddMember']}" />
+													</span>
+													<a4j:param name="upperLineId"
+														value="#{customerController.customerModel_01.upperId}"
+														assignTo="#{customerController.upperLineId}" />
+													<a4j:param name="flagUnder" value="0"
+														assignTo="#{customerController.flagUnder}" />
+												</h:commandLink>
 											</div>
 											<div
 												style="display: #{customerController.customerModel_01.flagImg03}">
@@ -266,21 +265,21 @@
 																	<div
 																		style="display: #{customerController.customerModel_08.flagImg01}">
 																		<h:commandLink
-															action="#{customerController.viewAddMember}"
-															class="tooltip">
-															<h:graphicImage
-																value="#{customerController.customerModel_08.positionImage}"
-																width="45px" height="45px" />
-															<span> <h:graphicImage class="callout"
-																	value="/resources/gfx/callout.gif" /> <h:outputText
-																	value="#{app_msgs['label.pageTree.clickAddMember']}" />
-															</span>
-															<a4j:param name="upperLineId"
-																value="#{customerController.customerModel_08.upperId}"
-																assignTo="#{customerController.upperLineId}" />
-															<a4j:param name="flagUnder" value="1"
-																assignTo="#{customerController.flagUnder}" />
-														</h:commandLink>
+																			action="#{customerController.viewAddMember}"
+																			class="tooltip">
+																			<h:graphicImage
+																				value="#{customerController.customerModel_08.positionImage}"
+																				width="45px" height="45px" />
+																			<span> <h:graphicImage class="callout"
+																					value="/resources/gfx/callout.gif" /> <h:outputText
+																					value="#{app_msgs['label.pageTree.clickAddMember']}" />
+																			</span>
+																			<a4j:param name="upperLineId"
+																				value="#{customerController.customerModel_08.upperId}"
+																				assignTo="#{customerController.upperLineId}" />
+																			<a4j:param name="flagUnder" value="1"
+																				assignTo="#{customerController.flagUnder}" />
+																		</h:commandLink>
 																	</div>
 																	<div
 																		style="display: #{customerController.customerModel_08.flagImg03}">
@@ -323,21 +322,21 @@
 																	<div
 																		style="display: #{customerController.customerModel_09.flagImg01}">
 																		<h:commandLink
-															action="#{customerController.viewAddMember}"
-															class="tooltip">
-															<h:graphicImage
-																value="#{customerController.customerModel_09.positionImage}"
-																width="45px" height="45px" />
-															<span> <h:graphicImage class="callout"
-																	value="/resources/gfx/callout.gif" /> <h:outputText
-																	value="#{app_msgs['label.pageTree.clickAddMember']}" />
-															</span>
-															<a4j:param name="upperLineId"
-																value="#{customerController.customerModel_09.upperId}"
-																assignTo="#{customerController.upperLineId}" />
-															<a4j:param name="flagUnder" value="2"
-																assignTo="#{customerController.flagUnder}" />
-														</h:commandLink>
+																			action="#{customerController.viewAddMember}"
+																			class="tooltip">
+																			<h:graphicImage
+																				value="#{customerController.customerModel_09.positionImage}"
+																				width="45px" height="45px" />
+																			<span> <h:graphicImage class="callout"
+																					value="/resources/gfx/callout.gif" /> <h:outputText
+																					value="#{app_msgs['label.pageTree.clickAddMember']}" />
+																			</span>
+																			<a4j:param name="upperLineId"
+																				value="#{customerController.customerModel_09.upperId}"
+																				assignTo="#{customerController.upperLineId}" />
+																			<a4j:param name="flagUnder" value="2"
+																				assignTo="#{customerController.flagUnder}" />
+																		</h:commandLink>
 																	</div>
 																	<div
 																		style="display: #{customerController.customerModel_09.flagImg03}">
@@ -439,21 +438,21 @@
 																	<div
 																		style="display: #{customerController.customerModel_10.flagImg01}">
 																		<h:commandLink
-															action="#{customerController.viewAddMember}"
-															class="tooltip">
-															<h:graphicImage
-																value="#{customerController.customerModel_10.positionImage}"
-																width="45px" height="45px" />
-															<span> <h:graphicImage class="callout"
-																	value="/resources/gfx/callout.gif" /> <h:outputText
-																	value="#{app_msgs['label.pageTree.clickAddMember']}" />
-															</span>
-															<a4j:param name="upperLineId"
-																value="#{customerController.customerModel_10.upperId}"
-																assignTo="#{customerController.upperLineId}" />
-															<a4j:param name="flagUnder" value="1"
-																assignTo="#{customerController.flagUnder}" />
-														</h:commandLink>
+																			action="#{customerController.viewAddMember}"
+																			class="tooltip">
+																			<h:graphicImage
+																				value="#{customerController.customerModel_10.positionImage}"
+																				width="45px" height="45px" />
+																			<span> <h:graphicImage class="callout"
+																					value="/resources/gfx/callout.gif" /> <h:outputText
+																					value="#{app_msgs['label.pageTree.clickAddMember']}" />
+																			</span>
+																			<a4j:param name="upperLineId"
+																				value="#{customerController.customerModel_10.upperId}"
+																				assignTo="#{customerController.upperLineId}" />
+																			<a4j:param name="flagUnder" value="1"
+																				assignTo="#{customerController.flagUnder}" />
+																		</h:commandLink>
 																	</div>
 																	<div
 																		style="display: #{customerController.customerModel_10.flagImg03}">
@@ -496,21 +495,21 @@
 																	<div
 																		style="display: #{customerController.customerModel_11.flagImg01}">
 																		<h:commandLink
-															action="#{customerController.viewAddMember}"
-															class="tooltip">
-															<h:graphicImage
-																value="#{customerController.customerModel_11.positionImage}"
-																width="45px" height="45px" />
-															<span> <h:graphicImage class="callout"
-																	value="/resources/gfx/callout.gif" /> <h:outputText
-																	value="#{app_msgs['label.pageTree.clickAddMember']}" />
-															</span>
-															<a4j:param name="upperLineId"
-																value="#{customerController.customerModel_11.upperId}"
-																assignTo="#{customerController.upperLineId}" />
-															<a4j:param name="flagUnder" value="2"
-																assignTo="#{customerController.flagUnder}" />
-														</h:commandLink>
+																			action="#{customerController.viewAddMember}"
+																			class="tooltip">
+																			<h:graphicImage
+																				value="#{customerController.customerModel_11.positionImage}"
+																				width="45px" height="45px" />
+																			<span> <h:graphicImage class="callout"
+																					value="/resources/gfx/callout.gif" /> <h:outputText
+																					value="#{app_msgs['label.pageTree.clickAddMember']}" />
+																			</span>
+																			<a4j:param name="upperLineId"
+																				value="#{customerController.customerModel_11.upperId}"
+																				assignTo="#{customerController.upperLineId}" />
+																			<a4j:param name="flagUnder" value="2"
+																				assignTo="#{customerController.flagUnder}" />
+																		</h:commandLink>
 																	</div>
 																	<div
 																		style="display: #{customerController.customerModel_11.flagImg03}">
@@ -671,21 +670,21 @@
 																	<div
 																		style="display: #{customerController.customerModel_12.flagImg01}">
 																		<h:commandLink
-															action="#{customerController.viewAddMember}"
-															class="tooltip">
-															<h:graphicImage
-																value="#{customerController.customerModel_12.positionImage}"
-																width="45px" height="45px" />
-															<span> <h:graphicImage class="callout"
-																	value="/resources/gfx/callout.gif" /> <h:outputText
-																	value="#{app_msgs['label.pageTree.clickAddMember']}" />
-															</span>
-															<a4j:param name="upperLineId"
-																value="#{customerController.customerModel_12.upperId}"
-																assignTo="#{customerController.upperLineId}" />
-															<a4j:param name="flagUnder" value="1"
-																assignTo="#{customerController.flagUnder}" />
-														</h:commandLink>
+																			action="#{customerController.viewAddMember}"
+																			class="tooltip">
+																			<h:graphicImage
+																				value="#{customerController.customerModel_12.positionImage}"
+																				width="45px" height="45px" />
+																			<span> <h:graphicImage class="callout"
+																					value="/resources/gfx/callout.gif" /> <h:outputText
+																					value="#{app_msgs['label.pageTree.clickAddMember']}" />
+																			</span>
+																			<a4j:param name="upperLineId"
+																				value="#{customerController.customerModel_12.upperId}"
+																				assignTo="#{customerController.upperLineId}" />
+																			<a4j:param name="flagUnder" value="1"
+																				assignTo="#{customerController.flagUnder}" />
+																		</h:commandLink>
 																	</div>
 																	<div
 																		style="display: #{customerController.customerModel_12.flagImg03}">
@@ -728,21 +727,21 @@
 																	<div
 																		style="display: #{customerController.customerModel_13.flagImg01}">
 																		<h:commandLink
-															action="#{customerController.viewAddMember}"
-															class="tooltip">
-															<h:graphicImage
-																value="#{customerController.customerModel_13.positionImage}"
-																width="45px" height="45px" />
-															<span> <h:graphicImage class="callout"
-																	value="/resources/gfx/callout.gif" /> <h:outputText
-																	value="#{app_msgs['label.pageTree.clickAddMember']}" />
-															</span>
-															<a4j:param name="upperLineId"
-																value="#{customerController.customerModel_13.upperId}"
-																assignTo="#{customerController.upperLineId}" />
-															<a4j:param name="flagUnder" value="2"
-																assignTo="#{customerController.flagUnder}" />
-														</h:commandLink>
+																			action="#{customerController.viewAddMember}"
+																			class="tooltip">
+																			<h:graphicImage
+																				value="#{customerController.customerModel_13.positionImage}"
+																				width="45px" height="45px" />
+																			<span> <h:graphicImage class="callout"
+																					value="/resources/gfx/callout.gif" /> <h:outputText
+																					value="#{app_msgs['label.pageTree.clickAddMember']}" />
+																			</span>
+																			<a4j:param name="upperLineId"
+																				value="#{customerController.customerModel_13.upperId}"
+																				assignTo="#{customerController.upperLineId}" />
+																			<a4j:param name="flagUnder" value="2"
+																				assignTo="#{customerController.flagUnder}" />
+																		</h:commandLink>
 																	</div>
 																	<div
 																		style="display: #{customerController.customerModel_13.flagImg03}">
@@ -843,21 +842,21 @@
 																	<div
 																		style="display: #{customerController.customerModel_14.flagImg01}">
 																		<h:commandLink
-															action="#{customerController.viewAddMember}"
-															class="tooltip">
-															<h:graphicImage
-																value="#{customerController.customerModel_14.positionImage}"
-																width="45px" height="45px" />
-															<span> <h:graphicImage class="callout"
-																	value="/resources/gfx/callout.gif" /> <h:outputText
-																	value="#{app_msgs['label.pageTree.clickAddMember']}" />
-															</span>
-															<a4j:param name="upperLineId"
-																value="#{customerController.customerModel_14.upperId}"
-																assignTo="#{customerController.upperLineId}" />
-															<a4j:param name="flagUnder" value="1"
-																assignTo="#{customerController.flagUnder}" />
-														</h:commandLink>
+																			action="#{customerController.viewAddMember}"
+																			class="tooltip">
+																			<h:graphicImage
+																				value="#{customerController.customerModel_14.positionImage}"
+																				width="45px" height="45px" />
+																			<span> <h:graphicImage class="callout"
+																					value="/resources/gfx/callout.gif" /> <h:outputText
+																					value="#{app_msgs['label.pageTree.clickAddMember']}" />
+																			</span>
+																			<a4j:param name="upperLineId"
+																				value="#{customerController.customerModel_14.upperId}"
+																				assignTo="#{customerController.upperLineId}" />
+																			<a4j:param name="flagUnder" value="1"
+																				assignTo="#{customerController.flagUnder}" />
+																		</h:commandLink>
 																	</div>
 																	<div
 																		style="display: #{customerController.customerModel_14.flagImg03}">
@@ -900,21 +899,21 @@
 																	<div
 																		style="display: #{customerController.customerModel_15.flagImg01}">
 																		<h:commandLink
-															action="#{customerController.viewAddMember}"
-															class="tooltip">
-															<h:graphicImage
-																value="#{customerController.customerModel_15.positionImage}"
-																width="45px" height="45px" />
-															<span> <h:graphicImage class="callout"
-																	value="/resources/gfx/callout.gif" /> <h:outputText
-																	value="#{app_msgs['label.pageTree.clickAddMember']}" />
-															</span>
-															<a4j:param name="upperLineId"
-																value="#{customerController.customerModel_15.upperId}"
-																assignTo="#{customerController.upperLineId}" />
-															<a4j:param name="flagUnder" value="2"
-																assignTo="#{customerController.flagUnder}" />
-														</h:commandLink>
+																			action="#{customerController.viewAddMember}"
+																			class="tooltip">
+																			<h:graphicImage
+																				value="#{customerController.customerModel_15.positionImage}"
+																				width="45px" height="45px" />
+																			<span> <h:graphicImage class="callout"
+																					value="/resources/gfx/callout.gif" /> <h:outputText
+																					value="#{app_msgs['label.pageTree.clickAddMember']}" />
+																			</span>
+																			<a4j:param name="upperLineId"
+																				value="#{customerController.customerModel_15.upperId}"
+																				assignTo="#{customerController.upperLineId}" />
+																			<a4j:param name="flagUnder" value="2"
+																				assignTo="#{customerController.flagUnder}" />
+																		</h:commandLink>
 																	</div>
 																	<div
 																		style="display: #{customerController.customerModel_15.flagImg03}">
@@ -960,61 +959,79 @@
 				</rich:panel>
 				<h:panelGrid columns="2"
 					rendered="#{customerController.customerModel_01 ne null}">
-					<rich:panel style="width : 350px;height:170px;">
-						<h:panelGrid columns="2">
-							<h:outputText value="#{app_msgs['label.pageTree.memberStr']}" style="FONT-WEIGHT: bold;"/>
-							<h:outputText value="#{customerController.detailCustomerStr}" />
-							<h:outputText value="#{app_msgs['label.pageTree.regisDate']}" style="FONT-WEIGHT: bold;"/>
-							<h:outputText value="#{customerController.detailRegisDate}" />
-							<h:outputText value="#{app_msgs['label.pageTree.posRecomment']}" style="FONT-WEIGHT: bold;"/>
-							<h:outputText value="#{customerController.detailPosRecomment}" />
-							<h:outputText value="#{app_msgs['label.pageTree.posMatch']}" style="FONT-WEIGHT: bold;"/>
-							<h:outputText value="#{customerController.detailPosMatch}" />
-							<h:outputText value="#{app_msgs['label.pageTree.documentRegis']}" style="FONT-WEIGHT: bold;"/>
-							<h:outputText value="#{customerController.detailDocumentRegis}" />
-							<h:outputText value="#{app_msgs['label.pageTree.documentPersonalCard']}" style="FONT-WEIGHT: bold;"/>
-							<h:outputText value="#{customerController.detailDocumentPersonalCard}" />
-							<h:outputText value="#{app_msgs['label.pageTree.documentBookBank']}" style="FONT-WEIGHT: bold;"/>
-							<h:outputText value="#{customerController.detailDocumentBookBank}" />
-						</h:panelGrid>
-					</rich:panel>
-					<rich:panel style="width : 350px;height:170px;">
-						<h:panelGrid columns="4">
-							<h:outputText value="PV สะสม : " style="FONT-WEIGHT: bold;"/>
-							<h:outputText value="0.00" />
-							<h:outputText value="" />
-							<h:outputText value="" />
+					<rich:panel style="width : auto;">
+						<table>
+							<tr>
+								<td class="tableHeadFooter"><h:outputText
+										value="#{app_msgs['label.pageTree.memberStr']}"
+										style="font-size: 13px;FONT-WEIGHT: bold;" /></td>
+								<td class="tableDataFooter"><h:outputText
+										value="#{customerController.detailCustomerStr}"
+										style="font-size: 13px;" /></td>
+								<td class="tableHeadFooter"><h:outputText
+										value="#{app_msgs['label.pageTree.matchUse']}"
+										style="font-size: 13px;FONT-WEIGHT: bold;" /></td>
+								<td class="tableDataFooter"><h:outputText
+										value="#{customerController.detailMatchUse}"
+										style="font-size: 13px;" /></td>
+							</tr>
 
-							<h:outputText value="PV ซ้าย (ยกมา) : " style="FONT-WEIGHT: bold;"/>
-							<h:outputText value="0.00" />
-							<h:outputText value="PV ขวา (ยกมา) : " style="FONT-WEIGHT: bold;"/>
-							<h:outputText value="0.00" />
+							<tr>
+								<td class="tableHeadFooter"><h:outputText
+										value="#{app_msgs['label.pageTree.nameMember']}"
+										style="font-size: 13px;FONT-WEIGHT: bold;" /></td>
+								<td class="tableDataFooter"><h:outputText
+										value="#{customerController.detailNameMember}"
+										style="font-size: 13px;" /></td>
+								<td class="tableHeadFooter"><h:outputText
+										value="#{app_msgs['label.pageTree.matchNotUse']}"
+										style="font-size: 13px;FONT-WEIGHT: bold;" /></td>
+								<td class="tableDataFooter"><h:outputText
+										value="#{customerController.detailMatchRemain}"
+										style="font-size: 13px;" /></td>
+							</tr>
+							<tr>
+								<td class="tableHeadFooter"><h:outputText
+										value="#{app_msgs['label.pageTree.regisDate']}"
+										style="font-size: 13px;FONT-WEIGHT: bold;" /></td>
+								<td class="tableDataFooter"><h:outputText
+										value="#{customerController.detailRegisDate}"
+										style="font-size: 13px;" /></td>
+								<td colspan="2" class="tableHeadFooter"><h:outputText
+										value="#{app_msgs['label.pageTree.scoreRemaining']}"
+										style="font-size: 13px;FONT-WEIGHT: bold;" /></td>
+							</tr>
 
-							<h:outputText value="PV ซ้าย (ใหม่) : " style="FONT-WEIGHT: bold;"/>
-							<h:outputText value="0.00" />
-							<h:outputText value="PV ขวา (ใหม่) : " style="FONT-WEIGHT: bold;"/>
-							<h:outputText value="0.00" />
+							<tr>
+								<td class="tableHeadFooter"><h:outputText
+										value="#{app_msgs['label.pageTree.posMatch']}"
+										style="font-size: 13px;FONT-WEIGHT: bold;" /></td>
+								<td class="tableDataFooter"><h:outputText
+										value="#{customerController.detailPosMatch}"
+										style="font-size: 13px;" /></td>
 
-							<h:outputText value="PV ซ้าย (รวม) : " style="FONT-WEIGHT: bold;"/>
-							<h:outputText value="0.00" />
-							<h:outputText value="PV ขวา (รวม) : " style="FONT-WEIGHT: bold;"/>
-							<h:outputText value="0.00" />
-
-							<h:outputText value="" />
-							<h:outputText value="" />
-							<h:outputText value="" />
-							<h:outputText value="" />
-
-							<h:outputText value="" />
-							<h:outputText value="" />
-							<h:outputText value="" />
-							<h:outputText value="" />
-
-							<h:outputText value="" />
-							<h:outputText value="" />
-							<h:outputText value="" />
-							<h:outputText value="" />
-						</h:panelGrid>
+								<td class="tableHeadFooter"><h:outputText
+										value="#{app_msgs['label.pageTree.scoreLeft']}"
+										style="font-size: 13px;FONT-WEIGHT: bold;" /></td>
+								<td class="tableHeadFooter"><h:outputText
+										value="#{app_msgs['label.pageTree.scoreRight']}"
+										style="font-size: 13px;FONT-WEIGHT: bold;" /></td>
+							</tr>
+							<tr>
+								<td class="tableHeadFooter"><h:outputText
+										value="#{app_msgs['label.pageTree.score']}"
+										style="font-size: 13px;FONT-WEIGHT: bold;" /></td>
+								<td class="tableDataFooter"><h:outputText
+										value="#{customerController.detailScore}"
+										style="font-size: 13px;" /></td>
+								<td class="tableDataFooter"><h:outputText
+										value="#{customerController.detailScoreLeft}"
+										style="font-size: 13px;" /></td>
+								<td class="tableDataFooter"><h:outputText
+										value="#{customerController.detailScoreRight}"
+										style="font-size: 13px;" /></td>
+							</tr>
+						</table>
 					</rich:panel>
 				</h:panelGrid>
 			</rich:panel>
