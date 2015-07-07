@@ -11,6 +11,8 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -24,60 +26,7 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "member_customer")
 @NamedQueries({
-    @NamedQuery(name = "MemberCustomer.findAll", query = "SELECT m FROM MemberCustomer m"),
-    @NamedQuery(name = "MemberCustomer.findByCustomerId", query = "SELECT m FROM MemberCustomer m WHERE m.customerId = :customerId"),
-    @NamedQuery(name = "MemberCustomer.findByCustomerMember", query = "SELECT m FROM MemberCustomer m WHERE m.customerMember = :customerMember"),
-    @NamedQuery(name = "MemberCustomer.findByUpperId", query = "SELECT m FROM MemberCustomer m WHERE m.upperId = :upperId"),
-    @NamedQuery(name = "MemberCustomer.findByLowerLeftId", query = "SELECT m FROM MemberCustomer m WHERE m.lowerLeftId = :lowerLeftId"),
-    @NamedQuery(name = "MemberCustomer.findByLowerRightId", query = "SELECT m FROM MemberCustomer m WHERE m.lowerRightId = :lowerRightId"),
-    @NamedQuery(name = "MemberCustomer.findByRecommendId", query = "SELECT m FROM MemberCustomer m WHERE m.recommendId = :recommendId"),
-    @NamedQuery(name = "MemberCustomer.findByPositionId", query = "SELECT m FROM MemberCustomer m WHERE m.positionId = :positionId"),
-    @NamedQuery(name = "MemberCustomer.findByScore", query = "SELECT m FROM MemberCustomer m WHERE m.score = :score"),
-    @NamedQuery(name = "MemberCustomer.findByRegisDate", query = "SELECT m FROM MemberCustomer m WHERE m.regisDate = :regisDate"),
-    @NamedQuery(name = "MemberCustomer.findByTitleName", query = "SELECT m FROM MemberCustomer m WHERE m.titleName = :titleName"),
-    @NamedQuery(name = "MemberCustomer.findByFirstName", query = "SELECT m FROM MemberCustomer m WHERE m.firstName = :firstName"),
-    @NamedQuery(name = "MemberCustomer.findByLastName", query = "SELECT m FROM MemberCustomer m WHERE m.lastName = :lastName"),
-    @NamedQuery(name = "MemberCustomer.findByStatus", query = "SELECT m FROM MemberCustomer m WHERE m.status = :status"),
-    @NamedQuery(name = "MemberCustomer.findByCreateBy", query = "SELECT m FROM MemberCustomer m WHERE m.createBy = :createBy"),
-    @NamedQuery(name = "MemberCustomer.findByCreateDate", query = "SELECT m FROM MemberCustomer m WHERE m.createDate = :createDate"),
-    @NamedQuery(name = "MemberCustomer.findByUpdateBy", query = "SELECT m FROM MemberCustomer m WHERE m.updateBy = :updateBy"),
-    @NamedQuery(name = "MemberCustomer.findByUpdateDate", query = "SELECT m FROM MemberCustomer m WHERE m.updateDate = :updateDate"),
-    @NamedQuery(name = "MemberCustomer.findBySex", query = "SELECT m FROM MemberCustomer m WHERE m.sex = :sex"),
-    @NamedQuery(name = "MemberCustomer.findByBirthDay", query = "SELECT m FROM MemberCustomer m WHERE m.birthDay = :birthDay"),
-    @NamedQuery(name = "MemberCustomer.findByNationality", query = "SELECT m FROM MemberCustomer m WHERE m.nationality = :nationality"),
-    @NamedQuery(name = "MemberCustomer.findByPersonalId", query = "SELECT m FROM MemberCustomer m WHERE m.personalId = :personalId"),
-    @NamedQuery(name = "MemberCustomer.findByCompanyID", query = "SELECT m FROM MemberCustomer m WHERE m.companyID = :companyID"),
-    @NamedQuery(name = "MemberCustomer.findByTelephone", query = "SELECT m FROM MemberCustomer m WHERE m.telephone = :telephone"),
-    @NamedQuery(name = "MemberCustomer.findByMobile", query = "SELECT m FROM MemberCustomer m WHERE m.mobile = :mobile"),
-    @NamedQuery(name = "MemberCustomer.findByFax", query = "SELECT m FROM MemberCustomer m WHERE m.fax = :fax"),
-    @NamedQuery(name = "MemberCustomer.findByEmail", query = "SELECT m FROM MemberCustomer m WHERE m.email = :email"),
-    @NamedQuery(name = "MemberCustomer.findByAddressNo", query = "SELECT m FROM MemberCustomer m WHERE m.addressNo = :addressNo"),
-    @NamedQuery(name = "MemberCustomer.findByAddressBuilding", query = "SELECT m FROM MemberCustomer m WHERE m.addressBuilding = :addressBuilding"),
-    @NamedQuery(name = "MemberCustomer.findByAddressVillage", query = "SELECT m FROM MemberCustomer m WHERE m.addressVillage = :addressVillage"),
-    @NamedQuery(name = "MemberCustomer.findByAddressLane", query = "SELECT m FROM MemberCustomer m WHERE m.addressLane = :addressLane"),
-    @NamedQuery(name = "MemberCustomer.findByAddressRoad", query = "SELECT m FROM MemberCustomer m WHERE m.addressRoad = :addressRoad"),
-    @NamedQuery(name = "MemberCustomer.findByProvinceId", query = "SELECT m FROM MemberCustomer m WHERE m.provinceId = :provinceId"),
-    @NamedQuery(name = "MemberCustomer.findByAmphurId", query = "SELECT m FROM MemberCustomer m WHERE m.amphurId = :amphurId"),
-    @NamedQuery(name = "MemberCustomer.findByDistrictId", query = "SELECT m FROM MemberCustomer m WHERE m.districtId = :districtId"),
-    @NamedQuery(name = "MemberCustomer.findByAddressNoSendDoc", query = "SELECT m FROM MemberCustomer m WHERE m.addressNoSendDoc = :addressNoSendDoc"),
-    @NamedQuery(name = "MemberCustomer.findByAddressBuildingSendDoc", query = "SELECT m FROM MemberCustomer m WHERE m.addressBuildingSendDoc = :addressBuildingSendDoc"),
-    @NamedQuery(name = "MemberCustomer.findByAddressVillageSendDoc", query = "SELECT m FROM MemberCustomer m WHERE m.addressVillageSendDoc = :addressVillageSendDoc"),
-    @NamedQuery(name = "MemberCustomer.findByAddressLaneSendDoc", query = "SELECT m FROM MemberCustomer m WHERE m.addressLaneSendDoc = :addressLaneSendDoc"),
-    @NamedQuery(name = "MemberCustomer.findByAddressRoadSendDoc", query = "SELECT m FROM MemberCustomer m WHERE m.addressRoadSendDoc = :addressRoadSendDoc"),
-    @NamedQuery(name = "MemberCustomer.findByProvinceIdSendDoc", query = "SELECT m FROM MemberCustomer m WHERE m.provinceIdSendDoc = :provinceIdSendDoc"),
-    @NamedQuery(name = "MemberCustomer.findByAmphurIdSendDoc", query = "SELECT m FROM MemberCustomer m WHERE m.amphurIdSendDoc = :amphurIdSendDoc"),
-    @NamedQuery(name = "MemberCustomer.findByDistrictIdSendDoc", query = "SELECT m FROM MemberCustomer m WHERE m.districtIdSendDoc = :districtIdSendDoc"),
-    @NamedQuery(name = "MemberCustomer.findByChkSameAddress", query = "SELECT m FROM MemberCustomer m WHERE m.chkSameAddress = :chkSameAddress"),
-    @NamedQuery(name = "MemberCustomer.findByBankId", query = "SELECT m FROM MemberCustomer m WHERE m.bankId = :bankId"),
-    @NamedQuery(name = "MemberCustomer.findByBankBranch", query = "SELECT m FROM MemberCustomer m WHERE m.bankBranch = :bankBranch"),
-    @NamedQuery(name = "MemberCustomer.findByBankaccountType", query = "SELECT m FROM MemberCustomer m WHERE m.bankaccountType = :bankaccountType"),
-    @NamedQuery(name = "MemberCustomer.findByBankaccountNo", query = "SELECT m FROM MemberCustomer m WHERE m.bankaccountNo = :bankaccountNo"),
-    @NamedQuery(name = "MemberCustomer.findByBankaccountName", query = "SELECT m FROM MemberCustomer m WHERE m.bankaccountName = :bankaccountName"),
-    @NamedQuery(name = "MemberCustomer.findByRemark", query = "SELECT m FROM MemberCustomer m WHERE m.remark = :remark"),
-    @NamedQuery(name = "MemberCustomer.findByReceiveDocument", query = "SELECT m FROM MemberCustomer m WHERE m.receiveDocument = :receiveDocument"),
-    @NamedQuery(name = "MemberCustomer.findByDateDocumentFully", query = "SELECT m FROM MemberCustomer m WHERE m.dateDocumentFully = :dateDocumentFully"),
-    @NamedQuery(name = "MemberCustomer.findByDateCopyPersonalCard", query = "SELECT m FROM MemberCustomer m WHERE m.dateCopyPersonalCard = :dateCopyPersonalCard"),
-    @NamedQuery(name = "MemberCustomer.findByDateCopyBookBank", query = "SELECT m FROM MemberCustomer m WHERE m.dateCopyBookBank = :dateCopyBookBank")})
+    @NamedQuery(name = "MemberCustomer.findAll", query = "SELECT m FROM MemberCustomer m")})
 public class MemberCustomer implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -94,8 +43,6 @@ public class MemberCustomer implements Serializable {
     private Integer lowerRightId;
     @Column(name = "recommend_id")
     private Integer recommendId;
-    @Column(name = "position_id")
-    private Integer positionId;
     @Column(name = "score")
     private Integer score;
     @Column(name = "regis_date")
@@ -205,7 +152,10 @@ public class MemberCustomer implements Serializable {
     private Integer chkCopyBookBank;
     @Column(name = "side")
     private Integer side;
-    
+    @JoinColumn(name = "position_id", referencedColumnName = "position_id")
+    @ManyToOne
+    private MemberPosition positionId;
+
     public MemberCustomer() {
     }
 
@@ -259,14 +209,6 @@ public class MemberCustomer implements Serializable {
 
     public void setRecommendId(Integer recommendId) {
         this.recommendId = recommendId;
-    }
-
-    public Integer getPositionId() {
-        return positionId;
-    }
-
-    public void setPositionId(Integer positionId) {
-        this.positionId = positionId;
     }
 
     public Integer getScore() {
@@ -638,46 +580,54 @@ public class MemberCustomer implements Serializable {
     }
 
     public String getBusinessName() {
-		return businessName;
-	}
+        return businessName;
+    }
 
-	public void setBusinessName(String businessName) {
-		this.businessName = businessName;
-	}
+    public void setBusinessName(String businessName) {
+        this.businessName = businessName;
+    }
 
-	public Integer getChkDocumentFully() {
-		return chkDocumentFully;
-	}
+    public Integer getChkDocumentFully() {
+        return chkDocumentFully;
+    }
 
-	public void setChkDocumentFully(Integer chkDocumentFully) {
-		this.chkDocumentFully = chkDocumentFully;
-	}
+    public void setChkDocumentFully(Integer chkDocumentFully) {
+        this.chkDocumentFully = chkDocumentFully;
+    }
 
-	public Integer getChkCopyPersonalCard() {
-		return chkCopyPersonalCard;
-	}
+    public Integer getChkCopyPersonalCard() {
+        return chkCopyPersonalCard;
+    }
 
-	public void setChkCopyPersonalCard(Integer chkCopyPersonalCard) {
-		this.chkCopyPersonalCard = chkCopyPersonalCard;
-	}
+    public void setChkCopyPersonalCard(Integer chkCopyPersonalCard) {
+        this.chkCopyPersonalCard = chkCopyPersonalCard;
+    }
 
-	public Integer getChkCopyBookBank() {
-		return chkCopyBookBank;
-	}
+    public Integer getChkCopyBookBank() {
+        return chkCopyBookBank;
+    }
 
-	public void setChkCopyBookBank(Integer chkCopyBookBank) {
-		this.chkCopyBookBank = chkCopyBookBank;
-	}
+    public void setChkCopyBookBank(Integer chkCopyBookBank) {
+        this.chkCopyBookBank = chkCopyBookBank;
+    }
 
-	public Integer getSide() {
-		return side;
-	}
+    public Integer getSide() {
+        return side;
+    }
 
-	public void setSide(Integer side) {
-		this.side = side;
-	}
+    public void setSide(Integer side) {
+        this.side = side;
+    }
 
-	@Override
+    public MemberPosition getPositionId() {
+        return positionId;
+    }
+
+    public void setPositionId(MemberPosition positionId) {
+        this.positionId = positionId;
+    }
+
+    @Override
     public int hashCode() {
         int hash = 0;
         hash += (customerId != null ? customerId.hashCode() : 0);

@@ -269,10 +269,9 @@ public class TeamBinaryReportController implements Serializable{
 		model.setCustomerId(StringUtil.n2b(memSearch.getCustomerId()));
 		model.setCustomerCode(memSearch.getCustomerMember());
 		model.setCustomerName(memSearch.getFirstName());
-		if(memSearch.getPositionId()!=null && memSearch.getPositionId().intValue()!=0){
-			MemberPosition position = em.find(MemberPosition.class, memSearch.getPositionId());
-			model.setPosition(StringUtil.n2b(position.getEnName()));
-		}	
+		if(memSearch.getPositionId()!=null){
+			model.setPosition(StringUtil.n2b(memSearch.getPositionId().getEnName()));
+		}
 		model.setRecomment("");
 		model.setHonor("");
 		if(memSearch.getSide()!=null 

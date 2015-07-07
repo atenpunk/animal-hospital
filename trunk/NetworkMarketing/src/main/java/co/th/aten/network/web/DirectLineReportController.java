@@ -77,10 +77,9 @@ public class DirectLineReportController implements Serializable {
 					model.setCustomerId(customer.getCustomerMember());
 					model.setCustomerName(StringUtil.n2b(customer.getTitleName())+StringUtil.n2b(customer.getFirstName())
 							+" "+StringUtil.n2b(customer.getLastName()));
-					if(customer.getPositionId()!=null && customer.getPositionId().intValue()!=0){
-						MemberPosition position = em.find(MemberPosition.class, customer.getPositionId());
-						model.setPosition(StringUtil.n2b(position.getEnName()));
-					}					
+					if(customer.getPositionId()!=null){
+						model.setPosition(StringUtil.n2b(customer.getPositionId().getEnName()));
+					}
 					model.setRegisDate(customer.getRegisDate());
 					if(customer.getUpperId()!=null && customer.getUpperId().intValue()!=0){
 						MemberCustomer upper = em.find(MemberCustomer.class, customer.getUpperId());
