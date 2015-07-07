@@ -1322,7 +1322,7 @@ public class CustomerController implements Serializable{
 				model.setLowerLeftId(customer.getLowerLeftId()!=null?customer.getLowerLeftId():0);
 				model.setLowerRightId(customer.getLowerRightId()!=null?customer.getLowerRightId():0);
 				model.setRecommendId(customer.getRecommendId()!=null?customer.getRecommendId():0);
-				model.setPositionId(customer.getPositionId()!=null?customer.getPositionId():0);
+				model.setPositionId(customer.getPositionId()!=null?customer.getPositionId().getPositionId():0);
 				if(model.getPositionId()==1){
 					model.setPositionImage("/resources/image/DIS.png");
 				}else if(model.getPositionId()==2){
@@ -1623,7 +1623,7 @@ public class CustomerController implements Serializable{
 				cus.setLowerLeftId(null);
 				cus.setLowerRightId(null);
 				cus.setRecommendId(recomendId);
-				cus.setPositionId(6);
+				cus.setPositionId(em.find(MemberPosition.class, new Integer(6)));
 				cus.setScore(0);
 				cus.setRegisDate(regisDate);
 				cus.setTitleName(titleName);

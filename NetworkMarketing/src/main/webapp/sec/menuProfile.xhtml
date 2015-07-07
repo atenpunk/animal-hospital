@@ -6,53 +6,156 @@
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j"
 	template="/WEB-INF/templates/template.xhtml">
-
 	<ui:define name="content">
+		<h:outputStylesheet>
+	
+.tableMain {
+	width: 180px;
+	height: 15px;
+	font-family: arial;
+	font-size: 13px;
+	background-color: #BED6F8;
+	border: 1px solid #ffffff;
+	padding-left: 3px;
+	text-align: left;
+	background: transparent -moz-linear-gradient(center top , #BED6F8, #F2F7FF) repeat scroll 0% 0%;
+    background-color: transparent;
+    background-image: -moz-linear-gradient(center top , #BED6F8, #F2F7FF);
+    background-repeat: repeat;
+    background-attachment: scroll;
+    background-position: 0% 0%;
+    background-clip: border-box;
+    background-origin: padding-box;
+    background-size: auto auto;
+}
+
+.tableChild {
+	width: 280px;
+	height: 15px;
+	font-family: arial;
+	font-size: 13px;
+	background-color: #F2F7FF;
+	border: 1px solid #ffffff;
+	padding-left: 5px;
+	text-align: left;
+	background: transparent -moz-linear-gradient(center top, #F2F7FF, #FFFFFF) repeat scroll 0% 0%;
+	background-color: transparent;
+	background-image: -moz-linear-gradient(center top, #F2F7FF, #FFFFFF);
+	background-repeat: repeat;
+	background-attachment: scroll;
+	background-position: 0% 0%;
+	background-clip: border-box;
+	background-origin: padding-box;
+	background-size: auto auto;
+}
+
+.tableMain2 {
+	width: 180px;
+	height: 15px;
+	font-family: arial;
+	font-size: 13px;
+	background-color: #BED6F8;
+	border: 1px solid #ffffff;
+	padding-left: 3px;
+	text-align: left;
+	background: transparent -moz-linear-gradient(center top , #BED6F8, #F2F7FF) repeat scroll 0% 0%;
+    background-color: transparent;
+    background-image: -moz-linear-gradient(center top , #BED6F8, #F2F7FF);
+    background-repeat: repeat;
+    background-attachment: scroll;
+    background-position: 0% 0%;
+    background-clip: border-box;
+    background-origin: padding-box;
+    background-size: auto auto;
+}
+
+.tableChild2 {
+	width: 220px;
+	height: 15px;
+	font-family: arial;
+	font-size: 13px;
+	background-color: #F2F7FF;
+	border: 1px solid #ffffff;
+	padding-left: 5px;
+	text-align: left;
+	background: transparent -moz-linear-gradient(center top, #F2F7FF, #FFFFFF) repeat scroll 0% 0%;
+	background-color: transparent;
+	background-image: -moz-linear-gradient(center top, #F2F7FF, #FFFFFF);
+	background-repeat: repeat;
+	background-attachment: scroll;
+	background-position: 0% 0%;
+	background-clip: border-box;
+	background-origin: padding-box;
+	background-size: auto auto;
+}
+	
+	</h:outputStylesheet>
 		<br />
 		<h:form id="detail">
 			<rich:panel style="width : 100%; border: 0px;">
 				<h:panelGrid columns="2" style="width : 100%">
-					<rich:panel style=" width : 450px;">
+					<rich:panel style=" width : 500px;">
 						<f:facet name="header">
 							<h:outputText style="font-size: 13px;"
 								value="#{app_msgs['menu.label.profile']} : #{currentUser.userName}" />
 						</f:facet>
-						<h:panelGrid columns="2">
-							<h:outputText style="font-size: 13px;FONT-WEIGHT: bold;"
-								value="#{app_msgs['label.pageTree.memberStr']}" />
-							<h:outputText style="font-size: 13px;"
-								value="#{currentUser.customerId.customerMember}" />
-							<h:outputText style="font-size: 13px;FONT-WEIGHT: bold;"
-								value="#{app_msgs['label.pageTree.regisDate']}" />
-							<h:outputText style="font-size: 13px;"
-								value="#{currentUser.customerId.regisDate}">
-								<f:convertDateTime pattern="yyyy-MM-dd" />
-							</h:outputText>
-							<h:outputText style="font-size: 13px;FONT-WEIGHT: bold;"
-								value="#{app_msgs['label.pageTree.posRecomment']}" />
-							<h:outputText style="font-size: 13px;" value="" />
-							<h:outputText style="font-size: 13px;FONT-WEIGHT: bold;"
-								value="#{app_msgs['label.pageTree.posMatch']}" />
-							<h:outputText style="font-size: 13px;" value="" />
-							<h:outputText style="font-size: 13px;FONT-WEIGHT: bold;"
-								value="#{app_msgs['label.pageTree.documentRegis']}" />
-							<h:outputText style="font-size: 13px;"
-								value="#{currentUser.customerId.dateDocumentFully}">
-								<f:convertDateTime pattern="yyyy-MM-dd" />
-							</h:outputText>
-							<h:outputText style="font-size: 13px;FONT-WEIGHT: bold;"
-								value="#{app_msgs['label.pageTree.documentPersonalCard']}" />
-							<h:outputText style="font-size: 13px;"
-								value="#{currentUser.customerId.dateCopyPersonalCard}">
-								<f:convertDateTime pattern="yyyy-MM-dd" />
-							</h:outputText>
-							<h:outputText style="font-size: 13px;FONT-WEIGHT: bold;"
-								value="#{app_msgs['label.pageTree.documentBookBank']}" />
-							<h:outputText style="font-size: 13px;"
-								value="#{currentUser.customerId.dateCopyBookBank}">
-								<f:convertDateTime pattern="yyyy-MM-dd" />
-							</h:outputText>
-						</h:panelGrid>
+						<table>
+							<tr>
+								<td class="tableMain"><h:outputText
+										style="FONT-WEIGHT: bold;"
+										value="#{app_msgs['label.pageTree.memberStr']}" /></td>
+								<td class="tableChild"><h:outputText
+										style="font-size: 13px;"
+										value="#{currentUser.customerId.customerMember}" /></td>
+							</tr>
+							<tr>
+								<td class="tableMain"><h:outputText
+										style="FONT-WEIGHT: bold;"
+										value="#{app_msgs['label.pageTree.regisDate']}" /></td>
+								<td class="tableChild"><h:outputText
+										style="font-size: 13px;"
+										value="#{currentUser.customerId.regisDate}">
+										<f:convertDateTime pattern="yyyy-MM-dd" />
+									</h:outputText></td>
+							</tr>
+							<tr>
+								<td class="tableMain"><h:outputText
+										style="font-size: 13px;FONT-WEIGHT: bold;"
+										value="#{app_msgs['label.pageTree.posMatch']}" /></td>
+								<td class="tableChild"><h:outputText
+										style="font-size: 13px;" value="#{currentUser.customerId.positionId.enName}" /></td>
+							</tr>
+							<tr>
+								<td class="tableMain"><h:outputText
+										style="font-size: 13px;FONT-WEIGHT: bold;"
+										value="#{app_msgs['label.pageTree.documentRegis']}" /></td>
+								<td class="tableChild"><h:outputText
+										style="font-size: 13px;"
+										value="#{currentUser.customerId.dateDocumentFully}">
+										<f:convertDateTime pattern="yyyy-MM-dd" />
+									</h:outputText></td>
+							</tr>
+							<tr>
+								<td class="tableMain"><h:outputText
+										style="font-size: 13px;FONT-WEIGHT: bold;"
+										value="#{app_msgs['label.pageTree.documentPersonalCard']}" /></td>
+								<td class="tableChild"><h:outputText
+										style="font-size: 13px;"
+										value="#{currentUser.customerId.dateCopyPersonalCard}">
+										<f:convertDateTime pattern="yyyy-MM-dd" />
+									</h:outputText></td>
+							</tr>
+							<tr>
+								<td class="tableMain"><h:outputText
+										style="font-size: 13px;FONT-WEIGHT: bold;"
+										value="#{app_msgs['label.pageTree.documentBookBank']}" /></td>
+								<td class="tableChild"><h:outputText
+										style="font-size: 13px;"
+										value="#{currentUser.customerId.dateCopyBookBank}">
+										<f:convertDateTime pattern="yyyy-MM-dd" />
+									</h:outputText></td>
+							</tr>
+						</table>
 					</rich:panel>
 					<rich:panel style=" width : auto; border: 0px;">
 						<table>
@@ -72,50 +175,52 @@
 					</rich:panel>
 
 
-					<rich:panel style="width : 450px;">
-						<h:panelGrid columns="4">
-							<h:outputText style="font-size: 13px;FONT-WEIGHT: bold;"
-								value="PV สะสม : " />
-							<h:outputText style="font-size: 13px;" value="0.00" />
-							<h:outputText style="font-size: 13px;" value="" />
-							<h:outputText style="font-size: 13px;" value="" />
+					<rich:panel style="width : 500px;">
 
-							<h:outputText style="font-size: 13px;FONT-WEIGHT: bold;"
-								value="PV ซ้าย (ยกมา) : " />
-							<h:outputText style="font-size: 13px;" value="0.00" />
-							<h:outputText style="font-size: 13px;FONT-WEIGHT: bold;"
-								value="PV ขวา (ยกมา) : " />
-							<h:outputText style="font-size: 13px;" value="0.00" />
-
-							<h:outputText style="font-size: 13px;FONT-WEIGHT: bold;"
-								value="PV ซ้าย (ใหม่) : " />
-							<h:outputText style="font-size: 13px;" value="0.00" />
-							<h:outputText style="font-size: 13px;FONT-WEIGHT: bold;"
-								value="PV ขวา (ใหม่) : " />
-							<h:outputText style="font-size: 13px;" value="0.00" />
-
-							<h:outputText style="font-size: 13px;FONT-WEIGHT: bold;"
-								value="PV ซ้าย (รวม) : " />
-							<h:outputText style="font-size: 13px;" value="0.00" />
-							<h:outputText style="font-size: 13px;FONT-WEIGHT: bold;"
-								value="PV ขวา (รวม) : " />
-							<h:outputText style="font-size: 13px;" value="0.00" />
-
-							<h:outputText style="font-size: 13px;" value="" />
-							<h:outputText style="font-size: 13px;" value="" />
-							<h:outputText style="font-size: 13px;" value="" />
-							<h:outputText style="font-size: 13px;" value="" />
-
-							<h:outputText style="font-size: 13px;" value="" />
-							<h:outputText style="font-size: 13px;" value="" />
-							<h:outputText style="font-size: 13px;" value="" />
-							<h:outputText style="font-size: 13px;" value="" />
-
-							<h:outputText style="font-size: 13px;" value="" />
-							<h:outputText style="font-size: 13px;" value="" />
-							<h:outputText style="font-size: 13px;" value="" />
-							<h:outputText style="font-size: 13px;" value="" />
-						</h:panelGrid>
+						<table>
+							<tr>
+								<td colspan="1" class="tableMain2"><h:outputText
+										style="font-size: 13px;FONT-WEIGHT: bold;" value="PV สะสม  : " /></td>
+								<td colspan="1" class="tableChild2"><h:outputText
+										style="font-size: 13px;" value="0.00" /></td>
+							</tr>
+							<tr>
+								<td class="tableMain2"><h:outputText
+										style="font-size: 13px;FONT-WEIGHT: bold;"
+										value="PV ซ้าย (ยกมา) : " /></td>
+								<td class="tableChild2"><h:outputText
+										style="font-size: 13px;" value="0.00" /></td>
+								<td class="tableMain2"><h:outputText
+										style="font-size: 13px;FONT-WEIGHT: bold;"
+										value="PV ขวา (ยกมา) : " /></td>
+								<td class="tableChild2"><h:outputText
+										style="font-size: 13px;" value="0.00" /></td>
+							</tr>
+							<tr>
+								<td class="tableMain2"><h:outputText
+										style="font-size: 13px;FONT-WEIGHT: bold;"
+										value="PV ซ้าย (ใหม่) : " /></td>
+								<td class="tableChild2"><h:outputText
+										style="font-size: 13px;" value="0.00" /></td>
+								<td class="tableMain2"><h:outputText
+										style="font-size: 13px;FONT-WEIGHT: bold;"
+										value="PV ขวา (ใหม่) : " /></td>
+								<td class="tableChild2"><h:outputText
+										style="font-size: 13px;" value="0.00" /></td>
+							</tr>
+							<tr>
+								<td class="tableMain2"><h:outputText
+										style="font-size: 13px;FONT-WEIGHT: bold;"
+										value="PV ซ้าย (รวม) : " /></td>
+								<td class="tableChild2"><h:outputText
+										style="font-size: 13px;" value="0.00" /></td>
+								<td class="tableMain2"><h:outputText
+										style="font-size: 13px;FONT-WEIGHT: bold;"
+										value="PV ขวา (รวม) : " /></td>
+								<td class="tableChild2"><h:outputText
+										style="font-size: 13px;" value="0.00" /></td>
+							</tr>
+						</table>
 					</rich:panel>
 				</h:panelGrid>
 			</rich:panel>

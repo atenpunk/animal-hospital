@@ -219,7 +219,7 @@ public class SuggestReportController implements Serializable{
 		model.setCustomerCode(memSearch.getCustomerMember());
 		model.setCustomerName(memSearch.getFirstName());
 		model.setRegisDate(memSearch.getRegisDate());
-		if(memSearch.getPositionId()!=null && memSearch.getPositionId().intValue()!=0){
+		if(memSearch.getPositionId()!=null && memSearch.getPositionId().getPositionId()!=0){
 			MemberPosition position = em.find(MemberPosition.class, memSearch.getPositionId());
 			model.setPosition(StringUtil.n2b(position.getEnName()));
 		}	
