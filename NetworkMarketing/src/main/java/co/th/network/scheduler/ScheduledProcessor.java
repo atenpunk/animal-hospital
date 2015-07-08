@@ -23,7 +23,7 @@ public class ScheduledProcessor {
 	Logger log;
  
 //	@Schedule(hour="*",minute = "*",second="0/10")
-    @Schedule(hour="0",minute = "1")
+    @Schedule(hour="23",minute = "59",second="59")
     public void execute() {
     	try{
 			log.info("##### Start ScheduledProcessor #####");

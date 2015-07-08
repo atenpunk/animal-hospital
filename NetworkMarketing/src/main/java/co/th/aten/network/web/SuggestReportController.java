@@ -195,20 +195,24 @@ public class SuggestReportController implements Serializable{
 	}
 
 	public void report(int recommendId){
-		String sql = "From MemberCustomer " +
-				" Where recommendId =:recommendId ";
-		log.info("report recommendId = "+recommendId);
-		log.info("report SQL = "+sql);
-		List<MemberCustomer> customerList = em.createQuery(sql,MemberCustomer.class)
-				.setParameter("recommendId", new Integer(recommendId))
-				.getResultList();
-		int index = 0;
-		MemberCustomer memberModel = em.find(MemberCustomer.class, new Integer(recommendId));
-		InfoSuggestReportModel model = setDataModel(memberModel,++index);
-		infoSuggestReportModelList.add(model);
-		for(MemberCustomer cus:customerList){
-			InfoSuggestReportModel modelMem = setDataModel(cus,++index);
-			infoSuggestReportModelList.add(modelMem);
+		try{
+			String sql = "From MemberCustomer " +
+					" Where recommendId =:recommendId ";
+			log.info("report recommendId = "+recommendId);
+			log.info("report SQL = "+sql);
+			List<MemberCustomer> customerList = em.createQuery(sql,MemberCustomer.class)
+					.setParameter("recommendId", new Integer(recommendId))
+					.getResultList();
+			int index = 0;
+			MemberCustomer memberModel = em.find(MemberCustomer.class, new Integer(recommendId));
+			InfoSuggestReportModel model = setDataModel(memberModel,++index);
+			infoSuggestReportModelList.add(model);
+			for(MemberCustomer cus:customerList){
+				InfoSuggestReportModel modelMem = setDataModel(cus,++index);
+				infoSuggestReportModelList.add(modelMem);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
 		}
 	}
 
@@ -219,9 +223,8 @@ public class SuggestReportController implements Serializable{
 		model.setCustomerCode(memSearch.getCustomerMember());
 		model.setCustomerName(memSearch.getFirstName());
 		model.setRegisDate(memSearch.getRegisDate());
-		if(memSearch.getPositionId()!=null && memSearch.getPositionId().getPositionId()!=0){
-			MemberPosition position = em.find(MemberPosition.class, memSearch.getPositionId());
-			model.setPosition(StringUtil.n2b(position.getEnName()));
+		if(memSearch.getPositionId()!=null){
+			model.setPosition(StringUtil.n2b(memSearch.getPositionId().getEnName()));
 		}	
 		model.setRecomment("");
 		model.setHonor("");
@@ -308,8 +311,8 @@ public class SuggestReportController implements Serializable{
 		long endTime = System.currentTimeMillis();
 		log.info("search() Time = "+((endTime-startTime)/1000d)+"s");
 	}
-	
-	
+
+
 	public void search(String searchCustomer){
 		this.searchCustomer = searchCustomer;
 		long startTime = System.currentTimeMillis();
