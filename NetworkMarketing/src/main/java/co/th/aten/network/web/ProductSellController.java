@@ -1,21 +1,14 @@
 package co.th.aten.network.web;
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.Stateless;
 import javax.faces.bean.ViewScoped;
-import javax.imageio.ImageIO;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
-import javax.swing.ImageIcon;
 
 import org.jboss.seam.international.status.MessageFactory;
 import org.jboss.seam.international.status.Messages;
@@ -27,7 +20,7 @@ import co.th.aten.network.producer.DBDefault;
 import co.th.aten.network.security.CurrentUserManager;
 import co.th.aten.network.util.StringUtil;
 
-@Stateless
+@ViewScoped
 @Named
 public class ProductSellController implements Serializable{
 
