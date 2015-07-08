@@ -2,7 +2,7 @@
 <pretty-config xmlns="http://ocpsoft.com/prettyfaces/2.0.4"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="
-        http://ocpsoft.com/prettyfaces/2.0.4
+        http://ocpsoft.com/prettyfaces/2.0.4 
         http://ocpsoft.com/xml/ns/prettyfaces/ocpsoft-pretty-faces-2.0.4.xsd">
 
 	<url-mapping id="root">
@@ -97,6 +97,11 @@
 	<url-mapping id="report_02">
 		<pattern value="/report/teamBinaryReport"></pattern>
 		<view-id>/sec/report/teamBinaryReport.jsf</view-id>
+	</url-mapping>
+	
+	<url-mapping id="product_01">
+		<pattern value="/product/sell"></pattern>
+		<view-id>/sec/product/sell.jsf</view-id>
 	</url-mapping>
 
 </pretty-config>
