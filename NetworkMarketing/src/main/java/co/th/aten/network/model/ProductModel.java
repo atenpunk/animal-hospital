@@ -1,5 +1,6 @@
 package co.th.aten.network.model;
 
+import java.awt.Image;
 import java.io.Serializable;
 
 
@@ -15,7 +16,7 @@ public class ProductModel implements Serializable {
 	private double price;
 	private double pv;
 	private double bv;
-	private byte[] image;
+	private String pathImage;
 	public int getIndex() {
 		return index;
 	}
@@ -76,13 +77,11 @@ public class ProductModel implements Serializable {
 	public void setBv(double bv) {
 		this.bv = bv;
 	}
-	public byte[] getImage() {
-		return image;
+	public String getPathImage() {
+		return pathImage;
 	}
-	public void setImage(byte[] image) {
-		this.image = image;
+	public void setPathImage(String pathImage) {
+		this.pathImage = pathImage;
 	}
-	
-	
 	
 }

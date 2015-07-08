@@ -62,9 +62,8 @@ public class StockProduct implements Serializable {
     @Column(name = "update_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateDate;
-    @Lob
-    @Column(name = "image")
-    private byte[] image;
+    @Column(name = "image_name")
+    private String imageName;
     @JoinColumn(name = "catalog_id", referencedColumnName = "catalog_id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private StockCatalog stockCatalog;
@@ -200,15 +199,15 @@ public class StockProduct implements Serializable {
         this.updateDate = updateDate;
     }
 
-    public byte[] getImage() {
-        return image;
-    }
+    public String getImageName() {
+		return imageName;
+	}
 
-    public void setImage(byte[] image) {
-        this.image = image;
-    }
+	public void setImageName(String imageName) {
+		this.imageName = imageName;
+	}
 
-    public StockCatalog getStockCatalog() {
+	public StockCatalog getStockCatalog() {
         return stockCatalog;
     }
 
