@@ -62,13 +62,13 @@
 	height: 12px;
 	font-family: arial;
 	font-size: 12px;
-	background-color: #F2F7FF;
+	background-color: #BED6F8;
 	border: 1px solid #ffffff;
 	padding-left: 5px;
 	text-align: left;
-	background: transparent -moz-linear-gradient(center top, #F2F7FF, #FFFFFF) repeat scroll 0% 0%;
+	background: transparent -moz-linear-gradient(center top, #BED6F8, #F2F7FF) repeat scroll 0% 0%;
 	background-color: transparent;
-	background-image: -moz-linear-gradient(center top, #F2F7FF, #FFFFFF);
+	background-image: -moz-linear-gradient(center top, #BED6F8, #F2F7FF);
 	background-repeat: repeat;
 	background-attachment: scroll;
 	background-position: 0% 0%;
@@ -86,7 +86,7 @@
 						value="#{app_msgs['label.menuShopping.order']}" />
 				</f:facet>
 
-				<rich:panel style="overflow-y: scroll; height:400px;">
+				<rich:panel style="overflow-y: scroll; height:420px;">
 					<rich:dataGrid value="#{productSellController.productModelList}"
 						var="item" columns="3" width="100%" border="0">
 						<rich:panel bodyClass="pbody">
@@ -94,28 +94,29 @@
 							<table>
 								<tr>
 									<td rowspan="4"><h:graphicImage
-											value="/resources/image/P0001.png" width="85px" height="85px" />
-									</td>
+											rendered="#{item.pathImage ne null}"
+											value="#{item.pathImage}" width="95px" height="100px" /> <h:graphicImage
+											rendered="#{item.pathImage eq null}"
+											value="/resources/product_img/noImg.gif" width="95px" height="100px" /></td>
 									<td colspan="2" class="tableMain"><h:outputText
 											value="#{item.productThDesc}"></h:outputText></td>
 								</tr>
 								<tr>
-									<td class="tableChild2"><h:outputText value="Price : "></h:outputText></td>
+									<td class="tableChild2"><h:outputText value="Price"></h:outputText></td>
 									<td class="tableChild"><h:outputText value="#{item.price}">
 											<f:convertNumber pattern="#,##0" />
 										</h:outputText></td>
 								</tr>
 								<tr>
-									<td class="tableChild2"><h:outputText value="PV : "></h:outputText></td>
+									<td class="tableChild2"><h:outputText value="PV"></h:outputText></td>
 									<td class="tableChild"><h:outputText value="#{item.pv}">
 											<f:convertNumber pattern="#,##0" />
 										</h:outputText></td>
 								</tr>
 								<tr>
 									<td colspan="2"><a4j:commandButton id="addCartId"
-											value="#{app_msgs['button.addCart']}"
-											action="#" render="mainForm"
-											style="font-size: 12px; width : 100%;"></a4j:commandButton></td>
+											value="#{app_msgs['button.addCart']}" action="#"
+											render="mainForm" style="font-size: 12px; width : 100%;"></a4j:commandButton></td>
 								</tr>
 							</table>
 

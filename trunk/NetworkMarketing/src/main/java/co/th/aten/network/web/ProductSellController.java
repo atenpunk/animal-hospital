@@ -1,14 +1,21 @@
 package co.th.aten.network.web;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.Stateless;
 import javax.faces.bean.ViewScoped;
+import javax.imageio.ImageIO;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
+import javax.swing.ImageIcon;
 
 import org.jboss.seam.international.status.MessageFactory;
 import org.jboss.seam.international.status.Messages;
@@ -20,7 +27,7 @@ import co.th.aten.network.producer.DBDefault;
 import co.th.aten.network.security.CurrentUserManager;
 import co.th.aten.network.util.StringUtil;
 
-@ViewScoped
+@Stateless
 @Named
 public class ProductSellController implements Serializable{
 
@@ -66,15 +73,14 @@ public class ProductSellController implements Serializable{
 				model.setPrice(StringUtil.n2b(pro.getPrice()).doubleValue());
 				model.setPv(StringUtil.n2b(pro.getPv()).doubleValue());
 				model.setBv(StringUtil.n2b(pro.getBv()).doubleValue());
-				model.setImage(pro.getImage());
+				model.setPathImage(pro.getImageName()!=null?"/resources/product_img/"+pro.getImageName():null);
 				productModelList.add(model);
 			}
 		}
-		
 		long endTime = System.currentTimeMillis();
 		log.info("init method ProductSellController Time = "+((endTime-startTime)/1000d)+"s");
 	}
-
+	
 	public List<ProductModel> getProductModelList() {
 		return productModelList;
 	}
