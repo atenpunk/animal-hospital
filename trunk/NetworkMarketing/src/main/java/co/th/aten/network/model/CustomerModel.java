@@ -35,6 +35,7 @@ public class CustomerModel implements Serializable {
     private Date dateDocumentFully;
     private Date dateCopyPersonalCard;
     private Date dateCopyBookBank;
+    private boolean chkLower;
     
 	public long getCustomerId() {
 		return customerId;
@@ -185,6 +186,12 @@ public class CustomerModel implements Serializable {
 	}
 	public void setDateCopyBookBank(Date dateCopyBookBank) {
 		this.dateCopyBookBank = dateCopyBookBank;
+	}
+	public boolean isChkLower() {
+		return chkLower;
+	}
+	public void setChkLower(boolean chkLower) {
+		this.chkLower = chkLower;
 	}	
 	
 }
