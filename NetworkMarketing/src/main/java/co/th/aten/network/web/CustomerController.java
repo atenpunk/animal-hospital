@@ -85,22 +85,22 @@ public class CustomerController implements Serializable{
 	private CustomerModel customerModel_13;
 	private CustomerModel customerModel_14;
 	private CustomerModel customerModel_15;
-	private CustomerModel customerModel_4_16;
-	private CustomerModel customerModel_4_17;
-	private CustomerModel customerModel_4_18;
-	private CustomerModel customerModel_4_19;
-	private CustomerModel customerModel_4_20;
-	private CustomerModel customerModel_4_21;
-	private CustomerModel customerModel_4_22;
-	private CustomerModel customerModel_4_23;
-	private CustomerModel customerModel_4_24;
-	private CustomerModel customerModel_4_25;
-	private CustomerModel customerModel_4_26;
-	private CustomerModel customerModel_4_27;
-	private CustomerModel customerModel_4_28;
-	private CustomerModel customerModel_4_29;
-	private CustomerModel customerModel_4_30;
-	private CustomerModel customerModel_4_31;
+//	private CustomerModel customerModel_4_16;
+//	private CustomerModel customerModel_4_17;
+//	private CustomerModel customerModel_4_18;
+//	private CustomerModel customerModel_4_19;
+//	private CustomerModel customerModel_4_20;
+//	private CustomerModel customerModel_4_21;
+//	private CustomerModel customerModel_4_22;
+//	private CustomerModel customerModel_4_23;
+//	private CustomerModel customerModel_4_24;
+//	private CustomerModel customerModel_4_25;
+//	private CustomerModel customerModel_4_26;
+//	private CustomerModel customerModel_4_27;
+//	private CustomerModel customerModel_4_28;
+//	private CustomerModel customerModel_4_29;
+//	private CustomerModel customerModel_4_30;
+//	private CustomerModel customerModel_4_31;
 
 	private String html;
 	private long customerId;
@@ -616,22 +616,22 @@ public class CustomerController implements Serializable{
 				customerModel_13 = null;
 				customerModel_14 = null;
 				customerModel_15 = null;
-				customerModel_4_16 = null;
-				customerModel_4_17 = null;
-				customerModel_4_18 = null;
-				customerModel_4_19 = null;
-				customerModel_4_20 = null;
-				customerModel_4_21 = null;
-				customerModel_4_22 = null;
-				customerModel_4_23 = null;
-				customerModel_4_24 = null;
-				customerModel_4_25 = null;
-				customerModel_4_26 = null;
-				customerModel_4_27 = null;
-				customerModel_4_28 = null;
-				customerModel_4_29 = null;
-				customerModel_4_30 = null;
-				customerModel_4_31 = null;
+//				customerModel_4_16 = null;
+//				customerModel_4_17 = null;
+//				customerModel_4_18 = null;
+//				customerModel_4_19 = null;
+//				customerModel_4_20 = null;
+//				customerModel_4_21 = null;
+//				customerModel_4_22 = null;
+//				customerModel_4_23 = null;
+//				customerModel_4_24 = null;
+//				customerModel_4_25 = null;
+//				customerModel_4_26 = null;
+//				customerModel_4_27 = null;
+//				customerModel_4_28 = null;
+//				customerModel_4_29 = null;
+//				customerModel_4_30 = null;
+//				customerModel_4_31 = null;
 				String sql = "From MemberCustomer " +
 						" Where customerId = "+user.get().getCustomerId().getCustomerId().intValue();
 				boolean chk = true;
@@ -1321,6 +1321,11 @@ public class CustomerController implements Serializable{
 				model.setUpperId(customer.getUpperId()!=null?customer.getUpperId():0);
 				model.setLowerLeftId(customer.getLowerLeftId()!=null?customer.getLowerLeftId():0);
 				model.setLowerRightId(customer.getLowerRightId()!=null?customer.getLowerRightId():0);
+				if(model.getLowerLeftId()!=0 || model.getLowerRightId()!=0){
+					model.setChkLower(true);
+				}else{
+					model.setChkLower(false);
+				}
 				model.setRecommendId(customer.getRecommendId()!=null?customer.getRecommendId():0);
 				model.setPositionId(customer.getPositionId()!=null?customer.getPositionId().getPositionId():0);
 				if(model.getPositionId()==1){
