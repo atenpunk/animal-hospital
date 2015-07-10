@@ -17,6 +17,9 @@ public class ProductModel implements Serializable {
 	private double pv;
 	private double bv;
 	private String pathImage;
+	private int qty;
+	private double totalPrice;
+	private double totalPv;
 	public int getIndex() {
 		return index;
 	}
@@ -82,6 +85,24 @@ public class ProductModel implements Serializable {
 	}
 	public void setPathImage(String pathImage) {
 		this.pathImage = pathImage;
+	}
+	public int getQty() {
+		return qty;
+	}
+	public void setQty(int qty) {
+		this.qty = qty;
+	}
+	public double getTotalPrice() {
+		return totalPrice;
+	}
+	public void setTotalPrice(double totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+	public double getTotalPv() {
+		return totalPv;
+	}
+	public void setTotalPv(double totalPv) {
+		this.totalPv = totalPv;
 	}
 	
 }

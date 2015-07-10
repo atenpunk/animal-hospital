@@ -86,7 +86,107 @@
 						value="#{app_msgs['label.menuShopping.order']}" />
 				</f:facet>
 
-				<rich:panel style="overflow-y: scroll; height:420px;">
+
+				<rich:dataTable id="testDataTable" style="width : 100%;"
+					onrowmouseover="this.style.backgroundColor='#F1F1F1'"
+					onrowmouseout="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+					value="#{productSellController.productSellModelList}" var="item">
+					<f:facet name="header">
+						<rich:columnGroup>
+							<rich:column breakRowBefore="true">
+								<h:outputText style="font-size: 13px;"
+									value="#{app_msgs['label.menuSell.order']}" />
+							</rich:column>
+							<rich:column>
+								<h:outputText style="font-size: 13px;"
+									value="#{app_msgs['label.menuSell.productCode']}" />
+							</rich:column>
+							<rich:column>
+								<h:outputText style="font-size: 13px;"
+									value="#{app_msgs['label.menuSell.detailProduct']}" />
+							</rich:column>
+							<rich:column>
+								<h:outputText style="font-size: 13px;"
+									value="#{app_msgs['label.menuSell.price']}" />
+							</rich:column>
+							<rich:column>
+								<h:outputText style="font-size: 13px;"
+									value="#{app_msgs['label.menuSell.pv']}" />
+							</rich:column>
+							<rich:column>
+								<h:outputText style="font-size: 13px;"
+									value="#{app_msgs['label.menuSell.qty']}" />
+							</rich:column>
+							<rich:column>
+								<h:outputText style="font-size: 13px;"
+									value="#{app_msgs['label.menuSell.totalPrice']}" />
+							</rich:column>
+							<rich:column>
+								<h:outputText style="font-size: 13px;"
+									value="#{app_msgs['label.menuSell.totalPv']}" />
+							</rich:column>
+						</rich:columnGroup>
+					</f:facet>
+					<rich:column style="text-align:center">
+						<h:outputText style="font-size: 13px;" value="#{item.index}">
+						</h:outputText>
+					</rich:column>
+					<rich:column style="text-align:left">
+						<h:outputText style="font-size: 13px;" value="#{item.productCode}">
+						</h:outputText>
+					</rich:column>
+					<rich:column style="text-align:left">
+						<h:outputText style="font-size: 13px;"
+							value="#{item.productThDesc}">
+						</h:outputText>
+					</rich:column>
+					<rich:column style="text-align:right">
+						<h:outputText style="font-size: 13px;" value="#{item.price}">
+							<f:convertNumber pattern="#,##0" />
+						</h:outputText>
+					</rich:column>
+					<rich:column style="text-align:right">
+						<h:outputText style="font-size: 13px;" value="#{item.pv}">
+							<f:convertNumber pattern="#,##0" />
+						</h:outputText>
+					</rich:column>
+					<rich:column style="text-align:right">
+						<h:outputText style="font-size: 13px;" value="#{item.qty}">
+							<f:convertNumber pattern="#,##0" />
+						</h:outputText>
+					</rich:column>
+					<rich:column style="text-align:right">
+						<h:outputText style="font-size: 13px;" value="#{item.totalPrice}">
+							<f:convertNumber pattern="#,##0" />
+						</h:outputText>
+					</rich:column>
+					<rich:column style="text-align:right">
+						<h:outputText style="font-size: 13px;" value="#{item.totalPv}">
+							<f:convertNumber pattern="#,##0" />
+						</h:outputText>
+					</rich:column>
+					<f:facet name="footer">
+
+						<rich:columnGroup>
+							<rich:column colspan="6" style="text-align:right">
+								<h:outputText style="font-size: 13px;" value="#{app_msgs['label.menuSell.total']}" />
+							</rich:column>
+							<rich:column style="text-align:right">
+								<h:outputText style="font-size: 13px;" value="#{productSellController.totalPrice}">
+									<f:convertNumber pattern="#,##0" />
+								</h:outputText>
+							</rich:column>
+							<rich:column style="text-align:right">
+								<h:outputText style="font-size: 13px;" value="#{productSellController.totalPv}">
+									<f:convertNumber pattern="#,##0" />
+								</h:outputText>
+							</rich:column>
+
+						</rich:columnGroup>
+					</f:facet>
+				</rich:dataTable>
+				<br />
+				<rich:panel style="overflow-y: scroll; height:430px;">
 					<rich:dataGrid value="#{productSellController.productModelList}"
 						var="item" columns="3" width="100%" border="0">
 						<rich:panel bodyClass="pbody">
@@ -97,26 +197,30 @@
 											rendered="#{item.pathImage ne null}"
 											value="#{item.pathImage}" width="95px" height="100px" /> <h:graphicImage
 											rendered="#{item.pathImage eq null}"
-											value="/resources/product_img/noImg.gif" width="95px" height="100px" /></td>
+											value="/resources/product_img/noImg.gif" width="95px"
+											height="100px" /></td>
 									<td colspan="2" class="tableMain"><h:outputText
 											value="#{item.productThDesc}"></h:outputText></td>
 								</tr>
 								<tr>
-									<td class="tableChild2"><h:outputText value="Price"></h:outputText></td>
+									<td class="tableChild2"><h:outputText
+											value="#{app_msgs['label.menuSell.price']}"></h:outputText></td>
 									<td class="tableChild"><h:outputText value="#{item.price}">
 											<f:convertNumber pattern="#,##0" />
 										</h:outputText></td>
 								</tr>
 								<tr>
-									<td class="tableChild2"><h:outputText value="PV"></h:outputText></td>
+									<td class="tableChild2"><h:outputText
+											value="#{app_msgs['label.menuSell.pv']}"></h:outputText></td>
 									<td class="tableChild"><h:outputText value="#{item.pv}">
 											<f:convertNumber pattern="#,##0" />
 										</h:outputText></td>
 								</tr>
 								<tr>
 									<td colspan="2"><a4j:commandButton id="addCartId"
-											value="#{app_msgs['button.addCart']}" action="#"
-											render="mainForm" style="font-size: 12px; width : 100%;"></a4j:commandButton></td>
+											value="#{app_msgs['button.addCart']}"
+											action="#{productSellController.addCart(item)}"
+											render="testDataTable" style="font-size: 12px; width : 100%;"></a4j:commandButton></td>
 								</tr>
 							</table>
 
