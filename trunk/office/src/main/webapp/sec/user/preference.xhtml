@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:prettyfaces="http://ocpsoft.com/prettyfaces" xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<ui:composition template="/WEB-INF/views/templates/template2.xhtml">
+
+	<ui:define name="body">
+
+		<div>
+			<h:form id="configForm" prependId="false">
+				<h3>
+					<h:outputText style="font-size: 13px;" value="#{app_msgs['epi.userPreference.label.header']}" />
+				</h3>
+				<rich:panel>
+					<h:outputText style="font-size: 13px;" value="#{app_msgs['epi.passwd.label.passwd']}:" />
+					<prettyfaces:link mappingId="passwd"><h:outputText style="font-size: 13px;" value="#{app_msgs['epi.passwd.label.header']}:" /></prettyfaces:link>
+					<br/>
+					<div class="line" />
+					<h:outputText style="font-size: 13px;" value="#{app_msgs['epi.userPreference.label.lang']}:" />
+					<h:selectOneMenu value="#{userPreferenceController.selectedLocale}">
+						<f:selectItem itemValue="en_US" itemLabel="english" />
+						<f:selectItem itemValue="th_TH" itemLabel="ภาษาไทย" />
+					</h:selectOneMenu>
+					<h:commandButton id="submit" value="Update" action="#{userPreferenceController.saveUserLocale}" />
+				</rich:panel>
+			</h:form>
+		</div>
+	</ui:define>
+</ui:composition>
+</html>
