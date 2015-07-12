@@ -76,7 +76,7 @@ public class SchneiderAuthenticator extends BaseAuthenticator implements Authent
 		PasswordCredential passwordCredential = (PasswordCredential) credentials.getCredential();
 		UserLogin user = userService.authenticate(credentials.getUsername(), passwordCredential.getValue());
 
-		if (user != null) {
+		if (user != null && user.getGroupId().getGroupId().intValue()==3) {
 			loginEventSrc.fire(user);
 			messages.info(new DefaultBundleKey("identity_loggedIn"), user.getLoginName()).defaults("You're signed in as {0}")
 								.params(user.getLoginName());
