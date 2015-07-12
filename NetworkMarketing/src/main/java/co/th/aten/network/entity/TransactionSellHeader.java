@@ -11,6 +11,8 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
@@ -26,23 +28,11 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "transaction_sell_header")
 @NamedQueries({
-    @NamedQuery(name = "TransactionSellHeader.findAll", query = "SELECT t FROM TransactionSellHeader t"),
-    @NamedQuery(name = "TransactionSellHeader.findByTrxHeaderId", query = "SELECT t FROM TransactionSellHeader t WHERE t.trxHeaderId = :trxHeaderId"),
-    @NamedQuery(name = "TransactionSellHeader.findByTrxHeaderDatetime", query = "SELECT t FROM TransactionSellHeader t WHERE t.trxHeaderDatetime = :trxHeaderDatetime"),
-    @NamedQuery(name = "TransactionSellHeader.findByReceiptNo", query = "SELECT t FROM TransactionSellHeader t WHERE t.receiptNo = :receiptNo"),
-    @NamedQuery(name = "TransactionSellHeader.findByCustomerId", query = "SELECT t FROM TransactionSellHeader t WHERE t.customerId = :customerId"),
-    @NamedQuery(name = "TransactionSellHeader.findByTotalPrice", query = "SELECT t FROM TransactionSellHeader t WHERE t.totalPrice = :totalPrice"),
-    @NamedQuery(name = "TransactionSellHeader.findByTotalPv", query = "SELECT t FROM TransactionSellHeader t WHERE t.totalPv = :totalPv"),
-    @NamedQuery(name = "TransactionSellHeader.findByTotalBv", query = "SELECT t FROM TransactionSellHeader t WHERE t.totalBv = :totalBv"),
-    @NamedQuery(name = "TransactionSellHeader.findByTrxHeaderStatus", query = "SELECT t FROM TransactionSellHeader t WHERE t.trxHeaderStatus = :trxHeaderStatus"),
-    @NamedQuery(name = "TransactionSellHeader.findByTrxHeaderFlag", query = "SELECT t FROM TransactionSellHeader t WHERE t.trxHeaderFlag = :trxHeaderFlag"),
-    @NamedQuery(name = "TransactionSellHeader.findByCreateBy", query = "SELECT t FROM TransactionSellHeader t WHERE t.createBy = :createBy"),
-    @NamedQuery(name = "TransactionSellHeader.findByCreateDate", query = "SELECT t FROM TransactionSellHeader t WHERE t.createDate = :createDate"),
-    @NamedQuery(name = "TransactionSellHeader.findByUpdateBy", query = "SELECT t FROM TransactionSellHeader t WHERE t.updateBy = :updateBy"),
-    @NamedQuery(name = "TransactionSellHeader.findByUpdateDate", query = "SELECT t FROM TransactionSellHeader t WHERE t.updateDate = :updateDate")})
+    @NamedQuery(name = "TransactionSellHeader.findAll", query = "SELECT t FROM TransactionSellHeader t")})
 public class TransactionSellHeader implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "trx_header_id")
     private Integer trxHeaderId;

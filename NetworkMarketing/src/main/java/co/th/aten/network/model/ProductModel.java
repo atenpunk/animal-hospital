@@ -1,12 +1,10 @@
 package co.th.aten.network.model;
 
-import java.awt.Image;
 import java.io.Serializable;
 
 
 public class ProductModel implements Serializable {
 	
-	private int index;
 	private int productId;
 	private int catalogId;
 	private String productCode;
@@ -20,12 +18,7 @@ public class ProductModel implements Serializable {
 	private int qty;
 	private double totalPrice;
 	private double totalPv;
-	public int getIndex() {
-		return index;
-	}
-	public void setIndex(int index) {
-		this.index = index;
-	}
+	private double totalBv;
 	public int getProductId() {
 		return productId;
 	}
@@ -103,6 +96,12 @@ public class ProductModel implements Serializable {
 	}
 	public void setTotalPv(double totalPv) {
 		this.totalPv = totalPv;
+	}
+	public double getTotalBv() {
+		return totalBv;
+	}
+	public void setTotalBv(double totalBv) {
+		this.totalBv = totalBv;
 	}
 	
 }

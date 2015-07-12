@@ -10,8 +10,10 @@ import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -26,30 +28,21 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "transaction_sell_detail")
 @NamedQueries({
-    @NamedQuery(name = "TransactionSellDetail.findAll", query = "SELECT t FROM TransactionSellDetail t"),
-    @NamedQuery(name = "TransactionSellDetail.findByTrxDetailId", query = "SELECT t FROM TransactionSellDetail t WHERE t.transactionSellDetailPK.trxDetailId = :trxDetailId"),
-    @NamedQuery(name = "TransactionSellDetail.findByTrxHeaderId", query = "SELECT t FROM TransactionSellDetail t WHERE t.transactionSellDetailPK.trxHeaderId = :trxHeaderId"),
-    @NamedQuery(name = "TransactionSellDetail.findByProductId", query = "SELECT t FROM TransactionSellDetail t WHERE t.productId = :productId"),
-    @NamedQuery(name = "TransactionSellDetail.findByPrice", query = "SELECT t FROM TransactionSellDetail t WHERE t.price = :price"),
-    @NamedQuery(name = "TransactionSellDetail.findByPv", query = "SELECT t FROM TransactionSellDetail t WHERE t.pv = :pv"),
-    @NamedQuery(name = "TransactionSellDetail.findByBv", query = "SELECT t FROM TransactionSellDetail t WHERE t.bv = :bv"),
-    @NamedQuery(name = "TransactionSellDetail.findByTotalPrice", query = "SELECT t FROM TransactionSellDetail t WHERE t.totalPrice = :totalPrice"),
-    @NamedQuery(name = "TransactionSellDetail.findByTotalPv", query = "SELECT t FROM TransactionSellDetail t WHERE t.totalPv = :totalPv"),
-    @NamedQuery(name = "TransactionSellDetail.findByTotalBv", query = "SELECT t FROM TransactionSellDetail t WHERE t.totalBv = :totalBv"),
-    @NamedQuery(name = "TransactionSellDetail.findByQty", query = "SELECT t FROM TransactionSellDetail t WHERE t.qty = :qty"),
-    @NamedQuery(name = "TransactionSellDetail.findByQtyAssign", query = "SELECT t FROM TransactionSellDetail t WHERE t.qtyAssign = :qtyAssign"),
-    @NamedQuery(name = "TransactionSellDetail.findByTrxDetailStatus", query = "SELECT t FROM TransactionSellDetail t WHERE t.trxDetailStatus = :trxDetailStatus"),
-    @NamedQuery(name = "TransactionSellDetail.findByTrxDetailFlag", query = "SELECT t FROM TransactionSellDetail t WHERE t.trxDetailFlag = :trxDetailFlag"),
-    @NamedQuery(name = "TransactionSellDetail.findByCreateBy", query = "SELECT t FROM TransactionSellDetail t WHERE t.createBy = :createBy"),
-    @NamedQuery(name = "TransactionSellDetail.findByCreateDate", query = "SELECT t FROM TransactionSellDetail t WHERE t.createDate = :createDate"),
-    @NamedQuery(name = "TransactionSellDetail.findByUpdateBy", query = "SELECT t FROM TransactionSellDetail t WHERE t.updateBy = :updateBy"),
-    @NamedQuery(name = "TransactionSellDetail.findByUpdateDate", query = "SELECT t FROM TransactionSellDetail t WHERE t.updateDate = :updateDate")})
+    @NamedQuery(name = "TransactionSellDetail.findAll", query = "SELECT t FROM TransactionSellDetail t")})
 public class TransactionSellDetail implements Serializable {
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected TransactionSellDetailPK transactionSellDetailPK;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "trx_detail_id")
+    private Integer trxDetailId;
+    @Basic(optional = false)
+    @Column(name = "trx_header_id")
+    private int trxHeaderId;
     @Column(name = "product_id")
     private Integer productId;
+    @Column(name = "catalog_id")
+    private Integer catalogId;
     @Column(name = "price")
     private BigDecimal price;
     @Column(name = "pv")
@@ -88,25 +81,30 @@ public class TransactionSellDetail implements Serializable {
     public TransactionSellDetail() {
     }
 
-    public TransactionSellDetail(TransactionSellDetailPK transactionSellDetailPK) {
-        this.transactionSellDetailPK = transactionSellDetailPK;
+    public TransactionSellDetail(Integer trxDetailId) {
+        this.trxDetailId = trxDetailId;
     }
 
-    public TransactionSellDetail(TransactionSellDetailPK transactionSellDetailPK, int qtyAssign) {
-        this.transactionSellDetailPK = transactionSellDetailPK;
+    public TransactionSellDetail(Integer trxDetailId, int trxHeaderId, int qtyAssign) {
+        this.trxDetailId = trxDetailId;
+        this.trxHeaderId = trxHeaderId;
         this.qtyAssign = qtyAssign;
     }
 
-    public TransactionSellDetail(int trxDetailId, int trxHeaderId) {
-        this.transactionSellDetailPK = new TransactionSellDetailPK(trxDetailId, trxHeaderId);
+    public Integer getTrxDetailId() {
+        return trxDetailId;
     }
 
-    public TransactionSellDetailPK getTransactionSellDetailPK() {
-        return transactionSellDetailPK;
+    public void setTrxDetailId(Integer trxDetailId) {
+        this.trxDetailId = trxDetailId;
     }
 
-    public void setTransactionSellDetailPK(TransactionSellDetailPK transactionSellDetailPK) {
-        this.transactionSellDetailPK = transactionSellDetailPK;
+    public int getTrxHeaderId() {
+        return trxHeaderId;
+    }
+
+    public void setTrxHeaderId(int trxHeaderId) {
+        this.trxHeaderId = trxHeaderId;
     }
 
     public Integer getProductId() {
@@ -115,6 +113,14 @@ public class TransactionSellDetail implements Serializable {
 
     public void setProductId(Integer productId) {
         this.productId = productId;
+    }
+
+    public Integer getCatalogId() {
+        return catalogId;
+    }
+
+    public void setCatalogId(Integer catalogId) {
+        this.catalogId = catalogId;
     }
 
     public BigDecimal getPrice() {
@@ -240,7 +246,7 @@ public class TransactionSellDetail implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (transactionSellDetailPK != null ? transactionSellDetailPK.hashCode() : 0);
+        hash += (trxDetailId != null ? trxDetailId.hashCode() : 0);
         return hash;
     }
 
@@ -251,7 +257,7 @@ public class TransactionSellDetail implements Serializable {
             return false;
         }
         TransactionSellDetail other = (TransactionSellDetail) object;
-        if ((this.transactionSellDetailPK == null && other.transactionSellDetailPK != null) || (this.transactionSellDetailPK != null && !this.transactionSellDetailPK.equals(other.transactionSellDetailPK))) {
+        if ((this.trxDetailId == null && other.trxDetailId != null) || (this.trxDetailId != null && !this.trxDetailId.equals(other.trxDetailId))) {
             return false;
         }
         return true;
@@ -259,7 +265,7 @@ public class TransactionSellDetail implements Serializable {
 
     @Override
     public String toString() {
-        return "co.th.aten.network.entity.TransactionSellDetail[transactionSellDetailPK=" + transactionSellDetailPK + "]";
+        return "co.th.aten.network.entity.TransactionSellDetail[trxDetailId=" + trxDetailId + "]";
     }
 
 }
