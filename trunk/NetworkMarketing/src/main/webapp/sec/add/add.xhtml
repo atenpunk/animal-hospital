@@ -25,14 +25,14 @@
 							<h:outputText style="font-size: 13px;COLOR: #ff0000;" value="#{customerController.starUpperLineId}"
 								id="starUpperLineId"/>
 							<h:inputText value="#{customerController.upperLineMemberId}"
-								disabled="true" style=" width : 80px;" />
+								readonly="true" style=" width : 80px;" />
 
 							<h:outputText style="font-size: 13px;"
 								value="#{app_msgs['label.pageAddMember.upLineName']}" />
 							<h:outputText style="font-size: 13px;COLOR: #ff0000;" value="#{customerController.starUpperLineName}"
 								id="starUpperLineName"/>
 							<h:inputText value="#{customerController.upperLineName}"
-								disabled="true" style=" width : 150px;" />
+								readonly="true" style=" width : 150px;" />
 
 							<h:outputText style="font-size: 13px;" value="#{app_msgs['label.pageAddMember.side']}" />
 							<h:outputText style="font-size: 13px;COLOR: #ff0000;" value="#{customerController.starSide}"
@@ -73,7 +73,7 @@
 								value="#{app_msgs['label.pageAddMember.recommendName']}" />
 							<h:outputText style="font-size: 13px;COLOR: #ff0000;" value="#{customerController.starRecomendName}"
 								id="starRecomendName" />
-							<h:inputText id="recomendNameId" maxlength="100" disabled="true"
+							<h:inputText id="recomendNameId" maxlength="100" readonly="true"
 								value="#{customerController.recomendName}"
 								style=" width : 150px;" />
 							<h:outputText style="font-size: 13px;" value="" />
@@ -95,7 +95,7 @@
 							<h:outputText style="font-size: 13px;" value="" />
 							<h:inputText
 								value="#{app_msgs['label.pageAddMember.systemGenAuto']}"
-								disabled="true" style=" width : 80px;" />
+								readonly="true" style=" width : 80px;" />
 
 							<div style="width: 40px;"></div>
 							<h:outputText style="font-size: 13px;"

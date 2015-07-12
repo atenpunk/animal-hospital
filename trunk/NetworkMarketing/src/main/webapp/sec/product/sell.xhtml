@@ -17,65 +17,6 @@
         width: 255px;
         height: 110px;
         }
-        
-        .tableMain {
-	width: 250px;
-	height: 15px;
-	font-family: arial;
-	font-size: 12px;
-	background-color: #BED6F8;
-	border: 1px solid #ffffff;
-	padding-left: 3px;
-	text-align: left;
-	background: transparent -moz-linear-gradient(center top , #BED6F8, #F2F7FF) repeat scroll 0% 0%;
-    background-color: transparent;
-    background-image: -moz-linear-gradient(center top , #BED6F8, #F2F7FF);
-    background-repeat: repeat;
-    background-attachment: scroll;
-    background-position: 0% 0%;
-    background-clip: border-box;
-    background-origin: padding-box;
-    background-size: auto auto;
-}
-
-.tableChild {
-	width: 120px;
-	height: 12px;
-	font-family: arial;
-	font-size: 12px;
-	background-color: #F2F7FF;
-	border: 1px solid #ffffff;
-	padding-left: 5px;
-	text-align: left;
-	background: transparent -moz-linear-gradient(center top, #F2F7FF, #FFFFFF) repeat scroll 0% 0%;
-	background-color: transparent;
-	background-image: -moz-linear-gradient(center top, #F2F7FF, #FFFFFF);
-	background-repeat: repeat;
-	background-attachment: scroll;
-	background-position: 0% 0%;
-	background-clip: border-box;
-	background-origin: padding-box;
-	background-size: auto auto;
-}
-.tableChild2 {
-	width: 40px;
-	height: 12px;
-	font-family: arial;
-	font-size: 12px;
-	background-color: #BED6F8;
-	border: 1px solid #ffffff;
-	padding-left: 5px;
-	text-align: left;
-	background: transparent -moz-linear-gradient(center top, #BED6F8, #F2F7FF) repeat scroll 0% 0%;
-	background-color: transparent;
-	background-image: -moz-linear-gradient(center top, #BED6F8, #F2F7FF);
-	background-repeat: repeat;
-	background-attachment: scroll;
-	background-position: 0% 0%;
-	background-clip: border-box;
-	background-origin: padding-box;
-	background-size: auto auto;
-}
 
     </h:outputStylesheet>
 		<br />
@@ -86,14 +27,77 @@
 						value="#{app_msgs['label.menuShopping.order']}" />
 				</f:facet>
 
+				<h:panelGrid columns="2" width="100%">
+					<rich:panel style="width:320px;height:110px;">
+						<table>
+							<tr>
+								<td class="detailSellMain"><h:outputText
+										style="font-size: 13px;"
+										value="#{app_msgs['label.menuShopping.dateTime']}" /></td>
+								<td class="detailSellChild"><h:outputText readonly="true"
+										maxlength="100" style="font-size: 13px;"
+										value="#{productSellController.dateTime}">
+										<f:convertDateTime pattern="dd-MM-yyyy" />
+									</h:outputText></td>
+							</tr>
+							<tr>
+								<td class="detailSellMain"><h:outputText
+										style="font-size: 13px;"
+										value="#{app_msgs['label.menuShopping.memberId']}" /></td>
+								<td class="detailSellChild"><h:inputText maxlength="100"
+										style="font-size: 13px;"
+										value="#{productSellController.memberId}">
+										<a4j:ajax event="keyup" render="inputMemberNameId"
+											listener="#{productSellController.onKeypress()}" />
+									</h:inputText></td>
+							</tr>
+							<tr>
+								<td class="detailSellMain"><h:outputText
+										style="font-size: 13px;"
+										value="#{app_msgs['label.menuShopping.memberName']}" /></td>
+								<td class="detailSellChild"><h:outputText
+										id="inputMemberNameId" maxlength="100" readonly="true"
+										style="font-size: 13px;"
+										value="#{productSellController.memberName}" /></td>
+							</tr>
+						</table>
+					</rich:panel>
+				</h:panelGrid>
+				<h:panelGrid columns="3">
+					<a4j:commandButton id="saveSell"
+						disabled="#{productSellController.productSellModelList.size() eq 0}"
+						value="#{app_msgs['button.save']}"
+						onclick="if (!confirm('#{app_msgs['label.sellPage.save']}')) return false"
+						action="#{productSellController.saveOrder}"
+						render="testDataTable,messageId,saveSell"
+						style="font-size: 12px; width : 80px;"></a4j:commandButton>
+
+					<a4j:commandButton id="cancleSell"
+						value="#{app_msgs['button.cancle']}"
+						action="#{productSellController.cancleOrder}"
+						render="testDataTable,messageId,saveSell"
+						style="font-size: 12px; width : 80px;"></a4j:commandButton>
+
+					<h:panelGrid id="messageId">
+						<div style="text-align: left">
+							<h:messages style="font-size: 13px;" globalOnly="true"
+								infoClass="info" warnClass="warn" errorClass="error" />
+						</div>
+					</h:panelGrid>
+				</h:panelGrid>
 
 				<rich:dataTable id="testDataTable" style="width : 100%;"
+					rowKeyVar="row"
 					onrowmouseover="this.style.backgroundColor='#F1F1F1'"
 					onrowmouseout="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
-					value="#{productSellController.productSellModelList}" var="item">
+					value="#{productSellController.productSellModelList}"
+					var="itemSell">
 					<f:facet name="header">
 						<rich:columnGroup>
 							<rich:column breakRowBefore="true">
+								<h:outputText style="font-size: 13px;" value="" />
+							</rich:column>
+							<rich:column>
 								<h:outputText style="font-size: 13px;"
 									value="#{app_msgs['label.menuSell.order']}" />
 							</rich:column>
@@ -128,56 +132,69 @@
 						</rich:columnGroup>
 					</f:facet>
 					<rich:column style="text-align:center">
-						<h:outputText style="font-size: 13px;" value="#{item.index}">
-						</h:outputText>
+						<a4j:commandLink value=""
+							action="#{productSellController.deleteOrder(itemSell)}"
+							render="testDataTable,saveSell">
+							<h:graphicImage value="/resources/image/delete_icon.png"
+								width="20px" height="20px" />
+						</a4j:commandLink>
 					</rich:column>
-					<rich:column style="text-align:left">
-						<h:outputText style="font-size: 13px;" value="#{item.productCode}">
+					<rich:column style="text-align:center">
+						<h:outputText style="font-size: 13px;" value="#{row+1}">
 						</h:outputText>
 					</rich:column>
 					<rich:column style="text-align:left">
 						<h:outputText style="font-size: 13px;"
-							value="#{item.productThDesc}">
+							value="#{itemSell.productCode}">
+						</h:outputText>
+					</rich:column>
+					<rich:column style="text-align:left">
+						<h:outputText style="font-size: 13px;"
+							value="#{itemSell.productThDesc}">
 						</h:outputText>
 					</rich:column>
 					<rich:column style="text-align:right">
-						<h:outputText style="font-size: 13px;" value="#{item.price}">
+						<h:outputText style="font-size: 13px;" value="#{itemSell.price}">
 							<f:convertNumber pattern="#,##0" />
 						</h:outputText>
 					</rich:column>
 					<rich:column style="text-align:right">
-						<h:outputText style="font-size: 13px;" value="#{item.pv}">
+						<h:outputText style="font-size: 13px;" value="#{itemSell.pv}">
+							<f:convertNumber pattern="#,##0" />
+						</h:outputText>
+					</rich:column>
+					<rich:column style="text-align:right;">
+						<h:outputText style="font-size: 13px;" value="#{itemSell.qty}">
+						</h:outputText>
+					</rich:column>
+					<rich:column style="text-align:right">
+						<h:outputText style="font-size: 13px;"
+							value="#{itemSell.totalPrice}">
 							<f:convertNumber pattern="#,##0" />
 						</h:outputText>
 					</rich:column>
 					<rich:column style="text-align:right">
-						<h:outputText style="font-size: 13px;" value="#{item.qty}">
-							<f:convertNumber pattern="#,##0" />
-						</h:outputText>
-					</rich:column>
-					<rich:column style="text-align:right">
-						<h:outputText style="font-size: 13px;" value="#{item.totalPrice}">
-							<f:convertNumber pattern="#,##0" />
-						</h:outputText>
-					</rich:column>
-					<rich:column style="text-align:right">
-						<h:outputText style="font-size: 13px;" value="#{item.totalPv}">
+						<h:outputText style="font-size: 13px;" value="#{itemSell.totalPv}">
 							<f:convertNumber pattern="#,##0" />
 						</h:outputText>
 					</rich:column>
 					<f:facet name="footer">
 
-						<rich:columnGroup>
-							<rich:column colspan="6" style="text-align:right">
-								<h:outputText style="font-size: 13px;" value="#{app_msgs['label.menuSell.total']}" />
+						<rich:columnGroup
+							rendered="#{productSellController.productSellModelList.size() ne 0}">
+							<rich:column colspan="7" style="text-align:right">
+								<h:outputText style="font-size: 13px;"
+									value="#{app_msgs['label.menuSell.total']}" />
 							</rich:column>
 							<rich:column style="text-align:right">
-								<h:outputText style="font-size: 13px;" value="#{productSellController.totalPrice}">
+								<h:outputText style="font-size: 13px;"
+									value="#{productSellController.totalPrice}">
 									<f:convertNumber pattern="#,##0" />
 								</h:outputText>
 							</rich:column>
 							<rich:column style="text-align:right">
-								<h:outputText style="font-size: 13px;" value="#{productSellController.totalPv}">
+								<h:outputText style="font-size: 13px;"
+									value="#{productSellController.totalPv}">
 									<f:convertNumber pattern="#,##0" />
 								</h:outputText>
 							</rich:column>
@@ -186,41 +203,57 @@
 					</f:facet>
 				</rich:dataTable>
 				<br />
+				<h:outputText style="font-size: 13px;"
+					value="#{app_msgs['label.menuSell.category']}" />&#160;&#160;
+				<h:selectOneMenu value="#{productSellController.selectedCatalog}"
+					style=" width : 150px;" id="dropDownCategory">
+					<a4j:ajax event="change" render="productListId"
+						listener="#{productSellController.onChangeCatalog}" />
+					<f:selectItems value="#{productSellController.catalogModelList}"
+						var="item" itemLabel="#{item.thLabel}" itemValue="#{item.intKey}">
+					</f:selectItems>
+				</h:selectOneMenu>
+				<br />
+				<br />
 				<rich:panel style="overflow-y: scroll; height:430px;">
 					<rich:dataGrid value="#{productSellController.productModelList}"
-						var="item" columns="3" width="100%" border="0">
+						id="productListId" var="itemProduct" columns="3" width="100%"
+						border="0">
 						<rich:panel bodyClass="pbody">
 
 							<table>
 								<tr>
 									<td rowspan="4"><h:graphicImage
-											rendered="#{item.pathImage ne null}"
-											value="#{item.pathImage}" width="95px" height="100px" /> <h:graphicImage
-											rendered="#{item.pathImage eq null}"
+											rendered="#{itemProduct.pathImage ne null}"
+											value="#{itemProduct.pathImage}" width="95px" height="100px" />
+										<h:graphicImage rendered="#{itemProduct.pathImage eq null}"
 											value="/resources/product_img/noImg.gif" width="95px"
 											height="100px" /></td>
-									<td colspan="2" class="tableMain"><h:outputText
-											value="#{item.productThDesc}"></h:outputText></td>
+									<td colspan="2" class="tablePageSellMain"><h:outputText
+											value="#{itemProduct.productThDesc}"></h:outputText></td>
 								</tr>
 								<tr>
-									<td class="tableChild2"><h:outputText
+									<td class="tablePageSellChild2"><h:outputText
 											value="#{app_msgs['label.menuSell.price']}"></h:outputText></td>
-									<td class="tableChild"><h:outputText value="#{item.price}">
+									<td class="tableChildPageSell"><h:outputText
+											value="#{itemProduct.price}">
 											<f:convertNumber pattern="#,##0" />
 										</h:outputText></td>
 								</tr>
 								<tr>
-									<td class="tableChild2"><h:outputText
+									<td class="tablePageSellChild2"><h:outputText
 											value="#{app_msgs['label.menuSell.pv']}"></h:outputText></td>
-									<td class="tableChild"><h:outputText value="#{item.pv}">
+									<td class="tableChildPageSell"><h:outputText
+											value="#{itemProduct.pv}">
 											<f:convertNumber pattern="#,##0" />
 										</h:outputText></td>
 								</tr>
 								<tr>
 									<td colspan="2"><a4j:commandButton id="addCartId"
 											value="#{app_msgs['button.addCart']}"
-											action="#{productSellController.addCart(item)}"
-											render="testDataTable" style="font-size: 12px; width : 100%;"></a4j:commandButton></td>
+											action="#{productSellController.addCart(itemProduct)}"
+											render="testDataTable,saveSell,messageId"
+											style="font-size: 12px; width : 100%;"></a4j:commandButton></td>
 								</tr>
 							</table>
 
