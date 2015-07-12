@@ -27,12 +27,6 @@
 						value="#{currentUser.userName}" />
 					<br />
 					<br />
-					<h:outputText style="font-size: 14px;FONT-WEIGHT: bold;"
-						value="E-money" />&#160;&#160;<h:outputText
-						style="font-size: 13px;FONT-WEIGHT: bold;"
-						value="#{currentUser.customerId.eMoney.doubleValue()}">
-						<f:convertNumber pattern="#,##0.00" />
-					</h:outputText>
 					<br />
 					<br />
 					<br />
@@ -47,20 +41,19 @@
 			<h:messages globalOnly="true" infoClass="info" warnClass="warn"
 				errorClass="error" />
 		</div -->
-		<div id='cssmenu'>
-			<ul>
-				<li class='#{menuActiveController.menuHome}'><a
-					href='#{request.contextPath}/'>#{app_msgs['menu.label.home']}</a></li>
-				<li class='#{menuActiveController.menuProfile}'><a
-					href='#{request.contextPath}/menuProfile'>#{app_msgs['menu.label.profile']}</a></li>
-				<li class='#{menuActiveController.menuFlowTeam}'><a
-					href='#{request.contextPath}/menuFlowTeam'>#{app_msgs['menu.label.flowTeam']}</a></li>
-				<li class='#{menuActiveController.menuInfoSuggest}'><a
-					href='#{request.contextPath}/menuInfoSuggest'>#{app_msgs['menu.label.infoSuggest']}</a></li>
-				<li class='#{menuActiveController.menuTrading}'><a
-					href='#{request.contextPath}/menuTrading'>#{app_msgs['menu.label.infoTrading']}</a></li>
-				<li class="#{menuActiveController.menuReport}"><a
-					href='#{request.contextPath}/menuReport'>#{app_msgs['menu.label.report']}</a></li>
+
+		<rich:toolbar height="25px">
+			<rich:dropDownMenu>
+				<f:facet name="label">
+					<h:panelGroup>
+						<h:outputText value="#{app_msgs['menu.label.stockProduct']}" />
+					</h:panelGroup>
+				</f:facet>
+				<rich:menuItem submitMode="ajax"
+					label="#{app_msgs['menu.label.detailProduct']}"
+					onclick="document.location.href='#{request.contextPath}/backoffice/detailProduct'" />
+			</rich:dropDownMenu>
+			<rich:toolbarGroup location="right">
 				<h:form style="float:right; text-align:right; list-style:none;">
 					<f:view locale="#{languageController.locale}">
 						<h:commandLink title="ไทย"
@@ -79,8 +72,8 @@
 						</h:commandLink>
 					</f:view>
 				</h:form>
-			</ul>
-		</div>
+			</rich:toolbarGroup>
+		</rich:toolbar>
 
 		<div id="content">
 			<ui:insert name="content">

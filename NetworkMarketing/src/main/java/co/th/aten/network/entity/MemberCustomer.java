@@ -6,6 +6,7 @@
 package co.th.aten.network.entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -152,6 +153,8 @@ public class MemberCustomer implements Serializable {
     private Integer chkCopyBookBank;
     @Column(name = "side")
     private Integer side;
+    @Column(name = "eMoney")
+    private BigDecimal eMoney;
     @JoinColumn(name = "position_id", referencedColumnName = "position_id")
     @ManyToOne
     private MemberPosition positionId;
@@ -619,7 +622,15 @@ public class MemberCustomer implements Serializable {
         this.side = side;
     }
 
-    public MemberPosition getPositionId() {
+    public BigDecimal geteMoney() {
+		return eMoney;
+	}
+
+	public void seteMoney(BigDecimal eMoney) {
+		this.eMoney = eMoney;
+	}
+
+	public MemberPosition getPositionId() {
         return positionId;
     }
 
