@@ -30,10 +30,6 @@
 	</url-mapping>
 
 	<url-mapping id="backOffice_01">
-		<pattern value="/backoffice/home"></pattern>
-		<view-id>/sec/backoffice/home.jsf</view-id>
-	</url-mapping>
-	<url-mapping id="backOffice_02">
 		<pattern value="/backoffice/detailProduct"></pattern>
 		<view-id>/sec/backoffice/detailProduct.jsf</view-id>
 	</url-mapping>
