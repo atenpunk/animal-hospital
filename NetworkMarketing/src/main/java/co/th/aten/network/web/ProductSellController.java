@@ -251,7 +251,6 @@ public class ProductSellController implements Serializable{
 	public void saveOrder(){
 		try{
 			if(memSearch!=null && productSellModelList!=null && productSellModelList.size()>0){
-				DecimalFormat df = new DecimalFormat("000000000");
 				TransactionSellHeader trxSellHeader = new TransactionSellHeader();
 				//				trxSellHeader.setTrxHeaderId(max);
 				trxSellHeader.setTrxHeaderDatetime(new Date());
@@ -267,6 +266,7 @@ public class ProductSellController implements Serializable{
 				trxSellHeader.setUpdateBy(currentUser.getCurrentAccount().getUserId());
 				trxSellHeader.setUpdateDate(new Date());
 				em.persist(trxSellHeader);
+//				DecimalFormat df = new DecimalFormat("000000000");
 //				trxSellHeader.setReceiptNo("R"+df.format(trxSellHeader.getTrxHeaderId().intValue()));
 //				em.merge(trxSellHeader);
 
