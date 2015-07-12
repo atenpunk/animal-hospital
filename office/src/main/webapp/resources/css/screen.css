@@ -1,0 +1,537 @@
+/* reset*/
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video
+	{
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: middle;
+}
+/* HTML5 display-role reset for older browsers */
+article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section
+	{
+	display: block;
+}
+
+body {
+	line-height: 1;
+}
+
+ol,ul {
+	list-style: none;
+}
+
+blockquote,q {
+	quotes: none;
+}
+
+blockquote:before,blockquote:after,q:before,q:after {
+	content: '';
+	content: none;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/*end reset*******/
+
+/***frame work**/
+h1,h2,h3,h4,h5,h6 {
+	font-family: "Droid Sans", Arial, Helvetica, sans-serif;
+	font-weight: 400;
+	color: #161e21;
+	margin: 0;
+}
+
+h1 {
+	font-size: 350%;
+	line-height: 0.8571em;
+	margin: 0.4286em 0 0;
+}
+
+h2 {
+	font-size: 250%;
+	line-height: 1.2em;
+	margin: 0.4em 0 0 0;
+}
+
+h3 {
+	font-size: 175%;
+	line-height: 0.8571em;
+	margin: 0.4em 0 0 0;
+}
+
+h4 {
+	font-size: 133.33%;
+	line-height: 1.125em;
+	margin: 1.125em 0 0 0;
+}
+
+h5 {
+	font-size: 116.67%;
+	line-height: 1.2857em;
+	margin: 1.2857em 0 0 0;
+}
+
+h6 {
+	font-weight: bold;
+	font-size: 100%;
+	line-height: 1.5em;
+	margin: 1.5em 0 0 0;
+}
+
+/* --- Lists | Listen  -------------------------------------------------------------------------------- */
+ul,ol,dl {
+	font-size: 1em;
+	line-height: 1.5em;
+	margin: 1.5em 0 0 1em;
+}
+
+ul {
+	list-style-type: disc;
+}
+
+ol {
+	list-style-type: decimal;
+}
+
+ul ul {
+	list-style-type: circle;
+	margin-top: 0;
+}
+
+ol ol {
+	list-style-type: lower-latin;
+	margin-top: 0;
+}
+
+ol ul {
+	list-style-type: circle;
+	margin-top: 0;
+}
+
+li {
+	font-size: 1em;
+	line-height: 1.5em;
+	margin-left: 0.8em;
+}
+
+dt {
+	font-weight: bold;
+}
+
+dd {
+	margin: 0 0 1.5em 0.8em;
+}
+
+/* --- general text formatting | Allgemeine Textauszeichnung ------------------------------------------ */
+p {
+	font-size: 1em;
+	line-height: 1.5em;
+	margin: 0.6em 0 0 0;
+}
+
+blockquote,cite,q {
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-style: italic;
+}
+
+blockquote {
+	margin: 1.5em 0 0 1.5em;
+	color: #666;
+}
+
+strong,b {
+	font-weight: bold;
+}
+
+em,i {
+	font-style: italic;
+}
+
+big {
+	font-size: 116.667%;
+}
+
+small {
+	font-size: 85.71%;
+}
+
+pre,code,kbd,tt,samp,var {
+	font-size: 100%;
+}
+
+pre {
+	line-height: 1.5em;
+	margin: 1.5em 0 0 0;
+	white-space: pre;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+}
+
+pre,code {
+	color: #800;
+}
+
+kbd,samp,var,tt {
+	color: #666;
+	font-weight: bold;
+}
+
+var,dfn {
+	font-style: italic;
+}
+
+acronym,abbr {
+	border-bottom: 1px #aaa dotted;
+	font-variant: small-caps;
+	letter-spacing: .07em;
+	cursor: help;
+}
+
+sub,sup {
+	font-size: 75%;
+	line-height: 0;
+	position: relative;
+	vertical-align: baseline;
+}
+
+sup {
+	top: -0.5em;
+}
+
+sub {
+	bottom: -0.25em;
+}
+
+mark {
+	background: #ff0;
+	color: #000;
+}
+
+hr {
+	color: #fff;
+	background: transparent;
+	margin: 0 0 0.75em 0;
+	padding: 0 0 0.75em 0;
+	border: 0;
+	border-bottom: 1px #eee solid;
+}
+
+table {
+	padding: 5px;
+	border-collapse: collapse;
+}
+
+th,td {
+	line-height: 1.0em;
+	vertical-align: middle;
+	padding: 5px 5px;
+}
+
+th *:first-child,td *:first-child {
+	margin-top: 0;
+}
+
+th.nowrap,td.nowrap {
+	white-space: nowrap;
+}
+
+/*end framework*****************/
+body {
+	margin: 0;
+	padding: 0;
+	background-color: #EAECEE;
+	font-family: Verdana, sans-serif;
+	font-size: 0.9em;
+}
+
+#container0 {
+	margin: 0 auto;
+	padding: 0 20px 10px 20px;
+	border: 1px solid #666666;
+	width: 865px; /* subtract 40px from banner width for padding */
+	/*background: #FFFFFF url(#{request.contextPath}/resources/gfx/schneider_banner.png) no-repeat;*/
+	background: #FFFFFF
+		url(#{request.contextPath}/resources/gfx/RICHTIME-NETWORK-905.png)
+		no-repeat;
+	padding-top: 110px;
+}
+
+#container {
+	margin: 0 auto;
+	padding: 0 20px 10px 20px;
+	border: 1px solid #666666;
+	width: 95%; /* subtract 40px from banner width for padding */
+	/*background: #FFFFFF url(#{request.contextPath}/resources/gfx/schneider_bannerLEFT.png) no-repeat;*/
+	background: #FFFFFF
+		url(#{request.contextPath}/resources/gfx/RICHTIME-NETWORK-348.png)
+		no-repeat;
+	padding-top: 2px;
+}
+
+#sidebar {
+	font-size: 0.9em;
+	width: 17%;
+	float: left;
+	border: 1px solid #666666;
+	background: #EAECEE;
+	padding: 5px 5px 15px 15px;
+	border-top-right-radius: 10px;
+	border-bottom-right-radius: 10px;
+	border-top-left-radius: 10px;
+	border-bottom-left-radius: 10px;
+	-moz-border-radius-topright: 10px;
+	-moz-border-radius-bottomright: 10px;
+	-moz-border-radius-topleft: 10px;
+	-moz-border-radius-bottomleft: 10px;
+}
+
+.header {
+	width: 100%;
+	text-align: right;
+	padding: 1px 2px 1px 2px;
+}
+
+#user {
+	width: 100%;
+	text-align: right;
+	padding: 1px 2px 1px 2px;
+}
+
+#messageBar {
+	width: 100%;
+	text-align: center;
+	padding: 0px;
+}
+
+.userColumn {
+	text-align: right;
+}
+
+.logoColumn {
+	width: 88px;
+	text-align: right;
+}
+
+#content_pad {
+	float: right;
+	width: 80%;
+	padding: 0px 5px 5px 0px;
+}
+
+#sidebar ul {
+	padding-left: 15px;
+}
+
+#footer {
+	clear: both;
+	text-align: center;
+	color: #666666;
+	font-size: 0.85em;
+	padding: 3em 0 0 0;
+}
+
+code {
+	font-size: 1.1em;
+}
+
+span.invalid {
+	padding-left: 3px;
+	color: red;
+}
+
+.dropshadowclass {
+	padding-bottom: 10px;
+	border: solid 1px #CCC;
+	-moz-box-shadow: 5px 5px 0px #999;
+	-webkit-box-shadow: 5px 5px 0px #999;
+	box-shadow: 5px 5px 0px #999;
+}
+
+.credit {
+	text-align: right;
+	margin-right: 5px;
+	color: #cccccc;
+	font-size: small;
+}
+
+.info {
+	color: #339900;
+}
+
+.warn {
+	color: #FFFF00;
+}
+
+.error {
+	color: #CC0000;
+}
+
+.col_align_left {
+	text-align: left;
+}
+
+.col_align_center {
+	text-align: center;
+}
+
+.col_align_right {
+	text-align: right;
+}
+
+.tableHeadFooter {
+	width: 150px;
+	height: 20px;
+	font-family: arial;
+	font-size: 13px;
+	background-color: #BED6F8;
+	border: 1px solid #ffffff;
+	padding-left: 3px;
+	text-align: center;
+	background: transparent
+		-moz-linear-gradient(center top, #BED6F8, #F2F7FF) repeat scroll 0% 0%;
+	background-color: transparent;
+	background-image: -moz-linear-gradient(center top, #BED6F8, #F2F7FF);
+	background-repeat: repeat;
+	background-attachment: scroll;
+	background-position: 0% 0%;
+	background-clip: border-box;
+	background-origin: padding-box;
+	background-size: auto auto;
+}
+
+.tableDataFooter {
+	width: 180px;
+	height: 20px;
+	font-family: arial;
+	font-size: 13px;
+	color: #0000ff;
+	background-color: #F2F7FF;
+	border: 1px solid #ffffff;
+	padding-left: 5px;
+	text-align: center;
+	background: transparent
+		-moz-linear-gradient(center top, #F2F7FF, #FFFFFF) repeat scroll 0% 0%;
+	background-color: transparent;
+	background-image: -moz-linear-gradient(center top, #F2F7FF, #FFFFFF);
+	background-repeat: repeat;
+	background-attachment: scroll;
+	background-position: 0% 0%;
+	background-clip: border-box;
+	background-origin: padding-box;
+	background-size: auto auto;
+}
+
+/*   Page sec/produce/sell.jsf   */
+.detailSellMain {
+	width: 80px;
+	height: 18px;
+	font-family: arial;
+	font-size: 13px;
+	background-color: #BED6F8;
+	border: 1px solid #ffffff;
+	padding-left: 3px;
+	text-align: left;
+	background: transparent
+		-moz-linear-gradient(center top, #BED6F8, #F2F7FF) repeat scroll 0% 0%;
+	background-color: transparent;
+	background-image: -moz-linear-gradient(center top, #BED6F8, #F2F7FF);
+	background-repeat: repeat;
+	background-attachment: scroll;
+	background-position: 0% 0%;
+	background-clip: border-box;
+	background-origin: padding-box;
+	background-size: auto auto;
+}
+
+.detailSellChild {
+	width: 120px;
+	height: 18px;
+	font-family: arial;
+	font-size: 12px;
+	background-color: #F2F7FF;
+	border: 1px solid #ffffff;
+	padding-left: 5px;
+	text-align: left;
+	background: transparent
+		-moz-linear-gradient(center top, #F2F7FF, #FFFFFF) repeat scroll 0% 0%;
+	background-color: transparent;
+	background-image: -moz-linear-gradient(center top, #F2F7FF, #FFFFFF);
+	background-repeat: repeat;
+	background-attachment: scroll;
+	background-position: 0% 0%;
+	background-clip: border-box;
+	background-origin: padding-box;
+	background-size: auto auto;
+}
+
+.tablePageSellMain {
+	width: 250px;
+	height: 15px;
+	font-family: arial;
+	font-size: 12px;
+	background-color: #BED6F8;
+	border: 1px solid #ffffff;
+	padding-left: 3px;
+	text-align: left;
+	background: transparent
+		-moz-linear-gradient(center top, #BED6F8, #F2F7FF) repeat scroll 0% 0%;
+	background-color: transparent;
+	background-image: -moz-linear-gradient(center top, #BED6F8, #F2F7FF);
+	background-repeat: repeat;
+	background-attachment: scroll;
+	background-position: 0% 0%;
+	background-clip: border-box;
+	background-origin: padding-box;
+	background-size: auto auto;
+}
+
+.tableChildPageSell {
+	width: 120px;
+	height: 12px;
+	font-family: arial;
+	font-size: 12px;
+	background-color: #F2F7FF;
+	border: 1px solid #ffffff;
+	padding-left: 5px;
+	text-align: left;
+	background: transparent
+		-moz-linear-gradient(center top, #F2F7FF, #FFFFFF) repeat scroll 0% 0%;
+	background-color: transparent;
+	background-image: -moz-linear-gradient(center top, #F2F7FF, #FFFFFF);
+	background-repeat: repeat;
+	background-attachment: scroll;
+	background-position: 0% 0%;
+	background-clip: border-box;
+	background-origin: padding-box;
+	background-size: auto auto;
+}
+
+.tablePageSellChild2 {
+	width: 40px;
+	height: 12px;
+	font-family: arial;
+	font-size: 12px;
+	background-color: #BED6F8;
+	border: 1px solid #ffffff;
+	padding-left: 5px;
+	text-align: left;
+	background: transparent
+		-moz-linear-gradient(center top, #BED6F8, #F2F7FF) repeat scroll 0% 0%;
+	background-color: transparent;
+	background-image: -moz-linear-gradient(center top, #BED6F8, #F2F7FF);
+	background-repeat: repeat;
+	background-attachment: scroll;
+	background-position: 0% 0%;
+	background-clip: border-box;
+	background-origin: padding-box;
+	background-size: auto auto;
+}
