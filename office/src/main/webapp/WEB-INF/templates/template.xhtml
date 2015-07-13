@@ -46,10 +46,10 @@
 			<rich:dropDownMenu>
 				<f:facet name="label">
 					<h:panelGroup>
-						<h:outputText value="#{app_msgs['menu.label.stockProduct']}" />
+						<h:outputText style="font-size: 13px;" value="#{app_msgs['menu.label.stockProduct']}" />
 					</h:panelGroup>
 				</f:facet>
-				<rich:menuItem submitMode="ajax"
+				<rich:menuItem submitMode="ajax" style="font-size: 13px;"
 					label="#{app_msgs['menu.label.detailProduct']}"
 					onclick="document.location.href='#{request.contextPath}/backoffice/detailProduct'" />
 			</rich:dropDownMenu>
@@ -59,11 +59,6 @@
 						<h:commandLink title="ไทย"
 							action="#{languageController.switchLocale('th')}">
 							<h:graphicImage value="/resources/gfx/THflag.png" />
-						</h:commandLink>
-						&#160;
-						<h:commandLink title="ລາວ"
-							action="#{languageController.switchLocale('lao')}">
-							<h:graphicImage value="/resources/gfx/LAK.gif" />
 						</h:commandLink>
 						&#160;						
 					<h:commandLink title="English"
