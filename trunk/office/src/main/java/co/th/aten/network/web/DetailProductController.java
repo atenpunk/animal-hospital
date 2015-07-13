@@ -1,5 +1,7 @@
 package co.th.aten.network.web;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -8,13 +10,17 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
+import javax.servlet.ServletContext;
 
 import org.jboss.seam.international.status.MessageFactory;
 import org.jboss.seam.international.status.Messages;
 import org.jboss.solder.logging.Logger;
+import org.richfaces.event.FileUploadEvent;
+import org.richfaces.model.UploadedFile;
 
 import co.th.aten.network.control.StockProductControl;
 import co.th.aten.network.entity.StockCatalog;
@@ -83,6 +89,34 @@ public class DetailProductController implements Serializable{
 		}
 	}
 
+	public void listener(FileUploadEvent event){
+		try{
+			UploadedFile item = event.getUploadedFile();
+			log.info("item.getData().length : "+item.getData().length);
+			log.info("item.getName() : "+item.getName());
+			log.info("item.getData() : "+item.getData());
+			FacesContext facesContext = FacesContext.getCurrentInstance();
+			ServletContext servletContext = (ServletContext) facesContext
+					.getExternalContext()
+					.getContext();
+			log.info("servletContext.getRealPath : "+servletContext.getRealPath("/"));
+			FileOutputStream fileOuputStream = 
+					new FileOutputStream(servletContext.getRealPath("/")+"/resources/product_img/"+item.getName()); 
+			fileOuputStream.write(item.getData());
+			fileOuputStream.close();
+			if(selectedProductModel.getPathImage()!=null){
+				try{
+					new File(servletContext.getRealPath("/")+selectedProductModel.getPathImage()).delete();
+				}catch(Exception ex){
+					ex.printStackTrace();
+				}
+			}
+			selectedProductModel.setPathImage("/resources/product_img/"+item.getName());
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+
 	public void onKeyPress(){
 		if(selectedProductModel!=null){
 			if(selectedProductModel.getProductCode()!=null 
@@ -113,7 +147,7 @@ public class DetailProductController implements Serializable{
 			}else{
 				star05 = "*";
 			}
-			
+
 			if(star01.equals("*") 
 					|| star02.equals("*")
 					|| star03.equals("*")
@@ -157,15 +191,6 @@ public class DetailProductController implements Serializable{
 			star05 = "*";
 			chkAddActive = true;
 			selectedProductModel = new ProductModel();
-			//			selectedProductModel.setProductId(0);
-			//			selectedProductModel.setCatalogId(0);
-			//			selectedProductModel.setProductCode("");
-			//			selectedProductModel.setProductThDesc("");
-			//			selectedProductModel.setProductEnDesc("");
-			//			selectedProductModel.setUnit("");
-			//			selectedProductModel.setPrice(0);
-			//			selectedProductModel.setPv(0);
-			//			selectedProductModel.setPathImage("");
 			if(catalogModelList!=null && catalogModelList.size()>0)
 				selectedCatalog = catalogModelList.get(0).getIntKey();
 		}catch(Exception e){
@@ -216,6 +241,17 @@ public class DetailProductController implements Serializable{
 	public void cancleAddProduct(){
 		log.info("--------------- cancleAddProduct() -------------");
 		try{
+			if(selectedProductModel.getPathImage()!=null){
+				try{
+					FacesContext facesContext = FacesContext.getCurrentInstance();
+					ServletContext servletContext = (ServletContext) facesContext
+							.getExternalContext()
+							.getContext();
+					new File(servletContext.getRealPath("/")+selectedProductModel.getPathImage()).delete();
+				}catch(Exception ex){
+					ex.printStackTrace();
+				}
+			}
 			clear();
 		}catch(Exception e){
 			e.printStackTrace();
