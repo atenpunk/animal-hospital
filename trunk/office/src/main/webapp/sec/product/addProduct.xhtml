@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="content">
+		<br />
+		<h:form id="fromMainId">
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText style="font-size: 13px;"
+						value="#{app_msgs['label.menuDetailProduct.addProduct']}" />
+				</f:facet>
+				<table>
+					<tr>
+						<td class="tableHead"><h:outputText style="font-size: 13px;"
+								value="#{app_msgs['label.menuSell.image']}" /></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td class="tableHead"><h:outputText style="font-size: 13px;"
+								value="#{app_msgs['label.menuSell.productCode']}" /></td>
+						<td><h:inputText style="font-size: 13px;"
+								value="#{detailProductController.selectedProductModel.productCode}" />
+						</td>
+					</tr>
+					<tr>
+						<td class="tableHead"><h:outputText style="font-size: 13px;"
+								value="#{app_msgs['label.menuSell.detailProduct']}" /></td>
+						<td><h:inputText style="font-size: 13px;width:200px;"
+								value="#{detailProductController.selectedProductModel.productThDesc}" /></td>
+					</tr>
+					<tr>
+						<td class="tableHead"><h:outputText style="font-size: 13px;"
+								value="#{app_msgs['label.menuSell.unit']}" /></td>
+						<td><h:inputText style="font-size: 13px;"
+								value="#{detailProductController.selectedProductModel.unit}" /></td>
+					</tr>
+					<tr>
+						<td class="tableHead"><h:outputText style="font-size: 13px;"
+								value="#{app_msgs['label.menuSell.price']}" /></td>
+						<td><h:inputText style="font-size: 13px;"
+								value="#{detailProductController.selectedProductModel.price}">
+								<f:convertNumber pattern="#,##0" />
+							</h:inputText></td>
+					</tr>
+					<tr>
+						<td class="tableHead"><h:outputText style="font-size: 13px;"
+								value="#{app_msgs['label.menuSell.pv']}" /></td>
+						<td><h:inputText style="font-size: 13px;"
+								value="#{detailProductController.selectedProductModel.pv}">
+								<f:convertNumber pattern="#,##0" />
+							</h:inputText></td>
+					</tr>
+				</table>
+				<br />
+				<h:commandButton value="#{app_msgs['button.save']}"
+					style="width : 80px;font-size: 13px;"
+					action="#{detailProductController.confirmAddProduct}"></h:commandButton>
+					&#160;&#160;
+					<h:commandButton value="#{app_msgs['button.cancle']}"
+					style="width : 80px;font-size: 13px;"
+					action="#{detailProductController.cancleAddProduct}"></h:commandButton>
+			</rich:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

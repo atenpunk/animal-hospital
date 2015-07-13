@@ -34,4 +34,34 @@
     TITLE="#{passwordValidationController.storeNewPassword()}:[any]" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#sec#product#detailProduct.xhtml"
+  PATH="/sec/product/detailProduct.xhtml" SHAPE="32,273,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#sec#product#detailProduct.xhtml:0"
+   NAME="item" PATH="/sec/product/detailProduct.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID=":#{detailProductController.addProduct}:#sec#product#addProduct.xhtml"
+    NAME="output" PATH="/sec/product/addProduct.xhtml"
+    TARGET="rules:#sec#product#addProduct.xhtml"
+    TITLE="#{detailProductController.addProduct}:[any]" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#sec#product#addProduct.xhtml"
+  PATH="/sec/product/addProduct.xhtml" SHAPE="240,545,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#sec#product#addProduct.xhtml:0" NAME="item"
+   PATH="/sec/product/addProduct.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID=":#{detailProductController.confirmAddProduct}:#sec#product#detailProduct.xhtml"
+    NAME="output" PATH="/sec/product/detailProduct.xhtml"
+    TARGET="rules:#sec#product#detailProduct.xhtml"
+    TITLE="#{detailProductController.confirmAddProduct}:[any]" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+  <PROCESS-ITEM ID="rules:#sec#product#addProduct.xhtml:1" NAME="item1"
+   PATH="/sec/product/addProduct.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID=":#{detailProductController.cancleAddProduct}:#sec#product#detailProduct.xhtml"
+    NAME="output" PATH="/sec/product/detailProduct.xhtml"
+    TARGET="rules:#sec#product#detailProduct.xhtml"
+    TITLE="#{detailProductController.cancleAddProduct}:[any]" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
 </PROCESS>
