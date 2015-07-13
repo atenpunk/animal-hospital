@@ -53,6 +53,13 @@ public class DetailProductController implements Serializable{
 	private ProductModel selectedProductModel;
 	private List<DropDownModel> catalogModelList;
 	private int selectedCatalog;
+	private boolean chkAddActive;
+
+	private String star01;
+	private String star02;
+	private String star03;
+	private String star04;
+	private String star05;
 
 	@PostConstruct
 	public void init(){
@@ -75,7 +82,50 @@ public class DetailProductController implements Serializable{
 			}
 		}
 	}
-	
+
+	public void onKeyPress(){
+		if(selectedProductModel!=null){
+			if(selectedProductModel.getProductCode()!=null 
+					&& selectedProductModel.getProductCode().trim().length()>0){
+				star01 = "";
+			}else{
+				star01 = "*";
+			}
+			if(selectedProductModel.getProductThDesc()!=null 
+					&& selectedProductModel.getProductThDesc().trim().length()>0){
+				star02 = "";
+			}else{
+				star02 = "*";
+			}
+			if(selectedProductModel.getUnit()!=null 
+					&& selectedProductModel.getUnit().trim().length()>0){
+				star03 = "";
+			}else{
+				star03 = "*";
+			}
+			if(selectedProductModel.getPrice()>0){
+				star04 = "";
+			}else{
+				star04 = "*";
+			}
+			if(selectedProductModel.getPv()>0){
+				star05 = "";
+			}else{
+				star05 = "*";
+			}
+			
+			if(star01.equals("*") 
+					|| star02.equals("*")
+					|| star03.equals("*")
+					|| star04.equals("*")
+					|| star05.equals("*")){
+				chkAddActive = true;
+			}else{
+				chkAddActive = false;
+			}
+		}
+	}
+
 	private void genDataModel(){
 		productModelList = new ArrayList<ProductModel>();
 		List<StockProduct> productList = em.createQuery("From StockProduct " +
@@ -97,19 +147,25 @@ public class DetailProductController implements Serializable{
 			}
 		}
 	}
-	
+
 	private void clear(){
 		try{
+			star01 = "*";
+			star02 = "*";
+			star03 = "*";
+			star04 = "*";
+			star05 = "*";
+			chkAddActive = true;
 			selectedProductModel = new ProductModel();
-			selectedProductModel.setProductId(0);
-			selectedProductModel.setCatalogId(0);
-			selectedProductModel.setProductCode("");
-			selectedProductModel.setProductThDesc("");
-			selectedProductModel.setProductEnDesc("");
-			selectedProductModel.setUnit("");
-			selectedProductModel.setPrice(0);
-			selectedProductModel.setPv(0);
-			selectedProductModel.setPathImage("");
+			//			selectedProductModel.setProductId(0);
+			//			selectedProductModel.setCatalogId(0);
+			//			selectedProductModel.setProductCode("");
+			//			selectedProductModel.setProductThDesc("");
+			//			selectedProductModel.setProductEnDesc("");
+			//			selectedProductModel.setUnit("");
+			//			selectedProductModel.setPrice(0);
+			//			selectedProductModel.setPv(0);
+			//			selectedProductModel.setPathImage("");
 			if(catalogModelList!=null && catalogModelList.size()>0)
 				selectedCatalog = catalogModelList.get(0).getIntKey();
 		}catch(Exception e){
@@ -156,7 +212,7 @@ public class DetailProductController implements Serializable{
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void cancleAddProduct(){
 		log.info("--------------- cancleAddProduct() -------------");
 		try{
@@ -204,6 +260,54 @@ public class DetailProductController implements Serializable{
 
 	public void setSelectedProductModel(ProductModel selectedProductModel) {
 		this.selectedProductModel = selectedProductModel;
+	}
+
+	public boolean isChkAddActive() {
+		return chkAddActive;
+	}
+
+	public void setChkAddActive(boolean chkAddActive) {
+		this.chkAddActive = chkAddActive;
+	}
+
+	public String getStar01() {
+		return star01;
+	}
+
+	public void setStar01(String star01) {
+		this.star01 = star01;
+	}
+
+	public String getStar02() {
+		return star02;
+	}
+
+	public void setStar02(String star02) {
+		this.star02 = star02;
+	}
+
+	public String getStar03() {
+		return star03;
+	}
+
+	public void setStar03(String star03) {
+		this.star03 = star03;
+	}
+
+	public String getStar04() {
+		return star04;
+	}
+
+	public void setStar04(String star04) {
+		this.star04 = star04;
+	}
+
+	public String getStar05() {
+		return star05;
+	}
+
+	public void setStar05(String star05) {
+		this.star05 = star05;
 	}
 
 }
