@@ -30,8 +30,13 @@
 	</url-mapping>
 
 	<url-mapping id="backOffice_01">
-		<pattern value="/backoffice/detailProduct"></pattern>
-		<view-id>/sec/backoffice/detailProduct.jsf</view-id>
+		<pattern value="/product/detailProduct"></pattern>
+		<view-id>/sec/product/detailProduct.jsf</view-id>
+	</url-mapping>
+	
+	<url-mapping id="backOffice_02">
+		<pattern value="/product/addProduct"></pattern>
+		<view-id>/sec/product/addProduct.jsf</view-id>
 	</url-mapping>
 
 </pretty-config>
