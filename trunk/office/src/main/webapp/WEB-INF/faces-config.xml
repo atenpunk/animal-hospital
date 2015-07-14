@@ -93,5 +93,35 @@
 			<redirect />
 		</navigation-case>
 	</navigation-rule>
+	
+	<navigation-rule id="editProductId">
+		<from-view-id>/sec/product/detailProduct.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{detailProductController.editProduct(item)}</from-action>
+			<if>#{true}</if>
+			<to-view-id>/sec/product/editProduct.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule id="confirmEditProduct">
+		<from-view-id>/sec/product/editProduct.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{detailProductController.confirmEditProduct}</from-action>
+			<if>#{true}</if>
+			<to-view-id>/sec/product/detailProduct.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule id="cancleEditProduct">
+		<from-view-id>/sec/product/editProduct.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{detailProductController.cancleEditProduct}</from-action>
+			<if>#{true}</if>
+			<to-view-id>/sec/product/detailProduct.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
 
 </faces-config>

@@ -44,6 +44,14 @@
     TARGET="rules:#sec#product#addProduct.xhtml"
     TITLE="#{detailProductController.addProduct}:[any]" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
+  <PROCESS-ITEM ID="rules:#sec#product#detailProduct.xhtml:1"
+   NAME="item1" PATH="/sec/product/detailProduct.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID=":#{detailProductController.editProduct(item)}:#sec#product#editProduct.xhtml"
+    NAME="output" PATH="/sec/product/editProduct.xhtml"
+    TARGET="rules:#sec#product#editProduct.xhtml"
+    TITLE="#{detailProductController.editProduct(item)}:[any]" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#sec#product#addProduct.xhtml"
   PATH="/sec/product/addProduct.xhtml" SHAPE="240,545,0,0" model-entity="JSFProcessGroup">
@@ -62,6 +70,25 @@
     NAME="output" PATH="/sec/product/detailProduct.xhtml"
     TARGET="rules:#sec#product#detailProduct.xhtml"
     TITLE="#{detailProductController.cancleAddProduct}:[any]" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#sec#product#editProduct.xhtml"
+  PATH="/sec/product/editProduct.xhtml" SHAPE="304,753,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#sec#product#editProduct.xhtml:0" NAME="item"
+   PATH="/sec/product/editProduct.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID=":#{detailProductController.confirmEditProduct}:#sec#product#detailProduct.xhtml"
+    NAME="output" PATH="/sec/product/detailProduct.xhtml"
+    TARGET="rules:#sec#product#detailProduct.xhtml"
+    TITLE="#{detailProductController.confirmEditProduct}:[any]" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+  <PROCESS-ITEM ID="rules:#sec#product#editProduct.xhtml:1" NAME="item1"
+   PATH="/sec/product/editProduct.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID=":#{detailProductController.cancleEditProduct}:#sec#product#detailProduct.xhtml"
+    NAME="output" PATH="/sec/product/detailProduct.xhtml"
+    TARGET="rules:#sec#product#detailProduct.xhtml"
+    TITLE="#{detailProductController.cancleEditProduct}:[any]" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
 </PROCESS>
