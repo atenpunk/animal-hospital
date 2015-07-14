@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -58,7 +57,7 @@ public class StockCatalog implements Serializable {
     @Column(name = "update_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateDate;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "stockCatalog")
+    @OneToMany(mappedBy = "catalogId")
     private Collection<StockProduct> stockProductCollection;
 
     public StockCatalog() {

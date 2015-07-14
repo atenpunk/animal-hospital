@@ -27,7 +27,7 @@ public class StockProductStore extends BasicStore implements Serializable {
 	public Integer getMaxProductId() {
 		log.debug("find getMaxProductId");
 		try{
-			Integer max = (Integer)em.createQuery("Select max(stockProductPK.productId) From StockProduct")
+			Integer max = (Integer)em.createQuery("Select max(productId) From StockProduct")
 					.getSingleResult();
 			if (max!=null) {
 				return max;
