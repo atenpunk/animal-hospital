@@ -1,7 +1,12 @@
 package co.th.aten.network.web;
 
-import java.io.File;
-import java.io.FileOutputStream;
+import java.awt.Color;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -10,11 +15,10 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
+import javax.imageio.ImageIO;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
-import javax.servlet.ServletContext;
 
 import org.jboss.seam.international.status.MessageFactory;
 import org.jboss.seam.international.status.Messages;
@@ -25,9 +29,9 @@ import org.richfaces.model.UploadedFile;
 import co.th.aten.network.control.StockProductControl;
 import co.th.aten.network.entity.StockCatalog;
 import co.th.aten.network.entity.StockProduct;
-import co.th.aten.network.entity.StockProductPK;
 import co.th.aten.network.model.DropDownModel;
 import co.th.aten.network.model.ProductModel;
+import co.th.aten.network.model.UploadedImage;
 import co.th.aten.network.producer.DBDefault;
 import co.th.aten.network.security.CurrentUserManager;
 import co.th.aten.network.util.StringUtil;
@@ -60,7 +64,8 @@ public class DetailProductController implements Serializable{
 	private List<DropDownModel> catalogModelList;
 	private int selectedCatalog;
 	private boolean chkAddActive;
-
+	private UploadedImage uploadedImage;
+	private String star00;
 	private String star01;
 	private String star02;
 	private String star03;
@@ -84,36 +89,99 @@ public class DetailProductController implements Serializable{
 					model.setEnLabel(StringUtil.n2b(data.getEnDesc()));
 					catalogModelList.add(model);
 				}
-				selectedCatalog = catalogModelList.get(0).getIntKey();
+				DropDownModel model = new DropDownModel();
+				model.setIntKey(-1);
+				model.setThLabel("");
+				model.setEnLabel("");
+				catalogModelList.add(0,model);
+				selectedCatalog = -1;
 			}
 		}
 	}
 
-	public void listener(FileUploadEvent event){
+	public void paint(OutputStream stream, Object object){
 		try{
-			UploadedFile item = event.getUploadedFile();
-			log.info("item.getData().length : "+item.getData().length);
-			log.info("item.getName() : "+item.getName());
-			log.info("item.getData() : "+item.getData());
-			FacesContext facesContext = FacesContext.getCurrentInstance();
-			ServletContext servletContext = (ServletContext) facesContext
-					.getExternalContext()
-					.getContext();
-			log.info("servletContext.getRealPath : "+servletContext.getRealPath("/"));
-			FileOutputStream fileOuputStream = 
-					new FileOutputStream(servletContext.getRealPath("/")+"/resources/product_img/"+item.getName()); 
-			fileOuputStream.write(item.getData());
-			fileOuputStream.close();
-			if(selectedProductModel.getPathImage()!=null){
-				try{
-					new File(servletContext.getRealPath("/")+selectedProductModel.getPathImage()).delete();
-				}catch(Exception ex){
-					ex.printStackTrace();
-				}
-			}
-			selectedProductModel.setPathImage("/resources/product_img/"+item.getName());
+			stream.write(resize(uploadedImage.getData(),150,150));
+			stream.close();
 		}catch(Exception e){
 			e.printStackTrace();
+		}
+	}
+
+	public void paintImg(OutputStream stream, Object object){
+		try{
+			stream.write(productModelList.get(((Integer)object)).getImage().getData());
+			stream.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+
+	private byte[] resize(byte[] fileData, int width, int height) throws IOException{
+		ByteArrayInputStream in = new ByteArrayInputStream(fileData);
+		BufferedImage img = ImageIO.read(in);
+		if(height == 0) {
+			height = (width * img.getHeight())/ img.getWidth(); 
+		}
+		if(width == 0) {
+			width = (height * img.getWidth())/ img.getHeight();
+		}
+		Image scaledImage = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+		BufferedImage imageBuff = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+		imageBuff.getGraphics().drawImage(scaledImage, 0, 0, new Color(0,0,0), null);
+		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+		ImageIO.write(imageBuff, "jpg", buffer);
+		return buffer.toByteArray();
+	}
+
+	public void listener(FileUploadEvent event){
+		try{
+			UploadedFile uploadedFile = event.getUploadedFile();
+			log.info("uploadedFile.getData().length : "+uploadedFile.getData().length);
+			log.info("uploadedFile.getName() : "+uploadedFile.getName());
+			log.info("uploadedFile.getData() : "+uploadedFile.getData());
+			uploadedImage = new UploadedImage();
+			uploadedImage.setLength(uploadedFile.getData().length);
+			uploadedImage.setName(uploadedFile.getName());
+			uploadedImage.setData(uploadedFile.getData());
+
+			//			FacesContext facesContext = FacesContext.getCurrentInstance();
+			//			ServletContext servletContext = (ServletContext) facesContext
+			//					.getExternalContext()
+			//					.getContext();
+			//			log.info("servletContext.getRealPath : "+servletContext.getRealPath("/"));
+			//			FileOutputStream fileOuputStream = 
+			//					new FileOutputStream(servletContext.getRealPath("/")+"/resources/image/"+uploadedFile.getName()); 
+			//			fileOuputStream.write(uploadedFile.getData());
+			//			fileOuputStream.close();
+			//			if(selectedProductModel.getPathImage()!=null){
+			//				try{
+			//					new File(servletContext.getRealPath("/")+selectedProductModel.getPathImage()).delete();
+			//				}catch(Exception ex){
+			//					ex.printStackTrace();
+			//				}
+			//			}
+			//			selectedProductModel.setPathImage("/resources/image/"+uploadedFile.getName());
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+
+	public void onChangeCatalog(){
+		if(selectedCatalog!=-1){
+			star00 = "";
+		}else{
+			star00 = "*";
+		}
+		if(star00.equals("*")
+				||star01.equals("*") 
+				|| star02.equals("*")
+				|| star03.equals("*")
+				|| star04.equals("*")
+				|| star05.equals("*")){
+			chkAddActive = true;
+		}else{
+			chkAddActive = false;
 		}
 	}
 
@@ -147,8 +215,8 @@ public class DetailProductController implements Serializable{
 			}else{
 				star05 = "*";
 			}
-
-			if(star01.equals("*") 
+			if(star00.equals("*")
+					||star01.equals("*") 
 					|| star02.equals("*")
 					|| star03.equals("*")
 					|| star04.equals("*")
@@ -163,20 +231,26 @@ public class DetailProductController implements Serializable{
 	private void genDataModel(){
 		productModelList = new ArrayList<ProductModel>();
 		List<StockProduct> productList = em.createQuery("From StockProduct " +
-				" Order by stockProductPK.productId",StockProduct.class)
+				" Order by productId",StockProduct.class)
 				.getResultList();
 		if(productList!=null){
 			for(StockProduct pro:productList){
 				ProductModel model = new ProductModel();
-				model.setProductId(StringUtil.n2b(pro.getStockProductPK().getProductId()));
-				model.setCatalogId(StringUtil.n2b(pro.getStockProductPK().getCatalogId()));
+				model.setProductId(StringUtil.n2b(pro.getProductId()));
+				model.setCatalogId(pro.getCatalogId()!=null?pro.getCatalogId().getCatalogId():0);
 				model.setProductCode(StringUtil.n2b(pro.getProductCode()));
 				model.setProductThDesc(StringUtil.n2b(pro.getThDesc()));
 				model.setProductEnDesc(StringUtil.n2b(pro.getEnDesc()));
 				model.setUnit(StringUtil.n2b(pro.getUnit()));
 				model.setPrice(StringUtil.n2b(pro.getPrice()).doubleValue());
 				model.setPv(StringUtil.n2b(pro.getPv()).doubleValue());
-				model.setPathImage(pro.getImageName()!=null?"/resources/product_img/"+pro.getImageName():null);
+				if(pro.getImage()!=null){
+					UploadedImage image = new UploadedImage();
+					image.setData(pro.getImage());
+					image.setLength(pro.getImage().length);
+					image.setName(StringUtil.n2b(pro.getImageName()));
+					model.setImage(image);
+				}
 				productModelList.add(model);
 			}
 		}
@@ -184,12 +258,14 @@ public class DetailProductController implements Serializable{
 
 	private void clear(){
 		try{
+			star00 = "*";
 			star01 = "*";
 			star02 = "*";
 			star03 = "*";
 			star04 = "*";
 			star05 = "*";
 			chkAddActive = true;
+			uploadedImage = null;
 			selectedProductModel = new ProductModel();
 			if(catalogModelList!=null && catalogModelList.size()>0)
 				selectedCatalog = catalogModelList.get(0).getIntKey();
@@ -210,12 +286,11 @@ public class DetailProductController implements Serializable{
 	public void confirmAddProduct(){
 		log.info("--------------- confirmAddProduct() -------------");
 		try{
-			StockProductPK pk = new StockProductPK();
 			int max = stockProductControl.productIdInsert();
-			pk.setProductId(max);
-			pk.setCatalogId(selectedCatalog);
 			StockProduct stackProduct = new StockProduct();
-			stackProduct.setStockProductPK(pk);
+			stackProduct.setProductId(max);
+			if(selectedCatalog!=-1)
+				stackProduct.setCatalogId(em.find(StockCatalog.class, new Integer(selectedCatalog)));
 			stackProduct.setProductCode(selectedProductModel.getProductCode());
 			stackProduct.setThDesc(selectedProductModel.getProductThDesc());
 			stackProduct.setEnDesc(selectedProductModel.getProductThDesc());
@@ -231,6 +306,10 @@ public class DetailProductController implements Serializable{
 			stackProduct.setCreateDate(new Date());
 			stackProduct.setUpdateBy(currentUser.getCurrentAccount().getUserId());
 			stackProduct.setUpdateDate(new Date());
+			if(uploadedImage!=null){
+				stackProduct.setImageName(uploadedImage.getName());
+				stackProduct.setImage(resize(uploadedImage.getData(),200,200));
+			}
 			em.persist(stackProduct);
 			genDataModel();
 		}catch(Exception e){
@@ -241,17 +320,6 @@ public class DetailProductController implements Serializable{
 	public void cancleAddProduct(){
 		log.info("--------------- cancleAddProduct() -------------");
 		try{
-			if(selectedProductModel.getPathImage()!=null){
-				try{
-					FacesContext facesContext = FacesContext.getCurrentInstance();
-					ServletContext servletContext = (ServletContext) facesContext
-							.getExternalContext()
-							.getContext();
-					new File(servletContext.getRealPath("/")+selectedProductModel.getPathImage()).delete();
-				}catch(Exception ex){
-					ex.printStackTrace();
-				}
-			}
 			clear();
 		}catch(Exception e){
 			e.printStackTrace();
@@ -270,10 +338,7 @@ public class DetailProductController implements Serializable{
 	public void deleteProduct(ProductModel product){
 		log.info("--------------- deleteProduct() -------------");
 		try{
-			StockProductPK pk = new StockProductPK();
-			pk.setProductId(product.getProductId());
-			pk.setCatalogId(product.getCatalogId());
-			StockProduct stockProduct = em.find(StockProduct.class, pk);
+			StockProduct stockProduct = em.find(StockProduct.class, new Integer(product.getProductId()));
 			em.remove(stockProduct);
 			productModelList.remove(product);
 		}catch(Exception e){
@@ -304,6 +369,14 @@ public class DetailProductController implements Serializable{
 
 	public void setChkAddActive(boolean chkAddActive) {
 		this.chkAddActive = chkAddActive;
+	}
+
+	public String getStar00() {
+		return star00;
+	}
+
+	public void setStar00(String star00) {
+		this.star00 = star00;
 	}
 
 	public String getStar01() {
@@ -344,6 +417,30 @@ public class DetailProductController implements Serializable{
 
 	public void setStar05(String star05) {
 		this.star05 = star05;
+	}
+
+	public UploadedImage getUploadedImage() {
+		return uploadedImage;
+	}
+
+	public void setUploadedImage(UploadedImage uploadedImage) {
+		this.uploadedImage = uploadedImage;
+	}
+
+	public List<DropDownModel> getCatalogModelList() {
+		return catalogModelList;
+	}
+
+	public void setCatalogModelList(List<DropDownModel> catalogModelList) {
+		this.catalogModelList = catalogModelList;
+	}
+
+	public int getSelectedCatalog() {
+		return selectedCatalog;
+	}
+
+	public void setSelectedCatalog(int selectedCatalog) {
+		this.selectedCatalog = selectedCatalog;
 	}
 
 }

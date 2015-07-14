@@ -90,10 +90,13 @@
 						</h:outputText>
 					</rich:column>
 					<rich:column style="text-align:center">
-						<h:graphicImage rendered="#{item.pathImage ne null}"
-							value="#{item.pathImage}" width="80px" height="80px" />
-						<h:graphicImage rendered="#{item.pathImage eq null}"
-							value="/resources/product_img/noImg.gif" width="80px"
+						<a4j:mediaOutput element="img" mimeType="image/jpeg" id="mediaId"
+							rendered="#{item.image ne null}"
+							createContent="#{detailProductController.paintImg}" value="#{row}"
+							style="width:80px; height:80px;" cacheable="false">
+						</a4j:mediaOutput>
+						<h:graphicImage rendered="#{item.image eq null}"
+							value="/resources/image/noImg.gif" width="80px"
 							height="80px" />
 					</rich:column>
 					<rich:column style="text-align:left">

@@ -21,24 +21,42 @@
 						<td>
 							<table>
 								<tr>
-									<td><h:graphicImage id="imageId01"
-											rendered="#{detailProductController.selectedProductModel.pathImage ne null}"
-											value="#{detailProductController.selectedProductModel.pathImage}"
-											width="80px" height="80px" /> <h:graphicImage id="imageId02"
-											rendered="#{detailProductController.selectedProductModel.pathImage eq null}"
-											value="/resources/product_img/noImg.gif" width="80px"
-											height="80px" /></td>
+									<td><a4j:mediaOutput element="img" mimeType="image/jpeg"
+											rendered="#{detailProductController.uploadedImage ne null}"
+											createContent="#{detailProductController.paint}" value=""
+											style="width:100px; height:100px;" cacheable="false">
+										</a4j:mediaOutput> <h:graphicImage id="imageId02"
+											rendered="#{detailProductController.uploadedImage eq null}"
+											value="/resources/image/noImg.gif" width="100px"
+											height="100px" /></td>
 									<td><rich:fileUpload style="width:240px;height:65px"
 											fileUploadListener="#{detailProductController.listener}"
 											id="upload" acceptedTypes=".jpg, .gif, .png, .bmp"
 											ontyperejected="alert('Only JPG, GIF, PNG and BMP files are accepted');"
 											maxFilesQuantity="1">
-											<a4j:ajax event="uploadcomplete" render="fromMainId" />
+											<a4j:ajax event="uploadcomplete"
+												oncomplete="location.reload();" />
 										</rich:fileUpload></td>
 								</tr>
 							</table>
 
 						</td>
+					</tr>
+					<tr>
+						<td class="tableHead"><h:outputText style="font-size: 13px;"
+								value="#{app_msgs['label.menuSell.category']}" /></td>
+						<td><h:selectOneMenu
+								value="#{detailProductController.selectedCatalog}"
+								style=" width : 150px;" id="dropDownCategory">
+								<a4j:ajax event="change" render="fromMainId"
+									listener="#{detailProductController.onChangeCatalog}" />
+								<f:selectItems
+									value="#{detailProductController.catalogModelList}" var="item"
+									itemLabel="#{item.thLabel}" itemValue="#{item.intKey}">
+								</f:selectItems>
+							</h:selectOneMenu> <h:outputText id="starId00"
+								style="COLOR: #ff0000; font-size: 13px;"
+								value="#{detailProductController.star00}" /></td>
 					</tr>
 					<tr>
 						<td class="tableHead"><h:outputText style="font-size: 13px;"

@@ -8,9 +8,10 @@ package co.th.aten.network.entity;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
@@ -30,8 +31,10 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "StockProduct.findAll", query = "SELECT s FROM StockProduct s")})
 public class StockProduct implements Serializable {
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected StockProductPK stockProductPK;
+    @Id
+    @Basic(optional = false)
+    @Column(name = "product_id")
+    private Integer productId;
     @Column(name = "product_code")
     private String productCode;
     @Column(name = "th_desc")
@@ -64,27 +67,26 @@ public class StockProduct implements Serializable {
     private Date updateDate;
     @Column(name = "image_name")
     private String imageName;
-    @JoinColumn(name = "catalog_id", referencedColumnName = "catalog_id", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private StockCatalog stockCatalog;
+    @Lob
+    @Column(name = "image")
+    private byte[] image;
+    @JoinColumn(name = "catalog_id", referencedColumnName = "catalog_id")
+    @ManyToOne
+    private StockCatalog catalogId;
 
     public StockProduct() {
     }
 
-    public StockProduct(StockProductPK stockProductPK) {
-        this.stockProductPK = stockProductPK;
+    public StockProduct(Integer productId) {
+        this.productId = productId;
     }
 
-    public StockProduct(int productId, int catalogId) {
-        this.stockProductPK = new StockProductPK(productId, catalogId);
+    public Integer getProductId() {
+        return productId;
     }
 
-    public StockProductPK getStockProductPK() {
-        return stockProductPK;
-    }
-
-    public void setStockProductPK(StockProductPK stockProductPK) {
-        this.stockProductPK = stockProductPK;
+    public void setProductId(Integer productId) {
+        this.productId = productId;
     }
 
     public String getProductCode() {
@@ -200,25 +202,33 @@ public class StockProduct implements Serializable {
     }
 
     public String getImageName() {
-		return imageName;
-	}
-
-	public void setImageName(String imageName) {
-		this.imageName = imageName;
-	}
-
-	public StockCatalog getStockCatalog() {
-        return stockCatalog;
+        return imageName;
     }
 
-    public void setStockCatalog(StockCatalog stockCatalog) {
-        this.stockCatalog = stockCatalog;
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
+    public StockCatalog getCatalogId() {
+        return catalogId;
+    }
+
+    public void setCatalogId(StockCatalog catalogId) {
+        this.catalogId = catalogId;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (stockProductPK != null ? stockProductPK.hashCode() : 0);
+        hash += (productId != null ? productId.hashCode() : 0);
         return hash;
     }
 
@@ -229,7 +239,7 @@ public class StockProduct implements Serializable {
             return false;
         }
         StockProduct other = (StockProduct) object;
-        if ((this.stockProductPK == null && other.stockProductPK != null) || (this.stockProductPK != null && !this.stockProductPK.equals(other.stockProductPK))) {
+        if ((this.productId == null && other.productId != null) || (this.productId != null && !this.productId.equals(other.productId))) {
             return false;
         }
         return true;
@@ -237,7 +247,7 @@ public class StockProduct implements Serializable {
 
     @Override
     public String toString() {
-        return "co.th.aten.network.entity.StockProduct[stockProductPK=" + stockProductPK + "]";
+        return "co.th.aten.network.entity.StockProduct[productId=" + productId + "]";
     }
 
 }
