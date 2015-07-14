@@ -1,11 +1,5 @@
 package co.th.aten.network.web;
 
-import java.awt.Color;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -15,7 +9,6 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.SessionScoped;
-import javax.imageio.ImageIO;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
@@ -71,6 +64,7 @@ public class DetailProductController implements Serializable{
 	private String star03;
 	private String star04;
 	private String star05;
+	private int uploadImgCount;
 
 	@PostConstruct
 	public void init(){
@@ -101,10 +95,13 @@ public class DetailProductController implements Serializable{
 
 	public void paint(OutputStream stream, Object object){
 		try{
-			stream.write(resize(uploadedImage.getData(),150,150));
-			stream.close();
+			if(uploadedImage!=null){
+				stream.write(uploadedImage.getData());
+				stream.close();
+				uploadImgCount++;
+			}
 		}catch(Exception e){
-			e.printStackTrace();
+			log.info("Error paint : "+e.getMessage());
 		}
 	}
 
@@ -116,23 +113,35 @@ public class DetailProductController implements Serializable{
 			e.printStackTrace();
 		}
 	}
+	
+//	private byte[] resizeImage(byte[] originalImage, int width, int height) throws IOException {
+//        ByteArrayInputStream in = new ByteArrayInputStream(originalImage);
+//		BufferedImage img = ImageIO.read(in);
+//        BufferedImage resizedImage = new BufferedImage(width, height, 1);
+//        Graphics2D g = resizedImage.createGraphics();
+//        g.drawImage(img, 0, 0, width, height, null);
+//        g.dispose();
+//        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+//		ImageIO.write(resizedImage, "jpg", buffer);
+//        return buffer.toByteArray();
+//    }
 
-	private byte[] resize(byte[] fileData, int width, int height) throws IOException{
-		ByteArrayInputStream in = new ByteArrayInputStream(fileData);
-		BufferedImage img = ImageIO.read(in);
-		if(height == 0) {
-			height = (width * img.getHeight())/ img.getWidth(); 
-		}
-		if(width == 0) {
-			width = (height * img.getWidth())/ img.getHeight();
-		}
-		Image scaledImage = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
-		BufferedImage imageBuff = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-		imageBuff.getGraphics().drawImage(scaledImage, 0, 0, new Color(0,0,0), null);
-		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-		ImageIO.write(imageBuff, "jpg", buffer);
-		return buffer.toByteArray();
-	}
+//	private byte[] resize(byte[] fileData, int width, int height) throws IOException{
+//		ByteArrayInputStream in = new ByteArrayInputStream(fileData);
+//		BufferedImage img = ImageIO.read(in);
+//		if(height == 0) {
+//			height = (width * img.getHeight())/ img.getWidth(); 
+//		}
+//		if(width == 0) {
+//			width = (height * img.getWidth())/ img.getHeight();
+//		}
+//		Image scaledImage = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+//		BufferedImage imageBuff = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+//		imageBuff.getGraphics().drawImage(scaledImage, 0, 0, null, null);
+//		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+//		ImageIO.write(imageBuff, "jpg", buffer);
+//		return buffer.toByteArray();
+//	}
 
 	public void listener(FileUploadEvent event){
 		try{
@@ -264,6 +273,7 @@ public class DetailProductController implements Serializable{
 			star03 = "*";
 			star04 = "*";
 			star05 = "*";
+			uploadImgCount = 0;
 			chkAddActive = true;
 			uploadedImage = null;
 			selectedProductModel = new ProductModel();
@@ -301,14 +311,13 @@ public class DetailProductController implements Serializable{
 			stackProduct.setQty(0);
 			stackProduct.setCompanyId(0);
 			stackProduct.setPackageId(0);
-			stackProduct.setImageName(null);
 			stackProduct.setCreateBy(currentUser.getCurrentAccount().getUserId());
 			stackProduct.setCreateDate(new Date());
 			stackProduct.setUpdateBy(currentUser.getCurrentAccount().getUserId());
 			stackProduct.setUpdateDate(new Date());
 			if(uploadedImage!=null){
 				stackProduct.setImageName(uploadedImage.getName());
-				stackProduct.setImage(resize(uploadedImage.getData(),200,200));
+				stackProduct.setImage(uploadedImage.getData());
 			}
 			em.persist(stackProduct);
 			genDataModel();
@@ -328,6 +337,52 @@ public class DetailProductController implements Serializable{
 
 	public void editProduct(ProductModel product){
 		log.info("--------------- editProduct() -------------");
+		try{
+			clear();
+			selectedProductModel = product;
+			selectedCatalog = product.getCatalogId();
+			uploadedImage = product.getImage();
+			onKeyPress();
+			onChangeCatalog();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+
+	public void confirmEditProduct(){
+		log.info("--------------- confirmEditProduct() -------------");
+		try{
+			StockProduct stackProduct = em.find(StockProduct.class, new Integer(selectedProductModel.getProductId()));
+			if(selectedCatalog!=-1){
+				stackProduct.setCatalogId(em.find(StockCatalog.class, new Integer(selectedCatalog)));
+			}else{
+				stackProduct.setCatalogId(null);
+			}
+			stackProduct.setProductCode(selectedProductModel.getProductCode());
+			stackProduct.setThDesc(selectedProductModel.getProductThDesc());
+			stackProduct.setEnDesc(selectedProductModel.getProductThDesc());
+			stackProduct.setUnit(selectedProductModel.getUnit());
+			stackProduct.setPrice(new BigDecimal(selectedProductModel.getPrice()));
+			stackProduct.setPv(new BigDecimal(selectedProductModel.getPv()));
+			stackProduct.setBv(new BigDecimal(selectedProductModel.getBv()));
+			stackProduct.setQty(0);
+			stackProduct.setCompanyId(0);
+			stackProduct.setPackageId(0);
+			stackProduct.setUpdateBy(currentUser.getCurrentAccount().getUserId());
+			stackProduct.setUpdateDate(new Date());
+			if(uploadedImage!=null){
+				stackProduct.setImageName(uploadedImage.getName());
+				stackProduct.setImage(uploadedImage.getData());
+			}
+			em.merge(stackProduct);
+			genDataModel();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+
+	public void cancleEditProduct(){
+		log.info("--------------- cancleEditProduct() -------------");
 		try{
 			clear();
 		}catch(Exception e){
@@ -441,6 +496,14 @@ public class DetailProductController implements Serializable{
 
 	public void setSelectedCatalog(int selectedCatalog) {
 		this.selectedCatalog = selectedCatalog;
+	}
+
+	public int getUploadImgCount() {
+		return uploadImgCount;
+	}
+
+	public void setUploadImgCount(int uploadImgCount) {
+		this.uploadImgCount = uploadImgCount;
 	}
 
 }
