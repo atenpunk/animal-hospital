@@ -19,6 +19,8 @@ public class ProductModel implements Serializable {
 	private double totalPrice;
 	private double totalPv;
 	private double totalBv;
+	private UploadedImage image;
+	
 	public int getProductId() {
 		return productId;
 	}
@@ -102,6 +104,12 @@ public class ProductModel implements Serializable {
 	}
 	public void setTotalBv(double totalBv) {
 		this.totalBv = totalBv;
+	}
+	public UploadedImage getImage() {
+		return image;
+	}
+	public void setImage(UploadedImage image) {
+		this.image = image;
 	}
 	
 }

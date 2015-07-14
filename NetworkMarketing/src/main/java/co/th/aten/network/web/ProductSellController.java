@@ -1,5 +1,6 @@
 package co.th.aten.network.web;
 
+import java.io.OutputStream;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -7,7 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -25,11 +26,12 @@ import co.th.aten.network.entity.TransactionSellHeader;
 import co.th.aten.network.i18n.AppBundleKey;
 import co.th.aten.network.model.DropDownModel;
 import co.th.aten.network.model.ProductModel;
+import co.th.aten.network.model.UploadedImage;
 import co.th.aten.network.producer.DBDefault;
 import co.th.aten.network.security.CurrentUserManager;
 import co.th.aten.network.util.StringUtil;
 
-@ViewScoped
+@SessionScoped
 @Named
 public class ProductSellController implements Serializable{
 
@@ -108,15 +110,21 @@ public class ProductSellController implements Serializable{
 			if(productList!=null && productList.size()>0){
 				for(StockProduct pro:productList){
 					ProductModel model = new ProductModel();
-					model.setProductId(StringUtil.n2b(pro.getStockProductPK().getProductId()));
-					model.setCatalogId(StringUtil.n2b(pro.getStockProductPK().getCatalogId()));
+					model.setProductId(StringUtil.n2b(pro.getProductId()));
+					model.setCatalogId(pro.getCatalogId()!=null?pro.getCatalogId().getCatalogId():0);
 					model.setProductCode(StringUtil.n2b(pro.getProductCode()));
 					model.setProductThDesc(StringUtil.n2b(pro.getThDesc()));
 					model.setProductEnDesc(StringUtil.n2b(pro.getEnDesc()));
 					model.setPrice(StringUtil.n2b(pro.getPrice()).doubleValue());
 					model.setPv(StringUtil.n2b(pro.getPv()).doubleValue());
 					model.setBv(StringUtil.n2b(pro.getBv()).doubleValue());
-					model.setPathImage(pro.getImageName()!=null?"/resources/product_img/"+pro.getImageName():null);
+					if(pro.getImage()!=null){
+						UploadedImage image = new UploadedImage();
+						image.setData(pro.getImage());
+						image.setLength(pro.getImage().length);
+						image.setName(StringUtil.n2b(pro.getImageName()));
+						model.setImage(image);
+					}
 					productModelList.add(model);
 				}
 			}
@@ -168,6 +176,15 @@ public class ProductSellController implements Serializable{
 					log.info("productSellModelList.size() : "+productSellModelList.size());
 				}
 			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	public void paintImg(OutputStream stream, Object object){
+		try{
+			stream.write(productModelList.get(((Integer)object)).getImage().getData());
+			stream.close();
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -226,15 +243,21 @@ public class ProductSellController implements Serializable{
 			if(productList!=null && productList.size()>0){
 				for(StockProduct pro:productList){
 					ProductModel model = new ProductModel();
-					model.setProductId(StringUtil.n2b(pro.getStockProductPK().getProductId()));
-					model.setCatalogId(StringUtil.n2b(pro.getStockProductPK().getCatalogId()));
+					model.setProductId(StringUtil.n2b(pro.getProductId()));
+					model.setCatalogId(pro.getCatalogId()!=null?pro.getCatalogId().getCatalogId():0);
 					model.setProductCode(StringUtil.n2b(pro.getProductCode()));
 					model.setProductThDesc(StringUtil.n2b(pro.getThDesc()));
 					model.setProductEnDesc(StringUtil.n2b(pro.getEnDesc()));
 					model.setPrice(StringUtil.n2b(pro.getPrice()).doubleValue());
 					model.setPv(StringUtil.n2b(pro.getPv()).doubleValue());
 					model.setBv(StringUtil.n2b(pro.getBv()).doubleValue());
-					model.setPathImage(pro.getImageName()!=null?"/resources/product_img/"+pro.getImageName():null);
+					if(pro.getImage()!=null){
+						UploadedImage image = new UploadedImage();
+						image.setData(pro.getImage());
+						image.setLength(pro.getImage().length);
+						image.setName(StringUtil.n2b(pro.getImageName()));
+						model.setImage(image);
+					}
 					productModelList.add(model);
 				}
 			}
