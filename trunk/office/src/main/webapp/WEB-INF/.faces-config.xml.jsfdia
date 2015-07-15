@@ -91,4 +91,61 @@
     TITLE="#{detailProductController.cancleEditProduct}:[any]" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#sec#category#list.xhtml"
+  PATH="/sec/category/list.xhtml" SHAPE="96,561,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#sec#category#list.xhtml:0" NAME="item"
+   PATH="/sec/category/list.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID=":#{categoryProductController.add}:#sec#category#add.xhtml"
+    NAME="output" PATH="/sec/category/add.xhtml"
+    TARGET="rules:#sec#category#add.xhtml"
+    TITLE="#{categoryProductController.add}:[any]" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+  <PROCESS-ITEM ID="rules:#sec#category#list.xhtml:1" NAME="item1"
+   PATH="/sec/category/list.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID=":#{categoryProductController.edit(item)}:#sec#category#edit.xhtml"
+    NAME="output" PATH="/sec/category/edit.xhtml"
+    TARGET="rules:#sec#category#edit.xhtml"
+    TITLE="#{categoryProductController.edit(item)}:[any]" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#sec#category#add.xhtml"
+  PATH="/sec/category/add.xhtml" SHAPE="240,1105,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#sec#category#add.xhtml:0" NAME="item"
+   PATH="/sec/category/add.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID=":#{categoryProductController.confirmAdd}:#sec#category#list.xhtml"
+    NAME="output" PATH="/sec/category/list.xhtml"
+    TARGET="rules:#sec#category#list.xhtml"
+    TITLE="#{categoryProductController.confirmAdd}:[any]" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+  <PROCESS-ITEM ID="rules:#sec#category#add.xhtml:1" NAME="item1"
+   PATH="/sec/category/add.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID=":#{categoryProductController.cancleAdd}:#sec#category#list.xhtml"
+    NAME="output" PATH="/sec/category/list.xhtml"
+    TARGET="rules:#sec#category#list.xhtml"
+    TITLE="#{categoryProductController.cancleAdd}:[any]" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#sec#category#edit.xhtml"
+  PATH="/sec/category/edit.xhtml" SHAPE="272,1041,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#sec#category#edit.xhtml:0" NAME="item"
+   PATH="/sec/category/edit.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID=":#{categoryProductController.confirmEdit}:#sec#category#list.xhtml"
+    NAME="output" PATH="/sec/category/list.xhtml"
+    TARGET="rules:#sec#category#list.xhtml"
+    TITLE="#{categoryProductController.confirmEdit}:[any]" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+  <PROCESS-ITEM ID="rules:#sec#category#edit.xhtml:1" NAME="item1"
+   PATH="/sec/category/edit.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID=":#{categoryProductController.cancleEdit}:#sec#category#list.xhtml"
+    NAME="output" PATH="/sec/category/list.xhtml"
+    TARGET="rules:#sec#category#list.xhtml"
+    TITLE="#{categoryProductController.cancleEdit}:[any]" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
 </PROCESS>

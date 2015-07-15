@@ -36,7 +36,7 @@
 											maxFilesQuantity="1">
 											<a4j:ajax event="uploadcomplete"
 												oncomplete="if(#{detailProductController.uploadImgCount gt 0})location.reload();"
-												render="fromMainId"/>
+												render="fromMainId" />
 										</rich:fileUpload></td>
 								</tr>
 							</table>
@@ -98,24 +98,16 @@
 								value="#{app_msgs['label.menuSell.price']}" /></td>
 						<td><h:inputText style="font-size: 13px;"
 								value="#{detailProductController.selectedProductModel.price}">
-								<f:convertNumber pattern="#,##0.00" />
-								<a4j:ajax event="keyup" render="starId04,confirmAddId"
-									listener="#{detailProductController.onKeyPress()}" />
-							</h:inputText> <h:outputText id="starId04"
-								style="COLOR: #ff0000; font-size: 13px;"
-								value="#{detailProductController.star04}" /></td>
+								<f:convertNumber pattern="###0.00" />
+							</h:inputText></td>
 					</tr>
 					<tr>
 						<td class="tableHead"><h:outputText style="font-size: 13px;"
 								value="#{app_msgs['label.menuSell.pv']}" /></td>
 						<td><h:inputText style="font-size: 13px;"
 								value="#{detailProductController.selectedProductModel.pv}">
-								<f:convertNumber pattern="#,##0.00" />
-								<a4j:ajax event="keyup" render="starId05,confirmAddId"
-									listener="#{detailProductController.onKeyPress()}" />
-							</h:inputText> <h:outputText id="starId05"
-								style="COLOR: #ff0000; font-size: 13px;"
-								value="#{detailProductController.star05}" /></td>
+								<f:convertNumber pattern="###0.00" />
+							</h:inputText></td>
 					</tr>
 				</table>
 				<br />

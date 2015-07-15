@@ -62,8 +62,6 @@ public class DetailProductController implements Serializable{
 	private String star01;
 	private String star02;
 	private String star03;
-	private String star04;
-	private String star05;
 	private int uploadImgCount;
 
 	@PostConstruct
@@ -185,9 +183,7 @@ public class DetailProductController implements Serializable{
 		if(star00.equals("*")
 				||star01.equals("*") 
 				|| star02.equals("*")
-				|| star03.equals("*")
-				|| star04.equals("*")
-				|| star05.equals("*")){
+				|| star03.equals("*")){
 			chkAddActive = true;
 		}else{
 			chkAddActive = false;
@@ -214,22 +210,10 @@ public class DetailProductController implements Serializable{
 			}else{
 				star03 = "*";
 			}
-			if(selectedProductModel.getPrice()>0){
-				star04 = "";
-			}else{
-				star04 = "*";
-			}
-			if(selectedProductModel.getPv()>0){
-				star05 = "";
-			}else{
-				star05 = "*";
-			}
 			if(star00.equals("*")
 					||star01.equals("*") 
 					|| star02.equals("*")
-					|| star03.equals("*")
-					|| star04.equals("*")
-					|| star05.equals("*")){
+					|| star03.equals("*")){
 				chkAddActive = true;
 			}else{
 				chkAddActive = false;
@@ -271,8 +255,6 @@ public class DetailProductController implements Serializable{
 			star01 = "*";
 			star02 = "*";
 			star03 = "*";
-			star04 = "*";
-			star05 = "*";
 			uploadImgCount = 0;
 			chkAddActive = true;
 			uploadedImage = null;
@@ -457,23 +439,6 @@ public class DetailProductController implements Serializable{
 	public void setStar03(String star03) {
 		this.star03 = star03;
 	}
-
-	public String getStar04() {
-		return star04;
-	}
-
-	public void setStar04(String star04) {
-		this.star04 = star04;
-	}
-
-	public String getStar05() {
-		return star05;
-	}
-
-	public void setStar05(String star05) {
-		this.star05 = star05;
-	}
-
 	public UploadedImage getUploadedImage() {
 		return uploadedImage;
 	}

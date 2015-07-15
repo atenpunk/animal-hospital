@@ -41,5 +41,9 @@
 		<pattern value="/product/editProduct"></pattern>
 		<view-id>/sec/product/editProduct.jsf</view-id>
 	</url-mapping>
+	<url-mapping id="backOffice_04">
+		<pattern value="/category/list"></pattern>
+		<view-id>/sec/category/list.jsf</view-id>
+	</url-mapping>
 
 </pretty-config>

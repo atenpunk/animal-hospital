@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="content">
+		<br />
+		<h:form id="fromMainId">
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText style="font-size: 13px;"
+						value="#{app_msgs['label.menuCategory.addCategory']}" />
+				</f:facet>
+				<table>
+					<tr>
+						<td class="tableHead"><h:outputText style="font-size: 13px;"
+								value="#{app_msgs['label.menuCategory.categoryCode']}" /></td>
+						<td><h:inputText maxlength="20" style="font-size: 13px;"
+								value="#{categoryProductController.selectedCatalogModel.code}">
+								<a4j:ajax event="keyup" render="starId01,confirmAddId"
+									listener="#{categoryProductController.onKeyPress()}" />
+							</h:inputText> <h:outputText id="starId01"
+								style="COLOR: #ff0000; font-size: 13px;"
+								value="#{categoryProductController.star01}" /></td>
+					</tr>
+					<tr>
+						<td class="tableHead"><h:outputText style="font-size: 13px;"
+								value="#{app_msgs['label.menuCategory.categoryTh']}" /></td>
+						<td><h:inputText style="font-size: 13px;width:250px;"
+								maxlength="200"
+								value="#{categoryProductController.selectedCatalogModel.thDesc}">
+								<a4j:ajax event="keyup" render="starId02,confirmAddId"
+									listener="#{categoryProductController.onKeyPress()}" />
+							</h:inputText> <h:outputText id="starId02"
+								style="COLOR: #ff0000; font-size: 13px;"
+								value="#{categoryProductController.star02}" /></td>
+					</tr>
+					<tr>
+						<td class="tableHead"><h:outputText style="font-size: 13px;"
+								value="#{app_msgs['label.menuCategory.categoryEn']}" /></td>
+						<td><h:inputText style="font-size: 13px;" maxlength="20"
+								value="#{categoryProductController.selectedCatalogModel.enDesc}">
+								<a4j:ajax event="keyup" render="starId03,confirmAddId"
+									listener="#{categoryProductController.onKeyPress()}" />
+							</h:inputText> <h:outputText id="starId03"
+								style="COLOR: #ff0000; font-size: 13px;"
+								value="#{categoryProductController.star03}" /></td>
+					</tr>
+				</table>
+				<br />
+				<h:commandButton value="#{app_msgs['button.save']}"
+					id="confirmAddId" style="width : 80px;font-size: 13px;"
+					disabled="#{categoryProductController.chkAddActive}"
+					action="#{categoryProductController.confirmAdd}"></h:commandButton>
+					&#160;&#160;
+					<h:commandButton value="#{app_msgs['button.cancle']}"
+					style="width : 80px;font-size: 13px;"
+					action="#{categoryProductController.cancleAdd}"></h:commandButton>
+			</rich:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
