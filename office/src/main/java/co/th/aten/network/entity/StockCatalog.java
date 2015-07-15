@@ -26,15 +26,7 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "stock_catalog")
 @NamedQueries({
-    @NamedQuery(name = "StockCatalog.findAll", query = "SELECT s FROM StockCatalog s"),
-    @NamedQuery(name = "StockCatalog.findByCatalogId", query = "SELECT s FROM StockCatalog s WHERE s.catalogId = :catalogId"),
-    @NamedQuery(name = "StockCatalog.findByCatalogCode", query = "SELECT s FROM StockCatalog s WHERE s.catalogCode = :catalogCode"),
-    @NamedQuery(name = "StockCatalog.findByThDesc", query = "SELECT s FROM StockCatalog s WHERE s.thDesc = :thDesc"),
-    @NamedQuery(name = "StockCatalog.findByEnDesc", query = "SELECT s FROM StockCatalog s WHERE s.enDesc = :enDesc"),
-    @NamedQuery(name = "StockCatalog.findByCreateBy", query = "SELECT s FROM StockCatalog s WHERE s.createBy = :createBy"),
-    @NamedQuery(name = "StockCatalog.findByCreateDate", query = "SELECT s FROM StockCatalog s WHERE s.createDate = :createDate"),
-    @NamedQuery(name = "StockCatalog.findByUpdateBy", query = "SELECT s FROM StockCatalog s WHERE s.updateBy = :updateBy"),
-    @NamedQuery(name = "StockCatalog.findByUpdateDate", query = "SELECT s FROM StockCatalog s WHERE s.updateDate = :updateDate")})
+    @NamedQuery(name = "StockCatalog.findAll", query = "SELECT s FROM StockCatalog s")})
 public class StockCatalog implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -57,6 +49,8 @@ public class StockCatalog implements Serializable {
     @Column(name = "update_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateDate;
+    @Column(name = "status")
+    private int status;
     @OneToMany(mappedBy = "catalogId")
     private Collection<StockProduct> stockProductCollection;
 
@@ -139,7 +133,15 @@ public class StockCatalog implements Serializable {
         this.stockProductCollection = stockProductCollection;
     }
 
-    @Override
+    public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+	@Override
     public int hashCode() {
         int hash = 0;
         hash += (catalogId != null ? catalogId.hashCode() : 0);

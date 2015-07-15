@@ -123,5 +123,66 @@
 			<redirect />
 		</navigation-case>
 	</navigation-rule>
+	
+	
+	<navigation-rule id="addCategory">
+		<from-view-id>/sec/category/list.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{categoryProductController.add}</from-action>
+			<if>#{true}</if>
+			<to-view-id>/sec/category/add.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule id="confirmAddCategory">
+		<from-view-id>/sec/category/add.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{categoryProductController.confirmAdd}</from-action>
+			<if>#{true}</if>
+			<to-view-id>/sec/category/list.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule id="cancleAddCategory">
+		<from-view-id>/sec/category/add.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{categoryProductController.cancleAdd}</from-action>
+			<if>#{true}</if>
+			<to-view-id>/sec/category/list.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule id="editCategory">
+		<from-view-id>/sec/category/list.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{categoryProductController.edit(item)}</from-action>
+			<if>#{true}</if>
+			<to-view-id>/sec/category/edit.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule id="confirmEditCategory">
+		<from-view-id>/sec/category/edit.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{categoryProductController.confirmEdit}</from-action>
+			<if>#{true}</if>
+			<to-view-id>/sec/category/list.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule id="cancleEditCategory">
+		<from-view-id>/sec/category/edit.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{categoryProductController.cancleEdit}</from-action>
+			<if>#{true}</if>
+			<to-view-id>/sec/category/list.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
 
 </faces-config>

@@ -50,6 +50,9 @@
 					</h:panelGroup>
 				</f:facet>
 				<rich:menuItem submitMode="ajax" style="font-size: 13px;"
+					label="#{app_msgs['menu.label.categoryProduct']}"
+					onclick="document.location.href='#{request.contextPath}/category/list'" />
+				<rich:menuItem submitMode="ajax" style="font-size: 13px;"
 					label="#{app_msgs['menu.label.detailProduct']}"
 					onclick="document.location.href='#{request.contextPath}/product/detailProduct'" />
 			</rich:dropDownMenu>
