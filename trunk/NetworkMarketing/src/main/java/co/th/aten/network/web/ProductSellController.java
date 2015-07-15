@@ -234,10 +234,11 @@ public class ProductSellController implements Serializable{
 			if(selectedCatalog == -1){
 				productList = em.createQuery("From StockProduct",StockProduct.class).getResultList();
 			}else{
+				StockCatalog stockCatalog = em.find(StockCatalog.class, new Integer(selectedCatalog));
 				productList = em.createQuery("From StockProduct " +
-						" Where stockProductPK.catalogId =:catalogId "
+						" Where catalogId =:catalogId "
 						,StockProduct.class)
-						.setParameter("catalogId", selectedCatalog)
+						.setParameter("catalogId", stockCatalog)
 						.getResultList();
 			}
 			if(productList!=null && productList.size()>0){

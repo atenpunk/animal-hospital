@@ -18,11 +18,6 @@
    <PROCESS-ITEM-OUTPUT ID=":#{identity.login}:#sec#home.xhtml"
     NAME="output1" PATH="/sec/home.xhtml" TARGET="rules:#sec#home.xhtml"
     TITLE="#{identity.login}:[any]" model-entity="JSFProcessItemOutput"/>
-   <PROCESS-ITEM-OUTPUT
-    ID=":#{identity.login}:#sec#backoffice#home.xhtml" NAME="output2"
-    PATH="/sec/backoffice/home.xhtml"
-    TARGET="rules:#sec#backoffice#home.xhtml"
-    TITLE="#{identity.login}:[any]" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#home.xhtml" PATH="/home.xhtml"
@@ -79,6 +74,4 @@
     TITLE="#{passwordValidationController.storeNewPassword()}:[any]" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
- <PROCESS-ITEM NAME="rules:#sec#backoffice#home.xhtml"
-  PATH="/sec/backoffice/home.xhtml" SHAPE="512,129,0,0" model-entity="JSFProcessGroup"/>
 </PROCESS>
