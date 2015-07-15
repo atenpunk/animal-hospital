@@ -180,7 +180,7 @@ public class ProductSellController implements Serializable{
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void paintImg(OutputStream stream, Object object){
 		try{
 			stream.write(productModelList.get(((Integer)object)).getImage().getData());
@@ -289,9 +289,9 @@ public class ProductSellController implements Serializable{
 				trxSellHeader.setUpdateBy(currentUser.getCurrentAccount().getUserId());
 				trxSellHeader.setUpdateDate(new Date());
 				em.persist(trxSellHeader);
-//				DecimalFormat df = new DecimalFormat("000000000");
-//				trxSellHeader.setReceiptNo("R"+df.format(trxSellHeader.getTrxHeaderId().intValue()));
-//				em.merge(trxSellHeader);
+				//				DecimalFormat df = new DecimalFormat("000000000");
+				//				trxSellHeader.setReceiptNo("R"+df.format(trxSellHeader.getTrxHeaderId().intValue()));
+				//				em.merge(trxSellHeader);
 
 				for(ProductModel proModel:productSellModelList){
 					TransactionSellDetail trxDetail = new TransactionSellDetail();
@@ -357,6 +357,9 @@ public class ProductSellController implements Serializable{
 	//		}
 	//	}
 
+	public long getTimeStamp(){  
+		return System.currentTimeMillis();  
+	}  
 
 	public List<ProductModel> getProductModelList() {
 		return productModelList;

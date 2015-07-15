@@ -209,7 +209,7 @@
 					style=" width : 150px;" id="dropDownCategory">
 					<a4j:ajax event="change"
 						listener="#{productSellController.onChangeCatalog}"
-						oncomplete="location.reload();"/>
+						render="productListId" />
 					<f:selectItems value="#{productSellController.catalogModelList}"
 						var="item" itemLabel="#{item.thLabel}" itemValue="#{item.intKey}">
 					</f:selectItems>
@@ -230,6 +230,8 @@
 											createContent="#{productSellController.paintImg}"
 											value="#{row}" style="width:95px; height:100px;"
 											cacheable="false">
+											<f:param value="#{productSellController.timeStamp}"
+												name="time" />
 										</a4j:mediaOutput> <h:graphicImage rendered="#{itemProduct.image eq null}"
 											value="/resources/image/noImg.gif" width="95px"
 											height="100px" /></td>
