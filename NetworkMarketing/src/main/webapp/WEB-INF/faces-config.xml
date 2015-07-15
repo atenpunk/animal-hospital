@@ -48,14 +48,8 @@
 		</navigation-case>
 		<navigation-case>
 			<from-action>#{identity.login}</from-action>
-			<if>#{currentUser.groupId.groupId==3}</if>
+			<if>#{true}</if>
 			<to-view-id>/sec/home.xhtml</to-view-id>
-			<redirect />
-		</navigation-case>
-		<navigation-case>
-			<from-action>#{identity.login}</from-action>
-			<if>#{currentUser.groupId.groupId==1 || currentUser.groupId.groupId==2}</if>
-			<to-view-id>/sec/backoffice/home.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
 	</navigation-rule>

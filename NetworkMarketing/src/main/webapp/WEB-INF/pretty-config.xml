@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pretty-config xmlns="http://ocpsoft.com/prettyfaces/2.0.4"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="
-        http://ocpsoft.com/prettyfaces/2.0.4 
-        http://ocpsoft.com/xml/ns/prettyfaces/ocpsoft-pretty-faces-2.0.4.xsd">
+	xsi:schemaLocation="http://ocpsoft.com/xml/ns/prettyfaces/ocpsoft-pretty-faces-2.0.4.xsd">
 
 	<url-mapping id="root">
 		<pattern value="/"></pattern>
@@ -110,16 +108,6 @@
 		<pattern value="/product/sell"></pattern>
 		<view-id>/sec/product/sell.jsf</view-id>
 	</url-mapping>
-
-
-
-	<url-mapping id="backOffice_01">
-		<pattern value="/backoffice/home"></pattern>
-		<view-id>/sec/backoffice/home.jsf</view-id>
-	</url-mapping>
-	<url-mapping id="backOffice_02">
-		<pattern value="/backoffice/detailProduct"></pattern>
-		<view-id>/sec/backoffice/detailProduct.jsf</view-id>
-	</url-mapping>
-
+	
+	
 </pretty-config>
