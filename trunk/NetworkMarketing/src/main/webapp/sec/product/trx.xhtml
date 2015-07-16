@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="content">
+		<br />
+		<h:form>
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText style="font-size: 13px;"
+						value="#{app_msgs['label.menuShopping.history']}" />
+				</f:facet>
+
+				<rich:dataTable id="testDataTable" style="width : 100%;"
+					onrowmouseover="this.style.backgroundColor='#F1F1F1'"
+					onrowmouseout="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+					value="#{productTrxController.trxProductModelList}" var="item"
+					rows="20">
+					<f:facet name="header">
+						<rich:columnGroup>
+							<rich:column breakRowBefore="true">
+								<h:outputText style="font-size: 13px;" value="" />
+							</rich:column>
+							<rich:column>
+								<h:outputText style="font-size: 13px;"
+									value="#{app_msgs['label.menuShoppingTrx.dateTime']}" />
+							</rich:column>
+							<rich:column>
+								<h:outputText style="font-size: 13px;"
+									value="#{app_msgs['label.menuShoppingTrx.receiverNo']}" />
+							</rich:column>
+							<rich:column>
+								<h:outputText style="font-size: 13px;"
+									value="#{app_msgs['label.menuShoppingTrx.memberCodeBuy']}" />
+							</rich:column>
+							<rich:column>
+								<h:outputText style="font-size: 13px;"
+									value="#{app_msgs['label.menuShoppingTrx.memberNameBuy']}" />
+							</rich:column>
+							<rich:column>
+								<h:outputText style="font-size: 13px;"
+									value="#{app_msgs['label.menuShoppingTrx.totalPv']}" />
+							</rich:column>
+							<rich:column>
+								<h:outputText style="font-size: 13px;"
+									value="#{app_msgs['label.menuShoppingTrx.totalPrice']}" />
+							</rich:column>
+							<rich:column>
+								<h:outputText style="font-size: 13px;"
+									value="#{app_msgs['label.menuShoppingTrx.memberCodeKey']}" />
+							</rich:column>
+							<rich:column>
+								<h:outputText style="font-size: 13px;"
+									value="#{app_msgs['label.menuShoppingTrx.status']}" />
+							</rich:column>
+						</rich:columnGroup>
+					</f:facet>
+					<rich:column style="text-align:center;">
+						<h:commandLink action="#{productTrxController.exportReport()}"
+							target="tab">
+							<h:graphicImage value="/resources/image/Printer.gif" />
+						</h:commandLink>
+					</rich:column>
+					<rich:column style="text-align:center;">
+						<h:outputText style="font-size: 13px;" value="#{item.trxDateTime}">
+							<f:convertDateTime pattern="yyyy-MM-dd" />
+						</h:outputText>
+					</rich:column>
+					<rich:column style="text-align:center;">
+						<h:outputText style="font-size: 13px;" value="#{item.receiptNo}" />
+					</rich:column>
+					<rich:column style="text-align:center;">
+						<h:outputText style="font-size: 13px;" value="#{item.memberCode}" />
+					</rich:column>
+					<rich:column style="text-align:left;">
+						<h:outputText style="font-size: 13px;" value="#{item.memberName}" />
+					</rich:column>
+					<rich:column style="text-align:right;">
+						<h:outputText style="font-size: 13px;" value="#{item.totalPv}">
+							<f:convertNumber pattern="#,##0.00" />
+						</h:outputText>
+					</rich:column>
+					<rich:column style="text-align:right;">
+						<h:outputText style="font-size: 13px;" value="#{item.totalPrice}">
+							<f:convertNumber pattern="#,##0.00" />
+						</h:outputText>
+					</rich:column>
+					<rich:column style="text-align:center;">
+						<h:outputText style="font-size: 13px;" value="#{item.memberCodeKey}" />
+					</rich:column>
+					<rich:column style="text-align:left;">
+						<h:outputText style="font-size: 13px;" value="#{item.status}" />
+					</rich:column>
+					<f:facet name="footer">
+						<rich:dataScroller for="testDataTable" />
+					</f:facet>
+				</rich:dataTable>
+			</rich:panel>
+		</h:form>
+	</ui:define>
+
+</ui:composition>
