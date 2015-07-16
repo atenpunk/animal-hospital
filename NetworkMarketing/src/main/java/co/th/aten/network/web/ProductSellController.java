@@ -281,9 +281,9 @@ public class ProductSellController implements Serializable{
 				trxSellHeader.setTotalPrice(new BigDecimal(totalPrice));
 				trxSellHeader.setTotalPv(new BigDecimal(totalPv));
 				trxSellHeader.setTotalBv(new BigDecimal(0));
-				trxSellHeader.setRemark(null);
-				trxSellHeader.setTrxHeaderStatus(new Character('0'));
-				trxSellHeader.setTrxHeaderFlag(new Character('0'));
+			 	trxSellHeader.setRemark(null);
+				trxSellHeader.setTrxHeaderStatus(new Integer(1));
+				trxSellHeader.setTrxHeaderFlag(new Integer(0));
 				trxSellHeader.setCreateBy(currentUser.getCurrentAccount().getUserId());
 				trxSellHeader.setCreateDate(new Date());
 				trxSellHeader.setUpdateBy(currentUser.getCurrentAccount().getUserId());

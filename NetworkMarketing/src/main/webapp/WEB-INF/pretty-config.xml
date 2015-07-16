@@ -108,6 +108,10 @@
 		<pattern value="/product/sell"></pattern>
 		<view-id>/sec/product/sell.jsf</view-id>
 	</url-mapping>
+	<url-mapping id="product_02">
+		<pattern value="/product/trx"></pattern>
+		<view-id>/sec/product/trx.jsf</view-id>
+	</url-mapping>
 	
 	
 </pretty-config>
