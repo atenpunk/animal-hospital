@@ -52,10 +52,6 @@ public class TransactionSellHeader implements Serializable {
     @Lob
     @Column(name = "remark")
     private String remark;
-    @Column(name = "trx_header_status")
-    private Character trxHeaderStatus;
-    @Column(name = "trx_header_flag")
-    private Character trxHeaderFlag;
     @Column(name = "create_by")
     private Integer createBy;
     @Column(name = "create_date")
@@ -66,7 +62,11 @@ public class TransactionSellHeader implements Serializable {
     @Column(name = "update_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateDate;
-
+    @Column(name = "trx_header_status")
+    private Integer trxHeaderStatus;
+    @Column(name = "trx_header_flag")
+    private Integer trxHeaderFlag;
+    
     public TransactionSellHeader() {
     }
 
@@ -138,19 +138,19 @@ public class TransactionSellHeader implements Serializable {
         this.remark = remark;
     }
 
-    public Character getTrxHeaderStatus() {
+    public Integer getTrxHeaderStatus() {
         return trxHeaderStatus;
     }
 
-    public void setTrxHeaderStatus(Character trxHeaderStatus) {
+    public void setTrxHeaderStatus(Integer trxHeaderStatus) {
         this.trxHeaderStatus = trxHeaderStatus;
     }
 
-    public Character getTrxHeaderFlag() {
+    public Integer getTrxHeaderFlag() {
         return trxHeaderFlag;
     }
 
-    public void setTrxHeaderFlag(Character trxHeaderFlag) {
+    public void setTrxHeaderFlag(Integer trxHeaderFlag) {
         this.trxHeaderFlag = trxHeaderFlag;
     }
 
