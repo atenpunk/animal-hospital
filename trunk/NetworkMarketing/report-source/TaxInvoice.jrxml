@@ -1,0 +1,869 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TaxInvoice" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="30" rightMargin="30" topMargin="35" bottomMargin="2">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="96"/>
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<style name="solar" isDefault="true" fontName="Tahoma" pdfFontName="c:\windows\fonts\tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+	<parameter name="strBillNo" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="paymentDate" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="contracId" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="location" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="postcode" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="totalAmount" class="java.lang.Double" isForPrompting="false"/>
+	<parameter name="totalAmountTxt" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="staffName" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="checkCash" class="java.lang.Boolean" isForPrompting="false"/>
+	<parameter name="checkCredit" class="java.lang.Boolean" isForPrompting="false"/>
+	<parameter name="checkOther" class="java.lang.Boolean" isForPrompting="false"/>
+	<parameter name="clientName" class="java.lang.String"/>
+	<parameter name="pan" class="java.lang.Long" isForPrompting="false"/>
+	<parameter name="posCode" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="discount" class="java.lang.Double" isForPrompting="false"/>
+	<parameter name="totalNetAmount" class="java.lang.Double" isForPrompting="false"/>
+	<parameter name="tax" class="java.lang.Double" isForPrompting="false"/>
+	<parameter name="totalAll" class="java.lang.Double" isForPrompting="false"/>
+	<parameter name="sumAmount" class="java.lang.Double" isForPrompting="false"/>
+	<parameter name="price" class="java.lang.Double" isForPrompting="false"/>
+	<parameter name="vat" class="java.lang.Double" isForPrompting="false"/>
+	<parameter name="logo_file" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="discountRate" class="java.lang.Integer" isForPrompting="false"/>
+	<parameter name="vatRate" class="java.lang.Integer" isForPrompting="false"/>
+	<parameter name="terminalDesc" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="printLocation" class="java.lang.String" isForPrompting="false"/>
+	<field name="printCount" class="java.lang.Short">
+		<fieldDescription><![CDATA[printCount]]></fieldDescription>
+	</field>
+	<field name="cspmChequeBank1" class="java.lang.String">
+		<fieldDescription><![CDATA[cspmChequeBank1]]></fieldDescription>
+	</field>
+	<field name="obuBarcode2" class="java.lang.String">
+		<fieldDescription><![CDATA[obuBarcode2]]></fieldDescription>
+	</field>
+	<field name="price" class="java.lang.Double">
+		<fieldDescription><![CDATA[price]]></fieldDescription>
+	</field>
+	<field name="txt3202" class="java.lang.String">
+		<fieldDescription><![CDATA[txt3202]]></fieldDescription>
+	</field>
+	<field name="receiptNo" class="java.lang.String">
+		<fieldDescription><![CDATA[receiptNo]]></fieldDescription>
+	</field>
+	<field name="address4" class="java.lang.String">
+		<fieldDescription><![CDATA[address4]]></fieldDescription>
+	</field>
+	<field name="group" class="java.lang.Integer">
+		<fieldDescription><![CDATA[group]]></fieldDescription>
+	</field>
+	<field name="staffPosition" class="java.lang.String">
+		<fieldDescription><![CDATA[staffPosition]]></fieldDescription>
+	</field>
+	<field name="refundChannel" class="java.lang.String">
+		<fieldDescription><![CDATA[refundChannel]]></fieldDescription>
+	</field>
+	<field name="contracId" class="java.lang.String">
+		<fieldDescription><![CDATA[contracId]]></fieldDescription>
+	</field>
+	<field name="address2" class="java.lang.String">
+		<fieldDescription><![CDATA[address2]]></fieldDescription>
+	</field>
+	<field name="cspmChequeNumber2" class="java.lang.String">
+		<fieldDescription><![CDATA[cspmChequeNumber2]]></fieldDescription>
+	</field>
+	<field name="printLocation" class="java.lang.String">
+		<fieldDescription><![CDATA[printLocation]]></fieldDescription>
+	</field>
+	<field name="pan" class="java.lang.Long">
+		<fieldDescription><![CDATA[pan]]></fieldDescription>
+	</field>
+	<field name="cspmChequeDate2" class="java.util.Date">
+		<fieldDescription><![CDATA[cspmChequeDate2]]></fieldDescription>
+	</field>
+	<field name="address3" class="java.lang.String">
+		<fieldDescription><![CDATA[address3]]></fieldDescription>
+	</field>
+	<field name="sumAmount" class="java.lang.Double">
+		<fieldDescription><![CDATA[sumAmount]]></fieldDescription>
+	</field>
+	<field name="checkCash" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[checkCash]]></fieldDescription>
+	</field>
+	<field name="vat" class="java.lang.Double">
+		<fieldDescription><![CDATA[vat]]></fieldDescription>
+	</field>
+	<field name="cspmChequeNumber1" class="java.lang.String">
+		<fieldDescription><![CDATA[cspmChequeNumber1]]></fieldDescription>
+	</field>
+	<field name="location" class="java.lang.String">
+		<fieldDescription><![CDATA[location]]></fieldDescription>
+	</field>
+	<field name="strBillNo" class="java.lang.String">
+		<fieldDescription><![CDATA[strBillNo]]></fieldDescription>
+	</field>
+	<field name="discount" class="java.lang.Double">
+		<fieldDescription><![CDATA[discount]]></fieldDescription>
+	</field>
+	<field name="totalAmountText" class="java.lang.String">
+		<fieldDescription><![CDATA[totalAmountText]]></fieldDescription>
+	</field>
+	<field name="detail" class="java.lang.String">
+		<fieldDescription><![CDATA[detail]]></fieldDescription>
+	</field>
+	<field name="cspmChequeBank2" class="java.lang.String">
+		<fieldDescription><![CDATA[cspmChequeBank2]]></fieldDescription>
+	</field>
+	<field name="receiptHeaderType" class="java.lang.String">
+		<fieldDescription><![CDATA[receiptHeaderType]]></fieldDescription>
+	</field>
+	<field name="orderId" class="java.lang.Integer">
+		<fieldDescription><![CDATA[orderId]]></fieldDescription>
+	</field>
+	<field name="paymentForId" class="java.lang.Integer">
+		<fieldDescription><![CDATA[paymentForId]]></fieldDescription>
+	</field>
+	<field name="checkCreditCard" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[checkCreditCard]]></fieldDescription>
+	</field>
+	<field name="plateNo" class="java.lang.String">
+		<fieldDescription><![CDATA[plateNo]]></fieldDescription>
+	</field>
+	<field name="orgName" class="java.lang.String">
+		<fieldDescription><![CDATA[orgName]]></fieldDescription>
+	</field>
+	<field name="address" class="java.lang.String">
+		<fieldDescription><![CDATA[address]]></fieldDescription>
+	</field>
+	<field name="paymentDate" class="java.util.Date">
+		<fieldDescription><![CDATA[paymentDate]]></fieldDescription>
+	</field>
+	<field name="staffName" class="java.lang.String">
+		<fieldDescription><![CDATA[staffName]]></fieldDescription>
+	</field>
+	<field name="obuBarcode" class="java.lang.String">
+		<fieldDescription><![CDATA[obuBarcode]]></fieldDescription>
+	</field>
+	<field name="address1" class="java.lang.String">
+		<fieldDescription><![CDATA[address1]]></fieldDescription>
+	</field>
+	<field name="discountMethod" class="java.lang.Short">
+		<fieldDescription><![CDATA[discountMethod]]></fieldDescription>
+	</field>
+	<field name="totalAmount" class="java.lang.Double">
+		<fieldDescription><![CDATA[totalAmount]]></fieldDescription>
+	</field>
+	<field name="posCode" class="java.lang.String">
+		<fieldDescription><![CDATA[posCode]]></fieldDescription>
+	</field>
+	<field name="checkOther" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[checkOther]]></fieldDescription>
+	</field>
+	<field name="clientName" class="java.lang.String">
+		<fieldDescription><![CDATA[clientName]]></fieldDescription>
+	</field>
+	<field name="bookNo" class="java.lang.Integer">
+		<fieldDescription><![CDATA[bookNo]]></fieldDescription>
+	</field>
+	<field name="receiptType" class="java.lang.String">
+		<fieldDescription><![CDATA[receiptType]]></fieldDescription>
+	</field>
+	<field name="phone" class="java.lang.String">
+		<fieldDescription><![CDATA[phone]]></fieldDescription>
+	</field>
+	<field name="terminalDesc" class="java.lang.String">
+		<fieldDescription><![CDATA[terminalDesc]]></fieldDescription>
+	</field>
+	<field name="vatRate" class="java.lang.Float">
+		<fieldDescription><![CDATA[vatRate]]></fieldDescription>
+	</field>
+	<field name="qty" class="java.lang.Integer">
+		<fieldDescription><![CDATA[qty]]></fieldDescription>
+	</field>
+	<field name="logoFile" class="java.lang.String">
+		<fieldDescription><![CDATA[logoFile]]></fieldDescription>
+	</field>
+	<field name="discountRate" class="java.lang.Float">
+		<fieldDescription><![CDATA[discountRate]]></fieldDescription>
+	</field>
+	<field name="type" class="java.lang.Integer">
+		<fieldDescription><![CDATA[type]]></fieldDescription>
+	</field>
+	<field name="cspmChequeDate1" class="java.util.Date">
+		<fieldDescription><![CDATA[cspmChequeDate1]]></fieldDescription>
+	</field>
+	<field name="amount" class="java.lang.Double">
+		<fieldDescription><![CDATA[amount]]></fieldDescription>
+	</field>
+	<field name="billNo" class="java.lang.Integer">
+		<fieldDescription><![CDATA[billNo]]></fieldDescription>
+	</field>
+	<field name="taxId" class="java.lang.String">
+		<fieldDescription><![CDATA[taxId]]></fieldDescription>
+	</field>
+	<field name="checkMainBranch" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[checkMainBranch]]></fieldDescription>
+	</field>
+	<field name="branchNo" class="java.lang.String">
+		<fieldDescription><![CDATA[branchNo]]></fieldDescription>
+	</field>
+	<field name="smartCardId" class="java.lang.String">
+		<fieldDescription><![CDATA[smartCardId]]></fieldDescription>
+	</field>
+	<field name="customerType" class="java.lang.String">
+		<fieldDescription><![CDATA[customerType]]></fieldDescription>
+	</field>
+	<variable name="sumAmount" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{amount}]]></variableExpression>
+	</variable>
+	<variable name="excludeVat" class="java.lang.Double" resetType="Group" resetGroup="group">
+		<variableExpression><![CDATA[new Double($F{totalAmount}.doubleValue()-$F{vat}.doubleValue())]]></variableExpression>
+	</variable>
+	<variable name="chequeBank" class="java.lang.String" resetType="Group" resetGroup="group">
+		<variableExpression><![CDATA[($F{type}+"").equals("1")||($F{type}+"").equals("5")||($F{type}+"").equals("6")? $F{cspmChequeBank1} : $F{cspmChequeBank2}]]></variableExpression>
+	</variable>
+	<variable name="chequeNo" class="java.lang.String">
+		<variableExpression><![CDATA[($F{type}+"").equals("1")||($F{type}+"").equals("5")||($F{type}+"").equals("6")? $F{cspmChequeNumber1} :$F{cspmChequeNumber2}]]></variableExpression>
+	</variable>
+	<variable name="chequeDate" class="java.util.Date">
+		<variableExpression><![CDATA[($F{type}+"").equals("1")||($F{type}+"").equals("5")||($F{type}+"").equals("6")? $F{cspmChequeDate1} :$F{cspmChequeDate2}]]></variableExpression>
+	</variable>
+	<group name="group">
+		<groupExpression><![CDATA[$F{group}]]></groupExpression>
+		<groupHeader>
+			<band height="155" splitType="Stretch">
+				<staticText>
+					<reportElement key="staticText-6" style="solar" x="400" y="90" width="37" height="13"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[วันที่]]></text>
+				</staticText>
+				<image hAlign="Center" vAlign="Middle" onErrorType="Icon">
+					<reportElement key="image-1" style="solar" x="2" y="2" width="59" height="53"/>
+					<imageExpression class="java.lang.String"><![CDATA[$F{logoFile}]]></imageExpression>
+				</image>
+				<staticText>
+					<reportElement key="staticText-5" style="solar" x="400" y="76" width="37" height="13"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[เลขที่]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-9" style="solar" x="115" y="58" width="309" height="17"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="12"/>
+					</textElement>
+					<text><![CDATA[ใบสั่งซื้อ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-11" style="solar" x="5" y="90" width="50" height="13"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[ชื่อลูกค้า]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-13" style="solar" x="5" y="104" width="50" height="13"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[ที่อยู่]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-14" style="solar" x="5" y="76" width="50" height="13"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[รหัสลูกค้า]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+					<reportElement key="textField-2" style="solar" x="437" y="90" width="96" height="13" forecolor="#000000"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{paymentDate}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement key="textField-5" style="solar" x="55" y="90" width="345" height="13"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{clientName}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement key="textField-8" style="solar" x="55" y="104" width="345" height="13"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{address}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement key="textField-9" style="solar" x="55" y="76" width="63" height="13"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{contracId}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement key="textField-19" style="solar" x="437" y="76" width="96" height="13"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{receiptNo}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement key="staticText-5" style="solar" x="445" y="19" width="80" height="13"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[เอกสารออกเป็นชุด]]></text>
+				</staticText>
+				<line>
+					<reportElement key="line-9" style="solar" stretchType="RelativeToBandHeight" x="33" y="140" width="1" height="14"/>
+					<graphicElement>
+						<pen lineWidth="0.1" lineStyle="Solid"/>
+					</graphicElement>
+				</line>
+				<line>
+					<reportElement key="line-10" style="solar" stretchType="RelativeToBandHeight" x="319" y="140" width="1" height="14"/>
+					<graphicElement>
+						<pen lineWidth="0.1" lineStyle="Solid"/>
+					</graphicElement>
+				</line>
+				<line>
+					<reportElement key="line-11" style="solar" stretchType="RelativeToBandHeight" x="386" y="140" width="1" height="14"/>
+					<graphicElement>
+						<pen lineWidth="0.1" lineStyle="Solid"/>
+					</graphicElement>
+				</line>
+				<line>
+					<reportElement key="line-12" style="solar" stretchType="RelativeToBandHeight" x="456" y="140" width="1" height="14"/>
+					<graphicElement>
+						<pen lineWidth="0.1" lineStyle="Solid"/>
+					</graphicElement>
+				</line>
+				<staticText>
+					<reportElement key="staticText-17" style="solar" x="1" y="140" width="31" height="13"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[ลำดับ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-18" style="solar" x="101" y="140" width="217" height="13"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[รายการสินค้าหรือบริการ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-19" style="solar" x="320" y="140" width="65" height="13"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[จำนวน]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-20" style="solar" x="387" y="140" width="68" height="13"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[ราคาต่อหน่วย]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-21" style="solar" x="457" y="140" width="76" height="13"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[จำนวนเงิน]]></text>
+				</staticText>
+				<line>
+					<reportElement key="line-9" style="solar" stretchType="RelativeToBandHeight" x="100" y="139" width="1" height="15"/>
+					<graphicElement>
+						<pen lineWidth="0.1" lineStyle="Solid"/>
+					</graphicElement>
+				</line>
+				<staticText>
+					<reportElement key="staticText-17" style="solar" x="34" y="140" width="65" height="13"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[รหัสสินค้า]]></text>
+				</staticText>
+				<line>
+					<reportElement key="line-23" style="solar" positionType="FixRelativeToBottom" x="0" y="154" width="535" height="1"/>
+				</line>
+				<line>
+					<reportElement key="line-24" style="solar" stretchType="RelativeToBandHeight" x="0" y="140" width="1" height="14"/>
+				</line>
+				<line>
+					<reportElement key="line-29" style="solar" x="0" y="139" width="535" height="1"/>
+				</line>
+				<line>
+					<reportElement key="line-30" style="solar" stretchType="RelativeToBandHeight" x="534" y="140" width="1" height="14"/>
+				</line>
+				<line>
+					<reportElement key="line-32" style="solar" x="0" y="2" width="1" height="134"/>
+				</line>
+				<line>
+					<reportElement key="line-33" style="solar" x="0" y="136" width="535" height="1"/>
+				</line>
+				<line>
+					<reportElement key="line-34" style="solar" x="534" y="2" width="1" height="134"/>
+				</line>
+				<line>
+					<reportElement key="line-35" style="solar" x="0" y="1" width="535" height="1"/>
+				</line>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement key="textField-28" style="solar" x="457" y="6" width="57" height="13"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{receiptHeaderType}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement key="textField-29" style="solar" x="97" y="45" width="348" height="13"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{address4}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement key="textField-30" style="solar" x="115" y="19" width="309" height="13"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{address2}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement key="textField-31" style="solar" x="115" y="32" width="309" height="13"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{address3}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement key="textField-32" style="solar" x="86" y="2" width="368" height="17"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{address1}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement key="textField-34" style="solar" x="445" y="32" width="79" height="13">
+						<printWhenExpression><![CDATA[new Boolean($F{printCount}.shortValue()>1)]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["พิมพ์ซ้ำครั้งที่ "+($F{printCount}.shortValue()-Short.valueOf("1").shortValue())]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement key="textField-35" style="solar" x="445" y="45" width="79" height="13">
+						<printWhenExpression><![CDATA[new Boolean($F{printCount}.shortValue()>1)]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{printLocation}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="181" splitType="Stretch">
+				<textField isBlankWhenNull="true">
+					<reportElement key="textField-14" style="solar" x="57" y="44" width="14" height="13"/>
+					<box>
+						<pen lineWidth="1.0" lineStyle="Solid"/>
+						<topPen lineWidth="1.0" lineStyle="Solid"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{checkCash}.booleanValue()==true? "X" : ""]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement key="textField-15" style="solar" x="57" y="60" width="14" height="13"/>
+					<box>
+						<pen lineWidth="1.0" lineStyle="Solid"/>
+						<topPen lineWidth="1.0" lineStyle="Solid"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{checkCreditCard}.booleanValue()==true? "X" : ""]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement key="textField-16" style="solar" x="57" y="76" width="14" height="13"/>
+					<box>
+						<pen lineWidth="1.0" lineStyle="Solid"/>
+						<topPen lineWidth="1.0" lineStyle="Solid"/>
+						<leftPen lineWidth="1.0" lineStyle="Solid"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+						<rightPen lineWidth="1.0" lineStyle="Solid"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{checkOther}.booleanValue()==true? "X" : ""]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement key="staticText-36" style="solar" x="381" y="111" width="12" height="12"/>
+					<textElement textAlignment="Right" verticalAlignment="Bottom">
+						<font fontName="Tahoma" size="8" isUnderline="false" pdfFontName="c:\windows\fonts\tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[(]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement key="textField-17" style="solar" x="393" y="111" width="129" height="12"/>
+					<textElement textAlignment="Center" verticalAlignment="Bottom">
+						<font fontName="Tahoma" size="8" pdfFontName="c:\windows\fonts\tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{staffName}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement key="line-22" style="solar" x="394" y="106" width="128" height="1"/>
+					<graphicElement>
+						<pen lineWidth="0.1" lineStyle="Solid"/>
+					</graphicElement>
+				</line>
+				<staticText>
+					<reportElement key="staticText-23" style="solar" x="1" y="4" width="70" height="13"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[จำนวนเงินรวม]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-24" style="solar" x="1" y="17" width="70" height="13"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[(ตัวอักษร)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-25" style="solar" x="1" y="44" width="54" height="13"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[ชำระโดย]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-29" style="solar" x="77" y="44" width="55" height="13"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[เงินสด]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-30" style="solar" x="77" y="60" width="55" height="13"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[บัตรเครดิต]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-31" style="solar" x="77" y="76" width="40" height="13"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[เช็คธนาคาร]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-35" style="solar" x="430" y="127" width="55" height="13"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[ผู้รับเงิน]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement key="textField-13" style="solar" x="71" y="4" width="248" height="13"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{totalAmountText}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement key="staticText-22" style="solar" x="380" y="1" width="75" height="13" backcolor="#F5F1F1"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[จำนวนเงินรวม]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
+					<reportElement key="textField-12" style="solar" x="457" y="1" width="76" height="13" backcolor="#FFFFFF"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$F{sumAmount}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement key="staticText-35" style="solar" x="10" y="97" width="172" height="13"/>
+					<textElement verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+					<text><![CDATA[ใบเสร็จรับเงิน/ใบกำกับภาษีฉบับนี้จะต้องมีลายเซ็นต์ผู้รับเงิน]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-35" style="solar" x="10" y="111" width="346" height="13"/>
+					<textElement verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+					<text><![CDATA[ในกรณีชำระด้วยเช็ค ใบเสร็จรับเงิน/ใบกำกับภาษีฉบับนี้จะสมบูรณ์ต่อเมื่อเช็คของท่าน เรียกเก็บจากธนาคารได้เรียบร้อยแล้ว]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-36" style="solar" x="522" y="111" width="11" height="12"/>
+					<textElement verticalAlignment="Bottom">
+						<font fontName="Tahoma" size="8" isUnderline="false" pdfFontName="c:\windows\fonts\tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-35" style="solar" x="10" y="126" width="310" height="13"/>
+					<textElement verticalAlignment="Middle">
+						<font size="7"/>
+					</textElement>
+					<text><![CDATA[หากใบเสร็จรับเงิน/ใบกำกับภาษีไม่ถูกต้อง ขอให้นำใบเสร็จรับเงิน/ใบกำกับภาษี มาขอแก้ไขภายใน 1 สัปดาห์]]></text>
+				</staticText>
+				<line>
+					<reportElement key="line-22" style="solar" x="457" y="15" width="77" height="1"/>
+					<graphicElement>
+						<pen lineWidth="0.1" lineStyle="Solid"/>
+					</graphicElement>
+				</line>
+				<line>
+					<reportElement key="line-22" style="solar" x="457" y="30" width="77" height="1"/>
+					<graphicElement>
+						<pen lineWidth="0.1" lineStyle="Solid"/>
+					</graphicElement>
+				</line>
+				<staticText>
+					<reportElement key="staticText-22" style="solar" x="380" y="16" width="28" height="13" backcolor="#F5F1F1"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[ส่วนลด]]></text>
+				</staticText>
+				<line>
+					<reportElement key="line-22" style="solar" x="457" y="45" width="77" height="1"/>
+					<graphicElement>
+						<pen lineWidth="0.1" lineStyle="Solid"/>
+					</graphicElement>
+				</line>
+				<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
+					<reportElement key="textField-12" style="solar" x="457" y="31" width="76" height="13" backcolor="#FFFFFF"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$F{totalAmount}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement key="staticText-22" style="solar" x="380" y="31" width="75" height="13" backcolor="#F5F1F1"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[จำนวนเงินรวมสุทธิ]]></text>
+				</staticText>
+				<line>
+					<reportElement key="line-22" style="solar" x="457" y="59" width="77" height="1"/>
+					<graphicElement>
+						<pen lineWidth="0.1" lineStyle="Solid"/>
+					</graphicElement>
+				</line>
+				<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
+					<reportElement key="textField-12" style="solar" x="457" y="45" width="76" height="13" backcolor="#FFFFFF"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$F{vat}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement key="line-22" style="solar" x="457" y="74" width="77" height="1"/>
+					<graphicElement>
+						<pen lineWidth="0.1" lineStyle="Solid"/>
+					</graphicElement>
+				</line>
+				<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
+					<reportElement key="textField-12" style="solar" x="457" y="60" width="76" height="13" backcolor="#FFFFFF"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$V{excludeVat}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement key="line-22" style="solar" x="456" y="0" width="1" height="76"/>
+					<graphicElement>
+						<pen lineWidth="0.1" lineStyle="Solid"/>
+					</graphicElement>
+				</line>
+				<staticText>
+					<reportElement key="staticText-22" style="solar" x="380" y="45" width="49" height="13" backcolor="#F5F1F1"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[ภาษีมูลค่าเพิ่ม]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-22" style="solar" x="380" y="60" width="75" height="13" backcolor="#F5F1F1"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[มูลค่าสินค้าหรือบริการ]]></text>
+				</staticText>
+				<line>
+					<reportElement key="line-26" style="solar" x="0" y="0" width="1" height="156"/>
+				</line>
+				<line>
+					<reportElement key="line-27" style="solar" positionType="FixRelativeToBottom" x="0" y="156" width="535" height="1"/>
+				</line>
+				<line>
+					<reportElement key="line-28" style="solar" x="534" y="0" width="1" height="156"/>
+				</line>
+				<textField isStretchWithOverflow="true" pattern="###0" isBlankWhenNull="true">
+					<reportElement key="textField-27" style="solar" x="429" y="45" width="14" height="13"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Float"><![CDATA[$F{vatRate}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement key="staticText-41" style="solar" x="443" y="45" width="13" height="13"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[%]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-43" style="solar" x="457" y="16" width="76" height="13"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[0.00]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-44" style="solar" x="408" y="16" width="31" height="13"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[0 %]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="33" splitType="Stretch">
+			<line>
+				<reportElement key="line-16" style="solar" stretchType="RelativeToBandHeight" x="33" y="0" width="1" height="32"/>
+				<graphicElement>
+					<pen lineWidth="0.1" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement key="line-17" style="solar" stretchType="RelativeToBandHeight" x="319" y="0" width="1" height="32"/>
+				<graphicElement>
+					<pen lineWidth="0.1" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement key="line-18" style="solar" stretchType="RelativeToBandHeight" x="386" y="0" width="1" height="32"/>
+				<graphicElement>
+					<pen lineWidth="0.1" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement key="line-19" style="solar" stretchType="RelativeToBandHeight" x="456" y="0" width="1" height="32"/>
+				<graphicElement>
+					<pen lineWidth="0.1" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField-21" style="solar" stretchType="RelativeToTallestObject" x="101" y="0" width="217" height="32"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{detail}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+				<reportElement key="textField-22" style="solar" stretchType="RelativeToTallestObject" x="320" y="0" width="65" height="32"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{qty}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement key="textField-23" style="solar" stretchType="RelativeToTallestObject" x="387" y="0" width="68" height="32"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$F{price}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement key="textField-24" style="solar" stretchType="RelativeToTallestObject" x="457" y="0" width="76" height="32"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$F{amount}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement key="line-16" style="solar" stretchType="RelativeToBandHeight" x="100" y="0" width="1" height="32"/>
+				<graphicElement>
+					<pen lineWidth="0.1" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField-20" style="solar" stretchType="RelativeToTallestObject" x="34" y="0" width="65" height="32"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement key="line-25" style="solar" stretchType="RelativeToBandHeight" x="0" y="0" width="1" height="32"/>
+			</line>
+			<line>
+				<reportElement key="line-31" style="solar" stretchType="RelativeToBandHeight" x="534" y="0" width="1" height="32"/>
+			</line>
+			<line>
+				<reportElement key="line-36" style="solar" positionType="FixRelativeToBottom" x="0" y="32" width="535" height="1"/>
+			</line>
+			<staticText>
+				<reportElement key="staticText-42" style="solar" stretchType="RelativeToTallestObject" x="1" y="0" width="31" height="32"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[1]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
