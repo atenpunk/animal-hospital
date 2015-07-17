@@ -67,7 +67,8 @@
 					<a4j:commandButton id="saveSell"
 						disabled="#{productSellController.productSellModelList.size() eq 0}"
 						value="#{app_msgs['button.save']}"
-						onclick="if (!confirm('#{app_msgs['label.sellPage.save']}')) return false"
+						onclick="confirmMsg('#{app_msgs['label.sellPage.save']}');"
+						oncomplete="endProgress();"
 						action="#{productSellController.saveOrder}"
 						render="testDataTable,messageId,saveSell"
 						style="font-size: 12px; width : 80px;"></a4j:commandButton>

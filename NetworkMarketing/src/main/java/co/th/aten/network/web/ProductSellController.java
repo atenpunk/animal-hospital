@@ -18,6 +18,7 @@ import org.jboss.seam.international.status.MessageFactory;
 import org.jboss.seam.international.status.Messages;
 import org.jboss.solder.logging.Logger;
 
+import co.th.aten.network.control.TransactionReceiptControl;
 import co.th.aten.network.entity.MemberCustomer;
 import co.th.aten.network.entity.StockCatalog;
 import co.th.aten.network.entity.StockProduct;
@@ -42,16 +43,14 @@ public class ProductSellController implements Serializable{
 
 	@Inject
 	private Logger log;
-
 	@Inject
 	private CurrentUserManager currentUser;
-
+	@Inject
+	private TransactionReceiptControl transactionReceiptControl;
 	@Inject
 	private MessageFactory factory;
-
 	@Inject
 	private Messages messages;
-
 	@Inject
 	@DBDefault
 	private EntityManager em;
@@ -275,8 +274,8 @@ public class ProductSellController implements Serializable{
 		try{
 			if(memSearch!=null && productSellModelList!=null && productSellModelList.size()>0){
 				TransactionSellHeader trxSellHeader = new TransactionSellHeader();
-				//				trxSellHeader.setTrxHeaderId(max);
 				trxSellHeader.setTrxHeaderDatetime(new Date());
+				trxSellHeader.setReceiptNo(transactionReceiptControl.generateReceiptNo());
 				trxSellHeader.setCustomerId(memSearch.getCustomerId());
 				trxSellHeader.setTotalPrice(new BigDecimal(totalPrice));
 				trxSellHeader.setTotalPv(new BigDecimal(totalPv));
@@ -289,13 +288,8 @@ public class ProductSellController implements Serializable{
 				trxSellHeader.setUpdateBy(currentUser.getCurrentAccount().getUserId());
 				trxSellHeader.setUpdateDate(new Date());
 				em.persist(trxSellHeader);
-				//				DecimalFormat df = new DecimalFormat("000000000");
-				//				trxSellHeader.setReceiptNo("R"+df.format(trxSellHeader.getTrxHeaderId().intValue()));
-				//				em.merge(trxSellHeader);
-
 				for(ProductModel proModel:productSellModelList){
 					TransactionSellDetail trxDetail = new TransactionSellDetail();
-					//					trxDetailPk.setTrxDetailId(trxDetailId);
 					trxDetail.setTrxHeaderId(trxSellHeader.getTrxHeaderId().intValue());
 					trxDetail.setProductId(proModel.getProductId());
 					trxDetail.setCatalogId(proModel.getCatalogId());
