@@ -50,7 +50,7 @@ public class TransactionReceiptStore extends BasicStore implements Serializable 
 			receiptNo += "ONLINE";
 			receiptNo += sdf.format(new Date());
 			rec.setReceiptRunning((rec.getReceiptRunning() + 1));
-			receiptNo += df.format(rec.getReceiptRunning());
+			receiptNo += "-"+df.format(rec.getReceiptRunning());
 			em.merge(rec);
 		}
 		return receiptNo;
