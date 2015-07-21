@@ -5,6 +5,7 @@ import java.io.Serializable;
 
 public class ProductModel implements Serializable {
 	
+	private int order;
 	private int productId;
 	private int catalogId;
 	private String productCode;
@@ -21,6 +22,12 @@ public class ProductModel implements Serializable {
 	private double totalBv;
 	private UploadedImage image;
 	
+	public int getOrder() {
+		return order;
+	}
+	public void setOrder(int order) {
+		this.order = order;
+	}
 	public int getProductId() {
 		return productId;
 	}

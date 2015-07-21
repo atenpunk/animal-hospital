@@ -45,4 +45,8 @@ public class CustomerControl implements Serializable {
 		}
 	}
 	
+	public String getAddressByMemberId(int memberId){
+		return customerStore.getAddressByMemberId(memberId);
+	}
+	
 }

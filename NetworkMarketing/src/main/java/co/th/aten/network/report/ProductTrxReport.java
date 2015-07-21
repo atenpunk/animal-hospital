@@ -13,7 +13,7 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.util.JRLoader;
-import co.th.aten.network.model.TrxProductModel;
+import co.th.aten.network.model.ProductModel;
 
 
 public class ProductTrxReport extends AbstractReport {
@@ -23,9 +23,9 @@ public class ProductTrxReport extends AbstractReport {
 	 */
 	private static final long serialVersionUID = -5326919701601476597L;
 
-	private final String fileName = "/reports/DirectLineReport.jasper";
+	private final String fileName = "/reports/TaxInvoice.jasper";
 
-	private List<TrxProductModel> model;
+	private List<ProductModel> model;
 
 	public ProductTrxReport() {
 		super();
@@ -57,11 +57,11 @@ public class ProductTrxReport extends AbstractReport {
 
 	}
 
-	public List<TrxProductModel> getModel() {
+	public List<ProductModel> getModel() {
 		return model;
 	}
 
-	public void setModel(List<TrxProductModel> model) {
+	public void setModel(List<ProductModel> model) {
 		this.model = model;
 	}
 
