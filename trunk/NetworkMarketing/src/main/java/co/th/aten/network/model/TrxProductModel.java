@@ -2,6 +2,7 @@ package co.th.aten.network.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 
 public class TrxProductModel implements Serializable {
@@ -12,11 +13,13 @@ public class TrxProductModel implements Serializable {
 	private String productCode;
 	private String productDesc;
 	private String memberCode;
+	private int memberId;
 	private String memberName;
 	private String memberCodeKey;
 	private double totalPrice;
 	private double totalPv;
 	private String status;
+	private List<ProductModel> productModelList;
 	
 	public Date getTrxDateTime() {
 		return trxDateTime;
@@ -83,6 +86,18 @@ public class TrxProductModel implements Serializable {
 	}
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	public List<ProductModel> getProductModelList() {
+		return productModelList;
+	}
+	public void setProductModelList(List<ProductModel> productModelList) {
+		this.productModelList = productModelList;
+	}
+	public int getMemberId() {
+		return memberId;
+	}
+	public void setMemberId(int memberId) {
+		this.memberId = memberId;
 	}
 	
 }

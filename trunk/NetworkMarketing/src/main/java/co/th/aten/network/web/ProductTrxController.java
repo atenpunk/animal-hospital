@@ -2,7 +2,9 @@ package co.th.aten.network.web;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
@@ -18,15 +20,20 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.jasperreports.j2ee.servlets.ImageServlet;
 import org.jboss.solder.logging.Logger;
 
+import co.th.aten.network.control.CustomerControl;
 import co.th.aten.network.entity.MemberCustomer;
+import co.th.aten.network.entity.StockProduct;
+import co.th.aten.network.entity.TransactionSellDetail;
 import co.th.aten.network.entity.TransactionSellHeader;
 import co.th.aten.network.entity.TransactionSellHeaderStatus;
 import co.th.aten.network.entity.UserLogin;
+import co.th.aten.network.model.ProductModel;
 import co.th.aten.network.model.TrxProductModel;
 import co.th.aten.network.producer.DBDefault;
 import co.th.aten.network.report.AbstractReport;
 import co.th.aten.network.report.ProductTrxReport;
 import co.th.aten.network.security.CurrentUserManager;
+import co.th.aten.network.util.BathText;
 import co.th.aten.network.util.StringUtil;
 
 @ViewScoped	
@@ -43,6 +50,8 @@ public class ProductTrxController implements Serializable {
 	private CurrentUserManager currentUser;
 	@Inject
 	private FacesContext facesContext;
+	@Inject
+	private CustomerControl customerControl;
 
 	private List<TrxProductModel> trxProductModelList;
 
@@ -65,6 +74,7 @@ public class ProductTrxController implements Serializable {
 					TrxProductModel model = new TrxProductModel();
 					MemberCustomer customer = em.find(MemberCustomer.class,trx.getCustomerId());
 					if(customer!=null){
+						model.setMemberId(customer.getCustomerId().intValue());
 						model.setMemberCode(customer.getCustomerMember());
 						model.setMemberName(StringUtil.n2b(customer.getTitleName())+StringUtil.n2b(customer.getFirstName())+" "+StringUtil.n2b(customer.getLastName()));
 					}
@@ -78,6 +88,28 @@ public class ProductTrxController implements Serializable {
 					TransactionSellHeaderStatus status = em.find(TransactionSellHeaderStatus.class, trx.getTrxHeaderStatus());
 					if(status!=null)
 						model.setStatus(status.getStatusDesc());
+					List<TransactionSellDetail> detailList = em.createQuery("From TransactionSellDetail Where trxHeaderId =:trxHeaderId ",TransactionSellDetail.class)
+							.setParameter("trxHeaderId", trx.getTrxHeaderId())
+							.getResultList();
+					if(detailList!=null && detailList.size()>0){
+						List<ProductModel> productModelList = new ArrayList<ProductModel>();
+						int order = 0;
+						for(TransactionSellDetail detail:detailList){
+							ProductModel productModel = new ProductModel();
+							StockProduct stockProduct = em.find(StockProduct.class, detail.getProductId());
+							productModel.setOrder(++order);
+							if(stockProduct!=null){
+								productModel.setProductCode(StringUtil.n2b(stockProduct.getProductCode()));
+								productModel.setProductThDesc(StringUtil.n2b(stockProduct.getThDesc()));
+							}
+							productModel.setQty(StringUtil.n2b(detail.getQty()).intValue());
+							productModel.setPrice(StringUtil.n2b(detail.getPrice()).doubleValue());
+							productModel.setTotalPrice(StringUtil.n2b(detail.getTotalPrice()).doubleValue());
+							productModelList.add(productModel);
+						}
+						model.setProductModelList(productModelList);
+					}
+
 					trxProductModelList.add(model);
 				}
 			}
@@ -86,9 +118,7 @@ public class ProductTrxController implements Serializable {
 		}
 	}
 
-	public void exportReport() {
-		ServletContext servletContext = (ServletContext) facesContext
-				.getExternalContext().getContext();
+	public void exportReport(TrxProductModel trxProductModel) {
 		try {
 			HttpServletRequest request = (HttpServletRequest) facesContext
 					.getExternalContext().getRequest();
@@ -96,13 +126,23 @@ public class ProductTrxController implements Serializable {
 			report = new ProductTrxReport();
 			Map<String, Object> parameters = ((ProductTrxReport) report)
 					.getParameter();
-			parameters
-			.put("PIC_DIR", servletContext
-					.getRealPath("/resources/image/ptt_logo.gif"));
-			parameters.put("printUser", currentUser.getCurrentAccount()
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			parameters.put("printDate", sdf2.format(new Date()));
+			parameters.put("printBy", currentUser.getCurrentAccount()
 					.getUserName());
-			parameters.put("showHeader", true);
-			((ProductTrxReport) report).setModel(null);
+			if(trxProductModel.getTrxDateTime()!=null)
+				parameters.put("paymentDate", sdf.format(trxProductModel.getTrxDateTime()));
+			if(trxProductModel.getMemberCode()!=null)
+				parameters.put("contracId", trxProductModel.getMemberCode());
+			parameters.put("totalAmount", trxProductModel.getTotalPrice());
+			if(trxProductModel.getMemberName()!=null)
+				parameters.put("clientName", trxProductModel.getMemberName());
+			parameters.put("address", customerControl.getAddressByMemberId(trxProductModel.getMemberId()));
+			if(trxProductModel.getReceiptNo()!=null)
+				parameters.put("receiptNo", trxProductModel.getReceiptNo());
+			parameters.put("totalAmountText", BathText.bahtText(trxProductModel.getTotalPrice()));
+			((ProductTrxReport) report).setModel(trxProductModel.getProductModelList());
 			report.fill();
 			if (request != null) {
 				request.getSession().setAttribute(
