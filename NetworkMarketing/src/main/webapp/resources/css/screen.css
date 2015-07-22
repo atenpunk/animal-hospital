@@ -387,6 +387,44 @@ span.invalid {
 	text-align: right;
 }
 
+.tdOutputScreen {
+	font-family: arial;
+	font-size: 13px;
+	background-color: #BED6F8;
+	border: 1px solid #ffffff;
+	padding-left: 3px;
+	text-align: left;
+	background: transparent
+		-moz-linear-gradient(center top, #BED6F8, #F2F7FF) repeat scroll 0% 0%;
+	background-color: transparent;
+	background-image: -moz-linear-gradient(center top, #BED6F8, #F2F7FF);
+	background-repeat: repeat;
+	background-attachment: scroll;
+	background-position: 0% 0%;
+	background-clip: border-box;
+	background-origin: padding-box;
+	background-size: auto auto;
+}
+
+.tdInputScreen {
+	font-family: arial;
+	font-size: 13px;
+	background-color: #F2F7FF;
+	border: 1px solid #ffffff;
+	padding-left: 5px;
+	text-align: left;
+	background: transparent
+		-moz-linear-gradient(center top, #F2F7FF, #FFFFFF) repeat scroll 0% 0%;
+	background-color: transparent;
+	background-image: -moz-linear-gradient(center top, #F2F7FF, #FFFFFF);
+	background-repeat: repeat;
+	background-attachment: scroll;
+	background-position: 0% 0%;
+	background-clip: border-box;
+	background-origin: padding-box;
+	background-size: auto auto;
+}
+
 .tableHeadFooter {
 	width: 150px;
 	height: 20px;
