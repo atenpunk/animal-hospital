@@ -4,8 +4,7 @@
  */
 package co.th.aten.football.dialog;
 
-import co.th.aten.football.ui.form.ReportDetailPanel;
-import co.th.aten.football.ui.form.ReportPlayersDetailPanel;
+import co.th.aten.football.ui.form.Report02Panel;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -19,11 +18,11 @@ import org.springframework.richclient.dialog.ApplicationDialog;
  *
  * @author mai
  */
-public class ReportDetailDialog extends ApplicationDialog {
+public class Report02Dialog extends ApplicationDialog {
 
-    private ReportDetailPanel panel;
+    private Report02Panel panel;
 
-    public ReportDetailDialog() {
+    public Report02Dialog() {
         this.getDialog().setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
     }
 
@@ -63,7 +62,7 @@ public class ReportDetailDialog extends ApplicationDialog {
 
     @Override
     protected JComponent createDialogContentPane() {
-        setTitle("Report 01");
+        setTitle("Report 02");
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         int height = toolkit.getScreenSize().height;
         int width = toolkit.getScreenSize().width;
@@ -73,7 +72,7 @@ public class ReportDetailDialog extends ApplicationDialog {
         System.out.println("--->>>>" + height + ", " + width);
         Dimension dimension = new Dimension(width, height);
         if (panel == null) {
-            panel = new ReportDetailPanel();
+            panel = new Report02Panel();
         }
         panel.setSize(dimension);
         panel.setMaximumSize(dimension);

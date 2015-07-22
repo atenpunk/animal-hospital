@@ -16,6 +16,7 @@ import co.th.aten.football.dialog.ChangePasswordStaffDialog;
 import co.th.aten.football.dialog.ComparePlayersDialog;
 import co.th.aten.football.dialog.DetailPlayerDialog;
 import co.th.aten.football.dialog.EditPlayerDialog;
+import co.th.aten.football.dialog.Report02Dialog;
 import co.th.aten.football.dialog.ReportDetailDialog;
 import co.th.aten.football.dialog.ReportPlayersDetailDialog;
 import co.th.aten.football.event.LogoutEvent;
@@ -62,7 +63,7 @@ public class MainPanel extends ImagePanel {
         btChangePassword.setEnabled(true);
         btReport.setEnabled(true);
         btSellStatement.setEnabled(false);
-        btReport2.setEnabled(false);
+        btReport2.setEnabled(true);
         btCheckBalance.setEnabled(false);
     }
 
@@ -330,6 +331,7 @@ public class MainPanel extends ImagePanel {
 
     private void btReport2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btReport2ActionPerformed
         //        CancelStatementWizard.getInstance().execute();
+        new Report02Dialog().showDialog();
     }//GEN-LAST:event_btReport2ActionPerformed
 
     private void btReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btReportActionPerformed
