@@ -114,4 +114,11 @@
 	</url-mapping>
 	
 	
+	
+	<url-mapping id="eMoney_01">
+		<pattern value="/money/transfer"></pattern>
+		<view-id>/sec/money/transfer.jsf</view-id>
+	</url-mapping>
+	
+	
 </pretty-config>

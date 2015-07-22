@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="content">
+		<br />
+		<h:form id="mainForm">
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText style="font-size: 13px;"
+						value="#{app_msgs['label.menuShopping.transferEmoney']}" />
+				</f:facet>
+
+				<h:panelGrid columns="2" width="100%">
+					<rich:panel>
+						<table>
+							<tr>
+								<td class="detailSellMain"><h:outputText
+										style="font-size: 13px;"
+										value="#{app_msgs['label.menuShopping.dateTime']}" /></td>
+								<td class="detailSellChild"><h:outputText readonly="true"
+										maxlength="100" style="font-size: 13px;"
+										value="#{productSellController.dateTime}">
+										<f:convertDateTime pattern="dd-MM-yyyy" />
+									</h:outputText></td>
+							</tr>
+							<tr>
+								<td class="detailSellMain"><h:outputText
+										style="font-size: 13px;"
+										value="#{app_msgs['label.menuShopping.memberId']}" /></td>
+								<td class="detailSellChild"><h:inputText maxlength="100"
+										style="font-size: 13px;"
+										value="#{productSellController.memberId}">
+										<a4j:ajax event="keyup" render="inputMemberNameId"
+											listener="#{productSellController.onKeypress()}" />
+									</h:inputText></td>
+							</tr>
+							<tr>
+								<td class="detailSellMain"><h:outputText
+										style="font-size: 13px;"
+										value="#{app_msgs['label.menuShopping.memberName']}" /></td>
+								<td class="detailSellChild"><h:outputText
+										id="inputMemberNameId" maxlength="100" readonly="true"
+										style="font-size: 13px;"
+										value="#{productSellController.memberName}" /></td>
+							</tr>
+						</table>
+					</rich:panel>
+				</h:panelGrid>
+				<br />
+			</rich:panel>
+		</h:form>
+	</ui:define>
+
+</ui:composition>
