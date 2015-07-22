@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReportTable" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="579" leftMargin="8" rightMargin="8" topMargin="20" bottomMargin="20">
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<style name="default" isDefault="true" fontName="Tahoma" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+	<parameter name="logo_file" class="java.lang.String" isForPrompting="false"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="draw" class="java.lang.Integer">
+		<fieldDescription><![CDATA[draw]]></fieldDescription>
+	</field>
+	<field name="lose" class="java.lang.Integer">
+		<fieldDescription><![CDATA[lose]]></fieldDescription>
+	</field>
+	<field name="gc" class="java.lang.Double">
+		<fieldDescription><![CDATA[gc]]></fieldDescription>
+	</field>
+	<field name="updateBy" class="java.lang.Integer">
+		<fieldDescription><![CDATA[updateBy]]></fieldDescription>
+	</field>
+	<field name="annualSalary" class="java.lang.Double">
+		<fieldDescription><![CDATA[annualSalary]]></fieldDescription>
+	</field>
+	<field name="win" class="java.lang.Integer">
+		<fieldDescription><![CDATA[win]]></fieldDescription>
+	</field>
+	<field name="createBy" class="java.lang.Integer">
+		<fieldDescription><![CDATA[createBy]]></fieldDescription>
+	</field>
+	<field name="updateDate" class="java.util.Date">
+		<fieldDescription><![CDATA[updateDate]]></fieldDescription>
+	</field>
+	<field name="createDate" class="java.util.Date">
+		<fieldDescription><![CDATA[createDate]]></fieldDescription>
+	</field>
+	<field name="playerName" class="java.lang.String">
+		<fieldDescription><![CDATA[playerName]]></fieldDescription>
+	</field>
+	<field name="yearlyId" class="java.lang.Integer">
+		<fieldDescription><![CDATA[yearlyId]]></fieldDescription>
+	</field>
+	<field name="videoModelList" class="java.util.List">
+		<fieldDescription><![CDATA[videoModelList]]></fieldDescription>
+	</field>
+	<field name="yearlyList" class="java.util.List">
+		<fieldDescription><![CDATA[yearlyList]]></fieldDescription>
+	</field>
+	<field name="cleanSheet" class="java.lang.Integer">
+		<fieldDescription><![CDATA[cleanSheet]]></fieldDescription>
+	</field>
+	<field name="substitution" class="java.lang.Integer">
+		<fieldDescription><![CDATA[substitution]]></fieldDescription>
+	</field>
+	<field name="starter" class="java.lang.Integer">
+		<fieldDescription><![CDATA[starter]]></fieldDescription>
+	</field>
+	<field name="signingFee" class="java.lang.Double">
+		<fieldDescription><![CDATA[signingFee]]></fieldDescription>
+	</field>
+	<field name="positionStr" class="java.lang.String">
+		<fieldDescription><![CDATA[positionStr]]></fieldDescription>
+	</field>
+	<field name="contractStart" class="java.util.Date">
+		<fieldDescription><![CDATA[contractStart]]></fieldDescription>
+	</field>
+	<field name="goal" class="java.lang.Integer">
+		<fieldDescription><![CDATA[goal]]></fieldDescription>
+	</field>
+	<field name="contractEnd" class="java.util.Date">
+		<fieldDescription><![CDATA[contractEnd]]></fieldDescription>
+	</field>
+	<field name="weight" class="java.lang.Integer">
+		<fieldDescription><![CDATA[weight]]></fieldDescription>
+	</field>
+	<field name="image" class="java.lang.String">
+		<fieldDescription><![CDATA[image]]></fieldDescription>
+	</field>
+	<field name="salaryMonth" class="java.lang.Double">
+		<fieldDescription><![CDATA[salaryMonth]]></fieldDescription>
+	</field>
+	<field name="playerId" class="java.lang.Integer">
+		<fieldDescription><![CDATA[playerId]]></fieldDescription>
+	</field>
+	<field name="match" class="java.lang.Integer">
+		<fieldDescription><![CDATA[match]]></fieldDescription>
+	</field>
+	<field name="club" class="java.lang.String">
+		<fieldDescription><![CDATA[club]]></fieldDescription>
+	</field>
+	<field name="positionId" class="java.lang.Integer">
+		<fieldDescription><![CDATA[positionId]]></fieldDescription>
+	</field>
+	<field name="playerNumber" class="java.lang.Integer">
+		<fieldDescription><![CDATA[playerNumber]]></fieldDescription>
+	</field>
+	<field name="birthday" class="java.util.Date">
+		<fieldDescription><![CDATA[birthday]]></fieldDescription>
+	</field>
+	<field name="height" class="java.lang.Integer">
+		<fieldDescription><![CDATA[height]]></fieldDescription>
+	</field>
+	<field name="playingTime" class="java.lang.Integer">
+		<fieldDescription><![CDATA[playingTime]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="100" splitType="Stretch">
+			<staticText>
+				<reportElement key="staticText-1" style="default" x="175" y="57" width="255" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Report]]></text>
+			</staticText>
+			<line>
+				<reportElement key="line-1" style="default" x="9" y="2" width="564" height="1"/>
+			</line>
+			<line>
+				<reportElement key="line-2" style="default" x="573" y="2" width="1" height="54"/>
+			</line>
+			<line>
+				<reportElement key="line-3" style="default" positionType="FixRelativeToBottom" x="8" y="56" width="565" height="1"/>
+			</line>
+			<line>
+				<reportElement key="line-4" style="default" x="8" y="2" width="1" height="54"/>
+			</line>
+			<line>
+				<reportElement key="line-6" style="default" x="9" y="76" width="564" height="1"/>
+			</line>
+			<staticText>
+				<reportElement key="staticText-6" style="default" x="477" y="57" width="30" height="18"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[page]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-7" style="default" x="526" y="57" width="25" height="18"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[from]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-8" style="default" x="10" y="57" width="56" height="18"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="false" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Print date :]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField-5" style="default" x="507" y="57" width="19" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" evaluationTime="Report" isBlankWhenNull="true">
+				<reportElement key="textField-6" style="default" x="551" y="57" width="20" height="18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy HH:mm" isBlankWhenNull="true">
+				<reportElement key="textField-7" style="default" x="67" y="57" width="107" height="18"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new Date()]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement key="line-7" style="default" x="8" y="57" width="1" height="20"/>
+			</line>
+			<line>
+				<reportElement key="line-8" style="default" x="174" y="57" width="1" height="19"/>
+			</line>
+			<line>
+				<reportElement key="line-9" style="default" x="475" y="57" width="1" height="19"/>
+			</line>
+			<line>
+				<reportElement key="line-10" style="default" x="573" y="56" width="1" height="21"/>
+			</line>
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement key="image-1" style="default" x="13" y="5" width="50" height="50"/>
+				<imageExpression class="java.lang.String"><![CDATA[$P{logo_file}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement key="staticText-1" style="default" x="174" y="5" width="255" height="50"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Thai Honda Lad Krabang FC]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="27" splitType="Stretch">
+			<line>
+				<reportElement key="line-17" style="default" x="350" y="2" width="1" height="24"/>
+			</line>
+			<staticText>
+				<reportElement key="staticText-10" style="default" x="351" y="2" width="47" height="23"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Sterter]]></text>
+			</staticText>
+			<line>
+				<reportElement key="line-17" style="default" x="521" y="2" width="1" height="24"/>
+			</line>
+			<line>
+				<reportElement key="line-17" style="default" x="307" y="2" width="1" height="24"/>
+			</line>
+			<staticText>
+				<reportElement key="staticText-10" style="default" x="522" y="2" width="50" height="23"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Goal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-9" style="default" x="8" y="2" width="148" height="23"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-10" style="default" x="186" y="2" width="48" height="23"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Season]]></text>
+			</staticText>
+			<line>
+				<reportElement key="line-17" style="default" x="234" y="2" width="1" height="24"/>
+			</line>
+			<staticText>
+				<reportElement key="staticText-10" style="default" x="308" y="2" width="42" height="23"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Match]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-10" style="default" x="399" y="2" width="68" height="23"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Substitution]]></text>
+			</staticText>
+			<line>
+				<reportElement key="line-23" style="default" x="572" y="1" width="1" height="25"/>
+			</line>
+			<line>
+				<reportElement key="line-17" style="default" x="398" y="2" width="1" height="24"/>
+			</line>
+			<line>
+				<reportElement key="line-11" style="default" x="8" y="1" width="564" height="1"/>
+			</line>
+			<line>
+				<reportElement key="line-12" style="default" x="7" y="1" width="1" height="25"/>
+			</line>
+			<staticText>
+				<reportElement key="staticText-10" style="default" x="235" y="2" width="72" height="23"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Playing Time]]></text>
+			</staticText>
+			<line>
+				<reportElement key="line-16" style="default" x="185" y="2" width="1" height="24"/>
+			</line>
+			<line>
+				<reportElement key="line-26" style="default" positionType="FixRelativeToBottom" x="7" y="26" width="566" height="1"/>
+			</line>
+			<staticText>
+				<reportElement key="staticText-10" style="default" x="468" y="2" width="53" height="23"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Win]]></text>
+			</staticText>
+			<line>
+				<reportElement key="line-17" style="default" x="467" y="2" width="1" height="24"/>
+			</line>
+			<line>
+				<reportElement key="line-16" style="default" x="156" y="2" width="1" height="24"/>
+			</line>
+			<staticText>
+				<reportElement key="staticText-10" style="default" x="157" y="2" width="28" height="23"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Play]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="19" splitType="Stretch">
+			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+				<reportElement key="textField-11" style="default" x="522" y="0" width="48" height="16"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{goal}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement key="line-43" style="default" x="350" y="0" width="1" height="18"/>
+			</line>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement key="textField-11" style="default" x="186" y="0" width="48" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{yearlyId}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+				<reportElement key="textField-11" style="default" x="235" y="0" width="70" height="16"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{playingTime}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement key="line-27" style="default" stretchType="RelativeToBandHeight" x="7" y="0" width="1" height="18"/>
+			</line>
+			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+				<reportElement key="textField-11" style="default" x="308" y="0" width="40" height="16"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{match}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement key="line-43" style="default" x="398" y="0" width="1" height="18"/>
+			</line>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField-10" style="default" x="10" y="0" width="146" height="16"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["#"+$F{playerNumber}+" "+$F{playerName}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement key="line-43" style="default" x="521" y="0" width="1" height="18"/>
+			</line>
+			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+				<reportElement key="textField-11" style="default" x="399" y="0" width="66" height="16"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{substitution}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+				<reportElement key="textField-11" style="default" x="351" y="0" width="45" height="16"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{starter}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement key="line-42" style="default" x="185" y="0" width="1" height="18"/>
+			</line>
+			<line>
+				<reportElement key="line-43" style="default" x="307" y="0" width="1" height="18"/>
+			</line>
+			<line>
+				<reportElement key="line-40" style="default" positionType="FixRelativeToBottom" x="7" y="18" width="565" height="1"/>
+			</line>
+			<line>
+				<reportElement key="line-43" style="default" x="234" y="0" width="1" height="18"/>
+			</line>
+			<line>
+				<reportElement key="line-39" style="default" stretchType="RelativeToBandHeight" x="572" y="0" width="1" height="19"/>
+			</line>
+			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+				<reportElement key="textField-11" style="default" x="468" y="0" width="51" height="16"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{win}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement key="line-43" style="default" x="467" y="0" width="1" height="18"/>
+			</line>
+			<line>
+				<reportElement key="line-42" style="default" x="156" y="0" width="1" height="18"/>
+			</line>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement key="textField-11" style="default" x="157" y="0" width="28" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{positionStr}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Prevent"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
