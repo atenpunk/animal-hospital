@@ -44,6 +44,7 @@ public class PlayersGraphModel {
     private Image inputPieMatch;
     private Image inputPiePlayingTime;
     private Image inputPieStarter;
+    private String memo;
 
     public int getGroup() {
         return group;
@@ -299,6 +300,14 @@ public class PlayersGraphModel {
 
     public void setClub(String club) {
         this.club = club;
+    }
+
+    public String getMemo() {
+        return memo;
+    }
+
+    public void setMemo(String memo) {
+        this.memo = memo;
     }
 
 }
