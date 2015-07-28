@@ -251,7 +251,9 @@ public class EditPlayerPanel extends javax.swing.JPanel {
             numberText.setText(String.valueOf(playersModelSelected.getPlayerNumber()));
             heightText.setText(String.valueOf(playersModelSelected.getHeight()));
             weightText.setText(String.valueOf(playersModelSelected.getWeight()));
-            positionComboBox.setSelectedIndex(mapIndexPosition.get(playersModelSelected.getPositionId()));
+            if (playersModelSelected.getPositionId() > 0) {
+                positionComboBox.setSelectedIndex(mapIndexPosition.get(playersModelSelected.getPositionId()));
+            }
             Date startDate = birthdayPlayer.getDate();
             Date endDate = new Date();
             String agePlayer = Util.getYearMonth(startDate, endDate);
@@ -734,8 +736,8 @@ public class EditPlayerPanel extends javax.swing.JPanel {
             if (chkUpdatePlayer) {
                 yearlyManager.deleteYearly(playersModelSelected.getPlayerId());
                 new File(System.getProperty("user.dir") + "/img/" + playersModelSelected.getImage()).delete();
-                if(playersModelSelected.getVideoModelList()!=null && playersModelSelected.getVideoModelList().size()>0){
-                    for(VideoModel videoModel : playersModelSelected.getVideoModelList()){
+                if (playersModelSelected.getVideoModelList() != null && playersModelSelected.getVideoModelList().size() > 0) {
+                    for (VideoModel videoModel : playersModelSelected.getVideoModelList()) {
                         new File(System.getProperty("user.dir") + "/video/" + videoModel.getVideoName()).delete();
                     }
                 }
