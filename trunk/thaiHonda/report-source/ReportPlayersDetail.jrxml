@@ -8,7 +8,7 @@
 	<import value="net.sf.jasperreports.engine.*"/>
 	<import value="java.util.*"/>
 	<import value="net.sf.jasperreports.engine.data.*"/>
-	<style name="solar" isDefault="true" fontName="Tahoma" pdfFontName="c:\windows\fonts\tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+	<style name="solar" isDefault="true" fontName="Tahoma" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 	<parameter name="logo_file" class="java.lang.String" isForPrompting="false"/>
 	<queryString>
 		<![CDATA[]]>
@@ -109,6 +109,9 @@
 	<field name="club" class="java.lang.String">
 		<fieldDescription><![CDATA[club]]></fieldDescription>
 	</field>
+	<field name="memo" class="java.lang.String">
+		<fieldDescription><![CDATA[memo]]></fieldDescription>
+	</field>
 	<group name="group">
 		<groupExpression><![CDATA[$F{group}]]></groupExpression>
 		<groupHeader>
@@ -118,7 +121,7 @@
 					<imageExpression class="java.lang.String"><![CDATA[$F{imgPlayer}]]></imageExpression>
 				</image>
 				<image hAlign="Center" vAlign="Middle" onErrorType="Blank">
-					<reportElement key="image-player" style="solar" x="348" y="57" width="224" height="131"/>
+					<reportElement key="image-player" style="solar" x="348" y="4" width="224" height="131"/>
 					<imageExpression class="java.awt.Image"><![CDATA[$F{inputRadar}]]></imageExpression>
 				</image>
 				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
@@ -150,15 +153,15 @@
 					<textFieldExpression class="java.lang.String"><![CDATA[$F{contractStartEnd}]]></textFieldExpression>
 				</textField>
 				<image hAlign="Center" vAlign="Middle" onErrorType="Blank">
-					<reportElement key="image-1" style="solar" x="246" y="141" width="60" height="60"/>
+					<reportElement key="image-1" style="solar" x="260" y="132" width="60" height="60"/>
 					<imageExpression class="java.awt.Image"><![CDATA[$F{inputPieStarter}]]></imageExpression>
 				</image>
 				<image hAlign="Center" vAlign="Middle" onErrorType="Blank">
-					<reportElement key="image-1" style="solar" x="116" y="142" width="60" height="60"/>
+					<reportElement key="image-1" style="solar" x="130" y="133" width="60" height="60"/>
 					<imageExpression class="java.awt.Image"><![CDATA[$F{inputPieMatch}]]></imageExpression>
 				</image>
 				<image hAlign="Center" vAlign="Middle" onErrorType="Blank">
-					<reportElement key="image-1" style="solar" x="181" y="142" width="60" height="60"/>
+					<reportElement key="image-1" style="solar" x="195" y="133" width="60" height="60"/>
 					<imageExpression class="java.awt.Image"><![CDATA[$F{inputPiePlayingTime}]]></imageExpression>
 				</image>
 				<staticText>
@@ -286,7 +289,7 @@
 					<textFieldExpression class="java.lang.Integer"><![CDATA[$F{playingTime}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement key="staticText-8" style="solar" x="245" y="39" width="56" height="18"/>
+					<reportElement key="staticText-8" style="solar" x="245" y="58" width="56" height="18"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -299,7 +302,7 @@
 					<text><![CDATA[Starter]]></text>
 				</staticText>
 				<staticText>
-					<reportElement key="staticText-8" style="solar" x="245" y="58" width="56" height="18"/>
+					<reportElement key="staticText-8" style="solar" x="245" y="77" width="56" height="18"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -312,7 +315,7 @@
 					<text><![CDATA[Substitution]]></text>
 				</staticText>
 				<staticText>
-					<reportElement key="staticText-8" style="solar" x="245" y="77" width="56" height="18"/>
+					<reportElement key="staticText-8" style="solar" x="245" y="96" width="56" height="18"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -325,21 +328,21 @@
 					<text><![CDATA[Win]]></text>
 				</staticText>
 				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
-					<reportElement key="textField-9" style="solar" x="302" y="39" width="44" height="18"/>
+					<reportElement key="textField-9" style="solar" x="302" y="58" width="44" height="18"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font size="9"/>
 					</textElement>
 					<textFieldExpression class="java.lang.Integer"><![CDATA[$F{starter}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
-					<reportElement key="textField-9" style="solar" x="302" y="58" width="44" height="18"/>
+					<reportElement key="textField-9" style="solar" x="302" y="77" width="44" height="18"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font size="9"/>
 					</textElement>
 					<textFieldExpression class="java.lang.Integer"><![CDATA[$F{substitution}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
-					<reportElement key="textField-9" style="solar" x="302" y="77" width="44" height="18"/>
+					<reportElement key="textField-9" style="solar" x="302" y="96" width="44" height="18"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font size="9"/>
 					</textElement>
@@ -389,7 +392,7 @@
 					<reportElement key="line-8" style="solar" x="301" y="77" width="1" height="18"/>
 				</line>
 				<staticText>
-					<reportElement key="staticText-8" style="solar" x="116" y="202" width="60" height="12"/>
+					<reportElement key="staticText-8" style="solar" x="130" y="193" width="60" height="12"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -402,7 +405,7 @@
 					<text><![CDATA[Match]]></text>
 				</staticText>
 				<staticText>
-					<reportElement key="staticText-8" style="solar" x="181" y="202" width="60" height="12"/>
+					<reportElement key="staticText-8" style="solar" x="195" y="193" width="60" height="12"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -415,7 +418,7 @@
 					<text><![CDATA[Playing Time]]></text>
 				</staticText>
 				<staticText>
-					<reportElement key="staticText-8" style="solar" x="246" y="201" width="60" height="12"/>
+					<reportElement key="staticText-8" style="solar" x="260" y="192" width="60" height="12"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -497,13 +500,8 @@
 					</textElement>
 					<textFieldExpression class="java.lang.String"><![CDATA[$F{season}]]></textFieldExpression>
 				</textField>
-				<line>
-					<reportElement key="line-1" style="solar" x="113" y="133" width="235" height="1">
-						<printWhenExpression><![CDATA[new Boolean($F{positionId}.intValue()!=15)]]></printWhenExpression>
-					</reportElement>
-				</line>
 				<staticText>
-					<reportElement key="staticText-8" style="solar" x="115" y="115" width="57" height="18"/>
+					<reportElement key="staticText-8" style="solar" x="245" y="39" width="56" height="18"/>
 					<box>
 						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -513,25 +511,10 @@
 					<textElement verticalAlignment="Middle">
 						<font size="9" isBold="false" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 					</textElement>
-					<text><![CDATA[Match]]></text>
+					<text><![CDATA[Matches]]></text>
 				</staticText>
-				<line>
-					<reportElement key="line-8" style="solar" x="113" y="115" width="1" height="18">
-						<printWhenExpression><![CDATA[new Boolean($F{positionId}.intValue()!=15)]]></printWhenExpression>
-					</reportElement>
-				</line>
-				<line>
-					<reportElement key="line-8" style="solar" x="172" y="115" width="1" height="18">
-						<printWhenExpression><![CDATA[new Boolean($F{positionId}.intValue()!=15)]]></printWhenExpression>
-					</reportElement>
-				</line>
-				<line>
-					<reportElement key="line-8" style="solar" x="243" y="115" width="1" height="18">
-						<printWhenExpression><![CDATA[new Boolean($F{positionId}.intValue()!=15)]]></printWhenExpression>
-					</reportElement>
-				</line>
 				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
-					<reportElement key="textField-9" style="solar" x="173" y="115" width="69" height="18"/>
+					<reportElement key="textField-9" style="solar" x="302" y="39" width="44" height="18"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font size="9"/>
 					</textElement>
@@ -540,55 +523,9 @@
 				<line>
 					<reportElement key="line-8" style="solar" x="301" y="96" width="1" height="18"/>
 				</line>
-				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
-					<reportElement key="textField-9" style="solar" x="302" y="115" width="44" height="18"/>
-					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<font size="9"/>
-					</textElement>
-					<textFieldExpression class="java.lang.Integer"><![CDATA[$F{draw}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
-					<reportElement key="textField-9" style="solar" x="302" y="96" width="44" height="18"/>
-					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<font size="9"/>
-					</textElement>
-					<textFieldExpression class="java.lang.Integer"><![CDATA[$F{lose}]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement key="staticText-8" style="solar" x="245" y="96" width="56" height="18"/>
-					<box>
-						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<bottomPen lineWidth="0.0" lineColor="#000000"/>
-						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					</box>
-					<textElement verticalAlignment="Middle">
-						<font size="9" isBold="false" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
-					</textElement>
-					<text><![CDATA[Lose]]></text>
-				</staticText>
 				<line>
 					<reportElement key="line-8" style="solar" x="347" y="96" width="1" height="18"/>
 				</line>
-				<line>
-					<reportElement key="line-8" style="solar" x="301" y="115" width="1" height="18"/>
-				</line>
-				<line>
-					<reportElement key="line-8" style="solar" x="347" y="115" width="1" height="18"/>
-				</line>
-				<staticText>
-					<reportElement key="staticText-8" style="solar" x="245" y="115" width="56" height="18"/>
-					<box>
-						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<bottomPen lineWidth="0.0" lineColor="#000000"/>
-						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					</box>
-					<textElement verticalAlignment="Middle">
-						<font size="9" isBold="false" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
-					</textElement>
-					<text><![CDATA[Draw]]></text>
-				</staticText>
 				<staticText>
 					<reportElement key="staticText-8" style="solar" x="115" y="96" width="57" height="18">
 						<printWhenExpression><![CDATA[new Boolean($F{positionId}.intValue()==1)]]></printWhenExpression>
@@ -613,6 +550,33 @@
 					</textElement>
 					<textFieldExpression class="java.lang.Integer"><![CDATA[$F{cleanSheet}]]></textFieldExpression>
 				</textField>
+				<staticText>
+					<reportElement key="staticText-8" style="solar" x="347" y="141" width="55" height="14"/>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="9" isBold="true" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					</textElement>
+					<text><![CDATA[Memo]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText" style="solar" x="348" y="156" width="203" height="72"/>
+					<box>
+						<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font isUnderline="false" isStrikeThrough="false" pdfFontName="tahoma.ttf"/>
+					</textElement>
+					<text><![CDATA[]]></text>
+				</staticText>
 			</band>
 		</groupHeader>
 		<groupFooter>
