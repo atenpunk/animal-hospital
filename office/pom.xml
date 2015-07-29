@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>co.th.aten</groupId>
-	<artifactId>NetworkMarketing</artifactId>
+	<artifactId>office</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>ear</packaging>
 
@@ -336,7 +336,7 @@
 	<build>
 		<!-- Set the name of the war, used as the context root when the app is 
 			deployed -->
-		<finalName>NetworkMarketing</finalName>
+		<finalName>office</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.jboss.as.plugins</groupId>
