@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="content">
+		<br />
+		<h:form id="mainForm">
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText style="font-size: 13px;"
+						value="#{app_msgs['label.menuShopping.transferEmoney']}" />
+				</f:facet>
+
+				<h:panelGrid columns="1" width="100%">
+					<rich:panel>
+						<h:messages style="font-size: 13px;" globalOnly="true"
+							infoClass="info" warnClass="warn" errorClass="error" />
+						<table>
+							<tr>
+								<td class="tdOutputScreen"><h:outputText
+										style="font-size: 13px;" value="#{app_msgs['label.date']}" /></td>
+								<td class="tdInputScreen"><h:outputText
+										style="font-size: 13px;"
+										value="#{moneyAddAndDeductController.newDate}">
+										<f:convertDateTime pattern="dd-MM-yyyy" />
+									</h:outputText></td>
+							</tr>
+							<tr>
+								<td class="tdOutputScreen"><h:outputText
+										style="font-size: 13px;"
+										value="#{app_msgs['label.memberCode']}" /></td>
+								<td class="tdInputScreen"><h:inputText maxlength="100"
+										style="font-size: 13px;"
+										value="#{moneyAddAndDeductController.memberCode}">
+									</h:inputText> <a4j:commandButton id="searchId"
+										value="#{app_msgs['button.search']}"
+										action="#{moneyAddAndDeductController.search}"
+										render="mainForm" style="font-size: 13px; width : 80px;"></a4j:commandButton>
+								</td>
+							</tr>
+							<tr>
+								<td class="tdOutputScreen"><h:outputText
+										style="font-size: 13px;"
+										value="#{app_msgs['label.memberName']}" /></td>
+								<td class="tdInputScreen"><h:outputText
+										style="font-size: 13px;"
+										value="#{moneyAddAndDeductController.memberName}">
+									</h:outputText></td>
+							</tr>
+							<tr>
+								<td class="tdOutputScreen"><h:outputText
+										style="font-size: 13px;"
+										value="#{app_msgs['label.menuMoney.deduct']}" /></td>
+								<td class="tdInputScreen"><h:inputText maxlength="100"
+										style="font-size: 13px;"
+										value="#{moneyAddAndDeductController.deductMoney}">
+										<f:convertNumber pattern="########" />
+									</h:inputText></td>
+							</tr>
+							<tr>
+								<td class="tdOutputScreen"><h:outputText
+										style="font-size: 13px;"
+										value="#{app_msgs['label.menuMoney.add']}" /></td>
+								<td class="tdInputScreen"><h:inputText maxlength="100"
+										style="font-size: 13px;"
+										value="#{moneyAddAndDeductController.addMoney}">
+										<f:convertNumber pattern="########" />
+									</h:inputText></td>
+							</tr>
+						</table>
+					</rich:panel>
+				</h:panelGrid>
+				<br />
+			</rich:panel>
+		</h:form>
+	</ui:define>
+
+</ui:composition>

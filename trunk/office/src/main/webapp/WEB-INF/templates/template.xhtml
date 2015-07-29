@@ -56,6 +56,16 @@
 					label="#{app_msgs['menu.label.detailProduct']}"
 					onclick="document.location.href='#{request.contextPath}/product/detailProduct'" />
 			</rich:dropDownMenu>
+			<rich:dropDownMenu>
+				<f:facet name="label">
+					<h:panelGroup>
+						<h:outputText style="font-size: 13px;" value="#{app_msgs['menu.label.eMoney']}" />
+					</h:panelGroup>
+				</f:facet>
+				<rich:menuItem submitMode="ajax" style="font-size: 13px;"
+					label="#{app_msgs['menu.label.eMoney.addAndDeduct']}"
+					onclick="document.location.href='#{request.contextPath}/money/addAndDeduct'" />
+			</rich:dropDownMenu>
 			<rich:toolbarGroup location="right">
 				<h:form style="float:right; text-align:right; list-style:none;">
 					<f:view locale="#{languageController.locale}">
