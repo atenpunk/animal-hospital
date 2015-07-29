@@ -4,9 +4,9 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>co.th.aten</groupId>
-	<artifactId>NetworkMarketing</artifactId>
+	<artifactId>member</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>ear</packaging>
 
 	<name>Java EE 6 webapp project</name>
 	<description>A starter Java EE 6 webapp project for use on Java EE 6-compliant application servers, generated from the jboss-javaee6-webapp archetype</description>
@@ -336,7 +336,7 @@
 	<build>
 		<!-- Set the name of the war, used as the context root when the app is 
 			deployed -->
-		<finalName>NetworkMarketing</finalName>
+		<finalName>member</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.jboss.as.plugins</groupId>
