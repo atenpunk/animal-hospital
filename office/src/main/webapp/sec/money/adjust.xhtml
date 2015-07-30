@@ -157,8 +157,34 @@
 								timeZone="GMT+7" />
 						</h:outputText>
 					</rich:column>
+
 					<f:facet name="footer">
-						<rich:dataScroller for="testDataTable" />
+						<rich:columnGroup>
+							<rich:column colspan="4" style="text-align: right;">
+								<h:outputText style="font-size: 13px;"
+									value="#{app_msgs['label.total']}">
+								</h:outputText>
+							</rich:column>
+							<rich:column style="text-align:right">
+								<h:outputText style="font-size: 13px;"
+									value="#{moneyReportAdjustController.totalDeduct}">
+									<f:convertNumber pattern="#,##0.00" />
+								</h:outputText>
+							</rich:column>
+							<rich:column style="text-align:right">
+								<h:outputText style="font-size: 13px;"
+									value="#{moneyReportAdjustController.totalAdd}">
+									<f:convertNumber pattern="#,##0.00" />
+								</h:outputText>
+							</rich:column>
+							<rich:column colspan="4">
+								<h:outputText value="">
+								</h:outputText>
+							</rich:column>
+							<rich:column breakRowBefore="true" colspan="10">
+								<rich:dataScroller for="testDataTable" />
+							</rich:column>
+						</rich:columnGroup>
 					</f:facet>
 				</rich:dataTable>
 			</rich:panel>
