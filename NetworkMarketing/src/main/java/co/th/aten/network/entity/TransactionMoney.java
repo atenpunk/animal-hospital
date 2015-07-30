@@ -62,6 +62,8 @@ public class TransactionMoney implements Serializable {
     @Column(name = "update_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateDate;
+    @Column(name = "receive_cumtomer_id")
+    private Integer receiveCumtomerId;
 
     public TransactionMoney() {
     }
@@ -165,8 +167,16 @@ public class TransactionMoney implements Serializable {
     public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate;
     }
+    
+    public Integer getReceiveCumtomerId() {
+		return receiveCumtomerId;
+	}
 
-    @Override
+	public void setReceiveCumtomerId(Integer receiveCumtomerId) {
+		this.receiveCumtomerId = receiveCumtomerId;
+	}
+
+	@Override
     public int hashCode() {
         int hash = 0;
         hash += (trxMoneyId != null ? trxMoneyId.hashCode() : 0);
