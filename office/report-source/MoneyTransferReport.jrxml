@@ -136,7 +136,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Tahoma" size="8" isBold="true" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[รายงาน การปรับปรุง (ฝาก/ถอน) E-money]]></text>
+				<text><![CDATA[รายงาน การโอน E-money ระหว่างสมาชิก]]></text>
 			</staticText>
 			<staticText>
 				<reportElement key="staticText" style="solar" x="483" y="1" width="26" height="20"/>
