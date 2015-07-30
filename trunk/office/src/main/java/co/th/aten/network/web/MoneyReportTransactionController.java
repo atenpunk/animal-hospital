@@ -29,13 +29,13 @@ import co.th.aten.network.control.CustomerControl;
 import co.th.aten.network.model.MoneyReportModel;
 import co.th.aten.network.producer.DBDefault;
 import co.th.aten.network.report.AbstractReport;
-import co.th.aten.network.report.MoneyReportAdjustReport;
+import co.th.aten.network.report.MoneyReportTransactionReport;
 import co.th.aten.network.security.CurrentUserManager;
 import co.th.aten.network.util.StringUtil;
 
 @ViewScoped	
 @Named
-public class MoneyReportAdjustController implements Serializable {
+public class MoneyReportTransactionController implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Inject
@@ -62,7 +62,7 @@ public class MoneyReportAdjustController implements Serializable {
 
 	@PostConstruct
 	public void init(){
-		log.info("init method MoneyReportAdjustController");
+		log.info("init method MoneyReportTransactionController");
 		Calendar calStart = Calendar.getInstance();
 		calStart.set(Calendar.DAY_OF_MONTH,
 				calStart.getActualMinimum(Calendar.DAY_OF_MONTH));
@@ -110,7 +110,6 @@ public class MoneyReportAdjustController implements Serializable {
 					" Where trx.trxMoneyDatetime Between :startDate And :endDate " +
 					" And trx.customerId = mem.customerId " +
 					" And trx.createBy = us.userId " +
-					" And trx.trxMoneyStatus in (1,2) " +
 					sqlText +
 					" Order By trx.trxMoneyDatetime desc ";
 			List<Object[]> objList = em.createQuery(sql,Object[].class)
@@ -126,7 +125,9 @@ public class MoneyReportAdjustController implements Serializable {
 					String nameMem = StringUtil.n2b((String)ob[1])+" "+StringUtil.n2b((String)ob[2])+" "+StringUtil.n2b((String)ob[3]);
 					model.setMemberName(nameMem);
 					model.setDate((Date)ob[4]);
-					if(StringUtil.n2b((Integer)ob[7]).intValue()==1){
+					if(StringUtil.n2b((Integer)ob[7]).intValue()==1
+							|| StringUtil.n2b((Integer)ob[7]).intValue()==3
+							|| StringUtil.n2b((Integer)ob[7]).intValue()==4){
 						model.setDeduct(StringUtil.n2b((BigDecimal)ob[5]).doubleValue());
 					}else{
 						model.setAdd(StringUtil.n2b((BigDecimal)ob[5]).doubleValue());
@@ -152,8 +153,8 @@ public class MoneyReportAdjustController implements Serializable {
 			HttpServletRequest request = (HttpServletRequest) facesContext
 					.getExternalContext().getRequest();
 			AbstractReport report = null;
-			report = new MoneyReportAdjustReport();
-			Map<String, Object> parameters = ((MoneyReportAdjustReport) report)
+			report = new MoneyReportTransactionReport();
+			Map<String, Object> parameters = ((MoneyReportTransactionReport) report)
 					.getParameter();
 			parameters
 			.put("PIC_DIR", servletContext
@@ -164,7 +165,7 @@ public class MoneyReportAdjustController implements Serializable {
 			parameters.put("sDate", startDate);
 			parameters.put("eDate", endDate);
 
-			((MoneyReportAdjustReport) report).setModel(moneyReportModelList);
+			((MoneyReportTransactionReport) report).setModel(moneyReportModelList);
 			report.fill();
 			if (request != null) {
 				request.getSession().setAttribute(
@@ -200,9 +201,9 @@ public class MoneyReportAdjustController implements Serializable {
 					.getExternalContext().getRequest();
 
 			AbstractReport report = null;
-			report = new MoneyReportAdjustReport();
+			report = new MoneyReportTransactionReport();
 
-			Map<String, Object> parameters = ((MoneyReportAdjustReport) report)
+			Map<String, Object> parameters = ((MoneyReportTransactionReport) report)
 					.getParameter();
 			parameters
 			.put("PIC_DIR", servletContext
@@ -221,7 +222,7 @@ public class MoneyReportAdjustController implements Serializable {
 			}catch(Exception e){
 				e.printStackTrace();
 			}
-			((MoneyReportAdjustReport) report)
+			((MoneyReportTransactionReport) report)
 			.setModel(moneyReportModelList);
 			report.fill();
 
