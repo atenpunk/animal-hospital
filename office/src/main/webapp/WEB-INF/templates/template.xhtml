@@ -68,9 +68,21 @@
 					label="#{app_msgs['menu.label.eMoney.addAndDeduct']}"
 					onclick="document.location.href='#{request.contextPath}/money/add'" />
 
+				<rich:menuSeparator id="menuSeparator2" />
+				<rich:menuSeparator id="menuSeparator3" />
+
 				<rich:menuItem submitMode="ajax" style="font-size: 13px;"
+					icon="/resources/image/report-icon.png"
 					label="#{app_msgs['label.menuMoney.reportAdjust']}"
 					onclick="document.location.href='#{request.contextPath}/money/adjust'" />
+				<rich:menuItem submitMode="ajax" style="font-size: 13px;"
+					icon="/resources/image/report-icon.png"
+					label="#{app_msgs['label.menuMoney.reportTransfer']}"
+					onclick="document.location.href='#{request.contextPath}/money/transfer'" />
+				<rich:menuItem submitMode="ajax" style="font-size: 13px;"
+					icon="/resources/image/report-icon.png"
+					label="#{app_msgs['label.menuMoney.reportTransaction']}"
+					onclick="document.location.href='#{request.contextPath}/money/transaction'" />
 			</rich:dropDownMenu>
 			<rich:toolbarGroup location="right">
 				<h:form style="float:right; text-align:right; list-style:none;">
