@@ -23,7 +23,7 @@ public class MoneyReportAdjustReport extends AbstractReport {
 	 */
 	private static final long serialVersionUID = -5326919701601476597L;
 
-	private final String fileName = "/reports/DirectLineReport.jasper";
+	private final String fileName = "/reports/MoneyAdjustReport.jasper";
 
 	private List<MoneyReportModel> model;
 

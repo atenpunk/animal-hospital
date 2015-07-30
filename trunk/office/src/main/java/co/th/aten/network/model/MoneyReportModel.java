@@ -6,6 +6,7 @@ import java.util.Date;
 
 public class MoneyReportModel implements Serializable {
 	
+	private int order;
 	private String memberCode;
 	private String memberName;
 	private Date date;
@@ -16,6 +17,12 @@ public class MoneyReportModel implements Serializable {
 	private String trxBy;
 	private Date trxTime;
 	
+	public int getOrder() {
+		return order;
+	}
+	public void setOrder(int order) {
+		this.order = order;
+	}
 	public String getMemberCode() {
 		return memberCode;
 	}
