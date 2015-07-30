@@ -46,8 +46,8 @@
 		<view-id>/sec/category/list.jsf</view-id>
 	</url-mapping>
 	<url-mapping id="backOffice_05">
-		<pattern value="/money/addAndDeduct"></pattern>
-		<view-id>/sec/money/addAndDeduct.jsf</view-id>
+		<pattern value="/money/add"></pattern>
+		<view-id>/sec/money/add.jsf</view-id>
 	</url-mapping>
 
 </pretty-config>

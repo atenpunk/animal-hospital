@@ -17,8 +17,9 @@
 
 				<h:panelGrid columns="1" width="100%">
 					<rich:panel>
-						<h:messages style="font-size: 13px;" globalOnly="true"
+						<h:messages style="font-size: 15px;" globalOnly="true"
 							infoClass="info" warnClass="warn" errorClass="error" />
+						<br />
 						<table>
 							<tr>
 								<td class="tdOutputScreen"><h:outputText
@@ -33,7 +34,7 @@
 								<td class="tdOutputScreen"><h:outputText
 										style="font-size: 13px;"
 										value="#{app_msgs['label.memberCode']}" /></td>
-								<td class="tdInputScreen"><h:inputText maxlength="100"
+								<td class="tdInputScreen"><h:inputText maxlength="20"
 										style="font-size: 13px;"
 										value="#{moneyAddAndDeductController.memberCode}">
 									</h:inputText> <a4j:commandButton id="searchId"
@@ -55,7 +56,7 @@
 								<td class="tdOutputScreen"><h:outputText
 										style="font-size: 13px;"
 										value="#{app_msgs['label.menuMoney.deduct']}" /></td>
-								<td class="tdInputScreen"><h:inputText maxlength="100"
+								<td class="tdInputScreen"><h:inputText maxlength="10"
 										style="font-size: 13px;"
 										value="#{moneyAddAndDeductController.deductMoney}">
 										<f:convertNumber pattern="########" />
@@ -65,13 +66,30 @@
 								<td class="tdOutputScreen"><h:outputText
 										style="font-size: 13px;"
 										value="#{app_msgs['label.menuMoney.add']}" /></td>
-								<td class="tdInputScreen"><h:inputText maxlength="100"
+								<td class="tdInputScreen"><h:inputText maxlength="10"
 										style="font-size: 13px;"
 										value="#{moneyAddAndDeductController.addMoney}">
 										<f:convertNumber pattern="########" />
 									</h:inputText></td>
 							</tr>
+							<tr>
+								<td class="tdOutputScreen"><h:outputText
+										style="font-size: 13px;"
+										value="#{app_msgs['label.menuMoney.remark']}" /></td>
+								<td class="tdInputScreen"><h:inputText
+										style="font-size: 13px; width : 260px;"
+										value="#{moneyAddAndDeductController.remark}">
+									</h:inputText></td>
+							</tr>
 						</table>
+						<br />
+						<a4j:commandButton id="confirmButtonId"
+							disabled="#{moneyAddAndDeductController.memberSearch eq null}"
+							value="#{app_msgs['button.save']}"
+							onclick="confirmMsg('#{app_msgs['label.confirm.addAndDeductMoney']}');"
+							oncomplete="endProgress();"
+							action="#{moneyAddAndDeductController.confirmMoney}"
+							render="mainForm" style="font-size: 13px; width : 80px;"></a4j:commandButton>
 					</rich:panel>
 				</h:panelGrid>
 				<br />
