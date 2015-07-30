@@ -43,6 +43,8 @@ public class TransactionMoney implements Serializable {
     private Integer customerId;
     @Column(name = "amount")
     private BigDecimal amount;
+    @Column(name = "balance")
+    private BigDecimal balance;
     @Lob
     @Column(name = "remark")
     private String remark;
@@ -100,7 +102,15 @@ public class TransactionMoney implements Serializable {
         this.amount = amount;
     }
 
-    public String getRemark() {
+    public BigDecimal getBalance() {
+		return balance;
+	}
+
+	public void setBalance(BigDecimal balance) {
+		this.balance = balance;
+	}
+
+	public String getRemark() {
         return remark;
     }
 
