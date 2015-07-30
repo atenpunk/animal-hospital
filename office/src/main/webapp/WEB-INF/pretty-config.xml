@@ -54,12 +54,16 @@
 		<view-id>/sec/money/adjust.jsf</view-id>
 	</url-mapping>
 	<url-mapping id="backOffice_07">
-		<pattern value="/money/transfer"></pattern>
-		<view-id>/sec/money/transfer.jsf</view-id>
+		<pattern value="/money/transferReport"></pattern>
+		<view-id>/sec/money/transferReport.jsf</view-id>
 	</url-mapping>
 	<url-mapping id="backOffice_08">
 		<pattern value="/money/transaction"></pattern>
 		<view-id>/sec/money/transaction.jsf</view-id>
+	</url-mapping>
+	<url-mapping id="backOffice_09">
+		<pattern value="/money/transfer"></pattern>
+		<view-id>/sec/money/transfer.jsf</view-id>
 	</url-mapping>
 
 </pretty-config>

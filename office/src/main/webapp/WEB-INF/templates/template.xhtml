@@ -67,7 +67,10 @@
 				<rich:menuItem submitMode="ajax" style="font-size: 13px;"
 					label="#{app_msgs['menu.label.eMoney.addAndDeduct']}"
 					onclick="document.location.href='#{request.contextPath}/money/add'" />
-
+				<rich:menuItem submitMode="ajax" style="font-size: 13px;"
+					label="#{app_msgs['label.menuMoney.transfer']}"
+					onclick="document.location.href='#{request.contextPath}/money/transfer'" />
+					
 				<rich:menuSeparator id="menuSeparator2" />
 				<rich:menuSeparator id="menuSeparator3" />
 
@@ -78,7 +81,7 @@
 				<rich:menuItem submitMode="ajax" style="font-size: 13px;"
 					icon="/resources/image/report-icon.png"
 					label="#{app_msgs['label.menuMoney.reportTransfer']}"
-					onclick="document.location.href='#{request.contextPath}/money/transfer'" />
+					onclick="document.location.href='#{request.contextPath}/money/transferReport'" />
 				<rich:menuItem submitMode="ajax" style="font-size: 13px;"
 					icon="/resources/image/report-icon.png"
 					label="#{app_msgs['label.menuMoney.reportTransaction']}"
