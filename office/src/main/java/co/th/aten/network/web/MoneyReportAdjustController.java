@@ -119,8 +119,10 @@ public class MoneyReportAdjustController implements Serializable {
 					.setParameter("endDate", endDate)
 					.getResultList();
 			if(objList!=null && objList.size()>0){
+				int order = 0;
 				for(Object[] ob:objList){
 					MoneyReportModel model = new MoneyReportModel();
+					model.setOrder(++order);
 					model.setMemberCode(StringUtil.n2b((String)ob[0]));
 					String nameMem = StringUtil.n2b((String)ob[1])+" "+StringUtil.n2b((String)ob[2])+" "+StringUtil.n2b((String)ob[3]);
 					model.setMemberName(nameMem);
@@ -160,6 +162,9 @@ public class MoneyReportAdjustController implements Serializable {
 			parameters.put("printUser", currentUser.getCurrentAccount()
 					.getUserName());
 			parameters.put("showHeader", true);
+			parameters.put("sDate", startDate);
+			parameters.put("eDate", endDate);
+			
 			((MoneyReportAdjustReport) report).setModel(moneyReportModelList);
 			report.fill();
 			if (request != null) {
