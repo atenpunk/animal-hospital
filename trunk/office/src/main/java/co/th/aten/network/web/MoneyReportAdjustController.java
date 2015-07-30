@@ -57,6 +57,9 @@ public class MoneyReportAdjustController implements Serializable {
 	private Date startDate;
 	private Date endDate;
 	private String searchText;
+	
+	private double totalDeduct;
+	private double totalAdd;
 
 	@PostConstruct
 	public void init(){
@@ -77,10 +80,13 @@ public class MoneyReportAdjustController implements Serializable {
 		calEnd.set(Calendar.SECOND, 59);
 		calEnd.set(Calendar.MILLISECOND, 999);
 		endDate = calEnd.getTime();
+		search();
 	}
 
 	public void search(){
 		try{
+			totalDeduct = 0;
+			totalAdd = 0;
 			moneyReportModelList = new ArrayList<MoneyReportModel>();
 			String sqlText = "";
 			if(searchText!=null && searchText.trim().length()>0){
@@ -128,6 +134,8 @@ public class MoneyReportAdjustController implements Serializable {
 					model.setRemark(StringUtil.n2b((String)ob[8]));
 					model.setTrxBy(StringUtil.n2b((String)ob[9]));
 					model.setTrxTime((Date)ob[4]);
+					totalDeduct += model.getDeduct();
+					totalAdd += model.getAdd();
 					moneyReportModelList.add(model);
 				}
 			}
@@ -258,6 +266,22 @@ public class MoneyReportAdjustController implements Serializable {
 
 	public void setSearchText(String searchText) {
 		this.searchText = searchText;
+	}
+
+	public double getTotalDeduct() {
+		return totalDeduct;
+	}
+
+	public void setTotalDeduct(double totalDeduct) {
+		this.totalDeduct = totalDeduct;
+	}
+
+	public double getTotalAdd() {
+		return totalAdd;
+	}
+
+	public void setTotalAdd(double totalAdd) {
+		this.totalAdd = totalAdd;
 	}
 
 }
