@@ -49,5 +49,9 @@
 		<pattern value="/money/add"></pattern>
 		<view-id>/sec/money/add.jsf</view-id>
 	</url-mapping>
+	<url-mapping id="backOffice_06">
+		<pattern value="/money/adjust"></pattern>
+		<view-id>/sec/money/adjust.jsf</view-id>
+	</url-mapping>
 
 </pretty-config>
