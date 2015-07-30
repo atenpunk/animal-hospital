@@ -57,7 +57,7 @@ public class MoneyReportAdjustController implements Serializable {
 	private Date startDate;
 	private Date endDate;
 	private String searchText;
-	
+
 	private double totalDeduct;
 	private double totalAdd;
 
@@ -164,7 +164,7 @@ public class MoneyReportAdjustController implements Serializable {
 			parameters.put("showHeader", true);
 			parameters.put("sDate", startDate);
 			parameters.put("eDate", endDate);
-			
+
 			((MoneyReportAdjustReport) report).setModel(moneyReportModelList);
 			report.fill();
 			if (request != null) {
@@ -211,6 +211,17 @@ public class MoneyReportAdjustController implements Serializable {
 			parameters.put("printUser", currentUser.getCurrentAccount()
 					.getUserName());
 			parameters.put("showHeader", false);
+			try{
+				if(moneyReportModelList!=null && moneyReportModelList.size()>0){
+					for(int i=0;i<moneyReportModelList.size();i++){
+						if(moneyReportModelList.get(i).getMemberCode()!=null 
+								&& moneyReportModelList.get(i).getMemberCode().length()>0)
+							moneyReportModelList.get(i).setMemberCode("'"+moneyReportModelList.get(i).getMemberCode());
+					}
+				}
+			}catch(Exception e){
+				e.printStackTrace();
+			}
 			((MoneyReportAdjustReport) report)
 			.setModel(moneyReportModelList);
 			report.fill();
