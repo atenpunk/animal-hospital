@@ -53,5 +53,13 @@
 		<pattern value="/money/adjust"></pattern>
 		<view-id>/sec/money/adjust.jsf</view-id>
 	</url-mapping>
+	<url-mapping id="backOffice_07">
+		<pattern value="/money/transfer"></pattern>
+		<view-id>/sec/money/transfer.jsf</view-id>
+	</url-mapping>
+	<url-mapping id="backOffice_08">
+		<pattern value="/money/transaction"></pattern>
+		<view-id>/sec/money/transaction.jsf</view-id>
+	</url-mapping>
 
 </pretty-config>

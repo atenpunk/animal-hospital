@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="content">
+		<br />
+		<h:form id="fromMainId">
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText style="font-size: 13px;"
+						value="#{app_msgs['label.menuMoney.reportTransaction']}" />
+				</f:facet>
+				<table>
+					<tr>
+						<td><h:outputText style="font-size: 13px;"
+								value="#{app_msgs['label.startDate']}" /></td>
+						<td><a4j:outputPanel id="startDate" layout="block">
+								<rich:calendar value="#{moneyReportTransactionController.startDate}"
+									datePattern="dd/MM/yyyy HH:mm:ss" />
+							</a4j:outputPanel></td>
+						<td><h:outputText style="font-size: 13px;"
+								value="#{app_msgs['label.endDate']}" /></td>
+						<td><a4j:outputPanel id="endDate" layout="block">
+								<rich:calendar value="#{moneyReportTransactionController.endDate}"
+									datePattern="dd/MM/yyyy HH:mm:ss" />
+							</a4j:outputPanel></td>
+					</tr>
+					<tr>
+						<td colspan="4"><h:inputText id="inputMemberId"
+								style="font-size: 13px; width : 190px;"
+								value="#{moneyReportTransactionController.searchText}">
+								<rich:placeholder
+									value="#{app_msgs['inputText.search.memberId']}" />
+							</h:inputText></td>
+					</tr>
+				</table>
+				<table>
+					<tr>
+						<td><a4j:commandButton id="searchId"
+								value="#{app_msgs['button.search']}"
+								action="#{moneyReportTransactionController.search}"
+								render="testDataTable" style="font-size: 13px; width : 80px;"></a4j:commandButton>&#160;&#160;
+						</td>
+						<td align="left"><h:commandLink value="Export PDF"
+								style="width:100px"
+								action="#{moneyReportTransactionController.exportReportPDF()}"
+								target="tab" /> &#160;&#160; <h:commandLink style="width:100px"
+								value="Export CSV"
+								action="#{moneyReportTransactionController.exportReportCSV()}"
+								target="tab" />&#160;&#160;</td>
+						<td><a4j:status>
+								<f:facet name="start">
+									<h:graphicImage value="/resources/gfx/spinner.gif" />
+								</f:facet>
+							</a4j:status></td>
+					</tr>
+				</table>
+				<br />
+				<rich:dataTable id="testDataTable" style="width : 100%;"
+					rowKeyVar="row"
+					onrowmouseover="this.style.backgroundColor='#F1F1F1'"
+					onrowmouseout="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+					value="#{moneyReportTransactionController.moneyReportModelList}"
+					var="item" rows="50">
+					<f:facet name="header">
+						<rich:columnGroup>
+							<rich:column breakRowBefore="true">
+								<h:outputText style="font-size: 13px;"
+									value="#{app_msgs['label.menuMoney.order']}" />
+							</rich:column>
+							<rich:column>
+								<h:outputText style="font-size: 13px;"
+									value="#{app_msgs['label.menuMoney.memberCode']}" />
+							</rich:column>
+							<rich:column>
+								<h:outputText style="font-size: 13px;"
+									value="#{app_msgs['label.menuMoney.memberName']}" />
+							</rich:column>
+							<rich:column>
+								<h:outputText style="font-size: 13px;"
+									value="#{app_msgs['label.menuMoney.date']}" />
+							</rich:column>
+							<rich:column>
+								<h:outputText style="font-size: 13px;"
+									value="#{app_msgs['label.menuMoney.deduct']}" />
+							</rich:column>
+							<rich:column>
+								<h:outputText style="font-size: 13px;"
+									value="#{app_msgs['label.menuMoney.add']}" />
+							</rich:column>
+							<rich:column>
+								<h:outputText style="font-size: 13px;"
+									value="#{app_msgs['label.menuMoney.balance']}" />
+							</rich:column>
+							<rich:column>
+								<h:outputText style="font-size: 13px;"
+									value="#{app_msgs['label.menuMoney.remark']}" />
+							</rich:column>
+							<rich:column>
+								<h:outputText style="font-size: 13px;"
+									value="#{app_msgs['label.menuMoney.trxBy']}" />
+							</rich:column>
+							<rich:column>
+								<h:outputText style="font-size: 13px;"
+									value="#{app_msgs['label.menuMoney.trxTime']}" />
+							</rich:column>
+						</rich:columnGroup>
+					</f:facet>
+					<rich:column style="text-align:center">
+						<h:outputText style="font-size: 13px;" value="#{row+1}">
+						</h:outputText>
+					</rich:column>
+					<rich:column style="text-align:center">
+						<h:outputText style="font-size: 13px;" value="#{item.memberCode}">
+						</h:outputText>
+					</rich:column>
+					<rich:column style="text-align:left">
+						<h:outputText style="font-size: 13px;" value="#{item.memberName}">
+						</h:outputText>
+					</rich:column>
+					<rich:column style="text-align:center">
+						<h:outputText style="font-size: 13px;" value="#{item.date}">
+							<f:convertDateTime pattern="yyyy-MM-dd" locale="en_US"
+								timeZone="GMT+7" />
+						</h:outputText>
+					</rich:column>
+					<rich:column style="text-align:right">
+						<h:outputText style="font-size: 13px;" value="#{item.deduct}">
+							<f:convertNumber pattern="#,##0.00" />
+						</h:outputText>
+					</rich:column>
+					<rich:column style="text-align:right">
+						<h:outputText style="font-size: 13px;" value="#{item.add}">
+							<f:convertNumber pattern="#,##0.00" />
+						</h:outputText>
+					</rich:column>
+					<rich:column style="text-align:right">
+						<h:outputText style="font-size: 13px;" value="#{item.balance}">
+							<f:convertNumber pattern="#,##0.00" />
+						</h:outputText>
+					</rich:column>
+					<rich:column style="text-align:left">
+						<h:outputText style="font-size: 13px;" value="#{item.remark}">
+						</h:outputText>
+					</rich:column>
+					<rich:column style="text-align:left">
+						<h:outputText style="font-size: 13px;" value="#{item.trxBy}">
+						</h:outputText>
+					</rich:column>
+					<rich:column style="text-align:center">
+						<h:outputText style="font-size: 13px;" value="#{item.trxTime}">
+							<f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss" locale="en_US"
+								timeZone="GMT+7" />
+						</h:outputText>
+					</rich:column>
+
+					<f:facet name="footer">
+						<rich:columnGroup>
+							<rich:column colspan="4" style="text-align: right;">
+								<h:outputText style="font-size: 13px;"
+									value="#{app_msgs['label.total']}">
+								</h:outputText>
+							</rich:column>
+							<rich:column style="text-align:right">
+								<h:outputText style="font-size: 13px;"
+									value="#{moneyReportTransactionController.totalDeduct}">
+									<f:convertNumber pattern="#,##0.00" />
+								</h:outputText>
+							</rich:column>
+							<rich:column style="text-align:right">
+								<h:outputText style="font-size: 13px;"
+									value="#{moneyReportTransactionController.totalAdd}">
+									<f:convertNumber pattern="#,##0.00" />
+								</h:outputText>
+							</rich:column>
+							<rich:column colspan="4">
+								<h:outputText value="">
+								</h:outputText>
+							</rich:column>
+							<rich:column breakRowBefore="true" colspan="10">
+								<rich:dataScroller for="testDataTable" />
+							</rich:column>
+						</rich:columnGroup>
+					</f:facet>
+				</rich:dataTable>
+			</rich:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
