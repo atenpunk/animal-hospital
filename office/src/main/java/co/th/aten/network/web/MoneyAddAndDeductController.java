@@ -97,13 +97,14 @@ public class MoneyAddAndDeductController implements Serializable {
 			trxMoney.setCreateDate(new Date());
 			trxMoney.setUpdateBy(currentUser.getCurrentAccount().getUserId());
 			trxMoney.setUpdateDate(new Date());
-			em.persist(trxMoney);
 			double moneyOld = StringUtil.n2b(memberSearch.geteMoney()).doubleValue();
 			if(deductMoney!=null && deductMoney > 0){
 				memberSearch.seteMoney(new BigDecimal(moneyOld-StringUtil.n2b(deductMoney)));
 			}else{
 				memberSearch.seteMoney(new BigDecimal(moneyOld+StringUtil.n2b(addMoney)));
 			}
+			trxMoney.setBalance(memberSearch.geteMoney());
+			em.persist(trxMoney);
 			em.merge(memberSearch);
 			memberSearch = null;
 			messages.info(new AppBundleKey("info.label.money.success",FacesContext.getCurrentInstance().getViewRoot().getLocale().getLanguage()));

@@ -46,7 +46,8 @@
 			<rich:dropDownMenu>
 				<f:facet name="label">
 					<h:panelGroup>
-						<h:outputText style="font-size: 13px;" value="#{app_msgs['menu.label.stockProduct']}" />
+						<h:outputText style="font-size: 13px;"
+							value="#{app_msgs['menu.label.stockProduct']}" />
 					</h:panelGroup>
 				</f:facet>
 				<rich:menuItem submitMode="ajax" style="font-size: 13px;"
@@ -59,12 +60,17 @@
 			<rich:dropDownMenu>
 				<f:facet name="label">
 					<h:panelGroup>
-						<h:outputText style="font-size: 13px;" value="#{app_msgs['menu.label.eMoney']}" />
+						<h:outputText style="font-size: 13px;"
+							value="#{app_msgs['menu.label.eMoney']}" />
 					</h:panelGroup>
 				</f:facet>
 				<rich:menuItem submitMode="ajax" style="font-size: 13px;"
 					label="#{app_msgs['menu.label.eMoney.addAndDeduct']}"
 					onclick="document.location.href='#{request.contextPath}/money/add'" />
+
+				<rich:menuItem submitMode="ajax" style="font-size: 13px;"
+					label="#{app_msgs['label.menuMoney.reportAdjust']}"
+					onclick="document.location.href='#{request.contextPath}/money/adjust'" />
 			</rich:dropDownMenu>
 			<rich:toolbarGroup location="right">
 				<h:form style="float:right; text-align:right; list-style:none;">
