@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="MoneyAdjustReport" pageWidth="595" pageHeight="842" columnWidth="571" leftMargin="12" rightMargin="12" topMargin="20" bottomMargin="20">
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<style name="solar" isDefault="true" fontName="Tahoma" pdfFontName="c:\windows\fonts\tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+	<parameter name="printUser" class="java.lang.String"/>
+	<parameter name="showHeader" class="java.lang.Boolean"/>
+	<parameter name="sDate" class="java.util.Date"/>
+	<parameter name="eDate" class="java.util.Date"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="memberName" class="java.lang.String">
+		<fieldDescription><![CDATA[memberName]]></fieldDescription>
+	</field>
+	<field name="deduct" class="java.lang.Double">
+		<fieldDescription><![CDATA[deduct]]></fieldDescription>
+	</field>
+	<field name="date" class="java.util.Date">
+		<fieldDescription><![CDATA[date]]></fieldDescription>
+	</field>
+	<field name="add" class="java.lang.Double">
+		<fieldDescription><![CDATA[add]]></fieldDescription>
+	</field>
+	<field name="trxBy" class="java.lang.String">
+		<fieldDescription><![CDATA[trxBy]]></fieldDescription>
+	</field>
+	<field name="memberCode" class="java.lang.String">
+		<fieldDescription><![CDATA[memberCode]]></fieldDescription>
+	</field>
+	<field name="trxTime" class="java.util.Date">
+		<fieldDescription><![CDATA[trxTime]]></fieldDescription>
+	</field>
+	<field name="remark" class="java.lang.String">
+		<fieldDescription><![CDATA[remark]]></fieldDescription>
+	</field>
+	<field name="balance" class="java.lang.Double">
+		<fieldDescription><![CDATA[balance]]></fieldDescription>
+	</field>
+	<field name="order" class="java.lang.Integer">
+		<fieldDescription><![CDATA[order]]></fieldDescription>
+	</field>
+	<field name="transferAmount" class="java.lang.Double">
+		<fieldDescription><![CDATA[transferAmount]]></fieldDescription>
+	</field>
+	<field name="receiveMemberId" class="java.lang.String">
+		<fieldDescription><![CDATA[receiveMemberId]]></fieldDescription>
+	</field>
+	<field name="receiveMemberName" class="java.lang.String">
+		<fieldDescription><![CDATA[receiveMemberName]]></fieldDescription>
+	</field>
+	<variable name="sumAmount" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{transferAmount}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="55" splitType="Stretch">
+			<printWhenExpression><![CDATA[$P{showHeader}]]></printWhenExpression>
+			<line>
+				<reportElement key="line" style="solar" x="1" y="0" width="569" height="1"/>
+			</line>
+			<line>
+				<reportElement key="line" style="solar" x="1" y="21" width="569" height="1"/>
+			</line>
+			<line>
+				<reportElement key="line" style="solar" x="0" y="0" width="1" height="22"/>
+			</line>
+			<line>
+				<reportElement key="line" style="solar" x="570" y="0" width="1" height="22"/>
+			</line>
+			<staticText>
+				<reportElement key="staticText" style="solar" x="1" y="1" width="48" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8" isBold="true" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[วันที่พิมพ์ : ]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy  HH:mm" isBlankWhenNull="false">
+				<reportElement key="textField" style="solar" x="49" y="1" width="77" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new Date()]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement key="line" style="solar" x="126" y="1" width="1" height="20"/>
+			</line>
+			<textField evaluationTime="Report" pattern="" isBlankWhenNull="false">
+				<reportElement key="textField" style="solar" x="548" y="1" width="22" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" style="solar" x="509" y="1" width="22" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText" style="solar" x="531" y="1" width="17" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8" isBold="true" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[จาก]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" style="solar" x="429" y="31" width="45" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8" isBold="true" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[พิมพ์โดย : ]]></text>
+			</staticText>
+			<line>
+				<reportElement key="line" style="solar" x="482" y="1" width="1" height="20"/>
+			</line>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField" style="solar" x="474" y="31" width="96" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8" isBold="false" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{printUser}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText" style="solar" x="127" y="1" width="355" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8" isBold="true" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[รายงาน การปรับปรุง (ฝาก/ถอน) E-money]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" style="solar" x="483" y="1" width="26" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8" isBold="true" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[หน้า : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" style="solar" x="15" y="31" width="43" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8" isBold="true" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[จากวันที่ : ]]></text>
+			</staticText>
+			<textField pattern="yyyy-MM-dd  HH:mm:ss" isBlankWhenNull="true">
+				<reportElement key="textField" style="solar" x="58" y="31" width="96" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[$P{sDate}]]></textFieldExpression>
+			</textField>
+			<textField pattern="yyyy-MM-dd  HH:mm:ss" isBlankWhenNull="true">
+				<reportElement key="textField" style="solar" x="188" y="31" width="88" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[$P{eDate}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText" style="solar" x="154" y="31" width="34" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8" isBold="true" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ถึงวันที่ : ]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="17" splitType="Stretch">
+			<line>
+				<reportElement key="line" style="solar" x="1" y="0" width="569" height="1"/>
+			</line>
+			<line>
+				<reportElement key="line" style="solar" x="0" y="0" width="1" height="16"/>
+			</line>
+			<line>
+				<reportElement key="line" style="solar" x="570" y="0" width="1" height="16"/>
+			</line>
+			<line>
+				<reportElement key="line" style="solar" x="0" y="16" width="571" height="1"/>
+			</line>
+			<staticText>
+				<reportElement key="staticText" style="solar" x="1" y="1" width="32" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8" isBold="true" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ลำดับที่]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" style="solar" x="409" y="1" width="50" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8" isBold="true" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[รายละเอียด]]></text>
+			</staticText>
+			<line>
+				<reportElement key="line" style="solar" x="33" y="1" width="1" height="15"/>
+			</line>
+			<staticText>
+				<reportElement key="staticText-1" style="solar" x="34" y="1" width="46" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8" isBold="true" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[รหัสสมาชิก]]></text>
+			</staticText>
+			<line>
+				<reportElement key="line-2" style="solar" x="80" y="1" width="1" height="15"/>
+			</line>
+			<staticText>
+				<reportElement key="staticText" style="solar" x="81" y="1" width="118" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8" isBold="true" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ชื่อสมาชิก]]></text>
+			</staticText>
+			<line>
+				<reportElement key="line-2" style="solar" x="408" y="1" width="1" height="15"/>
+			</line>
+			<staticText>
+				<reportElement key="staticText" style="solar" x="200" y="1" width="45" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8" isBold="true" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[วันที่]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" style="solar" x="246" y="1" width="56" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8" isBold="true" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[จำนวนเงินโอน]]></text>
+			</staticText>
+			<line>
+				<reportElement key="line-2" style="solar" x="245" y="1" width="1" height="15"/>
+			</line>
+			<line>
+				<reportElement key="line-2" style="solar" x="199" y="1" width="1" height="15"/>
+			</line>
+			<line>
+				<reportElement key="line-2" style="solar" x="302" y="1" width="1" height="15"/>
+			</line>
+			<staticText>
+				<reportElement key="staticText" style="solar" x="303" y="1" width="46" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8" isBold="true" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[รหัสผู้รับโอน]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" style="solar" x="350" y="1" width="58" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8" isBold="true" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ชื่อผู้รับโอน]]></text>
+			</staticText>
+			<line>
+				<reportElement key="line-2" style="solar" x="349" y="1" width="1" height="15"/>
+			</line>
+			<staticText>
+				<reportElement key="staticText" style="solar" x="460" y="1" width="60" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8" isBold="true" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ผู้ทำรายการ]]></text>
+			</staticText>
+			<line>
+				<reportElement key="line-2" style="solar" x="459" y="1" width="1" height="15"/>
+			</line>
+			<staticText>
+				<reportElement key="staticText" style="solar" x="521" y="1" width="49" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8" isBold="true" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[วันเวลา]]></text>
+			</staticText>
+			<line>
+				<reportElement key="line-2" style="solar" x="520" y="1" width="1" height="15"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement key="line" style="solar" positionType="FixRelativeToBottom" x="0" y="15" width="571" height="1"/>
+			</line>
+			<line>
+				<reportElement key="line" style="solar" stretchType="RelativeToBandHeight" x="0" y="0" width="1" height="15"/>
+			</line>
+			<line>
+				<reportElement key="line" style="solar" stretchType="RelativeToBandHeight" x="570" y="0" width="1" height="15"/>
+			</line>
+			<line>
+				<reportElement key="line" style="solar" stretchType="RelativeToBandHeight" x="33" y="0" width="1" height="15"/>
+			</line>
+			<line>
+				<reportElement key="line-1" style="solar" stretchType="RelativeToBandHeight" x="80" y="0" width="1" height="15"/>
+			</line>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement key="textField" style="solar" stretchType="RelativeToTallestObject" x="1" y="0" width="32" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="7" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{order}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField" style="solar" stretchType="RelativeToTallestObject" x="34" y="0" width="46" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="7" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{memberCode}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement key="textField" style="solar" stretchType="RelativeToTallestObject" x="409" y="0" width="50" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="7" isStrikeThrough="false" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{remark}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement key="line-2" style="solar" stretchType="RelativeToBandHeight" x="408" y="0" width="1" height="15"/>
+			</line>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField" style="solar" stretchType="RelativeToTallestObject" x="81" y="0" width="118" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="7" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{memberName}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="yyyy-MM-dd" isBlankWhenNull="true">
+				<reportElement key="textField" style="solar" stretchType="RelativeToTallestObject" x="200" y="0" width="45" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="7" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[$F{date}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement key="textField" style="solar" stretchType="RelativeToTallestObject" x="246" y="0" width="54" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="7" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$F{transferAmount}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement key="line-2" style="solar" stretchType="RelativeToBandHeight" x="245" y="0" width="1" height="15"/>
+			</line>
+			<line>
+				<reportElement key="line-2" style="solar" stretchType="RelativeToBandHeight" x="199" y="0" width="1" height="15"/>
+			</line>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement key="textField" style="solar" stretchType="RelativeToTallestObject" x="303" y="0" width="46" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="7" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{receiveMemberId}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement key="line-2" style="solar" stretchType="RelativeToBandHeight" x="302" y="0" width="1" height="15"/>
+			</line>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement key="textField" style="solar" stretchType="RelativeToTallestObject" x="350" y="0" width="58" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="7" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{receiveMemberName}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement key="line-2" style="solar" stretchType="RelativeToBandHeight" x="349" y="0" width="1" height="15"/>
+			</line>
+			<line>
+				<reportElement key="line-2" style="solar" stretchType="RelativeToBandHeight" x="459" y="0" width="1" height="15"/>
+			</line>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement key="textField" style="solar" stretchType="RelativeToTallestObject" x="460" y="0" width="60" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Tahoma" size="7" isStrikeThrough="false" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{trxBy}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement key="line-2" style="solar" stretchType="RelativeToBandHeight" x="520" y="0" width="1" height="15"/>
+			</line>
+			<textField isStretchWithOverflow="true" pattern="yyyy-MM-dd HH:mm:ss" isBlankWhenNull="true">
+				<reportElement key="textField" style="solar" stretchType="RelativeToTallestObject" x="521" y="0" width="49" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="7" isStrikeThrough="false" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[$F{trxTime}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="16" splitType="Stretch">
+			<printWhenExpression><![CDATA[$P{showHeader}]]></printWhenExpression>
+			<line>
+				<reportElement key="line" style="solar" x="0" y="15" width="571" height="1"/>
+			</line>
+			<line>
+				<reportElement key="line" style="solar" x="570" y="0" width="1" height="15"/>
+			</line>
+			<line>
+				<reportElement key="line" style="solar" x="0" y="0" width="1" height="15"/>
+			</line>
+			<staticText>
+				<reportElement key="staticText" style="solar" x="1" y="0" width="242" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8" isBold="true" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[รวม]]></text>
+			</staticText>
+			<line>
+				<reportElement key="line-2" style="solar" x="245" y="0" width="1" height="15"/>
+			</line>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement key="textField" style="solar" x="246" y="0" width="54" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8" isBold="true" pdfFontName="fonts/tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{sumAmount}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement key="line-2" style="solar" x="302" y="0" width="1" height="15"/>
+			</line>
+		</band>
+	</summary>
+</jasperReport>
