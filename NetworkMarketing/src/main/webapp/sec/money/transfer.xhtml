@@ -12,11 +12,14 @@
 			<rich:panel>
 				<f:facet name="header">
 					<h:outputText style="font-size: 13px;"
-						value="#{app_msgs['label.menuShopping.transferEmoney']}" />
+						value="#{app_msgs['label.menuMoney.transfer']}" />
 				</f:facet>
 
-				<h:panelGrid columns="2" width="100%">
+				<h:panelGrid columns="1" width="100%">
 					<rich:panel>
+						<h:messages style="font-size: 15px;" globalOnly="true"
+							infoClass="info" warnClass="warn" errorClass="error" />
+						<br />
 						<table>
 							<tr>
 								<td class="tdOutputScreen"><h:outputText
@@ -30,38 +33,71 @@
 							<tr>
 								<td class="tdOutputScreen"><h:outputText
 										style="font-size: 13px;"
-										value="#{app_msgs['label.memberCode']}" /></td>
-								<td class="tdInputScreen"><h:inputText maxlength="100"
-										style="font-size: 13px;" value="">
-									</h:inputText> <a4j:commandButton id="searchId"
-										value="#{app_msgs['button.search']}" action="#"
-										render="mainForm" style="font-size: 13px; width : 80px;"></a4j:commandButton></td>
-							</tr>
-							<tr>
-								<td class="tdOutputScreen"><h:outputText
-										style="font-size: 13px;"
-										value="#{app_msgs['label.memberName']}" /></td>
+										value="#{app_msgs['label.menuMoney.transfer.memberCodeTransfer']}" /></td>
 								<td class="tdInputScreen"><h:outputText
-										style="font-size: 13px;" value="">
+										style="font-size: 13px;"
+										value="#{moneyTransferController.memberCodeTransfer}">
 									</h:outputText></td>
 							</tr>
 							<tr>
 								<td class="tdOutputScreen"><h:outputText
 										style="font-size: 13px;"
-										value="#{app_msgs['label.menuShopping.transferEmoney.topup']}" /></td>
-								<td class="tdInputScreen"><h:inputText maxlength="100"
-										style="font-size: 13px;" value="">
+										value="#{app_msgs['label.menuMoney.transfer.memberNameTransfer']}" /></td>
+								<td class="tdInputScreen"><h:outputText
+										style="font-size: 13px;"
+										value="#{moneyTransferController.memberNameTransfer}">
+									</h:outputText></td>
+							</tr>
+							<tr>
+								<td class="tdOutputScreen"><h:outputText
+										style="font-size: 13px;"
+										value="#{app_msgs['label.menuMoney.transfer.memberCodeReceive']}" /></td>
+								<td class="tdInputScreen"><h:inputText maxlength="20"
+										style="font-size: 13px;"
+										value="#{moneyTransferController.memberCodeReceive}">
+									</h:inputText> <a4j:commandButton id="searchReceiveId"
+										value="#{app_msgs['button.search']}"
+										action="#{moneyTransferController.searchReceive}"
+										render="mainForm" style="font-size: 13px; width : 80px;"></a4j:commandButton>
+								</td>
+							</tr>
+							<tr>
+								<td class="tdOutputScreen"><h:outputText
+										style="font-size: 13px;"
+										value="#{app_msgs['label.menuMoney.transfer.memberNameReceive']}" /></td>
+								<td class="tdInputScreen"><h:outputText
+										style="font-size: 13px;"
+										value="#{moneyTransferController.memberNameReceive}">
+									</h:outputText></td>
+							</tr>
+							<tr>
+								<td class="tdOutputScreen"><h:outputText
+										style="font-size: 13px;"
+										value="#{app_msgs['label.menuMoney.transferAmount']}" /></td>
+								<td class="tdInputScreen"><h:inputText maxlength="10"
+										style="font-size: 13px;"
+										value="#{moneyTransferController.transferAmount}">
+										<f:convertNumber pattern="########" />
 									</h:inputText></td>
 							</tr>
 							<tr>
 								<td class="tdOutputScreen"><h:outputText
 										style="font-size: 13px;"
-										value="#{app_msgs['label.menuShopping.transferEmoney.password']}" /></td>
-								<td class="tdInputScreen"><h:inputText maxlength="100"
-										style="font-size: 13px;" value="">
-									</h:inputText></td>
+										value="#{app_msgs['label.menuMoney.transfer.passwordOfMember']}" /></td>
+								<td class="tdInputScreen"><h:inputSecret
+										style="font-size: 13px;"
+										value="#{moneyTransferController.passOfTransfer}">
+									</h:inputSecret></td>
 							</tr>
 						</table>
+						<br />
+						<h:commandButton id="confirmButtonId"
+							disabled="#{moneyTransferController.memberTransfer eq null or moneyTransferController.memberReceive eq null}"
+							value="#{app_msgs['button.save']}"
+							onclick="confirmMsg('#{app_msgs['label.confirm.transferMoney']}');"
+							oncomplete="endProgress();"
+							action="#{moneyTransferController.confirmMoney}"
+							render="mainForm" style="font-size: 13px; width : 80px;"></h:commandButton>
 					</rich:panel>
 				</h:panelGrid>
 				<br />
