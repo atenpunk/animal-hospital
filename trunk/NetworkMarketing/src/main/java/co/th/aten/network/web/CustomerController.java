@@ -38,6 +38,7 @@ import co.th.aten.network.model.DropDownModel;
 import co.th.aten.network.model.TeamBinaryReportModel;
 import co.th.aten.network.producer.DBDefault;
 import co.th.aten.network.security.annotation.Authenticated;
+import co.th.aten.network.util.HashUtil;
 import co.th.aten.network.util.StringUtil;
 
 //@ViewScoped
@@ -86,22 +87,22 @@ public class CustomerController implements Serializable{
 	private CustomerModel customerModel_13;
 	private CustomerModel customerModel_14;
 	private CustomerModel customerModel_15;
-//	private CustomerModel customerModel_4_16;
-//	private CustomerModel customerModel_4_17;
-//	private CustomerModel customerModel_4_18;
-//	private CustomerModel customerModel_4_19;
-//	private CustomerModel customerModel_4_20;
-//	private CustomerModel customerModel_4_21;
-//	private CustomerModel customerModel_4_22;
-//	private CustomerModel customerModel_4_23;
-//	private CustomerModel customerModel_4_24;
-//	private CustomerModel customerModel_4_25;
-//	private CustomerModel customerModel_4_26;
-//	private CustomerModel customerModel_4_27;
-//	private CustomerModel customerModel_4_28;
-//	private CustomerModel customerModel_4_29;
-//	private CustomerModel customerModel_4_30;
-//	private CustomerModel customerModel_4_31;
+	//	private CustomerModel customerModel_4_16;
+	//	private CustomerModel customerModel_4_17;
+	//	private CustomerModel customerModel_4_18;
+	//	private CustomerModel customerModel_4_19;
+	//	private CustomerModel customerModel_4_20;
+	//	private CustomerModel customerModel_4_21;
+	//	private CustomerModel customerModel_4_22;
+	//	private CustomerModel customerModel_4_23;
+	//	private CustomerModel customerModel_4_24;
+	//	private CustomerModel customerModel_4_25;
+	//	private CustomerModel customerModel_4_26;
+	//	private CustomerModel customerModel_4_27;
+	//	private CustomerModel customerModel_4_28;
+	//	private CustomerModel customerModel_4_29;
+	//	private CustomerModel customerModel_4_30;
+	//	private CustomerModel customerModel_4_31;
 
 	private String html;
 	private long customerId;
@@ -116,7 +117,7 @@ public class CustomerController implements Serializable{
 	private String detailMatchRemain;
 	private String detailScoreLeft;
 	private String detailScoreRight;
-	
+
 
 	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd",Locale.US);
 	private DecimalFormat df = new DecimalFormat("0000000");
@@ -515,7 +516,7 @@ public class CustomerController implements Serializable{
 		long endTime = System.currentTimeMillis();
 		log.info("search() Time = "+((endTime-startTime)/1000d)+"s");
 	}
-	
+
 	public void genTree(String flag,long cusId){
 		long startTime = System.currentTimeMillis();
 		log.info("flag = "+flag);
@@ -617,22 +618,22 @@ public class CustomerController implements Serializable{
 				customerModel_13 = null;
 				customerModel_14 = null;
 				customerModel_15 = null;
-//				customerModel_4_16 = null;
-//				customerModel_4_17 = null;
-//				customerModel_4_18 = null;
-//				customerModel_4_19 = null;
-//				customerModel_4_20 = null;
-//				customerModel_4_21 = null;
-//				customerModel_4_22 = null;
-//				customerModel_4_23 = null;
-//				customerModel_4_24 = null;
-//				customerModel_4_25 = null;
-//				customerModel_4_26 = null;
-//				customerModel_4_27 = null;
-//				customerModel_4_28 = null;
-//				customerModel_4_29 = null;
-//				customerModel_4_30 = null;
-//				customerModel_4_31 = null;
+				//				customerModel_4_16 = null;
+				//				customerModel_4_17 = null;
+				//				customerModel_4_18 = null;
+				//				customerModel_4_19 = null;
+				//				customerModel_4_20 = null;
+				//				customerModel_4_21 = null;
+				//				customerModel_4_22 = null;
+				//				customerModel_4_23 = null;
+				//				customerModel_4_24 = null;
+				//				customerModel_4_25 = null;
+				//				customerModel_4_26 = null;
+				//				customerModel_4_27 = null;
+				//				customerModel_4_28 = null;
+				//				customerModel_4_29 = null;
+				//				customerModel_4_30 = null;
+				//				customerModel_4_31 = null;
 				String sql = "From MemberCustomer " +
 						" Where customerId = "+user.get().getCustomerId().getCustomerId().intValue();
 				boolean chk = true;
@@ -684,7 +685,7 @@ public class CustomerController implements Serializable{
 			detailMatchRemain = df2.format(0);
 			detailScoreLeft = df2.format(0);
 			detailScoreRight = df2.format(0);
-			
+
 			customerModel_01 = null;
 			customerModel_02 = null;
 			customerModel_03 = null;
@@ -1690,22 +1691,30 @@ public class CustomerController implements Serializable{
 					cusUpper.setLowerRightId(max);
 				}
 				em.merge(cusUpper);
-				
-//				UserLogin userLogin = new UserLogin();
-//				userLogin.setUserId(userId);
-//				userLogin.setUserName(userName);
-//				userLogin.setLoginName(loginName);
-//				userLogin.setPassword(password);
-//				userLogin.setLastLogin(null);
-//				userLogin.setPhone(phone);
-//				userLogin.setMobileHone(mobileHone);
-//				userLogin.setEmail(email);
-//				userLogin.setStatus(status);
-//				userLogin.setIsForceChange(isForceChange);
-//				userLogin.setCustomerId(cus);
-//				UserGroup userGroup = em.find(UserGroup.class, new Integer(3));
-//				userLogin.setGroupId(userGroup);
-//				em.persist(userLogin);
+
+				HashUtil hashUtil = new HashUtil();
+				UserLogin userLogin = new UserLogin();
+				userLogin.setUserName(cus.getFirstName());
+				userLogin.setLoginName(cus.getCustomerMember());
+				String password = "1234";
+				if(personalId!=null && personalId.length()>0){
+					if(personalId.length()>4){
+						password = personalId.substring(personalId.length()-4, personalId.length());
+					}else{
+						password = personalId;
+					}
+				}
+				userLogin.setPassword(hashUtil.hash(password));
+				userLogin.setLastLogin(null);
+				userLogin.setPhone(null);
+				userLogin.setMobileHone(null);
+				userLogin.setEmail(null);
+				userLogin.setStatus(new Integer(0));
+				userLogin.setIsForceChange(new Integer(0));
+				userLogin.setCustomerId(cus);
+				UserGroup userGroup = em.find(UserGroup.class, new Integer(3));
+				userLogin.setGroupId(userGroup);
+				em.persist(userLogin);
 				//				messages.info(new AppBundleKey("error.label.addMemberSuccess",FacesContext.getCurrentInstance().getViewRoot().getLocale().getLanguage()));
 				genTreeModel();
 			}
@@ -2668,6 +2677,6 @@ public class CustomerController implements Serializable{
 	public void setDetailScoreRight(String detailScoreRight) {
 		this.detailScoreRight = detailScoreRight;
 	}
-	
-	
+
+
 }
