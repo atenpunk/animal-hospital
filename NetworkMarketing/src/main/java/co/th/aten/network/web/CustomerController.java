@@ -29,6 +29,7 @@ import co.th.aten.network.entity.AddressProvinces;
 import co.th.aten.network.entity.MasterBank;
 import co.th.aten.network.entity.MemberCustomer;
 import co.th.aten.network.entity.MemberPosition;
+import co.th.aten.network.entity.UserGroup;
 import co.th.aten.network.entity.UserLogin;
 import co.th.aten.network.i18n.AppBundleKey;
 import co.th.aten.network.model.CustomerModel;
@@ -1404,8 +1405,9 @@ public class CustomerController implements Serializable{
 			log.info("####### viewAddMember() 1");
 			log.info("####### upperLineId = "+upperLineId);
 			log.info("####### flagUnder = "+flagUnder);
-			starTitleName = "*";
+			starPersonalId = "*";
 			starFirstName = "*";
+			regisDate = new Date();
 
 			accType = 1;
 			MemberCustomer customerUpper = em.find(MemberCustomer.class, new Integer(new BigDecimal(upperLineId).intValue()));
@@ -1688,6 +1690,22 @@ public class CustomerController implements Serializable{
 					cusUpper.setLowerRightId(max);
 				}
 				em.merge(cusUpper);
+				
+//				UserLogin userLogin = new UserLogin();
+//				userLogin.setUserId(userId);
+//				userLogin.setUserName(userName);
+//				userLogin.setLoginName(loginName);
+//				userLogin.setPassword(password);
+//				userLogin.setLastLogin(null);
+//				userLogin.setPhone(phone);
+//				userLogin.setMobileHone(mobileHone);
+//				userLogin.setEmail(email);
+//				userLogin.setStatus(status);
+//				userLogin.setIsForceChange(isForceChange);
+//				userLogin.setCustomerId(cus);
+//				UserGroup userGroup = em.find(UserGroup.class, new Integer(3));
+//				userLogin.setGroupId(userGroup);
+//				em.persist(userLogin);
 				//				messages.info(new AppBundleKey("error.label.addMemberSuccess",FacesContext.getCurrentInstance().getViewRoot().getLocale().getLanguage()));
 				genTreeModel();
 			}
@@ -1782,12 +1800,12 @@ public class CustomerController implements Serializable{
 		}else{
 			starFirstName = "*";
 		}
-		if(titleName!=null && titleName.trim().length()>0){
-			starTitleName = " ";
+		if(personalId!=null && personalId.trim().length()>0){
+			starPersonalId = " ";
 		}else{
-			starTitleName = "*";
+			starPersonalId = "*";
 		}
-		if(starTitleName.equals("*") || starFirstName.equals("*")){
+		if(starPersonalId.equals("*") || starFirstName.equals("*")){
 			chkSave = true;
 		}else{
 			chkSave = false;
