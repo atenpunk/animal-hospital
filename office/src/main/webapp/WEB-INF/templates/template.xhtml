@@ -23,7 +23,7 @@
 				<h:panelGroup>
 					<h:outputText style="font-size: 14px;FONT-WEIGHT: bold;"
 						value="#{app_msgs['user.welcome.label']}" />
-					, &#160; <h:outputText style="font-size: 13px;FONT-WEIGHT: bold;"
+					, &#160; <h:outputText style="FONT-WEIGHT: bold;"
 						value="#{currentUser.userName}" />
 					<br />
 					<br />
@@ -31,7 +31,7 @@
 					<br />
 					<br />
 					&#160;&#160;<pretty:link mappingId="logout">
-						<h:outputText style="font-size: 13px;"
+						<h:outputText
 							value="#{app_msgs['menu.logout.label']}" />
 					</pretty:link>
 				</h:panelGroup>
@@ -46,43 +46,43 @@
 			<rich:dropDownMenu>
 				<f:facet name="label">
 					<h:panelGroup>
-						<h:outputText style="font-size: 13px;"
+						<h:outputText
 							value="#{app_msgs['menu.label.stockProduct']}" />
 					</h:panelGroup>
 				</f:facet>
-				<rich:menuItem submitMode="ajax" style="font-size: 13px;"
+				<rich:menuItem submitMode="ajax"
 					label="#{app_msgs['menu.label.categoryProduct']}"
 					onclick="document.location.href='#{request.contextPath}/category/list'" />
-				<rich:menuItem submitMode="ajax" style="font-size: 13px;"
+				<rich:menuItem submitMode="ajax"
 					label="#{app_msgs['menu.label.detailProduct']}"
 					onclick="document.location.href='#{request.contextPath}/product/detailProduct'" />
 			</rich:dropDownMenu>
 			<rich:dropDownMenu>
 				<f:facet name="label">
 					<h:panelGroup>
-						<h:outputText style="font-size: 13px;"
+						<h:outputText
 							value="#{app_msgs['menu.label.eMoney']}" />
 					</h:panelGroup>
 				</f:facet>
-				<rich:menuItem submitMode="ajax" style="font-size: 13px;"
+				<rich:menuItem submitMode="ajax"
 					label="#{app_msgs['menu.label.eMoney.addAndDeduct']}"
 					onclick="document.location.href='#{request.contextPath}/money/add'" />
-				<rich:menuItem submitMode="ajax" style="font-size: 13px;"
+				<rich:menuItem submitMode="ajax"
 					label="#{app_msgs['label.menuMoney.transfer']}"
 					onclick="document.location.href='#{request.contextPath}/money/transfer'" />
 					
 				<rich:menuSeparator id="menuSeparator2" />
 				<rich:menuSeparator id="menuSeparator3" />
 
-				<rich:menuItem submitMode="ajax" style="font-size: 13px;"
+				<rich:menuItem submitMode="ajax"
 					icon="/resources/image/report-icon.png"
 					label="#{app_msgs['label.menuMoney.reportAdjust']}"
 					onclick="document.location.href='#{request.contextPath}/money/adjust'" />
-				<rich:menuItem submitMode="ajax" style="font-size: 13px;"
+				<rich:menuItem submitMode="ajax"
 					icon="/resources/image/report-icon.png"
 					label="#{app_msgs['label.menuMoney.reportTransfer']}"
 					onclick="document.location.href='#{request.contextPath}/money/transferReport'" />
-				<rich:menuItem submitMode="ajax" style="font-size: 13px;"
+				<rich:menuItem submitMode="ajax"
 					icon="/resources/image/report-icon.png"
 					label="#{app_msgs['label.menuMoney.reportTransaction']}"
 					onclick="document.location.href='#{request.contextPath}/money/transaction'" />

@@ -11,10 +11,10 @@
 		<h:form id="fromMainId">
 			<rich:panel>
 				<f:facet name="header">
-					<h:outputText style="font-size: 13px;"
+					<h:outputText
 						value="#{app_msgs['menu.label.categoryProduct']}" />
 				</f:facet>
-				<h:commandButton style="width : 100px;font-size: 13px;"
+				<h:commandButton style="width : 100px;"
 					value="#{app_msgs['label.menuCategory.addCategory']}"
 					action="#{categoryProductController.add}">
 				</h:commandButton>
@@ -29,22 +29,22 @@
 					<f:facet name="header">
 						<rich:columnGroup>
 							<rich:column breakRowBefore="true">
-								<h:outputText style="font-size: 13px;" value="" />
+								<h:outputText value="" />
 							</rich:column>
 							<rich:column>
-								<h:outputText style="font-size: 13px;"
+								<h:outputText
 									value="#{app_msgs['label.menuCategory.order']}" />
 							</rich:column>
 							<rich:column>
-								<h:outputText style="font-size: 13px;"
+								<h:outputText
 									value="#{app_msgs['label.menuCategory.categoryCode']}" />
 							</rich:column>
 							<rich:column>
-								<h:outputText style="font-size: 13px;"
+								<h:outputText
 									value="#{app_msgs['label.menuCategory.categoryTh']}" />
 							</rich:column>
 							<rich:column>
-								<h:outputText style="font-size: 13px;"
+								<h:outputText
 									value="#{app_msgs['label.menuCategory.categoryEn']}" />
 							</rich:column>
 						</rich:columnGroup>
@@ -57,7 +57,7 @@
 							<h:graphicImage value="/resources/image/delete.gif" width="20px"
 								height="20px" />
 							<rich:tooltip layout="block">
-								<span><h:outputText style="font-size: 13px;"
+								<span><h:outputText
 										value="#{app_msgs['label.menuCategory.delete']}" /> </span>
 							</rich:tooltip>
 						</a4j:commandLink>
@@ -68,25 +68,25 @@
 							<h:graphicImage value="/resources/image/edit.png" width="20px"
 								height="20px" />
 							<rich:tooltip layout="block">
-								<span><h:outputText style="font-size: 13px;"
+								<span><h:outputText
 										value="#{app_msgs['label.menuCategory.edit']}" /> </span>
 							</rich:tooltip>
 						</a4j:commandLink>
 					</rich:column>
 					<rich:column style="text-align:center">
-						<h:outputText style="font-size: 13px;" value="#{row+1}">
+						<h:outputText value="#{row+1}">
 						</h:outputText>
 					</rich:column>
 					<rich:column style="text-align:left">
-						<h:outputText style="font-size: 13px;" value="#{item.code}">
+						<h:outputText value="#{item.code}">
 						</h:outputText>
 					</rich:column>
 					<rich:column style="text-align:left">
-						<h:outputText style="font-size: 13px;" value="#{item.thDesc}">
+						<h:outputText value="#{item.thDesc}">
 						</h:outputText>
 					</rich:column>
 					<rich:column style="text-align:left">
-						<h:outputText style="font-size: 13px;" value="#{item.enDesc}">
+						<h:outputText value="#{item.enDesc}">
 						</h:outputText>
 					</rich:column>
 					<f:facet name="footer">
