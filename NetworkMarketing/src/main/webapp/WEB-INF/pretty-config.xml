@@ -119,6 +119,13 @@
 		<pattern value="/money/transfer"></pattern>
 		<view-id>/sec/money/transfer.jsf</view-id>
 	</url-mapping>
-	
+	<url-mapping id="eMoney_02">
+		<pattern value="/money/transferReport"></pattern>
+		<view-id>/sec/money/transferReport.jsf</view-id>
+	</url-mapping>
+	<url-mapping id="eMoney_03">
+		<pattern value="/money/transaction"></pattern>
+		<view-id>/sec/money/transaction.jsf</view-id>
+	</url-mapping>
 	
 </pretty-config>
