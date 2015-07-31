@@ -22,6 +22,8 @@ import co.th.aten.network.control.TransactionReceiptControl;
 import co.th.aten.network.entity.MemberCustomer;
 import co.th.aten.network.entity.StockCatalog;
 import co.th.aten.network.entity.StockProduct;
+import co.th.aten.network.entity.TransactionMoney;
+import co.th.aten.network.entity.TransactionMoneyStatus;
 import co.th.aten.network.entity.TransactionSellDetail;
 import co.th.aten.network.entity.TransactionSellHeader;
 import co.th.aten.network.i18n.AppBundleKey;
@@ -272,84 +274,85 @@ public class ProductSellController implements Serializable{
 
 	public void saveOrder(){
 		try{
-			if(memSearch!=null && productSellModelList!=null && productSellModelList.size()>0){
-				TransactionSellHeader trxSellHeader = new TransactionSellHeader();
-				trxSellHeader.setTrxHeaderDatetime(new Date());
-				trxSellHeader.setReceiptNo(transactionReceiptControl.generateReceiptNo());
-				trxSellHeader.setCustomerId(memSearch.getCustomerId());
-				trxSellHeader.setTotalPrice(new BigDecimal(totalPrice));
-				trxSellHeader.setTotalPv(new BigDecimal(totalPv));
-				trxSellHeader.setTotalBv(new BigDecimal(0));
-			 	trxSellHeader.setRemark(null);
-				trxSellHeader.setTrxHeaderStatus(new Integer(1));
-				trxSellHeader.setTrxHeaderFlag(new Integer(0));
-				trxSellHeader.setCreateBy(currentUser.getCurrentAccount().getUserId());
-				trxSellHeader.setCreateDate(new Date());
-				trxSellHeader.setUpdateBy(currentUser.getCurrentAccount().getUserId());
-				trxSellHeader.setUpdateDate(new Date());
-				em.persist(trxSellHeader);
-				for(ProductModel proModel:productSellModelList){
-					TransactionSellDetail trxDetail = new TransactionSellDetail();
-					trxDetail.setTrxHeaderId(trxSellHeader.getTrxHeaderId().intValue());
-					trxDetail.setProductId(proModel.getProductId());
-					trxDetail.setCatalogId(proModel.getCatalogId());
-					trxDetail.setPrice(new BigDecimal(proModel.getPrice()));
-					trxDetail.setPv(new BigDecimal(proModel.getPv()));
-					trxDetail.setBv(new BigDecimal(proModel.getBv()));
-					trxDetail.setQty(new Integer(proModel.getQty()));
-					trxDetail.setQtyAssign(new Integer(proModel.getQty()));
-					trxDetail.setTotalPrice(new BigDecimal(proModel.getTotalPrice()));
-					trxDetail.setTotalPv(new BigDecimal(proModel.getTotalPv()));
-					trxDetail.setTotalBv(new BigDecimal(proModel.getTotalBv()));
-					trxDetail.setRemark(null);
-					trxDetail.setTrxDetailStatus(new Character('0'));
-					trxDetail.setTrxDetailFlag(new Character('0'));
-					trxDetail.setCreateBy(currentUser.getCurrentAccount().getUserId());
-					trxDetail.setCreateDate(new Date());
-					trxDetail.setUpdateBy(currentUser.getCurrentAccount().getUserId());
-					trxDetail.setUpdateDate(new Date());
-					em.persist(trxDetail);
-				}
-				productSellModelList = new ArrayList<ProductModel>();
-				messages.info(new AppBundleKey("info.label.sell.completeSell",FacesContext.getCurrentInstance().getViewRoot().getLocale().getLanguage()));
-			}else{
-				// Message page
-				if(memSearch==null){
-					messages.error(new AppBundleKey("error.label.sell.notFoundMember",FacesContext.getCurrentInstance().getViewRoot().getLocale().getLanguage()));
+			if(StringUtil.n2b(currentUser.getCurrentAccount().getCustomerId().geteMoney()).doubleValue() >= totalPrice){
+				if(memSearch!=null && productSellModelList!=null && productSellModelList.size()>0){
+					TransactionSellHeader trxSellHeader = new TransactionSellHeader();
+					trxSellHeader.setTrxHeaderDatetime(new Date());
+					trxSellHeader.setReceiptNo(transactionReceiptControl.generateReceiptNo());
+					trxSellHeader.setCustomerId(memSearch.getCustomerId());
+					trxSellHeader.setTotalPrice(new BigDecimal(totalPrice));
+					trxSellHeader.setTotalPv(new BigDecimal(totalPv));
+					trxSellHeader.setTotalBv(new BigDecimal(0));
+					trxSellHeader.setRemark(null);
+					trxSellHeader.setTrxHeaderStatus(new Integer(1));
+					trxSellHeader.setTrxHeaderFlag(new Integer(0));
+					trxSellHeader.setCreateBy(currentUser.getCurrentAccount().getUserId());
+					trxSellHeader.setCreateDate(new Date());
+					trxSellHeader.setUpdateBy(currentUser.getCurrentAccount().getUserId());
+					trxSellHeader.setUpdateDate(new Date());
+					em.persist(trxSellHeader);
+					for(ProductModel proModel:productSellModelList){
+						TransactionSellDetail trxDetail = new TransactionSellDetail();
+						trxDetail.setTrxHeaderId(trxSellHeader.getTrxHeaderId().intValue());
+						trxDetail.setProductId(proModel.getProductId());
+						trxDetail.setCatalogId(proModel.getCatalogId());
+						trxDetail.setPrice(new BigDecimal(proModel.getPrice()));
+						trxDetail.setPv(new BigDecimal(proModel.getPv()));
+						trxDetail.setBv(new BigDecimal(proModel.getBv()));
+						trxDetail.setQty(new Integer(proModel.getQty()));
+						trxDetail.setQtyAssign(new Integer(proModel.getQty()));
+						trxDetail.setTotalPrice(new BigDecimal(proModel.getTotalPrice()));
+						trxDetail.setTotalPv(new BigDecimal(proModel.getTotalPv()));
+						trxDetail.setTotalBv(new BigDecimal(proModel.getTotalBv()));
+						trxDetail.setRemark(null);
+						trxDetail.setTrxDetailStatus(new Character('0'));
+						trxDetail.setTrxDetailFlag(new Character('0'));
+						trxDetail.setCreateBy(currentUser.getCurrentAccount().getUserId());
+						trxDetail.setCreateDate(new Date());
+						trxDetail.setUpdateBy(currentUser.getCurrentAccount().getUserId());
+						trxDetail.setUpdateDate(new Date());
+						em.persist(trxDetail);
+					}
+					
+					TransactionMoney trxMoney = new TransactionMoney();
+					trxMoney.setTrxMoneyDatetime(new Date());
+					trxMoney.setCustomerId(currentUser.getCurrentAccount().getCustomerId().getCustomerId());
+					trxMoney.setAmount(new BigDecimal(StringUtil.n2b(totalPrice)));
+					TransactionMoneyStatus trxStatus = em.find(TransactionMoneyStatus.class, new Integer(3));
+					trxMoney.setTrxMoneyStatus(trxStatus.getStatusId());// buy (-)
+					trxMoney.setTrxMoneyFlag(new Integer(0));
+					trxMoney.setRemark(trxStatus.getStatusDesc());
+					trxMoney.setCreateBy(currentUser.getCurrentAccount().getUserId());
+					trxMoney.setCreateDate(new Date());
+					trxMoney.setUpdateBy(currentUser.getCurrentAccount().getUserId());
+					trxMoney.setUpdateDate(new Date());
+					double moneyTransferOld = StringUtil.n2b(currentUser.getCurrentAccount().getCustomerId().geteMoney()).doubleValue();
+					currentUser.getCurrentAccount().getCustomerId().seteMoney(new BigDecimal(moneyTransferOld-StringUtil.n2b(totalPrice)));
+					currentUser.getCurrentAccount().getCustomerId().setUpdateBy(currentUser.getCurrentAccount().getUserId());
+					currentUser.getCurrentAccount().getCustomerId().setUpdateDate(new Date());
+					trxMoney.setBalance(currentUser.getCurrentAccount().getCustomerId().geteMoney());
+					em.persist(trxMoney);
+					em.merge(currentUser.getCurrentAccount().getCustomerId());
+					
+					productSellModelList = new ArrayList<ProductModel>();
+					totalPrice = 0;
+					totalPv = 0;
+					messages.info(new AppBundleKey("info.label.sell.completeSell",FacesContext.getCurrentInstance().getViewRoot().getLocale().getLanguage()));
 				}else{
-					messages.error(new AppBundleKey("error.label.sell.sellModelNull",FacesContext.getCurrentInstance().getViewRoot().getLocale().getLanguage()));
-				}
-			}			
+					// Message page
+					if(memSearch==null){
+						messages.error(new AppBundleKey("error.label.sell.notFoundMember",FacesContext.getCurrentInstance().getViewRoot().getLocale().getLanguage()));
+					}else{
+						messages.error(new AppBundleKey("error.label.sell.sellModelNull",FacesContext.getCurrentInstance().getViewRoot().getLocale().getLanguage()));
+					}
+				}		
+			}else{
+				messages.error(new AppBundleKey("error.label.sell.notEnoughMoney",FacesContext.getCurrentInstance().getViewRoot().getLocale().getLanguage()));
+			}
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 	}
-
-	//	public void onKeypressQty(ProductModel model){
-	//		log.info("##### onKeypressQty #####");
-	//		try{
-	//			if(model!=null){
-	//				totalPrice = 0;
-	//				totalPv = 0;
-	//				log.info("model.getProductId() : "+model.getProductId());
-	//				log.info("model.getCatalogId() : "+model.getCatalogId());
-	//				if(productSellModelList!=null){
-	//					for(ProductModel pro:productSellModelList){
-	//						if(pro.getProductId()==model.getProductId()
-	//								&& pro.getCatalogId()==model.getCatalogId()){
-	//							model.setTotalPrice(model.getQty()*model.getPrice());
-	//							model.setTotalPv(model.getQty()*model.getPv());
-	//						}
-	//						totalPrice += model.getTotalPrice();
-	//						totalPv += model.getTotalPv();
-	//					}
-	//					productSellModelList.set(model.getIndex()-1,model);
-	//				}
-	//			}
-	//		}catch(Exception e){
-	//			e.printStackTrace();
-	//		}
-	//	}
 
 	public long getTimeStamp(){  
 		return System.currentTimeMillis();  

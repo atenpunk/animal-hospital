@@ -16,6 +16,7 @@ import org.jboss.solder.logging.Logger;
 import co.th.aten.network.entity.MemberCustomer;
 import co.th.aten.network.entity.TransactionReceipt;
 import co.th.aten.network.producer.DBDefault;
+import co.th.aten.network.security.CurrentUserManager;
 
 public class TransactionReceiptStore extends BasicStore implements Serializable {
 
@@ -31,12 +32,15 @@ public class TransactionReceiptStore extends BasicStore implements Serializable 
 	@DBDefault
 	private EntityManager em;
 
+	@Inject
+	private CurrentUserManager currentUser;
+
 	public String generateReceiptNo(){
 		DecimalFormat df = new DecimalFormat("00000");
 		SimpleDateFormat sdf = new SimpleDateFormat("yyMM",Locale.US);
 		String receiptNo = "";
 		List<TransactionReceipt> receiptList = em
-		.createQuery("From TransactionReceipt where receiptId = 1 ",TransactionReceipt.class).getResultList();
+				.createQuery("From TransactionReceipt where receiptId = 1 ",TransactionReceipt.class).getResultList();
 		if (receiptList.size() > 0) {
 			TransactionReceipt rec = receiptList.get(0);
 			// check for reset each month
@@ -51,6 +55,9 @@ public class TransactionReceiptStore extends BasicStore implements Serializable 
 			receiptNo += sdf.format(new Date());
 			rec.setReceiptRunning((rec.getReceiptRunning() + 1));
 			receiptNo += "-"+df.format(rec.getReceiptRunning());
+			if(currentUser!=null && currentUser.getCurrentAccount()!=null)
+				rec.setUpdateBy(currentUser.getCurrentAccount().getUserId());
+			rec.setUpdateDate(new Date());
 			em.merge(rec);
 		}
 		return receiptNo;
