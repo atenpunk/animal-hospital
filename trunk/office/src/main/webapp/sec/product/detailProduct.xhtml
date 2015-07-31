@@ -11,10 +11,10 @@
 		<h:form id="fromMainId">
 			<rich:panel>
 				<f:facet name="header">
-					<h:outputText style="font-size: 13px;"
+					<h:outputText
 						value="#{app_msgs['menu.label.detailProduct']}" />
 				</f:facet>
-				<h:commandButton style="width : 100px;font-size: 13px;"
+				<h:commandButton style="width : 100px;"
 					value="#{app_msgs['label.menuDetailProduct.addProduct']}"
 					action="#{detailProductController.addProduct}">
 				</h:commandButton>
@@ -29,34 +29,34 @@
 					<f:facet name="header">
 						<rich:columnGroup>
 							<rich:column breakRowBefore="true">
-								<h:outputText style="font-size: 13px;" value="" />
+								<h:outputText value="" />
 							</rich:column>
 							<rich:column>
-								<h:outputText style="font-size: 13px;"
+								<h:outputText
 									value="#{app_msgs['label.menuSell.order']}" />
 							</rich:column>
 							<rich:column>
-								<h:outputText style="font-size: 13px;"
+								<h:outputText
 									value="#{app_msgs['label.menuSell.image']}" />
 							</rich:column>
 							<rich:column>
-								<h:outputText style="font-size: 13px;"
+								<h:outputText
 									value="#{app_msgs['label.menuSell.productCode']}" />
 							</rich:column>
 							<rich:column>
-								<h:outputText style="font-size: 13px;"
+								<h:outputText
 									value="#{app_msgs['label.menuSell.detailProduct']}" />
 							</rich:column>
 							<rich:column>
-								<h:outputText style="font-size: 13px;"
+								<h:outputText
 									value="#{app_msgs['label.menuSell.unit']}" />
 							</rich:column>
 							<rich:column>
-								<h:outputText style="font-size: 13px;"
+								<h:outputText
 									value="#{app_msgs['label.menuSell.price']}" />
 							</rich:column>
 							<rich:column>
-								<h:outputText style="font-size: 13px;"
+								<h:outputText
 									value="#{app_msgs['label.menuSell.pv']}" />
 							</rich:column>
 						</rich:columnGroup>
@@ -69,7 +69,7 @@
 							<h:graphicImage value="/resources/image/delete.gif" width="20px"
 								height="20px" />
 							<rich:tooltip layout="block">
-								<span><h:outputText style="font-size: 13px;"
+								<span><h:outputText
 										value="#{app_msgs['label.menuDetailProduct.delete']}" /> </span>
 							</rich:tooltip>
 						</a4j:commandLink>
@@ -80,13 +80,13 @@
 							<h:graphicImage value="/resources/image/edit.png" width="20px"
 								height="20px" />
 							<rich:tooltip layout="block">
-								<span><h:outputText style="font-size: 13px;"
+								<span><h:outputText
 										value="#{app_msgs['label.menuDetailProduct.edit']}" /> </span>
 							</rich:tooltip>
 						</a4j:commandLink>
 					</rich:column>
 					<rich:column style="text-align:center">
-						<h:outputText style="font-size: 13px;" value="#{row+1}">
+						<h:outputText value="#{row+1}">
 						</h:outputText>
 					</rich:column>
 					<rich:column style="text-align:center">
@@ -100,25 +100,25 @@
 							height="80px" />
 					</rich:column>
 					<rich:column style="text-align:left">
-						<h:outputText style="font-size: 13px;" value="#{item.productCode}">
+						<h:outputText value="#{item.productCode}">
 						</h:outputText>
 					</rich:column>
 					<rich:column style="text-align:left">
-						<h:outputText style="font-size: 13px;"
+						<h:outputText
 							value="#{item.productThDesc}">
 						</h:outputText>
 					</rich:column>
 					<rich:column style="text-align:left">
-						<h:outputText style="font-size: 13px;" value="#{item.unit}">
+						<h:outputText value="#{item.unit}">
 						</h:outputText>
 					</rich:column>
 					<rich:column style="text-align:right">
-						<h:outputText style="font-size: 13px;" value="#{item.price}">
+						<h:outputText value="#{item.price}">
 							<f:convertNumber pattern="#,##0" />
 						</h:outputText>
 					</rich:column>
 					<rich:column style="text-align:right">
-						<h:outputText style="font-size: 13px;" value="#{item.pv}">
+						<h:outputText value="#{item.pv}">
 							<f:convertNumber pattern="#,##0" />
 						</h:outputText>
 					</rich:column>

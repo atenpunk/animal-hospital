@@ -11,7 +11,7 @@
 		<h:form id="mainForm">
 			<rich:panel>
 				<f:facet name="header">
-					<h:outputText style="font-size: 13px;"
+					<h:outputText
 						value="#{app_msgs['label.menuMoney.transfer']}" />
 				</f:facet>
 
@@ -23,73 +23,73 @@
 						<table>
 							<tr>
 								<td class="tdOutputScreen"><h:outputText
-										style="font-size: 13px;" value="#{app_msgs['label.date']}" /></td>
+										style="" value="#{app_msgs['label.date']}" /></td>
 								<td class="tdInputScreen"><h:outputText
-										style="font-size: 13px;"
+										style=""
 										value="#{moneyTransferController.newDate}">
 										<f:convertDateTime pattern="dd-MM-yyyy" />
 									</h:outputText></td>
 							</tr>
 							<tr>
 								<td class="tdOutputScreen"><h:outputText
-										style="font-size: 13px;"
+										style=""
 										value="#{app_msgs['label.menuMoney.transfer.memberCodeTransfer']}" /></td>
 								<td class="tdInputScreen"><h:inputText maxlength="20"
-										style="font-size: 13px;"
+										style=""
 										value="#{moneyTransferController.memberCodeTransfer}">
 									</h:inputText> <a4j:commandButton id="searchTransferId"
 										value="#{app_msgs['button.search']}"
 										action="#{moneyTransferController.searchTransfer}"
-										render="mainForm" style="font-size: 13px; width : 80px;"></a4j:commandButton>
+										render="mainForm" style=" width : 80px;"></a4j:commandButton>
 								</td>
 							</tr>
 							<tr>
 								<td class="tdOutputScreen"><h:outputText
-										style="font-size: 13px;"
+										style=""
 										value="#{app_msgs['label.menuMoney.transfer.memberNameTransfer']}" /></td>
 								<td class="tdInputScreen"><h:outputText
-										style="font-size: 13px;"
+										style=""
 										value="#{moneyTransferController.memberNameTransfer}">
 									</h:outputText></td>
 							</tr>
 							<tr>
 								<td class="tdOutputScreen"><h:outputText
-										style="font-size: 13px;"
+										style=""
 										value="#{app_msgs['label.menuMoney.transfer.memberCodeReceive']}" /></td>
 								<td class="tdInputScreen"><h:inputText maxlength="20"
-										style="font-size: 13px;"
+										style=""
 										value="#{moneyTransferController.memberCodeReceive}">
 									</h:inputText> <a4j:commandButton id="searchReceiveId"
 										value="#{app_msgs['button.search']}"
 										action="#{moneyTransferController.searchReceive}"
-										render="mainForm" style="font-size: 13px; width : 80px;"></a4j:commandButton>
+										render="mainForm" style=" width : 80px;"></a4j:commandButton>
 								</td>
 							</tr>
 							<tr>
 								<td class="tdOutputScreen"><h:outputText
-										style="font-size: 13px;"
+										style=""
 										value="#{app_msgs['label.menuMoney.transfer.memberNameReceive']}" /></td>
 								<td class="tdInputScreen"><h:outputText
-										style="font-size: 13px;"
+										style=""
 										value="#{moneyTransferController.memberNameReceive}">
 									</h:outputText></td>
 							</tr>
 							<tr>
 								<td class="tdOutputScreen"><h:outputText
-										style="font-size: 13px;"
+										style=""
 										value="#{app_msgs['label.menuMoney.transferAmount']}" /></td>
 								<td class="tdInputScreen"><h:inputText maxlength="10"
-										style="font-size: 13px;"
+										style=""
 										value="#{moneyTransferController.transferAmount}">
 										<f:convertNumber pattern="########" />
 									</h:inputText></td>
 							</tr>
 							<tr>
 								<td class="tdOutputScreen"><h:outputText
-										style="font-size: 13px;"
+										style=""
 										value="#{app_msgs['label.menuMoney.remark']}" /></td>
 								<td class="tdInputScreen"><h:inputText
-										style="font-size: 13px; width : 260px;"
+										style=" width : 260px;"
 										value="#{moneyTransferController.remark}">
 									</h:inputText></td>
 							</tr>
@@ -101,7 +101,7 @@
 							onclick="confirmMsg('#{app_msgs['label.confirm.transferMoney']}');"
 							oncomplete="endProgress();"
 							action="#{moneyTransferController.confirmMoney}"
-							render="mainForm" style="font-size: 13px; width : 80px;"></a4j:commandButton>
+							render="mainForm" style=" width : 80px;"></a4j:commandButton>
 					</rich:panel>
 				</h:panelGrid>
 				<br />

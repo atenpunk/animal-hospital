@@ -11,12 +11,12 @@
 		<h:form id="fromMainId">
 			<rich:panel>
 				<f:facet name="header">
-					<h:outputText style="font-size: 13px;"
+					<h:outputText
 						value="#{app_msgs['label.menuDetailProduct.addProduct']}" />
 				</f:facet>
 				<table>
 					<tr>
-						<td class="tableHead"><h:outputText style="font-size: 13px;"
+						<td class="tableHead"><h:outputText
 								value="#{app_msgs['label.menuSell.image']}" /></td>
 						<td>
 							<table>
@@ -44,11 +44,11 @@
 						</td>
 					</tr>
 					<tr>
-						<td class="tableHead"><h:outputText style="font-size: 13px;"
+						<td class="tableHead"><h:outputText
 								value="#{app_msgs['label.menuSell.category']}" /></td>
 						<td><h:selectOneMenu
 								value="#{detailProductController.selectedCatalog}"
-								style=" width : 150px;font-size: 13px;" id="dropDownCategory">
+								style=" width : 150px;" id="dropDownCategory">
 								<a4j:ajax event="change" render="fromMainId"
 									listener="#{detailProductController.onChangeCatalog}" />
 								<f:selectItems
@@ -56,55 +56,55 @@
 									itemLabel="#{item.thLabel}" itemValue="#{item.intKey}">
 								</f:selectItems>
 							</h:selectOneMenu> <h:outputText id="starId00"
-								style="COLOR: #ff0000; font-size: 13px;"
+								style="COLOR: #ff0000; "
 								value="#{detailProductController.star00}" /></td>
 					</tr>
 					<tr>
-						<td class="tableHead"><h:outputText style="font-size: 13px;"
+						<td class="tableHead"><h:outputText
 								value="#{app_msgs['label.menuSell.productCode']}" /></td>
-						<td><h:inputText maxlength="20" style="font-size: 13px;"
+						<td><h:inputText maxlength="20"
 								value="#{detailProductController.selectedProductModel.productCode}">
 								<a4j:ajax event="keyup" render="starId01,confirmAddId"
 									listener="#{detailProductController.onKeyPress()}" />
 							</h:inputText> <h:outputText id="starId01"
-								style="COLOR: #ff0000; font-size: 13px;"
+								style="COLOR: #ff0000; "
 								value="#{detailProductController.star01}" /></td>
 					</tr>
 					<tr>
-						<td class="tableHead"><h:outputText style="font-size: 13px;"
+						<td class="tableHead"><h:outputText
 								value="#{app_msgs['label.menuSell.detailProduct']}" /></td>
-						<td><h:inputText style="font-size: 13px;width:250px;"
+						<td><h:inputText style="width:250px;"
 								maxlength="200"
 								value="#{detailProductController.selectedProductModel.productThDesc}">
 								<a4j:ajax event="keyup" render="starId02,confirmAddId"
 									listener="#{detailProductController.onKeyPress()}" />
 							</h:inputText> <h:outputText id="starId02"
-								style="COLOR: #ff0000; font-size: 13px;"
+								style="COLOR: #ff0000; "
 								value="#{detailProductController.star02}" /></td>
 					</tr>
 					<tr>
-						<td class="tableHead"><h:outputText style="font-size: 13px;"
+						<td class="tableHead"><h:outputText
 								value="#{app_msgs['label.menuSell.unit']}" /></td>
-						<td><h:inputText style="font-size: 13px;" maxlength="20"
+						<td><h:inputText maxlength="20"
 								value="#{detailProductController.selectedProductModel.unit}">
 								<a4j:ajax event="keyup" render="starId03,confirmAddId"
 									listener="#{detailProductController.onKeyPress()}" />
 							</h:inputText> <h:outputText id="starId03"
-								style="COLOR: #ff0000; font-size: 13px;"
+								style="COLOR: #ff0000; "
 								value="#{detailProductController.star03}" /></td>
 					</tr>
 					<tr>
-						<td class="tableHead"><h:outputText style="font-size: 13px;"
+						<td class="tableHead"><h:outputText
 								value="#{app_msgs['label.menuSell.price']}" /></td>
-						<td><h:inputText style="font-size: 13px;"
+						<td><h:inputText
 								value="#{detailProductController.selectedProductModel.price}">
 								<f:convertNumber pattern="###0.00" />
 							</h:inputText></td>
 					</tr>
 					<tr>
-						<td class="tableHead"><h:outputText style="font-size: 13px;"
+						<td class="tableHead"><h:outputText
 								value="#{app_msgs['label.menuSell.pv']}" /></td>
-						<td><h:inputText style="font-size: 13px;"
+						<td><h:inputText
 								value="#{detailProductController.selectedProductModel.pv}">
 								<f:convertNumber pattern="###0.00" />
 							</h:inputText></td>
@@ -112,12 +112,12 @@
 				</table>
 				<br />
 				<h:commandButton value="#{app_msgs['button.save']}"
-					id="confirmAddId" style="width : 80px;font-size: 13px;"
+					id="confirmAddId" style="width : 80px;"
 					disabled="#{detailProductController.chkAddActive}"
 					action="#{detailProductController.confirmAddProduct}"></h:commandButton>
 					&#160;&#160;
 					<h:commandButton value="#{app_msgs['button.cancle']}"
-					style="width : 80px;font-size: 13px;"
+					style="width : 80px;"
 					action="#{detailProductController.cancleAddProduct}"></h:commandButton>
 			</rich:panel>
 		</h:form>
