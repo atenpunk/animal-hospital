@@ -11,32 +11,30 @@
 		<h:form id="mainForm">
 			<rich:panel>
 				<f:facet name="header">
-					<h:outputText
-						value="#{app_msgs['label.menuMoney.transfer']}" />
+					<h:outputText value="#{app_msgs['label.menuMoney.transfer']}" />
 				</f:facet>
 
 				<h:panelGrid columns="1" width="100%">
 					<rich:panel>
-						<h:messages style="font-size: 17px;" globalOnly="true"
-							infoClass="info" warnClass="warn" errorClass="error" />
+						<h:panelGrid columns="1" cellpadding="2" cellspacing="2"
+							style="width:100%;text-align:left;font-size: 22px;">
+							<h:messages globalOnly="true" infoClass="info" errorClass="error" warnClass="warn"/>
+						</h:panelGrid>
 						<br />
 						<table>
 							<tr>
 								<td class="tdOutputScreen"><h:outputText
-										style="" value="#{app_msgs['label.date']}" /></td>
+										value="#{app_msgs['label.date']}" /></td>
 								<td class="tdInputScreen"><h:outputText
-										style=""
 										value="#{moneyTransferController.newDate}">
 										<f:convertDateTime pattern="dd-MM-yyyy" />
 									</h:outputText></td>
 							</tr>
 							<tr>
 								<td class="tdOutputScreen"><h:outputText
-										style=""
 										value="#{app_msgs['label.menuMoney.transfer.memberCodeTransfer']}" /></td>
 								<td class="tdInputScreen"><h:inputText maxlength="20"
-										style=""
-										value="#{moneyTransferController.memberCodeTransfer}">
+										style="" value="#{moneyTransferController.memberCodeTransfer}">
 									</h:inputText> <a4j:commandButton id="searchTransferId"
 										value="#{app_msgs['button.search']}"
 										action="#{moneyTransferController.searchTransfer}"
@@ -45,20 +43,16 @@
 							</tr>
 							<tr>
 								<td class="tdOutputScreen"><h:outputText
-										style=""
 										value="#{app_msgs['label.menuMoney.transfer.memberNameTransfer']}" /></td>
 								<td class="tdInputScreen"><h:outputText
-										style=""
 										value="#{moneyTransferController.memberNameTransfer}">
 									</h:outputText></td>
 							</tr>
 							<tr>
 								<td class="tdOutputScreen"><h:outputText
-										style=""
 										value="#{app_msgs['label.menuMoney.transfer.memberCodeReceive']}" /></td>
 								<td class="tdInputScreen"><h:inputText maxlength="20"
-										style=""
-										value="#{moneyTransferController.memberCodeReceive}">
+										style="" value="#{moneyTransferController.memberCodeReceive}">
 									</h:inputText> <a4j:commandButton id="searchReceiveId"
 										value="#{app_msgs['button.search']}"
 										action="#{moneyTransferController.searchReceive}"
@@ -67,26 +61,21 @@
 							</tr>
 							<tr>
 								<td class="tdOutputScreen"><h:outputText
-										style=""
 										value="#{app_msgs['label.menuMoney.transfer.memberNameReceive']}" /></td>
 								<td class="tdInputScreen"><h:outputText
-										style=""
 										value="#{moneyTransferController.memberNameReceive}">
 									</h:outputText></td>
 							</tr>
 							<tr>
 								<td class="tdOutputScreen"><h:outputText
-										style=""
 										value="#{app_msgs['label.menuMoney.transferAmount']}" /></td>
 								<td class="tdInputScreen"><h:inputText maxlength="10"
-										style=""
-										value="#{moneyTransferController.transferAmount}">
+										style="" value="#{moneyTransferController.transferAmount}">
 										<f:convertNumber pattern="########" />
 									</h:inputText></td>
 							</tr>
 							<tr>
 								<td class="tdOutputScreen"><h:outputText
-										style=""
 										value="#{app_msgs['label.menuMoney.remark']}" /></td>
 								<td class="tdInputScreen"><h:inputText
 										style=" width : 260px;"
