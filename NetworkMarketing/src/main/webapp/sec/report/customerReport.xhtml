@@ -11,7 +11,7 @@
 		<h:form>
 			<rich:panel>
 				<f:facet name="header">
-					<h:outputText style="font-size: 13px;" value="รายงาน ทีมงานตามสายการแนะนำ " />
+					<h:outputText value="รายงาน ทีมงานตามสายการแนะนำ " />
 				</f:facet>
 				<table>
 					<tr>
@@ -32,45 +32,45 @@
 					<f:facet name="header">
 						<rich:columnGroup>
 							<rich:column breakRowBefore="true">
-								<h:outputText style="font-size: 13px;" value="ลำดับที่" />
+								<h:outputText value="ลำดับที่" />
 							</rich:column>
 							<rich:column>
-								<h:outputText style="font-size: 13px;" value="รหัสสมาชิก" />
+								<h:outputText value="รหัสสมาชิก" />
 							</rich:column>
 							<rich:column>
-								<h:outputText style="font-size: 13px;" value="ชื่อ" />
+								<h:outputText value="ชื่อ" />
 							</rich:column>
 							<rich:column>
-								<h:outputText style="font-size: 13px;" value="ตำแหน่ง" />
+								<h:outputText value="ตำแหน่ง" />
 							</rich:column>
 							<rich:column>
-								<h:outputText style="font-size: 13px;" value="วันที่สมัคร" />
+								<h:outputText value="วันที่สมัคร" />
 							</rich:column>
 							<rich:column>
-								<h:outputText style="font-size: 13px;" value="รหัสอัพไลน์" />
+								<h:outputText value="รหัสอัพไลน์" />
 							</rich:column>
 						</rich:columnGroup>
 					</f:facet>
 					<rich:column>
-						<h:outputText style="font-size: 13px;" value="#{item.index}">
+						<h:outputText value="#{item.index}">
 						</h:outputText>
 					</rich:column>
 					<rich:column>
-						<h:outputText style="font-size: 13px;" value="#{item.customerId}" />
+						<h:outputText value="#{item.customerId}" />
 					</rich:column>
 					<rich:column>
-						<h:outputText style="font-size: 13px;" value="#{item.customerName}" />
+						<h:outputText value="#{item.customerName}" />
 					</rich:column>
 					<rich:column>
-						<h:outputText style="font-size: 13px;" value="#{item.position}" />
+						<h:outputText value="#{item.position}" />
 					</rich:column>
 					<rich:column>
-						<h:outputText style="font-size: 13px;" value="#{item.regisDate}">
+						<h:outputText value="#{item.regisDate}">
 							<f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
 						</h:outputText>
 					</rich:column>
 					<rich:column>
-						<h:outputText style="font-size: 13px;" value="#{item.upperLineId}" />
+						<h:outputText value="#{item.upperLineId}" />
 					</rich:column>
 					<f:facet name="footer">
 						<rich:dataScroller for="testDataTable" />

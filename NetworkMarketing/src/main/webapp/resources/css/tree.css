@@ -82,7 +82,7 @@
 	text-decoration: none;
 	color: #0000CC;
 	font-family: arial, verdana, tahoma;
-	font-size: 11px;
+	font-size: 17px;
 	display: inline-block;
 	border-radius: 5px;
 	-webkit-border-radius: 5px;
@@ -125,7 +125,7 @@ a.tooltip span {
 	padding: 14px 2px;
 	margin-top: -10px;
 	margin-left: 20px;
-	width: 160px;
+	width: 250px;
 	line-height: 16px;
 }
 

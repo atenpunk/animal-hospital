@@ -11,36 +11,33 @@
 		<h:form id="addLine">
 			<rich:panel>
 				<f:facet name="header">
-					<h:outputText style="font-size: 13px;"
-						value="#{app_msgs['label.pageAddMember.header']}" />
+					<h:outputText value="#{app_msgs['label.pageAddMember.header']}" />
 				</f:facet>
 				<h:panelGrid columns="2" width="100%">
 
-					<rich:panel style=" width : auto; height:110px;">
+					<rich:panel style=" width : auto; height:145px;">
 						<f:facet name="header">
-							<h:outputText style="font-size: 13px;"
+							<h:outputText
 								value="#{app_msgs['label.pageAddMember.detailUpLine']}" />
 						</f:facet>
 						<h:panelGrid columns="3">
-							<h:outputText style="font-size: 13px;"
-								value="#{app_msgs['label.pageAddMember.upLineId']}" />
-							<h:outputText style="font-size: 13px;COLOR: #ff0000;"
+							<h:outputText value="#{app_msgs['label.pageAddMember.upLineId']}" />
+							<h:outputText style="COLOR: #ff0000;"
 								value="#{customerController.starUpperLineId}"
 								id="starUpperLineId" />
 							<h:inputText value="#{customerController.upperLineMemberId}"
-								readonly="true" style=" width : 80px;" />
+								readonly="true" style=" width : 100px;" />
 
-							<h:outputText style="font-size: 13px;"
+							<h:outputText
 								value="#{app_msgs['label.pageAddMember.upLineName']}" />
-							<h:outputText style="font-size: 13px;COLOR: #ff0000;"
+							<h:outputText style="COLOR: #ff0000;"
 								value="#{customerController.starUpperLineName}"
 								id="starUpperLineName" />
 							<h:inputText value="#{customerController.upperLineName}"
-								readonly="true" style=" width : 150px;" />
+								readonly="true" style=" width : 250px;" />
 
-							<h:outputText style="font-size: 13px;"
-								value="#{app_msgs['label.pageAddMember.side']}" />
-							<h:outputText style="font-size: 13px;COLOR: #ff0000;"
+							<h:outputText value="#{app_msgs['label.pageAddMember.side']}" />
+							<h:outputText style="COLOR: #ff0000;"
 								value="#{customerController.starSide}" id="starSide" />
 							<h:selectOneRadio value="#{customerController.side}"
 								disabled="true">
@@ -52,68 +49,66 @@
 
 						</h:panelGrid>
 					</rich:panel>
-					<rich:panel style="width : auto; height:110px;">
+					<rich:panel style="width : auto; height:145px;">
 						<f:facet name="header">
-							<h:outputText style="font-size: 13px;"
+							<h:outputText
 								value="#{app_msgs['label.pageAddMember.detailRecommend']}" />
 						</f:facet>
 						<h:panelGrid columns="5" id="panelRecommendId">
-							<h:outputText style="font-size: 13px;"
+							<h:outputText
 								value="#{app_msgs['label.pageAddMember.recommendId']}" />
-							<h:outputText style="font-size: 13px;COLOR: #ff0000;"
+							<h:outputText style="COLOR: #ff0000;"
 								value="#{customerController.starRecomendId}" id="starRecomendId" />
 							<h:inputText value="#{customerController.recomendStrId}"
-								maxlength="7" style=" width : 80px;" />
+								maxlength="7" style=" width : 100px;" />
 							<a4j:commandButton value="#{app_msgs['button.search']}"
 								action="#{customerController.findRecomend()}"
-								render="panelRecommendId"></a4j:commandButton>
-							<a4j:status>
-								<f:facet name="start">
-									<h:graphicImage value="/resources/gfx/spinner.gif" />
-								</f:facet>
-							</a4j:status>
-
-
-							<h:outputText style="font-size: 13px;"
+								render="panelRecommendId" style=" width : 80px;"></a4j:commandButton>
+							<h:outputText value="" />
+							
+							<h:outputText
 								value="#{app_msgs['label.pageAddMember.recommendName']}" />
-							<h:outputText style="font-size: 13px;COLOR: #ff0000;"
+							<h:outputText style="COLOR: #ff0000;"
 								value="#{customerController.starRecomendName}"
 								id="starRecomendName" />
 							<h:inputText id="recomendNameId" maxlength="100" readonly="true"
 								value="#{customerController.recomendName}"
-								style=" width : 150px;" />
-							<h:outputText style="font-size: 13px;" value="" />
-							<h:outputText style="font-size: 13px;" value="" />
-							<h:outputText style="font-size: 13px;" value="" />
-							<h:outputText style="font-size: 13px;" value="" />
-							<h:messages style="color:red;margin:8px;" />
+								style=" width : 250px;" />
+							<h:outputText value="" />
+							<h:outputText value="" />
+							<h:outputText value="" />
+							<h:outputText value="" />
+							<h:panelGrid columns="1" cellpadding="2" cellspacing="2"
+								style="font-size: 22px;width:100%;text-align:center;">
+								<h:messages globalOnly="true" infoClass="info" warnClass="warn"
+									errorClass="error" />
+							</h:panelGrid>
 						</h:panelGrid>
 					</rich:panel>
 				</h:panelGrid>
 				<h:panelGrid width="100%">
-					<rich:panel style=" width : auto; height:220px;">
+					<rich:panel style=" width : auto; height:280px;">
 						<f:facet name="header">
-							<h:outputText style="font-size: 13px;"
+							<h:outputText
 								value="#{app_msgs['label.pageAddMember.detailMember']}" />
 						</f:facet>
 						<h:panelGrid columns="7">
-							<h:outputText style="font-size: 13px;"
-								value="#{app_msgs['label.pageAddMember.memberId']}" />
-							<h:outputText style="font-size: 13px;" value="" />
+							<h:outputText value="#{app_msgs['label.pageAddMember.memberId']}" />
+							<h:outputText value="" />
 							<h:inputText
 								value="#{app_msgs['label.pageAddMember.systemGenAuto']}"
-								readonly="true" style=" width : 80px;" />
+								readonly="true" style=" width : 120px;" />
 
 							<div style="width: 40px;"></div>
-							<h:outputText style="font-size: 13px;"
+							<h:outputText
 								value="#{app_msgs['label.pageAddMember.nationality']}" />
-							<h:outputText style="font-size: 13px;" value="" />
+							<h:outputText value="" />
 							<h:inputText value="#{customerController.nationality}"
 								maxlength="100" />
 
-							<h:outputText style="font-size: 13px;"
+							<h:outputText
 								value="#{app_msgs['label.pageAddMember.regisDate']}" />
-							<h:outputText style="font-size: 13px;" value="" />
+							<h:outputText value="" />
 							<a4j:outputPanel id="regisDay" layout="block">
 								<rich:calendar style=" width : 90px;"
 									value="#{customerController.regisDate}"
@@ -122,9 +117,9 @@
 
 
 							<div style="width: 40px;"></div>
-							<h:outputText style="font-size: 13px;"
+							<h:outputText
 								value="#{app_msgs['label.pageAddMember.personalIdPassport']}" />
-							<h:outputText style="font-size: 13px;COLOR: #ff0000;"
+							<h:outputText style="COLOR: #ff0000;"
 								value="#{customerController.starPersonalId}" id="starPersonalId" />
 							<h:inputText value="#{customerController.personalId}"
 								maxlength="100">
@@ -132,9 +127,9 @@
 									listener="#{customerController.onKeypress()}" />
 							</h:inputText>
 
-							<h:outputText style="font-size: 13px;"
+							<h:outputText
 								value="#{app_msgs['label.pageAddMember.titleName']}" />
-							<h:outputText style="font-size: 13px;COLOR: #ff0000;"
+							<h:outputText style="COLOR: #ff0000;"
 								value="#{customerController.starTitleName}" id="starTitle" />
 							<h:inputText value="#{customerController.titleName}"
 								maxlength="100" style=" width : 80px;">
@@ -142,47 +137,45 @@
 
 							<div style="width: 40px;"></div>
 
-							<h:outputText style="font-size: 13px;"
+							<h:outputText
 								value="#{app_msgs['label.pageAddMember.companyID']}" />
-							<h:outputText style="font-size: 13px;" value="" />
+							<h:outputText value="" />
 							<h:inputText value="#{customerController.companyID}"
 								maxlength="100" />
 
-							<h:outputText style="font-size: 13px;"
+							<h:outputText
 								value="#{app_msgs['label.pageAddMember.nameOrCompany']}" />
-							<h:outputText style="font-size: 13px;COLOR: #ff0000;"
+							<h:outputText style="COLOR: #ff0000;"
 								value="#{customerController.starFirstName}" id="starName" />
 							<h:inputText value="#{customerController.firstName}"
-								maxlength="100" style=" width : 150px;">
+								maxlength="100" style=" width : 250px;">
 								<a4j:ajax event="keyup" render="starName,saveId"
 									listener="#{customerController.onKeypress()}" />
 							</h:inputText>
 
 							<div style="width: 40px;"></div>
 
-							<h:outputText style="font-size: 13px;"
+							<h:outputText
 								value="#{app_msgs['label.pageAddMember.telephone']}" />
-							<h:outputText style="font-size: 13px;" value="" />
+							<h:outputText value="" />
 							<h:inputText value="#{customerController.telephone}"
 								maxlength="100" />
 
-							<h:outputText style="font-size: 13px;"
+							<h:outputText
 								value="#{app_msgs['label.pageAddMember.nameBusiness']}" />
-							<h:outputText style="font-size: 13px;" value="" />
+							<h:outputText value="" />
 							<h:inputText value="#{customerController.businessName}"
-								maxlength="100" style=" width : 150px;">
+								maxlength="100" style=" width : 250px;">
 							</h:inputText>
 
 							<div style="width: 40px;"></div>
 
-							<h:outputText style="font-size: 13px;"
-								value="#{app_msgs['label.pageAddMember.mobile']}" />
-							<h:outputText style="font-size: 13px;" value="" />
+							<h:outputText value="#{app_msgs['label.pageAddMember.mobile']}" />
+							<h:outputText value="" />
 							<h:inputText value="#{customerController.mobile}" maxlength="100" />
 
-							<h:outputText style="font-size: 13px;"
-								value="#{app_msgs['label.pageAddMember.sex']}" />
-							<h:outputText style="font-size: 13px;COLOR: #ff0000;"
+							<h:outputText value="#{app_msgs['label.pageAddMember.sex']}" />
+							<h:outputText style="COLOR: #ff0000;"
 								value="#{customerController.starSex}" id="starSex" />
 							<h:selectOneRadio value="#{customerController.sex}">
 								<f:selectItem itemValue="1"
@@ -193,14 +186,13 @@
 
 							<div style="width: 40px;"></div>
 
-							<h:outputText style="font-size: 13px;"
-								value="#{app_msgs['label.pageAddMember.fax']}" />
-							<h:outputText style="font-size: 13px;" value="" />
+							<h:outputText value="#{app_msgs['label.pageAddMember.fax']}" />
+							<h:outputText value="" />
 							<h:inputText value="#{customerController.fax}" maxlength="100" />
 
-							<h:outputText style="font-size: 13px;"
+							<h:outputText
 								value="#{app_msgs['label.pageAddMember.birthDate']}" />
-							<h:outputText style="font-size: 13px;COLOR: #ff0000;"
+							<h:outputText style="COLOR: #ff0000;"
 								value="#{customerController.starBirthDay}" id="starBirthDay" />
 							<a4j:outputPanel id="birchDay" layout="block">
 								<rich:calendar style=" width : 90px;"
@@ -209,64 +201,63 @@
 
 							<div style="width: 40px;"></div>
 
-							<h:outputText style="font-size: 13px;"
-								value="#{app_msgs['label.pageAddMember.email']}" />
-							<h:outputText style="font-size: 13px;" value="" />
+							<h:outputText value="#{app_msgs['label.pageAddMember.email']}" />
+							<h:outputText value="" />
 							<h:inputText value="#{customerController.email}" maxlength="100" />
 
 						</h:panelGrid>
 					</rich:panel>
 				</h:panelGrid>
 				<h:panelGrid columns="2" width="100%">
-					<rich:panel style=" width : auto;height:270px;">
+					<rich:panel style=" width : auto;height:380px;">
 						<f:facet name="header">
-							<h:outputText style="font-size: 13px;"
+							<h:outputText
 								value="#{app_msgs['label.pageAddMember.addressMember']}" />
 						</f:facet>
 						<h:panelGrid columns="3">
-							<h:outputText style="font-size: 13px;"
+							<h:outputText
 								value="#{app_msgs['label.pageAddMember.addressNo']}" />
-							<h:outputText style="font-size: 13px;" value="" />
+							<h:outputText value="" />
 							<h:inputText maxlength="100"
 								value="#{customerController.addressNo}">
 								<a4j:ajax event="change" />
 							</h:inputText>
 
-							<h:outputText style="font-size: 13px;"
+							<h:outputText
 								value="#{app_msgs['label.pageAddMember.addressBuilding']}" />
-							<h:outputText style="font-size: 13px;" value="" />
+							<h:outputText value="" />
 							<h:inputText maxlength="100"
 								value="#{customerController.addressBuilding}">
 								<a4j:ajax event="change" />
 							</h:inputText>
 
-							<h:outputText style="font-size: 13px;"
+							<h:outputText
 								value="#{app_msgs['label.pageAddMember.addressVillage']}" />
-							<h:outputText style="font-size: 13px;" value="" />
+							<h:outputText value="" />
 							<h:inputText maxlength="100"
 								value="#{customerController.addressVillage}">
 								<a4j:ajax event="change" />
 							</h:inputText>
 
-							<h:outputText style="font-size: 13px;"
+							<h:outputText
 								value="#{app_msgs['label.pageAddMember.addressLane']}" />
-							<h:outputText style="font-size: 13px;" value="" />
+							<h:outputText value="" />
 							<h:inputText maxlength="100"
 								value="#{customerController.addressLane}">
 								<a4j:ajax event="change" />
 							</h:inputText>
 
-							<h:outputText style="font-size: 13px;"
+							<h:outputText
 								value="#{app_msgs['label.pageAddMember.addressRoad']}" />
-							<h:outputText style="font-size: 13px;" value="" />
+							<h:outputText value="" />
 							<h:inputText maxlength="100"
 								value="#{customerController.addressRoad}">
 								<a4j:ajax event="change" />
 							</h:inputText>
 
-							<h:outputText style="font-size: 13px;"
+							<h:outputText
 								value="#{app_msgs['label.pageAddMember.addressProvince']}" />
-							<h:outputText style="font-size: 13px;COLOR: #ff0000;"
+							<h:outputText style="COLOR: #ff0000;"
 								value="#{customerController.starProvince}" id="starProvince" />
 							<h:selectOneMenu value="#{customerController.provinceId}"
 								style=" width : 150px;">
@@ -277,9 +268,9 @@
 									itemValue="#{item.intKey}"></f:selectItems>
 							</h:selectOneMenu>
 
-							<h:outputText style="font-size: 13px;"
+							<h:outputText
 								value="#{app_msgs['label.pageAddMember.addressAmphur']}" />
-							<h:outputText style="font-size: 13px;COLOR: #ff0000;"
+							<h:outputText style="COLOR: #ff0000;"
 								value="#{customerController.starAmphur}" id="starAmphur" />
 							<h:selectOneMenu value="#{customerController.amphurId}"
 								id="dropDownAmphur" style=" width : 150px;">
@@ -290,9 +281,9 @@
 									itemValue="#{item.intKey}"></f:selectItems>
 							</h:selectOneMenu>
 
-							<h:outputText style="font-size: 13px;"
+							<h:outputText
 								value="#{app_msgs['label.pageAddMember.addressDistrict']}" />
-							<h:outputText style="font-size: 13px;COLOR: #ff0000;"
+							<h:outputText style="COLOR: #ff0000;"
 								value="#{customerController.starDistrict}" id="starDistrict" />
 							<h:selectOneMenu value="#{customerController.districtId}"
 								id="dropDownDistrict" style=" width : 150px;">
@@ -303,17 +294,17 @@
 									itemValue="#{item.intKey}"></f:selectItems>
 							</h:selectOneMenu>
 
-							<h:outputText style="font-size: 13px;"
+							<h:outputText
 								value="#{app_msgs['label.pageAddMember.addressPostCode']}" />
-							<h:outputText style="font-size: 13px;" value="" />
+							<h:outputText value="" />
 							<h:inputText maxlength="100" id="postCodeId"
 								value="#{customerController.addressPostCode}" />
 						</h:panelGrid>
 					</rich:panel>
 
-					<rich:panel style=" width : auto;height:270px;">
+					<rich:panel style=" width : auto;height:380px;">
 						<f:facet name="header">
-							<h:outputText style="font-size: 13px;"
+							<h:outputText
 								value="#{app_msgs['label.pageAddMember.addressSendDocument']}" />
 						</f:facet>
 						<h:panelGrid columns="2">
@@ -322,43 +313,43 @@
 								<a4j:ajax event="click" render="panelAddressSendDocID"
 									listener="#{customerController.sameAddress}"></a4j:ajax>
 							</h:selectBooleanCheckbox>
-							<h:outputText style="font-size: 13px;"
+							<h:outputText
 								value="#{app_msgs['label.pageAddMember.addressSendDocumentSame']}" />
 						</h:panelGrid>
 						<h:panelGrid columns="3" id="panelAddressSendDocID">
-							<h:outputText style="font-size: 13px;"
+							<h:outputText
 								value="#{app_msgs['label.pageAddMember.addressNo']}" />
-							<h:outputText style="font-size: 13px;" value="" />
+							<h:outputText value="" />
 							<h:inputText maxlength="100"
 								value="#{customerController.addressNoSendDoc}" />
 
-							<h:outputText style="font-size: 13px;"
+							<h:outputText
 								value="#{app_msgs['label.pageAddMember.addressBuilding']}" />
-							<h:outputText style="font-size: 13px;" value="" />
+							<h:outputText value="" />
 							<h:inputText maxlength="100"
 								value="#{customerController.addressBuildingSendDoc}" />
 
-							<h:outputText style="font-size: 13px;"
+							<h:outputText
 								value="#{app_msgs['label.pageAddMember.addressVillage']}" />
-							<h:outputText style="font-size: 13px;" value="" />
+							<h:outputText value="" />
 							<h:inputText maxlength="100"
 								value="#{customerController.addressVillageSendDoc}" />
 
-							<h:outputText style="font-size: 13px;"
+							<h:outputText
 								value="#{app_msgs['label.pageAddMember.addressLane']}" />
-							<h:outputText style="font-size: 13px;" value="" />
+							<h:outputText value="" />
 							<h:inputText maxlength="100"
 								value="#{customerController.addressLaneSendDoc}" />
 
-							<h:outputText style="font-size: 13px;"
+							<h:outputText
 								value="#{app_msgs['label.pageAddMember.addressRoad']}" />
-							<h:outputText style="font-size: 13px;" value="" />
+							<h:outputText value="" />
 							<h:inputText maxlength="100"
 								value="#{customerController.addressRoadSendDoc}" />
 
-							<h:outputText style="font-size: 13px;"
+							<h:outputText
 								value="#{app_msgs['label.pageAddMember.addressProvince']}" />
-							<h:outputText style="font-size: 13px;COLOR: #ff0000;"
+							<h:outputText style="COLOR: #ff0000;"
 								value="#{customerController.starProvinceSendDoc}"
 								id="starProvinceSendDoc" />
 							<h:selectOneMenu value="#{customerController.provinceIdSendDoc}"
@@ -370,9 +361,9 @@
 									itemValue="#{item.intKey}"></f:selectItems>
 							</h:selectOneMenu>
 
-							<h:outputText style="font-size: 13px;"
+							<h:outputText
 								value="#{app_msgs['label.pageAddMember.addressAmphur']}" />
-							<h:outputText style="font-size: 13px;COLOR: #ff0000;"
+							<h:outputText style="COLOR: #ff0000;"
 								value="#{customerController.starAmphurSendDoc}"
 								id="starAmphurSendDoc" />
 							<h:selectOneMenu value="#{customerController.amphurIdSendDoc}"
@@ -384,9 +375,9 @@
 									itemValue="#{item.intKey}"></f:selectItems>
 							</h:selectOneMenu>
 
-							<h:outputText style="font-size: 13px;"
+							<h:outputText
 								value="#{app_msgs['label.pageAddMember.addressDistrict']}" />
-							<h:outputText style="font-size: 13px;COLOR: #ff0000;"
+							<h:outputText style="COLOR: #ff0000;"
 								value="#{customerController.starDistrictSendDoc}"
 								id="starDistrictSendDoc" />
 							<h:selectOneMenu value="#{customerController.districtIdSendDoc}"
@@ -398,69 +389,63 @@
 									itemValue="#{item.intKey}"></f:selectItems>
 							</h:selectOneMenu>
 
-							<h:outputText style="font-size: 13px;"
+							<h:outputText
 								value="#{app_msgs['label.pageAddMember.addressPostCode']}" />
-							<h:outputText style="font-size: 13px;" value="" />
+							<h:outputText value="" />
 							<h:inputText maxlength="100" id="postCodeIdSendDoc"
 								value="#{customerController.addressPostCodeSendDoc}" />
 
 						</h:panelGrid>
 					</rich:panel>
 
-					<rich:panel style=" width : auto;height:190px;">
+					<rich:panel style=" width : auto;height:260px;">
 						<f:facet name="header">
-							<h:outputText style="font-size: 13px;"
+							<h:outputText
 								value="#{app_msgs['label.pageAddMember.informationBeneficiaries']}" />
 						</f:facet>
 						<h:panelGrid columns="3">
-							<h:outputText style="font-size: 13px;"
-								value="#{app_msgs['label.pageAddMember.bank']}" />
-							<h:outputText style="font-size: 13px;" value="" />
+							<h:outputText value="#{app_msgs['label.pageAddMember.bank']}" />
+							<h:outputText value="" />
 							<h:selectOneMenu value="#{customerController.bankId}"
 								style=" width : 150px;" id="dropDownBank">
 								<f:selectItems value="#{customerController.bankList}" var="item"
 									itemLabel="#{item.thLabel}" itemValue="#{item.intKey}"></f:selectItems>
 							</h:selectOneMenu>
 
-							<h:outputText style="font-size: 13px;"
-								value="#{app_msgs['label.pageAddMember.branch']}" />
-							<h:outputText style="font-size: 13px;" value="" />
+							<h:outputText value="#{app_msgs['label.pageAddMember.branch']}" />
+							<h:outputText value="" />
 							<h:inputText maxlength="100" value="#{customerController.branch}" />
 
-							<h:outputText style="font-size: 13px;"
-								value="#{app_msgs['label.pageAddMember.accType']}" />
-							<h:outputText style="font-size: 13px;" value="" />
+							<h:outputText value="#{app_msgs['label.pageAddMember.accType']}" />
+							<h:outputText value="" />
 							<h:selectOneRadio value="#{customerController.accType}">
 								<f:selectItem itemValue="1"
 									itemLabel="#{app_msgs['label.pageAddMember.accTypeSaving']}" />
 							</h:selectOneRadio>
 
-							<h:outputText style="font-size: 13px;"
-								value="#{app_msgs['label.pageAddMember.accNo']}" />
-							<h:outputText style="font-size: 13px;" value="" />
+							<h:outputText value="#{app_msgs['label.pageAddMember.accNo']}" />
+							<h:outputText value="" />
 							<h:inputText maxlength="100" value="#{customerController.accNo}" />
 
-							<h:outputText style="font-size: 13px;"
-								value="#{app_msgs['label.pageAddMember.accName']}" />
-							<h:outputText style="font-size: 13px;" value="" />
+							<h:outputText value="#{app_msgs['label.pageAddMember.accName']}" />
+							<h:outputText value="" />
 							<h:inputText maxlength="100"
 								value="#{customerController.accName}" />
 
-							<h:outputText style="font-size: 13px;"
-								value="#{app_msgs['label.pageAddMember.remark']}" />
-							<h:outputText style="font-size: 13px;" value="" />
+							<h:outputText value="#{app_msgs['label.pageAddMember.remark']}" />
+							<h:outputText value="" />
 							<h:inputText maxlength="100" value="#{customerController.remark}" />
 						</h:panelGrid>
 
 					</rich:panel>
 
-					<rich:panel style=" width : auto; height:190px;">
+					<rich:panel style=" width : auto; height:260px;">
 						<f:facet name="header">
-							<h:outputText style="font-size: 13px;"
+							<h:outputText
 								value="#{app_msgs['label.pageAddMember.otherDetail']}" />
 						</f:facet>
 						<h:panelGrid columns="2">
-							<h:outputText style="font-size: 13px;"
+							<h:outputText
 								value="#{app_msgs['label.pageAddMember.receiveDocument']}" />
 							<h:selectOneRadio value="#{customerController.receiveDocument}">
 								<f:selectItem itemValue="1"
@@ -470,9 +455,9 @@
 							</h:selectOneRadio>
 						</h:panelGrid>
 						<h:panelGrid columns="5">
-							<h:outputText style="font-size: 13px;"
+							<h:outputText
 								value="#{app_msgs['label.pageAddMember.documentFully']}" />
-							<h:outputText style="font-size: 13px;COLOR: #ff0000;"
+							<h:outputText style="COLOR: #ff0000;"
 								value="#{customerController.starDocumentFully}"
 								id="starDocumentFully" />
 							<h:selectBooleanCheckbox
@@ -480,7 +465,7 @@
 								<a4j:ajax event="click" render="appDay,panelRecommendId"
 									listener="#{customerController.checkDocumentRegis}"></a4j:ajax>
 							</h:selectBooleanCheckbox>
-							<h:outputText style="font-size: 13px;"
+							<h:outputText
 								value="#{app_msgs['label.pageAddMember.application']}" />
 							<a4j:outputPanel id="appDay" layout="block">
 								<rich:calendar style=" width : 90px;"
@@ -489,15 +474,15 @@
 									datePattern="dd/MM/yyyy" />
 							</a4j:outputPanel>
 
-							<h:outputText style="font-size: 13px;" value="" />
-							<h:outputText style="font-size: 13px;" value="" />
+							<h:outputText value="" />
+							<h:outputText value="" />
 							<h:selectBooleanCheckbox
 								value="#{customerController.chkCopyPersonalCard}">
 								<a4j:ajax event="click"
 									render="personalCardDay,panelRecommendId"
 									listener="#{customerController.checkDocumentPersonalCard}"></a4j:ajax>
 							</h:selectBooleanCheckbox>
-							<h:outputText style="font-size: 13px;"
+							<h:outputText
 								value="#{app_msgs['label.pageAddMember.copyPersonalCard']}" />
 							<a4j:outputPanel id="personalCardDay" layout="block">
 								<rich:calendar style=" width : 90px;"
@@ -506,14 +491,14 @@
 									datePattern="dd/MM/yyyy" />
 							</a4j:outputPanel>
 
-							<h:outputText style="font-size: 13px;" value="" />
-							<h:outputText style="font-size: 13px;" value="" />
+							<h:outputText value="" />
+							<h:outputText value="" />
 							<h:selectBooleanCheckbox
 								value="#{customerController.chkCopyBookBank}">
 								<a4j:ajax event="click" render="bookBankDay,panelRecommendId"
 									listener="#{customerController.checkDocumentBookBank}"></a4j:ajax>
 							</h:selectBooleanCheckbox>
-							<h:outputText style="font-size: 13px;"
+							<h:outputText
 								value="#{app_msgs['label.pageAddMember.copyBookBank']}" />
 							<a4j:outputPanel id="bookBankDay" layout="block">
 								<rich:calendar style=" width : 90px;"

@@ -1345,9 +1345,9 @@ public class CustomerController implements Serializable{
 				}
 				model.setScore(customer.getScore()!=null?customer.getScore():0);
 				model.setRegisDate(customer.getRegisDate());
-				String firstName = StringUtil.n2b(customer.getFirstName()).split(" ")[0];
-				if(firstName!=null && firstName.length()>9){
-					firstName = firstName.substring(0, 9);
+				String firstName = StringUtil.n2b(customer.getFirstName());
+				if(firstName!=null && firstName.length()>10){
+					firstName = firstName.substring(0, 10);
 				}
 				model.setFirstName(firstName);
 				model.setLastName(customer.getLastName());
@@ -1442,10 +1442,10 @@ public class CustomerController implements Serializable{
 				recomendName = StringUtil.n2b(customerRecommend.getTitleName())+" "+StringUtil.n2b(customerRecommend.getFirstName())
 						+" "+StringUtil.n2b(customerRecommend.getLastName());
 			}else{
-				messages.info(new AppBundleKey("error.label.notFoundMember",FacesContext.getCurrentInstance().getViewRoot().getLocale().getLanguage()));
+				messages.error(new AppBundleKey("error.label.notFoundMember",FacesContext.getCurrentInstance().getViewRoot().getLocale().getLanguage()));
 			}
 		}else{
-			messages.info(new AppBundleKey("error.label.notKeyData",FacesContext.getCurrentInstance().getViewRoot().getLocale().getLanguage()));
+			messages.error(new AppBundleKey("error.label.notKeyData",FacesContext.getCurrentInstance().getViewRoot().getLocale().getLanguage()));
 		}
 	}
 

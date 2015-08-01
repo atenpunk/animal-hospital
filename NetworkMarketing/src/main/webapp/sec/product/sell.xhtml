@@ -14,8 +14,8 @@
         }
         
         .pbody {
-        width: 255px;
-        height: 110px;
+        width: 345px;
+        height: 135px;
         }
 
     </h:outputStylesheet>
@@ -23,42 +23,35 @@
 		<h:form id="mainForm">
 			<rich:panel>
 				<f:facet name="header">
-					<h:outputText style="font-size: 13px;"
-						value="#{app_msgs['label.menuShopping.order']}" />
+					<h:outputText value="#{app_msgs['label.menuShopping.order']}" />
 				</f:facet>
 
 				<h:panelGrid columns="2" width="100%">
-					<rich:panel style="width:320px;height:110px;">
+					<rich:panel style="width:370px;height:120px;">
 						<table>
 							<tr>
-								<td class="detailSellMain"><h:outputText
-										style="font-size: 13px;"
+								<td class="tdOutputScreen"><h:outputText style=""
 										value="#{app_msgs['label.menuShopping.dateTime']}" /></td>
-								<td class="detailSellChild"><h:outputText readonly="true"
-										maxlength="100" style="font-size: 13px;"
-										value="#{productSellController.dateTime}">
+								<td class="tdInputScreen"><h:outputText readonly="true"
+										maxlength="100" value="#{productSellController.dateTime}">
 										<f:convertDateTime pattern="dd-MM-yyyy" />
 									</h:outputText></td>
 							</tr>
 							<tr>
-								<td class="detailSellMain"><h:outputText
-										style="font-size: 13px;"
+								<td class="tdOutputScreen"><h:outputText style=""
 										value="#{app_msgs['label.menuShopping.memberId']}" /></td>
-								<td class="detailSellChild"><h:inputText maxlength="100"
-										style="font-size: 13px;"
-										value="#{productSellController.memberId}">
+								<td class="tdInputScreen"><h:inputText maxlength="100"
+										style="" value="#{productSellController.memberId}">
 										<a4j:ajax event="keyup" render="inputMemberNameId"
 											listener="#{productSellController.onKeypress()}" />
 									</h:inputText></td>
 							</tr>
 							<tr>
-								<td class="detailSellMain"><h:outputText
-										style="font-size: 13px;"
+								<td class="tdOutputScreen"><h:outputText style=""
 										value="#{app_msgs['label.menuShopping.memberName']}" /></td>
-								<td class="detailSellChild"><h:outputText
+								<td class="tdInputScreen"><h:outputText
 										id="inputMemberNameId" maxlength="100" readonly="true"
-										style="font-size: 13px;"
-										value="#{productSellController.memberName}" /></td>
+										style="" value="#{productSellController.memberName}" /></td>
 							</tr>
 						</table>
 					</rich:panel>
@@ -67,26 +60,23 @@
 					<h:commandButton id="saveSell"
 						disabled="#{productSellController.productSellModelList.size() eq 0}"
 						value="#{app_msgs['button.save']}"
-						onclick="confirmMsg('#{app_msgs['label.sellPage.save']}');"
+						onclick="return confirmMsg('#{app_msgs['label.sellPage.save']}');"
 						oncomplete="endProgress();"
 						action="#{productSellController.saveOrder}"
-						render="testDataTable,messageId,saveSell"
-						style="font-size: 12px; width : 80px;"></h:commandButton>
+						render="testDataTable,messageId,saveSell" style="width : 100px;"></h:commandButton>
 
 					<a4j:commandButton id="cancleSell"
 						value="#{app_msgs['button.cancle']}"
 						action="#{productSellController.cancleOrder}"
-						render="testDataTable,messageId,saveSell"
-						style="font-size: 12px; width : 80px;"></a4j:commandButton>
-
-					<h:panelGrid id="messageId">
-						<div style="text-align: left">
-							<h:messages style="font-size: 15px;" globalOnly="true"
-								infoClass="info" warnClass="warn" errorClass="error" />
-						</div>
+						render="testDataTable,messageId,saveSell" style="width : 100px;"></a4j:commandButton>
+					<h:panelGrid id="messageId" columns="1" cellpadding="2"
+						cellspacing="2"
+						style="font-size: 22px;width:100%;text-align:left;">
+						<h:messages globalOnly="true" infoClass="info" warnClass="warn"
+							errorClass="error" />
 					</h:panelGrid>
 				</h:panelGrid>
-
+				<br />
 				<rich:dataTable id="testDataTable" style="width : 100%;"
 					rowKeyVar="row"
 					onrowmouseover="this.style.backgroundColor='#F1F1F1'"
@@ -96,39 +86,32 @@
 					<f:facet name="header">
 						<rich:columnGroup>
 							<rich:column breakRowBefore="true">
-								<h:outputText style="font-size: 13px;" value="" />
+								<h:outputText value="" />
 							</rich:column>
 							<rich:column>
-								<h:outputText style="font-size: 13px;"
-									value="#{app_msgs['label.menuSell.order']}" />
+								<h:outputText value="#{app_msgs['label.menuSell.order']}" />
 							</rich:column>
 							<rich:column>
-								<h:outputText style="font-size: 13px;"
-									value="#{app_msgs['label.menuSell.productCode']}" />
+								<h:outputText value="#{app_msgs['label.menuSell.productCode']}" />
 							</rich:column>
 							<rich:column>
-								<h:outputText style="font-size: 13px;"
+								<h:outputText
 									value="#{app_msgs['label.menuSell.detailProduct']}" />
 							</rich:column>
 							<rich:column>
-								<h:outputText style="font-size: 13px;"
-									value="#{app_msgs['label.menuSell.price']}" />
+								<h:outputText value="#{app_msgs['label.menuSell.price']}" />
 							</rich:column>
 							<rich:column>
-								<h:outputText style="font-size: 13px;"
-									value="#{app_msgs['label.menuSell.pv']}" />
+								<h:outputText value="#{app_msgs['label.menuSell.pv']}" />
 							</rich:column>
 							<rich:column>
-								<h:outputText style="font-size: 13px;"
-									value="#{app_msgs['label.menuSell.qty']}" />
+								<h:outputText value="#{app_msgs['label.menuSell.qty']}" />
 							</rich:column>
 							<rich:column>
-								<h:outputText style="font-size: 13px;"
-									value="#{app_msgs['label.menuSell.totalPrice']}" />
+								<h:outputText value="#{app_msgs['label.menuSell.totalPrice']}" />
 							</rich:column>
 							<rich:column>
-								<h:outputText style="font-size: 13px;"
-									value="#{app_msgs['label.menuSell.totalPv']}" />
+								<h:outputText value="#{app_msgs['label.menuSell.totalPv']}" />
 							</rich:column>
 						</rich:columnGroup>
 					</f:facet>
@@ -141,41 +124,38 @@
 						</a4j:commandLink>
 					</rich:column>
 					<rich:column style="text-align:center">
-						<h:outputText style="font-size: 13px;" value="#{row+1}">
+						<h:outputText value="#{row+1}">
 						</h:outputText>
 					</rich:column>
 					<rich:column style="text-align:left">
-						<h:outputText style="font-size: 13px;"
-							value="#{itemSell.productCode}">
+						<h:outputText value="#{itemSell.productCode}">
 						</h:outputText>
 					</rich:column>
 					<rich:column style="text-align:left">
-						<h:outputText style="font-size: 13px;"
-							value="#{itemSell.productThDesc}">
+						<h:outputText value="#{itemSell.productThDesc}">
 						</h:outputText>
 					</rich:column>
 					<rich:column style="text-align:right">
-						<h:outputText style="font-size: 13px;" value="#{itemSell.price}">
+						<h:outputText value="#{itemSell.price}">
 							<f:convertNumber pattern="#,##0" />
 						</h:outputText>
 					</rich:column>
 					<rich:column style="text-align:right">
-						<h:outputText style="font-size: 13px;" value="#{itemSell.pv}">
+						<h:outputText value="#{itemSell.pv}">
 							<f:convertNumber pattern="#,##0" />
 						</h:outputText>
 					</rich:column>
 					<rich:column style="text-align:right;">
-						<h:outputText style="font-size: 13px;" value="#{itemSell.qty}">
+						<h:outputText value="#{itemSell.qty}">
 						</h:outputText>
 					</rich:column>
 					<rich:column style="text-align:right">
-						<h:outputText style="font-size: 13px;"
-							value="#{itemSell.totalPrice}">
+						<h:outputText value="#{itemSell.totalPrice}">
 							<f:convertNumber pattern="#,##0" />
 						</h:outputText>
 					</rich:column>
 					<rich:column style="text-align:right">
-						<h:outputText style="font-size: 13px;" value="#{itemSell.totalPv}">
+						<h:outputText value="#{itemSell.totalPv}">
 							<f:convertNumber pattern="#,##0" />
 						</h:outputText>
 					</rich:column>
@@ -184,18 +164,15 @@
 						<rich:columnGroup
 							rendered="#{productSellController.productSellModelList.size() ne 0}">
 							<rich:column colspan="7" style="text-align:right">
-								<h:outputText style="font-size: 13px;"
-									value="#{app_msgs['label.menuSell.total']}" />
+								<h:outputText value="#{app_msgs['label.menuSell.total']}" />
 							</rich:column>
 							<rich:column style="text-align:right">
-								<h:outputText style="font-size: 13px;"
-									value="#{productSellController.totalPrice}">
+								<h:outputText value="#{productSellController.totalPrice}">
 									<f:convertNumber pattern="#,##0" />
 								</h:outputText>
 							</rich:column>
 							<rich:column style="text-align:right">
-								<h:outputText style="font-size: 13px;"
-									value="#{productSellController.totalPv}">
+								<h:outputText value="#{productSellController.totalPv}">
 									<f:convertNumber pattern="#,##0" />
 								</h:outputText>
 							</rich:column>
@@ -204,10 +181,9 @@
 					</f:facet>
 				</rich:dataTable>
 				<br />
-				<h:outputText style="font-size: 13px;"
-					value="#{app_msgs['label.menuSell.category']}" />&#160;&#160;
+				<h:outputText value="#{app_msgs['label.menuSell.category']}" />&#160;&#160;
 				<h:selectOneMenu value="#{productSellController.selectedCatalog}"
-					style=" width : 150px;" id="dropDownCategory">
+					style=" width : 180px;" id="dropDownCategory">
 					<a4j:ajax event="change"
 						listener="#{productSellController.onChangeCatalog}"
 						render="productListId" />
@@ -229,13 +205,13 @@
 											mimeType="image/jpeg" id="mediaId" session="false"
 											rendered="#{itemProduct.image ne null}"
 											createContent="#{productSellController.paintImg}"
-											value="#{row}" style="width:95px; height:100px;"
+											value="#{row}" style="width:115px; height:120px;"
 											cacheable="false">
 											<f:param value="#{productSellController.timeStamp}"
 												name="time" />
 										</a4j:mediaOutput> <h:graphicImage rendered="#{itemProduct.image eq null}"
-											value="/resources/image/noImg.gif" width="95px"
-											height="100px" /></td>
+											value="/resources/image/noImg.gif" width="115px"
+											height="120px" /></td>
 									<td colspan="2" class="tablePageSellMain"><h:outputText
 											value="#{itemProduct.productThDesc}"></h:outputText></td>
 								</tr>
@@ -260,7 +236,7 @@
 											value="#{app_msgs['button.addCart']}"
 											action="#{productSellController.addCart(itemProduct)}"
 											render="testDataTable,saveSell,messageId"
-											style="font-size: 12px; width : 100%;"></a4j:commandButton></td>
+											style="font-size: 17px; width : 100%;"></a4j:commandButton></td>
 								</tr>
 							</table>
 

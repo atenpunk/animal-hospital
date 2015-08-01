@@ -56,23 +56,23 @@
 				<div></div>
 				<rich:panel>
 					<f:facet name="header">
-						<h:outputText style="font-size: 13px;"
+						<h:outputText
 							value="#{app_msgs['label.pageChangePassword.header']}" />
 					</f:facet>
 					<h:panelGrid columns="2">
-						<h:outputText style="font-size: 13px;"
+						<h:outputText
 							value="#{app_msgs['label.pageChangePassword.memberId']}:" />
-						<h:outputText style="font-size: 13px;" value="#{passwordValidationController.memberId}" />
-						<h:outputText style="font-size: 13px;"
+						<h:outputText value="#{passwordValidationController.memberId}" />
+						<h:outputText
 							value="#{app_msgs['label.pageChangePassword.memberName']}:" />
-						<h:outputText style="font-size: 13px;" value="#{passwordValidationController.memberName}" />
-						<h:outputText style="font-size: 13px;"
+						<h:outputText value="#{passwordValidationController.memberName}" />
+						<h:outputText
 							value="#{app_msgs['label.pageChangePassword.oldPassword']}:" />
 						<h:inputSecret value="#{passwordValidationController.xxxPassword}" />
-						<h:outputText style="font-size: 13px;"
+						<h:outputText
 							value="#{app_msgs['label.pageChangePassword.newPassword']}:" />
 						<h:inputSecret value="#{passwordValidationController.newPassword}" />
-						<h:outputText style="font-size: 13px;"
+						<h:outputText
 							value="#{app_msgs['label.pageChangePassword.confirmNewPassword']}:" />
 						<h:inputSecret
 							value="#{passwordValidationController.confirmNewPossword}" />
@@ -88,8 +88,12 @@
 								<h:graphicImage value="/resources/gfx/spinner.gif" />
 							</f:facet>
 						</a4j:status>
-						<h:messages globalOnly="true" infoClass="info" warnClass="warn"
-							errorClass="error" />
+						<h:panelGrid id="messageId" columns="1" cellpadding="2"
+							cellspacing="2"
+							style="font-size: 22px;width:100%;text-align:left;">
+							<h:messages globalOnly="true" infoClass="info" warnClass="warn"
+								errorClass="error" />
+						</h:panelGrid>
 					</h:panelGrid>
 					<br />
 				</rich:panel>

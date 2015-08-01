@@ -21,25 +21,29 @@
 			<h:panelGrid columns="2" cellpadding="2" cellspacing="2"
 				columnClasses="userColumn,logoColumn" styleClass="header">
 				<h:panelGroup>
-					<h:outputText style="font-size: 14px;FONT-WEIGHT: bold;"
+					<h:outputText style="font-size: 20px;FONT-WEIGHT: bold;"
 						value="#{app_msgs['user.welcome.label']}" />
-					, &#160; <h:outputText style="font-size: 13px;FONT-WEIGHT: bold;"
+					, &#160; <h:outputText style="font-size: 20px;FONT-WEIGHT: bold;"
 						value="#{currentUser.userName}" />
 					<br />
 					<br />
-					<h:outputText style="font-size: 14px;FONT-WEIGHT: bold;"
+					<h:outputText style="font-size: 20px;FONT-WEIGHT: bold;"
 						value="E-money" />&#160;&#160;<h:outputText
-						style="font-size: 13px;FONT-WEIGHT: bold;"
+						style="font-size: 20px;FONT-WEIGHT: bold;"
 						value="#{currentUser.customerId.eMoney.doubleValue()}">
 						<f:convertNumber pattern="#,##0.00" />
 					</h:outputText>
 					<br />
 					<br />
 					<br />
-					&#160;&#160;<pretty:link mappingId="logout">
-						<h:outputText style="font-size: 13px;"
+					<br />
+					<br />
+					&#160;&#160;<pretty:link mappingId="logout" style="font-size: 18px;">
+						<h:outputText
 							value="#{app_msgs['menu.logout.label']}" />
 					</pretty:link>
+					<br />
+					<br />
 				</h:panelGroup>
 			</h:panelGrid>
 		</div>
@@ -47,7 +51,7 @@
 			<h:messages globalOnly="true" infoClass="info" warnClass="warn"
 				errorClass="error" />
 		</div -->
-		<div id='cssmenu'>
+		<div id='cssmenuAten'>
 			<ul>
 				<li class='#{menuActiveController.menuHome}'><a
 					href='#{request.contextPath}/'>#{app_msgs['menu.label.home']}</a></li>
@@ -65,17 +69,17 @@
 					<f:view locale="#{languageController.locale}">
 						<h:commandLink title="ไทย"
 							action="#{languageController.switchLocale('th')}">
-							<h:graphicImage value="/resources/gfx/THflag.png" />
+							<h:graphicImage value="/resources/gfx/THflag.png" width="22px" height="22px"/>
 						</h:commandLink>
 						&#160;
 						<h:commandLink title="ລາວ"
 							action="#{languageController.switchLocale('lao')}">
-							<h:graphicImage value="/resources/gfx/LAK.gif" />
+							<h:graphicImage value="/resources/gfx/LAK.gif" width="22px" height="22px"/>
 						</h:commandLink>
 						&#160;						
 					<h:commandLink title="English"
 							action="#{languageController.switchLocale('en')}">
-							<h:graphicImage value="/resources/gfx/ENflag.png" />
+							<h:graphicImage value="/resources/gfx/ENflag.png" width="22px" height="22px"/>
 						</h:commandLink>
 					</f:view>
 				</h:form>
@@ -89,15 +93,15 @@
 		</div>
 		<div id="footer">
 			<br />
-			<h:outputText style="font-size: 10px;"
+			<h:outputText style="font-size: 12px;"
 				value="#{app_msgs['app.name']}" />
 			&#160;
-			<h:outputText style="font-size: 10px;"
+			<h:outputText style="font-size: 12px;"
 				value="#{app_msgs['app.version']}" />
 			<br />
-			<h:outputText style="font-size: 10px;" value="Copyright" />
+			<h:outputText style="font-size: 12px;" value="Copyright" />
 			&copy;
-			<h:outputText style="font-size: 10px;"
+			<h:outputText style="font-size: 12px;"
 				value="#{app_msgs['app.copyright']}" />
 		</div>
 	</div>
@@ -133,7 +137,7 @@
             }else{
                   noAct=false;
                   x= false;
-            }   
+            }
             return x;                        
      }
 </h:outputScript>

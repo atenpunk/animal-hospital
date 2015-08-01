@@ -270,6 +270,8 @@ public class ProductSellController implements Serializable{
 
 	public void cancleOrder(){
 		productSellModelList = new ArrayList<ProductModel>();
+		totalPrice = 0;
+		totalPv = 0;
 	}
 
 	public void saveOrder(){
