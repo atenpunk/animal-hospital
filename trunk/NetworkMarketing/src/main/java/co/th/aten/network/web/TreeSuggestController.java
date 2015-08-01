@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Instance;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -24,8 +25,8 @@ import co.th.aten.network.producer.DBDefault;
 import co.th.aten.network.security.annotation.Authenticated;
 import co.th.aten.network.util.StringUtil;
 
-//@ViewScoped
-@SessionScoped
+@ViewScoped
+//@SessionScoped
 @Named
 public class TreeSuggestController implements Serializable{
 
@@ -54,14 +55,14 @@ public class TreeSuggestController implements Serializable{
 	private String searchCustomer;
 	private MemberCustomer customerTop;
 	private String selectedCustomer;
-
-	//	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd",Locale.US);
-	//	private DecimalFormat df = new DecimalFormat("0000000");
+	private String widthPanel;
+	private int countWidthPanel;
 
 	@PostConstruct
 	public void init(){
 		log.info("init method TreeSuggestController");
-
+		widthPanel = "";
+		countWidthPanel = 0;
 		if(user.get().getCustomerId()!=null){
 			genAutoTagTree(user.get().getCustomerId());
 		}
@@ -86,7 +87,7 @@ public class TreeSuggestController implements Serializable{
 		searchCustomer = "";
 		long endTime = System.currentTimeMillis();
 		log.info("action() Time = "+((endTime-startTime)/1000d)+"s");
-		
+
 	}
 
 	public void search(){
@@ -197,6 +198,7 @@ public class TreeSuggestController implements Serializable{
 		html = "";
 		customerTop = customer;
 		if(customer!=null){
+			countWidthPanel = 1;
 			StringBuffer str = new StringBuffer();
 			str.append("<table>");
 			str.append("<tr>");
@@ -212,6 +214,8 @@ public class TreeSuggestController implements Serializable{
 					.setParameter("recommendId", customer.getCustomerId())
 					.getResultList();
 			if(list_02!=null && list_02.size()>0){
+				if(list_02.size()>2)
+					countWidthPanel += list_02.size()-1;
 				str.append("<ul>");
 				for(MemberCustomer model2:list_02){
 					str.append("<li>");
@@ -223,6 +227,8 @@ public class TreeSuggestController implements Serializable{
 							.setParameter("recommendId", model2.getCustomerId())
 							.getResultList();
 					if(list_03!=null && list_03.size()>0){
+						if(list_03.size()>2)
+							countWidthPanel += list_03.size()-1;
 						str.append("<ul>");
 						for(MemberCustomer model3:list_03){
 							str.append("<li>");
@@ -234,6 +240,8 @@ public class TreeSuggestController implements Serializable{
 									.setParameter("recommendId", model3.getCustomerId())
 									.getResultList();
 							if(list_04!=null && list_04.size()>0){
+								if(list_04.size()>2)
+									countWidthPanel += list_04.size()-1;
 								str.append("<ul>");
 								for(MemberCustomer model4:list_04){
 									str.append("<li>");
@@ -259,6 +267,14 @@ public class TreeSuggestController implements Serializable{
 			str.append("</tr>");
 			str.append("</table>");
 			html = str.toString();
+			
+			if(countWidthPanel>10){
+				widthPanel = "width : "+(countWidthPanel*120)+"px;";
+			}else{
+				widthPanel = "";
+			}
+			log.info("-----------> countWidthPanel = "+countWidthPanel);
+			log.info("-----------> widthPanel      = "+widthPanel);
 		}
 
 		//		StringBuffer str = new StringBuffer();
@@ -346,9 +362,9 @@ public class TreeSuggestController implements Serializable{
 		str.append("<br/>");
 		str.append("<h>"+StringUtil.n2b(customer.getCustomerMember())+"</h>");
 		str.append("<br/>");
-		String name = StringUtil.n2b(customer.getFirstName()).split(" ")[0];
-		if(name!=null && name.length()>9){
-			name = name.substring(0, 9);
+		String name = StringUtil.n2b(customer.getFirstName());
+		if(name!=null && name.length()>10){
+			name = name.substring(0, 10);
 		}
 		str.append("<h>"+name+"</h>");
 		str.append("<span>");
@@ -385,6 +401,12 @@ public class TreeSuggestController implements Serializable{
 		this.selectedCustomer = selectedCustomer;
 	}
 
+	public String getWidthPanel() {
+		return widthPanel;
+	}
 
+	public void setWidthPanel(String widthPanel) {
+		this.widthPanel = widthPanel;
+	}
 
 }

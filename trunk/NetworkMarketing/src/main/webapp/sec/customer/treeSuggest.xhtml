@@ -77,7 +77,7 @@
 
 				<rich:panel rendered="#{treeSuggestController.html ne ''}"
 					id="panelTree" style="overflow: scroll; border: 0px;">
-					<rich:panel style="border: 0px; width : 2000px;">
+					<rich:panel style="border: 0px; #{treeSuggestController.widthPanel}">
 						<h:outputText id="htmlStuff" value="#{treeSuggestController.html}"
 							escape="false" />
 					</rich:panel>
