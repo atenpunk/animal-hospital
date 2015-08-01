@@ -11,24 +11,29 @@
 		<h:form id="fromReportId">
 			<rich:panel>
 				<f:facet name="header">
-					<h:outputText style="font-size: 13px;" value="#{app_msgs['menu.label.infoSuggest']}" />
+					<h:outputText value="#{app_msgs['menu.label.infoSuggest']}" />
 				</f:facet>
 				<table>
 					<tr>
-						<td><h:inputText id="inputMemberId" style="font-size: 13px;"
+						<td><h:inputText id="inputMemberId"
 								value="#{suggestReportController.searchCustomer}">
 								<rich:placeholder
 									value="#{app_msgs['inputText.search.memberId']}" />
 							</h:inputText>&#160;<a4j:commandButton id="searchId"
 								value="#{app_msgs['button.search']}"
 								action="#{suggestReportController.search}"
-								render="testDataTable,panelCountSideId" style="font-size: 13px; width : 80px;"></a4j:commandButton></td>
+								render="testDataTable,panelCountSideId" style=" width : 80px;"></a4j:commandButton></td>
 						<td><a4j:status>
 								<f:facet name="start">
 									<h:graphicImage value="/resources/gfx/spinner_old.gif" />
 								</f:facet>
 							</a4j:status></td>
-						<td><h:messages style="color:red;margin:8px;" /></td>
+						<td><h:panelGrid id="messageId" columns="1" cellpadding="2"
+						cellspacing="2"
+						style="font-size: 22px;width:100%;text-align:left;">
+						<h:messages globalOnly="true" infoClass="info" warnClass="warn"
+							errorClass="error" />
+					</h:panelGrid></td>
 					</tr>
 				</table>
 				<br />
@@ -39,18 +44,18 @@
 					var="item" rows="100">
 					<rich:column style="text-align:center">
 						<f:facet name="header">
-							<h:outputText style="font-size: 13px;" value="" />
+							<h:outputText value="" />
 						</f:facet>
-						<a target="tab" style="font-size: 13px;"
+						<a target="tab"
 							href="#{request.contextPath}/customer/tree?id=#{item.customerCode}">
 							#{app_msgs['label.menuInfoFlowTeam.reportTeamBinary.flow']}
 						</a>
 					</rich:column>
 					<rich:column style="text-align:center">
 						<f:facet name="header">
-							<h:outputText style="font-size: 13px;" value="" />
+							<h:outputText value="" />
 						</f:facet>
-						<h:commandLink style="font-size: 13px;"
+						<h:commandLink
 							value="#{app_msgs['label.menuInfoFlowTeam.reportTeamBinary.team']}"
 							action="#{suggestReportController.search(item.customerCode)}"
 							target="tab" />
@@ -58,86 +63,86 @@
 					<rich:column sortBy="#{item.index}" sortType="custom"
 						sortOrder="#{suggestReportController.orderOrder}">
 						<f:facet name="header">
-							<a4j:commandLink style="font-size: 13px;"
+							<a4j:commandLink
 								value="#{app_msgs['label.menuInfoFlowTeam.reportTeamBinary.order']}"
 								render="fromReportId"
 								action="#{suggestReportController.sortByOrder}" />
 						</f:facet>
-						<h:outputText style="font-size: 13px;" value="#{item.index}" />
+						<h:outputText value="#{item.index}" />
 					</rich:column>
 					<rich:column style="text-align:center" sortBy="#{item.customerId}"
 						sortType="custom"
 						sortOrder="#{suggestReportController.memberIdOrder}">
 						<f:facet name="header">
-							<a4j:commandLink style="font-size: 13px;"
+							<a4j:commandLink
 								value="#{app_msgs['label.menuInfoFlowTeam.reportTeamBinary.memberId']}"
 								render="fromReportId"
 								action="#{suggestReportController.sortByMemberId}" />
 						</f:facet>
-						<h:outputText style="font-size: 13px;" value="#{item.customerCode}" />
+						<h:outputText value="#{item.customerCode}" />
 					</rich:column>
 					<rich:column sortBy="#{item.customerName}" sortType="custom"
 						sortOrder="#{suggestReportController.memberNameOrder}">
 						<f:facet name="header">
-							<a4j:commandLink style="font-size: 13px;"
+							<a4j:commandLink
 								value="#{app_msgs['label.menuInfoFlowTeam.reportTeamBinary.name']}"
 								render="fromReportId"
 								action="#{suggestReportController.sortByMemberName}" />
 						</f:facet>
-						<h:outputText style="font-size: 13px;" value="#{item.customerName}" />
+						<h:outputText value="#{item.customerName}" />
 					</rich:column>
 					<rich:column style="text-align:center" sortBy="#{item.regisDate}"
 						sortType="custom"
 						sortOrder="#{suggestReportController.regisDateOrder}">
 						<f:facet name="header">
-							<a4j:commandLink style="font-size: 13px;"
+							<a4j:commandLink
 								value="#{app_msgs['label.menuInfoFlowTeam.reportTeamBinary.regisDate']}"
 								render="fromReportId"
 								action="#{suggestReportController.sortByRegisDate}" />
 						</f:facet>
-						<h:outputText style="font-size: 13px;" value="#{item.regisDate}">
+						<h:outputText value="#{item.regisDate}">
 							<f:convertDateTime pattern="yyyy-MM-dd" />
 						</h:outputText>
 					</rich:column>
 					<rich:column sortBy="#{item.position}" sortType="custom"
 						sortOrder="#{suggestReportController.positionOrder}">
 						<f:facet name="header">
-							<a4j:commandLink style="font-size: 13px;"
+							<a4j:commandLink
 								value="#{app_msgs['label.menuInfoFlowTeam.reportTeamBinary.position']}"
 								render="fromReportId"
 								action="#{suggestReportController.sortByPosition}" />
 						</f:facet>
-						<h:outputText style="font-size: 13px;" value="#{item.position}" />
+						<h:outputText value="#{item.position}" />
 					</rich:column>
 					<rich:column sortBy="#{item.recomment}" sortType="custom"
 						sortOrder="#{suggestReportController.recommentOrder}">
 						<f:facet name="header">
-							<a4j:commandLink style="font-size: 13px;"
+							<a4j:commandLink
 								value="#{app_msgs['label.menuInfoFlowTeam.reportTeamBinary.recomment']}"
 								render="fromReportId"
 								action="#{suggestReportController.sortByRecomment}" />
 						</f:facet>
-						<h:outputText style="font-size: 13px;" value="#{item.recomment}" />
+						<h:outputText value="#{item.recomment}" />
 					</rich:column>
 					<rich:column sortBy="#{item.honor}" sortType="custom"
 						sortOrder="#{suggestReportController.honorOrder}">
 						<f:facet name="header">
-							<a4j:commandLink style="font-size: 13px;"
+							<a4j:commandLink
 								value="#{app_msgs['label.menuInfoFlowTeam.reportTeamBinary.honor']}"
 								render="fromReportId"
 								action="#{suggestReportController.sortByHonor}" />
 						</f:facet>
-						<h:outputText style="font-size: 13px;" value="#{item.honor}" />
+						<h:outputText value="#{item.honor}" />
 					</rich:column>
 					<rich:column style="text-align:center" sortBy="#{item.side}"
 						sortType="custom" sortOrder="#{suggestReportController.sideOrder}">
 						<f:facet name="header">
-							<a4j:commandLink style="font-size: 13px;"
+							<a4j:commandLink
 								value="#{app_msgs['label.menuInfoFlowTeam.reportTeamBinary.side']}"
 								render="fromReportId"
 								action="#{suggestReportController.sortBySide}" />
 						</f:facet>
-						<h:outputText style="font-size: 13px;" value="#{item.side}" />
+						<h:outputText value="#{item.side}" />
 					</rich:column>
 					<f:facet name="footer">
 						<rich:dataScroller for="testDataTable" />

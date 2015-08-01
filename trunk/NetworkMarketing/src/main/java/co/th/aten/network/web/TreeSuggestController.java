@@ -342,7 +342,7 @@ public class TreeSuggestController implements Serializable{
 				img = "../resources/image/YT.png";
 			}
 		}
-		str.append("<img src=\""+img+"\" width=\"55px\" height=\"55px\"/>");
+		str.append("<img src=\""+img+"\" width=\"75px\" height=\"75px\"/>");
 		str.append("<br/>");
 		str.append("<h>"+StringUtil.n2b(customer.getCustomerMember())+"</h>");
 		str.append("<br/>");

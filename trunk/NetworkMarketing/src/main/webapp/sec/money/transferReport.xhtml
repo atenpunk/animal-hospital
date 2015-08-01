@@ -11,18 +11,18 @@
 		<h:form id="fromMainId">
 			<rich:panel>
 				<f:facet name="header">
-					<h:outputText style="font-size: 13px;"
+					<h:outputText
 						value="#{app_msgs['label.menuMoney.reportTransfer']}" />
 				</f:facet>
 				<table>
 					<tr>
-						<td class="tdOutputScreen"><h:outputText style="font-size: 13px;"
+						<td class="tdOutputScreen"><h:outputText
 								value="#{app_msgs['label.startDate']}" /></td>
 						<td  class="tdInputScreen"><a4j:outputPanel id="startDate" layout="block">
 								<rich:calendar value="#{moneyReportTransferController.startDate}"
 									datePattern="dd/MM/yyyy HH:mm:ss" />
 							</a4j:outputPanel></td>
-						<td class="tdOutputScreen"><h:outputText style="font-size: 13px;"
+						<td class="tdOutputScreen"><h:outputText
 								value="#{app_msgs['label.endDate']}" /></td>
 						<td  class="tdInputScreen"><a4j:outputPanel id="endDate" layout="block">
 								<rich:calendar value="#{moneyReportTransferController.endDate}"
@@ -36,7 +36,7 @@
 						<td><a4j:commandButton id="searchId"
 								value="#{app_msgs['button.search']}"
 								action="#{moneyReportTransferController.search}"
-								render="testDataTable" style="font-size: 13px; width : 80px;"></a4j:commandButton>&#160;&#160;
+								render="testDataTable" style=" width : 100px;"></a4j:commandButton>&#160;&#160;
 						</td>
 						<td><a4j:status>
 								<f:facet name="start">
@@ -55,88 +55,88 @@
 					<f:facet name="header">
 						<rich:columnGroup>
 							<rich:column breakRowBefore="true">
-								<h:outputText style="font-size: 13px;"
+								<h:outputText
 									value="#{app_msgs['label.menuMoney.order']}" />
 							</rich:column>
 							<rich:column>
-								<h:outputText style="font-size: 13px;"
+								<h:outputText
 									value="#{app_msgs['label.menuMoney.memberCode']}" />
 							</rich:column>
 							<rich:column>
-								<h:outputText style="font-size: 13px;"
+								<h:outputText
 									value="#{app_msgs['label.menuMoney.memberName']}" />
 							</rich:column>
 							<rich:column>
-								<h:outputText style="font-size: 13px;"
+								<h:outputText
 									value="#{app_msgs['label.menuMoney.date']}" />
 							</rich:column>
 							<rich:column>
-								<h:outputText style="font-size: 13px;"
+								<h:outputText
 									value="#{app_msgs['label.menuMoney.transferAmount']}" />
 							</rich:column>
 							<rich:column>
-								<h:outputText style="font-size: 13px;"
+								<h:outputText
 									value="#{app_msgs['label.menuMoney.receiveMemberId']}" />
 							</rich:column>
 							<rich:column>
-								<h:outputText style="font-size: 13px;"
+								<h:outputText
 									value="#{app_msgs['label.menuMoney.receiveMemberName']}" />
 							</rich:column>
 							<rich:column>
-								<h:outputText style="font-size: 13px;"
+								<h:outputText
 									value="#{app_msgs['label.menuMoney.remark']}" />
 							</rich:column>
 							<rich:column>
-								<h:outputText style="font-size: 13px;"
+								<h:outputText
 									value="#{app_msgs['label.menuMoney.trxBy']}" />
 							</rich:column>
 							<rich:column>
-								<h:outputText style="font-size: 13px;"
+								<h:outputText
 									value="#{app_msgs['label.menuMoney.trxTime']}" />
 							</rich:column>
 						</rich:columnGroup>
 					</f:facet>
 					<rich:column style="text-align:center">
-						<h:outputText style="font-size: 13px;" value="#{row+1}">
+						<h:outputText value="#{row+1}">
 						</h:outputText>
 					</rich:column>
 					<rich:column style="text-align:center">
-						<h:outputText style="font-size: 13px;" value="#{item.memberCode}">
+						<h:outputText value="#{item.memberCode}">
 						</h:outputText>
 					</rich:column>
 					<rich:column style="text-align:left">
-						<h:outputText style="font-size: 13px;" value="#{item.memberName}">
+						<h:outputText value="#{item.memberName}">
 						</h:outputText>
 					</rich:column>
 					<rich:column style="text-align:center">
-						<h:outputText style="font-size: 13px;" value="#{item.date}">
+						<h:outputText value="#{item.date}">
 							<f:convertDateTime pattern="yyyy-MM-dd" locale="en_US"
 								timeZone="GMT+7" />
 						</h:outputText>
 					</rich:column>
 					<rich:column style="text-align:right">
-						<h:outputText style="font-size: 13px;" value="#{item.transferAmount}">
+						<h:outputText value="#{item.transferAmount}">
 							<f:convertNumber pattern="#,##0.00" />
 						</h:outputText>
 					</rich:column>
 					<rich:column style="text-align:right">
-						<h:outputText style="font-size: 13px;" value="#{item.receiveMemberId}">
+						<h:outputText value="#{item.receiveMemberId}">
 						</h:outputText>
 					</rich:column>
 					<rich:column style="text-align:right">
-						<h:outputText style="font-size: 13px;" value="#{item.receiveMemberName}">
+						<h:outputText value="#{item.receiveMemberName}">
 						</h:outputText>
 					</rich:column>
 					<rich:column style="text-align:left">
-						<h:outputText style="font-size: 13px;" value="#{item.remark}">
+						<h:outputText value="#{item.remark}">
 						</h:outputText>
 					</rich:column>
 					<rich:column style="text-align:left">
-						<h:outputText style="font-size: 13px;" value="#{item.trxBy}">
+						<h:outputText value="#{item.trxBy}">
 						</h:outputText>
 					</rich:column>
 					<rich:column style="text-align:center">
-						<h:outputText style="font-size: 13px;" value="#{item.trxTime}">
+						<h:outputText value="#{item.trxTime}">
 							<f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss" locale="en_US"
 								timeZone="GMT+7" />
 						</h:outputText>
@@ -145,12 +145,12 @@
 					<f:facet name="footer">
 						<rich:columnGroup>
 							<rich:column colspan="4" style="text-align: right;">
-								<h:outputText style="font-size: 13px;"
+								<h:outputText
 									value="#{app_msgs['label.total']}">
 								</h:outputText>
 							</rich:column>
 							<rich:column style="text-align:right">
-								<h:outputText style="font-size: 13px;"
+								<h:outputText
 									value="#{moneyReportTransferController.totalTransferAmount}">
 									<f:convertNumber pattern="#,##0.00" />
 								</h:outputText>

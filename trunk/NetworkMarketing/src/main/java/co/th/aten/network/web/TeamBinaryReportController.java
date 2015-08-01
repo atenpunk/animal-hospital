@@ -225,9 +225,9 @@ public class TeamBinaryReportController implements Serializable{
 		styleRight = "";
 		try{
 			if(side==1){
-				styleLeft = "FONT-SIZE: medium;BACKGROUND-COLOR: #ff0000;COLOR: #ffffff;";
+				styleLeft = "FONT-SIZE: 20px;BACKGROUND-COLOR: #ff0000;COLOR: #ffffff;";
 			}else{
-				styleRight = "FONT-SIZE: medium;BACKGROUND-COLOR: #ff0000;COLOR: #ffffff;";
+				styleRight = "FONT-SIZE: 20px;BACKGROUND-COLOR: #ff0000;COLOR: #ffffff;";
 			}
 			teamBinaryReportModelList = new ArrayList<TeamBinaryReportModel>();
 			String sql = "From MemberCustomer " +

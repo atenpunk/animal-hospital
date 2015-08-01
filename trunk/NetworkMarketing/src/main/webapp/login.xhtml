@@ -18,16 +18,16 @@
 
         .panel1 {
         	vertical-align: top;
-        	width:30%;
+        	width:25%;
         }
         .panel2 {
  	       vertical-align: top;
- 	       width:40%;
+ 	       width:50%;
         }
  
         .panel3 {
  	       vertical-align: top;
- 	       width:30%;
+ 	       width:25%;
         }
  
         .top {
@@ -57,14 +57,14 @@
 		<h:panelGrid columnClasses="panel1,panel2,panel3" border="0" columns="3" style="width:100%">
 		<div ></div>		
         <rich:panel >
-            <f:facet name="header"><h:outputText style="font-size: 16px;" value="#{messages['login.label.header']}" /> </f:facet>
+            <f:facet name="header"><h:outputText value="#{messages['login.label.header']}" /> </f:facet>
                 <h:panelGrid columns="2" rowClasses="prop" columnClasses="name,value">
-                    <h:outputLabel for="username"><h:outputText style="font-size: 16px;" value="#{messages['login.label.userName']}:" /></h:outputLabel>
-                    <h:inputText style="font-size: 16px;" id="username" value="#{credentials.username}" />
-                    <h:outputLabel for="password"><h:outputText style="font-size: 16px;" value="#{messages['login.label.password']}:" /></h:outputLabel>
-                    <h:inputSecret style="font-size: 16px;" id="password" value="#{credentials.password}"/>
+                    <h:outputLabel for="username"><h:outputText value="#{messages['login.label.userName']}:" /></h:outputLabel>
+                    <h:inputText id="username" value="#{credentials.username}" />
+                    <h:outputLabel for="password"><h:outputText value="#{messages['login.label.password']}:" /></h:outputLabel>
+                    <h:inputSecret id="password" value="#{credentials.password}"/>
                 </h:panelGrid>
-            <h:commandButton style="font-size: 16px;width:100px" id="submit" value="#{messages['login.button.login']}" action="#{identity.login}"/>
+            <h:commandButton style="width:100px" id="submit" value="#{messages['login.button.login']}" action="#{identity.login}"/>
             <br/>
 			<br/>
 			<!--h:outputText value="#{messages['login.button.forgotPassword']}" /-->
