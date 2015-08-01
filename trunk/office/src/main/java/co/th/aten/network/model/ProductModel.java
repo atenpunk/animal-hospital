@@ -5,8 +5,9 @@ import java.io.Serializable;
 
 public class ProductModel implements Serializable {
 	
-	private int productId;
 	private int catalogId;
+	private String catalogThDesc;
+	private int productId;
 	private String productCode;
 	private String productThDesc;
 	private String productEnDesc;
@@ -111,5 +112,10 @@ public class ProductModel implements Serializable {
 	public void setImage(UploadedImage image) {
 		this.image = image;
 	}
-	
+	public String getCatalogThDesc() {
+		return catalogThDesc;
+	}
+	public void setCatalogThDesc(String catalogThDesc) {
+		this.catalogThDesc = catalogThDesc;
+	}
 }

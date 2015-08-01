@@ -231,6 +231,7 @@ public class DetailProductController implements Serializable{
 				ProductModel model = new ProductModel();
 				model.setProductId(StringUtil.n2b(pro.getProductId()));
 				model.setCatalogId(pro.getCatalogId()!=null?pro.getCatalogId().getCatalogId():0);
+				model.setCatalogThDesc(pro.getCatalogId()!=null?pro.getCatalogId().getThDesc():"");
 				model.setProductCode(StringUtil.n2b(pro.getProductCode()));
 				model.setProductThDesc(StringUtil.n2b(pro.getThDesc()));
 				model.setProductEnDesc(StringUtil.n2b(pro.getEnDesc()));

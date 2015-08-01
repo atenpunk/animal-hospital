@@ -25,7 +25,7 @@
 					onrowmouseover="this.style.backgroundColor='#F1F1F1'"
 					onrowmouseout="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
 					value="#{detailProductController.productModelList}" var="item"
-					rows="50">
+					rows="100">
 					<f:facet name="header">
 						<rich:columnGroup>
 							<rich:column breakRowBefore="true">
@@ -46,6 +46,10 @@
 							<rich:column>
 								<h:outputText
 									value="#{app_msgs['label.menuSell.detailProduct']}" />
+							</rich:column>
+							<rich:column>
+								<h:outputText
+									value="#{app_msgs['label.menuSell.category']}" />
 							</rich:column>
 							<rich:column>
 								<h:outputText
@@ -106,6 +110,11 @@
 					<rich:column style="text-align:left">
 						<h:outputText
 							value="#{item.productThDesc}">
+						</h:outputText>
+					</rich:column>
+					<rich:column style="text-align:left">
+						<h:outputText
+							value="#{item.catalogThDesc}">
 						</h:outputText>
 					</rich:column>
 					<rich:column style="text-align:left">
