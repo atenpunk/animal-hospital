@@ -11,70 +11,61 @@
 		<h:form id="mainForm">
 			<rich:panel>
 				<f:facet name="header">
-					<h:outputText
-						value="#{app_msgs['menu.label.eMoney.addAndDeduct']}" />
+					<h:outputText value="#{app_msgs['menu.label.eMoney.addAndDeduct']}" />
 				</f:facet>
 
 				<h:panelGrid columns="1" width="100%">
 					<rich:panel>
-						<h:messages style="font-size: 17px;" globalOnly="true"
-							infoClass="info" warnClass="warn" errorClass="error" />
+						<h:panelGrid columns="1" cellpadding="2" cellspacing="2" id="messagesId"
+							style="width:100%;text-align:left;font-size: 22px;">
+							<h:messages globalOnly="true" infoClass="info" errorClass="error" warnClass="warn"/>
+						</h:panelGrid>
 						<br />
 						<table>
 							<tr>
 								<td class="tdOutputScreen"><h:outputText
-										style="" value="#{app_msgs['label.date']}" /></td>
+										value="#{app_msgs['label.date']}" /></td>
 								<td class="tdInputScreen"><h:outputText
-										style=""
 										value="#{moneyAddAndDeductController.newDate}">
 										<f:convertDateTime pattern="dd-MM-yyyy" />
 									</h:outputText></td>
 							</tr>
 							<tr>
 								<td class="tdOutputScreen"><h:outputText
-										style=""
 										value="#{app_msgs['label.memberCode']}" /></td>
 								<td class="tdInputScreen"><h:inputText maxlength="20"
-										style=""
-										value="#{moneyAddAndDeductController.memberCode}">
+										style="" value="#{moneyAddAndDeductController.memberCode}">
 									</h:inputText> <a4j:commandButton id="searchId"
 										value="#{app_msgs['button.search']}"
 										action="#{moneyAddAndDeductController.search}"
-										render="mainForm" style=" width : 80px;"></a4j:commandButton>
+										render="messagesId,confirmButtonId,nameMemberId" style=" width : 80px;"></a4j:commandButton>
 								</td>
 							</tr>
 							<tr>
 								<td class="tdOutputScreen"><h:outputText
-										style=""
 										value="#{app_msgs['label.memberName']}" /></td>
-								<td class="tdInputScreen"><h:outputText
-										style=""
+								<td class="tdInputScreen"><h:outputText id="nameMemberId"
 										value="#{moneyAddAndDeductController.memberName}">
 									</h:outputText></td>
 							</tr>
 							<tr>
 								<td class="tdOutputScreen"><h:outputText
-										style=""
 										value="#{app_msgs['label.menuMoney.deduct']}" /></td>
 								<td class="tdInputScreen"><h:inputText maxlength="10"
-										style=""
-										value="#{moneyAddAndDeductController.deductMoney}">
+										style="" value="#{moneyAddAndDeductController.deductMoney}">
 										<f:convertNumber pattern="########" />
 									</h:inputText></td>
 							</tr>
 							<tr>
 								<td class="tdOutputScreen"><h:outputText
-										style=""
 										value="#{app_msgs['label.menuMoney.add']}" /></td>
 								<td class="tdInputScreen"><h:inputText maxlength="10"
-										style=""
-										value="#{moneyAddAndDeductController.addMoney}">
+										style="" value="#{moneyAddAndDeductController.addMoney}">
 										<f:convertNumber pattern="########" />
 									</h:inputText></td>
 							</tr>
 							<tr>
 								<td class="tdOutputScreen"><h:outputText
-										style=""
 										value="#{app_msgs['label.menuMoney.remark']}" /></td>
 								<td class="tdInputScreen"><h:inputText
 										style=" width : 260px;"
@@ -89,7 +80,7 @@
 							onclick="confirmMsg('#{app_msgs['label.confirm.addAndDeductMoney']}');"
 							oncomplete="endProgress();"
 							action="#{moneyAddAndDeductController.confirmMoney}"
-							render="mainForm" style=" width : 80px;"></a4j:commandButton>
+							render="messagesId,confirmButtonId" style=" width : 80px;"></a4j:commandButton>
 					</rich:panel>
 				</h:panelGrid>
 				<br />

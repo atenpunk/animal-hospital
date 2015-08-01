@@ -21,16 +21,16 @@
 			<h:panelGrid columns="2" cellpadding="2" cellspacing="2"
 				columnClasses="userColumn,logoColumn" styleClass="header">
 				<h:panelGroup>
-					<h:outputText style="font-size: 14px;FONT-WEIGHT: bold;"
+					<h:outputText style="font-size: 20px;FONT-WEIGHT: bold;"
 						value="#{app_msgs['user.welcome.label']}" />
-					, &#160; <h:outputText style="FONT-WEIGHT: bold;"
+					, &#160; <h:outputText style="font-size: 20px;FONT-WEIGHT: bold;"
 						value="#{currentUser.userName}" />
 					<br />
 					<br />
 					<br />
 					<br />
 					<br />
-					&#160;&#160;<pretty:link mappingId="logout">
+					&#160;&#160;<pretty:link mappingId="logout" style="font-size: 16px;">
 						<h:outputText
 							value="#{app_msgs['menu.logout.label']}" />
 					</pretty:link>
