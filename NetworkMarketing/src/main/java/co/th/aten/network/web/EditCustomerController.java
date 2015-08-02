@@ -68,7 +68,6 @@ public class EditCustomerController implements Serializable{
 	private String searchCustomer;
 
 	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd",Locale.US);
-	private DecimalFormat df = new DecimalFormat("0000000");
 
 	@Inject
 	private CustomerControl customerControl;
@@ -89,7 +88,7 @@ public class EditCustomerController implements Serializable{
 	private String companyID;
 	private String telephone;
 	private String mobile;
-	private String fax;
+	private String lineId;
 	private String email;
 	private String starUpperLineId;
 	private String upperLineMemberId;
@@ -180,7 +179,7 @@ public class EditCustomerController implements Serializable{
 					companyID = customer.getCompanyID();
 					telephone = customer.getTelephone();
 					mobile = customer.getMobile();
-					fax = customer.getFax();
+					lineId = customer.getLineId();
 					email = customer.getEmail();
 					if(customer.getUpperId()!=null && customer.getUpperId()!=0){
 						MemberCustomer customerUpper = em.find(MemberCustomer.class, customer.getUpperId());
@@ -573,7 +572,7 @@ public class EditCustomerController implements Serializable{
 		companyID = "";
 		telephone = "";
 		mobile = "";
-		fax = "";
+		lineId = "";
 		email = "";
 		starUpperLineId = "";
 		upperLineMemberId = "";
@@ -707,7 +706,7 @@ public class EditCustomerController implements Serializable{
 			user.get().getCustomerId().setCompanyID(companyID);
 			user.get().getCustomerId().setTelephone(telephone);
 			user.get().getCustomerId().setMobile(mobile);
-			user.get().getCustomerId().setFax(fax);
+			user.get().getCustomerId().setLineId(lineId);
 			user.get().getCustomerId().setEmail(email);
 			user.get().getCustomerId().setAddressNo(addressNo);
 			user.get().getCustomerId().setAddressBuilding(addressBuilding);
@@ -773,12 +772,12 @@ public class EditCustomerController implements Serializable{
 		}else{
 			starFirstName = "*";
 		}
-		if(titleName!=null && titleName.trim().length()>0){
-			starTitleName = " ";
+		if(personalId!=null && personalId.trim().length()>0){
+			starPersonalId = " ";
 		}else{
-			starTitleName = "*";
+			starPersonalId = "*";
 		}
-		if(starTitleName.equals("*") || starFirstName.equals("*")){
+		if(starPersonalId.equals("*") || starFirstName.equals("*")){
 			chkSave = true;
 		}else{
 			chkSave = false;
@@ -961,12 +960,12 @@ public class EditCustomerController implements Serializable{
 		this.mobile = mobile;
 	}
 
-	public String getFax() {
-		return fax;
+	public String getLineId() {
+		return lineId;
 	}
 
-	public void setFax(String fax) {
-		this.fax = fax;
+	public void setLineId(String lineId) {
+		this.lineId = lineId;
 	}
 
 	public String getEmail() {

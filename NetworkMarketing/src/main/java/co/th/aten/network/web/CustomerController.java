@@ -143,7 +143,7 @@ public class CustomerController implements Serializable{
 	private String companyID;
 	private String telephone;
 	private String mobile;
-	private String fax;
+	private String lineId;
 	private String email;
 	private String starUpperLineId;
 	private String upperLineMemberId;
@@ -1473,7 +1473,7 @@ public class CustomerController implements Serializable{
 		companyID = "";
 		telephone = "";
 		mobile = "";
-		fax = "";
+		lineId = "";
 		email = "";
 		starUpperLineId = "";
 		upperLineMemberId = "";
@@ -1646,7 +1646,7 @@ public class CustomerController implements Serializable{
 				cus.setCompanyID(companyID);
 				cus.setTelephone(telephone);
 				cus.setMobile(mobile);
-				cus.setFax(fax);
+				cus.setLineId(lineId);
 				cus.setEmail(email);
 				cus.setAddressNo(addressNo);
 				cus.setAddressBuilding(addressBuilding);
@@ -1743,7 +1743,7 @@ public class CustomerController implements Serializable{
 		companyID = "";
 		telephone = "";
 		mobile = "";
-		fax = "";
+		lineId = "";
 		email = "";
 		starUpperLineId = "";
 		upperLineMemberId = "";
@@ -2150,12 +2150,12 @@ public class CustomerController implements Serializable{
 		this.mobile = mobile;
 	}
 
-	public String getFax() {
-		return fax;
+	public String getLineId() {
+		return lineId;
 	}
 
-	public void setFax(String fax) {
-		this.fax = fax;
+	public void setLineId(String lineId) {
+		this.lineId = lineId;
 	}
 
 	public String getEmail() {

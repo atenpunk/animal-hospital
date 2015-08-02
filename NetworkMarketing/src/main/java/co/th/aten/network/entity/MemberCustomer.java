@@ -82,8 +82,8 @@ public class MemberCustomer implements Serializable {
     private String telephone;
     @Column(name = "mobile")
     private String mobile;
-    @Column(name = "fax")
-    private String fax;
+    @Column(name = "line_id")
+    private String lineId;
     @Column(name = "email")
     private String email;
     @Column(name = "address_No")
@@ -350,13 +350,13 @@ public class MemberCustomer implements Serializable {
         this.mobile = mobile;
     }
 
-    public String getFax() {
-        return fax;
-    }
+    public String getLineId() {
+		return lineId;
+	}
 
-    public void setFax(String fax) {
-        this.fax = fax;
-    }
+	public void setLineId(String lineId) {
+		this.lineId = lineId;
+	}
 
     public String getEmail() {
         return email;

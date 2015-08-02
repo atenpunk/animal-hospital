@@ -110,7 +110,10 @@
 								value="#{editCustomerController.starPersonalId}"
 								id="starPersonalId" />
 							<h:inputText maxlength="100"
-								value="#{editCustomerController.personalId}" />
+								value="#{editCustomerController.personalId}">
+								<a4j:ajax event="keyup" render="starPersonalId,editProfileId"
+									listener="#{editCustomerController.onKeypress()}" />
+							</h:inputText>
 
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.titleName']}" />
@@ -119,8 +122,6 @@
 							<h:inputText maxlength="100"
 								value="#{editCustomerController.titleName}"
 								style=" width : 80px;">
-								<a4j:ajax event="keyup" render="starTitle,saveId"
-									listener="#{editCustomerController.onKeypress()}" />
 							</h:inputText>
 
 							<div style="width: 40px;"></div>
@@ -137,8 +138,8 @@
 								value="#{editCustomerController.starFirstName}" id="starName" />
 							<h:inputText maxlength="100"
 								value="#{editCustomerController.firstName}"
-								style=" width : 150px;">
-								<a4j:ajax event="keyup" render="starName,saveId"
+								style=" width : 250px;">
+								<a4j:ajax event="keyup" render="starName,editProfileId"
 									listener="#{editCustomerController.onKeypress()}" />
 							</h:inputText>
 
@@ -155,7 +156,7 @@
 							<h:outputText value="" />
 							<h:inputText maxlength="100"
 								value="#{editCustomerController.businessName}"
-								style=" width : 150px;">
+								style=" width : 250px;">
 							</h:inputText>
 
 							<div style="width: 40px;"></div>
@@ -177,10 +178,10 @@
 
 							<div style="width: 40px;"></div>
 
-							<h:outputText value="#{app_msgs['label.pageAddMember.fax']}" />
+							<h:outputText value="#{app_msgs['label.pageAddMember.lineId']}" />
 							<h:outputText value="" />
 							<h:inputText maxlength="100"
-								value="#{editCustomerController.fax}" />
+								value="#{editCustomerController.lineId}" />
 
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.birthDate']}" />
@@ -514,7 +515,7 @@
 
 
 					<h:panelGrid columns="4" id="panelGridEditId">
-						<a4j:commandButton id="saveId"
+						<a4j:commandButton id="editProfileId"
 							disabled="#{editCustomerController.chkSave}"
 							onclick="return confirmMsg('#{app_msgs['label.comfirm.edit']}');"
 							oncomplete="endProgress();" value="#{app_msgs['button.edit']}"
