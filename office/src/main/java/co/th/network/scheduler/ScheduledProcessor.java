@@ -23,21 +23,21 @@ public class ScheduledProcessor {
 	Logger log;
  
 //	@Schedule(hour="*",minute = "*",second="0/10")
-    @Schedule(hour="23",minute = "59",second="59")
+    @Schedule(hour="00",minute = "00",second="01")
     public void execute() {
     	try{
 			log.info("##### Start ScheduledProcessor #####");
 
-			String sql = "From MemberCustomer ";
-			log.info("SQL = "+sql);
-			List<MemberCustomer> customerList = em.createQuery(sql,MemberCustomer.class)
-					.getResultList();
-			int index = 0;
-			for(MemberCustomer cus:customerList){
-				log.info("INDEX = "+(++index));
-				log.info("cus.getCustomerId()     = "+cus.getCustomerId());
-				log.info("cus.getCustomerMember() = "+cus.getCustomerMember());
-			}
+//			String sql = "From MemberCustomer ";
+//			log.info("SQL = "+sql);
+//			List<MemberCustomer> customerList = em.createQuery(sql,MemberCustomer.class)
+//					.getResultList();
+//			int index = 0;
+//			for(MemberCustomer cus:customerList){
+//				log.info("INDEX = "+(++index));
+//				log.info("cus.getCustomerId()     = "+cus.getCustomerId());
+//				log.info("cus.getCustomerMember() = "+cus.getCustomerMember());
+//			}
 		}catch(Exception e){
 			e.printStackTrace();
 		}
