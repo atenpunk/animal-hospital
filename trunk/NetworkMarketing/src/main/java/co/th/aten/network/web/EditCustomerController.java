@@ -741,6 +741,8 @@ public class EditCustomerController implements Serializable{
 			user.get().getCustomerId().setUpdateBy(user.get().getUserId());
 			user.get().getCustomerId().setUpdateDate(new Date());
 			em.merge(user.get().getCustomerId());
+			user.get().setUserName(firstName);
+			em.merge(user.get());
 			messages.info(new AppBundleKey("error.label.editMemberSuccess",FacesContext.getCurrentInstance().getViewRoot().getLocale().getLanguage()));
 		}catch(Exception e){
 			e.printStackTrace();
