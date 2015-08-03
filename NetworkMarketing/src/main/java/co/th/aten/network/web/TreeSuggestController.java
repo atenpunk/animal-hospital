@@ -6,7 +6,6 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Instance;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
