@@ -1,8 +1,6 @@
 package co.th.aten.network.web;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,7 +9,6 @@ import java.util.Locale;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Instance;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -27,12 +24,10 @@ import co.th.aten.network.entity.AddressAmphures;
 import co.th.aten.network.entity.AddressDistricts;
 import co.th.aten.network.entity.AddressProvinces;
 import co.th.aten.network.entity.MasterBank;
+import co.th.aten.network.entity.MasterNationality;
 import co.th.aten.network.entity.MemberCustomer;
-import co.th.aten.network.entity.MemberPosition;
 import co.th.aten.network.entity.UserLogin;
 import co.th.aten.network.i18n.AppBundleKey;
-import co.th.aten.network.model.CustomerModel;
-import co.th.aten.network.model.DetailModel;
 import co.th.aten.network.model.DropDownModel;
 import co.th.aten.network.producer.DBDefault;
 import co.th.aten.network.security.annotation.Authenticated;
@@ -82,7 +77,8 @@ public class EditCustomerController implements Serializable{
 	private String starSex;
 	private String starBirthDay;
 	private Date birthDay;
-	private String nationality;
+	private int nationality;
+	private List<DropDownModel> nationalityList;
 	private String starPersonalId;
 	private String personalId;
 	private String companyID;
@@ -173,7 +169,27 @@ public class EditCustomerController implements Serializable{
 					starSex = "";
 					starBirthDay = "";
 					birthDay = customer.getBirthDay();
-					nationality = customer.getNationality();
+					nationalityList = new ArrayList<DropDownModel>();
+					List<MasterNationality> masterNationalityList = em.createQuery("From MasterNationality Order By nationId asc",MasterNationality.class).getResultList();
+					if(masterNationalityList!=null){
+						for(MasterNationality nation:masterNationalityList){
+							DropDownModel model = new DropDownModel();
+							model.setIntKey(nation.getNationId());
+							model.setThLabel(StringUtil.n2b(nation.getDescTh()));
+							model.setEnLabel(StringUtil.n2b(nation.getDescEn()));
+							nationalityList.add(model);
+						}
+						DropDownModel model = new DropDownModel();
+						model.setIntKey(-1);
+						model.setThLabel("");
+						model.setEnLabel("");
+						nationalityList.add(0,model);
+						if(customer.getNationId()!=null){
+							nationality = StringUtil.n2b(customer.getNationId().getNationId());
+						}else{
+							nationality = -1;
+						}						
+					}
 					starPersonalId = "";
 					personalId = customer.getPersonalId();
 					companyID = customer.getCompanyID();
@@ -328,9 +344,9 @@ public class EditCustomerController implements Serializable{
 			model.setEnLabel("");
 			amphurSendDocList.add(0,model);
 		}
-		
-		
-		
+
+
+
 		districtList = new ArrayList<DropDownModel>();
 		districtSendDocList = new ArrayList<DropDownModel>();
 		List<AddressDistricts> dataDisList = em.createQuery("From AddressDistricts " +
@@ -566,7 +582,7 @@ public class EditCustomerController implements Serializable{
 		starSex = "";
 		starBirthDay = "";
 		birthDay = null;
-		nationality = "";
+		nationality = -1;
 		starPersonalId = "";
 		personalId = "";
 		companyID = "";
@@ -676,6 +692,10 @@ public class EditCustomerController implements Serializable{
 		}
 	}
 
+	public void onChangeNationality(){
+
+	}
+
 	public void confirmEditMember(){
 		log.info("##### confirmEditMember()");
 		log.info("##### user.get().getUserId = "+user.get().getUserId());
@@ -701,7 +721,8 @@ public class EditCustomerController implements Serializable{
 			user.get().getCustomerId().setBusinessName(businessName);
 			user.get().getCustomerId().setSex(sex);
 			user.get().getCustomerId().setBirthDay(birthDay);
-			user.get().getCustomerId().setNationality(nationality);
+			MasterNationality nation = em.find(MasterNationality.class, new Integer(nationality));
+			user.get().getCustomerId().setNationId(nation);
 			user.get().getCustomerId().setPersonalId(personalId);
 			user.get().getCustomerId().setCompanyID(companyID);
 			user.get().getCustomerId().setTelephone(telephone);
@@ -749,19 +770,19 @@ public class EditCustomerController implements Serializable{
 			messages.error(new AppBundleKey("error.label.editMemberFail",FacesContext.getCurrentInstance().getViewRoot().getLocale().getLanguage()));
 		}
 	}
-	
+
 	public void checkDocumentRegis(){
 		if(!chkDocumentFully){
 			dateDocumentFully = null;
 		}
 	}
-	
+
 	public void checkDocumentPersonalCard(){
 		if(!chkCopyPersonalCard){
 			dateCopyPersonalCard = null;
 		}
 	}
-	
+
 	public void checkDocumentBookBank(){
 		if(!chkCopyBookBank){
 			dateCopyBookBank = null;
@@ -914,11 +935,11 @@ public class EditCustomerController implements Serializable{
 		this.birthDay = birthDay;
 	}
 
-	public String getNationality() {
+	public int getNationality() {
 		return nationality;
 	}
 
-	public void setNationality(String nationality) {
+	public void setNationality(int nationality) {
 		this.nationality = nationality;
 	}
 
@@ -1416,6 +1437,14 @@ public class EditCustomerController implements Serializable{
 
 	public void setRecomendStrId(String recomendStrId) {
 		this.recomendStrId = recomendStrId;
+	}
+
+	public List<DropDownModel> getNationalityList() {
+		return nationalityList;
+	}
+
+	public void setNationalityList(List<DropDownModel> nationalityList) {
+		this.nationalityList = nationalityList;
 	}
 
 }

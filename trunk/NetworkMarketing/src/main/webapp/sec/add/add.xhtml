@@ -87,7 +87,7 @@
 					</rich:panel>
 				</h:panelGrid>
 				<h:panelGrid width="100%">
-					<rich:panel style=" width : auto; height:280px;">
+					<rich:panel style=" width : auto;">
 						<f:facet name="header">
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.detailMember']}" />
@@ -103,8 +103,13 @@
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.nationality']}" />
 							<h:outputText value="" />
-							<h:inputText value="#{customerController.nationality}"
-								maxlength="100" />
+							<h:selectOneMenu value="#{customerController.nationality}">
+								<a4j:ajax event="change" render="panelAddressId"
+									listener="#{customerController.onChangeNationality}" />
+								<f:selectItems value="#{customerController.nationalityList}"
+									var="item" itemLabel="#{item.thLabel}"
+									itemValue="#{item.intKey}"></f:selectItems>
+							</h:selectOneMenu>
 
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.regisDate']}" />
@@ -209,8 +214,8 @@
 					</rich:panel>
 				</h:panelGrid>
 
-				<h:panelGrid columns="1" width="100%">
-					<rich:panel style=" width : auto;height:220px;">
+				<h:panelGrid columns="1" width="100%" id="panelAddressId">
+					<rich:panel style=" width : auto;">
 						<f:facet name="header">
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.addressMember']}" />

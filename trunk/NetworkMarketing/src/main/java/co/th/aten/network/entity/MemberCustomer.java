@@ -72,8 +72,6 @@ public class MemberCustomer implements Serializable {
     @Column(name = "birthDay")
     @Temporal(TemporalType.TIMESTAMP)
     private Date birthDay;
-    @Column(name = "nationality")
-    private String nationality;
     @Column(name = "personal_Id")
     private String personalId;
     @Column(name = "company_ID")
@@ -155,6 +153,11 @@ public class MemberCustomer implements Serializable {
     private Integer side;
     @Column(name = "eMoney")
     private BigDecimal eMoney;
+    @Column(name = "matching_use")
+    private Integer matchingUse;
+    @JoinColumn(name = "nation_id", referencedColumnName = "nation_id")
+    @ManyToOne
+    private MasterNationality nationId;
     @JoinColumn(name = "position_id", referencedColumnName = "position_id")
     @ManyToOne
     private MemberPosition positionId;
@@ -310,14 +313,6 @@ public class MemberCustomer implements Serializable {
         this.birthDay = birthDay;
     }
 
-    public String getNationality() {
-        return nationality;
-    }
-
-    public void setNationality(String nationality) {
-        this.nationality = nationality;
-    }
-
     public String getPersonalId() {
         return personalId;
     }
@@ -351,12 +346,12 @@ public class MemberCustomer implements Serializable {
     }
 
     public String getLineId() {
-		return lineId;
-	}
+        return lineId;
+    }
 
-	public void setLineId(String lineId) {
-		this.lineId = lineId;
-	}
+    public void setLineId(String lineId) {
+        this.lineId = lineId;
+    }
 
     public String getEmail() {
         return email;
@@ -623,14 +618,30 @@ public class MemberCustomer implements Serializable {
     }
 
     public BigDecimal geteMoney() {
-		return eMoney;
-	}
+        return eMoney;
+    }
 
-	public void seteMoney(BigDecimal eMoney) {
-		this.eMoney = eMoney;
-	}
+    public void seteMoney(BigDecimal eMoney) {
+        this.eMoney = eMoney;
+    }
 
-	public MemberPosition getPositionId() {
+    public Integer getMatchingUse() {
+        return matchingUse;
+    }
+
+    public void setMatchingUse(Integer matchingUse) {
+        this.matchingUse = matchingUse;
+    }
+
+    public MasterNationality getNationId() {
+        return nationId;
+    }
+
+    public void setNationId(MasterNationality nationId) {
+        this.nationId = nationId;
+    }
+
+    public MemberPosition getPositionId() {
         return positionId;
     }
 

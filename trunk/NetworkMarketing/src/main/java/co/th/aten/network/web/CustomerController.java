@@ -27,6 +27,7 @@ import co.th.aten.network.entity.AddressAmphures;
 import co.th.aten.network.entity.AddressDistricts;
 import co.th.aten.network.entity.AddressProvinces;
 import co.th.aten.network.entity.MasterBank;
+import co.th.aten.network.entity.MasterNationality;
 import co.th.aten.network.entity.MemberCustomer;
 import co.th.aten.network.entity.MemberPosition;
 import co.th.aten.network.entity.UserGroup;
@@ -137,7 +138,8 @@ public class CustomerController implements Serializable{
 	private String starSex;
 	private String starBirthDay;
 	private Date birthDay;
-	private String nationality;
+	private int nationality;
+	private List<DropDownModel> nationalityList;
 	private String starPersonalId;
 	private String personalId;
 	private String companyID;
@@ -222,6 +224,24 @@ public class CustomerController implements Serializable{
 				customerId = customer.getCustomerId();
 			}
 			genTreeModel();
+		}
+
+		nationalityList = new ArrayList<DropDownModel>();
+		List<MasterNationality> masterNationalityList = em.createQuery("From MasterNationality Order By nationId asc",MasterNationality.class).getResultList();
+		if(masterNationalityList!=null){
+			for(MasterNationality nation:masterNationalityList){
+				DropDownModel model = new DropDownModel();
+				model.setIntKey(nation.getNationId());
+				model.setThLabel(StringUtil.n2b(nation.getDescTh()));
+				model.setEnLabel(StringUtil.n2b(nation.getDescEn()));
+				nationalityList.add(model);
+			}
+			DropDownModel model = new DropDownModel();
+			model.setIntKey(-1);
+			model.setThLabel("");
+			model.setEnLabel("");
+			nationalityList.add(0,model);
+			nationality = -1;
 		}
 
 		provinceList = new ArrayList<DropDownModel>();
@@ -1467,7 +1487,7 @@ public class CustomerController implements Serializable{
 		starSex = "";
 		starBirthDay = "";
 		birthDay = null;
-		nationality = "";
+		nationality = -1;
 		starPersonalId = "";
 		personalId = "";
 		companyID = "";
@@ -1531,6 +1551,10 @@ public class CustomerController implements Serializable{
 		districtList = null;
 		amphurSendDocList = null;
 		districtSendDocList = null;
+	}
+	
+	public void onChangeNationality(){
+		
 	}
 
 	public void sameAddress(){
@@ -1641,7 +1665,10 @@ public class CustomerController implements Serializable{
 				cus.setSide(side);
 				cus.setSex(sex);
 				cus.setBirthDay(birthDay);
-				cus.setNationality(nationality);
+				if(nationality>0){
+					MasterNationality nation = em.find(MasterNationality.class, new Integer(nationality));
+					cus.setNationId(nation);
+				}
 				cus.setPersonalId(personalId);
 				cus.setCompanyID(companyID);
 				cus.setTelephone(telephone);
@@ -1664,16 +1691,16 @@ public class CustomerController implements Serializable{
 				cus.setProvinceIdSendDoc(provinceId);
 				cus.setAmphurIdSendDoc(amphurId);
 				cus.setDistrictIdSendDoc(districtId);
-//				cus.setAddressNoSendDoc(addressNoSendDoc);
-//				cus.setAddressBuildingSendDoc(addressBuildingSendDoc);
-//				cus.setAddressVillageSendDoc(addressVillageSendDoc);
-//				cus.setAddressLaneSendDoc(addressLaneSendDoc);
-//				cus.setAddressRoadSendDoc(addressRoadSendDoc);
-//				cus.setProvinceIdSendDoc(provinceIdSendDoc);
-//				cus.setAmphurIdSendDoc(amphurIdSendDoc);
-//				cus.setDistrictIdSendDoc(districtIdSendDoc);
+				//				cus.setAddressNoSendDoc(addressNoSendDoc);
+				//				cus.setAddressBuildingSendDoc(addressBuildingSendDoc);
+				//				cus.setAddressVillageSendDoc(addressVillageSendDoc);
+				//				cus.setAddressLaneSendDoc(addressLaneSendDoc);
+				//				cus.setAddressRoadSendDoc(addressRoadSendDoc);
+				//				cus.setProvinceIdSendDoc(provinceIdSendDoc);
+				//				cus.setAmphurIdSendDoc(amphurIdSendDoc);
+				//				cus.setDistrictIdSendDoc(districtIdSendDoc);
 				cus.setChkSameAddress(chkSameAddress?1:0);
-				
+
 				cus.setBankId(bankId);
 				cus.setBankBranch(branch);
 				cus.setBankaccountType(accType);
@@ -1746,7 +1773,7 @@ public class CustomerController implements Serializable{
 		starSex = "";
 		starBirthDay = "";
 		birthDay = null;
-		nationality = "";
+		nationality = -1;
 		starPersonalId = "";
 		personalId = "";
 		companyID = "";
@@ -2111,11 +2138,11 @@ public class CustomerController implements Serializable{
 		this.birthDay = birthDay;
 	}
 
-	public String getNationality() {
+	public int getNationality() {
 		return nationality;
 	}
 
-	public void setNationality(String nationality) {
+	public void setNationality(int nationality) {
 		this.nationality = nationality;
 	}
 
@@ -2687,5 +2714,11 @@ public class CustomerController implements Serializable{
 		this.detailScoreRight = detailScoreRight;
 	}
 
+	public List<DropDownModel> getNationalityList() {
+		return nationalityList;
+	}
 
+	public void setNationalityList(List<DropDownModel> nationalityList) {
+		this.nationalityList = nationalityList;
+	}
 }
