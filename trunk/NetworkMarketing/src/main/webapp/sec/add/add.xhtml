@@ -65,7 +65,7 @@
 								action="#{customerController.findRecomend()}"
 								render="panelRecommendId" style=" width : 80px;"></a4j:commandButton>
 							<h:outputText value="" />
-							
+
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.recommendName']}" />
 							<h:outputText style="COLOR: #ff0000;"
@@ -208,13 +208,14 @@
 						</h:panelGrid>
 					</rich:panel>
 				</h:panelGrid>
-				<h:panelGrid columns="2" width="100%">
-					<rich:panel style=" width : auto;height:380px;">
+
+				<h:panelGrid columns="1" width="100%">
+					<rich:panel style=" width : auto;height:220px;">
 						<f:facet name="header">
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.addressMember']}" />
 						</f:facet>
-						<h:panelGrid columns="3">
+						<h:panelGrid columns="7">
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.addressNo']}" />
 							<h:outputText value="" />
@@ -222,39 +223,9 @@
 								value="#{customerController.addressNo}">
 								<a4j:ajax event="change" />
 							</h:inputText>
-
-							<h:outputText
-								value="#{app_msgs['label.pageAddMember.addressBuilding']}" />
-							<h:outputText value="" />
-							<h:inputText maxlength="100"
-								value="#{customerController.addressBuilding}">
-								<a4j:ajax event="change" />
-							</h:inputText>
-
-							<h:outputText
-								value="#{app_msgs['label.pageAddMember.addressVillage']}" />
-							<h:outputText value="" />
-							<h:inputText maxlength="100"
-								value="#{customerController.addressVillage}">
-								<a4j:ajax event="change" />
-							</h:inputText>
-
-							<h:outputText
-								value="#{app_msgs['label.pageAddMember.addressLane']}" />
-							<h:outputText value="" />
-							<h:inputText maxlength="100"
-								value="#{customerController.addressLane}">
-								<a4j:ajax event="change" />
-							</h:inputText>
-
-							<h:outputText
-								value="#{app_msgs['label.pageAddMember.addressRoad']}" />
-							<h:outputText value="" />
-							<h:inputText maxlength="100"
-								value="#{customerController.addressRoad}">
-								<a4j:ajax event="change" />
-							</h:inputText>
-
+							
+							<div style="width: 40px;"></div>
+							
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.addressProvince']}" />
 							<h:outputText style="COLOR: #ff0000;"
@@ -269,6 +240,16 @@
 							</h:selectOneMenu>
 
 							<h:outputText
+								value="#{app_msgs['label.pageAddMember.addressBuilding']}" />
+							<h:outputText value="" />
+							<h:inputText maxlength="100"
+								value="#{customerController.addressBuilding}">
+								<a4j:ajax event="change" />
+							</h:inputText>
+							
+							<div style="width: 40px;"></div>
+							
+							<h:outputText
 								value="#{app_msgs['label.pageAddMember.addressAmphur']}" />
 							<h:outputText style="COLOR: #ff0000;"
 								value="#{customerController.starAmphur}" id="starAmphur" />
@@ -281,6 +262,16 @@
 									itemValue="#{item.intKey}"></f:selectItems>
 							</h:selectOneMenu>
 
+							<h:outputText
+								value="#{app_msgs['label.pageAddMember.addressVillage']}" />
+							<h:outputText value="" />
+							<h:inputText maxlength="100"
+								value="#{customerController.addressVillage}">
+								<a4j:ajax event="change" />
+							</h:inputText>
+							
+							<div style="width: 40px;"></div>
+							
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.addressDistrict']}" />
 							<h:outputText style="COLOR: #ff0000;"
@@ -295,14 +286,32 @@
 							</h:selectOneMenu>
 
 							<h:outputText
+								value="#{app_msgs['label.pageAddMember.addressLane']}" />
+							<h:outputText value="" />
+							<h:inputText maxlength="100"
+								value="#{customerController.addressLane}">
+								<a4j:ajax event="change" />
+							</h:inputText>
+							
+							<div style="width: 40px;"></div>
+							
+							<h:outputText
 								value="#{app_msgs['label.pageAddMember.addressPostCode']}" />
 							<h:outputText value="" />
 							<h:inputText maxlength="100" id="postCodeId"
 								value="#{customerController.addressPostCode}" />
+
+							<h:outputText
+								value="#{app_msgs['label.pageAddMember.addressRoad']}" />
+							<h:outputText value="" />
+							<h:inputText maxlength="100"
+								value="#{customerController.addressRoad}">
+								<a4j:ajax event="change" />
+							</h:inputText>
 						</h:panelGrid>
 					</rich:panel>
 
-					<rich:panel style=" width : auto;height:380px;">
+					<!-- rich:panel style=" width : auto;height:380px;">
 						<f:facet name="header">
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.addressSendDocument']}" />
@@ -396,8 +405,10 @@
 								value="#{customerController.addressPostCodeSendDoc}" />
 
 						</h:panelGrid>
-					</rich:panel>
-
+					</rich:panel-->
+				</h:panelGrid>
+				
+				<h:panelGrid columns="2" width="100%">
 					<rich:panel style=" width : auto;height:260px;">
 						<f:facet name="header">
 							<h:outputText
@@ -516,11 +527,11 @@
 							onclick="if (!confirm('#{messages['label.comfirm.save']}')) return false"
 							value="#{app_msgs['button.save']}"
 							action="#{customerController.confirmAddMember()}"
-							style=" width : 80px;" />
+							style=" width : 100px;" />
 						<h:commandButton id="cancleId"
 							value="#{app_msgs['button.cancle']}"
 							action="#{customerController.cancleAddMember()}"
-							style=" width : 80px;" />
+							style=" width : 100px;" />
 					</h:panelGrid>
 				</h:panelGrid>
 			</rich:panel>
