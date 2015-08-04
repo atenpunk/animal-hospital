@@ -174,7 +174,10 @@ public class CustomerController implements Serializable{
 	private int districtId;
 	private List<DropDownModel> districtList;
 	private String addressPostCode;
-
+	private String provinceStr;
+	private String amphurStr;
+	private String districtStr;
+	private boolean chkNationality;
 	private String addressNoSendDoc;
 	private String addressBuildingSendDoc;
 	private String addressVillageSendDoc;
@@ -1428,6 +1431,7 @@ public class CustomerController implements Serializable{
 			log.info("####### flagUnder = "+flagUnder);
 			starPersonalId = "*";
 			starFirstName = "*";
+			chkNationality = true;
 			regisDate = new Date();
 
 			accType = 1;
@@ -1518,6 +1522,9 @@ public class CustomerController implements Serializable{
 		starDistrict = "";
 		districtId = -1;
 		addressPostCode = "";
+		provinceStr = "";
+		amphurStr = "";
+		districtStr = "";
 		addressNoSendDoc = "";
 		addressBuildingSendDoc = "";
 		addressVillageSendDoc = "";
@@ -1554,7 +1561,11 @@ public class CustomerController implements Serializable{
 	}
 	
 	public void onChangeNationality(){
-		
+		if(nationality == -1 || nationality == 1){
+			chkNationality = true;
+		}else{
+			chkNationality = false;
+		}
 	}
 
 	public void sameAddress(){
@@ -1683,6 +1694,7 @@ public class CustomerController implements Serializable{
 				cus.setProvinceId(provinceId);
 				cus.setAmphurId(amphurId);
 				cus.setDistrictId(districtId);
+				
 				cus.setAddressNoSendDoc(addressNo);
 				cus.setAddressBuildingSendDoc(addressBuilding);
 				cus.setAddressVillageSendDoc(addressVillage);
@@ -1691,6 +1703,7 @@ public class CustomerController implements Serializable{
 				cus.setProvinceIdSendDoc(provinceId);
 				cus.setAmphurIdSendDoc(amphurId);
 				cus.setDistrictIdSendDoc(districtId);
+				
 				//				cus.setAddressNoSendDoc(addressNoSendDoc);
 				//				cus.setAddressBuildingSendDoc(addressBuildingSendDoc);
 				//				cus.setAddressVillageSendDoc(addressVillageSendDoc);
@@ -1699,8 +1712,13 @@ public class CustomerController implements Serializable{
 				//				cus.setProvinceIdSendDoc(provinceIdSendDoc);
 				//				cus.setAmphurIdSendDoc(amphurIdSendDoc);
 				//				cus.setDistrictIdSendDoc(districtIdSendDoc);
+				
 				cus.setChkSameAddress(chkSameAddress?1:0);
-
+				cus.setProvinceStr(provinceStr);
+				cus.setAmphurStr(amphurStr);
+				cus.setDistrictStr(districtStr);
+				cus.setPostCodeStr(addressPostCode);
+				
 				cus.setBankId(bankId);
 				cus.setBankBranch(branch);
 				cus.setBankaccountType(accType);
@@ -1804,6 +1822,9 @@ public class CustomerController implements Serializable{
 		starDistrict = "";
 		districtId = -1;
 		addressPostCode = "";
+		provinceStr = "";
+		amphurStr = "";
+		districtStr = "";
 		addressNoSendDoc = "";
 		addressBuildingSendDoc = "";
 		addressVillageSendDoc = "";
@@ -2721,4 +2742,38 @@ public class CustomerController implements Serializable{
 	public void setNationalityList(List<DropDownModel> nationalityList) {
 		this.nationalityList = nationalityList;
 	}
+
+	public String getProvinceStr() {
+		return provinceStr;
+	}
+
+	public void setProvinceStr(String provinceStr) {
+		this.provinceStr = provinceStr;
+	}
+
+	public String getAmphurStr() {
+		return amphurStr;
+	}
+
+	public void setAmphurStr(String amphurStr) {
+		this.amphurStr = amphurStr;
+	}
+
+	public String getDistrictStr() {
+		return districtStr;
+	}
+
+	public void setDistrictStr(String districtStr) {
+		this.districtStr = districtStr;
+	}
+
+	public boolean isChkNationality() {
+		return chkNationality;
+	}
+
+	public void setChkNationality(boolean chkNationality) {
+		this.chkNationality = chkNationality;
+	}
+	
+	
 }

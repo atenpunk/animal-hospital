@@ -222,7 +222,7 @@
 								value="#{editCustomerController.addressNo}">
 								<a4j:ajax event="change" />
 							</h:inputText>
-							
+
 							<div style="width: 40px;"></div>
 
 							<h:outputText
@@ -230,6 +230,7 @@
 							<h:outputText style="COLOR: #ff0000;"
 								value="#{editCustomerController.starProvince}" id="starProvince" />
 							<h:selectOneMenu value="#{editCustomerController.provinceId}"
+								rendered="#{editCustomerController.chkNationality}"
 								style=" width : 150px;">
 								<a4j:ajax event="change" render="dropDownAmphur"
 									listener="#{editCustomerController.onChangeProvince}" />
@@ -237,6 +238,10 @@
 									var="item" itemLabel="#{item.thLabel}"
 									itemValue="#{item.intKey}"></f:selectItems>
 							</h:selectOneMenu>
+							<h:inputText maxlength="200"
+								rendered="#{!editCustomerController.chkNationality}"
+								value="#{editCustomerController.provinceStr}">
+							</h:inputText>
 
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.addressBuilding']}" />
@@ -245,7 +250,7 @@
 								value="#{editCustomerController.addressBuilding}">
 								<a4j:ajax event="change" />
 							</h:inputText>
-							
+
 							<div style="width: 40px;"></div>
 
 							<h:outputText
@@ -253,6 +258,7 @@
 							<h:outputText style="COLOR: #ff0000;"
 								value="#{editCustomerController.starAmphur}" id="starAmphur" />
 							<h:selectOneMenu value="#{editCustomerController.amphurId}"
+								rendered="#{editCustomerController.chkNationality}"
 								id="dropDownAmphur" style=" width : 150px;">
 								<a4j:ajax event="change" render="dropDownDistrict"
 									listener="#{editCustomerController.onChangeAmphur}" />
@@ -260,6 +266,10 @@
 									var="item" itemLabel="#{item.thLabel}"
 									itemValue="#{item.intKey}"></f:selectItems>
 							</h:selectOneMenu>
+							<h:inputText maxlength="200"
+								rendered="#{!editCustomerController.chkNationality}"
+								value="#{editCustomerController.amphurStr}">
+							</h:inputText>
 
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.addressVillage']}" />
@@ -268,7 +278,7 @@
 								value="#{editCustomerController.addressVillage}">
 								<a4j:ajax event="change" />
 							</h:inputText>
-							
+
 							<div style="width: 40px;"></div>
 
 							<h:outputText
@@ -276,6 +286,7 @@
 							<h:outputText style="COLOR: #ff0000;"
 								value="#{editCustomerController.starDistrict}" id="starDistrict" />
 							<h:selectOneMenu value="#{editCustomerController.districtId}"
+								rendered="#{editCustomerController.chkNationality}"
 								id="dropDownDistrict" style=" width : 150px;">
 								<a4j:ajax event="change" render="postCodeId"
 									listener="#{editCustomerController.onChangeDistrict}" />
@@ -283,6 +294,10 @@
 									var="item" itemLabel="#{item.thLabel}"
 									itemValue="#{item.intKey}"></f:selectItems>
 							</h:selectOneMenu>
+							<h:inputText maxlength="200"
+								rendered="#{!editCustomerController.chkNationality}"
+								value="#{editCustomerController.districtStr}">
+							</h:inputText>
 
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.addressLane']}" />
@@ -291,7 +306,7 @@
 								value="#{editCustomerController.addressLane}">
 								<a4j:ajax event="change" />
 							</h:inputText>
-							
+
 							<div style="width: 40px;"></div>
 
 							<h:outputText
