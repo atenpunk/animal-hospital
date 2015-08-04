@@ -155,6 +155,14 @@ public class MemberCustomer implements Serializable {
     private BigDecimal eMoney;
     @Column(name = "matching_use")
     private Integer matchingUse;
+    @Column(name = "province_str")
+    private String provinceStr;
+    @Column(name = "amphur_str")
+    private String amphurStr;
+    @Column(name = "district_str")
+    private String districtStr;
+    @Column(name = "post_code_str")
+    private String postCodeStr;
     @JoinColumn(name = "nation_id", referencedColumnName = "nation_id")
     @ManyToOne
     private MasterNationality nationId;
@@ -649,7 +657,39 @@ public class MemberCustomer implements Serializable {
         this.positionId = positionId;
     }
 
-    @Override
+    public String getProvinceStr() {
+		return provinceStr;
+	}
+
+	public void setProvinceStr(String provinceStr) {
+		this.provinceStr = provinceStr;
+	}
+
+	public String getAmphurStr() {
+		return amphurStr;
+	}
+
+	public void setAmphurStr(String amphurStr) {
+		this.amphurStr = amphurStr;
+	}
+
+	public String getDistrictStr() {
+		return districtStr;
+	}
+
+	public void setDistrictStr(String districtStr) {
+		this.districtStr = districtStr;
+	}
+
+	public String getPostCodeStr() {
+		return postCodeStr;
+	}
+
+	public void setPostCodeStr(String postCodeStr) {
+		this.postCodeStr = postCodeStr;
+	}
+
+	@Override
     public int hashCode() {
         int hash = 0;
         hash += (customerId != null ? customerId.hashCode() : 0);

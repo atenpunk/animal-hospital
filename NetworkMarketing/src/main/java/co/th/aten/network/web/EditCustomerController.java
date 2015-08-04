@@ -113,6 +113,10 @@ public class EditCustomerController implements Serializable{
 	private int districtId;
 	private List<DropDownModel> districtList;
 	private String addressPostCode;
+	private String provinceStr;
+	private String amphurStr;
+	private String districtStr;
+	private boolean chkNationality;
 
 	private String addressNoSendDoc;
 	private String addressBuildingSendDoc;
@@ -242,28 +246,36 @@ public class EditCustomerController implements Serializable{
 					districtId = customer.getDistrictId()!=null?customer.getDistrictId():-1;
 					if(districtId!=-1){
 						AddressDistricts addressDistricts = em.find(AddressDistricts.class, new Integer(districtId));
-						if(addressDistricts!=null){
+						if(addressDistricts!=null && addressDistricts.getPostCode()!=null){
 							addressPostCode = StringUtil.n2b(addressDistricts.getPostCode());
+						}else{
+							addressPostCode = StringUtil.n2b(customer.getPostCodeStr());
 						}
 					}
-					chkSameAddress = (customer.getChkSameAddress()!=null && customer.getChkSameAddress()==1)?true:false;
-					addressNoSendDoc = customer.getAddressNoSendDoc();
-					addressBuildingSendDoc = customer.getAddressBuildingSendDoc();
-					addressVillageSendDoc = customer.getAddressVillageSendDoc();
-					addressLaneSendDoc = customer.getAddressLaneSendDoc();
-					addressRoadSendDoc = customer.getAddressRoadSendDoc();
-					starProvinceSendDoc = "";
-					provinceIdSendDoc = customer.getProvinceIdSendDoc()!=null?customer.getProvinceIdSendDoc():-1;
-					starAmphurSendDoc = "";
-					amphurIdSendDoc = customer.getAmphurIdSendDoc()!=null?customer.getAmphurIdSendDoc():-1;
-					starDistrictSendDoc = "";
-					districtIdSendDoc = customer.getDistrictIdSendDoc()!=null?customer.getDistrictIdSendDoc():-1;
-					if(districtIdSendDoc!=-1){
-						AddressDistricts addressDistricts = em.find(AddressDistricts.class, new Integer(districtIdSendDoc));
-						if(addressDistricts!=null){
-							addressPostCodeSendDoc = StringUtil.n2b(addressDistricts.getPostCode());
-						}
-					}
+					provinceStr = StringUtil.n2b(customer.getProvinceStr());
+					amphurStr = StringUtil.n2b(customer.getAmphurStr());
+					districtStr = StringUtil.n2b(customer.getDistrictStr());
+					onChangeNationality();					
+					
+//					chkSameAddress = (customer.getChkSameAddress()!=null && customer.getChkSameAddress()==1)?true:false;
+//					addressNoSendDoc = customer.getAddressNoSendDoc();
+//					addressBuildingSendDoc = customer.getAddressBuildingSendDoc();
+//					addressVillageSendDoc = customer.getAddressVillageSendDoc();
+//					addressLaneSendDoc = customer.getAddressLaneSendDoc();
+//					addressRoadSendDoc = customer.getAddressRoadSendDoc();
+//					starProvinceSendDoc = "";
+//					provinceIdSendDoc = customer.getProvinceIdSendDoc()!=null?customer.getProvinceIdSendDoc():-1;
+//					starAmphurSendDoc = "";
+//					amphurIdSendDoc = customer.getAmphurIdSendDoc()!=null?customer.getAmphurIdSendDoc():-1;
+//					starDistrictSendDoc = "";
+//					districtIdSendDoc = customer.getDistrictIdSendDoc()!=null?customer.getDistrictIdSendDoc():-1;
+//					if(districtIdSendDoc!=-1){
+//						AddressDistricts addressDistricts = em.find(AddressDistricts.class, new Integer(districtIdSendDoc));
+//						if(addressDistricts!=null){
+//							addressPostCodeSendDoc = StringUtil.n2b(addressDistricts.getPostCode());
+//						}
+//					}
+					
 					bankId = customer.getBankId()!=null?customer.getBankId():-1;
 					branch = customer.getBankBranch();
 					accType = StringUtil.n2b(customer.getBankaccountType());
@@ -613,6 +625,9 @@ public class EditCustomerController implements Serializable{
 		starDistrict = "";
 		districtId = -1;
 		addressPostCode = "";
+		provinceStr = "";
+		amphurStr = "";
+		districtStr = "";
 		addressNoSendDoc = "";
 		addressBuildingSendDoc = "";
 		addressVillageSendDoc = "";
@@ -693,7 +708,11 @@ public class EditCustomerController implements Serializable{
 	}
 
 	public void onChangeNationality(){
-
+		if(nationality == -1 || nationality == 1){
+			chkNationality = true;
+		}else{
+			chkNationality = false;
+		}
 	}
 
 	public void confirmEditMember(){
@@ -737,14 +756,29 @@ public class EditCustomerController implements Serializable{
 			user.get().getCustomerId().setProvinceId(provinceId);
 			user.get().getCustomerId().setAmphurId(amphurId);
 			user.get().getCustomerId().setDistrictId(districtId);
-			user.get().getCustomerId().setAddressNoSendDoc(addressNoSendDoc);
-			user.get().getCustomerId().setAddressBuildingSendDoc(addressBuildingSendDoc);
-			user.get().getCustomerId().setAddressVillageSendDoc(addressVillageSendDoc);
-			user.get().getCustomerId().setAddressLaneSendDoc(addressLaneSendDoc);
-			user.get().getCustomerId().setAddressRoadSendDoc(addressRoadSendDoc);
-			user.get().getCustomerId().setProvinceIdSendDoc(provinceIdSendDoc);
-			user.get().getCustomerId().setAmphurIdSendDoc(amphurIdSendDoc);
-			user.get().getCustomerId().setDistrictIdSendDoc(districtIdSendDoc);
+			user.get().getCustomerId().setAddressNoSendDoc(addressNo);
+			user.get().getCustomerId().setAddressBuildingSendDoc(addressBuilding);
+			user.get().getCustomerId().setAddressVillageSendDoc(addressVillage);
+			user.get().getCustomerId().setAddressLaneSendDoc(addressLane);
+			user.get().getCustomerId().setAddressRoadSendDoc(addressRoad);
+			user.get().getCustomerId().setProvinceIdSendDoc(provinceId);
+			user.get().getCustomerId().setAmphurIdSendDoc(amphurId);
+			user.get().getCustomerId().setDistrictIdSendDoc(districtId);
+			
+			user.get().getCustomerId().setProvinceStr(provinceStr);
+			user.get().getCustomerId().setAmphurStr(amphurStr);
+			user.get().getCustomerId().setDistrictStr(districtStr);
+			user.get().getCustomerId().setPostCodeStr(addressPostCode);
+			
+//			user.get().getCustomerId().setAddressNoSendDoc(addressNoSendDoc);
+//			user.get().getCustomerId().setAddressBuildingSendDoc(addressBuildingSendDoc);
+//			user.get().getCustomerId().setAddressVillageSendDoc(addressVillageSendDoc);
+//			user.get().getCustomerId().setAddressLaneSendDoc(addressLaneSendDoc);
+//			user.get().getCustomerId().setAddressRoadSendDoc(addressRoadSendDoc);
+//			user.get().getCustomerId().setProvinceIdSendDoc(provinceIdSendDoc);
+//			user.get().getCustomerId().setAmphurIdSendDoc(amphurIdSendDoc);
+//			user.get().getCustomerId().setDistrictIdSendDoc(districtIdSendDoc);
+			
 			user.get().getCustomerId().setChkSameAddress(chkSameAddress?1:0);
 			user.get().getCustomerId().setBankId(bankId);
 			user.get().getCustomerId().setBankBranch(branch);
@@ -1445,6 +1479,38 @@ public class EditCustomerController implements Serializable{
 
 	public void setNationalityList(List<DropDownModel> nationalityList) {
 		this.nationalityList = nationalityList;
+	}
+
+	public String getProvinceStr() {
+		return provinceStr;
+	}
+
+	public void setProvinceStr(String provinceStr) {
+		this.provinceStr = provinceStr;
+	}
+
+	public String getAmphurStr() {
+		return amphurStr;
+	}
+
+	public void setAmphurStr(String amphurStr) {
+		this.amphurStr = amphurStr;
+	}
+
+	public String getDistrictStr() {
+		return districtStr;
+	}
+
+	public void setDistrictStr(String districtStr) {
+		this.districtStr = districtStr;
+	}
+
+	public boolean isChkNationality() {
+		return chkNationality;
+	}
+
+	public void setChkNationality(boolean chkNationality) {
+		this.chkNationality = chkNationality;
 	}
 
 }
