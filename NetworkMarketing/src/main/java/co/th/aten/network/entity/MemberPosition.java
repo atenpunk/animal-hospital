@@ -6,12 +6,14 @@
 package co.th.aten.network.entity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -25,7 +27,8 @@ import javax.persistence.Table;
     @NamedQuery(name = "MemberPosition.findByPositionId", query = "SELECT m FROM MemberPosition m WHERE m.positionId = :positionId"),
     @NamedQuery(name = "MemberPosition.findByThName", query = "SELECT m FROM MemberPosition m WHERE m.thName = :thName"),
     @NamedQuery(name = "MemberPosition.findByEnName", query = "SELECT m FROM MemberPosition m WHERE m.enName = :enName"),
-    @NamedQuery(name = "MemberPosition.findByImageName", query = "SELECT m FROM MemberPosition m WHERE m.imageName = :imageName")})
+    @NamedQuery(name = "MemberPosition.findByImageName", query = "SELECT m FROM MemberPosition m WHERE m.imageName = :imageName"),
+    @NamedQuery(name = "MemberPosition.findByMatching", query = "SELECT m FROM MemberPosition m WHERE m.matching = :matching")})
 public class MemberPosition implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -38,6 +41,10 @@ public class MemberPosition implements Serializable {
     private String enName;
     @Column(name = "image_name")
     private String imageName;
+    @Column(name = "matching")
+    private Integer matching;
+    @OneToMany(mappedBy = "positionId")
+    private Collection<MemberCustomer> memberCustomerCollection;
 
     public MemberPosition() {
     }
@@ -76,6 +83,22 @@ public class MemberPosition implements Serializable {
 
     public void setImageName(String imageName) {
         this.imageName = imageName;
+    }
+
+    public Integer getMatching() {
+        return matching;
+    }
+
+    public void setMatching(Integer matching) {
+        this.matching = matching;
+    }
+
+    public Collection<MemberCustomer> getMemberCustomerCollection() {
+        return memberCustomerCollection;
+    }
+
+    public void setMemberCustomerCollection(Collection<MemberCustomer> memberCustomerCollection) {
+        this.memberCustomerCollection = memberCustomerCollection;
     }
 
     @Override

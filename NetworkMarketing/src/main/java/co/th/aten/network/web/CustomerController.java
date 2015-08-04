@@ -756,9 +756,11 @@ public class CustomerController implements Serializable{
 			if(customerModel_01.getPositionId()!=0){
 				MemberPosition memberPosition = em.find(MemberPosition.class, new Integer(customerModel_01.getPositionId()));
 				detailPosMatch = memberPosition.getEnName();
+//				detailMatchRemain = df2.format(StringUtil.n2b(memberPosition.getMatching()));
 			}else{
 				detailPosMatch = "";
 			}
+			
 
 			if(customerModel_01.getLowerLeftId()!=0){
 				customerModel_02 = setDataCustomerModel(getCustomerById(customerModel_01.getLowerLeftId()));
