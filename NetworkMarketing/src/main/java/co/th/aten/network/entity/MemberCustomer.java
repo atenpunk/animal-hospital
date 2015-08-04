@@ -13,6 +13,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -163,6 +164,11 @@ public class MemberCustomer implements Serializable {
     private String districtStr;
     @Column(name = "post_code_str")
     private String postCodeStr;
+    @Lob
+    @Column(name = "image_member")
+    private byte[] imageMember;
+    @Column(name = "image_member_name")
+    private String imageMemberName;
     @JoinColumn(name = "nation_id", referencedColumnName = "nation_id")
     @ManyToOne
     private MasterNationality nationId;
@@ -688,6 +694,22 @@ public class MemberCustomer implements Serializable {
 	public void setPostCodeStr(String postCodeStr) {
 		this.postCodeStr = postCodeStr;
 	}
+	
+	public byte[] getImageMember() {
+        return imageMember;
+    }
+
+    public void setImageMember(byte[] imageMember) {
+        this.imageMember = imageMember;
+    }
+
+    public String getImageMemberName() {
+        return imageMemberName;
+    }
+
+    public void setImageMemberName(String imageMemberName) {
+        this.imageMemberName = imageMemberName;
+    }
 
 	@Override
     public int hashCode() {

@@ -1,5 +1,6 @@
 package co.th.aten.network.web;
 
+import java.io.OutputStream;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -21,6 +22,8 @@ import javax.persistence.EntityManager;
 import org.jboss.seam.international.status.MessageFactory;
 import org.jboss.seam.international.status.Messages;
 import org.jboss.solder.logging.Logger;
+import org.richfaces.event.FileUploadEvent;
+import org.richfaces.model.UploadedFile;
 
 import co.th.aten.network.control.CustomerControl;
 import co.th.aten.network.entity.AddressAmphures;
@@ -37,6 +40,7 @@ import co.th.aten.network.model.CustomerModel;
 import co.th.aten.network.model.DetailModel;
 import co.th.aten.network.model.DropDownModel;
 import co.th.aten.network.model.TeamBinaryReportModel;
+import co.th.aten.network.model.UploadedImage;
 import co.th.aten.network.producer.DBDefault;
 import co.th.aten.network.security.annotation.Authenticated;
 import co.th.aten.network.util.HashUtil;
@@ -214,6 +218,8 @@ public class CustomerController implements Serializable{
 	private long flagUnder;
 	private boolean chkSave;
 	private boolean chkSameAddress;
+	// image member
+	private UploadedImage uploadedImage;
 	// ######################## ADD MEMBER #########################
 
 	@PostConstruct
@@ -1446,6 +1452,29 @@ public class CustomerController implements Serializable{
 			e.printStackTrace();
 		}
 	}
+	
+	public void paint(OutputStream stream, Object object){
+		try{
+			if(uploadedImage!=null){
+				stream.write(uploadedImage.getData());
+				stream.close();
+			}
+		}catch(Exception e){
+			log.info("Error paint : "+e.getMessage());
+		}
+	}
+	
+	public void listener(FileUploadEvent event){
+		try{
+			UploadedFile uploadedFile = event.getUploadedFile();
+			uploadedImage = new UploadedImage();
+			uploadedImage.setLength(uploadedFile.getData().length);
+			uploadedImage.setName(uploadedFile.getName());
+			uploadedImage.setData(uploadedFile.getData());
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
 
 	public void findRecomend(){
 		log.info("##### searchRecomend()");
@@ -1559,7 +1588,7 @@ public class CustomerController implements Serializable{
 		amphurSendDocList = null;
 		districtSendDocList = null;
 	}
-	
+
 	public void onChangeNationality(){
 		if(nationality == -1 || nationality == 1){
 			chkNationality = true;
@@ -1694,7 +1723,7 @@ public class CustomerController implements Serializable{
 				cus.setProvinceId(provinceId);
 				cus.setAmphurId(amphurId);
 				cus.setDistrictId(districtId);
-				
+
 				cus.setAddressNoSendDoc(addressNo);
 				cus.setAddressBuildingSendDoc(addressBuilding);
 				cus.setAddressVillageSendDoc(addressVillage);
@@ -1703,7 +1732,7 @@ public class CustomerController implements Serializable{
 				cus.setProvinceIdSendDoc(provinceId);
 				cus.setAmphurIdSendDoc(amphurId);
 				cus.setDistrictIdSendDoc(districtId);
-				
+
 				//				cus.setAddressNoSendDoc(addressNoSendDoc);
 				//				cus.setAddressBuildingSendDoc(addressBuildingSendDoc);
 				//				cus.setAddressVillageSendDoc(addressVillageSendDoc);
@@ -1712,13 +1741,18 @@ public class CustomerController implements Serializable{
 				//				cus.setProvinceIdSendDoc(provinceIdSendDoc);
 				//				cus.setAmphurIdSendDoc(amphurIdSendDoc);
 				//				cus.setDistrictIdSendDoc(districtIdSendDoc);
-				
+
 				cus.setChkSameAddress(chkSameAddress?1:0);
 				cus.setProvinceStr(provinceStr);
 				cus.setAmphurStr(amphurStr);
 				cus.setDistrictStr(districtStr);
 				cus.setPostCodeStr(addressPostCode);
 				
+				if(uploadedImage!=null){
+					cus.setImageMember(uploadedImage.getData());
+					cus.setImageMemberName(uploadedImage.getName());
+				}
+
 				cus.setBankId(bankId);
 				cus.setBankBranch(branch);
 				cus.setBankaccountType(accType);
@@ -2775,5 +2809,16 @@ public class CustomerController implements Serializable{
 		this.chkNationality = chkNationality;
 	}
 	
-	
+	public long getTimeStamp(){  
+		return System.currentTimeMillis();  
+	}
+
+	public UploadedImage getUploadedImage() {
+		return uploadedImage;
+	}
+
+	public void setUploadedImage(UploadedImage uploadedImage) {
+		this.uploadedImage = uploadedImage;
+	} 
+
 }
