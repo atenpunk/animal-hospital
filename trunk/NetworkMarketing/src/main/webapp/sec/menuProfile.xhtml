@@ -98,14 +98,14 @@
 								<td class="tableMain"><h:outputText
 										style="FONT-WEIGHT: bold;"
 										value="#{app_msgs['label.pageTree.memberStr']}" /></td>
-								<td class="tableChild"><h:outputText style=""
+								<td class="tableChild"><h:outputText 
 										value="#{currentUser.customerId.customerMember}" /></td>
 							</tr>
 							<tr>
 								<td class="tableMain"><h:outputText
 										style="FONT-WEIGHT: bold;"
 										value="#{app_msgs['label.pageTree.regisDate']}" /></td>
-								<td class="tableChild"><h:outputText style=""
+								<td class="tableChild"><h:outputText 
 										value="#{currentUser.customerId.regisDate}">
 										<f:convertDateTime pattern="yyyy-MM-dd" />
 									</h:outputText></td>
@@ -114,14 +114,14 @@
 								<td class="tableMain"><h:outputText
 										style="FONT-WEIGHT: bold;"
 										value="#{app_msgs['label.pageTree.posMatch']}" /></td>
-								<td class="tableChild"><h:outputText style=""
+								<td class="tableChild"><h:outputText 
 										value="#{currentUser.customerId.positionId.enName}" /></td>
 							</tr>
 							<tr>
 								<td class="tableMain"><h:outputText
 										style="FONT-WEIGHT: bold;"
 										value="#{app_msgs['label.pageTree.documentRegis']}" /></td>
-								<td class="tableChild"><h:outputText style=""
+								<td class="tableChild"><h:outputText 
 										value="#{currentUser.customerId.dateDocumentFully}">
 										<f:convertDateTime pattern="yyyy-MM-dd" />
 									</h:outputText></td>
@@ -130,7 +130,7 @@
 								<td class="tableMain"><h:outputText
 										style="FONT-WEIGHT: bold;"
 										value="#{app_msgs['label.pageTree.documentPersonalCard']}" /></td>
-								<td class="tableChild"><h:outputText style=""
+								<td class="tableChild"><h:outputText 
 										value="#{currentUser.customerId.dateCopyPersonalCard}">
 										<f:convertDateTime pattern="yyyy-MM-dd" />
 									</h:outputText></td>
@@ -139,7 +139,7 @@
 								<td class="tableMain"><h:outputText
 										style="FONT-WEIGHT: bold;"
 										value="#{app_msgs['label.pageTree.documentBookBank']}" /></td>
-								<td class="tableChild"><h:outputText style=""
+								<td class="tableChild"><h:outputText 
 										value="#{currentUser.customerId.dateCopyBookBank}">
 										<f:convertDateTime pattern="yyyy-MM-dd" />
 									</h:outputText></td>
@@ -178,32 +178,32 @@
 							<tr>
 								<td colspan="1" class="tableMain2"><h:outputText
 										style="FONT-WEIGHT: bold;" value="PV สะสม  : " /></td>
-								<td colspan="3" class="tableChild2"><h:outputText style=""
+								<td colspan="3" class="tableChild2"><h:outputText 
 										value="0.00" /></td>
 							</tr>
 							<tr>
 								<td class="tableMain2"><h:outputText
 										style="FONT-WEIGHT: bold;" value="PV ซ้าย (ยกมา) : " /></td>
-								<td class="tableChild2"><h:outputText style="" value="0.00" /></td>
+								<td class="tableChild2"><h:outputText  value="0.00" /></td>
 								<td class="tableMain2"><h:outputText
 										style="FONT-WEIGHT: bold;" value="PV ขวา (ยกมา) : " /></td>
-								<td class="tableChild2"><h:outputText style="" value="0.00" /></td>
+								<td class="tableChild2"><h:outputText  value="0.00" /></td>
 							</tr>
 							<tr>
 								<td class="tableMain2"><h:outputText
 										style="FONT-WEIGHT: bold;" value="PV ซ้าย (ใหม่) : " /></td>
-								<td class="tableChild2"><h:outputText style="" value="0.00" /></td>
+								<td class="tableChild2"><h:outputText  value="0.00" /></td>
 								<td class="tableMain2"><h:outputText
 										style="FONT-WEIGHT: bold;" value="PV ขวา (ใหม่) : " /></td>
-								<td class="tableChild2"><h:outputText style="" value="0.00" /></td>
+								<td class="tableChild2"><h:outputText  value="0.00" /></td>
 							</tr>
 							<tr>
 								<td class="tableMain2"><h:outputText
 										style="FONT-WEIGHT: bold;" value="PV ซ้าย (รวม) : " /></td>
-								<td class="tableChild2"><h:outputText style="" value="0.00" /></td>
+								<td class="tableChild2"><h:outputText  value="0.00" /></td>
 								<td class="tableMain2"><h:outputText
 										style="FONT-WEIGHT: bold;" value="PV ขวา (รวม) : " /></td>
-								<td class="tableChild2"><h:outputText style="" value="0.00" /></td>
+								<td class="tableChild2"><h:outputText  value="0.00" /></td>
 							</tr>
 						</table>
 					</rich:panel>

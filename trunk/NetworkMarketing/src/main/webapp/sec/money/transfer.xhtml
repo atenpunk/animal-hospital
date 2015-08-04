@@ -49,7 +49,7 @@
 								<td class="tdOutputScreen"><h:outputText
 										value="#{app_msgs['label.menuMoney.transfer.memberCodeReceive']}" /></td>
 								<td class="tdInputScreen"><h:inputText maxlength="20"
-										style="" value="#{moneyTransferController.memberCodeReceive}">
+										 value="#{moneyTransferController.memberCodeReceive}">
 									</h:inputText> <a4j:commandButton id="searchReceiveId"
 										value="#{app_msgs['button.search']}"
 										action="#{moneyTransferController.searchReceive}"
@@ -67,7 +67,7 @@
 								<td class="tdOutputScreen"><h:outputText
 										value="#{app_msgs['label.menuMoney.transferAmount']}" /></td>
 								<td class="tdInputScreen"><h:inputText maxlength="10"
-										style="" value="#{moneyTransferController.transferAmount}">
+										 value="#{moneyTransferController.transferAmount}">
 										<f:convertNumber pattern="########" />
 									</h:inputText></td>
 							</tr>
