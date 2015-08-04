@@ -1,5 +1,6 @@
 package co.th.aten.network.web;
 
+import java.io.OutputStream;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import java.util.Locale;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Instance;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -18,6 +20,8 @@ import javax.persistence.EntityManager;
 import org.jboss.seam.international.status.MessageFactory;
 import org.jboss.seam.international.status.Messages;
 import org.jboss.solder.logging.Logger;
+import org.richfaces.event.FileUploadEvent;
+import org.richfaces.model.UploadedFile;
 
 import co.th.aten.network.control.CustomerControl;
 import co.th.aten.network.entity.AddressAmphures;
@@ -29,12 +33,13 @@ import co.th.aten.network.entity.MemberCustomer;
 import co.th.aten.network.entity.UserLogin;
 import co.th.aten.network.i18n.AppBundleKey;
 import co.th.aten.network.model.DropDownModel;
+import co.th.aten.network.model.UploadedImage;
 import co.th.aten.network.producer.DBDefault;
 import co.th.aten.network.security.annotation.Authenticated;
 import co.th.aten.network.util.StringUtil;
 
-@ViewScoped
-//@SessionScoped
+//@ViewScoped
+@SessionScoped
 @Named
 public class EditCustomerController implements Serializable{
 
@@ -152,10 +157,14 @@ public class EditCustomerController implements Serializable{
 
 	private boolean chkSave;
 	private boolean chkSameAddress;
+	
+	// image member
+	private UploadedImage uploadedImage;
 
 	@PostConstruct
 	public void init(){
 		log.info("init method EditCustomerController");
+		cancleEditMember();
 		long startTime = System.currentTimeMillis();
 		chkSave = false;
 		try{
@@ -290,6 +299,12 @@ public class EditCustomerController implements Serializable{
 					dateCopyPersonalCard = customer.getDateCopyPersonalCard();
 					chkCopyBookBank = (customer.getChkCopyBookBank()!=null&&customer.getChkCopyBookBank()==1)?true:false;
 					dateCopyBookBank = customer.getDateCopyBookBank();
+					if(customer.getImageMember()!=null){
+						uploadedImage = new UploadedImage();
+						uploadedImage.setData(customer.getImageMember());
+						uploadedImage.setLength(customer.getImageMember().length);
+						uploadedImage.setName(StringUtil.n2b(customer.getImageMemberName()));
+					}
 				}else{
 					chkSave = true;
 				}
@@ -551,6 +566,29 @@ public class EditCustomerController implements Serializable{
 			}
 		}		
 	}
+	
+	public void paint(OutputStream stream, Object object){
+		try{
+			if(uploadedImage!=null){
+				stream.write(uploadedImage.getData());
+				stream.close();
+			}
+		}catch(Exception e){
+			log.info("Error paint : "+e.getMessage());
+		}
+	}
+	
+	public void listener(FileUploadEvent event){
+		try{
+			UploadedFile uploadedFile = event.getUploadedFile();
+			uploadedImage = new UploadedImage();
+			uploadedImage.setLength(uploadedFile.getData().length);
+			uploadedImage.setName(uploadedFile.getName());
+			uploadedImage.setData(uploadedFile.getData());
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
 
 	public void findRecomend(){
 		log.info("##### searchRecomend()");
@@ -769,6 +807,11 @@ public class EditCustomerController implements Serializable{
 			user.get().getCustomerId().setAmphurStr(amphurStr);
 			user.get().getCustomerId().setDistrictStr(districtStr);
 			user.get().getCustomerId().setPostCodeStr(addressPostCode);
+			
+			if(uploadedImage!=null){
+				user.get().getCustomerId().setImageMember(uploadedImage.getData());
+				user.get().getCustomerId().setImageMemberName(uploadedImage.getName());
+			}
 			
 //			user.get().getCustomerId().setAddressNoSendDoc(addressNoSendDoc);
 //			user.get().getCustomerId().setAddressBuildingSendDoc(addressBuildingSendDoc);
@@ -1512,5 +1555,17 @@ public class EditCustomerController implements Serializable{
 	public void setChkNationality(boolean chkNationality) {
 		this.chkNationality = chkNationality;
 	}
+
+	public UploadedImage getUploadedImage() {
+		return uploadedImage;
+	}
+
+	public void setUploadedImage(UploadedImage uploadedImage) {
+		this.uploadedImage = uploadedImage;
+	}
+	
+	public long getTimeStamp(){  
+		return System.currentTimeMillis();  
+	} 
 
 }

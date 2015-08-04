@@ -74,12 +74,34 @@
 						</h:panelGrid>
 					</rich:panel>
 				</h:panelGrid>
-				<h:panelGrid width="100%">
+				<h:panelGrid width="100%" id="panelDetailMemberId">
 					<rich:panel style=" width : auto;">
 						<f:facet name="header">
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.detailMember']}" />
 						</f:facet>
+
+						<table>
+							<tr>
+								<td><a4j:mediaOutput element="img" mimeType="image/jpeg"
+										rendered="#{editCustomerController.uploadedImage ne null}"
+										createContent="#{editCustomerController.paint}" value=""
+										style="width:160px; height:200px;" cacheable="false">
+										<f:param value="#{editCustomerController.timeStamp}" name="time" />
+									</a4j:mediaOutput> <h:graphicImage id="imageId02"
+										rendered="#{editCustomerController.uploadedImage eq null}"
+										value="/resources/image/noImg.gif" width="160px"
+										height="200px" /></td>
+								<td><rich:fileUpload style="width:400px;height:80px"
+										fileUploadListener="#{editCustomerController.listener}"
+										id="upload" acceptedTypes=".jpg, .gif, .png, .bmp"
+										ontyperejected="alert('Only JPG, GIF, PNG and BMP files are accepted');"
+										maxFilesQuantity="1">
+										<a4j:ajax event="uploadcomplete" render="addLine" />
+									</rich:fileUpload></td>
+							</tr>
+						</table>
+
 						<h:panelGrid columns="7">
 							<h:outputText value="#{app_msgs['label.pageAddMember.memberId']}" />
 							<h:outputText value="" />
