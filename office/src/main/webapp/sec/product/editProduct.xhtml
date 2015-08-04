@@ -24,12 +24,12 @@
 									<td><a4j:mediaOutput element="img" mimeType="image/jpeg"
 											rendered="#{detailProductController.uploadedImage ne null}"
 											createContent="#{detailProductController.paint}" value=""
-											style="width:100px; height:100px;" cacheable="false">
+											style="width:150px; height:150px;" cacheable="false">
 										</a4j:mediaOutput> <h:graphicImage id="imageId02"
 											rendered="#{detailProductController.uploadedImage eq null}"
-											value="/resources/image/noImg.gif" width="100px"
-											height="100px" /></td>
-									<td><rich:fileUpload style="width:240px;height:65px"
+											value="/resources/image/noImg.gif" width="150px"
+											height="150px" /></td>
+									<td><rich:fileUpload style="width:400px;height:80px"
 											fileUploadListener="#{detailProductController.listener}"
 											id="upload" acceptedTypes=".jpg, .gif, .png, .bmp"
 											ontyperejected="alert('Only JPG, GIF, PNG and BMP files are accepted');"
@@ -73,7 +73,7 @@
 					<tr>
 						<td class="tableHead"><h:outputText
 								value="#{app_msgs['label.menuSell.detailProduct']}" /></td>
-						<td><h:inputText style="width:250px;"
+						<td><h:inputText style="width:400px;"
 								maxlength="200"
 								value="#{detailProductController.selectedProductModel.productThDesc}">
 								<a4j:ajax event="keyup" render="starId02,confirmAddId"
