@@ -30,7 +30,7 @@
 					<rich:panel>
 						<table>
 							<tr>
-								<td class="tdOutputScreen"><h:outputText style=""
+								<td class="tdOutputScreen"><h:outputText 
 										value="#{app_msgs['label.menuShopping.dateTime']}" /></td>
 								<td class="tdInputScreen"><h:outputText readonly="true"
 										maxlength="100" value="#{productSellController.dateTime}">
@@ -38,20 +38,20 @@
 									</h:outputText></td>
 							</tr>
 							<tr>
-								<td class="tdOutputScreen"><h:outputText style=""
+								<td class="tdOutputScreen"><h:outputText 
 										value="#{app_msgs['label.menuShopping.memberId']}" /></td>
 								<td class="tdInputScreen"><h:inputText maxlength="100"
-										style="" value="#{productSellController.memberId}">
+										 value="#{productSellController.memberId}">
 										<a4j:ajax event="keyup" render="inputMemberNameId"
 											listener="#{productSellController.onKeypress()}" />
 									</h:inputText></td>
 							</tr>
 							<tr>
-								<td class="tdOutputScreen"><h:outputText style=""
+								<td class="tdOutputScreen"><h:outputText 
 										value="#{app_msgs['label.menuShopping.memberName']}" /></td>
 								<td class="tdInputScreen"><h:outputText
 										id="inputMemberNameId" maxlength="100" readonly="true"
-										style="" value="#{productSellController.memberName}" /></td>
+										 value="#{productSellController.memberName}" /></td>
 							</tr>
 						</table>
 					</rich:panel>
