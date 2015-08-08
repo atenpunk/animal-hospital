@@ -91,6 +91,7 @@ public class EditCustomerController implements Serializable{
 	private String personalId;
 	private String companyID;
 	private String telephone;
+	private String starMobile;
 	private String mobile;
 	private String lineId;
 	private String email;
@@ -909,7 +910,12 @@ public class EditCustomerController implements Serializable{
 		}else{
 			starPersonalId = "*";
 		}
-		if(starPersonalId.equals("*") || starFirstName.equals("*")){
+		if(mobile!=null && mobile.trim().length()>0){
+			starMobile = " ";
+		}else{
+			starMobile = "*";
+		}
+		if(starPersonalId.equals("*") || starFirstName.equals("*") || starMobile.equals("*")){
 			chkSave = true;
 		}else{
 			chkSave = false;
@@ -1614,6 +1620,13 @@ public class EditCustomerController implements Serializable{
 
 	public void setOfficialDocumentList(List<DropDownModel> officialDocumentList) {
 		this.officialDocumentList = officialDocumentList;
-	} 
+	}
 
+	public String getStarMobile() {
+		return starMobile;
+	}
+
+	public void setStarMobile(String starMobile) {
+		this.starMobile = starMobile;
+	}
 }

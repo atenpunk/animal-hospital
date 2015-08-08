@@ -151,6 +151,7 @@ public class CustomerController implements Serializable{
 	private String personalId;
 	private String companyID;
 	private String telephone;
+	private String starMobile;
 	private String mobile;
 	private String lineId;
 	private String email;
@@ -1459,6 +1460,7 @@ public class CustomerController implements Serializable{
 			log.info("####### flagUnder = "+flagUnder);
 			starPersonalId = "*";
 			starFirstName = "*";
+			starMobile = "*";
 			chkNationality = true;
 			regisDate = new Date();
 
@@ -1548,6 +1550,7 @@ public class CustomerController implements Serializable{
 		personalId = "";
 		companyID = "";
 		telephone = "";
+		starMobile = "";
 		mobile = "";
 		lineId = "";
 		email = "";
@@ -1858,6 +1861,7 @@ public class CustomerController implements Serializable{
 		personalId = "";
 		companyID = "";
 		telephone = "";
+		starMobile = "";
 		mobile = "";
 		lineId = "";
 		email = "";
@@ -1924,6 +1928,7 @@ public class CustomerController implements Serializable{
 
 	public void onKeypress(){
 		if(firstName!=null && firstName.trim().length()>0){
+			accName = firstName;
 			starFirstName = " ";
 		}else{
 			starFirstName = "*";
@@ -1933,7 +1938,12 @@ public class CustomerController implements Serializable{
 		}else{
 			starPersonalId = "*";
 		}
-		if(starPersonalId.equals("*") || starFirstName.equals("*")){
+		if(mobile!=null && mobile.trim().length()>0){
+			starMobile = " ";
+		}else{
+			starMobile = "*";
+		}
+		if(starPersonalId.equals("*") || starFirstName.equals("*") || starMobile.equals("*")){
 			chkSave = true;
 		}else{
 			chkSave = false;
@@ -2863,6 +2873,14 @@ public class CustomerController implements Serializable{
 
 	public void setOfficialDocumentList(List<DropDownModel> officialDocumentList) {
 		this.officialDocumentList = officialDocumentList;
-	} 
+	}
+
+	public String getStarMobile() {
+		return starMobile;
+	}
+
+	public void setStarMobile(String starMobile) {
+		this.starMobile = starMobile;
+	}
 
 }
