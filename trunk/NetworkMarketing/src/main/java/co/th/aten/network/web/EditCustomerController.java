@@ -1,5 +1,6 @@
 package co.th.aten.network.web;
 
+import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -16,6 +17,8 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 
 import org.jboss.seam.international.status.MessageFactory;
 import org.jboss.seam.international.status.Messages;
@@ -60,6 +63,8 @@ public class EditCustomerController implements Serializable{
 	private MessageFactory factory;
 	@Inject
 	private Messages messages;
+	@Inject
+	private FacesContext facesContext;
 
 	@Inject
 	@DBDefault
@@ -150,20 +155,16 @@ public class EditCustomerController implements Serializable{
 	private String accNo;
 	private String accName;
 	private String remark;
-	private int receiveDocument;
-	private String starDocumentFully;
-	private boolean chkDocumentFully;
-	private Date dateDocumentFully;
-	private boolean chkCopyPersonalCard;
-	private Date dateCopyPersonalCard;
-	private boolean chkCopyBookBank;
-	private Date dateCopyBookBank;
 
 	private boolean chkSave;
 	private boolean chkSameAddress;
 	
 	// image member
 	private UploadedImage uploadedImage;
+	// document
+	private UploadedImage uploadedApplication;
+	private UploadedImage uploadedIdCard;
+	private UploadedImage uploadedBookBank;
 
 	@PostConstruct
 	public void init(){
@@ -315,19 +316,29 @@ public class EditCustomerController implements Serializable{
 					accNo = customer.getBankaccountNo();
 					accName = customer.getBankaccountName();
 					remark = customer.getRemark();
-					receiveDocument = StringUtil.n2b(customer.getReceiveDocument());
-					starDocumentFully = "";
-					chkDocumentFully = (customer.getChkDocumentFully()!=null&&customer.getChkDocumentFully()==1)?true:false;
-					dateDocumentFully = customer.getDateDocumentFully();
-					chkCopyPersonalCard = (customer.getChkCopyPersonalCard()!=null&&customer.getChkCopyPersonalCard()==1)?true:false;
-					dateCopyPersonalCard = customer.getDateCopyPersonalCard();
-					chkCopyBookBank = (customer.getChkCopyBookBank()!=null&&customer.getChkCopyBookBank()==1)?true:false;
-					dateCopyBookBank = customer.getDateCopyBookBank();
 					if(customer.getImageMember()!=null){
 						uploadedImage = new UploadedImage();
 						uploadedImage.setData(customer.getImageMember());
 						uploadedImage.setLength(customer.getImageMember().length);
 						uploadedImage.setName(StringUtil.n2b(customer.getImageMemberName()));
+					}
+					if(customer.getDocumentApplication()!=null){
+						uploadedApplication = new UploadedImage();
+						uploadedApplication.setData(customer.getDocumentApplication());
+						uploadedApplication.setLength(customer.getDocumentApplication().length);
+						uploadedApplication.setName(StringUtil.n2b(customer.getDocumentApplicationName()));
+					}
+					if(customer.getDocumentIdCard()!=null){
+						uploadedIdCard = new UploadedImage();
+						uploadedIdCard.setData(customer.getDocumentIdCard());
+						uploadedIdCard.setLength(customer.getDocumentIdCard().length);
+						uploadedIdCard.setName(StringUtil.n2b(customer.getDocumentIdCardName()));
+					}
+					if(customer.getDocumentBookBank()!=null){
+						uploadedBookBank = new UploadedImage();
+						uploadedBookBank.setData(customer.getDocumentBookBank());
+						uploadedBookBank.setLength(customer.getDocumentBookBank().length);
+						uploadedBookBank.setName(StringUtil.n2b(customer.getDocumentBookBankName()));
 					}
 					onChangeNationality();
 					onKeypress();
@@ -603,6 +614,41 @@ public class EditCustomerController implements Serializable{
 			log.info("Error paint : "+e.getMessage());
 		}
 	}
+	public void listenerUploadAppication(FileUploadEvent event){
+		try{
+			UploadedFile uploadedFile = event.getUploadedFile();
+			uploadedApplication = new UploadedImage();
+			uploadedApplication.setLength(uploadedFile.getData().length);
+			uploadedApplication.setName(uploadedFile.getName());
+			uploadedApplication.setData(uploadedFile.getData());
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	public void listenerUploadIdCard(FileUploadEvent event){
+		try{
+			UploadedFile uploadedFile = event.getUploadedFile();
+			uploadedIdCard = new UploadedImage();
+			uploadedIdCard.setLength(uploadedFile.getData().length);
+			uploadedIdCard.setName(uploadedFile.getName());
+			uploadedIdCard.setData(uploadedFile.getData());
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	public void listenerUploadBookBank(FileUploadEvent event){
+		try{
+			UploadedFile uploadedFile = event.getUploadedFile();
+			uploadedBookBank = new UploadedImage();
+			uploadedBookBank.setLength(uploadedFile.getData().length);
+			uploadedBookBank.setName(uploadedFile.getName());
+			uploadedBookBank.setData(uploadedFile.getData());
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
 	
 	public void listener(FileUploadEvent event){
 		try{
@@ -708,14 +754,10 @@ public class EditCustomerController implements Serializable{
 		accNo = "";
 		accName = "";
 		remark = "";
-		receiveDocument = 0;
-		starDocumentFully = "";
-		chkDocumentFully = false;
-		dateDocumentFully = null;
-		chkCopyPersonalCard = false;
-		dateCopyPersonalCard = null;
-		chkCopyBookBank = false;
-		dateCopyBookBank = null;
+		uploadedImage = null;
+		uploadedApplication = null;
+		uploadedIdCard = null;
+		uploadedBookBank = null;
 		amphurList = null;
 		districtList = null;
 		amphurSendDocList = null;
@@ -845,6 +887,18 @@ public class EditCustomerController implements Serializable{
 				user.get().getCustomerId().setImageMember(uploadedImage.getData());
 				user.get().getCustomerId().setImageMemberName(uploadedImage.getName());
 			}
+			if(uploadedApplication!=null){
+				user.get().getCustomerId().setDocumentApplication(uploadedApplication.getData());
+				user.get().getCustomerId().setDocumentApplicationName(uploadedApplication.getName());
+			}
+			if(uploadedIdCard!=null){
+				user.get().getCustomerId().setDocumentIdCard(uploadedIdCard.getData());
+				user.get().getCustomerId().setDocumentIdCardName(uploadedIdCard.getName());
+			}
+			if(uploadedBookBank!=null){
+				user.get().getCustomerId().setDocumentBookBank(uploadedBookBank.getData());
+				user.get().getCustomerId().setDocumentBookBankName(uploadedBookBank.getName());
+			}
 			
 //			user.get().getCustomerId().setAddressNoSendDoc(addressNoSendDoc);
 //			user.get().getCustomerId().setAddressBuildingSendDoc(addressBuildingSendDoc);
@@ -862,13 +916,6 @@ public class EditCustomerController implements Serializable{
 			user.get().getCustomerId().setBankaccountNo(accNo);
 			user.get().getCustomerId().setBankaccountName(accName);
 			user.get().getCustomerId().setRemark(remark);
-			user.get().getCustomerId().setReceiveDocument(receiveDocument);
-			user.get().getCustomerId().setChkDocumentFully(chkDocumentFully?1:0);
-			user.get().getCustomerId().setChkCopyPersonalCard(chkCopyPersonalCard?1:0);
-			user.get().getCustomerId().setChkCopyBookBank(chkCopyBookBank?1:0);
-			user.get().getCustomerId().setDateDocumentFully(chkDocumentFully?dateDocumentFully:null);
-			user.get().getCustomerId().setDateCopyPersonalCard(chkCopyPersonalCard?dateCopyPersonalCard:null);
-			user.get().getCustomerId().setDateCopyBookBank(chkCopyBookBank?dateCopyBookBank:null);
 			user.get().getCustomerId().setUpdateBy(user.get().getUserId());
 			user.get().getCustomerId().setUpdateDate(new Date());
 			em.merge(user.get().getCustomerId());
@@ -878,24 +925,6 @@ public class EditCustomerController implements Serializable{
 		}catch(Exception e){
 			e.printStackTrace();
 			messages.error(new AppBundleKey("error.label.editMemberFail",FacesContext.getCurrentInstance().getViewRoot().getLocale().getLanguage()));
-		}
-	}
-
-	public void checkDocumentRegis(){
-		if(!chkDocumentFully){
-			dateDocumentFully = null;
-		}
-	}
-
-	public void checkDocumentPersonalCard(){
-		if(!chkCopyPersonalCard){
-			dateCopyPersonalCard = null;
-		}
-	}
-
-	public void checkDocumentBookBank(){
-		if(!chkCopyBookBank){
-			dateCopyBookBank = null;
 		}
 	}
 
@@ -919,6 +948,96 @@ public class EditCustomerController implements Serializable{
 			chkSave = true;
 		}else{
 			chkSave = false;
+		}
+	}
+	
+	public void exportDocumentApplication() {
+		try {
+			byte[] pdf = uploadedApplication.getData();
+			HttpServletResponse response = (HttpServletResponse) facesContext
+					.getExternalContext().getResponse();
+			String extension = "";
+			int extDot = uploadedApplication.getName().lastIndexOf('.');
+			if (extDot > 0) {
+				extension = uploadedApplication.getName().substring(extDot + 1);
+			}
+			if(extension.equals("pdf")){
+				response.setContentType("application/pdf");
+			}
+			response.setContentLength(pdf.length);
+			response.setHeader("Content-disposition", "inline; filename="
+					+ uploadedApplication.getName() + "."+extension);
+			ServletOutputStream out;
+			out = response.getOutputStream();
+			out.write(pdf);
+			out.flush(); // new
+			out.close();
+			response.flushBuffer();
+			facesContext.responseComplete(); // new
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void exportDocumentIdCard() {
+		try {
+			byte[] pdf = uploadedIdCard.getData();
+			HttpServletResponse response = (HttpServletResponse) facesContext
+					.getExternalContext().getResponse();
+			String extension = "";
+			int extDot = uploadedIdCard.getName().lastIndexOf('.');
+			if (extDot > 0) {
+				extension = uploadedIdCard.getName().substring(extDot + 1);
+			}
+			if(extension.equals("pdf")){
+				response.setContentType("application/pdf");
+			}
+			response.setContentLength(pdf.length);
+			response.setHeader("Content-disposition", "inline; filename="
+					+ uploadedIdCard.getName() + "."+extension);
+			ServletOutputStream out;
+			out = response.getOutputStream();
+			out.write(pdf);
+			out.flush(); // new
+			out.close();
+			response.flushBuffer();
+			facesContext.responseComplete(); // new
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void exportDocumentBookBank() {
+		try {
+			byte[] pdf = uploadedBookBank.getData();
+			HttpServletResponse response = (HttpServletResponse) facesContext
+					.getExternalContext().getResponse();
+			String extension = "";
+			int extDot = uploadedBookBank.getName().lastIndexOf('.');
+			if (extDot > 0) {
+				extension = uploadedBookBank.getName().substring(extDot + 1);
+			}
+			if(extension.equals("pdf")){
+				response.setContentType("application/pdf");
+			}
+			response.setContentLength(pdf.length);
+			response.setHeader("Content-disposition", "inline; filename="
+					+ uploadedBookBank.getName() + "."+extension);
+			ServletOutputStream out;
+			out = response.getOutputStream();
+			out.write(pdf);
+			out.flush(); // new
+			out.close();
+			response.flushBuffer();
+			facesContext.responseComplete(); // new
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -1418,70 +1537,6 @@ public class EditCustomerController implements Serializable{
 		this.remark = remark;
 	}
 
-	public int getReceiveDocument() {
-		return receiveDocument;
-	}
-
-	public void setReceiveDocument(int receiveDocument) {
-		this.receiveDocument = receiveDocument;
-	}
-
-	public String getStarDocumentFully() {
-		return starDocumentFully;
-	}
-
-	public void setStarDocumentFully(String starDocumentFully) {
-		this.starDocumentFully = starDocumentFully;
-	}
-
-	public boolean getChkDocumentFully() {
-		return chkDocumentFully;
-	}
-
-	public void setChkDocumentFully(boolean chkDocumentFully) {
-		this.chkDocumentFully = chkDocumentFully;
-	}
-
-	public Date getDateDocumentFully() {
-		return dateDocumentFully;
-	}
-
-	public void setDateDocumentFully(Date dateDocumentFully) {
-		this.dateDocumentFully = dateDocumentFully;
-	}
-
-	public boolean getChkCopyPersonalCard() {
-		return chkCopyPersonalCard;
-	}
-
-	public void setChkCopyPersonalCard(boolean chkCopyPersonalCard) {
-		this.chkCopyPersonalCard = chkCopyPersonalCard;
-	}
-
-	public Date getDateCopyPersonalCard() {
-		return dateCopyPersonalCard;
-	}
-
-	public void setDateCopyPersonalCard(Date dateCopyPersonalCard) {
-		this.dateCopyPersonalCard = dateCopyPersonalCard;
-	}
-
-	public boolean getChkCopyBookBank() {
-		return chkCopyBookBank;
-	}
-
-	public void setChkCopyBookBank(boolean chkCopyBookBank) {
-		this.chkCopyBookBank = chkCopyBookBank;
-	}
-
-	public Date getDateCopyBookBank() {
-		return dateCopyBookBank;
-	}
-
-	public void setDateCopyBookBank(Date dateCopyBookBank) {
-		this.dateCopyBookBank = dateCopyBookBank;
-	}
-
 	public List<DropDownModel> getProvinceList() {
 		return provinceList;
 	}
@@ -1628,5 +1683,29 @@ public class EditCustomerController implements Serializable{
 
 	public void setStarMobile(String starMobile) {
 		this.starMobile = starMobile;
+	}
+
+	public UploadedImage getUploadedApplication() {
+		return uploadedApplication;
+	}
+
+	public void setUploadedApplication(UploadedImage uploadedApplication) {
+		this.uploadedApplication = uploadedApplication;
+	}
+
+	public UploadedImage getUploadedIdCard() {
+		return uploadedIdCard;
+	}
+
+	public void setUploadedIdCard(UploadedImage uploadedIdCard) {
+		this.uploadedIdCard = uploadedIdCard;
+	}
+
+	public UploadedImage getUploadedBookBank() {
+		return uploadedBookBank;
+	}
+
+	public void setUploadedBookBank(UploadedImage uploadedBookBank) {
+		this.uploadedBookBank = uploadedBookBank;
 	}
 }
