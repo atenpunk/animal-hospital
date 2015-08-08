@@ -87,7 +87,8 @@
 										rendered="#{editCustomerController.uploadedImage ne null}"
 										createContent="#{editCustomerController.paint}" value=""
 										style="width:160px; height:200px;" cacheable="false">
-										<f:param value="#{editCustomerController.timeStamp}" name="time" />
+										<f:param value="#{editCustomerController.timeStamp}"
+											name="time" />
 									</a4j:mediaOutput> <h:graphicImage id="imageId02"
 										rendered="#{editCustomerController.uploadedImage eq null}"
 										value="/resources/image/noImg.gif" width="160px"
@@ -129,13 +130,25 @@
 									datePattern="dd/MM/yyyy" />
 							</a4j:outputPanel>
 
-
 							<div style="width: 40px;"></div>
+
+							<h:panelGrid columns="3">
+								<h:outputText
+									value="#{app_msgs['label.pageAddMember.personalIdPassport']}" />
+								<h:outputText style="COLOR: #ff0000;"
+									value="#{editCustomerController.starPersonalId}"
+									id="starPersonalId" />
+								<h:selectOneMenu value="#{editCustomerController.officialDocumentId}">
+									<a4j:ajax event="change" render="starPersonalId,editProfileId"
+										listener="#{editCustomerController.onKeypress}" />
+									<f:selectItems
+										value="#{editCustomerController.officialDocumentList}" var="item"
+										itemLabel="#{item.thLabel}" itemValue="#{item.intKey}"></f:selectItems>
+								</h:selectOneMenu>
+							</h:panelGrid>
+
 							<h:outputText
-								value="#{app_msgs['label.pageAddMember.personalIdPassport']}" />
-							<h:outputText style="COLOR: #ff0000;"
-								value="#{editCustomerController.starPersonalId}"
-								id="starPersonalId" />
+								value="#{app_msgs['label.pageAddMember.no']}" />
 							<h:inputText maxlength="100"
 								value="#{editCustomerController.personalId}">
 								<a4j:ajax event="keyup" render="starPersonalId,editProfileId"

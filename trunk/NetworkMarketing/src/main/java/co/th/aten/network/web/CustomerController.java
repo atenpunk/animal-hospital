@@ -31,6 +31,7 @@ import co.th.aten.network.entity.AddressDistricts;
 import co.th.aten.network.entity.AddressProvinces;
 import co.th.aten.network.entity.MasterBank;
 import co.th.aten.network.entity.MasterNationality;
+import co.th.aten.network.entity.MasterOfficialDocument;
 import co.th.aten.network.entity.MemberCustomer;
 import co.th.aten.network.entity.MemberPosition;
 import co.th.aten.network.entity.UserGroup;
@@ -144,6 +145,8 @@ public class CustomerController implements Serializable{
 	private Date birthDay;
 	private int nationality;
 	private List<DropDownModel> nationalityList;
+	private int officialDocumentId;
+	private List<DropDownModel> officialDocumentList;
 	private String starPersonalId;
 	private String personalId;
 	private String companyID;
@@ -251,6 +254,23 @@ public class CustomerController implements Serializable{
 			model.setEnLabel("");
 			nationalityList.add(0,model);
 			nationality = -1;
+		}
+		officialDocumentList = new ArrayList<DropDownModel>();
+		List<MasterOfficialDocument> masterOfficialDocumentList = em.createQuery("From MasterOfficialDocument Order By offDocId asc",MasterOfficialDocument.class).getResultList();
+		if(masterOfficialDocumentList!=null){
+			for(MasterOfficialDocument doc:masterOfficialDocumentList){
+				DropDownModel model = new DropDownModel();
+				model.setIntKey(doc.getOffDocId());
+				model.setThLabel(StringUtil.n2b(doc.getDescTh()));
+				model.setEnLabel(StringUtil.n2b(doc.getDescEn()));
+				officialDocumentList.add(model);
+			}
+			DropDownModel model = new DropDownModel();
+			model.setIntKey(-1);
+			model.setThLabel("");
+			model.setEnLabel("");
+			officialDocumentList.add(0,model);
+			officialDocumentId = -1;
 		}
 
 		provinceList = new ArrayList<DropDownModel>();
@@ -1523,6 +1543,7 @@ public class CustomerController implements Serializable{
 		starBirthDay = "";
 		birthDay = null;
 		nationality = -1;
+		officialDocumentId = -1;
 		starPersonalId = "";
 		personalId = "";
 		companyID = "";
@@ -1711,6 +1732,10 @@ public class CustomerController implements Serializable{
 					MasterNationality nation = em.find(MasterNationality.class, new Integer(nationality));
 					cus.setNationId(nation);
 				}
+				if(officialDocumentId>0){
+					MasterOfficialDocument doc = em.find(MasterOfficialDocument.class, new Integer(officialDocumentId));
+					cus.setOfficialDocumentId(doc);
+				}
 				cus.setPersonalId(personalId);
 				cus.setCompanyID(companyID);
 				cus.setTelephone(telephone);
@@ -1828,6 +1853,7 @@ public class CustomerController implements Serializable{
 		starBirthDay = "";
 		birthDay = null;
 		nationality = -1;
+		officialDocumentId = -1;
 		starPersonalId = "";
 		personalId = "";
 		companyID = "";
@@ -1902,7 +1928,7 @@ public class CustomerController implements Serializable{
 		}else{
 			starFirstName = "*";
 		}
-		if(personalId!=null && personalId.trim().length()>0){
+		if(personalId!=null && personalId.trim().length()>0 && officialDocumentId != -1){
 			starPersonalId = " ";
 		}else{
 			starPersonalId = "*";
@@ -2821,6 +2847,22 @@ public class CustomerController implements Serializable{
 
 	public void setUploadedImage(UploadedImage uploadedImage) {
 		this.uploadedImage = uploadedImage;
+	}
+
+	public int getOfficialDocumentId() {
+		return officialDocumentId;
+	}
+
+	public void setOfficialDocumentId(int officialDocumentId) {
+		this.officialDocumentId = officialDocumentId;
+	}
+
+	public List<DropDownModel> getOfficialDocumentList() {
+		return officialDocumentList;
+	}
+
+	public void setOfficialDocumentList(List<DropDownModel> officialDocumentList) {
+		this.officialDocumentList = officialDocumentList;
 	} 
 
 }

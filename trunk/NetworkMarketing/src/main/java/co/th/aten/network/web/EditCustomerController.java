@@ -29,6 +29,7 @@ import co.th.aten.network.entity.AddressDistricts;
 import co.th.aten.network.entity.AddressProvinces;
 import co.th.aten.network.entity.MasterBank;
 import co.th.aten.network.entity.MasterNationality;
+import co.th.aten.network.entity.MasterOfficialDocument;
 import co.th.aten.network.entity.MemberCustomer;
 import co.th.aten.network.entity.UserLogin;
 import co.th.aten.network.i18n.AppBundleKey;
@@ -84,6 +85,8 @@ public class EditCustomerController implements Serializable{
 	private Date birthDay;
 	private int nationality;
 	private List<DropDownModel> nationalityList;
+	private int officialDocumentId;
+	private List<DropDownModel> officialDocumentList;
 	private String starPersonalId;
 	private String personalId;
 	private String companyID;
@@ -164,7 +167,7 @@ public class EditCustomerController implements Serializable{
 	@PostConstruct
 	public void init(){
 		log.info("init method EditCustomerController");
-		cancleEditMember();
+		clearData();
 		long startTime = System.currentTimeMillis();
 		chkSave = false;
 		try{
@@ -203,6 +206,27 @@ public class EditCustomerController implements Serializable{
 							nationality = -1;
 						}						
 					}
+					officialDocumentList = new ArrayList<DropDownModel>();
+					List<MasterOfficialDocument> masterOfficialDocumentList = em.createQuery("From MasterOfficialDocument Order By offDocId asc",MasterOfficialDocument.class).getResultList();
+					if(masterOfficialDocumentList!=null){
+						for(MasterOfficialDocument officDoc:masterOfficialDocumentList){
+							DropDownModel model = new DropDownModel();
+							model.setIntKey(StringUtil.n2b(officDoc.getOffDocId()));
+							model.setThLabel(StringUtil.n2b(officDoc.getDescTh()));
+							model.setEnLabel(StringUtil.n2b(officDoc.getDescEn()));
+							officialDocumentList.add(model);
+						}
+						DropDownModel model = new DropDownModel();
+						model.setIntKey(-1);
+						model.setThLabel("");
+						model.setEnLabel("");
+						officialDocumentList.add(0,model);
+						if(customer.getOfficialDocumentId()!=null){
+							officialDocumentId = StringUtil.n2b(customer.getOfficialDocumentId().getOffDocId());
+						}else{
+							officialDocumentId = -1;
+						}						
+					}					
 					starPersonalId = "";
 					personalId = customer.getPersonalId();
 					companyID = customer.getCompanyID();
@@ -263,8 +287,7 @@ public class EditCustomerController implements Serializable{
 					}
 					provinceStr = StringUtil.n2b(customer.getProvinceStr());
 					amphurStr = StringUtil.n2b(customer.getAmphurStr());
-					districtStr = StringUtil.n2b(customer.getDistrictStr());
-					onChangeNationality();					
+					districtStr = StringUtil.n2b(customer.getDistrictStr());					
 					
 //					chkSameAddress = (customer.getChkSameAddress()!=null && customer.getChkSameAddress()==1)?true:false;
 //					addressNoSendDoc = customer.getAddressNoSendDoc();
@@ -305,6 +328,8 @@ public class EditCustomerController implements Serializable{
 						uploadedImage.setLength(customer.getImageMember().length);
 						uploadedImage.setName(StringUtil.n2b(customer.getImageMemberName()));
 					}
+					onChangeNationality();
+					onKeypress();
 				}else{
 					chkSave = true;
 				}
@@ -615,12 +640,9 @@ public class EditCustomerController implements Serializable{
 			messages.info(new AppBundleKey("error.label.notKeyData",FacesContext.getCurrentInstance().getViewRoot().getLocale().getLanguage()));
 		}
 	}
-
-	public void cancleEditMember(){
-		log.info("##### cancleEditMember()");
-		log.info("##### memberStr = "+memberStr);
+	
+	private void clearData(){
 		chkSave = true;
-
 		memberStr = "";
 		titleName = "";
 		starTitleName = "";
@@ -633,6 +655,7 @@ public class EditCustomerController implements Serializable{
 		starBirthDay = "";
 		birthDay = null;
 		nationality = -1;
+		officialDocumentId = -1;
 		starPersonalId = "";
 		personalId = "";
 		companyID = "";
@@ -696,6 +719,13 @@ public class EditCustomerController implements Serializable{
 		districtList = null;
 		amphurSendDocList = null;
 		districtSendDocList = null;
+	}
+
+	public void cancleEditMember(){
+		log.info("##### cancleEditMember()");
+		log.info("##### memberStr = "+memberStr);
+		init();
+//		clearData();
 	}
 
 	public void sameAddress(){
@@ -780,6 +810,8 @@ public class EditCustomerController implements Serializable{
 			user.get().getCustomerId().setBirthDay(birthDay);
 			MasterNationality nation = em.find(MasterNationality.class, new Integer(nationality));
 			user.get().getCustomerId().setNationId(nation);
+			MasterOfficialDocument offDoc = em.find(MasterOfficialDocument.class, new Integer(officialDocumentId));
+			user.get().getCustomerId().setOfficialDocumentId(offDoc);
 			user.get().getCustomerId().setPersonalId(personalId);
 			user.get().getCustomerId().setCompanyID(companyID);
 			user.get().getCustomerId().setTelephone(telephone);
@@ -872,7 +904,7 @@ public class EditCustomerController implements Serializable{
 		}else{
 			starFirstName = "*";
 		}
-		if(personalId!=null && personalId.trim().length()>0){
+		if(personalId!=null && personalId.trim().length()>0 && officialDocumentId != -1){
 			starPersonalId = " ";
 		}else{
 			starPersonalId = "*";
@@ -1566,6 +1598,22 @@ public class EditCustomerController implements Serializable{
 	
 	public long getTimeStamp(){  
 		return System.currentTimeMillis();  
+	}
+
+	public int getOfficialDocumentId() {
+		return officialDocumentId;
+	}
+
+	public void setOfficialDocumentId(int officialDocumentId) {
+		this.officialDocumentId = officialDocumentId;
+	}
+
+	public List<DropDownModel> getOfficialDocumentList() {
+		return officialDocumentList;
+	}
+
+	public void setOfficialDocumentList(List<DropDownModel> officialDocumentList) {
+		this.officialDocumentList = officialDocumentList;
 	} 
 
 }
