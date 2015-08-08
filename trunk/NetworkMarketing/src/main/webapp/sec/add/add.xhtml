@@ -106,6 +106,9 @@
 										value="/resources/image/noImg.gif" width="160px"
 										height="200px" /></td>
 								<td><rich:fileUpload style="width:400px;height:80px"
+										addLabel="#{app_msgs['label.pageAddMember.selectImageProfile']}"
+										uploadLabel="#{app_msgs['label.pageAddMember.uploadFile']}"
+										clearAllLabel="#{app_msgs['label.pageAddMember.clearFile']}"
 										fileUploadListener="#{customerController.listener}"
 										id="upload" acceptedTypes=".jpg, .gif, .png, .bmp"
 										ontyperejected="alert('Only JPG, GIF, PNG and BMP files are accepted');"
@@ -527,8 +530,10 @@
 								value="Export" style="width:100px"
 								action="#{customerController.exportDocumentApplication()}"
 								target="tab" />
-							<rich:fileUpload style="width:350px;height:30px" addLabel="#{app_msgs['label.pageAddMember.selectFile']}"
-							uploadLabel="#{app_msgs['label.pageAddMember.uploadFile']}" clearAllLabel="#{app_msgs['label.pageAddMember.clearFile']}"
+							<rich:fileUpload style="width:350px;height:30px"
+								addLabel="#{app_msgs['label.pageAddMember.selectFile']}"
+								uploadLabel="#{app_msgs['label.pageAddMember.uploadFile']}"
+								clearAllLabel="#{app_msgs['label.pageAddMember.clearFile']}"
 								fileUploadListener="#{customerController.listenerUploadAppication}"
 								id="uploadAppId" acceptedTypes=".jpg, .gif, .png, .bmp, .pdf"
 								ontyperejected="alert('Only PDF, JPG, GIF, PNG and BMP files are accepted');"
@@ -539,15 +544,16 @@
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.copyPersonalCard']}" />
 							<h:outputText
-								rendered="#{customerController.uploadedIdCard eq null}"
-								value="" />
+								rendered="#{customerController.uploadedIdCard eq null}" value="" />
 							<h:commandLink
 								rendered="#{customerController.uploadedIdCard ne null}"
 								value="Export" style="width:100px"
 								action="#{customerController.exportDocumentIdCard()}"
 								target="tab" />
-							<rich:fileUpload style="width:350px;height:30px" addLabel="#{app_msgs['label.pageAddMember.selectFile']}"
-							uploadLabel="#{app_msgs['label.pageAddMember.uploadFile']}" clearAllLabel="#{app_msgs['label.pageAddMember.clearFile']}"
+							<rich:fileUpload style="width:350px;height:30px"
+								addLabel="#{app_msgs['label.pageAddMember.selectFile']}"
+								uploadLabel="#{app_msgs['label.pageAddMember.uploadFile']}"
+								clearAllLabel="#{app_msgs['label.pageAddMember.clearFile']}"
 								fileUploadListener="#{customerController.listenerUploadIdCard}"
 								id="uploadPersonalId"
 								acceptedTypes=".jpg, .gif, .png, .bmp, .pdf"
@@ -566,8 +572,10 @@
 								value="Export" style="width:100px"
 								action="#{customerController.exportDocumentBookBank()}"
 								target="tab" />
-							<rich:fileUpload style="width:350px;height:30px" addLabel="#{app_msgs['label.pageAddMember.selectFile']}"
-							uploadLabel="#{app_msgs['label.pageAddMember.uploadFile']}" clearAllLabel="#{app_msgs['label.pageAddMember.clearFile']}"
+							<rich:fileUpload style="width:350px;height:30px"
+								addLabel="#{app_msgs['label.pageAddMember.selectFile']}"
+								uploadLabel="#{app_msgs['label.pageAddMember.uploadFile']}"
+								clearAllLabel="#{app_msgs['label.pageAddMember.clearFile']}"
 								fileUploadListener="#{customerController.listenerUploadBookBank}"
 								id="uploadBankId" acceptedTypes=".jpg, .gif, .png, .bmp, .pdf"
 								ontyperejected="alert('Only PDF, JPG, GIF, PNG and BMP files are accepted');"
