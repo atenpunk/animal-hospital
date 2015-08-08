@@ -22,23 +22,21 @@
 						</f:facet>
 						<h:panelGrid columns="3">
 							<h:outputText value="#{app_msgs['label.pageAddMember.upLineId']}" />
+							<h:inputText value="#{editCustomerController.upperLineMemberId}"
+								readonly="true" style=" width : 80px;" />
 							<h:outputText style="COLOR: #ff0000;"
 								value="#{editCustomerController.starUpperLineId}"
 								id="starUpperLineId" />
-							<h:inputText value="#{editCustomerController.upperLineMemberId}"
-								readonly="true" style=" width : 80px;" />
 
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.upLineName']}" />
+							<h:inputText value="#{editCustomerController.upperLineName}"
+								readonly="true" style=" width : 150px;" />
 							<h:outputText style="COLOR: #ff0000;"
 								value="#{editCustomerController.starUpperLineName}"
 								id="starUpperLineName" />
-							<h:inputText value="#{editCustomerController.upperLineName}"
-								readonly="true" style=" width : 150px;" />
 
 							<h:outputText value="#{app_msgs['label.pageAddMember.side']}" />
-							<h:outputText style="COLOR: #ff0000;"
-								value="#{editCustomerController.starSide}" id="starSide" />
 							<h:selectOneRadio value="#{editCustomerController.side}"
 								disabled="true">
 								<f:selectItem itemValue="1"
@@ -46,6 +44,8 @@
 								<f:selectItem itemValue="2"
 									itemLabel="#{app_msgs['label.pageAddMember.right']}" />
 							</h:selectOneRadio>
+							<h:outputText style="COLOR: #ff0000;"
+								value="#{editCustomerController.starSide}" id="starSide" />
 
 						</h:panelGrid>
 					</rich:panel>
@@ -57,20 +57,20 @@
 						<h:panelGrid columns="3" id="panelRecommendId">
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.recommendId']}" />
+							<h:inputText value="#{editCustomerController.recomendStrId}"
+								maxlength="20" readonly="true" style=" width : 80px;" />
 							<h:outputText style="COLOR: #ff0000;"
 								value="#{editCustomerController.starRecomendId}"
 								id="starRecomendId" />
-							<h:inputText value="#{editCustomerController.recomendStrId}"
-								maxlength="20" readonly="true" style=" width : 80px;" />
 
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.recommendName']}" />
-							<h:outputText style="COLOR: #ff0000;"
-								value="#{editCustomerController.starRecomendName}"
-								id="starRecomendName" />
 							<h:inputText id="recomendNameId"
 								value="#{editCustomerController.recomendName}" readonly="true"
 								style=" width : 150px;" />
+							<h:outputText style="COLOR: #ff0000;"
+								value="#{editCustomerController.starRecomendName}"
+								id="starRecomendName" />
 						</h:panelGrid>
 					</rich:panel>
 				</h:panelGrid>
@@ -105,14 +105,13 @@
 
 						<h:panelGrid columns="7">
 							<h:outputText value="#{app_msgs['label.pageAddMember.memberId']}" />
-							<h:outputText value="" />
 							<h:inputText value="#{editCustomerController.memberStr}"
 								readonly="true" style=" width : 80px;" />
+							<h:outputText value="" />
 
 							<div style="width: 40px;"></div>
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.nationality']}" />
-							<h:outputText value="" />
 							<h:selectOneMenu value="#{editCustomerController.nationality}">
 								<a4j:ajax event="change" render="panelAddressId"
 									listener="#{editCustomerController.onChangeNationality}" />
@@ -120,125 +119,134 @@
 									var="item" itemLabel="#{item.thLabel}"
 									itemValue="#{item.intKey}"></f:selectItems>
 							</h:selectOneMenu>
+							<h:outputText value="" />
 
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.regisDate']}" />
-							<h:outputText value="" />
 							<a4j:outputPanel id="regisDay" layout="block">
 								<rich:calendar style=" width : 90px;"
 									value="#{editCustomerController.regisDate}"
 									datePattern="dd/MM/yyyy" />
 							</a4j:outputPanel>
+							<h:outputText value="" />
+
 
 							<div style="width: 40px;"></div>
 
 							<h:panelGrid columns="3">
 								<h:outputText
 									value="#{app_msgs['label.pageAddMember.personalIdPassport']}" />
-								<h:outputText style="COLOR: #ff0000;"
-									value="#{editCustomerController.starPersonalId}"
-									id="starPersonalId" />
-								<h:selectOneMenu value="#{editCustomerController.officialDocumentId}">
+								<h:selectOneMenu
+									value="#{editCustomerController.officialDocumentId}">
 									<a4j:ajax event="change" render="starPersonalId,editProfileId"
 										listener="#{editCustomerController.onKeypress}" />
 									<f:selectItems
-										value="#{editCustomerController.officialDocumentList}" var="item"
-										itemLabel="#{item.thLabel}" itemValue="#{item.intKey}"></f:selectItems>
+										value="#{editCustomerController.officialDocumentList}"
+										var="item" itemLabel="#{item.thLabel}"
+										itemValue="#{item.intKey}"></f:selectItems>
 								</h:selectOneMenu>
+								<h:outputText value="#{app_msgs['label.pageAddMember.no']}" />
 							</h:panelGrid>
-
-							<h:outputText
-								value="#{app_msgs['label.pageAddMember.no']}" />
 							<h:inputText maxlength="100"
 								value="#{editCustomerController.personalId}">
 								<a4j:ajax event="keyup" render="starPersonalId,editProfileId"
 									listener="#{editCustomerController.onKeypress()}" />
 							</h:inputText>
+							<h:outputText style="COLOR: #ff0000;"
+								value="#{editCustomerController.starPersonalId}"
+								id="starPersonalId" />
 
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.titleName']}" />
-							<h:outputText style="COLOR: #ff0000;"
-								value="#{editCustomerController.starTitleName}" id="starTitle" />
 							<h:inputText maxlength="100"
 								value="#{editCustomerController.titleName}"
 								style=" width : 80px;">
 							</h:inputText>
+							<h:outputText style="COLOR: #ff0000;"
+								value="#{editCustomerController.starTitleName}" id="starTitle" />
+
 
 							<div style="width: 40px;"></div>
 
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.companyID']}" />
-							<h:outputText value="" />
 							<h:inputText maxlength="100"
 								value="#{editCustomerController.companyID}" />
+							<h:outputText value="" />
 
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.nameOrCompany']}" />
-							<h:outputText style="COLOR: #ff0000;"
-								value="#{editCustomerController.starFirstName}" id="starName" />
 							<h:inputText maxlength="100"
 								value="#{editCustomerController.firstName}"
 								style=" width : 250px;">
 								<a4j:ajax event="keyup" render="starName,editProfileId"
 									listener="#{editCustomerController.onKeypress()}" />
 							</h:inputText>
+							<h:outputText style="COLOR: #ff0000;"
+								value="#{editCustomerController.starFirstName}" id="starName" />
+
 
 							<div style="width: 40px;"></div>
 
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.telephone']}" />
+							<h:inputText maxlength="20"
+								value="#{editCustomerController.telephone}">
+							</h:inputText>
 							<h:outputText value="" />
-							<h:inputText maxlength="100"
-								value="#{editCustomerController.telephone}" />
 
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.nameBusiness']}" />
-							<h:outputText value="" />
 							<h:inputText maxlength="100"
 								value="#{editCustomerController.businessName}"
 								style=" width : 250px;">
 							</h:inputText>
+							<h:outputText value="" />
 
 							<div style="width: 40px;"></div>
 
 							<h:outputText value="#{app_msgs['label.pageAddMember.mobile']}" />
-							<h:outputText value="" />
-							<h:inputText maxlength="100"
-								value="#{editCustomerController.mobile}" />
+							<h:inputText value="#{editCustomerController.mobile}"
+								maxlength="20">
+								<a4j:ajax event="keyup" render="starMobileId,editProfileId"
+									listener="#{editCustomerController.onKeypress()}" />
+							</h:inputText>
+							<h:outputText style="COLOR: #ff0000;"
+								value="#{editCustomerController.starMobile}" id="starMobileId" />
 
 							<h:outputText value="#{app_msgs['label.pageAddMember.sex']}" />
-							<h:outputText style="COLOR: #ff0000;"
-								value="#{editCustomerController.starSex}" id="starSex" />
 							<h:selectOneRadio value="#{editCustomerController.sex}">
 								<f:selectItem itemValue="1"
 									itemLabel="#{app_msgs['label.pageAddMember.male']}" />
 								<f:selectItem itemValue="2"
 									itemLabel="#{app_msgs['label.pageAddMember.female']}" />
 							</h:selectOneRadio>
+							<h:outputText style="COLOR: #ff0000;"
+								value="#{editCustomerController.starSex}" id="starSex" />
 
 							<div style="width: 40px;"></div>
 
 							<h:outputText value="#{app_msgs['label.pageAddMember.lineId']}" />
-							<h:outputText value="" />
 							<h:inputText maxlength="100"
 								value="#{editCustomerController.lineId}" />
+							<h:outputText value="" />
 
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.birthDate']}" />
-							<h:outputText style="COLOR: #ff0000;"
-								value="#{editCustomerController.starBirthDay}" id="starBirthDay" />
 							<a4j:outputPanel id="birchDay" layout="block">
 								<rich:calendar style=" width : 90px;"
 									value="#{editCustomerController.birthDay}"
 									datePattern="dd/MM/yyyy" />
 							</a4j:outputPanel>
+							<h:outputText style="COLOR: #ff0000;"
+								value="#{editCustomerController.starBirthDay}" id="starBirthDay" />
 
 							<div style="width: 40px;"></div>
 
 							<h:outputText value="#{app_msgs['label.pageAddMember.email']}" />
-							<h:outputText value="" />
 							<h:inputText maxlength="100"
 								value="#{editCustomerController.email}" />
+							<h:outputText value="" />
 
 						</h:panelGrid>
 					</rich:panel>
@@ -579,7 +587,7 @@
 					</rich:panel>
 
 
-					<h:panelGrid columns="4" id="panelGridEditId">
+					<h:panelGrid columns="3" id="panelGridEditId">
 						<a4j:commandButton id="editProfileId"
 							disabled="#{editCustomerController.chkSave}"
 							onclick="return confirmMsg('#{app_msgs['label.comfirm.edit']}');"
@@ -590,11 +598,6 @@
 							value="#{app_msgs['button.cancle']}"
 							action="#{editCustomerController.cancleEditMember()}"
 							style=" width : 100px;" />
-						<a4j:status>
-							<f:facet name="start">
-								<h:graphicImage value="/resources/gfx/spinner.gif" />
-							</f:facet>
-						</a4j:status>
 						<h:panelGrid columns="1" cellpadding="2" cellspacing="2"
 							style="font-size: 22px;width:100%;text-align:center;">
 							<h:messages globalOnly="true" infoClass="info" warnClass="warn"
