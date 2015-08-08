@@ -169,6 +169,9 @@ public class MemberCustomer implements Serializable {
     private byte[] imageMember;
     @Column(name = "image_member_name")
     private String imageMemberName;
+    @JoinColumn(name = "official_document_id", referencedColumnName = "off_doc_id")
+    @ManyToOne
+    private MasterOfficialDocument officialDocumentId;
     @JoinColumn(name = "nation_id", referencedColumnName = "nation_id")
     @ManyToOne
     private MasterNationality nationId;
@@ -647,6 +650,62 @@ public class MemberCustomer implements Serializable {
         this.matchingUse = matchingUse;
     }
 
+    public String getProvinceStr() {
+        return provinceStr;
+    }
+
+    public void setProvinceStr(String provinceStr) {
+        this.provinceStr = provinceStr;
+    }
+
+    public String getAmphurStr() {
+        return amphurStr;
+    }
+
+    public void setAmphurStr(String amphurStr) {
+        this.amphurStr = amphurStr;
+    }
+
+    public String getDistrictStr() {
+        return districtStr;
+    }
+
+    public void setDistrictStr(String districtStr) {
+        this.districtStr = districtStr;
+    }
+
+    public String getPostCodeStr() {
+        return postCodeStr;
+    }
+
+    public void setPostCodeStr(String postCodeStr) {
+        this.postCodeStr = postCodeStr;
+    }
+
+    public byte[] getImageMember() {
+        return imageMember;
+    }
+
+    public void setImageMember(byte[] imageMember) {
+        this.imageMember = imageMember;
+    }
+
+    public String getImageMemberName() {
+        return imageMemberName;
+    }
+
+    public void setImageMemberName(String imageMemberName) {
+        this.imageMemberName = imageMemberName;
+    }
+
+    public MasterOfficialDocument getOfficialDocumentId() {
+        return officialDocumentId;
+    }
+
+    public void setOfficialDocumentId(MasterOfficialDocument officialDocumentId) {
+        this.officialDocumentId = officialDocumentId;
+    }
+
     public MasterNationality getNationId() {
         return nationId;
     }
@@ -663,55 +722,7 @@ public class MemberCustomer implements Serializable {
         this.positionId = positionId;
     }
 
-    public String getProvinceStr() {
-		return provinceStr;
-	}
-
-	public void setProvinceStr(String provinceStr) {
-		this.provinceStr = provinceStr;
-	}
-
-	public String getAmphurStr() {
-		return amphurStr;
-	}
-
-	public void setAmphurStr(String amphurStr) {
-		this.amphurStr = amphurStr;
-	}
-
-	public String getDistrictStr() {
-		return districtStr;
-	}
-
-	public void setDistrictStr(String districtStr) {
-		this.districtStr = districtStr;
-	}
-
-	public String getPostCodeStr() {
-		return postCodeStr;
-	}
-
-	public void setPostCodeStr(String postCodeStr) {
-		this.postCodeStr = postCodeStr;
-	}
-	
-	public byte[] getImageMember() {
-        return imageMember;
-    }
-
-    public void setImageMember(byte[] imageMember) {
-        this.imageMember = imageMember;
-    }
-
-    public String getImageMemberName() {
-        return imageMemberName;
-    }
-
-    public void setImageMemberName(String imageMemberName) {
-        this.imageMemberName = imageMemberName;
-    }
-
-	@Override
+    @Override
     public int hashCode() {
         int hash = 0;
         hash += (customerId != null ? customerId.hashCode() : 0);

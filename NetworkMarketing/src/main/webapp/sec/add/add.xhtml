@@ -145,10 +145,23 @@
 
 
 							<div style="width: 40px;"></div>
+							<h:panelGrid columns="3">
+								<h:outputText
+									value="#{app_msgs['label.pageAddMember.personalIdPassport']}" />
+								<h:outputText style="COLOR: #ff0000;"
+									value="#{customerController.starPersonalId}"
+									id="starPersonalId" />
+								<h:selectOneMenu value="#{customerController.officialDocumentId}">
+									<a4j:ajax event="change" render="starPersonalId,editProfileId"
+										listener="#{customerController.onKeypress}" />
+									<f:selectItems
+										value="#{customerController.officialDocumentList}" var="item"
+										itemLabel="#{item.thLabel}" itemValue="#{item.intKey}"></f:selectItems>
+								</h:selectOneMenu>
+							</h:panelGrid>
+
 							<h:outputText
-								value="#{app_msgs['label.pageAddMember.personalIdPassport']}" />
-							<h:outputText style="COLOR: #ff0000;"
-								value="#{customerController.starPersonalId}" id="starPersonalId" />
+								value="#{app_msgs['label.pageAddMember.no']}" />
 							<h:inputText value="#{customerController.personalId}"
 								maxlength="100">
 								<a4j:ajax event="keyup" render="starPersonalId,saveId"
