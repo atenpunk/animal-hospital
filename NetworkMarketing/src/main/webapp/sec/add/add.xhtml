@@ -187,7 +187,8 @@
 								value="#{app_msgs['label.pageAddMember.nameOrCompany']}" />
 							<h:inputText value="#{customerController.firstName}"
 								maxlength="100" style=" width : 250px;">
-								<a4j:ajax event="keyup" render="starName,panelSaveId,panelBankAccId"
+								<a4j:ajax event="keyup"
+									render="starName,panelSaveId,panelBankAccId"
 									listener="#{customerController.onKeypress()}" />
 							</h:inputText>
 							<h:outputText style="COLOR: #ff0000;"
@@ -515,68 +516,64 @@
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.otherDetail']}" />
 						</f:facet>
-						<h:panelGrid columns="2">
-							<h:outputText
-								value="#{app_msgs['label.pageAddMember.receiveDocument']}" />
-							<h:selectOneRadio value="#{customerController.receiveDocument}">
-								<f:selectItem itemValue="1"
-									itemLabel="#{app_msgs['label.pageAddMember.delivery']}" />
-								<f:selectItem itemValue="2"
-									itemLabel="#{app_msgs['label.pageAddMember.pickup']}" />
-							</h:selectOneRadio>
-						</h:panelGrid>
-						<h:panelGrid columns="5">
-							<h:outputText
-								value="#{app_msgs['label.pageAddMember.documentFully']}" />
-							<h:outputText style="COLOR: #ff0000;"
-								value="#{customerController.starDocumentFully}"
-								id="starDocumentFully" />
-							<h:selectBooleanCheckbox
-								value="#{customerController.chkDocumentFully}">
-								<a4j:ajax event="click" render="appDay,panelRecommendId"
-									listener="#{customerController.checkDocumentRegis}"></a4j:ajax>
-							</h:selectBooleanCheckbox>
+						<h:panelGrid columns="3" id="panelDocumentId">
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.application']}" />
-							<a4j:outputPanel id="appDay" layout="block">
-								<rich:calendar style=" width : 90px;"
-									disabled="#{not customerController.chkDocumentFully}"
-									value="#{customerController.dateDocumentFully}"
-									datePattern="dd/MM/yyyy" />
-							</a4j:outputPanel>
+							<h:outputText
+								rendered="#{customerController.uploadedApplication eq null}"
+								value="" />
+							<h:commandLink
+								rendered="#{customerController.uploadedApplication ne null}"
+								value="Export" style="width:100px"
+								action="#{customerController.exportDocumentApplication()}"
+								target="tab" />
+							<rich:fileUpload style="width:350px;height:30px" addLabel="#{app_msgs['label.pageAddMember.selectFile']}"
+							uploadLabel="#{app_msgs['label.pageAddMember.uploadFile']}" clearAllLabel="#{app_msgs['label.pageAddMember.clearFile']}"
+								fileUploadListener="#{customerController.listenerUploadAppication}"
+								id="uploadAppId" acceptedTypes=".jpg, .gif, .png, .bmp, .pdf"
+								ontyperejected="alert('Only PDF, JPG, GIF, PNG and BMP files are accepted');"
+								maxFilesQuantity="1">
+								<a4j:ajax event="uploadcomplete" render="panelDocumentId" />
+							</rich:fileUpload>
 
-							<h:outputText value="" />
-							<h:outputText value="" />
-							<h:selectBooleanCheckbox
-								value="#{customerController.chkCopyPersonalCard}">
-								<a4j:ajax event="click"
-									render="personalCardDay,panelRecommendId"
-									listener="#{customerController.checkDocumentPersonalCard}"></a4j:ajax>
-							</h:selectBooleanCheckbox>
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.copyPersonalCard']}" />
-							<a4j:outputPanel id="personalCardDay" layout="block">
-								<rich:calendar style=" width : 90px;"
-									disabled="#{not customerController.chkCopyPersonalCard}"
-									value="#{customerController.dateCopyPersonalCard}"
-									datePattern="dd/MM/yyyy" />
-							</a4j:outputPanel>
+							<h:outputText
+								rendered="#{customerController.uploadedIdCard eq null}"
+								value="" />
+							<h:commandLink
+								rendered="#{customerController.uploadedIdCard ne null}"
+								value="Export" style="width:100px"
+								action="#{customerController.exportDocumentIdCard()}"
+								target="tab" />
+							<rich:fileUpload style="width:350px;height:30px" addLabel="#{app_msgs['label.pageAddMember.selectFile']}"
+							uploadLabel="#{app_msgs['label.pageAddMember.uploadFile']}" clearAllLabel="#{app_msgs['label.pageAddMember.clearFile']}"
+								fileUploadListener="#{customerController.listenerUploadIdCard}"
+								id="uploadPersonalId"
+								acceptedTypes=".jpg, .gif, .png, .bmp, .pdf"
+								ontyperejected="alert('Only PDF, JPG, GIF, PNG and BMP files are accepted');"
+								maxFilesQuantity="1">
+								<a4j:ajax event="uploadcomplete" render="panelDocumentId" />
+							</rich:fileUpload>
 
-							<h:outputText value="" />
-							<h:outputText value="" />
-							<h:selectBooleanCheckbox
-								value="#{customerController.chkCopyBookBank}">
-								<a4j:ajax event="click" render="bookBankDay,panelRecommendId"
-									listener="#{customerController.checkDocumentBookBank}"></a4j:ajax>
-							</h:selectBooleanCheckbox>
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.copyBookBank']}" />
-							<a4j:outputPanel id="bookBankDay" layout="block">
-								<rich:calendar style=" width : 90px;"
-									disabled="#{not customerController.chkCopyBookBank}"
-									value="#{customerController.dateCopyBookBank}"
-									datePattern="dd/MM/yyyy" />
-							</a4j:outputPanel>
+							<h:outputText
+								rendered="#{customerController.uploadedBookBank eq null}"
+								value="" />
+							<h:commandLink
+								rendered="#{customerController.uploadedBookBank ne null}"
+								value="Export" style="width:100px"
+								action="#{customerController.exportDocumentBookBank()}"
+								target="tab" />
+							<rich:fileUpload style="width:350px;height:30px" addLabel="#{app_msgs['label.pageAddMember.selectFile']}"
+							uploadLabel="#{app_msgs['label.pageAddMember.uploadFile']}" clearAllLabel="#{app_msgs['label.pageAddMember.clearFile']}"
+								fileUploadListener="#{customerController.listenerUploadBookBank}"
+								id="uploadBankId" acceptedTypes=".jpg, .gif, .png, .bmp, .pdf"
+								ontyperejected="alert('Only PDF, JPG, GIF, PNG and BMP files are accepted');"
+								maxFilesQuantity="1">
+								<a4j:ajax event="uploadcomplete" render="panelDocumentId" />
+							</rich:fileUpload>
 						</h:panelGrid>
 					</rich:panel>
 

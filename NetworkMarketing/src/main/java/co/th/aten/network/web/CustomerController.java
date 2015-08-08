@@ -1,5 +1,6 @@
 package co.th.aten.network.web;
 
+import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -18,6 +19,12 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import net.sf.jasperreports.j2ee.servlets.ImageServlet;
 
 import org.jboss.seam.international.status.MessageFactory;
 import org.jboss.seam.international.status.Messages;
@@ -43,6 +50,7 @@ import co.th.aten.network.model.DropDownModel;
 import co.th.aten.network.model.TeamBinaryReportModel;
 import co.th.aten.network.model.UploadedImage;
 import co.th.aten.network.producer.DBDefault;
+import co.th.aten.network.report.AbstractReport;
 import co.th.aten.network.security.annotation.Authenticated;
 import co.th.aten.network.util.HashUtil;
 import co.th.aten.network.util.StringUtil;
@@ -71,6 +79,8 @@ public class CustomerController implements Serializable{
 	private MessageFactory factory;
 	@Inject
 	private Messages messages;
+	@Inject
+	private FacesContext facesContext;
 
 	@Inject
 	@DBDefault
@@ -209,14 +219,6 @@ public class CustomerController implements Serializable{
 	private String accNo;
 	private String accName;
 	private String remark;
-	private int receiveDocument;
-	private String starDocumentFully;
-	private boolean chkDocumentFully;
-	private Date dateDocumentFully;
-	private boolean chkCopyPersonalCard;
-	private Date dateCopyPersonalCard;
-	private boolean chkCopyBookBank;
-	private Date dateCopyBookBank;
 
 	private long upperLineId;
 	private long flagUnder;
@@ -224,6 +226,10 @@ public class CustomerController implements Serializable{
 	private boolean chkSameAddress;
 	// image member
 	private UploadedImage uploadedImage;
+	// document
+	private UploadedImage uploadedApplication;
+	private UploadedImage uploadedIdCard;
+	private UploadedImage uploadedBookBank;
 	// ######################## ADD MEMBER #########################
 
 	@PostConstruct
@@ -1412,9 +1418,6 @@ public class CustomerController implements Serializable{
 				model.setFlagImg01("none");
 				model.setFlagImg02("none");
 				model.setFlagImg03("block");
-				model.setDateDocumentFully(customer.getDateDocumentFully());
-				model.setDateCopyPersonalCard(customer.getDateCopyPersonalCard());
-				model.setDateCopyBookBank(customer.getDateCopyBookBank());
 				List<DetailModel> detailModelList = new ArrayList<DetailModel>();
 				DetailModel detailModel = new DetailModel();
 				detailModel.setText("PV สะสม");
@@ -1463,8 +1466,8 @@ public class CustomerController implements Serializable{
 			starMobile = "*";
 			chkNationality = true;
 			regisDate = new Date();
-
 			accType = 1;
+			
 			MemberCustomer customerUpper = em.find(MemberCustomer.class, new Integer(new BigDecimal(upperLineId).intValue()));
 			if(customerUpper!=null){
 				upperLineMemberId = customerUpper.getCustomerMember();
@@ -1485,6 +1488,42 @@ public class CustomerController implements Serializable{
 			}
 		}catch(Exception e){
 			log.info("Error paint : "+e.getMessage());
+		}
+	}
+	
+	public void listenerUploadAppication(FileUploadEvent event){
+		try{
+			UploadedFile uploadedFile = event.getUploadedFile();
+			uploadedApplication = new UploadedImage();
+			uploadedApplication.setLength(uploadedFile.getData().length);
+			uploadedApplication.setName(uploadedFile.getName());
+			uploadedApplication.setData(uploadedFile.getData());
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	public void listenerUploadIdCard(FileUploadEvent event){
+		try{
+			UploadedFile uploadedFile = event.getUploadedFile();
+			uploadedIdCard = new UploadedImage();
+			uploadedIdCard.setLength(uploadedFile.getData().length);
+			uploadedIdCard.setName(uploadedFile.getName());
+			uploadedIdCard.setData(uploadedFile.getData());
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	public void listenerUploadBookBank(FileUploadEvent event){
+		try{
+			UploadedFile uploadedFile = event.getUploadedFile();
+			uploadedBookBank = new UploadedImage();
+			uploadedBookBank.setLength(uploadedFile.getData().length);
+			uploadedBookBank.setName(uploadedFile.getName());
+			uploadedBookBank.setData(uploadedFile.getData());
+		}catch(Exception e){
+			e.printStackTrace();
 		}
 	}
 	
@@ -1598,14 +1637,6 @@ public class CustomerController implements Serializable{
 		accNo = "";
 		accName = "";
 		remark = "";
-		receiveDocument = 0;
-		starDocumentFully = "";
-		chkDocumentFully = false;
-		dateDocumentFully = null;
-		chkCopyPersonalCard = false;
-		dateCopyPersonalCard = null;
-		chkCopyBookBank = false;
-		dateCopyBookBank = null;
 		upperLineId = 0;
 		flagUnder = 0;
 		chkSave = false;
@@ -1670,24 +1701,6 @@ public class CustomerController implements Serializable{
 		}
 	}
 
-	public void checkDocumentRegis(){
-		if(!chkDocumentFully){
-			dateDocumentFully = null;
-		}
-	}
-
-	public void checkDocumentPersonalCard(){
-		if(!chkCopyPersonalCard){
-			dateCopyPersonalCard = null;
-		}
-	}
-
-	public void checkDocumentBookBank(){
-		if(!chkCopyBookBank){
-			dateCopyBookBank = null;
-		}
-	}
-
 	public void confirmAddMember(){
 		log.info("##### addCustomer()");
 		log.info("##### user.get().getUserId = "+user.get().getUserId());
@@ -1727,7 +1740,6 @@ public class CustomerController implements Serializable{
 				cus.setTitleName(titleName);
 				cus.setFirstName(firstName);
 				cus.setBusinessName(businessName);
-
 				cus.setSide(side);
 				cus.setSex(sex);
 				cus.setBirthDay(birthDay);
@@ -1753,7 +1765,6 @@ public class CustomerController implements Serializable{
 				cus.setProvinceId(provinceId);
 				cus.setAmphurId(amphurId);
 				cus.setDistrictId(districtId);
-
 				cus.setAddressNoSendDoc(addressNo);
 				cus.setAddressBuildingSendDoc(addressBuilding);
 				cus.setAddressVillageSendDoc(addressVillage);
@@ -1762,7 +1773,6 @@ public class CustomerController implements Serializable{
 				cus.setProvinceIdSendDoc(provinceId);
 				cus.setAmphurIdSendDoc(amphurId);
 				cus.setDistrictIdSendDoc(districtId);
-
 				//				cus.setAddressNoSendDoc(addressNoSendDoc);
 				//				cus.setAddressBuildingSendDoc(addressBuildingSendDoc);
 				//				cus.setAddressVillageSendDoc(addressVillageSendDoc);
@@ -1771,7 +1781,6 @@ public class CustomerController implements Serializable{
 				//				cus.setProvinceIdSendDoc(provinceIdSendDoc);
 				//				cus.setAmphurIdSendDoc(amphurIdSendDoc);
 				//				cus.setDistrictIdSendDoc(districtIdSendDoc);
-
 				cus.setChkSameAddress(chkSameAddress?1:0);
 				cus.setProvinceStr(provinceStr);
 				cus.setAmphurStr(amphurStr);
@@ -1782,6 +1791,18 @@ public class CustomerController implements Serializable{
 					cus.setImageMember(uploadedImage.getData());
 					cus.setImageMemberName(uploadedImage.getName());
 				}
+				if(uploadedApplication!=null){
+					cus.setDocumentApplication(uploadedApplication.getData());
+					cus.setDocumentApplicationName(uploadedApplication.getName());
+				}
+				if(uploadedIdCard!=null){
+					cus.setDocumentIdCard(uploadedIdCard.getData());
+					cus.setDocumentIdCardName(uploadedIdCard.getName());
+				}
+				if(uploadedBookBank!=null){
+					cus.setDocumentBookBank(uploadedBookBank.getData());
+					cus.setDocumentBookBankName(uploadedBookBank.getName());
+				}
 
 				cus.setBankId(bankId);
 				cus.setBankBranch(branch);
@@ -1789,13 +1810,6 @@ public class CustomerController implements Serializable{
 				cus.setBankaccountNo(accNo);
 				cus.setBankaccountName(accName);
 				cus.setRemark(remark);
-				cus.setReceiveDocument(receiveDocument);
-				cus.setChkDocumentFully(chkDocumentFully?1:0);
-				cus.setChkCopyPersonalCard(chkCopyPersonalCard?1:0);
-				cus.setChkCopyBookBank(chkCopyBookBank?1:0);
-				cus.setDateDocumentFully(chkDocumentFully?dateDocumentFully:null);
-				cus.setDateCopyPersonalCard(chkCopyPersonalCard?dateCopyPersonalCard:null);
-				cus.setDateCopyBookBank(chkCopyBookBank?dateCopyBookBank:null);
 
 				cus.setStatus(0);
 				cus.setCreateBy(user.get().getUserId());
@@ -1909,14 +1923,10 @@ public class CustomerController implements Serializable{
 		accNo = "";
 		accName = "";
 		remark = "";
-		receiveDocument = 0;
-		starDocumentFully = "";
-		chkDocumentFully = false;
-		dateDocumentFully = null;
-		chkCopyPersonalCard = false;
-		dateCopyPersonalCard = null;
-		chkCopyBookBank = false;
-		dateCopyBookBank = null;
+		uploadedImage = null;
+		uploadedApplication = null;
+		uploadedIdCard = null;
+		uploadedBookBank = null;
 		upperLineId = 0;
 		flagUnder = 0;
 		chkSave = false;
@@ -1949,6 +1959,97 @@ public class CustomerController implements Serializable{
 			chkSave = false;
 		}
 	}
+	
+	public void exportDocumentApplication() {
+		try {
+			byte[] pdf = uploadedApplication.getData();
+			HttpServletResponse response = (HttpServletResponse) facesContext
+					.getExternalContext().getResponse();
+			String extension = "";
+			int extDot = uploadedApplication.getName().lastIndexOf('.');
+			if (extDot > 0) {
+				extension = uploadedApplication.getName().substring(extDot + 1);
+			}
+			if(extension.equals("pdf")){
+				response.setContentType("application/pdf");
+			}
+			response.setContentLength(pdf.length);
+			response.setHeader("Content-disposition", "inline; filename="
+					+ uploadedApplication.getName() + "."+extension);
+			ServletOutputStream out;
+			out = response.getOutputStream();
+			out.write(pdf);
+			out.flush(); // new
+			out.close();
+			response.flushBuffer();
+			facesContext.responseComplete(); // new
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void exportDocumentIdCard() {
+		try {
+			byte[] pdf = uploadedIdCard.getData();
+			HttpServletResponse response = (HttpServletResponse) facesContext
+					.getExternalContext().getResponse();
+			String extension = "";
+			int extDot = uploadedIdCard.getName().lastIndexOf('.');
+			if (extDot > 0) {
+				extension = uploadedIdCard.getName().substring(extDot + 1);
+			}
+			if(extension.equals("pdf")){
+				response.setContentType("application/pdf");
+			}
+			response.setContentLength(pdf.length);
+			response.setHeader("Content-disposition", "inline; filename="
+					+ uploadedIdCard.getName() + "."+extension);
+			ServletOutputStream out;
+			out = response.getOutputStream();
+			out.write(pdf);
+			out.flush(); // new
+			out.close();
+			response.flushBuffer();
+			facesContext.responseComplete(); // new
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void exportDocumentBookBank() {
+		try {
+			byte[] pdf = uploadedBookBank.getData();
+			HttpServletResponse response = (HttpServletResponse) facesContext
+					.getExternalContext().getResponse();
+			String extension = "";
+			int extDot = uploadedBookBank.getName().lastIndexOf('.');
+			if (extDot > 0) {
+				extension = uploadedBookBank.getName().substring(extDot + 1);
+			}
+			if(extension.equals("pdf")){
+				response.setContentType("application/pdf");
+			}
+			response.setContentLength(pdf.length);
+			response.setHeader("Content-disposition", "inline; filename="
+					+ uploadedBookBank.getName() + "."+extension);
+			ServletOutputStream out;
+			out = response.getOutputStream();
+			out.write(pdf);
+			out.flush(); // new
+			out.close();
+			response.flushBuffer();
+			facesContext.responseComplete(); // new
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	// ########################### ADD MEMBER ##############################
 
 	public List<CustomerModel> getCustomerModelList() {
@@ -2599,70 +2700,6 @@ public class CustomerController implements Serializable{
 		this.remark = remark;
 	}
 
-	public int getReceiveDocument() {
-		return receiveDocument;
-	}
-
-	public void setReceiveDocument(int receiveDocument) {
-		this.receiveDocument = receiveDocument;
-	}
-
-	public String getStarDocumentFully() {
-		return starDocumentFully;
-	}
-
-	public void setStarDocumentFully(String starDocumentFully) {
-		this.starDocumentFully = starDocumentFully;
-	}
-
-	public boolean getChkDocumentFully() {
-		return chkDocumentFully;
-	}
-
-	public void setChkDocumentFully(boolean chkDocumentFully) {
-		this.chkDocumentFully = chkDocumentFully;
-	}
-
-	public Date getDateDocumentFully() {
-		return dateDocumentFully;
-	}
-
-	public void setDateDocumentFully(Date dateDocumentFully) {
-		this.dateDocumentFully = dateDocumentFully;
-	}
-
-	public boolean getChkCopyPersonalCard() {
-		return chkCopyPersonalCard;
-	}
-
-	public void setChkCopyPersonalCard(boolean chkCopyPersonalCard) {
-		this.chkCopyPersonalCard = chkCopyPersonalCard;
-	}
-
-	public Date getDateCopyPersonalCard() {
-		return dateCopyPersonalCard;
-	}
-
-	public void setDateCopyPersonalCard(Date dateCopyPersonalCard) {
-		this.dateCopyPersonalCard = dateCopyPersonalCard;
-	}
-
-	public boolean getChkCopyBookBank() {
-		return chkCopyBookBank;
-	}
-
-	public void setChkCopyBookBank(boolean chkCopyBookBank) {
-		this.chkCopyBookBank = chkCopyBookBank;
-	}
-
-	public Date getDateCopyBookBank() {
-		return dateCopyBookBank;
-	}
-
-	public void setDateCopyBookBank(Date dateCopyBookBank) {
-		this.dateCopyBookBank = dateCopyBookBank;
-	}
-
 	public List<DropDownModel> getProvinceList() {
 		return provinceList;
 	}
@@ -2881,6 +2918,30 @@ public class CustomerController implements Serializable{
 
 	public void setStarMobile(String starMobile) {
 		this.starMobile = starMobile;
+	}
+	
+	public UploadedImage getUploadedApplication() {
+		return uploadedApplication;
+	}
+
+	public void setUploadedApplication(UploadedImage uploadedApplication) {
+		this.uploadedApplication = uploadedApplication;
+	}
+
+	public UploadedImage getUploadedIdCard() {
+		return uploadedIdCard;
+	}
+
+	public void setUploadedIdCard(UploadedImage uploadedIdCard) {
+		this.uploadedIdCard = uploadedIdCard;
+	}
+
+	public UploadedImage getUploadedBookBank() {
+		return uploadedBookBank;
+	}
+
+	public void setUploadedBookBank(UploadedImage uploadedBookBank) {
+		this.uploadedBookBank = uploadedBookBank;
 	}
 
 }
