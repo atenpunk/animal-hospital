@@ -27,10 +27,15 @@
 				</f:facet>
 
 				<h:panelGrid columns="2" width="100%">
-					<rich:panel>
+					<rich:panel style=" width : auto;height:230px;">
+						<f:facet name="header">
+							<h:panelGrid columns="1">
+								<h:outputText value="#{app_msgs['label.sell.memberSell']}" />
+							</h:panelGrid>
+						</f:facet>
 						<table>
 							<tr>
-								<td class="tdOutputScreen"><h:outputText 
+								<td class="tdOutputScreen"><h:outputText
 										value="#{app_msgs['label.menuShopping.dateTime']}" /></td>
 								<td class="tdInputScreen"><h:outputText readonly="true"
 										maxlength="100" value="#{productSellController.dateTime}">
@@ -38,20 +43,130 @@
 									</h:outputText></td>
 							</tr>
 							<tr>
-								<td class="tdOutputScreen"><h:outputText 
+								<td class="tdOutputScreen"><h:outputText
 										value="#{app_msgs['label.menuShopping.memberId']}" /></td>
 								<td class="tdInputScreen"><h:inputText maxlength="100"
-										 value="#{productSellController.memberId}">
+										value="#{productSellController.memberId}">
 										<a4j:ajax event="keyup" render="inputMemberNameId"
 											listener="#{productSellController.onKeypress()}" />
 									</h:inputText></td>
 							</tr>
 							<tr>
-								<td class="tdOutputScreen"><h:outputText 
+								<td class="tdOutputScreen"><h:outputText
 										value="#{app_msgs['label.menuShopping.memberName']}" /></td>
 								<td class="tdInputScreen"><h:outputText
 										id="inputMemberNameId" maxlength="100" readonly="true"
-										 value="#{productSellController.memberName}" /></td>
+										value="#{productSellController.memberName}" /></td>
+							</tr>
+							<tr>
+								<td colspan="2" class="tdInputScreen"><h:selectOneRadio
+										value="#{productSellController.sendStatus}">
+										<f:selectItem itemValue="1"
+											itemLabel="#{app_msgs['label.sell.receive']}" />
+										<f:selectItem itemValue="2"
+											itemLabel="#{app_msgs['label.sell.send']}" />
+									</h:selectOneRadio></td>
+							</tr>
+						</table>
+					</rich:panel>
+					<rich:panel style=" width : auto;height:230px;" id="panelAddressId">
+						<f:facet name="header">
+							<h:panelGrid columns="5">
+								<h:outputText value="#{app_msgs['label.sell.address']}" />
+								&#160;&#160;
+								<h:selectBooleanCheckbox
+									value="#{productSellController.chkUseAddress}">
+									<a4j:ajax event="click" render="panelAddressId"
+										listener="#{productSellController.useAddress}"></a4j:ajax>
+								</h:selectBooleanCheckbox>
+								<h:outputText value="#{app_msgs['label.sell.useAddress']}" />
+							</h:panelGrid>
+						</f:facet>
+						<table>
+							<tr>
+								<td class="tdOutputScreen"><h:outputText
+										value="#{app_msgs['label.pageAddMember.addressNo']}" /></td>
+								<td class="tdInputScreen"><h:inputText maxlength="100"
+										value="#{productSellController.addressNo}">
+									</h:inputText></td>
+								<td class="tdOutputScreen"><h:outputText
+										value="#{app_msgs['label.pageAddMember.addressProvince']}" /></td>
+								<td class="tdInputScreen"><h:selectOneMenu
+										value="#{productSellController.provinceId}"
+										rendered="#{productSellController.chkNationality}"
+										style=" width : 150px;">
+										<a4j:ajax event="change" render="dropDownAmphur"
+											listener="#{productSellController.onChangeProvince}" />
+										<f:selectItems value="#{productSellController.provinceList}"
+											var="item" itemLabel="#{item.thLabel}"
+											itemValue="#{item.intKey}"></f:selectItems>
+									</h:selectOneMenu> <h:inputText maxlength="200"
+										rendered="#{!productSellController.chkNationality}"
+										value="#{productSellController.provinceStr}">
+									</h:inputText></td>
+							</tr>
+							<tr>
+								<td class="tdOutputScreen"><h:outputText
+										value="#{app_msgs['label.pageAddMember.addressBuilding']}" /></td>
+								<td class="tdInputScreen"><h:inputText maxlength="100"
+										value="#{productSellController.addressBuilding}">
+									</h:inputText></td>
+								<td class="tdOutputScreen"><h:outputText
+										value="#{app_msgs['label.pageAddMember.addressAmphur']}" /></td>
+								<td class="tdInputScreen"><h:selectOneMenu
+										value="#{productSellController.amphurId}"
+										rendered="#{productSellController.chkNationality}"
+										id="dropDownAmphur" style=" width : 150px;">
+										<a4j:ajax event="change" render="dropDownDistrict"
+											listener="#{productSellController.onChangeAmphur}" />
+										<f:selectItems value="#{productSellController.amphurList}"
+											var="item" itemLabel="#{item.thLabel}"
+											itemValue="#{item.intKey}"></f:selectItems>
+									</h:selectOneMenu> <h:inputText maxlength="200"
+										rendered="#{!productSellController.chkNationality}"
+										value="#{productSellController.amphurStr}">
+									</h:inputText></td>
+							</tr>
+							<tr>
+								<td class="tdOutputScreen"><h:outputText
+										value="#{app_msgs['label.pageAddMember.addressVillage']}" /></td>
+								<td class="tdInputScreen"><h:inputText maxlength="100"
+										value="#{productSellController.addressVillage}">
+									</h:inputText></td>
+								<td class="tdOutputScreen"><h:outputText
+										value="#{app_msgs['label.pageAddMember.addressDistrict']}" /></td>
+								<td class="tdInputScreen"><h:selectOneMenu
+										value="#{productSellController.districtId}"
+										rendered="#{productSellController.chkNationality}"
+										id="dropDownDistrict" style=" width : 150px;">
+										<a4j:ajax event="change" render="postCodeId"
+											listener="#{productSellController.onChangeDistrict}" />
+										<f:selectItems value="#{productSellController.districtList}"
+											var="item" itemLabel="#{item.thLabel}"
+											itemValue="#{item.intKey}"></f:selectItems>
+									</h:selectOneMenu> <h:inputText maxlength="200"
+										rendered="#{!productSellController.chkNationality}"
+										value="#{productSellController.districtStr}">
+									</h:inputText></td>
+							</tr>
+							<tr>
+								<td class="tdOutputScreen"><h:outputText
+										value="#{app_msgs['label.pageAddMember.addressLane']}" /></td>
+								<td class="tdInputScreen"><h:inputText maxlength="100"
+										value="#{productSellController.addressLane}">
+									</h:inputText></td>
+								<td class="tdOutputScreen"><h:outputText
+										value="#{app_msgs['label.pageAddMember.addressPostCode']}" /></td>
+								<td class="tdInputScreen"><h:inputText maxlength="100"
+										id="postCodeId"
+										value="#{productSellController.addressPostCode}" /></td>
+							</tr>
+							<tr>
+								<td class="tdOutputScreen"><h:outputText
+										value="#{app_msgs['label.pageAddMember.addressRoad']}" /></td>
+								<td class="tdInputScreen"><h:inputText maxlength="100"
+										value="#{productSellController.addressRoad}">
+									</h:inputText></td>
 							</tr>
 						</table>
 					</rich:panel>
@@ -59,16 +174,16 @@
 				<h:panelGrid columns="3">
 					<h:commandButton id="saveSell"
 						disabled="#{productSellController.productSellModelList.size() eq 0}"
-						value="#{app_msgs['button.save']}"
+						value="#{app_msgs['button.sell']}"
 						onclick="return confirmMsg('#{app_msgs['label.sellPage.save']}');"
 						oncomplete="endProgress();"
 						action="#{productSellController.saveOrder}"
-						render="testDataTable,messageId,saveSell" style="width : 100px;"></h:commandButton>
+						render="testDataTable,messageId,saveSell" style="width : 120px;"></h:commandButton>
 
 					<a4j:commandButton id="cancleSell"
 						value="#{app_msgs['button.cancle']}"
 						action="#{productSellController.cancleOrder}"
-						render="testDataTable,messageId,saveSell" style="width : 100px;"></a4j:commandButton>
+						render="testDataTable,messageId,saveSell" style="width : 120px;"></a4j:commandButton>
 					<h:panelGrid id="messageId" columns="1" cellpadding="2"
 						cellspacing="2"
 						style="font-size: 22px;width:100%;text-align:left;">
