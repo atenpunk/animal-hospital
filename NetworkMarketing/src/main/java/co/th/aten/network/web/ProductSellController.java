@@ -127,10 +127,21 @@ public class ProductSellController implements Serializable{
 			memSearch = null;
 			memberId = "";
 			memberName = "";
+			sendStatus = 1;
 			if(currentUser.getCurrentAccount().getCustomerId()!=null){
 				memSearch = currentUser.getCurrentAccount().getCustomerId();
 				memberId = memSearch.getCustomerMember();
 				memberName = customerControl.genNameMenber(memSearch);
+				if(memSearch.getNationId()!=null){
+					if(StringUtil.n2b(memSearch.getNationId().getNationId()) == -1 
+							|| StringUtil.n2b(memSearch.getNationId().getNationId()) == 1){
+						chkNationality = true;
+					}else{
+						chkNationality = false;
+					}
+				}else{
+					chkNationality = true;
+				}
 			}
 			List<StockProduct> productList = em.createQuery("From StockProduct",StockProduct.class).getResultList();
 			if(productList!=null && productList.size()>0){
@@ -154,7 +165,7 @@ public class ProductSellController implements Serializable{
 					productModelList.add(model);
 				}
 			}
-			
+
 			provinceList = new ArrayList<DropDownModel>();
 			List<AddressProvinces> provinList = em.createQuery("From AddressProvinces",AddressProvinces.class).getResultList();
 			if(provinList!=null){
@@ -178,11 +189,118 @@ public class ProductSellController implements Serializable{
 		long endTime = System.currentTimeMillis();
 		log.info("init method ProductSellController Time = "+((endTime-startTime)/1000d)+"s");
 	}
-	
+
 	public void useAddress(){
-		
+		try{
+			if(memSearch!=null && chkUseAddress){
+				addressNo = StringUtil.n2b(memSearch.getAddressNo());
+				addressBuilding = StringUtil.n2b(memSearch.getAddressBuilding());
+				addressVillage = StringUtil.n2b(memSearch.getAddressVillage());
+				addressLane = StringUtil.n2b(memSearch.getAddressLane());
+				addressRoad = StringUtil.n2b(memSearch.getAddressRoad());
+				provinceId = memSearch.getProvinceId()!=null?memSearch.getProvinceId():-1;
+				amphurId = memSearch.getAmphurId()!=null?memSearch.getAmphurId():-1;
+				districtId = memSearch.getDistrictId()!=null?memSearch.getDistrictId():-1;
+				if(districtId!=-1){
+					AddressDistricts addressDistricts = em.find(AddressDistricts.class, new Integer(districtId));
+					if(addressDistricts!=null && addressDistricts.getPostCode()!=null){
+						addressPostCode = StringUtil.n2b(addressDistricts.getPostCode());
+					}else{
+						addressPostCode = StringUtil.n2b(memSearch.getPostCodeStr());
+					}
+				}
+				if(memSearch.getNationId()!=null){
+					if(StringUtil.n2b(memSearch.getNationId().getNationId()) == -1 
+							|| StringUtil.n2b(memSearch.getNationId().getNationId()) == 1){
+						chkNationality = true;
+					}else{
+						chkNationality = false;
+					}
+				}else{
+					chkNationality = true;
+				}
+				provinceStr = StringUtil.n2b(memSearch.getProvinceStr());
+				amphurStr = StringUtil.n2b(memSearch.getAmphurStr());
+				districtStr = StringUtil.n2b(memSearch.getDistrictStr());				
+				provinceList = new ArrayList<DropDownModel>();
+				List<AddressProvinces> provinList = em.createQuery("From AddressProvinces",AddressProvinces.class).getResultList();
+				if(provinList!=null){
+					for(AddressProvinces provin:provinList){
+						DropDownModel model = new DropDownModel();
+						model.setIntKey(provin.getProvinceId());
+						model.setThLabel(provin.getProvinceName());
+						model.setEnLabel(provin.getProvinceNameEng());
+						provinceList.add(model);
+					}
+					DropDownModel model = new DropDownModel();
+					model.setIntKey(-1);
+					model.setThLabel("");
+					model.setEnLabel("");
+					provinceList.add(0,model);
+				}
+				amphurList = new ArrayList<DropDownModel>();
+				List<AddressAmphures> dataList = em.createQuery("From AddressAmphures Where provinceId=:provinceId"
+						,AddressAmphures.class)
+						.setParameter("provinceId", provinceId)
+						.getResultList();
+				if(dataList!=null){
+					for(AddressAmphures data:dataList){
+						DropDownModel model = new DropDownModel();
+						model.setIntKey(data.getAmphurId());
+						model.setThLabel(data.getAmphurName());
+						model.setEnLabel(data.getAmphurNameEng());
+						amphurList.add(model);
+					}
+					DropDownModel model = new DropDownModel();
+					model.setIntKey(-1);
+					model.setThLabel("");
+					model.setEnLabel("");
+					amphurList.add(0,model);
+				}
+				districtList = new ArrayList<DropDownModel>();
+				List<AddressDistricts> dataDisList = em.createQuery("From AddressDistricts " +
+						" Where amphurId=:amphurId " +
+						" And provinceId=:provinceId "
+						,AddressDistricts.class)
+						.setParameter("amphurId", amphurId)
+						.setParameter("provinceId", provinceId)
+						.getResultList();
+				if(dataDisList!=null){
+					for(AddressDistricts data:dataDisList){
+						DropDownModel model = new DropDownModel();
+						model.setIntKey(data.getDistrictId());
+						model.setThLabel(data.getDistrictName());
+						model.setEnLabel(data.getDistrictNameEng());
+						districtList.add(model);
+					}
+					DropDownModel model = new DropDownModel();
+					model.setIntKey(-1);
+					model.setThLabel("");
+					model.setEnLabel("");
+					districtList.add(0,model);
+				}
+			}else{
+				chkNationality = true;;
+				addressNo = "";
+				addressBuilding = "";
+				addressVillage = "";
+				addressLane = "";
+				addressRoad = "";
+				provinceId = -1;
+				amphurId = -1;
+				districtId = -1;
+				addressPostCode = "";
+				provinceStr = "";
+				amphurStr = "";
+				districtStr = "";
+				amphurList = null;
+				districtList = null;
+			}
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}
 	}
-	
+
 	public void onChangeProvince(){
 		amphurList = new ArrayList<DropDownModel>();
 		if(provinceId!=-1){
@@ -387,77 +505,105 @@ public class ProductSellController implements Serializable{
 	public void saveOrder(){
 		try{
 			if(StringUtil.n2b(currentUser.getCurrentAccount().getCustomerId().geteMoney()).doubleValue() >= totalPrice){
-				if(memSearch!=null && productSellModelList!=null && productSellModelList.size()>0){
-					TransactionSellHeader trxSellHeader = new TransactionSellHeader();
-					trxSellHeader.setTrxHeaderDatetime(new Date());
-					trxSellHeader.setReceiptNo(transactionReceiptControl.generateReceiptNo());
-					trxSellHeader.setCustomerId(memSearch.getCustomerId());
-					trxSellHeader.setTotalPrice(new BigDecimal(totalPrice));
-					trxSellHeader.setTotalPv(new BigDecimal(totalPv));
-					trxSellHeader.setTotalBv(new BigDecimal(0));
-					trxSellHeader.setRemark(null);
-					trxSellHeader.setTrxHeaderStatus(new Integer(1));
-					trxSellHeader.setTrxHeaderFlag(new Integer(0));
-					trxSellHeader.setCreateBy(currentUser.getCurrentAccount().getUserId());
-					trxSellHeader.setCreateDate(new Date());
-					trxSellHeader.setUpdateBy(currentUser.getCurrentAccount().getUserId());
-					trxSellHeader.setUpdateDate(new Date());
-					em.persist(trxSellHeader);
-					for(ProductModel proModel:productSellModelList){
-						TransactionSellDetail trxDetail = new TransactionSellDetail();
-						trxDetail.setTrxHeaderId(trxSellHeader.getTrxHeaderId().intValue());
-						trxDetail.setProductId(proModel.getProductId());
-						trxDetail.setCatalogId(proModel.getCatalogId());
-						trxDetail.setPrice(new BigDecimal(proModel.getPrice()));
-						trxDetail.setPv(new BigDecimal(proModel.getPv()));
-						trxDetail.setBv(new BigDecimal(proModel.getBv()));
-						trxDetail.setQty(new Integer(proModel.getQty()));
-						trxDetail.setQtyAssign(new Integer(proModel.getQty()));
-						trxDetail.setTotalPrice(new BigDecimal(proModel.getTotalPrice()));
-						trxDetail.setTotalPv(new BigDecimal(proModel.getTotalPv()));
-						trxDetail.setTotalBv(new BigDecimal(proModel.getTotalBv()));
-						trxDetail.setRemark(null);
-						trxDetail.setTrxDetailStatus(new Character('0'));
-						trxDetail.setTrxDetailFlag(new Character('0'));
-						trxDetail.setCreateBy(currentUser.getCurrentAccount().getUserId());
-						trxDetail.setCreateDate(new Date());
-						trxDetail.setUpdateBy(currentUser.getCurrentAccount().getUserId());
-						trxDetail.setUpdateDate(new Date());
-						em.persist(trxDetail);
+				boolean chkAddressNull = false;
+				if(sendStatus==2){
+					if(chkNationality 
+							&& provinceId!=-1 
+							&& amphurId!=-1
+							&& districtId!=-1
+							&& addressPostCode!=null
+							&& addressPostCode.length()>0){
+						chkAddressNull = true;
 					}
-					
-					TransactionMoney trxMoney = new TransactionMoney();
-					trxMoney.setTrxMoneyDatetime(new Date());
-					trxMoney.setCustomerId(currentUser.getCurrentAccount().getCustomerId().getCustomerId());
-					trxMoney.setAmount(new BigDecimal(StringUtil.n2b(totalPrice)));
-					TransactionMoneyStatus trxStatus = em.find(TransactionMoneyStatus.class, new Integer(3));
-					trxMoney.setTrxMoneyStatus(trxStatus.getStatusId());// buy (-)
-					trxMoney.setTrxMoneyFlag(new Integer(0));
-					trxMoney.setRemark(trxStatus.getStatusDesc());
-					trxMoney.setCreateBy(currentUser.getCurrentAccount().getUserId());
-					trxMoney.setCreateDate(new Date());
-					trxMoney.setUpdateBy(currentUser.getCurrentAccount().getUserId());
-					trxMoney.setUpdateDate(new Date());
-					double moneyTransferOld = StringUtil.n2b(currentUser.getCurrentAccount().getCustomerId().geteMoney()).doubleValue();
-					currentUser.getCurrentAccount().getCustomerId().seteMoney(new BigDecimal(moneyTransferOld-StringUtil.n2b(totalPrice)));
-					currentUser.getCurrentAccount().getCustomerId().setUpdateBy(currentUser.getCurrentAccount().getUserId());
-					currentUser.getCurrentAccount().getCustomerId().setUpdateDate(new Date());
-					trxMoney.setBalance(currentUser.getCurrentAccount().getCustomerId().geteMoney());
-					em.persist(trxMoney);
-					em.merge(currentUser.getCurrentAccount().getCustomerId());
-					
-					productSellModelList = new ArrayList<ProductModel>();
-					totalPrice = 0;
-					totalPv = 0;
-					messages.info(new AppBundleKey("info.label.sell.completeSell",FacesContext.getCurrentInstance().getViewRoot().getLocale().getLanguage()));
+					if(!chkNationality
+							&& provinceStr!=null
+							&& provinceStr.length()>0
+							&& amphurStr!=null
+							&& amphurStr.length()>0
+							&& districtStr!=null
+							&& districtStr.length()>0
+							&& addressPostCode!=null
+							&& addressPostCode.length()>0){
+						chkAddressNull = true;
+					}
 				}else{
-					// Message page
-					if(memSearch==null){
-						messages.error(new AppBundleKey("error.label.sell.notFoundMember",FacesContext.getCurrentInstance().getViewRoot().getLocale().getLanguage()));
+					chkAddressNull = true;
+				}
+				if(chkAddressNull){
+					if(memSearch!=null && productSellModelList!=null && productSellModelList.size()>0){
+						TransactionSellHeader trxSellHeader = new TransactionSellHeader();
+						trxSellHeader.setTrxHeaderDatetime(new Date());
+						trxSellHeader.setReceiptNo(transactionReceiptControl.generateReceiptNo());
+						trxSellHeader.setCustomerId(memSearch.getCustomerId());
+						trxSellHeader.setTotalPrice(new BigDecimal(totalPrice));
+						trxSellHeader.setTotalPv(new BigDecimal(totalPv));
+						trxSellHeader.setTotalBv(new BigDecimal(0));
+						trxSellHeader.setRemark(null);
+						trxSellHeader.setTrxHeaderStatus(new Integer(1));
+						trxSellHeader.setTrxHeaderFlag(new Integer(0));
+						trxSellHeader.setCreateBy(currentUser.getCurrentAccount().getUserId());
+						trxSellHeader.setCreateDate(new Date());
+						trxSellHeader.setUpdateBy(currentUser.getCurrentAccount().getUserId());
+						trxSellHeader.setUpdateDate(new Date());
+						em.persist(trxSellHeader);
+						for(ProductModel proModel:productSellModelList){
+							TransactionSellDetail trxDetail = new TransactionSellDetail();
+							trxDetail.setTrxHeaderId(trxSellHeader.getTrxHeaderId().intValue());
+							trxDetail.setProductId(proModel.getProductId());
+							trxDetail.setCatalogId(proModel.getCatalogId());
+							trxDetail.setPrice(new BigDecimal(proModel.getPrice()));
+							trxDetail.setPv(new BigDecimal(proModel.getPv()));
+							trxDetail.setBv(new BigDecimal(proModel.getBv()));
+							trxDetail.setQty(new Integer(proModel.getQty()));
+							trxDetail.setQtyAssign(new Integer(proModel.getQty()));
+							trxDetail.setTotalPrice(new BigDecimal(proModel.getTotalPrice()));
+							trxDetail.setTotalPv(new BigDecimal(proModel.getTotalPv()));
+							trxDetail.setTotalBv(new BigDecimal(proModel.getTotalBv()));
+							trxDetail.setRemark(null);
+							trxDetail.setTrxDetailStatus(new Character('0'));
+							trxDetail.setTrxDetailFlag(new Character('0'));
+							trxDetail.setCreateBy(currentUser.getCurrentAccount().getUserId());
+							trxDetail.setCreateDate(new Date());
+							trxDetail.setUpdateBy(currentUser.getCurrentAccount().getUserId());
+							trxDetail.setUpdateDate(new Date());
+							em.persist(trxDetail);
+						}
+
+						TransactionMoney trxMoney = new TransactionMoney();
+						trxMoney.setTrxMoneyDatetime(new Date());
+						trxMoney.setCustomerId(currentUser.getCurrentAccount().getCustomerId().getCustomerId());
+						trxMoney.setAmount(new BigDecimal(StringUtil.n2b(totalPrice)));
+						TransactionMoneyStatus trxStatus = em.find(TransactionMoneyStatus.class, new Integer(3));
+						trxMoney.setTrxMoneyStatus(trxStatus.getStatusId());// buy (-)
+						trxMoney.setTrxMoneyFlag(new Integer(0));
+						trxMoney.setRemark(trxStatus.getStatusDesc());
+						trxMoney.setCreateBy(currentUser.getCurrentAccount().getUserId());
+						trxMoney.setCreateDate(new Date());
+						trxMoney.setUpdateBy(currentUser.getCurrentAccount().getUserId());
+						trxMoney.setUpdateDate(new Date());
+						double moneyTransferOld = StringUtil.n2b(currentUser.getCurrentAccount().getCustomerId().geteMoney()).doubleValue();
+						currentUser.getCurrentAccount().getCustomerId().seteMoney(new BigDecimal(moneyTransferOld-StringUtil.n2b(totalPrice)));
+						currentUser.getCurrentAccount().getCustomerId().setUpdateBy(currentUser.getCurrentAccount().getUserId());
+						currentUser.getCurrentAccount().getCustomerId().setUpdateDate(new Date());
+						trxMoney.setBalance(currentUser.getCurrentAccount().getCustomerId().geteMoney());
+						em.persist(trxMoney);
+						em.merge(currentUser.getCurrentAccount().getCustomerId());
+
+						productSellModelList = new ArrayList<ProductModel>();
+						totalPrice = 0;
+						totalPv = 0;
+						messages.info(new AppBundleKey("info.label.sell.completeSell",FacesContext.getCurrentInstance().getViewRoot().getLocale().getLanguage()));
 					}else{
-						messages.error(new AppBundleKey("error.label.sell.sellModelNull",FacesContext.getCurrentInstance().getViewRoot().getLocale().getLanguage()));
-					}
-				}		
+						// Message page
+						if(memSearch==null){
+							messages.error(new AppBundleKey("error.label.sell.notFoundMember",FacesContext.getCurrentInstance().getViewRoot().getLocale().getLanguage()));
+						}else{
+							messages.error(new AppBundleKey("error.label.sell.sellModelNull",FacesContext.getCurrentInstance().getViewRoot().getLocale().getLanguage()));
+						}
+					}		
+				}else{
+					messages.error(new AppBundleKey("error.label.sell.inputAddress",FacesContext.getCurrentInstance().getViewRoot().getLocale().getLanguage()));
+				}				
 			}else{
 				messages.error(new AppBundleKey("error.label.sell.notEnoughMoney",FacesContext.getCurrentInstance().getViewRoot().getLocale().getLanguage()));
 			}
@@ -685,5 +831,5 @@ public class ProductSellController implements Serializable{
 	public void setSendStatus(int sendStatus) {
 		this.sendStatus = sendStatus;
 	}
-	
+
 }
