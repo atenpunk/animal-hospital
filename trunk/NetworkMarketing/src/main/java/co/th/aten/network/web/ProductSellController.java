@@ -18,6 +18,7 @@ import org.jboss.seam.international.status.MessageFactory;
 import org.jboss.seam.international.status.Messages;
 import org.jboss.solder.logging.Logger;
 
+import co.th.aten.network.control.CustomerControl;
 import co.th.aten.network.control.TransactionReceiptControl;
 import co.th.aten.network.entity.MemberCustomer;
 import co.th.aten.network.entity.StockCatalog;
@@ -53,6 +54,8 @@ public class ProductSellController implements Serializable{
 	private MessageFactory factory;
 	@Inject
 	private Messages messages;
+	@Inject
+	private CustomerControl customerControl;
 	@Inject
 	@DBDefault
 	private EntityManager em;
@@ -105,7 +108,7 @@ public class ProductSellController implements Serializable{
 			if(currentUser.getCurrentAccount().getCustomerId()!=null){
 				memSearch = currentUser.getCurrentAccount().getCustomerId();
 				memberId = memSearch.getCustomerMember();
-				memberName = StringUtil.n2b(memSearch.getTitleName())+StringUtil.n2b(memSearch.getFirstName())+" "+StringUtil.n2b(memSearch.getLastName());
+				memberName = customerControl.genNameMenber(memSearch);
 			}
 			List<StockProduct> productList = em.createQuery("From StockProduct",StockProduct.class).getResultList();
 			if(productList!=null && productList.size()>0){
@@ -197,7 +200,7 @@ public class ProductSellController implements Serializable{
 			if(memberId!=null && memberId.length()==7){
 				memSearch = (MemberCustomer)em.createQuery("From MemberCustomer Where customerMember =:customerMember ")
 						.setParameter("customerMember", memberId).getSingleResult();
-				memberName = StringUtil.n2b(memSearch.getTitleName())+StringUtil.n2b(memSearch.getFirstName())+" "+StringUtil.n2b(memSearch.getLastName());
+				memberName = customerControl.genNameMenber(memSearch);
 			}else{
 				memberName = "";
 			}

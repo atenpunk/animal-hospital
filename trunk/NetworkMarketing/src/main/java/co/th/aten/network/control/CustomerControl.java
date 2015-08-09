@@ -8,9 +8,11 @@ import javax.inject.Inject;
 import org.jboss.seam.security.Identity;
 import org.jboss.solder.logging.Logger;
 
+import co.th.aten.network.entity.MemberCustomer;
 import co.th.aten.network.entity.UserLogin;
 import co.th.aten.network.security.Restrictions;
 import co.th.aten.network.security.annotation.Authenticated;
+import co.th.aten.network.util.StringUtil;
 
 
 public class CustomerControl implements Serializable {
@@ -47,6 +49,16 @@ public class CustomerControl implements Serializable {
 	
 	public String getAddressByMemberId(int memberId){
 		return customerStore.getAddressByMemberId(memberId);
+	}
+	
+	public String genNameMenber(MemberCustomer member){
+		String name = "";
+		if(member.getShowNameStatus()!=null && member.getShowNameStatus()==2){
+			name = StringUtil.n2b(member.getBusinessName());
+		}else{
+			name = StringUtil.n2b(member.getTitleName())+StringUtil.n2b(member.getFirstName());
+		}
+		return name;
 	}
 	
 }

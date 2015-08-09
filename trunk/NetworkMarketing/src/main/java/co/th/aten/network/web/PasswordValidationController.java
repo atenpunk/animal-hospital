@@ -15,6 +15,7 @@ import org.jboss.seam.international.status.Messages;
 import org.jboss.seam.security.Identity;
 import org.jboss.solder.logging.Logger;
 
+import co.th.aten.network.control.CustomerControl;
 import co.th.aten.network.entity.UserLogin;
 import co.th.aten.network.i18n.AppBundleKey;
 import co.th.aten.network.producer.DBDefault;
@@ -37,6 +38,8 @@ public class PasswordValidationController implements Serializable{
 	@Inject
 	@Authenticated
 	private Instance<UserLogin> user;
+	@Inject
+	private CustomerControl customerControl;
 
 	@Inject
 	@DBDefault
@@ -66,11 +69,7 @@ public class PasswordValidationController implements Serializable{
 		chkSuccess = false;
 		if(user.get().getCustomerId()!=null){
 			memberId = user.get().getCustomerId().getCustomerMember();
-			memberName = StringUtil.n2b(user.get().getCustomerId().getTitleName())
-					+ " "
-					+ StringUtil.n2b(user.get().getCustomerId().getFirstName())
-					+ " "
-					+ StringUtil.n2b(user.get().getCustomerId().getLastName());
+			memberName = customerControl.genNameMenber(user.get().getCustomerId());
 		}
 	}
 

@@ -15,6 +15,7 @@ import org.jboss.seam.international.status.Messages;
 import org.jboss.solder.logging.Logger;
 import org.richfaces.component.SortOrder;
 
+import co.th.aten.network.control.CustomerControl;
 import co.th.aten.network.entity.MemberCustomer;
 import co.th.aten.network.entity.MemberPosition;
 import co.th.aten.network.entity.MemberSide;
@@ -41,6 +42,8 @@ public class SuggestReportController implements Serializable{
 	private Messages messages;
 	@Inject
 	private CurrentUserManager currentUser;
+	@Inject
+	private CustomerControl customerControl;
 	@Inject
 	@DBDefault
 	private EntityManager em;
@@ -221,7 +224,7 @@ public class SuggestReportController implements Serializable{
 		model.setIndex(index);
 		model.setCustomerId(StringUtil.n2b(memSearch.getCustomerId()));
 		model.setCustomerCode(memSearch.getCustomerMember());
-		model.setCustomerName(memSearch.getFirstName());
+		model.setCustomerName(customerControl.genNameMenber(memSearch));
 		model.setRegisDate(memSearch.getRegisDate());
 		if(memSearch.getPositionId()!=null){
 			model.setPosition(StringUtil.n2b(memSearch.getPositionId().getEnName()));

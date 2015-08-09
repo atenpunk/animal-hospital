@@ -76,7 +76,7 @@ public class ProductTrxController implements Serializable {
 					if(customer!=null){
 						model.setMemberId(customer.getCustomerId().intValue());
 						model.setMemberCode(customer.getCustomerMember());
-						model.setMemberName(StringUtil.n2b(customer.getTitleName())+StringUtil.n2b(customer.getFirstName())+" "+StringUtil.n2b(customer.getLastName()));
+						model.setMemberName(customerControl.genNameMenber(customer));
 					}
 					model.setReceiptNo(StringUtil.n2b(trx.getReceiptNo()));
 					model.setTotalPrice(StringUtil.n2b(trx.getTotalPrice()).doubleValue());

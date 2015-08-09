@@ -21,6 +21,7 @@ import net.sf.jasperreports.j2ee.servlets.ImageServlet;
 
 import org.jboss.solder.logging.Logger;
 
+import co.th.aten.network.control.CustomerControl;
 import co.th.aten.network.entity.MemberCustomer;
 import co.th.aten.network.entity.MemberPosition;
 import co.th.aten.network.model.DirectLineReportModel;
@@ -48,6 +49,8 @@ public class DirectLineReportController implements Serializable {
 
 	@Inject
 	private CurrentUserManager currentUser;
+	@Inject
+	private CustomerControl customerControl;
 
 	@Inject
 	private FacesContext facesContext;
@@ -75,8 +78,7 @@ public class DirectLineReportController implements Serializable {
 					DirectLineReportModel model = new DirectLineReportModel();
 					model.setIndex(++index);
 					model.setCustomerId(customer.getCustomerMember());
-					model.setCustomerName(StringUtil.n2b(customer.getTitleName())+StringUtil.n2b(customer.getFirstName())
-							+" "+StringUtil.n2b(customer.getLastName()));
+					model.setCustomerName(customerControl.genNameMenber(customer));
 					if(customer.getPositionId()!=null){
 						model.setPosition(StringUtil.n2b(customer.getPositionId().getEnName()));
 					}

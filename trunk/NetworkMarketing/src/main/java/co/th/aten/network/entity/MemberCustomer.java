@@ -167,6 +167,8 @@ public class MemberCustomer implements Serializable {
     private String documentIdCardName;
     @Column(name = "document_bookBank_name")
     private String documentBookBankName;
+    @Column(name = "show_name_status")
+    private Integer showNameStatus;
     @JoinColumn(name = "nation_id", referencedColumnName = "nation_id")
     @ManyToOne
     private MasterNationality nationId;
@@ -686,6 +688,14 @@ public class MemberCustomer implements Serializable {
 
 	public void setDocumentBookBankName(String documentBookBankName) {
 		this.documentBookBankName = documentBookBankName;
+	}
+
+	public Integer getShowNameStatus() {
+		return showNameStatus;
+	}
+
+	public void setShowNameStatus(Integer showNameStatus) {
+		this.showNameStatus = showNameStatus;
 	}
 
 	public MasterNationality getNationId() {

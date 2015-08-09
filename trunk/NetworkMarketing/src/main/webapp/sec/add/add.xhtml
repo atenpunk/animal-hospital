@@ -208,10 +208,16 @@
 
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.nameBusiness']}" />
-							<h:inputText value="#{customerController.businessName}"
-								maxlength="100" style=" width : 250px;">
+							<h:inputText maxlength="100"
+								value="#{customerController.businessName}"
+								style=" width : 250px;">
+								<a4j:ajax event="keyup"
+									render="starBussinessNameId,editProfileId"
+									listener="#{customerController.onKeypress()}" />
 							</h:inputText>
-							<h:outputText value="" />
+							<h:outputText style="COLOR: #ff0000;"
+								value="#{customerController.starBusinessName}"
+								id="starBussinessNameId" />
 
 							<div style="width: 40px;"></div>
 
@@ -222,6 +228,21 @@
 							</h:inputText>
 							<h:outputText style="COLOR: #ff0000;"
 								value="#{customerController.starMobile}" id="starMobileId" />
+
+							<h:outputText value="#{app_msgs['label.pageAddMember.showNameOrBussiness']}" />
+							<h:selectOneRadio value="#{customerController.showName}">
+								<f:selectItem itemValue="1"
+									itemLabel="#{app_msgs['label.pageAddMember.realName']}" />
+								<f:selectItem itemValue="2"
+									itemLabel="#{app_msgs['label.pageAddMember.nameBusiness']}" />
+							</h:selectOneRadio>
+							<h:outputText value="" />
+
+							<div style="width: 40px;"></div>
+
+							<h:outputText value="#{app_msgs['label.pageAddMember.lineId']}" />
+							<h:inputText value="#{customerController.lineId}" maxlength="100" />
+							<h:outputText value="" />
 
 							<h:outputText value="#{app_msgs['label.pageAddMember.sex']}" />
 							<h:selectOneRadio value="#{customerController.sex}">
@@ -235,8 +256,8 @@
 
 							<div style="width: 40px;"></div>
 
-							<h:outputText value="#{app_msgs['label.pageAddMember.lineId']}" />
-							<h:inputText value="#{customerController.lineId}" maxlength="100" />
+							<h:outputText value="#{app_msgs['label.pageAddMember.email']}" />
+							<h:inputText value="#{customerController.email}" maxlength="100" />
 							<h:outputText value="" />
 
 							<h:outputText
@@ -249,11 +270,6 @@
 								value="#{customerController.starBirthDay}" id="starBirthDay" />
 
 							<div style="width: 40px;"></div>
-
-							<h:outputText value="#{app_msgs['label.pageAddMember.email']}" />
-							<h:inputText value="#{customerController.email}" maxlength="100" />
-							<h:outputText value="" />
-
 						</h:panelGrid>
 					</rich:panel>
 				</h:panelGrid>
