@@ -203,8 +203,13 @@
 							<h:inputText maxlength="100"
 								value="#{editCustomerController.businessName}"
 								style=" width : 250px;">
+								<a4j:ajax event="keyup"
+									render="starBussinessNameId,editProfileId"
+									listener="#{editCustomerController.onKeypress()}" />
 							</h:inputText>
-							<h:outputText value="" />
+							<h:outputText style="COLOR: #ff0000;"
+								value="#{editCustomerController.starBusinessName}"
+								id="starBussinessNameId" />
 
 							<div style="width: 40px;"></div>
 
@@ -216,6 +221,22 @@
 							</h:inputText>
 							<h:outputText style="COLOR: #ff0000;"
 								value="#{editCustomerController.starMobile}" id="starMobileId" />
+
+							<h:outputText value="#{app_msgs['label.pageAddMember.showNameOrBussiness']}" />
+							<h:selectOneRadio value="#{editCustomerController.showName}">
+								<f:selectItem itemValue="1"
+									itemLabel="#{app_msgs['label.pageAddMember.realName']}" />
+								<f:selectItem itemValue="2"
+									itemLabel="#{app_msgs['label.pageAddMember.nameBusiness']}" />
+							</h:selectOneRadio>
+							<h:outputText value="" />
+
+							<div style="width: 40px;"></div>
+
+							<h:outputText value="#{app_msgs['label.pageAddMember.lineId']}" />
+							<h:inputText maxlength="100"
+								value="#{editCustomerController.lineId}" />
+							<h:outputText value="" />
 
 							<h:outputText value="#{app_msgs['label.pageAddMember.sex']}" />
 							<h:selectOneRadio value="#{editCustomerController.sex}">
@@ -229,11 +250,11 @@
 
 							<div style="width: 40px;"></div>
 
-							<h:outputText value="#{app_msgs['label.pageAddMember.lineId']}" />
+							<h:outputText value="#{app_msgs['label.pageAddMember.email']}" />
 							<h:inputText maxlength="100"
-								value="#{editCustomerController.lineId}" />
+								value="#{editCustomerController.email}" />
 							<h:outputText value="" />
-
+							
 							<h:outputText
 								value="#{app_msgs['label.pageAddMember.birthDate']}" />
 							<a4j:outputPanel id="birchDay" layout="block">
@@ -245,11 +266,6 @@
 								value="#{editCustomerController.starBirthDay}" id="starBirthDay" />
 
 							<div style="width: 40px;"></div>
-
-							<h:outputText value="#{app_msgs['label.pageAddMember.email']}" />
-							<h:inputText maxlength="100"
-								value="#{editCustomerController.email}" />
-							<h:outputText value="" />
 
 						</h:panelGrid>
 					</rich:panel>

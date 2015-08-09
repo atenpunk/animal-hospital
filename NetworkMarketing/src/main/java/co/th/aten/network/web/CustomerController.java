@@ -81,6 +81,8 @@ public class CustomerController implements Serializable{
 	private Messages messages;
 	@Inject
 	private FacesContext facesContext;
+	@Inject
+	private CustomerControl customerControl;
 
 	@Inject
 	@DBDefault
@@ -140,14 +142,14 @@ public class CustomerController implements Serializable{
 	private DecimalFormat df2 = new DecimalFormat("#,##0");
 
 	// ######################## ADD MEMBER #########################
-	@Inject
-	private CustomerControl customerControl;
 	private String memberStr;
 	private String titleName;
 	private String starTitleName;
 	private String firstName;
 	private String starFirstName;
 	private String businessName;
+	private String starBusinessName;
+	private int showName;
 	private Date regisDate;
 	private int sex;
 	private String starSex;
@@ -1403,13 +1405,13 @@ public class CustomerController implements Serializable{
 				}
 				model.setScore(customer.getScore()!=null?customer.getScore():0);
 				model.setRegisDate(customer.getRegisDate());
-				String firstName = StringUtil.n2b(customer.getFirstName());
+				String firstName = customerControl.genNameMenber(customer);
 				if(firstName!=null && firstName.length()>10){
 					firstName = firstName.substring(0, 10);
 				}
 				model.setFirstName(firstName);
 				model.setLastName(customer.getLastName());
-				model.setName(StringUtil.n2b(customer.getTitleName())+StringUtil.n2b(customer.getFirstName())+" "+StringUtil.n2b(customer.getLastName()));
+				model.setName(customerControl.genNameMenber(customer));
 				model.setStatus(customer.getStatus()!=null?customer.getStatus():0);
 				model.setCreateBy(customer.getCreateBy()!=null?customer.getCreateBy():0);
 				model.setCreateDate(customer.getCreateDate());
@@ -1463,6 +1465,7 @@ public class CustomerController implements Serializable{
 			log.info("####### flagUnder = "+flagUnder);
 			starPersonalId = "*";
 			starFirstName = "*";
+			starBusinessName = "*";
 			starMobile = "*";
 			chkNationality = true;
 			regisDate = new Date();
@@ -1471,8 +1474,7 @@ public class CustomerController implements Serializable{
 			MemberCustomer customerUpper = em.find(MemberCustomer.class, new Integer(new BigDecimal(upperLineId).intValue()));
 			if(customerUpper!=null){
 				upperLineMemberId = customerUpper.getCustomerMember();
-				upperLineName = StringUtil.n2b(customerUpper.getTitleName())+" "+StringUtil.n2b(customerUpper.getFirstName())
-						+" "+StringUtil.n2b(customerUpper.getLastName());
+				upperLineName = customerControl.genNameMenber(customerUpper);
 				side = new BigDecimal(flagUnder).intValue();
 			}
 		}catch(Exception e){
@@ -1555,8 +1557,7 @@ public class CustomerController implements Serializable{
 			}
 			if(customerRecommend!=null){
 				recomendId = customerRecommend.getCustomerId();
-				recomendName = StringUtil.n2b(customerRecommend.getTitleName())+" "+StringUtil.n2b(customerRecommend.getFirstName())
-						+" "+StringUtil.n2b(customerRecommend.getLastName());
+				recomendName = customerControl.genNameMenber(customerRecommend);
 			}else{
 				messages.error(new AppBundleKey("error.label.notFoundMember",FacesContext.getCurrentInstance().getViewRoot().getLocale().getLanguage()));
 			}
@@ -1577,7 +1578,9 @@ public class CustomerController implements Serializable{
 		starTitleName = "";
 		firstName = "";
 		starFirstName = "";
+		starBusinessName = "";
 		businessName = "";
+		showName = 0;
 		regisDate = null;
 		sex = 0;
 		starSex = "";
@@ -1740,6 +1743,7 @@ public class CustomerController implements Serializable{
 				cus.setTitleName(titleName);
 				cus.setFirstName(firstName);
 				cus.setBusinessName(businessName);
+				cus.setShowNameStatus(showName);
 				cus.setSide(side);
 				cus.setSex(sex);
 				cus.setBirthDay(birthDay);
@@ -1826,7 +1830,7 @@ public class CustomerController implements Serializable{
 
 				HashUtil hashUtil = new HashUtil();
 				UserLogin userLogin = new UserLogin();
-				userLogin.setUserName(cus.getFirstName());
+				userLogin.setUserName(customerControl.genNameMenber(cus));
 				userLogin.setLoginName(cus.getCustomerMember());
 				String password = "1234";
 				if(personalId!=null && personalId.length()>0){
@@ -1863,7 +1867,9 @@ public class CustomerController implements Serializable{
 		starTitleName = "";
 		firstName = "";
 		starFirstName = "";
+		starBusinessName = "";
 		businessName = "";
+		showName = 0;
 		regisDate = null;
 		sex = 0;
 		starSex = "";
@@ -1937,6 +1943,11 @@ public class CustomerController implements Serializable{
 	}
 
 	public void onKeypress(){
+		if(businessName!=null && businessName.trim().length()>0){
+			starBusinessName = " ";
+		}else{
+			starBusinessName = "*";
+		}
 		if(firstName!=null && firstName.trim().length()>0){
 			accName = firstName;
 			starFirstName = " ";
@@ -1953,7 +1964,10 @@ public class CustomerController implements Serializable{
 		}else{
 			starMobile = "*";
 		}
-		if(starPersonalId.equals("*") || starFirstName.equals("*") || starMobile.equals("*")){
+		if(starPersonalId.equals("*") 
+				|| starFirstName.equals("*") 
+				|| starMobile.equals("*")
+				|| starBusinessName.equals("*")){
 			chkSave = true;
 		}else{
 			chkSave = false;
@@ -2942,6 +2956,22 @@ public class CustomerController implements Serializable{
 
 	public void setUploadedBookBank(UploadedImage uploadedBookBank) {
 		this.uploadedBookBank = uploadedBookBank;
+	}
+
+	public String getStarBusinessName() {
+		return starBusinessName;
+	}
+
+	public void setStarBusinessName(String starBusinessName) {
+		this.starBusinessName = starBusinessName;
+	}
+
+	public int getShowName() {
+		return showName;
+	}
+
+	public void setShowName(int showName) {
+		this.showName = showName;
 	}
 
 }

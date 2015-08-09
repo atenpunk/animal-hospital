@@ -83,6 +83,8 @@ public class EditCustomerController implements Serializable{
 	private String firstName;
 	private String starFirstName;
 	private String businessName;
+	private String starBusinessName;
+	private int showName;
 	private Date regisDate;
 	private int sex;
 	private String starSex;
@@ -182,6 +184,8 @@ public class EditCustomerController implements Serializable{
 					firstName = customer.getFirstName();
 					starFirstName = "";
 					businessName = customer.getBusinessName();
+					showName = StringUtil.n2b(customer.getShowNameStatus());
+					starBusinessName = "";
 					regisDate = customer.getRegisDate();
 					sex = StringUtil.n2b(customer.getSex());
 					starSex = "";
@@ -240,8 +244,7 @@ public class EditCustomerController implements Serializable{
 						MemberCustomer customerUpper = em.find(MemberCustomer.class, customer.getUpperId());
 						if(customerUpper!=null){
 							upperLineMemberId = customerUpper.getCustomerMember();
-							upperLineName = StringUtil.n2b(customerUpper.getTitleName())+" "+StringUtil.n2b(customerUpper.getFirstName())
-									+" "+StringUtil.n2b(customerUpper.getLastName());
+							upperLineName = customerControl.genNameMenber(customerUpper);
 							side = (customerUpper.getLowerLeftId()!=null
 									&&customerUpper.getLowerLeftId()==customer.getCustomerId())
 									?1:2;
@@ -260,8 +263,7 @@ public class EditCustomerController implements Serializable{
 						MemberCustomer customerRecomment = em.find(MemberCustomer.class, customer.getRecommendId());
 						if(customerRecomment!=null){
 							recomendStrId = customerRecomment.getCustomerMember();
-							recomendName = StringUtil.n2b(customerRecomment.getTitleName())+" "+StringUtil.n2b(customerRecomment.getFirstName())
-									+" "+StringUtil.n2b(customerRecomment.getLastName());
+							recomendName = customerControl.genNameMenber(customerRecomment);
 						}
 					}else{
 						recomendStrId = "";
@@ -678,8 +680,7 @@ public class EditCustomerController implements Serializable{
 			}
 			if(customerRecommend!=null){
 				recomendId = customerRecommend.getCustomerId();
-				recomendName = StringUtil.n2b(customerRecommend.getTitleName())+" "+StringUtil.n2b(customerRecommend.getFirstName())
-						+" "+StringUtil.n2b(customerRecommend.getLastName());
+				recomendName = customerControl.genNameMenber(customerRecommend);
 			}else{
 				messages.info(new AppBundleKey("error.label.notFoundMember",FacesContext.getCurrentInstance().getViewRoot().getLocale().getLanguage()));
 			}
@@ -696,6 +697,8 @@ public class EditCustomerController implements Serializable{
 		firstName = "";
 		starFirstName = "";
 		businessName = "";
+		starBusinessName = "";
+		showName = 0;
 		regisDate = null;
 		sex = 0;
 		starSex = "";
@@ -849,6 +852,7 @@ public class EditCustomerController implements Serializable{
 			user.get().getCustomerId().setTitleName(titleName);
 			user.get().getCustomerId().setFirstName(firstName);
 			user.get().getCustomerId().setBusinessName(businessName);
+			user.get().getCustomerId().setShowNameStatus(showName);
 			user.get().getCustomerId().setSex(sex);
 			user.get().getCustomerId().setBirthDay(birthDay);
 			MasterNationality nation = em.find(MasterNationality.class, new Integer(nationality));
@@ -919,7 +923,7 @@ public class EditCustomerController implements Serializable{
 			user.get().getCustomerId().setUpdateBy(user.get().getUserId());
 			user.get().getCustomerId().setUpdateDate(new Date());
 			em.merge(user.get().getCustomerId());
-			user.get().setUserName(firstName);
+			user.get().setUserName(customerControl.genNameMenber(user.get().getCustomerId()));
 			em.merge(user.get());
 			messages.info(new AppBundleKey("error.label.editMemberSuccess",FacesContext.getCurrentInstance().getViewRoot().getLocale().getLanguage()));
 		}catch(Exception e){
@@ -929,6 +933,11 @@ public class EditCustomerController implements Serializable{
 	}
 
 	public void onKeypress(){
+		if(businessName!=null && businessName.trim().length()>0){
+			starBusinessName = " ";
+		}else{
+			starBusinessName = "*";
+		}
 		if(firstName!=null && firstName.trim().length()>0){
 			starFirstName = " ";
 		}else{
@@ -944,7 +953,10 @@ public class EditCustomerController implements Serializable{
 		}else{
 			starMobile = "*";
 		}
-		if(starPersonalId.equals("*") || starFirstName.equals("*") || starMobile.equals("*")){
+		if(starPersonalId.equals("*") 
+				|| starFirstName.equals("*") 
+				|| starMobile.equals("*")
+				|| starBusinessName.equals("*")){
 			chkSave = true;
 		}else{
 			chkSave = false;
@@ -1708,4 +1720,21 @@ public class EditCustomerController implements Serializable{
 	public void setUploadedBookBank(UploadedImage uploadedBookBank) {
 		this.uploadedBookBank = uploadedBookBank;
 	}
+
+	public String getStarBusinessName() {
+		return starBusinessName;
+	}
+
+	public void setStarBusinessName(String starBusinessName) {
+		this.starBusinessName = starBusinessName;
+	}
+
+	public int getShowName() {
+		return showName;
+	}
+
+	public void setShowName(int showName) {
+		this.showName = showName;
+	}
+	
 }

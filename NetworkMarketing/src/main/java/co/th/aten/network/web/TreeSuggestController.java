@@ -17,6 +17,7 @@ import org.jboss.seam.international.status.MessageFactory;
 import org.jboss.seam.international.status.Messages;
 import org.jboss.solder.logging.Logger;
 
+import co.th.aten.network.control.CustomerControl;
 import co.th.aten.network.entity.MemberCustomer;
 import co.th.aten.network.entity.UserLogin;
 import co.th.aten.network.i18n.AppBundleKey;
@@ -45,6 +46,8 @@ public class TreeSuggestController implements Serializable{
 	private MessageFactory factory;
 	@Inject
 	private Messages messages;
+	@Inject
+	private CustomerControl customerControl;
 
 	@Inject
 	@DBDefault
@@ -368,7 +371,7 @@ public class TreeSuggestController implements Serializable{
 		str.append("<h>"+name+"</h>");
 		str.append("<span>");
 		str.append(" <img src=\"../resources/gfx/callout.gif\" class=\"callout\"> ");
-		str.append("<h>สมาชิก : "+StringUtil.n2b(customer.getCustomerMember())+"["+StringUtil.n2b(customer.getFirstName())+"]"+"</h>");
+		str.append("<h>สมาชิก : "+StringUtil.n2b(customer.getCustomerMember())+"["+customerControl.genNameMenber(customer)+"]"+"</h>");
 		str.append("</span>");
 		//		str.append("");
 		//		str.append("");

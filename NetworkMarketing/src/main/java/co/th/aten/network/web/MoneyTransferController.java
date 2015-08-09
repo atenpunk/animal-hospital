@@ -61,7 +61,7 @@ public class MoneyTransferController implements Serializable {
 			memberTransfer = currentUser.getCurrentAccount().getCustomerId();
 			memberReceive = null;
 			memberCodeTransfer = memberTransfer.getCustomerMember();
-			memberNameTransfer = StringUtil.n2b(memberTransfer.getTitleName())+StringUtil.n2b(memberTransfer.getFirstName());;
+			memberNameTransfer = customerControl.genNameMenber(memberTransfer);
 			memberCodeReceive = "";
 			memberNameReceive = "";
 			transferAmount = null;
@@ -77,7 +77,7 @@ public class MoneyTransferController implements Serializable {
 			if(memberCodeReceive!=null && memberCodeReceive.length()>0){
 				memberReceive = (MemberCustomer)em.createQuery("From MemberCustomer Where customerMember =:customerMember ")
 						.setParameter("customerMember", memberCodeReceive).getSingleResult();
-				memberNameReceive = StringUtil.n2b(memberReceive.getTitleName())+StringUtil.n2b(memberReceive.getFirstName());
+				memberNameReceive = customerControl.genNameMenber(memberReceive);
 			}else{
 				memberNameReceive = "";
 				messages.error(new AppBundleKey("error.label.money.inputMemberCode",FacesContext.getCurrentInstance().getViewRoot().getLocale().getLanguage()));
