@@ -20,6 +20,9 @@ import org.jboss.solder.logging.Logger;
 
 import co.th.aten.network.control.CustomerControl;
 import co.th.aten.network.control.TransactionReceiptControl;
+import co.th.aten.network.entity.AddressAmphures;
+import co.th.aten.network.entity.AddressDistricts;
+import co.th.aten.network.entity.AddressProvinces;
 import co.th.aten.network.entity.MemberCustomer;
 import co.th.aten.network.entity.StockCatalog;
 import co.th.aten.network.entity.StockProduct;
@@ -70,6 +73,25 @@ public class ProductSellController implements Serializable{
 	private String memberId;
 	private String memberName;
 	private MemberCustomer memSearch;
+	// Addess
+	private int sendStatus;
+	private boolean chkUseAddress;
+	private boolean chkNationality;
+	private String addressNo;
+	private String addressBuilding;
+	private String addressVillage;
+	private String addressLane;
+	private String addressRoad;
+	private int provinceId;
+	private int amphurId;
+	private int districtId;
+	private String addressPostCode;
+	private String provinceStr;
+	private String amphurStr;
+	private String districtStr;
+	private List<DropDownModel> provinceList;
+	private List<DropDownModel> amphurList;
+	private List<DropDownModel> districtList;
 
 	@PostConstruct
 	public void init(){
@@ -132,11 +154,96 @@ public class ProductSellController implements Serializable{
 					productModelList.add(model);
 				}
 			}
+			
+			provinceList = new ArrayList<DropDownModel>();
+			List<AddressProvinces> provinList = em.createQuery("From AddressProvinces",AddressProvinces.class).getResultList();
+			if(provinList!=null){
+				for(AddressProvinces provin:provinList){
+					DropDownModel model = new DropDownModel();
+					model.setIntKey(provin.getProvinceId());
+					model.setThLabel(provin.getProvinceName());
+					model.setEnLabel(provin.getProvinceNameEng());
+					provinceList.add(model);
+				}
+				DropDownModel model = new DropDownModel();
+				model.setIntKey(-1);
+				model.setThLabel("");
+				model.setEnLabel("");
+				provinceList.add(0,model);
+				provinceId = -1;
+			}
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 		long endTime = System.currentTimeMillis();
 		log.info("init method ProductSellController Time = "+((endTime-startTime)/1000d)+"s");
+	}
+	
+	public void useAddress(){
+		
+	}
+	
+	public void onChangeProvince(){
+		amphurList = new ArrayList<DropDownModel>();
+		if(provinceId!=-1){
+			List<AddressAmphures> dataList = em.createQuery("From AddressAmphures Where provinceId=:provinceId"
+					,AddressAmphures.class)
+					.setParameter("provinceId", provinceId)
+					.getResultList();
+			if(dataList!=null){
+				for(AddressAmphures data:dataList){
+					DropDownModel model = new DropDownModel();
+					model.setIntKey(data.getAmphurId());
+					model.setThLabel(data.getAmphurName());
+					model.setEnLabel(data.getAmphurNameEng());
+					amphurList.add(model);
+				}
+				DropDownModel model = new DropDownModel();
+				model.setIntKey(-1);
+				model.setThLabel("");
+				model.setEnLabel("");
+				amphurList.add(0,model);
+				amphurId = -1;
+			}	
+		}
+	}
+
+	public void onChangeAmphur(){
+		districtList = new ArrayList<DropDownModel>();
+		if(amphurId!=-1){
+			List<AddressDistricts> dataList = em.createQuery("From AddressDistricts " +
+					" Where amphurId=:amphurId " +
+					" And provinceId=:provinceId "
+					,AddressDistricts.class)
+					.setParameter("amphurId", amphurId)
+					.setParameter("provinceId", provinceId)
+					.getResultList();
+			if(dataList!=null){
+				for(AddressDistricts data:dataList){
+					DropDownModel model = new DropDownModel();
+					model.setIntKey(data.getDistrictId());
+					model.setThLabel(data.getDistrictName());
+					model.setEnLabel(data.getDistrictNameEng());
+					districtList.add(model);
+				}
+				DropDownModel model = new DropDownModel();
+				model.setIntKey(-1);
+				model.setThLabel("");
+				model.setEnLabel("");
+				districtList.add(0,model);
+				districtId = -1;
+			}
+		}
+	}
+
+	public void onChangeDistrict(){
+		addressPostCode = "";
+		if(districtId!=-1){
+			AddressDistricts addressDistricts = em.find(AddressDistricts.class, new Integer(districtId));
+			if(addressDistricts!=null){
+				addressPostCode = StringUtil.n2b(addressDistricts.getPostCode());
+			}
+		}		
 	}
 
 	public void addCart(ProductModel model){
@@ -434,4 +541,149 @@ public class ProductSellController implements Serializable{
 	public void setSelectedCatalog(int selectedCatalog) {
 		this.selectedCatalog = selectedCatalog;
 	}
+
+	public boolean isChkUseAddress() {
+		return chkUseAddress;
+	}
+
+	public void setChkUseAddress(boolean chkUseAddress) {
+		this.chkUseAddress = chkUseAddress;
+	}
+
+	public boolean isChkNationality() {
+		return chkNationality;
+	}
+
+	public void setChkNationality(boolean chkNationality) {
+		this.chkNationality = chkNationality;
+	}
+
+	public String getAddressNo() {
+		return addressNo;
+	}
+
+	public void setAddressNo(String addressNo) {
+		this.addressNo = addressNo;
+	}
+
+	public String getAddressBuilding() {
+		return addressBuilding;
+	}
+
+	public void setAddressBuilding(String addressBuilding) {
+		this.addressBuilding = addressBuilding;
+	}
+
+	public String getAddressVillage() {
+		return addressVillage;
+	}
+
+	public void setAddressVillage(String addressVillage) {
+		this.addressVillage = addressVillage;
+	}
+
+	public String getAddressLane() {
+		return addressLane;
+	}
+
+	public void setAddressLane(String addressLane) {
+		this.addressLane = addressLane;
+	}
+
+	public String getAddressRoad() {
+		return addressRoad;
+	}
+
+	public void setAddressRoad(String addressRoad) {
+		this.addressRoad = addressRoad;
+	}
+
+	public int getProvinceId() {
+		return provinceId;
+	}
+
+	public void setProvinceId(int provinceId) {
+		this.provinceId = provinceId;
+	}
+
+	public int getAmphurId() {
+		return amphurId;
+	}
+
+	public void setAmphurId(int amphurId) {
+		this.amphurId = amphurId;
+	}
+
+	public int getDistrictId() {
+		return districtId;
+	}
+
+	public void setDistrictId(int districtId) {
+		this.districtId = districtId;
+	}
+
+	public String getAddressPostCode() {
+		return addressPostCode;
+	}
+
+	public void setAddressPostCode(String addressPostCode) {
+		this.addressPostCode = addressPostCode;
+	}
+
+	public String getProvinceStr() {
+		return provinceStr;
+	}
+
+	public void setProvinceStr(String provinceStr) {
+		this.provinceStr = provinceStr;
+	}
+
+	public String getAmphurStr() {
+		return amphurStr;
+	}
+
+	public void setAmphurStr(String amphurStr) {
+		this.amphurStr = amphurStr;
+	}
+
+	public String getDistrictStr() {
+		return districtStr;
+	}
+
+	public void setDistrictStr(String districtStr) {
+		this.districtStr = districtStr;
+	}
+
+	public List<DropDownModel> getProvinceList() {
+		return provinceList;
+	}
+
+	public void setProvinceList(List<DropDownModel> provinceList) {
+		this.provinceList = provinceList;
+	}
+
+	public List<DropDownModel> getAmphurList() {
+		return amphurList;
+	}
+
+	public void setAmphurList(List<DropDownModel> amphurList) {
+		this.amphurList = amphurList;
+	}
+
+	public List<DropDownModel> getDistrictList() {
+		return districtList;
+	}
+
+	public void setDistrictList(List<DropDownModel> districtList) {
+		this.districtList = districtList;
+	}
+
+	public int getSendStatus() {
+		return sendStatus;
+	}
+
+	public void setSendStatus(int sendStatus) {
+		this.sendStatus = sendStatus;
+	}
+	
 }
