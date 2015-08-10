@@ -8,7 +8,7 @@
 	<import value="net.sf.jasperreports.engine.*"/>
 	<import value="java.util.*"/>
 	<import value="net.sf.jasperreports.engine.data.*"/>
-	<style name="solar" isDefault="true" fontName="Tahoma" pdfFontName="c:\windows\fonts\tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+	<style name="solar" isDefault="true" fontName="Tahoma" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 	<parameter name="paymentDate" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="contracId" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="totalAmount" class="java.lang.Double" isForPrompting="false"/>
@@ -351,14 +351,14 @@
 			<staticText>
 				<reportElement key="staticText-36" style="solar" x="381" y="39" width="12" height="12"/>
 				<textElement textAlignment="Right" verticalAlignment="Bottom">
-					<font fontName="Tahoma" size="8" isUnderline="false" pdfFontName="c:\windows\fonts\tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<font fontName="Tahoma" size="8" isUnderline="false" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[(]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
 				<reportElement key="textField-17" style="solar" x="393" y="39" width="129" height="12"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom">
-					<font fontName="Tahoma" size="8" pdfFontName="c:\windows\fonts\tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<font fontName="Tahoma" size="8" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 			</textField>
 			<line>
@@ -412,7 +412,7 @@
 			<staticText>
 				<reportElement key="staticText-36" style="solar" x="522" y="39" width="11" height="12"/>
 				<textElement verticalAlignment="Bottom">
-					<font fontName="Tahoma" size="8" isUnderline="false" pdfFontName="c:\windows\fonts\tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<font fontName="Tahoma" size="8" isUnderline="false" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[)]]></text>
 			</staticText>
@@ -454,13 +454,13 @@
 			<textField isBlankWhenNull="true">
 				<reportElement key="textField-17" style="solar" x="393" y="60" width="129" height="12"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom">
-					<font fontName="Tahoma" size="8" pdfFontName="c:\windows\fonts\tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<font fontName="Tahoma" size="8" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 			</textField>
 			<staticText>
 				<reportElement key="staticText-36" style="solar" x="366" y="60" width="27" height="12"/>
 				<textElement textAlignment="Right" verticalAlignment="Bottom">
-					<font fontName="Tahoma" size="8" isUnderline="false" pdfFontName="c:\windows\fonts\tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+					<font fontName="Tahoma" size="8" isUnderline="false" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[วันที่]]></text>
 			</staticText>
