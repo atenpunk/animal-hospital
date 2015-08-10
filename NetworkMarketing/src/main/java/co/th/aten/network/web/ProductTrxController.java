@@ -13,7 +13,6 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,6 +20,7 @@ import net.sf.jasperreports.j2ee.servlets.ImageServlet;
 import org.jboss.solder.logging.Logger;
 
 import co.th.aten.network.control.CustomerControl;
+import co.th.aten.network.control.TransactionHeaderControl;
 import co.th.aten.network.entity.MemberCustomer;
 import co.th.aten.network.entity.StockProduct;
 import co.th.aten.network.entity.TransactionSellDetail;
@@ -52,6 +52,8 @@ public class ProductTrxController implements Serializable {
 	private FacesContext facesContext;
 	@Inject
 	private CustomerControl customerControl;
+	@Inject
+	private TransactionHeaderControl transactionHeaderControl;
 
 	private List<TrxProductModel> trxProductModelList;
 
@@ -72,6 +74,7 @@ public class ProductTrxController implements Serializable {
 			if(trxHeaderList!=null){
 				for(TransactionSellHeader trx:trxHeaderList){
 					TrxProductModel model = new TrxProductModel();
+					model.setHeaderId(StringUtil.n2b(trx.getTrxHeaderId()));
 					MemberCustomer customer = em.find(MemberCustomer.class,trx.getCustomerId());
 					if(customer!=null){
 						model.setMemberId(customer.getCustomerId().intValue());
@@ -138,7 +141,7 @@ public class ProductTrxController implements Serializable {
 			parameters.put("totalAmount", trxProductModel.getTotalPrice());
 			if(trxProductModel.getMemberName()!=null)
 				parameters.put("clientName", trxProductModel.getMemberName());
-			parameters.put("address", customerControl.getAddressByMemberId(trxProductModel.getMemberId()));
+			parameters.put("address", transactionHeaderControl.getAddressByHeaderId(trxProductModel.getHeaderId()));
 			if(trxProductModel.getReceiptNo()!=null)
 				parameters.put("receiptNo", trxProductModel.getReceiptNo());
 			parameters.put("totalAmountText", BathText.bahtText(trxProductModel.getTotalPrice()));
