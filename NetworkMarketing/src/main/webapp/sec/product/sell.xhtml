@@ -68,6 +68,15 @@
 											<a4j:ajax event="click" render="mainPanelGridId" ></a4j:ajax>
 									</h:selectOneRadio></td>
 							</tr>
+							<tr>
+								<td colspan="2" class="tdInputScreen"><h:selectOneRadio
+										value="#{productSellController.buyStatus}">
+										<f:selectItem itemValue="1"
+											itemLabel="#{app_msgs['label.sell.rewards']}" />
+										<f:selectItem itemValue="2"
+											itemLabel="#{app_msgs['label.sell.package']}" />
+									</h:selectOneRadio></td>
+							</tr>
 						</table>
 					</rich:panel>
 					<rich:panel style=" width : auto;height:230px;" id="panelAddressId" rendered="#{productSellController.sendStatus eq 2}">

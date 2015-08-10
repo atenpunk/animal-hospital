@@ -73,10 +73,12 @@ public class ProductSellController implements Serializable{
 	private String memberId;
 	private String memberName;
 	private MemberCustomer memSearch;
-	// Addess
 	private int sendStatus;
+	private int buyStatus;
+	// Addess
 	private boolean chkUseAddress;
 	private boolean chkNationality;
+	private int nationId;
 	private String addressNo;
 	private String addressBuilding;
 	private String addressVillage;
@@ -128,18 +130,20 @@ public class ProductSellController implements Serializable{
 			memberId = "";
 			memberName = "";
 			sendStatus = 1;
+			buyStatus = 1;
 			if(currentUser.getCurrentAccount().getCustomerId()!=null){
 				memSearch = currentUser.getCurrentAccount().getCustomerId();
 				memberId = memSearch.getCustomerMember();
 				memberName = customerControl.genNameMenber(memSearch);
 				if(memSearch.getNationId()!=null){
-					if(StringUtil.n2b(memSearch.getNationId().getNationId()) == -1 
-							|| StringUtil.n2b(memSearch.getNationId().getNationId()) == 1){
+					nationId = StringUtil.n2b(memSearch.getNationId().getNationId());
+					if(StringUtil.n2b(memSearch.getNationId().getNationId()) == 1){
 						chkNationality = true;
 					}else{
 						chkNationality = false;
 					}
 				}else{
+					nationId = 0;
 					chkNationality = true;
 				}
 			}
@@ -210,13 +214,14 @@ public class ProductSellController implements Serializable{
 					}
 				}
 				if(memSearch.getNationId()!=null){
-					if(StringUtil.n2b(memSearch.getNationId().getNationId()) == -1 
-							|| StringUtil.n2b(memSearch.getNationId().getNationId()) == 1){
+					nationId = StringUtil.n2b(memSearch.getNationId().getNationId());
+					if(StringUtil.n2b(memSearch.getNationId().getNationId()) == 1){
 						chkNationality = true;
 					}else{
 						chkNationality = false;
 					}
 				}else{
+					nationId = 0;
 					chkNationality = true;
 				}
 				provinceStr = StringUtil.n2b(memSearch.getProvinceStr());
@@ -280,7 +285,7 @@ public class ProductSellController implements Serializable{
 					districtList.add(0,model);
 				}
 			}else{
-				chkNationality = true;;
+				chkNationality = true;
 				addressNo = "";
 				addressBuilding = "";
 				addressVillage = "";
@@ -541,6 +546,21 @@ public class ProductSellController implements Serializable{
 						trxSellHeader.setRemark(null);
 						trxSellHeader.setTrxHeaderStatus(new Integer(1));
 						trxSellHeader.setTrxHeaderFlag(new Integer(0));
+						trxSellHeader.setSendStatus(sendStatus);
+						trxSellHeader.setBuyStatus(buyStatus);
+						trxSellHeader.setNationId(nationId);
+						trxSellHeader.setAddressNo(addressNo);
+						trxSellHeader.setAddressBuilding(addressBuilding);
+						trxSellHeader.setAddressVillage(addressVillage);
+						trxSellHeader.setAddressLane(addressLane);
+						trxSellHeader.setAddressRoad(addressRoad);
+						trxSellHeader.setProvinceId(provinceId);
+						trxSellHeader.setAmphurId(amphurId);
+						trxSellHeader.setDistrictId(districtId);
+						trxSellHeader.setPostCode(addressPostCode);
+						trxSellHeader.setProvinceLao(provinceStr);
+						trxSellHeader.setAmphurLao(amphurStr);
+						trxSellHeader.setDistrictLao(districtStr);						
 						trxSellHeader.setCreateBy(currentUser.getCurrentAccount().getUserId());
 						trxSellHeader.setCreateDate(new Date());
 						trxSellHeader.setUpdateBy(currentUser.getCurrentAccount().getUserId());
@@ -609,6 +629,7 @@ public class ProductSellController implements Serializable{
 			}
 		}catch(Exception e){
 			e.printStackTrace();
+			messages.error(new AppBundleKey("error.label.sell.fail",FacesContext.getCurrentInstance().getViewRoot().getLocale().getLanguage()));
 		}
 	}
 
@@ -830,6 +851,14 @@ public class ProductSellController implements Serializable{
 
 	public void setSendStatus(int sendStatus) {
 		this.sendStatus = sendStatus;
+	}
+
+	public int getBuyStatus() {
+		return buyStatus;
+	}
+
+	public void setBuyStatus(int buyStatus) {
+		this.buyStatus = buyStatus;
 	}
 
 }
