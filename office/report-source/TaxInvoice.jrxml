@@ -1,0 +1,475 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TaxInvoice" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="30" rightMargin="30" topMargin="35" bottomMargin="2">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="96"/>
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<style name="solar" isDefault="true" fontName="Tahoma" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+	<parameter name="paymentDate" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="contracId" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="totalAmount" class="java.lang.Double" isForPrompting="false"/>
+	<parameter name="clientName" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="logo_file" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="address" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="receiptNo" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="printBy" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="printDate" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="totalAmountText" class="java.lang.String" isForPrompting="false"/>
+	<field name="productCode" class="java.lang.String">
+		<fieldDescription><![CDATA[productCode]]></fieldDescription>
+	</field>
+	<field name="order" class="java.lang.Integer">
+		<fieldDescription><![CDATA[order]]></fieldDescription>
+	</field>
+	<field name="productThDesc" class="java.lang.String">
+		<fieldDescription><![CDATA[productThDesc]]></fieldDescription>
+	</field>
+	<field name="qty" class="java.lang.Integer">
+		<fieldDescription><![CDATA[qty]]></fieldDescription>
+	</field>
+	<field name="price" class="java.lang.Double">
+		<fieldDescription><![CDATA[price]]></fieldDescription>
+	</field>
+	<field name="totalPrice" class="java.lang.Double">
+		<fieldDescription><![CDATA[totalPrice]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="155" splitType="Stretch">
+			<staticText>
+				<reportElement key="staticText-6" style="solar" x="410" y="89" width="27" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[วันที่]]></text>
+			</staticText>
+			<image hAlign="Center" vAlign="Middle" onErrorType="Icon">
+				<reportElement key="image-1" style="solar" x="2" y="1" width="89" height="56"/>
+				<imageExpression class="java.lang.String"><![CDATA[$P{logo_file}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement key="staticText-5" style="solar" x="410" y="75" width="27" height="13"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[เลขที่]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-9" style="solar" x="120" y="57" width="309" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[ใบสั่งซื้อ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-11" style="solar" x="5" y="89" width="50" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[ชื่อลูกค้า]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-13" style="solar" x="5" y="103" width="50" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[ที่อยู่]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-14" style="solar" x="5" y="75" width="50" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[รหัสลูกค้า]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement key="textField-2" style="solar" x="437" y="89" width="96" height="13" forecolor="#000000"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{paymentDate}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField-5" style="solar" x="55" y="89" width="355" height="13"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{clientName}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField-8" style="solar" x="55" y="103" width="355" height="13"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{address}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField-9" style="solar" x="55" y="75" width="63" height="13"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{contracId}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField-19" style="solar" x="437" y="75" width="96" height="13"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{receiptNo}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement key="line-9" style="solar" stretchType="RelativeToBandHeight" x="33" y="140" width="1" height="14"/>
+				<graphicElement>
+					<pen lineWidth="0.1" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement key="line-10" style="solar" stretchType="RelativeToBandHeight" x="319" y="140" width="1" height="14"/>
+				<graphicElement>
+					<pen lineWidth="0.1" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement key="line-11" style="solar" stretchType="RelativeToBandHeight" x="386" y="140" width="1" height="14"/>
+				<graphicElement>
+					<pen lineWidth="0.1" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement key="line-12" style="solar" stretchType="RelativeToBandHeight" x="456" y="140" width="1" height="14"/>
+				<graphicElement>
+					<pen lineWidth="0.1" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement key="staticText-17" style="solar" x="1" y="140" width="31" height="13"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[ลำดับ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-18" style="solar" x="101" y="140" width="217" height="13"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[รายการสินค้าหรือบริการ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-19" style="solar" x="320" y="140" width="65" height="13"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[จำนวน]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-20" style="solar" x="387" y="140" width="68" height="13"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[ราคาต่อหน่วย]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-21" style="solar" x="457" y="140" width="76" height="13"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[จำนวนเงิน]]></text>
+			</staticText>
+			<line>
+				<reportElement key="line-9" style="solar" stretchType="RelativeToBandHeight" x="100" y="139" width="1" height="15"/>
+				<graphicElement>
+					<pen lineWidth="0.1" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement key="staticText-17" style="solar" x="34" y="140" width="65" height="13"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[รหัสสินค้า]]></text>
+			</staticText>
+			<line>
+				<reportElement key="line-23" style="solar" positionType="FixRelativeToBottom" x="0" y="154" width="535" height="1"/>
+			</line>
+			<line>
+				<reportElement key="line-24" style="solar" stretchType="RelativeToBandHeight" x="0" y="140" width="1" height="14"/>
+			</line>
+			<line>
+				<reportElement key="line-29" style="solar" x="0" y="139" width="535" height="1"/>
+			</line>
+			<line>
+				<reportElement key="line-30" style="solar" stretchType="RelativeToBandHeight" x="534" y="140" width="1" height="14"/>
+			</line>
+			<line>
+				<reportElement key="line-32" style="solar" x="0" y="1" width="1" height="134"/>
+			</line>
+			<line>
+				<reportElement key="line-33" style="solar" x="0" y="135" width="535" height="1"/>
+			</line>
+			<line>
+				<reportElement key="line-34" style="solar" x="534" y="1" width="1" height="134"/>
+			</line>
+			<line>
+				<reportElement key="line-35" style="solar" x="0" y="0" width="535" height="1"/>
+			</line>
+			<staticText>
+				<reportElement key="staticText-14" style="solar" x="91" y="18" width="359" height="13"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[190 หมู่ 11 ถนน อุดร-หนองคาย]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-14" style="solar" x="91" y="31" width="359" height="13"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[ตำบล นาข่า อำเภอ เมืองอุดรธานี จังหวัด อุดรธานี 41000]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-14" style="solar" x="91" y="44" width="359" height="13"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[โทรศัพท์ 042-218268, 096-4653644, 061-9515614]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-14" style="solar" x="91" y="1" width="359" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[บริษัท ริชไทม์ เน็ตเวิร์ค จำกัด]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="33" splitType="Stretch">
+			<line>
+				<reportElement key="line-16" style="solar" stretchType="RelativeToBandHeight" x="33" y="0" width="1" height="32"/>
+				<graphicElement>
+					<pen lineWidth="0.1" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement key="line-17" style="solar" stretchType="RelativeToBandHeight" x="319" y="0" width="1" height="32"/>
+				<graphicElement>
+					<pen lineWidth="0.1" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement key="line-18" style="solar" stretchType="RelativeToBandHeight" x="386" y="0" width="1" height="32"/>
+				<graphicElement>
+					<pen lineWidth="0.1" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement key="line-19" style="solar" stretchType="RelativeToBandHeight" x="456" y="0" width="1" height="32"/>
+				<graphicElement>
+					<pen lineWidth="0.1" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField-21" style="solar" stretchType="RelativeToTallestObject" x="101" y="0" width="217" height="32"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{productThDesc}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+				<reportElement key="textField-22" style="solar" stretchType="RelativeToTallestObject" x="320" y="0" width="65" height="32"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{qty}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement key="textField-23" style="solar" stretchType="RelativeToTallestObject" x="387" y="0" width="68" height="32"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$F{price}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement key="textField-24" style="solar" stretchType="RelativeToTallestObject" x="457" y="0" width="76" height="32"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$F{totalPrice}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement key="line-16" style="solar" stretchType="RelativeToBandHeight" x="100" y="0" width="1" height="32"/>
+				<graphicElement>
+					<pen lineWidth="0.1" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField-20" style="solar" stretchType="RelativeToTallestObject" x="34" y="0" width="65" height="32"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{productCode}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement key="line-25" style="solar" stretchType="RelativeToBandHeight" x="0" y="0" width="1" height="32"/>
+			</line>
+			<line>
+				<reportElement key="line-31" style="solar" stretchType="RelativeToBandHeight" x="534" y="0" width="1" height="32"/>
+			</line>
+			<line>
+				<reportElement key="line-36" style="solar" positionType="FixRelativeToBottom" x="0" y="32" width="535" height="1"/>
+			</line>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField-20" style="solar" stretchType="RelativeToTallestObject" x="1" y="0" width="31" height="32"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{order}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="100" splitType="Stretch">
+			<staticText>
+				<reportElement key="staticText-36" style="solar" x="381" y="39" width="12" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="Tahoma" size="8" isUnderline="false" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[(]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField-17" style="solar" x="393" y="39" width="129" height="12"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Tahoma" size="8" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+			</textField>
+			<line>
+				<reportElement key="line-22" style="solar" x="394" y="38" width="128" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.1" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement key="staticText-23" style="solar" x="1" y="4" width="70" height="13"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[จำนวนเงินรวม]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-24" style="solar" x="1" y="17" width="70" height="13"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[(ตัวอักษร)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-35" style="solar" x="430" y="51" width="55" height="13"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[ผู้รับสินค้า]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField-13" style="solar" x="71" y="4" width="248" height="13"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{totalAmountText}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-22" style="solar" x="380" y="1" width="75" height="13" backcolor="#F5F1F1"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[จำนวนเงินรวม]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement key="textField-12" style="solar" x="457" y="1" width="76" height="13" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$P{totalAmount}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-36" style="solar" x="522" y="39" width="11" height="12"/>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="Tahoma" size="8" isUnderline="false" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[)]]></text>
+			</staticText>
+			<line>
+				<reportElement key="line-22" style="solar" x="457" y="15" width="77" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.1" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement key="line-22" style="solar" x="456" y="0" width="1" height="16"/>
+				<graphicElement>
+					<pen lineWidth="0.1" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement key="line-26" style="solar" x="0" y="0" width="1" height="75"/>
+			</line>
+			<line>
+				<reportElement key="line-27" style="solar" positionType="FixRelativeToBottom" x="0" y="75" width="535" height="1"/>
+			</line>
+			<line>
+				<reportElement key="line-28" style="solar" x="534" y="0" width="1" height="75"/>
+			</line>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField-34" style="solar" x="5" y="48" width="137" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["วันที่พิมพ์ "+$P{printDate}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField-35" style="solar" x="5" y="61" width="137" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["ผู้พิมพ์ "+$P{printBy}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField-17" style="solar" x="393" y="60" width="129" height="12"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Tahoma" size="8" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-36" style="solar" x="366" y="60" width="27" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font fontName="Tahoma" size="8" isUnderline="false" pdfFontName="tahoma.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[วันที่]]></text>
+			</staticText>
+			<line>
+				<reportElement key="line-22" style="solar" x="394" y="72" width="128" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.1" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+		</band>
+	</summary>
+</jasperReport>
