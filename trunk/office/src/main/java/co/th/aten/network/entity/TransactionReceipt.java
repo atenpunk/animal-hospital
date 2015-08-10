@@ -22,17 +22,20 @@ import javax.persistence.TemporalType;
  * @author Atenpunk
  */
 @Entity
-@Table(name = "transaction_sell_header_status")
+@Table(name = "transaction_receipt")
 @NamedQueries({
-    @NamedQuery(name = "TransactionSellHeaderStatus.findAll", query = "SELECT t FROM TransactionSellHeaderStatus t")})
-public class TransactionSellHeaderStatus implements Serializable {
+    @NamedQuery(name = "TransactionReceipt.findAll", query = "SELECT t FROM TransactionReceipt t")})
+public class TransactionReceipt implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @Column(name = "status_id")
-    private Integer statusId;
-    @Column(name = "status_desc")
-    private String statusDesc;
+    @Column(name = "receipt_id")
+    private Integer receiptId;
+    @Column(name = "receipt_running")
+    private Integer receiptRunning;
+    @Column(name = "last_reset")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastReset;
     @Column(name = "create_by")
     private Integer createBy;
     @Column(name = "create_date")
@@ -44,27 +47,35 @@ public class TransactionSellHeaderStatus implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateDate;
 
-    public TransactionSellHeaderStatus() {
+    public TransactionReceipt() {
     }
 
-    public TransactionSellHeaderStatus(Integer statusId) {
-        this.statusId = statusId;
+    public TransactionReceipt(Integer receiptId) {
+        this.receiptId = receiptId;
     }
 
-    public Integer getStatusId() {
-        return statusId;
+    public Integer getReceiptId() {
+        return receiptId;
     }
 
-    public void setStatusId(Integer statusId) {
-        this.statusId = statusId;
+    public void setReceiptId(Integer receiptId) {
+        this.receiptId = receiptId;
     }
 
-    public String getStatusDesc() {
-        return statusDesc;
+    public Integer getReceiptRunning() {
+        return receiptRunning;
     }
 
-    public void setStatusDesc(String statusDesc) {
-        this.statusDesc = statusDesc;
+    public void setReceiptRunning(Integer receiptRunning) {
+        this.receiptRunning = receiptRunning;
+    }
+
+    public Date getLastReset() {
+        return lastReset;
+    }
+
+    public void setLastReset(Date lastReset) {
+        this.lastReset = lastReset;
     }
 
     public Integer getCreateBy() {
@@ -102,18 +113,18 @@ public class TransactionSellHeaderStatus implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (statusId != null ? statusId.hashCode() : 0);
+        hash += (receiptId != null ? receiptId.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof TransactionSellHeaderStatus)) {
+        if (!(object instanceof TransactionReceipt)) {
             return false;
         }
-        TransactionSellHeaderStatus other = (TransactionSellHeaderStatus) object;
-        if ((this.statusId == null && other.statusId != null) || (this.statusId != null && !this.statusId.equals(other.statusId))) {
+        TransactionReceipt other = (TransactionReceipt) object;
+        if ((this.receiptId == null && other.receiptId != null) || (this.receiptId != null && !this.receiptId.equals(other.receiptId))) {
             return false;
         }
         return true;
@@ -121,7 +132,7 @@ public class TransactionSellHeaderStatus implements Serializable {
 
     @Override
     public String toString() {
-        return "co.th.aten.network.entity.TransactionSellHeaderStatus[statusId=" + statusId + "]";
+        return "co.th.aten.network.entity.TransactionReceipt[receiptId=" + receiptId + "]";
     }
 
 }

@@ -28,7 +28,34 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "transaction_sell_header")
 @NamedQueries({
-    @NamedQuery(name = "TransactionSellHeader.findAll", query = "SELECT t FROM TransactionSellHeader t")})
+    @NamedQuery(name = "TransactionSellHeader.findAll", query = "SELECT t FROM TransactionSellHeader t"),
+    @NamedQuery(name = "TransactionSellHeader.findByTrxHeaderId", query = "SELECT t FROM TransactionSellHeader t WHERE t.trxHeaderId = :trxHeaderId"),
+    @NamedQuery(name = "TransactionSellHeader.findByTrxHeaderDatetime", query = "SELECT t FROM TransactionSellHeader t WHERE t.trxHeaderDatetime = :trxHeaderDatetime"),
+    @NamedQuery(name = "TransactionSellHeader.findByReceiptNo", query = "SELECT t FROM TransactionSellHeader t WHERE t.receiptNo = :receiptNo"),
+    @NamedQuery(name = "TransactionSellHeader.findByCustomerId", query = "SELECT t FROM TransactionSellHeader t WHERE t.customerId = :customerId"),
+    @NamedQuery(name = "TransactionSellHeader.findByTotalPrice", query = "SELECT t FROM TransactionSellHeader t WHERE t.totalPrice = :totalPrice"),
+    @NamedQuery(name = "TransactionSellHeader.findByTotalPv", query = "SELECT t FROM TransactionSellHeader t WHERE t.totalPv = :totalPv"),
+    @NamedQuery(name = "TransactionSellHeader.findByTotalBv", query = "SELECT t FROM TransactionSellHeader t WHERE t.totalBv = :totalBv"),
+    @NamedQuery(name = "TransactionSellHeader.findByCreateBy", query = "SELECT t FROM TransactionSellHeader t WHERE t.createBy = :createBy"),
+    @NamedQuery(name = "TransactionSellHeader.findByCreateDate", query = "SELECT t FROM TransactionSellHeader t WHERE t.createDate = :createDate"),
+    @NamedQuery(name = "TransactionSellHeader.findByUpdateBy", query = "SELECT t FROM TransactionSellHeader t WHERE t.updateBy = :updateBy"),
+    @NamedQuery(name = "TransactionSellHeader.findByUpdateDate", query = "SELECT t FROM TransactionSellHeader t WHERE t.updateDate = :updateDate"),
+    @NamedQuery(name = "TransactionSellHeader.findByTrxHeaderStatus", query = "SELECT t FROM TransactionSellHeader t WHERE t.trxHeaderStatus = :trxHeaderStatus"),
+    @NamedQuery(name = "TransactionSellHeader.findByTrxHeaderFlag", query = "SELECT t FROM TransactionSellHeader t WHERE t.trxHeaderFlag = :trxHeaderFlag"),
+    @NamedQuery(name = "TransactionSellHeader.findBySendStatus", query = "SELECT t FROM TransactionSellHeader t WHERE t.sendStatus = :sendStatus"),
+    @NamedQuery(name = "TransactionSellHeader.findByBuyStatus", query = "SELECT t FROM TransactionSellHeader t WHERE t.buyStatus = :buyStatus"),
+    @NamedQuery(name = "TransactionSellHeader.findByAddressNo", query = "SELECT t FROM TransactionSellHeader t WHERE t.addressNo = :addressNo"),
+    @NamedQuery(name = "TransactionSellHeader.findByAddressBuilding", query = "SELECT t FROM TransactionSellHeader t WHERE t.addressBuilding = :addressBuilding"),
+    @NamedQuery(name = "TransactionSellHeader.findByAddressVillage", query = "SELECT t FROM TransactionSellHeader t WHERE t.addressVillage = :addressVillage"),
+    @NamedQuery(name = "TransactionSellHeader.findByAddressLane", query = "SELECT t FROM TransactionSellHeader t WHERE t.addressLane = :addressLane"),
+    @NamedQuery(name = "TransactionSellHeader.findByAddressRoad", query = "SELECT t FROM TransactionSellHeader t WHERE t.addressRoad = :addressRoad"),
+    @NamedQuery(name = "TransactionSellHeader.findByProvinceId", query = "SELECT t FROM TransactionSellHeader t WHERE t.provinceId = :provinceId"),
+    @NamedQuery(name = "TransactionSellHeader.findByAmphurId", query = "SELECT t FROM TransactionSellHeader t WHERE t.amphurId = :amphurId"),
+    @NamedQuery(name = "TransactionSellHeader.findByDistrictId", query = "SELECT t FROM TransactionSellHeader t WHERE t.districtId = :districtId"),
+    @NamedQuery(name = "TransactionSellHeader.findByPostCode", query = "SELECT t FROM TransactionSellHeader t WHERE t.postCode = :postCode"),
+    @NamedQuery(name = "TransactionSellHeader.findByProvinceLao", query = "SELECT t FROM TransactionSellHeader t WHERE t.provinceLao = :provinceLao"),
+    @NamedQuery(name = "TransactionSellHeader.findByAmphurLao", query = "SELECT t FROM TransactionSellHeader t WHERE t.amphurLao = :amphurLao"),
+    @NamedQuery(name = "TransactionSellHeader.findByDistrictLao", query = "SELECT t FROM TransactionSellHeader t WHERE t.districtLao = :districtLao")})
 public class TransactionSellHeader implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -66,7 +93,37 @@ public class TransactionSellHeader implements Serializable {
     private Integer trxHeaderStatus;
     @Column(name = "trx_header_flag")
     private Integer trxHeaderFlag;
-    
+    @Column(name = "send_status")
+    private Integer sendStatus;
+    @Column(name = "buy_status")
+    private Integer buyStatus;
+    @Column(name = "nation_id")
+    private Integer nationId;
+    @Column(name = "address_no")
+    private String addressNo;
+    @Column(name = "address_building")
+    private String addressBuilding;
+    @Column(name = "address_village")
+    private String addressVillage;
+    @Column(name = "address_lane")
+    private String addressLane;
+    @Column(name = "address_road")
+    private String addressRoad;
+    @Column(name = "province_id")
+    private Integer provinceId;
+    @Column(name = "amphur_id")
+    private Integer amphurId;
+    @Column(name = "district_id")
+    private Integer districtId;
+    @Column(name = "post_code")
+    private String postCode;
+    @Column(name = "province_lao")
+    private String provinceLao;
+    @Column(name = "amphur_lao")
+    private String amphurLao;
+    @Column(name = "district_lao")
+    private String districtLao;
+
     public TransactionSellHeader() {
     }
 
@@ -138,22 +195,6 @@ public class TransactionSellHeader implements Serializable {
         this.remark = remark;
     }
 
-    public Integer getTrxHeaderStatus() {
-        return trxHeaderStatus;
-    }
-
-    public void setTrxHeaderStatus(Integer trxHeaderStatus) {
-        this.trxHeaderStatus = trxHeaderStatus;
-    }
-
-    public Integer getTrxHeaderFlag() {
-        return trxHeaderFlag;
-    }
-
-    public void setTrxHeaderFlag(Integer trxHeaderFlag) {
-        this.trxHeaderFlag = trxHeaderFlag;
-    }
-
     public Integer getCreateBy() {
         return createBy;
     }
@@ -186,7 +227,143 @@ public class TransactionSellHeader implements Serializable {
         this.updateDate = updateDate;
     }
 
-    @Override
+    public Integer getTrxHeaderStatus() {
+        return trxHeaderStatus;
+    }
+
+    public void setTrxHeaderStatus(Integer trxHeaderStatus) {
+        this.trxHeaderStatus = trxHeaderStatus;
+    }
+
+    public Integer getTrxHeaderFlag() {
+        return trxHeaderFlag;
+    }
+
+    public void setTrxHeaderFlag(Integer trxHeaderFlag) {
+        this.trxHeaderFlag = trxHeaderFlag;
+    }
+
+    public Integer getSendStatus() {
+        return sendStatus;
+    }
+
+    public void setSendStatus(Integer sendStatus) {
+        this.sendStatus = sendStatus;
+    }
+
+    public Integer getBuyStatus() {
+        return buyStatus;
+    }
+
+    public void setBuyStatus(Integer buyStatus) {
+        this.buyStatus = buyStatus;
+    }
+
+    public String getAddressNo() {
+        return addressNo;
+    }
+
+    public void setAddressNo(String addressNo) {
+        this.addressNo = addressNo;
+    }
+
+    public String getAddressBuilding() {
+        return addressBuilding;
+    }
+
+    public void setAddressBuilding(String addressBuilding) {
+        this.addressBuilding = addressBuilding;
+    }
+
+    public String getAddressVillage() {
+        return addressVillage;
+    }
+
+    public void setAddressVillage(String addressVillage) {
+        this.addressVillage = addressVillage;
+    }
+
+    public String getAddressLane() {
+        return addressLane;
+    }
+
+    public void setAddressLane(String addressLane) {
+        this.addressLane = addressLane;
+    }
+
+    public String getAddressRoad() {
+        return addressRoad;
+    }
+
+    public void setAddressRoad(String addressRoad) {
+        this.addressRoad = addressRoad;
+    }
+
+    public Integer getProvinceId() {
+        return provinceId;
+    }
+
+    public void setProvinceId(Integer provinceId) {
+        this.provinceId = provinceId;
+    }
+
+    public Integer getAmphurId() {
+        return amphurId;
+    }
+
+    public void setAmphurId(Integer amphurId) {
+        this.amphurId = amphurId;
+    }
+
+    public Integer getDistrictId() {
+        return districtId;
+    }
+
+    public void setDistrictId(Integer districtId) {
+        this.districtId = districtId;
+    }
+
+    public String getPostCode() {
+        return postCode;
+    }
+
+    public void setPostCode(String postCode) {
+        this.postCode = postCode;
+    }
+
+    public String getProvinceLao() {
+        return provinceLao;
+    }
+
+    public void setProvinceLao(String provinceLao) {
+        this.provinceLao = provinceLao;
+    }
+
+    public String getAmphurLao() {
+        return amphurLao;
+    }
+
+    public void setAmphurLao(String amphurLao) {
+        this.amphurLao = amphurLao;
+    }
+
+    public String getDistrictLao() {
+        return districtLao;
+    }
+
+    public void setDistrictLao(String districtLao) {
+        this.districtLao = districtLao;
+    }
+
+    public Integer getNationId() {
+		return nationId;
+	}
+
+	public void setNationId(Integer nationId) {
+		this.nationId = nationId;
+	}
+
+	@Override
     public int hashCode() {
         int hash = 0;
         hash += (trxHeaderId != null ? trxHeaderId.hashCode() : 0);

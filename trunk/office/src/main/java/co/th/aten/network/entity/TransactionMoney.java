@@ -167,7 +167,7 @@ public class TransactionMoney implements Serializable {
     public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate;
     }
-
+    
     public Integer getReceiveCumtomerId() {
 		return receiveCumtomerId;
 	}

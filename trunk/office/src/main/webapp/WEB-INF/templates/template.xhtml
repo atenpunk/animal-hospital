@@ -30,9 +30,9 @@
 					<br />
 					<br />
 					<br />
-					&#160;&#160;<pretty:link mappingId="logout" style="font-size: 16px;">
-						<h:outputText
-							value="#{app_msgs['menu.logout.label']}" />
+					&#160;&#160;<pretty:link mappingId="logout"
+						style="font-size: 16px;">
+						<h:outputText value="#{app_msgs['menu.logout.label']}" />
 					</pretty:link>
 				</h:panelGroup>
 			</h:panelGrid>
@@ -46,8 +46,7 @@
 			<rich:dropDownMenu>
 				<f:facet name="label">
 					<h:panelGroup>
-						<h:outputText
-							value="#{app_msgs['menu.label.stockProduct']}" />
+						<h:outputText value="#{app_msgs['menu.label.stockProduct']}" />
 					</h:panelGroup>
 				</f:facet>
 				<rich:menuItem submitMode="ajax"
@@ -56,12 +55,14 @@
 				<rich:menuItem submitMode="ajax"
 					label="#{app_msgs['menu.label.detailProduct']}"
 					onclick="document.location.href='#{request.contextPath}/product/detailProduct'" />
+				<rich:menuItem submitMode="ajax"
+					label="#{app_msgs['menu.label.productTrx']}"
+					onclick="document.location.href='#{request.contextPath}/product/trx'" />
 			</rich:dropDownMenu>
 			<rich:dropDownMenu>
 				<f:facet name="label">
 					<h:panelGroup>
-						<h:outputText
-							value="#{app_msgs['menu.label.eMoney']}" />
+						<h:outputText value="#{app_msgs['menu.label.eMoney']}" />
 					</h:panelGroup>
 				</f:facet>
 				<rich:menuItem submitMode="ajax"
@@ -70,7 +71,7 @@
 				<rich:menuItem submitMode="ajax"
 					label="#{app_msgs['label.menuMoney.transfer']}"
 					onclick="document.location.href='#{request.contextPath}/money/transfer'" />
-					
+
 				<rich:menuSeparator id="menuSeparator2" />
 				<rich:menuSeparator id="menuSeparator3" />
 

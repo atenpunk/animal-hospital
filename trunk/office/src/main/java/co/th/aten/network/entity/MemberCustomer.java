@@ -13,6 +13,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -130,34 +131,50 @@ public class MemberCustomer implements Serializable {
     private String bankaccountName;
     @Column(name = "remark")
     private String remark;
-    @Column(name = "receive_Document")
-    private Integer receiveDocument;
-    @Column(name = "date_Document_Fully")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date dateDocumentFully;
-    @Column(name = "date_Copy_Personal_Card")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date dateCopyPersonalCard;
-    @Column(name = "date_Copy_Book_Bank")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date dateCopyBookBank;
     @Column(name = "business_name")
     private String businessName;
-    @Column(name = "chk_Document_Fully")
-    private Integer chkDocumentFully;
-    @Column(name = "chk_Copy_Personal_Card")
-    private Integer chkCopyPersonalCard;
-    @Column(name = "chk_Copy_Book_Bank")
-    private Integer chkCopyBookBank;
     @Column(name = "side")
     private Integer side;
     @Column(name = "eMoney")
     private BigDecimal eMoney;
     @Column(name = "matching_use")
     private Integer matchingUse;
+    @Column(name = "province_str")
+    private String provinceStr;
+    @Column(name = "amphur_str")
+    private String amphurStr;
+    @Column(name = "district_str")
+    private String districtStr;
+    @Column(name = "post_code_str")
+    private String postCodeStr;
+    @Lob
+    @Column(name = "image_member")
+    private byte[] imageMember;
+    @Column(name = "image_member_name")
+    private String imageMemberName;
+    @Lob
+    @Column(name = "document_application")
+    private byte[] documentApplication;
+    @Lob
+    @Column(name = "document_idCard")
+    private byte[] documentIdCard;
+    @Lob
+    @Column(name = "document_bookBank")
+    private byte[] documentBookBank;
+    @Column(name = "document_application_name")
+    private String documentApplicationName;
+    @Column(name = "document_idCard_name")
+    private String documentIdCardName;
+    @Column(name = "document_bookBank_name")
+    private String documentBookBankName;
+    @Column(name = "show_name_status")
+    private Integer showNameStatus;
     @JoinColumn(name = "nation_id", referencedColumnName = "nation_id")
     @ManyToOne
     private MasterNationality nationId;
+    @JoinColumn(name = "official_document_id", referencedColumnName = "off_doc_id")
+    @ManyToOne
+    private MasterOfficialDocument officialDocumentId;
     @JoinColumn(name = "position_id", referencedColumnName = "position_id")
     @ManyToOne
     private MemberPosition positionId;
@@ -545,68 +562,12 @@ public class MemberCustomer implements Serializable {
         this.remark = remark;
     }
 
-    public Integer getReceiveDocument() {
-        return receiveDocument;
-    }
-
-    public void setReceiveDocument(Integer receiveDocument) {
-        this.receiveDocument = receiveDocument;
-    }
-
-    public Date getDateDocumentFully() {
-        return dateDocumentFully;
-    }
-
-    public void setDateDocumentFully(Date dateDocumentFully) {
-        this.dateDocumentFully = dateDocumentFully;
-    }
-
-    public Date getDateCopyPersonalCard() {
-        return dateCopyPersonalCard;
-    }
-
-    public void setDateCopyPersonalCard(Date dateCopyPersonalCard) {
-        this.dateCopyPersonalCard = dateCopyPersonalCard;
-    }
-
-    public Date getDateCopyBookBank() {
-        return dateCopyBookBank;
-    }
-
-    public void setDateCopyBookBank(Date dateCopyBookBank) {
-        this.dateCopyBookBank = dateCopyBookBank;
-    }
-
     public String getBusinessName() {
         return businessName;
     }
 
     public void setBusinessName(String businessName) {
         this.businessName = businessName;
-    }
-
-    public Integer getChkDocumentFully() {
-        return chkDocumentFully;
-    }
-
-    public void setChkDocumentFully(Integer chkDocumentFully) {
-        this.chkDocumentFully = chkDocumentFully;
-    }
-
-    public Integer getChkCopyPersonalCard() {
-        return chkCopyPersonalCard;
-    }
-
-    public void setChkCopyPersonalCard(Integer chkCopyPersonalCard) {
-        this.chkCopyPersonalCard = chkCopyPersonalCard;
-    }
-
-    public Integer getChkCopyBookBank() {
-        return chkCopyBookBank;
-    }
-
-    public void setChkCopyBookBank(Integer chkCopyBookBank) {
-        this.chkCopyBookBank = chkCopyBookBank;
     }
 
     public Integer getSide() {
@@ -633,12 +594,124 @@ public class MemberCustomer implements Serializable {
         this.matchingUse = matchingUse;
     }
 
-    public MasterNationality getNationId() {
+    public String getProvinceStr() {
+        return provinceStr;
+    }
+
+    public void setProvinceStr(String provinceStr) {
+        this.provinceStr = provinceStr;
+    }
+
+    public String getAmphurStr() {
+        return amphurStr;
+    }
+
+    public void setAmphurStr(String amphurStr) {
+        this.amphurStr = amphurStr;
+    }
+
+    public String getDistrictStr() {
+        return districtStr;
+    }
+
+    public void setDistrictStr(String districtStr) {
+        this.districtStr = districtStr;
+    }
+
+    public String getPostCodeStr() {
+        return postCodeStr;
+    }
+
+    public void setPostCodeStr(String postCodeStr) {
+        this.postCodeStr = postCodeStr;
+    }
+
+    public byte[] getImageMember() {
+        return imageMember;
+    }
+
+    public void setImageMember(byte[] imageMember) {
+        this.imageMember = imageMember;
+    }
+
+    public String getImageMemberName() {
+        return imageMemberName;
+    }
+
+    public void setImageMemberName(String imageMemberName) {
+        this.imageMemberName = imageMemberName;
+    }
+
+    public byte[] getDocumentApplication() {
+        return documentApplication;
+    }
+
+    public void setDocumentApplication(byte[] documentApplication) {
+        this.documentApplication = documentApplication;
+    }
+
+    public byte[] getDocumentIdCard() {
+        return documentIdCard;
+    }
+
+    public void setDocumentIdCard(byte[] documentidCard) {
+        this.documentIdCard = documentidCard;
+    }
+
+    public byte[] getDocumentBookBank() {
+        return documentBookBank;
+    }
+
+    public void setDocumentBookBank(byte[] documentbookBank) {
+        this.documentBookBank = documentbookBank;
+    }
+
+    public String getDocumentApplicationName() {
+        return documentApplicationName;
+    }
+
+    public void setDocumentApplicationName(String documentApplicationName) {
+        this.documentApplicationName = documentApplicationName;
+    }
+    
+    public String getDocumentIdCardName() {
+		return documentIdCardName;
+	}
+
+	public void setDocumentIdCardName(String documentIdCardName) {
+		this.documentIdCardName = documentIdCardName;
+	}
+
+	public String getDocumentBookBankName() {
+		return documentBookBankName;
+	}
+
+	public void setDocumentBookBankName(String documentBookBankName) {
+		this.documentBookBankName = documentBookBankName;
+	}
+
+	public Integer getShowNameStatus() {
+		return showNameStatus;
+	}
+
+	public void setShowNameStatus(Integer showNameStatus) {
+		this.showNameStatus = showNameStatus;
+	}
+
+	public MasterNationality getNationId() {
         return nationId;
     }
 
     public void setNationId(MasterNationality nationId) {
         this.nationId = nationId;
+    }
+
+    public MasterOfficialDocument getOfficialDocumentId() {
+        return officialDocumentId;
+    }
+
+    public void setOfficialDocumentId(MasterOfficialDocument officialDocumentId) {
+        this.officialDocumentId = officialDocumentId;
     }
 
     public MemberPosition getPositionId() {
