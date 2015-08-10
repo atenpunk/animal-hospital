@@ -44,7 +44,7 @@ public class CustomerStore extends BasicStore implements Serializable {
 
 	public String getAddressByMemberId(int memberId){
 		try{
-			MemberCustomer memberCustomer = em.find(MemberCustomer.class, memberId);
+			MemberCustomer memberCustomer = em.find(MemberCustomer.class, new Integer(memberId));
 			if (memberCustomer!=null) {
 				String address = "";
 				address += StringUtil.n2b(memberCustomer.getAddressNoSendDoc());
@@ -56,21 +56,21 @@ public class CustomerStore extends BasicStore implements Serializable {
 						&& memberCustomer.getProvinceIdSendDoc().intValue()>0){
 					AddressProvinces addr  = em.find(AddressProvinces.class, memberCustomer.getProvinceIdSendDoc());
 					if(addr!=null){
-						address += " "+StringUtil.n2b(addr.getProvinceName());
+						address += " จ."+StringUtil.n2b(addr.getProvinceName());
 					}
 				}
 				if(memberCustomer.getAmphurIdSendDoc()!=null 
 						&& memberCustomer.getAmphurIdSendDoc().intValue()>0){
 					AddressAmphures addr  = em.find(AddressAmphures.class, memberCustomer.getAmphurIdSendDoc());
 					if(addr!=null){
-						address += " "+StringUtil.n2b(addr.getAmphurName());
+						address += " อ."+StringUtil.n2b(addr.getAmphurName());
 					}
 				}
 				if(memberCustomer.getDistrictIdSendDoc()!=null 
 						&& memberCustomer.getDistrictIdSendDoc().intValue()>0){
 					AddressDistricts addr  = em.find(AddressDistricts.class, memberCustomer.getDistrictIdSendDoc());
 					if(addr!=null){
-						address += " "+StringUtil.n2b(addr.getDistrictName());
+						address += " ต."+StringUtil.n2b(addr.getDistrictName());
 						address += " "+StringUtil.n2b(addr.getPostCode());
 					}
 				}

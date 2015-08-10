@@ -7,6 +7,7 @@ import java.util.List;
 
 public class TrxProductModel implements Serializable {
 	
+	private int headerId;
 	private Date trxDateTime;
 	private String receiptNo;
 	private int productId;
@@ -21,6 +22,12 @@ public class TrxProductModel implements Serializable {
 	private String status;
 	private List<ProductModel> productModelList;
 	
+	public int getHeaderId() {
+		return headerId;
+	}
+	public void setHeaderId(int headerId) {
+		this.headerId = headerId;
+	}
 	public Date getTrxDateTime() {
 		return trxDateTime;
 	}
