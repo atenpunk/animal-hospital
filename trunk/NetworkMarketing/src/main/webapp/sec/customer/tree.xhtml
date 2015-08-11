@@ -116,8 +116,9 @@
 											</div>
 											<div
 												style="display: #{customerController.customerModel_01.flagImg03}">
-												<a4j:commandLink styleClass="tooltip" render="mainPanel"
-													action="#{customerController.genTree('-1',customerController.customerModel_01.customerId)}">
+												<a4j:commandLink styleClass="tooltip"
+													render="mainPanel,popupPanelGridId"
+													onclick="#{rich:component('popup')}.show();">
 													<h:graphicImage
 														value="#{customerController.customerModel_01.positionImage}"
 														width="81px" height="81px" />
@@ -1018,12 +1019,12 @@
 										value="#{app_msgs['label.pageTree.memberStr']}"
 										style="FONT-WEIGHT: bold;" /></td>
 								<td class="tableDataFooter"><h:outputText
-										value="#{customerController.detailCustomerStr}"  /></td>
+										value="#{customerController.detailCustomerStr}" /></td>
 								<td class="tableHeadFooter"><h:outputText
 										value="#{app_msgs['label.pageTree.matchUse']}"
 										style="FONT-WEIGHT: bold;" /></td>
 								<td class="tableDataFooter"><h:outputText
-										value="#{customerController.detailMatchUse}"  /></td>
+										value="#{customerController.detailMatchUse}" /></td>
 							</tr>
 
 							<tr>
@@ -1031,19 +1032,19 @@
 										value="#{app_msgs['label.pageTree.nameMember']}"
 										style="FONT-WEIGHT: bold;" /></td>
 								<td class="tableDataFooter"><h:outputText
-										value="#{customerController.detailNameMember}"  /></td>
+										value="#{customerController.detailNameMember}" /></td>
 								<td class="tableHeadFooter"><h:outputText
 										value="#{app_msgs['label.pageTree.matchNotUse']}"
 										style="FONT-WEIGHT: bold;" /></td>
 								<td class="tableDataFooter"><h:outputText
-										value="#{customerController.detailMatchRemain}"  /></td>
+										value="#{customerController.detailMatchRemain}" /></td>
 							</tr>
 							<tr>
 								<td class="tableHeadFooter"><h:outputText
 										value="#{app_msgs['label.pageTree.regisDate']}"
 										style="FONT-WEIGHT: bold;" /></td>
 								<td class="tableDataFooter"><h:outputText
-										value="#{customerController.detailRegisDate}"  /></td>
+										value="#{customerController.detailRegisDate}" /></td>
 								<td colspan="2" class="tableHeadFooter"><h:outputText
 										value="#{app_msgs['label.pageTree.scoreRemaining']}"
 										style="FONT-WEIGHT: bold;" /></td>
@@ -1054,7 +1055,7 @@
 										value="#{app_msgs['label.pageTree.posMatch']}"
 										style="FONT-WEIGHT: bold;" /></td>
 								<td class="tableDataFooter"><h:outputText
-										value="#{customerController.detailPosMatch}"  /></td>
+										value="#{customerController.detailPosMatch}" /></td>
 
 								<td class="tableHeadFooter"><h:outputText
 										value="#{app_msgs['label.pageTree.scoreLeft']}"
@@ -1068,17 +1069,54 @@
 										value="#{app_msgs['label.pageTree.score']}"
 										style="FONT-WEIGHT: bold;" /></td>
 								<td class="tableDataFooter"><h:outputText
-										value="#{customerController.detailScore}"  /></td>
+										value="#{customerController.detailScore}" /></td>
 								<td class="tableDataFooter"><h:outputText
-										value="#{customerController.detailScoreLeft}"  /></td>
+										value="#{customerController.detailScoreLeft}" /></td>
 								<td class="tableDataFooter"><h:outputText
-										value="#{customerController.detailScoreRight}"  /></td>
+										value="#{customerController.detailScoreRight}" /></td>
 							</tr>
 						</table>
 					</rich:panel>
 				</h:panelGrid>
 			</rich:panel>
 		</h:form>
-	</ui:define>
 
+
+		<rich:popupPanel id="popup" modal="true"
+			header="#{app_msgs['login.label.header']}" width="400" height="220">
+			<h:form>
+				<h:panelGrid columns="2" id="popupPanelGridId" rowClasses="prop"
+					columnClasses="name,value">
+					<h:outputText value="#{app_msgs['label.memberCode']}" />
+					<h:outputText
+						value="#{customerController.customerModel_01.customerMember}" />
+					<h:outputText value="#{app_msgs['label.memberName']}" />
+					<h:outputText value="#{customerController.customerModel_01.name}" />
+					<h:outputText value="#{app_msgs['label.password']}" />
+					<h:inputSecret value="#{customerController.passMember}" />
+				</h:panelGrid>
+				<br />
+				<a4j:commandButton style="width:100px" id="submit"
+					render="messagePopupId" value="#{app_msgs['login.button.login']}"
+					action="#{customerController.checkShowDetailMember}"
+					oncomplete="if(#{customerController.checkPassShowDetail}){#{rich:component('popup')}.hide(); return false;}" />
+					&#160;
+				<a4j:commandButton style="width:100px"
+					value="#{app_msgs['button.cancle']}"
+					onclick="#{rich:component('popup')}.hide(); return false;" />
+					<h:panelGrid id="messagePopupId">
+					<h:messages globalOnly="true" infoClass="info" warnClass="warn"
+						errorClass="error" />
+				</h:panelGrid>
+			</h:form>
+			<f:facet name="controls">
+				<h:outputLink value="#"
+					onclick="#{rich:component('popup')}.hide(); return false;">
+                X
+            </h:outputLink>
+			</f:facet>
+		</rich:popupPanel>
+
+
+	</ui:define>
 </ui:composition>
