@@ -277,6 +277,15 @@ body {
 	padding-top: 2px;
 }
 
+#container3 {
+	margin: 0 auto;
+	padding: 0 20px 10px 20px;
+	border: 1px solid #666666;
+	width: 95%; 
+	background: #FFFFFF;
+	padding-top: 2px;
+}
+
 #sidebar {
 	font-size: 0.9em;
 	width: 17%;
