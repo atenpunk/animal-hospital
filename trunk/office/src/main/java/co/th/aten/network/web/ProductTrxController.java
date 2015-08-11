@@ -4,11 +4,12 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -27,6 +28,7 @@ import co.th.aten.network.entity.TransactionSellDetail;
 import co.th.aten.network.entity.TransactionSellHeader;
 import co.th.aten.network.entity.TransactionSellHeaderStatus;
 import co.th.aten.network.entity.UserLogin;
+import co.th.aten.network.model.DropDownModel;
 import co.th.aten.network.model.ProductModel;
 import co.th.aten.network.model.TrxProductModel;
 import co.th.aten.network.producer.DBDefault;
@@ -36,7 +38,7 @@ import co.th.aten.network.security.CurrentUserManager;
 import co.th.aten.network.util.BathText;
 import co.th.aten.network.util.StringUtil;
 
-@ViewScoped	
+@SessionScoped
 @Named
 public class ProductTrxController implements Serializable {
 
@@ -56,20 +58,71 @@ public class ProductTrxController implements Serializable {
 	private TransactionHeaderControl transactionHeaderControl;
 
 	private List<TrxProductModel> trxProductModelList;
+	private List<DropDownModel> trxStatusList;
+	private List<DropDownModel> trxStatusForDataTable;
+	private int selectedTrxStatus;
+	private Date startDate;
+	private Date endDate;
+	private String receiptNo;
 
 	@PostConstruct
 	public void init(){
 		log.info("init method ProductTrxController");
-		genModelList();
+		Calendar calStart = Calendar.getInstance();
+		calStart.add(Calendar.DATE, -30);
+		calStart.set(Calendar.HOUR_OF_DAY, 0);
+		calStart.set(Calendar.MINUTE, 0);
+		calStart.set(Calendar.SECOND, 0);
+		calStart.set(Calendar.MILLISECOND, 0);
+		startDate = calStart.getTime();
+		Calendar calEnd = Calendar.getInstance();
+		calEnd.set(Calendar.HOUR_OF_DAY, 23);
+		calEnd.set(Calendar.MINUTE, 59);
+		calEnd.set(Calendar.SECOND, 59);
+		calEnd.set(Calendar.MILLISECOND, 999);
+		endDate = calEnd.getTime();
+		if(trxStatusList==null || trxStatusForDataTable==null){
+			trxStatusList = new ArrayList<DropDownModel>();
+			trxStatusForDataTable = new ArrayList<DropDownModel>();
+			List<TransactionSellHeaderStatus> statusList = em.createQuery("From TransactionSellHeaderStatus order by statusId",TransactionSellHeaderStatus.class).getResultList();
+			if(statusList!=null){
+				for(TransactionSellHeaderStatus trxStatus:statusList){
+					DropDownModel model = new DropDownModel();
+					model.setIntKey(trxStatus.getStatusId());
+					model.setThLabel(trxStatus.getStatusDesc());
+					model.setEnLabel(trxStatus.getStatusDesc());
+					trxStatusList.add(model);
+					trxStatusForDataTable.add(model);
+				}
+				DropDownModel model = new DropDownModel();
+				model.setIntKey(-1);
+				model.setThLabel("");
+				model.setEnLabel("");
+				trxStatusList.add(0,model);
+				selectedTrxStatus = -1;
+			}
+		}
+		search();
 	}
 
-	private void genModelList(){
+	public void search(){
 		try{
 			trxProductModelList = new ArrayList<TrxProductModel>();
+			String statusSql = "";
+			String receiptNoSql = "";
+			if(selectedTrxStatus > 0){
+				statusSql = " And trxHeaderStatus = "+selectedTrxStatus+" ";
+			}
+			if(receiptNo!=null && receiptNo.trim().length()>0){
+				receiptNoSql = " And receiptNo = '"+StringUtil.checkSql(receiptNo)+"' ";
+			}
 			List<TransactionSellHeader> trxHeaderList = em.createQuery(" From TransactionSellHeader " +
-//					" Where customerId=:customerId " +
+					" Where trxHeaderDatetime Between :startDate And :endDate " +
+					statusSql +
+					receiptNoSql +
 					" Order by trxHeaderDatetime desc ",TransactionSellHeader.class)
-//					.setParameter("customerId", currentUser.getCurrentAccount().getCustomerId().getCustomerId())
+					.setParameter("startDate", startDate)
+					.setParameter("endDate", endDate)
 					.getResultList();
 			if(trxHeaderList!=null){
 				for(TransactionSellHeader trx:trxHeaderList){
@@ -89,8 +142,11 @@ public class ProductTrxController implements Serializable {
 					if(userLogin!=null && userLogin.getCustomerId()!=null)
 						model.setMemberCodeKey(userLogin.getCustomerId().getCustomerMember());
 					TransactionSellHeaderStatus status = em.find(TransactionSellHeaderStatus.class, trx.getTrxHeaderStatus());
-					if(status!=null)
-						model.setStatus(status.getStatusDesc());
+					if(status!=null){
+						model.setStatusId(StringUtil.n2b(status.getStatusId()));
+						model.setStatus(StringUtil.n2b(status.getStatusDesc()));
+					}
+					model.setTrxStatusList(trxStatusForDataTable);
 					List<TransactionSellDetail> detailList = em.createQuery("From TransactionSellDetail Where trxHeaderId =:trxHeaderId ",TransactionSellDetail.class)
 							.setParameter("trxHeaderId", trx.getTrxHeaderId())
 							.getResultList();
@@ -118,6 +174,20 @@ public class ProductTrxController implements Serializable {
 			}
 		}catch(Exception e){
 			e.printStackTrace();
+		}
+	}
+	
+	public void saveEditStatus(TrxProductModel trxModel){
+		try{
+			log.info("saveEditStatus Trx Header ID = "+trxModel.getHeaderId());
+			log.info("saveEditStatus Trx Status ID = "+trxModel.getStatusId());
+			TransactionSellHeader trxHeader = em.find(TransactionSellHeader.class, new Integer(trxModel.getHeaderId()));
+			trxHeader.setTrxHeaderStatus(trxModel.getStatusId());
+			trxHeader.setUpdateBy(currentUser.getCurrentAccount().getUserId());
+			trxHeader.setUpdateDate(new Date());
+			em.merge(trxHeader);
+		}catch(Exception ex){
+			ex.printStackTrace();
 		}
 	}
 
@@ -180,4 +250,45 @@ public class ProductTrxController implements Serializable {
 	public void setTrxProductModelList(List<TrxProductModel> trxProductModelList) {
 		this.trxProductModelList = trxProductModelList;
 	}
+
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+	public List<DropDownModel> getTrxStatusList() {
+		return trxStatusList;
+	}
+
+	public void setTrxStatusList(List<DropDownModel> trxStatusList) {
+		this.trxStatusList = trxStatusList;
+	}
+
+	public int getSelectedTrxStatus() {
+		return selectedTrxStatus;
+	}
+
+	public void setSelectedTrxStatus(int selectedTrxStatus) {
+		this.selectedTrxStatus = selectedTrxStatus;
+	}
+
+	public String getReceiptNo() {
+		return receiptNo;
+	}
+
+	public void setReceiptNo(String receiptNo) {
+		this.receiptNo = receiptNo;
+	}
+	
 }

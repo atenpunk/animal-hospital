@@ -19,7 +19,9 @@ public class TrxProductModel implements Serializable {
 	private String memberCodeKey;
 	private double totalPrice;
 	private double totalPv;
+	private int statusId;
 	private String status;
+	private List<DropDownModel> trxStatusList;
 	private List<ProductModel> productModelList;
 	
 	public int getHeaderId() {
@@ -88,12 +90,6 @@ public class TrxProductModel implements Serializable {
 	public void setMemberCodeKey(String memberCodeKey) {
 		this.memberCodeKey = memberCodeKey;
 	}
-	public String getStatus() {
-		return status;
-	}
-	public void setStatus(String status) {
-		this.status = status;
-	}
 	public List<ProductModel> getProductModelList() {
 		return productModelList;
 	}
@@ -105,6 +101,24 @@ public class TrxProductModel implements Serializable {
 	}
 	public void setMemberId(int memberId) {
 		this.memberId = memberId;
+	}
+	public int getStatusId() {
+		return statusId;
+	}
+	public void setStatusId(int statusId) {
+		this.statusId = statusId;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public List<DropDownModel> getTrxStatusList() {
+		return trxStatusList;
+	}
+	public void setTrxStatusList(List<DropDownModel> trxStatusList) {
+		this.trxStatusList = trxStatusList;
 	}
 	
 }
