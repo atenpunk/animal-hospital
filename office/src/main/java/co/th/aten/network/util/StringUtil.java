@@ -19,6 +19,14 @@ import java.math.BigDecimal;
  */
 
 public class StringUtil {
+	
+	public static String checkSql(String sql){
+		if(sql!=null){
+			sql = sql.replaceAll(" or ", "");
+			sql = sql.replaceAll(" OR ", "");
+		}
+		return sql;
+	}
 
     public static String concat( String str1, int str2 ) {
         return str1 + str2;

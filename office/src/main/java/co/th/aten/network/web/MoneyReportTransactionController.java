@@ -98,9 +98,7 @@ public class MoneyReportTransactionController implements Serializable {
 				if(chkNumber){
 					sqlText = "And mem.customerMember = '"+searchText+"' ";
 				}else{
-					searchText = searchText.replaceAll(" or ", "");
-					searchText = searchText.replaceAll(" OR ", "");
-					sqlText = "And mem.firstName like '%"+searchText+"%' ";
+					sqlText = "And mem.firstName like '%"+StringUtil.checkSql(searchText)+"%' ";
 				}
 			}
 			String sql = "Select mem.customerMember, mem.titleName, mem.firstName, mem.lastName, " +
