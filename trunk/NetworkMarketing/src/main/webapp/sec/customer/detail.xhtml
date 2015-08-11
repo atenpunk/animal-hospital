@@ -4,24 +4,17 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j">
-	<h:head>
-		<title>#{app_msgs['label.pageEditMember.header']}</title>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<h:outputStylesheet library="css" name="screen.css" />
-		<h:outputStylesheet library="css" name="tree.css" />
-		<h:outputStylesheet library="css" name="mainMenu.css" />
-		<h:outputScript library="js" name="solar.js" />
-	</h:head>
-	<h:body>
-	<br />
+	xmlns:a4j="http://richfaces.org/a4j"
+	template="/WEB-INF/templates/template3.xhtml">
+	<ui:define name="content">
+		<br />
 		<h:form id="formDetailId">
 			<rich:panel>
 				<f:facet name="header">
 					<h:outputText value="#{app_msgs['label.pageEditMember.header']}" />
 				</f:facet>
-
+				
 			</rich:panel>
 		</h:form>
-	</h:body>
+	</ui:define>
 </ui:composition>
