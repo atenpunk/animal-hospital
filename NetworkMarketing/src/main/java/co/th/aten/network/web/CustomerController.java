@@ -233,6 +233,13 @@ public class CustomerController implements Serializable{
 	private UploadedImage uploadedIdCard;
 	private UploadedImage uploadedBookBank;
 	// ######################## ADD MEMBER #########################
+	
+
+	// ######################## SHOW DETAIL MEMBER #########################
+	private String passMember;
+	private boolean checkPassShowDetail;
+
+	// ######################## SHOW DETAIL MEMBER #########################
 
 	@PostConstruct
 	public void init(){
@@ -2066,6 +2073,36 @@ public class CustomerController implements Serializable{
 	
 	// ########################### ADD MEMBER ##############################
 
+	// ######################## SHOW DETAIL MEMBER #########################
+	
+	public void checkShowDetailMember(){
+		log.info(" function checkShowDetailMember ");
+		log.info(" Member Code = "+customerModel_01.getCustomerMember());
+		try{
+			checkPassShowDetail = false;
+			HashUtil hashUtil = new HashUtil();
+			if(passMember!=null 
+					&& !passMember.trim().equals("")){
+				List<UserLogin> users = em.createQuery("From UserLogin where loginName=:login ", UserLogin.class)
+						.setParameter("login", customerModel_01.getCustomerMember())
+						.getResultList();
+				UserLogin user = users.get(0);
+				if(user.getPassword().equals(hashUtil.hash(passMember))){
+					checkPassShowDetail = true;
+				}else{
+					messages.error(new AppBundleKey("error.label.loginShowDetailFail",FacesContext.getCurrentInstance().getViewRoot().getLocale().getLanguage()));
+				}
+			}else{
+				messages.error(new AppBundleKey("error.label.loginShowDetailFail",FacesContext.getCurrentInstance().getViewRoot().getLocale().getLanguage()));
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			messages.error(new AppBundleKey("error.label.loginShowDetailFail",FacesContext.getCurrentInstance().getViewRoot().getLocale().getLanguage()));
+		}
+		log.info(" login show detail = "+checkPassShowDetail);
+	}
+	
+	// ######################## SHOW DETAIL MEMBER #########################
 	public List<CustomerModel> getCustomerModelList() {
 		return customerModelList;
 	}
@@ -2972,6 +3009,22 @@ public class CustomerController implements Serializable{
 
 	public void setShowName(int showName) {
 		this.showName = showName;
+	}
+
+	public String getPassMember() {
+		return passMember;
+	}
+
+	public void setPassMember(String passMember) {
+		this.passMember = passMember;
+	}
+
+	public boolean isCheckPassShowDetail() {
+		return checkPassShowDetail;
+	}
+
+	public void setCheckPassShowDetail(boolean checkPassShowDetail) {
+		this.checkPassShowDetail = checkPassShowDetail;
 	}
 
 }
