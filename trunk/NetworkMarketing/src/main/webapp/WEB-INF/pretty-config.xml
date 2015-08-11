@@ -83,6 +83,10 @@
 		<pattern value="/customer/profile"></pattern>
 		<view-id>/sec/customer/profile.jsf</view-id>
 	</url-mapping>
+	<url-mapping id="profile_02">
+		<pattern value="/customer/detail"></pattern>
+		<view-id>/sec/customer/detail.jsf</view-id>
+	</url-mapping>
 
 
 
