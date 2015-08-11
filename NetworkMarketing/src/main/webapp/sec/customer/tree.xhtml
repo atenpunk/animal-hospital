@@ -1099,7 +1099,7 @@
 				<a4j:commandButton style="width:100px" id="submit"
 					render="messagePopupId" value="#{app_msgs['login.button.login']}"
 					action="#{customerController.checkShowDetailMember}"
-					oncomplete="if(#{customerController.checkPassShowDetail}){#{rich:component('popup')}.hide(); return false;}" />
+					oncomplete="if(#{customerController.checkPassShowDetail}){window.open('#{request.contextPath}/customer/detail','_blank','width=800,height=600','resizable=true'); #{rich:component('popup')}.hide(); return false;}" />
 					&#160;
 				<a4j:commandButton style="width:100px"
 					value="#{app_msgs['button.cancle']}"
