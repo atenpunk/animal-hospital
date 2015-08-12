@@ -9,11 +9,10 @@
 	<ui:define name="content">
 		<br />
 		<h:form id="formDetailId">
-			<rich:panel>
-				<f:facet name="header">
-					<h:outputText value="#{app_msgs['label.pageEditMember.header']}" />
-				</f:facet>
-				
+			<rich:panel rendered="#{detailMemberController.checkPassword}">
+				<h:outputText value="#{detailMemberController.member.customerMember}" />
+				<br />
+				<h:outputText value="#{detailMemberController.member.firstName}" />
 			</rich:panel>
 		</h:form>
 	</ui:define>
