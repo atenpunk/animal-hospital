@@ -1084,11 +1084,11 @@
 
 		<rich:popupPanel id="popup" modal="true"
 			header="#{app_msgs['login.label.header']}" width="400" height="220">
-			<h:form>
+			<h:form id="popupFormId">
 				<h:panelGrid columns="2" id="popupPanelGridId" rowClasses="prop"
 					columnClasses="name,value">
 					<h:outputText value="#{app_msgs['label.memberCode']}" />
-					<h:outputText
+					<h:outputText id="memberId"
 						value="#{customerController.customerModel_01.customerMember}" />
 					<h:outputText value="#{app_msgs['label.memberName']}" />
 					<h:outputText value="#{customerController.customerModel_01.name}" />
@@ -1099,12 +1099,13 @@
 				<a4j:commandButton style="width:100px" id="submit"
 					render="messagePopupId" value="#{app_msgs['login.button.login']}"
 					action="#{customerController.checkShowDetailMember}"
-					oncomplete="if(#{customerController.checkPassShowDetail}){window.open('#{request.contextPath}/customer/detail','_blank','width=900,height=600','resizable=true'); #{rich:component('popup')}.hide(); return false;}" />
+					oncomplete="if(#{customerController.checkPassShowDetail}){window.open('#{request.contextPath}/customer/detail#{customerController.parameter}','_blank','width=900,height=600','resizable=true'); #{rich:component('popup')}.hide(); return false;}">
+				</a4j:commandButton>
 					&#160;
 				<a4j:commandButton style="width:100px"
 					value="#{app_msgs['button.cancle']}"
 					onclick="#{rich:component('popup')}.hide(); return false;" />
-					<h:panelGrid id="messagePopupId">
+				<h:panelGrid id="messagePopupId">
 					<h:messages globalOnly="true" infoClass="info" warnClass="warn"
 						errorClass="error" />
 				</h:panelGrid>

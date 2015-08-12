@@ -68,9 +68,6 @@ public class CustomerController implements Serializable{
 	@Inject
 	Logger log;
 
-	//	@Inject
-	//	private SubscriberService subscriberService;
-
 	@Inject
 	@Authenticated
 	private Instance<UserLogin> user;
@@ -233,9 +230,10 @@ public class CustomerController implements Serializable{
 	private UploadedImage uploadedIdCard;
 	private UploadedImage uploadedBookBank;
 	// ######################## ADD MEMBER #########################
-	
+
 
 	// ######################## SHOW DETAIL MEMBER #########################
+	private String parameter;
 	private String passMember;
 	private boolean checkPassShowDetail;
 
@@ -792,11 +790,11 @@ public class CustomerController implements Serializable{
 			if(customerModel_01.getPositionId()!=0){
 				MemberPosition memberPosition = em.find(MemberPosition.class, new Integer(customerModel_01.getPositionId()));
 				detailPosMatch = memberPosition.getEnName();
-//				detailMatchRemain = df2.format(StringUtil.n2b(memberPosition.getMatching()));
+				//				detailMatchRemain = df2.format(StringUtil.n2b(memberPosition.getMatching()));
 			}else{
 				detailPosMatch = "";
 			}
-			
+
 
 			if(customerModel_01.getLowerLeftId()!=0){
 				customerModel_02 = setDataCustomerModel(getCustomerById(customerModel_01.getLowerLeftId()));
@@ -1477,7 +1475,7 @@ public class CustomerController implements Serializable{
 			chkNationality = true;
 			regisDate = new Date();
 			accType = 1;
-			
+
 			MemberCustomer customerUpper = em.find(MemberCustomer.class, new Integer(new BigDecimal(upperLineId).intValue()));
 			if(customerUpper!=null){
 				upperLineMemberId = customerUpper.getCustomerMember();
@@ -1488,7 +1486,7 @@ public class CustomerController implements Serializable{
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void paint(OutputStream stream, Object object){
 		try{
 			if(uploadedImage!=null){
@@ -1499,7 +1497,7 @@ public class CustomerController implements Serializable{
 			log.info("Error paint : "+e.getMessage());
 		}
 	}
-	
+
 	public void listenerUploadAppication(FileUploadEvent event){
 		try{
 			UploadedFile uploadedFile = event.getUploadedFile();
@@ -1511,7 +1509,7 @@ public class CustomerController implements Serializable{
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void listenerUploadIdCard(FileUploadEvent event){
 		try{
 			UploadedFile uploadedFile = event.getUploadedFile();
@@ -1523,7 +1521,7 @@ public class CustomerController implements Serializable{
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void listenerUploadBookBank(FileUploadEvent event){
 		try{
 			UploadedFile uploadedFile = event.getUploadedFile();
@@ -1535,7 +1533,7 @@ public class CustomerController implements Serializable{
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void listener(FileUploadEvent event){
 		try{
 			UploadedFile uploadedFile = event.getUploadedFile();
@@ -1797,7 +1795,7 @@ public class CustomerController implements Serializable{
 				cus.setAmphurStr(amphurStr);
 				cus.setDistrictStr(districtStr);
 				cus.setPostCodeStr(addressPostCode);
-				
+
 				if(uploadedImage!=null){
 					cus.setImageMember(uploadedImage.getData());
 					cus.setImageMemberName(uploadedImage.getName());
@@ -1980,7 +1978,7 @@ public class CustomerController implements Serializable{
 			chkSave = false;
 		}
 	}
-	
+
 	public void exportDocumentApplication() {
 		try {
 			byte[] pdf = uploadedApplication.getData();
@@ -2010,7 +2008,7 @@ public class CustomerController implements Serializable{
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void exportDocumentIdCard() {
 		try {
 			byte[] pdf = uploadedIdCard.getData();
@@ -2040,7 +2038,7 @@ public class CustomerController implements Serializable{
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void exportDocumentBookBank() {
 		try {
 			byte[] pdf = uploadedBookBank.getData();
@@ -2070,16 +2068,17 @@ public class CustomerController implements Serializable{
 			e.printStackTrace();
 		}
 	}
-	
+
 	// ########################### ADD MEMBER ##############################
 
 	// ######################## SHOW DETAIL MEMBER #########################
-	
+
 	public void checkShowDetailMember(){
 		log.info(" function checkShowDetailMember ");
 		log.info(" Member Code = "+customerModel_01.getCustomerMember());
 		try{
 			checkPassShowDetail = false;
+			parameter = "";
 			HashUtil hashUtil = new HashUtil();
 			if(passMember!=null 
 					&& !passMember.trim().equals("")){
@@ -2089,6 +2088,8 @@ public class CustomerController implements Serializable{
 				UserLogin user = users.get(0);
 				if(user.getPassword().equals(hashUtil.hash(passMember))){
 					checkPassShowDetail = true;
+					parameter += "?d="+customerModel_01.getCustomerId();
+					parameter += "&g=81dc9"+hashUtil.hash(passMember)+"4a7d1";
 				}else{
 					messages.error(new AppBundleKey("error.label.loginShowDetailFail",FacesContext.getCurrentInstance().getViewRoot().getLocale().getLanguage()));
 				}
@@ -2101,7 +2102,7 @@ public class CustomerController implements Serializable{
 		}
 		log.info(" login show detail = "+checkPassShowDetail);
 	}
-	
+
 	// ######################## SHOW DETAIL MEMBER #########################
 	public List<CustomerModel> getCustomerModelList() {
 		return customerModelList;
@@ -2934,7 +2935,7 @@ public class CustomerController implements Serializable{
 	public void setChkNationality(boolean chkNationality) {
 		this.chkNationality = chkNationality;
 	}
-	
+
 	public long getTimeStamp(){  
 		return System.currentTimeMillis();  
 	}
@@ -2970,7 +2971,7 @@ public class CustomerController implements Serializable{
 	public void setStarMobile(String starMobile) {
 		this.starMobile = starMobile;
 	}
-	
+
 	public UploadedImage getUploadedApplication() {
 		return uploadedApplication;
 	}
@@ -3025,6 +3026,14 @@ public class CustomerController implements Serializable{
 
 	public void setCheckPassShowDetail(boolean checkPassShowDetail) {
 		this.checkPassShowDetail = checkPassShowDetail;
+	}
+
+	public String getParameter() {
+		return parameter;
+	}
+
+	public void setParameter(String parameter) {
+		this.parameter = parameter;
 	}
 
 }
