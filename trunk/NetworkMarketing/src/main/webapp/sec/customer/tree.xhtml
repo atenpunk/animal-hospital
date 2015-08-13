@@ -45,7 +45,7 @@
 										<td></td>
 										<td><a4j:commandLink
 												actionListener="#{customerController.genTree('0',0)}"
-												render="mainPanel">
+												render="mainPanel,popupPanelGridId,messagePopupId">
 												<h:graphicImage value="/resources/gfx/go_dup.gif" />
 											</a4j:commandLink></td>
 										<td></td>
@@ -58,7 +58,7 @@
 											</a4j:commandLink></td>
 										<td><a4j:commandLink
 												actionListener="#{customerController.genTree('2',0)}"
-												render="mainPanel">
+												render="mainPanel,popupPanelGridId,messagePopupId">
 												<h:graphicImage value="/resources/gfx/go_up.gif" />
 											</a4j:commandLink></td>
 										<td><a4j:commandLink
@@ -117,8 +117,8 @@
 											<div
 												style="display: #{customerController.customerModel_01.flagImg03}">
 												<a4j:commandLink styleClass="tooltip"
-													render="mainPanel,popupPanelGridId"
-													onclick="#{rich:component('popup')}.show();">
+													render="mainPanel,popupPanelGridId,messagePopupId"
+													onclick="#{rich:component('popup')}.show();">													
 													<h:graphicImage
 														value="#{customerController.customerModel_01.positionImage}"
 														width="81px" height="81px" />
@@ -173,7 +173,7 @@
 													</div>
 													<div
 														style="display: #{customerController.customerModel_02.flagImg03}">
-														<a4j:commandLink styleClass="tooltip" render="mainPanel"
+														<a4j:commandLink styleClass="tooltip" render="mainPanel,popupPanelGridId,messagePopupId"
 															action="#{customerController.genTree('-1',customerController.customerModel_02.customerId)}">
 															<h:graphicImage
 																value="#{customerController.customerModel_02.positionImage}"
@@ -231,7 +231,7 @@
 															</div>
 															<div
 																style="display: #{customerController.customerModel_04.flagImg03}">
-																<a4j:commandLink styleClass="tooltip" render="mainPanel"
+																<a4j:commandLink styleClass="tooltip" render="mainPanel,popupPanelGridId,messagePopupId"
 																	action="#{customerController.genTree('-1',customerController.customerModel_04.customerId)}">
 																	<h:graphicImage
 																		value="#{customerController.customerModel_04.positionImage}"
@@ -289,7 +289,7 @@
 																	<div
 																		style="display: #{customerController.customerModel_08.flagImg03}">
 																		<a4j:commandLink styleClass="tooltip"
-																			render="mainPanel"
+																			render="mainPanel,popupPanelGridId,messagePopupId"
 																			action="#{customerController.genTree('-1',customerController.customerModel_08.customerId)}">
 																			<h:graphicImage
 																				value="#{customerController.customerModel_08.positionImage}"
@@ -352,7 +352,7 @@
 																	<div
 																		style="display: #{customerController.customerModel_09.flagImg03}">
 																		<a4j:commandLink styleClass="tooltip"
-																			render="mainPanel"
+																			render="mainPanel,popupPanelGridId,messagePopupId"
 																			action="#{customerController.genTree('-1',customerController.customerModel_09.customerId)}">
 																			<h:graphicImage
 																				value="#{customerController.customerModel_09.positionImage}"
@@ -416,7 +416,7 @@
 															</div>
 															<div
 																style="display: #{customerController.customerModel_05.flagImg03}">
-																<a4j:commandLink styleClass="tooltip" render="mainPanel"
+																<a4j:commandLink styleClass="tooltip" render="mainPanel,popupPanelGridId,messagePopupId"
 																	action="#{customerController.genTree('-1',customerController.customerModel_05.customerId)}">
 																	<h:graphicImage
 																		value="#{customerController.customerModel_05.positionImage}"
@@ -474,7 +474,7 @@
 																	<div
 																		style="display: #{customerController.customerModel_10.flagImg03}">
 																		<a4j:commandLink styleClass="tooltip"
-																			render="mainPanel"
+																			render="mainPanel,popupPanelGridId,messagePopupId"
 																			action="#{customerController.genTree('-1',customerController.customerModel_10.customerId)}">
 																			<h:graphicImage
 																				value="#{customerController.customerModel_10.positionImage}"
@@ -537,7 +537,7 @@
 																	<div
 																		style="display: #{customerController.customerModel_11.flagImg03}">
 																		<a4j:commandLink styleClass="tooltip"
-																			render="mainPanel"
+																			render="mainPanel,popupPanelGridId,messagePopupId"
 																			action="#{customerController.genTree('-1',customerController.customerModel_11.customerId)}">
 																			<h:graphicImage
 																				value="#{customerController.customerModel_11.positionImage}"
@@ -603,7 +603,7 @@
 													</div>
 													<div
 														style="display: #{customerController.customerModel_03.flagImg03}">
-														<a4j:commandLink styleClass="tooltip" render="mainPanel"
+														<a4j:commandLink styleClass="tooltip" render="mainPanel,popupPanelGridId,messagePopupId"
 															action="#{customerController.genTree('-1',customerController.customerModel_03.customerId)}">
 															<h:graphicImage
 																value="#{customerController.customerModel_03.positionImage}"
@@ -660,7 +660,7 @@
 															</div>
 															<div
 																style="display: #{customerController.customerModel_06.flagImg03}">
-																<a4j:commandLink styleClass="tooltip" render="mainPanel"
+																<a4j:commandLink styleClass="tooltip" render="mainPanel,popupPanelGridId,messagePopupId"
 																	action="#{customerController.genTree('-1',customerController.customerModel_06.customerId)}">
 																	<h:graphicImage
 																		value="#{customerController.customerModel_06.positionImage}"
@@ -718,7 +718,7 @@
 																	<div
 																		style="display: #{customerController.customerModel_12.flagImg03}">
 																		<a4j:commandLink styleClass="tooltip"
-																			render="mainPanel"
+																			render="mainPanel,popupPanelGridId,messagePopupId"
 																			action="#{customerController.genTree('-1',customerController.customerModel_12.customerId)}">
 																			<h:graphicImage
 																				value="#{customerController.customerModel_12.positionImage}"
@@ -781,7 +781,7 @@
 																	<div
 																		style="display: #{customerController.customerModel_13.flagImg03}">
 																		<a4j:commandLink styleClass="tooltip"
-																			render="mainPanel"
+																			render="mainPanel,popupPanelGridId,messagePopupId"
 																			action="#{customerController.genTree('-1',customerController.customerModel_13.customerId)}">
 																			<h:graphicImage
 																				value="#{customerController.customerModel_13.positionImage}"
@@ -844,7 +844,7 @@
 															</div>
 															<div
 																style="display: #{customerController.customerModel_07.flagImg03}">
-																<a4j:commandLink styleClass="tooltip" render="mainPanel"
+																<a4j:commandLink styleClass="tooltip" render="mainPanel,popupPanelGridId,messagePopupId"
 																	action="#{customerController.genTree('-1',customerController.customerModel_07.customerId)}">
 																	<h:graphicImage
 																		value="#{customerController.customerModel_07.positionImage}"
@@ -902,7 +902,7 @@
 																	<div
 																		style="display: #{customerController.customerModel_14.flagImg03}">
 																		<a4j:commandLink styleClass="tooltip"
-																			render="mainPanel"
+																			render="mainPanel,popupPanelGridId,messagePopupId"
 																			action="#{customerController.genTree('-1',customerController.customerModel_14.customerId)}">
 																			<h:graphicImage
 																				value="#{customerController.customerModel_14.positionImage}"
@@ -965,7 +965,7 @@
 																	<div
 																		style="display: #{customerController.customerModel_15.flagImg03}">
 																		<a4j:commandLink styleClass="tooltip"
-																			render="mainPanel"
+																			render="mainPanel,popupPanelGridId,messagePopupId"
 																			action="#{customerController.genTree('-1',customerController.customerModel_15.customerId)}">
 																			<h:graphicImage
 																				value="#{customerController.customerModel_15.positionImage}"
