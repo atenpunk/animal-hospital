@@ -35,31 +35,31 @@
 						</f:facet>
 						<table>
 							<tr>
-								<td class="tdOutputScreen"><h:outputText
+								<td class="headerLeft"><h:outputText
 										value="#{app_msgs['label.menuShopping.dateTime']}" /></td>
-								<td class="tdInputScreen"><h:outputText readonly="true"
+								<td class="detailLeft"><h:outputText readonly="true"
 										maxlength="100" value="#{productSellController.dateTime}">
 										<f:convertDateTime pattern="dd-MM-yyyy" />
 									</h:outputText></td>
 							</tr>
 							<tr>
-								<td class="tdOutputScreen"><h:outputText
+								<td class="headerLeft"><h:outputText
 										value="#{app_msgs['label.menuShopping.memberId']}" /></td>
-								<td class="tdInputScreen"><h:inputText maxlength="100"
+								<td class="detailLeft"><h:inputText maxlength="100"
 										value="#{productSellController.memberId}">
 										<a4j:ajax event="keyup" render="inputMemberNameId"
 											listener="#{productSellController.onKeypress()}" />
 									</h:inputText></td>
 							</tr>
 							<tr>
-								<td class="tdOutputScreen"><h:outputText
+								<td class="headerLeft"><h:outputText
 										value="#{app_msgs['label.menuShopping.memberName']}" /></td>
-								<td class="tdInputScreen"><h:outputText
+								<td class="detailLeft"><h:outputText
 										id="inputMemberNameId" maxlength="100" readonly="true"
 										value="#{productSellController.memberName}" /></td>
 							</tr>
 							<tr>
-								<td colspan="2" class="tdInputScreen"><h:selectOneRadio
+								<td colspan="2" class="detailLeft"><h:selectOneRadio
 										value="#{productSellController.sendStatus}">
 										<f:selectItem itemValue="1"
 											itemLabel="#{app_msgs['label.sell.receive']}" />
@@ -69,7 +69,7 @@
 									</h:selectOneRadio></td>
 							</tr>
 							<tr>
-								<td colspan="2" class="tdInputScreen"><h:selectOneRadio
+								<td colspan="2" class="detailLeft"><h:selectOneRadio
 										value="#{productSellController.buyStatus}">
 										<f:selectItem itemValue="1"
 											itemLabel="#{app_msgs['label.sell.rewards']}" />
@@ -94,14 +94,14 @@
 						</f:facet>
 						<table>
 							<tr>
-								<td class="tdOutputScreen"><h:outputText
+								<td class="headerLeft"><h:outputText
 										value="#{app_msgs['label.pageAddMember.addressNo']}" /></td>
-								<td class="tdInputScreen"><h:inputText maxlength="100"
+								<td class="detailLeft"><h:inputText maxlength="100"
 										value="#{productSellController.addressNo}">
 									</h:inputText></td>
-								<td class="tdOutputScreen"><h:outputText
+								<td class="headerLeft"><h:outputText
 										value="#{app_msgs['label.pageAddMember.addressProvince']}" /></td>
-								<td class="tdInputScreen"><h:selectOneMenu
+								<td class="detailLeft"><h:selectOneMenu
 										value="#{productSellController.provinceId}"
 										rendered="#{productSellController.chkNationality}"
 										style=" width : 150px;">
@@ -116,14 +116,14 @@
 									</h:inputText> <h:outputText style="COLOR: #ff0000;" value="*" /></td>
 							</tr>
 							<tr>
-								<td class="tdOutputScreen"><h:outputText
+								<td class="headerLeft"><h:outputText
 										value="#{app_msgs['label.pageAddMember.addressBuilding']}" /></td>
-								<td class="tdInputScreen"><h:inputText maxlength="100"
+								<td class="detailLeft"><h:inputText maxlength="100"
 										value="#{productSellController.addressBuilding}">
 									</h:inputText></td>
-								<td class="tdOutputScreen"><h:outputText
+								<td class="headerLeft"><h:outputText
 										value="#{app_msgs['label.pageAddMember.addressAmphur']}" /></td>
-								<td class="tdInputScreen"><h:selectOneMenu
+								<td class="detailLeft"><h:selectOneMenu
 										value="#{productSellController.amphurId}"
 										rendered="#{productSellController.chkNationality}"
 										id="dropDownAmphur" style=" width : 150px;">
@@ -139,14 +139,14 @@
 									<h:outputText style="COLOR: #ff0000;" value="*" /></td>
 							</tr>
 							<tr>
-								<td class="tdOutputScreen"><h:outputText
+								<td class="headerLeft"><h:outputText
 										value="#{app_msgs['label.pageAddMember.addressVillage']}" /></td>
-								<td class="tdInputScreen"><h:inputText maxlength="100"
+								<td class="detailLeft"><h:inputText maxlength="100"
 										value="#{productSellController.addressVillage}">
 									</h:inputText></td>
-								<td class="tdOutputScreen"><h:outputText
+								<td class="headerLeft"><h:outputText
 										value="#{app_msgs['label.pageAddMember.addressDistrict']}" /></td>
-								<td class="tdInputScreen"><h:selectOneMenu
+								<td class="detailLeft"><h:selectOneMenu
 										value="#{productSellController.districtId}"
 										rendered="#{productSellController.chkNationality}"
 										id="dropDownDistrict" style=" width : 150px;">
@@ -162,22 +162,22 @@
 									<h:outputText style="COLOR: #ff0000;" value="*" /></td>
 							</tr>
 							<tr>
-								<td class="tdOutputScreen"><h:outputText
+								<td class="headerLeft"><h:outputText
 										value="#{app_msgs['label.pageAddMember.addressLane']}" /></td>
-								<td class="tdInputScreen"><h:inputText maxlength="100"
+								<td class="detailLeft"><h:inputText maxlength="100"
 										value="#{productSellController.addressLane}">
 									</h:inputText></td>
-								<td class="tdOutputScreen"><h:outputText
+								<td class="headerLeft"><h:outputText
 										value="#{app_msgs['label.pageAddMember.addressPostCode']}" /></td>
-								<td class="tdInputScreen"><h:inputText maxlength="100"
+								<td class="detailLeft"><h:inputText maxlength="100"
 										id="postCodeId"
 										value="#{productSellController.addressPostCode}" />
 									<h:outputText style="COLOR: #ff0000;" value="*" /></td>
 							</tr>
 							<tr>
-								<td class="tdOutputScreen"><h:outputText
+								<td class="headerLeft"><h:outputText
 										value="#{app_msgs['label.pageAddMember.addressRoad']}" /></td>
-								<td class="tdInputScreen"><h:inputText maxlength="100"
+								<td class="detailLeft"><h:inputText maxlength="100"
 										value="#{productSellController.addressRoad}">
 									</h:inputText></td>
 							</tr>

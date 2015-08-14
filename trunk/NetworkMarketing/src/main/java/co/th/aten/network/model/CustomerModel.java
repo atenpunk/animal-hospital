@@ -4,10 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
 public class CustomerModel implements Serializable {
 	
 	private long customerId;
@@ -16,7 +12,10 @@ public class CustomerModel implements Serializable {
     private long lowerLeftId;
     private long lowerRightId;
     private long recommendId;
+    private String recommendCode;
+    private String recommendName;
     private int positionId;
+    private String positionText;
     private String positionImage;
     private int score;
     private Date regisDate;
@@ -33,6 +32,12 @@ public class CustomerModel implements Serializable {
     private String flagImg02;
     private String flagImg03;
     private boolean chkLower;
+    
+	private int bankId;
+	private String bankText;
+	private String branch;
+	private String accNo;
+	private String accName;
     
 	public long getCustomerId() {
 		return customerId;
@@ -171,6 +176,54 @@ public class CustomerModel implements Serializable {
 	}
 	public void setChkLower(boolean chkLower) {
 		this.chkLower = chkLower;
+	}
+	public String getPositionText() {
+		return positionText;
+	}
+	public void setPositionText(String positionText) {
+		this.positionText = positionText;
+	}
+	public int getBankId() {
+		return bankId;
+	}
+	public void setBankId(int bankId) {
+		this.bankId = bankId;
+	}
+	public String getBankText() {
+		return bankText;
+	}
+	public void setBankText(String bankText) {
+		this.bankText = bankText;
+	}
+	public String getBranch() {
+		return branch;
+	}
+	public void setBranch(String branch) {
+		this.branch = branch;
+	}
+	public String getAccNo() {
+		return accNo;
+	}
+	public void setAccNo(String accNo) {
+		this.accNo = accNo;
+	}
+	public String getAccName() {
+		return accName;
+	}
+	public void setAccName(String accName) {
+		this.accName = accName;
+	}
+	public String getRecommendName() {
+		return recommendName;
+	}
+	public void setRecommendName(String recommendName) {
+		this.recommendName = recommendName;
+	}
+	public String getRecommendCode() {
+		return recommendCode;
+	}
+	public void setRecommendCode(String recommendCode) {
+		this.recommendCode = recommendCode;
 	}	
 	
 }

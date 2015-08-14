@@ -18,7 +18,7 @@
 								style=" height : 75px; width : 310px;" /></td>
 						<td class="headerCenter"><h:outputText
 								value="#{app_msgs['label.pageTree.score']}" /></td>
-						<td class="detailCenter"><h:outputText value="" /></td>
+						<td class="detailLeft"><h:outputText value="" /></td>
 						<td colspan="2" class="headerCenter"><h:outputText
 								value="#{app_msgs['label.member.bankDetail']}" /></td>
 					</tr>
@@ -27,7 +27,7 @@
 								value="#{app_msgs['label.pageTree.scoreRemaining']}" /></td>
 						<td class="headerCenter"><h:outputText
 								value="#{app_msgs['label.pageAddMember.bank']}" /></td>
-						<td class="detailCenter"><h:outputText value="" /></td>
+						<td class="detailLeft"><h:outputText value="#{detailMemberController.memberModel.bankText}" /></td>
 					</tr>
 					<tr>
 						<td class="headerCenter"><h:outputText
@@ -36,57 +36,57 @@
 								value="#{app_msgs['label.pageTree.scoreRight']}" /></td>
 						<td class="headerCenter"><h:outputText
 								value="#{app_msgs['label.pageAddMember.branch']}" /></td>
-						<td class="detailCenter"><h:outputText value="" /></td>
+						<td class="detailLeft"><h:outputText value="#{detailMemberController.memberModel.branch}" /></td>
 					</tr>
 					<tr>
 						<td class="headerCenter"><h:outputText
 								value="#{app_msgs['label.memberCode']}" /></td>
-						<td class="detailCenter"><h:outputText
-								value="#{detailMemberController.member.customerMember}" /></td>
-						<td class="detailCenter"><h:outputText value="" /></td>
-						<td class="detailCenter"><h:outputText value="" /></td>
+						<td class="detailLeft"><h:outputText
+								value="#{detailMemberController.memberModel.customerMember}" /></td>
+						<td class="detailLeft"><h:outputText value="" /></td>
+						<td class="detailLeft"><h:outputText value="" /></td>
 						<td class="headerCenter"><h:outputText
 								value="#{app_msgs['label.pageAddMember.accNo']}" /></td>
-						<td class="detailCenter"><h:outputText value="" /></td>
+						<td class="detailLeft"><h:outputText value="#{detailMemberController.memberModel.accNo}" /></td>
 					</tr>
 					<tr>
 						<td class="headerCenter"><h:outputText
 								value="#{app_msgs['label.memberName']}" /></td>
-						<td class="detailCenter"><h:outputText
-								value="#{detailMemberController.member.firstName}" /></td>
+						<td class="detailLeft"><h:outputText
+								value="#{detailMemberController.memberModel.name}" /></td>
 						<td class="headerCenter"><h:outputText
 								value="#{app_msgs['label.pageTree.matchUse']}" /></td>
-						<td class="detailCenter"><h:outputText value="" /></td>
+						<td class="detailLeft"><h:outputText value="" /></td>
 
 						<td class="headerCenter"><h:outputText
 								value="#{app_msgs['label.pageAddMember.accName']}" /></td>
-						<td class="detailCenter"><h:outputText value="" /></td>
+						<td class="detailLeft"><h:outputText value="#{detailMemberController.memberModel.accName}" /></td>
 					</tr>
 					<tr>
 						<td class="headerCenter"><h:outputText
 								value="#{app_msgs['label.position']}" /></td>
-						<td class="detailCenter"><h:outputText value="" /></td>
+						<td class="detailLeft"><h:outputText value="#{detailMemberController.memberModel.positionText}" /></td>
 						<td class="headerCenter"><h:outputText
 								value="#{app_msgs['label.pageTree.matchNotUse']}" /></td>
-						<td class="detailCenter"><h:outputText value="" /></td>
+						<td class="detailLeft"><h:outputText value="" /></td>
 						<td colspan="2"></td>
 					</tr>
 					<tr>
 						<td class="headerCenter"><h:outputText
 								value="#{app_msgs['label.pageAddMember.recommendId']}" /></td>
-						<td class="detailCenter"><h:outputText value="" /></td>
+						<td class="detailLeft"><h:outputText value="#{detailMemberController.memberModel.recommendCode}" /></td>
 						<td class="headerCenter"><h:outputText
 								value="#{app_msgs['label.bonusTotal']}" /></td>
-						<td class="detailCenter"><h:outputText value="" /></td>
+						<td class="detailLeft"><h:outputText value="" /></td>
 						<td colspan="2"></td>
 					</tr>
 					<tr>
 						<td class="headerCenter"><h:outputText
 								value="#{app_msgs['label.pageAddMember.recommendName']}" /></td>
-						<td class="detailCenter"><h:outputText value="" /></td>
+						<td class="detailLeft"><h:outputText value="#{detailMemberController.memberModel.recommendName}" /></td>
 						<td class="headerCenter"><h:outputText
 								value="#{app_msgs['label.bonusWait']}" /></td>
-						<td class="detailCenter"><h:outputText value="" /></td>
+						<td class="detailLeft"><h:outputText value="" /></td>
 						<td colspan="2"></td>
 					</tr>
 				</table>
