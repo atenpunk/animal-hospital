@@ -8,11 +8,88 @@
 	template="/WEB-INF/templates/template3.xhtml">
 	<ui:define name="content">
 		<br />
-		<h:form id="formDetailId">
-			<rich:panel rendered="#{detailMemberController.checkPassword}">
-				<h:outputText value="#{detailMemberController.member.customerMember}" />
-				<br />
-				<h:outputText value="#{detailMemberController.member.firstName}" />
+		<h:form id="formDetailId"
+			rendered="#{detailMemberController.checkPassword}">
+			<rich:panel>
+				<table>
+					<tr>
+						<td colspan="2" rowspan="3"><h:graphicImage
+								value="/resources/gfx/RICHTIME-NETWORK-348.png"
+								style=" height : 75px; width : 310px;" /></td>
+						<td class="headerCenter"><h:outputText
+								value="#{app_msgs['label.pageTree.score']}" /></td>
+						<td class="detailCenter"><h:outputText value="" /></td>
+						<td colspan="2" class="headerCenter"><h:outputText
+								value="#{app_msgs['label.member.bankDetail']}" /></td>
+					</tr>
+					<tr>
+						<td colspan="2" class="headerCenter"><h:outputText
+								value="#{app_msgs['label.pageTree.scoreRemaining']}" /></td>
+						<td class="headerCenter"><h:outputText
+								value="#{app_msgs['label.pageAddMember.bank']}" /></td>
+						<td class="detailCenter"><h:outputText value="" /></td>
+					</tr>
+					<tr>
+						<td class="headerCenter"><h:outputText
+								value="#{app_msgs['label.pageTree.scoreLeft']}" /></td>
+						<td class="headerCenter"><h:outputText
+								value="#{app_msgs['label.pageTree.scoreRight']}" /></td>
+						<td class="headerCenter"><h:outputText
+								value="#{app_msgs['label.pageAddMember.branch']}" /></td>
+						<td class="detailCenter"><h:outputText value="" /></td>
+					</tr>
+					<tr>
+						<td class="headerCenter"><h:outputText
+								value="#{app_msgs['label.memberCode']}" /></td>
+						<td class="detailCenter"><h:outputText
+								value="#{detailMemberController.member.customerMember}" /></td>
+						<td class="detailCenter"><h:outputText value="" /></td>
+						<td class="detailCenter"><h:outputText value="" /></td>
+						<td class="headerCenter"><h:outputText
+								value="#{app_msgs['label.pageAddMember.accNo']}" /></td>
+						<td class="detailCenter"><h:outputText value="" /></td>
+					</tr>
+					<tr>
+						<td class="headerCenter"><h:outputText
+								value="#{app_msgs['label.memberName']}" /></td>
+						<td class="detailCenter"><h:outputText
+								value="#{detailMemberController.member.firstName}" /></td>
+						<td class="headerCenter"><h:outputText
+								value="#{app_msgs['label.pageTree.matchUse']}" /></td>
+						<td class="detailCenter"><h:outputText value="" /></td>
+
+						<td class="headerCenter"><h:outputText
+								value="#{app_msgs['label.pageAddMember.accName']}" /></td>
+						<td class="detailCenter"><h:outputText value="" /></td>
+					</tr>
+					<tr>
+						<td class="headerCenter"><h:outputText
+								value="#{app_msgs['label.position']}" /></td>
+						<td class="detailCenter"><h:outputText value="" /></td>
+						<td class="headerCenter"><h:outputText
+								value="#{app_msgs['label.pageTree.matchNotUse']}" /></td>
+						<td class="detailCenter"><h:outputText value="" /></td>
+						<td colspan="2"></td>
+					</tr>
+					<tr>
+						<td class="headerCenter"><h:outputText
+								value="#{app_msgs['label.pageAddMember.recommendId']}" /></td>
+						<td class="detailCenter"><h:outputText value="" /></td>
+						<td class="headerCenter"><h:outputText
+								value="#{app_msgs['label.bonusTotal']}" /></td>
+						<td class="detailCenter"><h:outputText value="" /></td>
+						<td colspan="2"></td>
+					</tr>
+					<tr>
+						<td class="headerCenter"><h:outputText
+								value="#{app_msgs['label.pageAddMember.recommendName']}" /></td>
+						<td class="detailCenter"><h:outputText value="" /></td>
+						<td class="headerCenter"><h:outputText
+								value="#{app_msgs['label.bonusWait']}" /></td>
+						<td class="detailCenter"><h:outputText value="" /></td>
+						<td colspan="2"></td>
+					</tr>
+				</table>
 			</rich:panel>
 		</h:form>
 	</ui:define>
