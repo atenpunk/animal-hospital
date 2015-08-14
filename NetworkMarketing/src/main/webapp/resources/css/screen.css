@@ -396,36 +396,6 @@ span.invalid {
 	text-align: right;
 }
 
-.tdOutputScreen {
-	font-family: arial;
-	background-color: #BED6F8;
-	border: 1px solid #ffffff;
-	padding-left: 3px;
-	text-align: left;
-	background-image: -moz-linear-gradient(center top, #BED6F8, #F2F7FF);
-	background-repeat: repeat;
-	background-attachment: scroll;
-	background-position: 0% 0%;
-	background-clip: border-box;
-	background-origin: padding-box;
-	background-size: auto auto;
-}
-
-.tdInputScreen {
-	font-family: arial;
-	background-color: #F2F7FF;
-	border: 1px solid #ffffff;
-	padding-left: 5px;
-	text-align: left;
-	background-image: -moz-linear-gradient(center top, #F2F7FF, #FFFFFF);
-	background-repeat: repeat;
-	background-attachment: scroll;
-	background-position: 0% 0%;
-	background-clip: border-box;
-	background-origin: padding-box;
-	background-size: auto auto;
-}
-
 .tableHeadFooter {
 	width: 150px;
 	height: 20px;
@@ -435,12 +405,6 @@ span.invalid {
 	padding-left: 3px;
 	text-align: center;
 	background-image: -moz-linear-gradient(center top, #BED6F8, #F2F7FF);
-	background-repeat: repeat;
-	background-attachment: scroll;
-	background-position: 0% 0%;
-	background-clip: border-box;
-	background-origin: padding-box;
-	background-size: auto auto;
 }
 
 .tableDataFooter {
@@ -453,12 +417,6 @@ span.invalid {
 	padding-left: 5px;
 	text-align: center;
 	background-image: -moz-linear-gradient(center top, #F2F7FF, #FFFFFF);
-	background-repeat: repeat;
-	background-attachment: scroll;
-	background-position: 0% 0%;
-	background-clip: border-box;
-	background-origin: padding-box;
-	background-size: auto auto;
 }
 
 /*   Page sec/produce/sell.jsf   */
@@ -471,12 +429,6 @@ span.invalid {
 	padding-left: 3px;
 	text-align: left;
 	background-image: -moz-linear-gradient(center top, #BED6F8, #F2F7FF);
-	background-repeat: repeat;
-	background-attachment: scroll;
-	background-position: 0% 0%;
-	background-clip: border-box;
-	background-origin: padding-box;
-	background-size: auto auto;
 }
 
 .detailSellChild {
@@ -489,12 +441,6 @@ span.invalid {
 	padding-left: 5px;
 	text-align: left;
 	background-image: -moz-linear-gradient(center top, #F2F7FF, #FFFFFF);
-	background-repeat: repeat;
-	background-attachment: scroll;
-	background-position: 0% 0%;
-	background-clip: border-box;
-	background-origin: padding-box;
-	background-size: auto auto;
 }
 
 .tablePageSellMain {
@@ -507,12 +453,6 @@ span.invalid {
 	padding-left: 3px;
 	text-align: left;
 	background-image: -moz-linear-gradient(center top, #BED6F8, #F2F7FF);
-	background-repeat: repeat;
-	background-attachment: scroll;
-	background-position: 0% 0%;
-	background-clip: border-box;
-	background-origin: padding-box;
-	background-size: auto auto;
 }
 
 .tableChildPageSell {
@@ -525,12 +465,6 @@ span.invalid {
 	padding-left: 5px;
 	text-align: left;
 	background-image: -moz-linear-gradient(center top, #F2F7FF, #FFFFFF);
-	background-repeat: repeat;
-	background-attachment: scroll;
-	background-position: 0% 0%;
-	background-clip: border-box;
-	background-origin: padding-box;
-	background-size: auto auto;
 }
 
 .tablePageSellChild2 {
@@ -543,12 +477,6 @@ span.invalid {
 	padding-left: 5px;
 	text-align: left;
 	background-image: -moz-linear-gradient(center top, #BED6F8, #F2F7FF);
-	background-repeat: repeat;
-	background-attachment: scroll;
-	background-position: 0% 0%;
-	background-clip: border-box;
-	background-origin: padding-box;
-	background-size: auto auto;
 }
 
 .headerCenter{
@@ -558,12 +486,6 @@ span.invalid {
 	padding-left: 3px;
 	text-align: center;
 	background-image: -moz-linear-gradient(center top, #BED6F8, #F2F7FF);
-	background-repeat: repeat;
-	background-attachment: scroll;
-	background-position: 0% 0%;
-	background-clip: border-box;
-	background-origin: padding-box;
-	background-size: auto auto;
 }
 .detailCenter{
 	font-family: arial;
@@ -572,10 +494,20 @@ span.invalid {
 	padding-left: 5px;
 	text-align: center;
 	background-image: -moz-linear-gradient(center top, #F2F7FF, #FFFFFF);
-	background-repeat: repeat;
-	background-attachment: scroll;
-	background-position: 0% 0%;
-	background-clip: border-box;
-	background-origin: padding-box;
-	background-size: auto auto;
+}
+.headerLeft{
+	font-family: arial;
+	background-color: #BED6F8;
+	border: 1px solid #ffffff;
+	padding-left: 3px;
+	text-align: left;
+	background-image: -moz-linear-gradient(center top, #BED6F8, #F2F7FF);
+}
+.detailLeft{
+	font-family: arial;
+	background-color: #F2F7FF;
+	border: 1px solid #ffffff;
+	padding-left: 5px;
+	text-align: left;
+	background-image: -moz-linear-gradient(center top, #F2F7FF, #FFFFFF);
 }
