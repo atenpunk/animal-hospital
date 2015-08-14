@@ -32,7 +32,7 @@ public class CustomerModel implements Serializable {
     private String flagImg02;
     private String flagImg03;
     private boolean chkLower;
-    
+    private int matchingUse;
 	private int bankId;
 	private String bankText;
 	private String branch;
@@ -224,6 +224,12 @@ public class CustomerModel implements Serializable {
 	}
 	public void setRecommendCode(String recommendCode) {
 		this.recommendCode = recommendCode;
+	}
+	public int getMatchingUse() {
+		return matchingUse;
+	}
+	public void setMatchingUse(int matchingUse) {
+		this.matchingUse = matchingUse;
 	}	
 	
 }

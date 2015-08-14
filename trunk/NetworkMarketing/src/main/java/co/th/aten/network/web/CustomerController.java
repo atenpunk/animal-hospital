@@ -797,7 +797,8 @@ public class CustomerController implements Serializable{
 			if(customerModel_01.getPositionId()!=0){
 				MemberPosition memberPosition = em.find(MemberPosition.class, new Integer(customerModel_01.getPositionId()));
 				detailPosMatch = memberPosition.getEnName();
-				//				detailMatchRemain = df2.format(StringUtil.n2b(memberPosition.getMatching()));
+				detailMatchUse = df2.format(customerModel_01.getMatchingUse());
+				detailMatchRemain = df2.format(StringUtil.n2b(memberPosition.getMatching()).intValue() - customerModel_01.getMatchingUse());
 			}else{
 				detailPosMatch = "";
 			}
@@ -1401,6 +1402,7 @@ public class CustomerController implements Serializable{
 					model.setChkLower(false);
 				}
 				model.setRecommendId(customer.getRecommendId()!=null?customer.getRecommendId():0);
+				model.setMatchingUse(StringUtil.n2b(customer.getMatchingUse()));
 				model.setPositionId(customer.getPositionId()!=null?customer.getPositionId().getPositionId():0);
 				if(model.getPositionId()==1){
 					model.setPositionImage("/resources/image/DIS.png");
