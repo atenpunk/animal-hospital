@@ -15,32 +15,32 @@
 				</f:facet>
 				<table>
 					<tr>
-						<td class="tdOutputScreen"><h:outputText
+						<td class="headerLeft"><h:outputText
 								value="#{app_msgs['label.startDate']}" /></td>
-						<td class="tdInputScreen"><a4j:outputPanel id="startDate"
+						<td class="detailLeft"><a4j:outputPanel id="startDate"
 								layout="block">
 								<rich:calendar value="#{productTrxController.startDate}"
 									datePattern="dd/MM/yyyy HH:mm:ss" />
 							</a4j:outputPanel></td>
-						<td class="tdOutputScreen"><h:outputText
+						<td class="headerLeft"><h:outputText
 								value="#{app_msgs['label.endDate']}" /></td>
-						<td class="tdInputScreen"><a4j:outputPanel id="endDate"
+						<td class="detailLeft"><a4j:outputPanel id="endDate"
 								layout="block">
 								<rich:calendar value="#{productTrxController.endDate}"
 									datePattern="dd/MM/yyyy HH:mm:ss" />
 							</a4j:outputPanel></td>
 					</tr>
 					<tr>
-						<td class="tdOutputScreen"><h:outputText
+						<td class="headerLeft"><h:outputText
 								value="#{app_msgs['label.productTrx.status']}" /></td>
-						<td class="tdInputScreen"><h:selectOneMenu
+						<td class="detailLeft"><h:selectOneMenu
 								value="#{productTrxController.selectedTrxStatus}"
 								style=" width : 100%;">
 								<f:selectItems value="#{productTrxController.trxStatusList}"
 									var="itemTrx" itemLabel="#{itemTrx.thLabel}"
 									itemValue="#{itemTrx.intKey}"></f:selectItems>
 							</h:selectOneMenu></td>
-						<td class="tdInputScreen" colspan="2"><h:inputText id="inputReceiptId"
+						<td class="detailLeft" colspan="2"><h:inputText id="inputReceiptId"
 								style=" width : 100%;"
 								value="#{productTrxController.receiptNo}">
 								<rich:placeholder
