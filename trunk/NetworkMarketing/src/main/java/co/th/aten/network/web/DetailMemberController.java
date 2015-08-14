@@ -1,7 +1,6 @@
 package co.th.aten.network.web;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -20,12 +19,9 @@ import co.th.aten.network.control.CustomerControl;
 import co.th.aten.network.entity.MasterBank;
 import co.th.aten.network.entity.MemberCustomer;
 import co.th.aten.network.entity.UserLogin;
-import co.th.aten.network.i18n.AppBundleKey;
 import co.th.aten.network.model.CustomerModel;
-import co.th.aten.network.model.DetailModel;
 import co.th.aten.network.producer.DBDefault;
 import co.th.aten.network.security.CurrentUserManager;
-import co.th.aten.network.util.HashUtil;
 import co.th.aten.network.util.StringUtil;
 
 @ViewScoped
@@ -76,18 +72,15 @@ public class DetailMemberController implements Serializable{
 				password = password.substring(5, password.length()-5);
 				if(user.getPassword().equals(password)){
 					checkPassword = true;
-					memberModel = setDataCustomerModel(member);
+					memberModel = setDataDetailMember(member);
 				}
-			}
-			if(checkPassword){
-
 			}
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 	}
 
-	private CustomerModel setDataCustomerModel(MemberCustomer customer){
+	private CustomerModel setDataDetailMember(MemberCustomer customer){
 		try{
 			if(customer!=null){
 				CustomerModel model = new CustomerModel();
@@ -96,11 +89,6 @@ public class DetailMemberController implements Serializable{
 				model.setUpperId(customer.getUpperId()!=null?customer.getUpperId():0);
 				model.setLowerLeftId(customer.getLowerLeftId()!=null?customer.getLowerLeftId():0);
 				model.setLowerRightId(customer.getLowerRightId()!=null?customer.getLowerRightId():0);
-				if(model.getLowerLeftId()!=0 || model.getLowerRightId()!=0){
-					model.setChkLower(true);
-				}else{
-					model.setChkLower(false);
-				}
 				model.setRecommendId(StringUtil.n2b(customer.getRecommendId()));
 				MemberCustomer recommend = em.find(MemberCustomer.class, new Integer(StringUtil.n2b(customer.getRecommendId())));
 				if(recommend!=null){
@@ -111,15 +99,10 @@ public class DetailMemberController implements Serializable{
 				model.setPositionText(customer.getPositionId()!=null?customer.getPositionId().getEnName():"");
 				model.setScore(customer.getScore()!=null?customer.getScore():0);
 				model.setRegisDate(customer.getRegisDate());
-				String firstName = customerControl.genNameMenber(customer);
-				if(firstName!=null && firstName.length()>10){
-					firstName = firstName.substring(0, 10);
-				}
-				model.setFirstName(firstName);
+				model.setFirstName(customerControl.genNameMenber(customer));
 				model.setLastName(customer.getLastName());
 				model.setName(customerControl.genNameMenber(customer));
 				model.setStatus(customer.getStatus()!=null?customer.getStatus():0);
-
 				model.setBankId(StringUtil.n2b(customer.getBankId()));
 				MasterBank bank = em.find(MasterBank.class, new Integer(StringUtil.n2b(customer.getBankId())));
 				if(bank!=null)
