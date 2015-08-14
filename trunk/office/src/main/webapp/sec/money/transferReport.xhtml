@@ -16,21 +16,21 @@
 				</f:facet>
 				<table>
 					<tr>
-						<td class="tdOutputScreen"><h:outputText
+						<td class="headerLeft"><h:outputText
 								value="#{app_msgs['label.startDate']}" /></td>
-						<td class="tdInputScreen"><a4j:outputPanel id="startDate" layout="block">
+						<td class="detailLeft"><a4j:outputPanel id="startDate" layout="block">
 								<rich:calendar value="#{moneyReportTransferController.startDate}"
 									datePattern="dd/MM/yyyy HH:mm:ss" />
 							</a4j:outputPanel></td>
-						<td class="tdOutputScreen"><h:outputText
+						<td class="headerLeft"><h:outputText
 								value="#{app_msgs['label.endDate']}" /></td>
-						<td class="tdInputScreen"><a4j:outputPanel id="endDate" layout="block">
+						<td class="detailLeft"><a4j:outputPanel id="endDate" layout="block">
 								<rich:calendar value="#{moneyReportTransferController.endDate}"
 									datePattern="dd/MM/yyyy HH:mm:ss" />
 							</a4j:outputPanel></td>
 					</tr>
 					<tr>
-						<td class="tdInputScreen" colspan="4"><h:inputText id="inputMemberId"
+						<td class="detailLeft" colspan="4"><h:inputText id="inputMemberId"
 								style=" width : 50%;"
 								value="#{moneyReportTransferController.searchText}">
 								<rich:placeholder

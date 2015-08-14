@@ -23,17 +23,17 @@
 						<br />
 						<table>
 							<tr>
-								<td class="tdOutputScreen"><h:outputText
+								<td class="headerLeft"><h:outputText
 										value="#{app_msgs['label.date']}" /></td>
-								<td class="tdInputScreen"><h:outputText
+								<td class="detailLeft"><h:outputText
 										value="#{moneyAddAndDeductController.newDate}">
 										<f:convertDateTime pattern="dd-MM-yyyy" />
 									</h:outputText></td>
 							</tr>
 							<tr>
-								<td class="tdOutputScreen"><h:outputText
+								<td class="headerLeft"><h:outputText
 										value="#{app_msgs['label.memberCode']}" /></td>
-								<td class="tdInputScreen"><h:inputText maxlength="20"
+								<td class="detailLeft"><h:inputText maxlength="20"
 										 value="#{moneyAddAndDeductController.memberCode}">
 									</h:inputText> <a4j:commandButton id="searchId"
 										value="#{app_msgs['button.search']}"
@@ -42,32 +42,32 @@
 								</td>
 							</tr>
 							<tr>
-								<td class="tdOutputScreen"><h:outputText
+								<td class="headerLeft"><h:outputText
 										value="#{app_msgs['label.memberName']}" /></td>
-								<td class="tdInputScreen"><h:outputText id="nameMemberId"
+								<td class="detailLeft"><h:outputText id="nameMemberId"
 										value="#{moneyAddAndDeductController.memberName}">
 									</h:outputText></td>
 							</tr>
 							<tr>
-								<td class="tdOutputScreen"><h:outputText
+								<td class="headerLeft"><h:outputText
 										value="#{app_msgs['label.menuMoney.deduct']}" /></td>
-								<td class="tdInputScreen"><h:inputText maxlength="10"
+								<td class="detailLeft"><h:inputText maxlength="10"
 										 value="#{moneyAddAndDeductController.deductMoney}">
 										<f:convertNumber pattern="########" />
 									</h:inputText></td>
 							</tr>
 							<tr>
-								<td class="tdOutputScreen"><h:outputText
+								<td class="headerLeft"><h:outputText
 										value="#{app_msgs['label.menuMoney.add']}" /></td>
-								<td class="tdInputScreen"><h:inputText maxlength="10"
+								<td class="detailLeft"><h:inputText maxlength="10"
 										 value="#{moneyAddAndDeductController.addMoney}">
 										<f:convertNumber pattern="########" />
 									</h:inputText></td>
 							</tr>
 							<tr>
-								<td class="tdOutputScreen"><h:outputText
+								<td class="headerLeft"><h:outputText
 										value="#{app_msgs['label.menuMoney.remark']}" /></td>
-								<td class="tdInputScreen"><h:inputText
+								<td class="detailLeft"><h:inputText
 										style=" width : 260px;"
 										value="#{moneyAddAndDeductController.remark}">
 									</h:inputText></td>
