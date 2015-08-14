@@ -397,7 +397,7 @@ span.invalid {
 }
 
 .tableHeadFooter {
-	width: 150px;
+	width: 210px;
 	height: 20px;
 	font-family: arial;
 	background-color: #BED6F8;
@@ -408,7 +408,7 @@ span.invalid {
 }
 
 .tableDataFooter {
-	width: 180px;
+	width: 280px;
 	height: 20px;
 	font-family: arial;
 	color: #0000ff;

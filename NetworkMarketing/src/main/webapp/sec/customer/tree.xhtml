@@ -1019,7 +1019,7 @@
 					</rich:panel>
 					<h:panelGrid style="width : 100%;"
 						rendered="#{customerController.customerModel_01 ne null}">
-						<rich:panel style="width : 750px;margin:auto;border: 0px;">
+						<rich:panel style="margin:auto;border: 0px;">
 							<table>
 								<tr>
 									<td class="tableHeadFooter"><h:outputText
@@ -1076,11 +1076,17 @@
 											value="#{app_msgs['label.pageTree.score']}"
 											style="FONT-WEIGHT: bold;" /></td>
 									<td class="tableDataFooter"><h:outputText
-											value="#{customerController.detailScore}" /></td>
+											value="#{customerController.detailScore}" style="color: #0000ff;"/>&#160;+&#160;<h:outputText
+											value="#{customerController.detailScoreToDay}"
+											style="COLOR: #ff0000;" /></td>
 									<td class="tableDataFooter"><h:outputText
-											value="#{customerController.detailScoreLeft}" /></td>
+											value="#{customerController.detailScoreLeft}" style="color: #0000ff;"/>&#160;+&#160;<h:outputText
+											value="#{customerController.detailScoreLeftToDay}"
+											style="COLOR: #ff0000;" /></td>
 									<td class="tableDataFooter"><h:outputText
-											value="#{customerController.detailScoreRight}" /></td>
+											value="#{customerController.detailScoreRight}" style="color: #0000ff;"/>&#160;+&#160;<h:outputText
+											value="#{customerController.detailScoreRightToDay}"
+											style="COLOR: #ff0000;" /></td>
 								</tr>
 							</table>
 						</rich:panel>

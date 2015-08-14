@@ -128,10 +128,13 @@ public class CustomerController implements Serializable{
 	private String detailRegisDate;
 	private String detailPosMatch;
 	private String detailScore;
+	private String detailScoreToDay;
 	private String detailMatchUse;
 	private String detailMatchRemain;
 	private String detailScoreLeft;
+	private String detailScoreLeftToDay;
 	private String detailScoreRight;
+	private String detailScoreRightToDay;
 
 
 	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd",Locale.US);
@@ -608,7 +611,8 @@ public class CustomerController implements Serializable{
 			}else{
 				customerId = cusId;
 			}
-			genTreeModel();
+			if(customerModel_01 != null && customerId != customerModel_01.getCustomerId())
+				genTreeModel();
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -744,10 +748,13 @@ public class CustomerController implements Serializable{
 			detailRegisDate = "";
 			detailPosMatch = "";
 			detailScore = df2.format(0);
+			detailScoreToDay = df2.format(0);
 			detailMatchUse = df2.format(0);
 			detailMatchRemain = df2.format(0);
 			detailScoreLeft = df2.format(0);
 			detailScoreRight = df2.format(0);
+			detailScoreLeftToDay = df2.format(0);
+			detailScoreRightToDay = df2.format(0);
 
 			customerModel_01 = null;
 			customerModel_02 = null;
@@ -3034,6 +3041,30 @@ public class CustomerController implements Serializable{
 
 	public void setParameter(String parameter) {
 		this.parameter = parameter;
+	}
+
+	public String getDetailScoreLeftToDay() {
+		return detailScoreLeftToDay;
+	}
+
+	public void setDetailScoreLeftToDay(String detailScoreLeftToDay) {
+		this.detailScoreLeftToDay = detailScoreLeftToDay;
+	}
+
+	public String getDetailScoreRightToDay() {
+		return detailScoreRightToDay;
+	}
+
+	public void setDetailScoreRightToDay(String detailScoreRightToDay) {
+		this.detailScoreRightToDay = detailScoreRightToDay;
+	}
+
+	public String getDetailScoreToDay() {
+		return detailScoreToDay;
+	}
+
+	public void setDetailScoreToDay(String detailScoreToDay) {
+		this.detailScoreToDay = detailScoreToDay;
 	}
 
 }
