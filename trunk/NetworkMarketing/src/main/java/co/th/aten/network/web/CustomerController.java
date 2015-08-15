@@ -802,6 +802,12 @@ public class CustomerController implements Serializable{
 			}else{
 				detailPosMatch = "";
 			}
+			detailScore = df2.format(customerModel_01.getScoreMy());
+			detailScoreLeft = df2.format(customerModel_01.getScoreLeft());
+			detailScoreRight = df2.format(customerModel_01.getScoreRight());
+			detailScoreToDay = df2.format(customerModel_01.getScoreMyToDay());
+			detailScoreLeftToDay = df2.format(customerModel_01.getScoreLeftToDay());
+			detailScoreRightToDay = df2.format(customerModel_01.getScoreRightToDay());
 
 
 			if(customerModel_01.getLowerLeftId()!=0){
@@ -1434,22 +1440,31 @@ public class CustomerController implements Serializable{
 				model.setFlagImg01("none");
 				model.setFlagImg02("none");
 				model.setFlagImg03("block");
+				model.setScoreMy(StringUtil.n2b(customer.getScoreMy()));
+				model.setScoreLeft(StringUtil.n2b(customer.getScoreLeft()));
+				model.setScoreRight(StringUtil.n2b(customer.getScoreRight()));
+				model.setScoreMyToDay(StringUtil.n2b(customerControl.myScoreToDay(customer)));
+				model.setScoreLeftToDay(StringUtil.n2b(customerControl.leftScoreToDay(customer)));
+				model.setScoreRightToDay(StringUtil.n2b(customerControl.rightScoreToDay(customer)));
+				
 				List<DetailModel> detailModelList = new ArrayList<DetailModel>();
 				DetailModel detailModel = new DetailModel();
 				detailModel.setText("PV สะสม");
-				detailModel.setValue("0.00");
+				detailModel.setValue(df2.format(model.getScoreMy()));
 				detailModelList.add(detailModel);
 				detailModel = new DetailModel();
-				detailModel.setText("ซ้ายเก่า(0.00)");
-				detailModel.setValue("ขวาเก่า(0.00)");
+				detailModel.setText("ซ้ายเก่า("+df2.format(model.getScoreLeft())+")");
+				detailModel.setValue("ขวาเก่า("+df2.format(model.getScoreRight())+")");
 				detailModelList.add(detailModel);
 				detailModel = new DetailModel();
-				detailModel.setText("ซ้ายใหม่(0.00)");
-				detailModel.setValue("ขวาใหม่(0.00)");
+				detailModel.setText("ซ้ายใหม่("+df2.format(model.getScoreLeftToDay())+")");
+				detailModel.setValue("ขวาใหม่("+df2.format(model.getScoreRightToDay())+")");
 				detailModelList.add(detailModel);
 				detailModel = new DetailModel();
-				detailModel.setText("ซ้ายรวม(0.00)");
-				detailModel.setValue("ขวารวม(0.00)");
+				int totalLeft = model.getScoreLeft()+model.getScoreLeftToDay();
+				int totalRight = model.getScoreRight()+model.getScoreRightToDay();
+				detailModel.setText("ซ้ายรวม("+df2.format(totalLeft)+")");
+				detailModel.setValue("ขวารวม("+df2.format(totalRight)+")");
 				detailModelList.add(detailModel);
 				model.setDetailModelList(detailModelList);
 				return model;
@@ -1570,9 +1585,15 @@ public class CustomerController implements Serializable{
 				log.info("Error : "+e.getMessage());
 			}
 			if(customerRecommend!=null){
-				recomendId = customerRecommend.getCustomerId();
-				recomendName = customerControl.genNameMenber(customerRecommend);
-			}else{
+				MemberCustomer customerUpper = em.find(MemberCustomer.class, new Integer(new BigDecimal(upperLineId).intValue()));
+				boolean checkHead = customerControl.checkHeadMember(customerUpper,recomendStrId);
+				if(checkHead){
+					recomendId = customerRecommend.getCustomerId();
+					recomendName = customerControl.genNameMenber(customerRecommend);
+				}else{
+					messages.error(new AppBundleKey("error.label.notUpLineMember",FacesContext.getCurrentInstance().getViewRoot().getLocale().getLanguage()));
+				}
+			} else{
 				messages.error(new AppBundleKey("error.label.notFoundMember",FacesContext.getCurrentInstance().getViewRoot().getLocale().getLanguage()));
 			}
 		}else{

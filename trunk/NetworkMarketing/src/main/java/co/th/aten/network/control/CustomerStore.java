@@ -1,6 +1,9 @@
 package co.th.aten.network.control;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Calendar;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -80,6 +83,173 @@ public class CustomerStore extends BasicStore implements Serializable {
 			e.printStackTrace();
 		}
 		return "";
+	}
+
+	public boolean checkHeadMember(MemberCustomer member, String memberId){
+		try{
+			if(member!=null){
+				if(member.getCustomerMember().equals(memberId)){
+					return true;
+				}
+				while(member.getUpperId()!=null){
+					member = em.find(MemberCustomer.class, member.getUpperId());
+					if(member.getCustomerMember().equals(memberId)){
+						return true;
+					}
+				}
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	public int myScoreToDay(MemberCustomer member){
+		try{
+			if(member !=null){
+				String sql = "select sum(totalPv) " +
+						" from TransactionSellHeader " +
+						" where customerId =:memberId " +
+						" and trxHeaderDatetime between :startDate and :endDate ";
+				Calendar calStart = Calendar.getInstance();
+				calStart.set(Calendar.HOUR_OF_DAY, 0);
+				calStart.set(Calendar.MINUTE, 0);
+				calStart.set(Calendar.SECOND, 0);
+				calStart.set(Calendar.MILLISECOND, 0);
+				Calendar calEnd = Calendar.getInstance();
+				calEnd.set(Calendar.HOUR_OF_DAY, 23);
+				calEnd.set(Calendar.MINUTE, 59);
+				calEnd.set(Calendar.SECOND, 59);
+				calEnd.set(Calendar.MILLISECOND, 999);
+				try{
+					BigDecimal score = (BigDecimal)em.createQuery(sql)
+							.setParameter("memberId", member.getCustomerId())
+							.setParameter("startDate", calStart.getTime())
+							.setParameter("endDate", calEnd.getTime())
+							.getSingleResult();
+					return StringUtil.n2b(score).intValue();
+				}catch(Exception ex){
+					log.info("myScoreToDay error : "+ex.getMessage());
+				}
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+	public int leftScoreToDay(MemberCustomer member){
+		try{
+			if(member !=null && member.getLowerLeftId()!=null){
+				String sqlMemberId = member.getLowerLeftId().intValue()+",";
+				String sql = "From MemberCustomer " +
+						" Where customerId = "+ member.getLowerLeftId().intValue();
+				boolean chk = true;
+				while(chk){
+					String subSql = "";
+					List<MemberCustomer> customerList = em.createQuery(sql,MemberCustomer.class).getResultList();
+					for(MemberCustomer cus:customerList){
+						subSql += (cus.getLowerLeftId()==null?"":cus.getLowerLeftId().intValue()+",");
+						subSql += (cus.getLowerRightId()==null?"":cus.getLowerRightId().intValue()+",");
+						sqlMemberId += subSql;
+					}
+					if(subSql.equals("")){
+						chk = false;
+						break;
+					}
+					sql = "From MemberCustomer " +
+							" Where customerId in ";
+					subSql = subSql.substring(0, subSql.length()-1);
+					subSql = "("+subSql+")";
+					sql += subSql;
+				}
+				sqlMemberId = sqlMemberId.substring(0, sqlMemberId.length()-1);
+				sqlMemberId = "("+sqlMemberId+")";
+				String sqlSum = "select sum(totalPv) " +
+						" from TransactionSellHeader " +
+						" where customerId in " + sqlMemberId +
+						" and trxHeaderDatetime between :startDate and :endDate ";
+				Calendar calStart = Calendar.getInstance();
+				calStart.set(Calendar.HOUR_OF_DAY, 0);
+				calStart.set(Calendar.MINUTE, 0);
+				calStart.set(Calendar.SECOND, 0);
+				calStart.set(Calendar.MILLISECOND, 0);
+				Calendar calEnd = Calendar.getInstance();
+				calEnd.set(Calendar.HOUR_OF_DAY, 23);
+				calEnd.set(Calendar.MINUTE, 59);
+				calEnd.set(Calendar.SECOND, 59);
+				calEnd.set(Calendar.MILLISECOND, 999);
+				try{
+					BigDecimal score = (BigDecimal)em.createQuery(sqlSum)
+							.setParameter("startDate", calStart.getTime())
+							.setParameter("endDate", calEnd.getTime())
+							.getSingleResult();
+					return StringUtil.n2b(score).intValue();
+				}catch(Exception ex){
+					log.info("leftScoreToDay error : "+ex.getMessage());
+				}
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+	public int rightScoreToDay(MemberCustomer member){
+		try{
+			if(member !=null && member.getLowerRightId()!=null){
+				String sqlMemberId = member.getLowerRightId().intValue()+",";
+				String sql = "From MemberCustomer " +
+						" Where customerId = "+ member.getLowerRightId().intValue();
+				boolean chk = true;
+				while(chk){
+					String subSql = "";
+					List<MemberCustomer> customerList = em.createQuery(sql,MemberCustomer.class).getResultList();
+					for(MemberCustomer cus:customerList){
+						subSql += (cus.getLowerLeftId()==null?"":cus.getLowerLeftId().intValue()+",");
+						subSql += (cus.getLowerRightId()==null?"":cus.getLowerRightId().intValue()+",");
+						sqlMemberId += subSql;
+					}
+					if(subSql.equals("")){
+						chk = false;
+						break;
+					}
+					sql = "From MemberCustomer " +
+							" Where customerId in ";
+					subSql = subSql.substring(0, subSql.length()-1);
+					subSql = "("+subSql+")";
+					sql += subSql;
+				}
+				sqlMemberId = sqlMemberId.substring(0, sqlMemberId.length()-1);
+				sqlMemberId = "("+sqlMemberId+")";
+				String sqlSum = "select sum(totalPv) " +
+						" from TransactionSellHeader " +
+						" where customerId in " + sqlMemberId +
+						" and trxHeaderDatetime between :startDate and :endDate ";
+				Calendar calStart = Calendar.getInstance();
+				calStart.set(Calendar.HOUR_OF_DAY, 0);
+				calStart.set(Calendar.MINUTE, 0);
+				calStart.set(Calendar.SECOND, 0);
+				calStart.set(Calendar.MILLISECOND, 0);
+				Calendar calEnd = Calendar.getInstance();
+				calEnd.set(Calendar.HOUR_OF_DAY, 23);
+				calEnd.set(Calendar.MINUTE, 59);
+				calEnd.set(Calendar.SECOND, 59);
+				calEnd.set(Calendar.MILLISECOND, 999);
+				try{
+					BigDecimal score = (BigDecimal)em.createQuery(sqlSum)
+							.setParameter("startDate", calStart.getTime())
+							.setParameter("endDate", calEnd.getTime())
+							.getSingleResult();
+					return StringUtil.n2b(score).intValue();
+				}catch(Exception ex){
+					log.info("rightScoreToDay error : "+ex.getMessage());
+				}
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return 0;
 	}
 
 	public void refresh(MemberCustomer customer) {
