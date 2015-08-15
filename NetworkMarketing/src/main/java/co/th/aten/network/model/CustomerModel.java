@@ -38,6 +38,12 @@ public class CustomerModel implements Serializable {
 	private String branch;
 	private String accNo;
 	private String accName;
+    private int scoreMy;
+    private int scoreLeft;
+    private int scoreRight;
+    private int scoreMyToDay;
+    private int scoreLeftToDay;
+    private int scoreRightToDay;
     
 	public long getCustomerId() {
 		return customerId;
@@ -230,6 +236,42 @@ public class CustomerModel implements Serializable {
 	}
 	public void setMatchingUse(int matchingUse) {
 		this.matchingUse = matchingUse;
+	}
+	public int getScoreMy() {
+		return scoreMy;
+	}
+	public void setScoreMy(int scoreMy) {
+		this.scoreMy = scoreMy;
+	}
+	public int getScoreLeft() {
+		return scoreLeft;
+	}
+	public void setScoreLeft(int scoreLeft) {
+		this.scoreLeft = scoreLeft;
+	}
+	public int getScoreRight() {
+		return scoreRight;
+	}
+	public void setScoreRight(int scoreRight) {
+		this.scoreRight = scoreRight;
+	}
+	public int getScoreMyToDay() {
+		return scoreMyToDay;
+	}
+	public void setScoreMyToDay(int scoreMyToDay) {
+		this.scoreMyToDay = scoreMyToDay;
+	}
+	public int getScoreLeftToDay() {
+		return scoreLeftToDay;
+	}
+	public void setScoreLeftToDay(int scoreLeftToDay) {
+		this.scoreLeftToDay = scoreLeftToDay;
+	}
+	public int getScoreRightToDay() {
+		return scoreRightToDay;
+	}
+	public void setScoreRightToDay(int scoreRightToDay) {
+		this.scoreRightToDay = scoreRightToDay;
 	}	
 	
 }
