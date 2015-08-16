@@ -1,6 +1,7 @@
 package co.th.aten.network.control;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
@@ -59,6 +60,38 @@ public class CustomerControl implements Serializable {
 			name = StringUtil.n2b(member.getTitleName())+StringUtil.n2b(member.getFirstName());
 		}
 		return name;
+	}
+	
+	public int myScoreTotal(MemberCustomer member){
+		return customerStore.myScoreTotal(member);
+	}
+	
+	public int leftScoreTotal(MemberCustomer member){
+		return customerStore.leftScoreTotal(member);
+	}
+	
+	public int rightScoreTotal(MemberCustomer member){
+		return customerStore.rightScoreTotal(member);
+	}
+	
+	public int leftScoreByDate(MemberCustomer member, Date date){
+		return customerStore.leftScoreByDate(member, date);
+	}
+	
+	public int rightScoreByDate(MemberCustomer member, Date date){
+		return customerStore.rightScoreByDate(member, date);
+	}
+	
+	public void insert(MemberCustomer member) {
+		customerStore.insert(member);
+	}
+	
+	public void delete(MemberCustomer member) {
+		customerStore.delete(member);
+	}
+	
+	public void insertOrUpdate(MemberCustomer member) {
+		customerStore.insertOrUpdate(member);
 	}
 	
 }

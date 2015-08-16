@@ -45,8 +45,6 @@ public class MemberCustomer implements Serializable {
     private Integer lowerRightId;
     @Column(name = "recommend_id")
     private Integer recommendId;
-    @Column(name = "score")
-    private Integer score;
     @Column(name = "regis_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date regisDate;
@@ -169,6 +167,12 @@ public class MemberCustomer implements Serializable {
     private String documentBookBankName;
     @Column(name = "show_name_status")
     private Integer showNameStatus;
+    @Column(name = "score_my")
+    private Integer scoreMy;
+    @Column(name = "score_left")
+    private Integer scoreLeft;
+    @Column(name = "score_right")
+    private Integer scoreRight;
     @JoinColumn(name = "nation_id", referencedColumnName = "nation_id")
     @ManyToOne
     private MasterNationality nationId;
@@ -232,14 +236,6 @@ public class MemberCustomer implements Serializable {
 
     public void setRecommendId(Integer recommendId) {
         this.recommendId = recommendId;
-    }
-
-    public Integer getScore() {
-        return score;
-    }
-
-    public void setScore(Integer score) {
-        this.score = score;
     }
 
     public Date getRegisDate() {
@@ -722,7 +718,31 @@ public class MemberCustomer implements Serializable {
         this.positionId = positionId;
     }
 
-    @Override
+    public Integer getScoreMy() {
+		return scoreMy;
+	}
+
+	public void setScoreMy(Integer scoreMy) {
+		this.scoreMy = scoreMy;
+	}
+
+	public Integer getScoreLeft() {
+		return scoreLeft;
+	}
+
+	public void setScoreLeft(Integer scoreLeft) {
+		this.scoreLeft = scoreLeft;
+	}
+
+	public Integer getScoreRight() {
+		return scoreRight;
+	}
+
+	public void setScoreRight(Integer scoreRight) {
+		this.scoreRight = scoreRight;
+	}
+
+	@Override
     public int hashCode() {
         int hash = 0;
         hash += (customerId != null ? customerId.hashCode() : 0);

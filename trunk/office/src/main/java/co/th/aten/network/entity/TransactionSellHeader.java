@@ -28,34 +28,7 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "transaction_sell_header")
 @NamedQueries({
-    @NamedQuery(name = "TransactionSellHeader.findAll", query = "SELECT t FROM TransactionSellHeader t"),
-    @NamedQuery(name = "TransactionSellHeader.findByTrxHeaderId", query = "SELECT t FROM TransactionSellHeader t WHERE t.trxHeaderId = :trxHeaderId"),
-    @NamedQuery(name = "TransactionSellHeader.findByTrxHeaderDatetime", query = "SELECT t FROM TransactionSellHeader t WHERE t.trxHeaderDatetime = :trxHeaderDatetime"),
-    @NamedQuery(name = "TransactionSellHeader.findByReceiptNo", query = "SELECT t FROM TransactionSellHeader t WHERE t.receiptNo = :receiptNo"),
-    @NamedQuery(name = "TransactionSellHeader.findByCustomerId", query = "SELECT t FROM TransactionSellHeader t WHERE t.customerId = :customerId"),
-    @NamedQuery(name = "TransactionSellHeader.findByTotalPrice", query = "SELECT t FROM TransactionSellHeader t WHERE t.totalPrice = :totalPrice"),
-    @NamedQuery(name = "TransactionSellHeader.findByTotalPv", query = "SELECT t FROM TransactionSellHeader t WHERE t.totalPv = :totalPv"),
-    @NamedQuery(name = "TransactionSellHeader.findByTotalBv", query = "SELECT t FROM TransactionSellHeader t WHERE t.totalBv = :totalBv"),
-    @NamedQuery(name = "TransactionSellHeader.findByCreateBy", query = "SELECT t FROM TransactionSellHeader t WHERE t.createBy = :createBy"),
-    @NamedQuery(name = "TransactionSellHeader.findByCreateDate", query = "SELECT t FROM TransactionSellHeader t WHERE t.createDate = :createDate"),
-    @NamedQuery(name = "TransactionSellHeader.findByUpdateBy", query = "SELECT t FROM TransactionSellHeader t WHERE t.updateBy = :updateBy"),
-    @NamedQuery(name = "TransactionSellHeader.findByUpdateDate", query = "SELECT t FROM TransactionSellHeader t WHERE t.updateDate = :updateDate"),
-    @NamedQuery(name = "TransactionSellHeader.findByTrxHeaderStatus", query = "SELECT t FROM TransactionSellHeader t WHERE t.trxHeaderStatus = :trxHeaderStatus"),
-    @NamedQuery(name = "TransactionSellHeader.findByTrxHeaderFlag", query = "SELECT t FROM TransactionSellHeader t WHERE t.trxHeaderFlag = :trxHeaderFlag"),
-    @NamedQuery(name = "TransactionSellHeader.findBySendStatus", query = "SELECT t FROM TransactionSellHeader t WHERE t.sendStatus = :sendStatus"),
-    @NamedQuery(name = "TransactionSellHeader.findByBuyStatus", query = "SELECT t FROM TransactionSellHeader t WHERE t.buyStatus = :buyStatus"),
-    @NamedQuery(name = "TransactionSellHeader.findByAddressNo", query = "SELECT t FROM TransactionSellHeader t WHERE t.addressNo = :addressNo"),
-    @NamedQuery(name = "TransactionSellHeader.findByAddressBuilding", query = "SELECT t FROM TransactionSellHeader t WHERE t.addressBuilding = :addressBuilding"),
-    @NamedQuery(name = "TransactionSellHeader.findByAddressVillage", query = "SELECT t FROM TransactionSellHeader t WHERE t.addressVillage = :addressVillage"),
-    @NamedQuery(name = "TransactionSellHeader.findByAddressLane", query = "SELECT t FROM TransactionSellHeader t WHERE t.addressLane = :addressLane"),
-    @NamedQuery(name = "TransactionSellHeader.findByAddressRoad", query = "SELECT t FROM TransactionSellHeader t WHERE t.addressRoad = :addressRoad"),
-    @NamedQuery(name = "TransactionSellHeader.findByProvinceId", query = "SELECT t FROM TransactionSellHeader t WHERE t.provinceId = :provinceId"),
-    @NamedQuery(name = "TransactionSellHeader.findByAmphurId", query = "SELECT t FROM TransactionSellHeader t WHERE t.amphurId = :amphurId"),
-    @NamedQuery(name = "TransactionSellHeader.findByDistrictId", query = "SELECT t FROM TransactionSellHeader t WHERE t.districtId = :districtId"),
-    @NamedQuery(name = "TransactionSellHeader.findByPostCode", query = "SELECT t FROM TransactionSellHeader t WHERE t.postCode = :postCode"),
-    @NamedQuery(name = "TransactionSellHeader.findByProvinceLao", query = "SELECT t FROM TransactionSellHeader t WHERE t.provinceLao = :provinceLao"),
-    @NamedQuery(name = "TransactionSellHeader.findByAmphurLao", query = "SELECT t FROM TransactionSellHeader t WHERE t.amphurLao = :amphurLao"),
-    @NamedQuery(name = "TransactionSellHeader.findByDistrictLao", query = "SELECT t FROM TransactionSellHeader t WHERE t.districtLao = :districtLao")})
+    @NamedQuery(name = "TransactionSellHeader.findAll", query = "SELECT t FROM TransactionSellHeader t")})
 public class TransactionSellHeader implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
