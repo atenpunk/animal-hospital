@@ -569,6 +569,11 @@ public class ProductSellController implements Serializable{
 						for(ProductModel proModel:productSellModelList){
 							TransactionSellDetail trxDetail = new TransactionSellDetail();
 							trxDetail.setTrxHeaderId(trxSellHeader.getTrxHeaderId().intValue());
+							StockProduct stockProduct = em.find(StockProduct.class, new Integer(proModel.getProductId()));
+							stockProduct.setProductTotal(StringUtil.n2b(stockProduct.getProductTotal())-proModel.getQty());
+							stockProduct.setUpdateBy(currentUser.getCurrentAccount().getUserId());
+							stockProduct.setUpdateDate(new Date());
+							em.merge(stockProduct);
 							trxDetail.setProductId(proModel.getProductId());
 							trxDetail.setCatalogId(proModel.getCatalogId());
 							trxDetail.setPrice(new BigDecimal(proModel.getPrice()));
