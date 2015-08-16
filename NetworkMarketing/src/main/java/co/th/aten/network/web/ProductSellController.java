@@ -130,7 +130,7 @@ public class ProductSellController implements Serializable{
 			memberId = "";
 			memberName = "";
 			sendStatus = 1;
-			buyStatus = 1;
+			buyStatus = 0;
 			if(currentUser.getCurrentAccount().getCustomerId()!=null){
 				memSearch = currentUser.getCurrentAccount().getCustomerId();
 				memberId = memSearch.getCustomerMember();
@@ -147,7 +147,7 @@ public class ProductSellController implements Serializable{
 					chkNationality = true;
 				}
 			}
-			List<StockProduct> productList = em.createQuery("From StockProduct",StockProduct.class).getResultList();
+			List<StockProduct> productList = em.createQuery("From StockProduct Where productStatus = 1 ",StockProduct.class).getResultList();
 			if(productList!=null && productList.size()>0){
 				for(StockProduct pro:productList){
 					ProductModel model = new ProductModel();
@@ -465,12 +465,18 @@ public class ProductSellController implements Serializable{
 		try{
 			productModelList = new ArrayList<ProductModel>();
 			List<StockProduct> productList = null;
+			String sqlType = "";
 			if(selectedCatalog == -1){
-				productList = em.createQuery("From StockProduct",StockProduct.class).getResultList();
+				if(buyStatus>0)
+					sqlType = " Where productType = "+buyStatus+" ";
+				productList = em.createQuery("From StockProduct"+sqlType,StockProduct.class).getResultList();
 			}else{
+				if(buyStatus>0)
+					sqlType = " And productType = "+buyStatus+" ";
 				StockCatalog stockCatalog = em.find(StockCatalog.class, new Integer(selectedCatalog));
 				productList = em.createQuery("From StockProduct " +
-						" Where catalogId =:catalogId "
+						" Where catalogId =:catalogId " +
+						sqlType
 						,StockProduct.class)
 						.setParameter("catalogId", stockCatalog)
 						.getResultList();
@@ -547,7 +553,6 @@ public class ProductSellController implements Serializable{
 						trxSellHeader.setTrxHeaderStatus(new Integer(1));
 						trxSellHeader.setTrxHeaderFlag(new Integer(0));
 						trxSellHeader.setSendStatus(sendStatus);
-						trxSellHeader.setBuyStatus(buyStatus);
 						trxSellHeader.setNationId(nationId);
 						trxSellHeader.setAddressNo(addressNo);
 						trxSellHeader.setAddressBuilding(addressBuilding);
