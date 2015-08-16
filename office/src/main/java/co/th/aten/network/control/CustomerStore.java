@@ -1,6 +1,10 @@
 package co.th.aten.network.control;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -82,7 +86,272 @@ public class CustomerStore extends BasicStore implements Serializable {
 		return "";
 	}
 
+	public int myScoreTotal(MemberCustomer member){
+		try{
+			if(member !=null){
+				String sql = "select sum(totalPv) " +
+						" from TransactionSellHeader " +
+						" where customerId =:memberId " +
+						" and trxHeaderDatetime < :dateTime ";
+				Calendar calStart = Calendar.getInstance();
+				calStart.set(Calendar.HOUR_OF_DAY, 0);
+				calStart.set(Calendar.MINUTE, 0);
+				calStart.set(Calendar.SECOND, 0);
+				calStart.set(Calendar.MILLISECOND, 0);
+				try{
+					BigDecimal score = (BigDecimal)em.createQuery(sql)
+							.setParameter("memberId", member.getCustomerId())
+							.setParameter("dateTime", calStart.getTime())
+							.getSingleResult();
+					return StringUtil.n2b(score).intValue();
+				}catch(Exception ex){
+					log.info("myScoreTotal error : "+ex.getMessage());
+				}
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+	public int leftScoreTotal(MemberCustomer member){
+		try{
+			if(member !=null && member.getLowerLeftId()!=null){
+				String sqlMemberId = member.getLowerLeftId().intValue()+",";
+				String sql = "From MemberCustomer " +
+						" Where customerId = "+ member.getLowerLeftId().intValue();
+				boolean chk = true;
+				while(chk){
+					String subSql = "";
+					List<MemberCustomer> customerList = em.createQuery(sql,MemberCustomer.class).getResultList();
+					for(MemberCustomer cus:customerList){
+						subSql += (cus.getLowerLeftId()==null?"":cus.getLowerLeftId().intValue()+",");
+						subSql += (cus.getLowerRightId()==null?"":cus.getLowerRightId().intValue()+",");
+						sqlMemberId += subSql;
+					}
+					if(subSql.equals("")){
+						chk = false;
+						break;
+					}
+					sql = "From MemberCustomer " +
+							" Where customerId in ";
+					subSql = subSql.substring(0, subSql.length()-1);
+					subSql = "("+subSql+")";
+					sql += subSql;
+				}
+				sqlMemberId = sqlMemberId.substring(0, sqlMemberId.length()-1);
+				sqlMemberId = "("+sqlMemberId+")";
+				String sqlSum = "select sum(totalPv) " +
+						" from TransactionSellHeader " +
+						" where customerId in " + sqlMemberId +
+						" and trxHeaderDatetime < :dateTime ";
+				Calendar calStart = Calendar.getInstance();
+				calStart.set(Calendar.HOUR_OF_DAY, 0);
+				calStart.set(Calendar.MINUTE, 0);
+				calStart.set(Calendar.SECOND, 0);
+				calStart.set(Calendar.MILLISECOND, 0);
+				try{
+					BigDecimal score = (BigDecimal)em.createQuery(sqlSum)
+							.setParameter("dateTime", calStart.getTime())
+							.getSingleResult();
+					return StringUtil.n2b(score).intValue();
+				}catch(Exception ex){
+					log.info("leftScoreTotal error : "+ex.getMessage());
+				}
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+	public int rightScoreTotal(MemberCustomer member){
+		try{
+			if(member !=null && member.getLowerRightId()!=null){
+				String sqlMemberId = member.getLowerRightId().intValue()+",";
+				String sql = "From MemberCustomer " +
+						" Where customerId = "+ member.getLowerRightId().intValue();
+				boolean chk = true;
+				while(chk){
+					String subSql = "";
+					List<MemberCustomer> customerList = em.createQuery(sql,MemberCustomer.class).getResultList();
+					for(MemberCustomer cus:customerList){
+						subSql += (cus.getLowerLeftId()==null?"":cus.getLowerLeftId().intValue()+",");
+						subSql += (cus.getLowerRightId()==null?"":cus.getLowerRightId().intValue()+",");
+						sqlMemberId += subSql;
+					}
+					if(subSql.equals("")){
+						chk = false;
+						break;
+					}
+					sql = "From MemberCustomer " +
+							" Where customerId in ";
+					subSql = subSql.substring(0, subSql.length()-1);
+					subSql = "("+subSql+")";
+					sql += subSql;
+				}
+				sqlMemberId = sqlMemberId.substring(0, sqlMemberId.length()-1);
+				sqlMemberId = "("+sqlMemberId+")";
+				String sqlSum = "select sum(totalPv) " +
+						" from TransactionSellHeader " +
+						" where customerId in " + sqlMemberId +
+						" and trxHeaderDatetime < :dateTime ";
+				Calendar calStart = Calendar.getInstance();
+				calStart.set(Calendar.HOUR_OF_DAY, 0);
+				calStart.set(Calendar.MINUTE, 0);
+				calStart.set(Calendar.SECOND, 0);
+				calStart.set(Calendar.MILLISECOND, 0);
+				try{
+					BigDecimal score = (BigDecimal)em.createQuery(sqlSum)
+							.setParameter("dateTime", calStart.getTime())
+							.getSingleResult();
+					return StringUtil.n2b(score).intValue();
+				}catch(Exception ex){
+					log.info("rightScoreTotal error : "+ex.getMessage());
+				}
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
+	public int leftScoreByDate(MemberCustomer member, Date date){
+		try{
+			if(member !=null && member.getLowerLeftId()!=null){
+				String sqlMemberId = member.getLowerLeftId().intValue()+",";
+				String sql = "From MemberCustomer " +
+						" Where customerId = "+ member.getLowerLeftId().intValue();
+				boolean chk = true;
+				while(chk){
+					String subSql = "";
+					List<MemberCustomer> customerList = em.createQuery(sql,MemberCustomer.class).getResultList();
+					for(MemberCustomer cus:customerList){
+						subSql += (cus.getLowerLeftId()==null?"":cus.getLowerLeftId().intValue()+",");
+						subSql += (cus.getLowerRightId()==null?"":cus.getLowerRightId().intValue()+",");
+						sqlMemberId += subSql;
+					}
+					if(subSql.equals("")){
+						chk = false;
+						break;
+					}
+					sql = "From MemberCustomer " +
+							" Where customerId in ";
+					subSql = subSql.substring(0, subSql.length()-1);
+					subSql = "("+subSql+")";
+					sql += subSql;
+				}
+				sqlMemberId = sqlMemberId.substring(0, sqlMemberId.length()-1);
+				sqlMemberId = "("+sqlMemberId+")";
+				String sqlSum = "select sum(totalPv) " +
+						" from TransactionSellHeader " +
+						" where customerId in " + sqlMemberId +
+						" and trxHeaderDatetime between :startDate and :endDate ";
+				Calendar calStart = Calendar.getInstance();
+				calStart.setTime(date);
+				calStart.set(Calendar.HOUR_OF_DAY, 0);
+				calStart.set(Calendar.MINUTE, 0);
+				calStart.set(Calendar.SECOND, 0);
+				calStart.set(Calendar.MILLISECOND, 0);
+				Calendar calEnd = Calendar.getInstance();
+				calEnd.setTime(date);
+				calEnd.set(Calendar.HOUR_OF_DAY, 23);
+				calEnd.set(Calendar.MINUTE, 59);
+				calEnd.set(Calendar.SECOND, 59);
+				calEnd.set(Calendar.MILLISECOND, 999);
+				try{
+					BigDecimal score = (BigDecimal)em.createQuery(sqlSum)
+							.setParameter("startDate", calStart.getTime())
+							.setParameter("endDate", calEnd.getTime())
+							.getSingleResult();
+					return StringUtil.n2b(score).intValue();
+				}catch(Exception ex){
+					log.info("rightScoreByDate error : "+ex.getMessage());
+				}
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
+	public int rightScoreByDate(MemberCustomer member, Date date){
+		try{
+			if(member !=null && member.getLowerRightId()!=null){
+				String sqlMemberId = member.getLowerRightId().intValue()+",";
+				String sql = "From MemberCustomer " +
+						" Where customerId = "+ member.getLowerRightId().intValue();
+				boolean chk = true;
+				while(chk){
+					String subSql = "";
+					List<MemberCustomer> customerList = em.createQuery(sql,MemberCustomer.class).getResultList();
+					for(MemberCustomer cus:customerList){
+						subSql += (cus.getLowerLeftId()==null?"":cus.getLowerLeftId().intValue()+",");
+						subSql += (cus.getLowerRightId()==null?"":cus.getLowerRightId().intValue()+",");
+						sqlMemberId += subSql;
+					}
+					if(subSql.equals("")){
+						chk = false;
+						break;
+					}
+					sql = "From MemberCustomer " +
+							" Where customerId in ";
+					subSql = subSql.substring(0, subSql.length()-1);
+					subSql = "("+subSql+")";
+					sql += subSql;
+				}
+				sqlMemberId = sqlMemberId.substring(0, sqlMemberId.length()-1);
+				sqlMemberId = "("+sqlMemberId+")";
+				String sqlSum = "select sum(totalPv) " +
+						" from TransactionSellHeader " +
+						" where customerId in " + sqlMemberId +
+						" and trxHeaderDatetime between :startDate and :endDate ";
+				Calendar calStart = Calendar.getInstance();
+				calStart.setTime(date);
+				calStart.set(Calendar.HOUR_OF_DAY, 0);
+				calStart.set(Calendar.MINUTE, 0);
+				calStart.set(Calendar.SECOND, 0);
+				calStart.set(Calendar.MILLISECOND, 0);
+				Calendar calEnd = Calendar.getInstance();
+				calEnd.setTime(date);
+				calEnd.set(Calendar.HOUR_OF_DAY, 23);
+				calEnd.set(Calendar.MINUTE, 59);
+				calEnd.set(Calendar.SECOND, 59);
+				calEnd.set(Calendar.MILLISECOND, 999);
+				try{
+					BigDecimal score = (BigDecimal)em.createQuery(sqlSum)
+							.setParameter("startDate", calStart.getTime())
+							.setParameter("endDate", calEnd.getTime())
+							.getSingleResult();
+					return StringUtil.n2b(score).intValue();
+				}catch(Exception ex){
+					log.info("rightScoreByDate error : "+ex.getMessage());
+				}
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return 0;
+	}
+		
 	public void refresh(MemberCustomer customer) {
 		em.refresh(customer);
+	}
+	
+	public void insert(MemberCustomer member) {
+		em.persist(member);
+	}
+	
+	public void delete(MemberCustomer member) {
+		em.remove(member);
+	}
+	
+	public void insertOrUpdate(MemberCustomer member) {
+		MemberCustomer chk = em.find(MemberCustomer.class, member.getCustomerId());
+		if (chk == null) {
+			em.persist(member);
+		} else {	
+			em.merge(member);
+		}
 	}
 }
