@@ -70,6 +70,8 @@ public class StockProduct implements Serializable {
     @Lob
     @Column(name = "image")
     private byte[] image;
+    @Column(name = "product_total")
+    private Integer productTotal;
     @JoinColumn(name = "catalog_id", referencedColumnName = "catalog_id")
     @ManyToOne
     private StockCatalog catalogId;
@@ -225,7 +227,15 @@ public class StockProduct implements Serializable {
         this.catalogId = catalogId;
     }
 
-    @Override
+    public Integer getProductTotal() {
+		return productTotal;
+	}
+
+	public void setProductTotal(Integer productTotal) {
+		this.productTotal = productTotal;
+	}
+
+	@Override
     public int hashCode() {
         int hash = 0;
         hash += (productId != null ? productId.hashCode() : 0);

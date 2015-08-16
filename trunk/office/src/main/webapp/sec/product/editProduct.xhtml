@@ -11,8 +11,7 @@
 		<h:form id="fromMainId">
 			<rich:panel>
 				<f:facet name="header">
-					<h:outputText
-						value="#{app_msgs['label.menuDetailProduct.edit']}" />
+					<h:outputText value="#{app_msgs['label.menuDetailProduct.edit']}" />
 				</f:facet>
 				<table>
 					<tr>
@@ -55,8 +54,7 @@
 									value="#{detailProductController.catalogModelList}" var="item"
 									itemLabel="#{item.thLabel}" itemValue="#{item.intKey}">
 								</f:selectItems>
-							</h:selectOneMenu> <h:outputText id="starId00"
-								style="COLOR: #ff0000; "
+							</h:selectOneMenu> <h:outputText id="starId00" style="COLOR: #ff0000; "
 								value="#{detailProductController.star00}" /></td>
 					</tr>
 					<tr>
@@ -66,20 +64,17 @@
 								value="#{detailProductController.selectedProductModel.productCode}">
 								<a4j:ajax event="keyup" render="starId01,confirmAddId"
 									listener="#{detailProductController.onKeyPress()}" />
-							</h:inputText> <h:outputText id="starId01"
-								style="COLOR: #ff0000; "
+							</h:inputText> <h:outputText id="starId01" style="COLOR: #ff0000; "
 								value="#{detailProductController.star01}" /></td>
 					</tr>
 					<tr>
 						<td class="tableHead"><h:outputText
 								value="#{app_msgs['label.menuSell.detailProduct']}" /></td>
-						<td><h:inputText style="width:400px;"
-								maxlength="200"
+						<td><h:inputText style="width:400px;" maxlength="200"
 								value="#{detailProductController.selectedProductModel.productThDesc}">
 								<a4j:ajax event="keyup" render="starId02,confirmAddId"
 									listener="#{detailProductController.onKeyPress()}" />
-							</h:inputText> <h:outputText id="starId02"
-								style="COLOR: #ff0000; "
+							</h:inputText> <h:outputText id="starId02" style="COLOR: #ff0000; "
 								value="#{detailProductController.star02}" /></td>
 					</tr>
 					<tr>
@@ -89,9 +84,15 @@
 								value="#{detailProductController.selectedProductModel.unit}">
 								<a4j:ajax event="keyup" render="starId03,confirmAddId"
 									listener="#{detailProductController.onKeyPress()}" />
-							</h:inputText> <h:outputText id="starId03"
-								style="COLOR: #ff0000; "
+							</h:inputText> <h:outputText id="starId03" style="COLOR: #ff0000; "
 								value="#{detailProductController.star03}" /></td>
+					</tr>
+					<tr>
+						<td class="tableHead"><h:outputText
+								value="#{app_msgs['label.menuSell.productTotal']}" /></td>
+						<td><h:inputText maxlength="10"
+								value="#{detailProductController.selectedProductModel.productTotal}">
+							</h:inputText></td>
 					</tr>
 					<tr>
 						<td class="tableHead"><h:outputText

@@ -12,6 +12,7 @@ public class ProductModel implements Serializable {
 	private String productCode;
 	private String productThDesc;
 	private String productEnDesc;
+	private int productTotal;
 	private String unit;
 	private double price;
 	private double pv;
@@ -124,6 +125,12 @@ public class ProductModel implements Serializable {
 	}
 	public void setImage(UploadedImage image) {
 		this.image = image;
+	}
+	public int getProductTotal() {
+		return productTotal;
+	}
+	public void setProductTotal(int productTotal) {
+		this.productTotal = productTotal;
 	}
 	
 }

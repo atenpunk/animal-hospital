@@ -11,8 +11,7 @@
 		<h:form id="fromMainId">
 			<rich:panel>
 				<f:facet name="header">
-					<h:outputText
-						value="#{app_msgs['menu.label.detailProduct']}" />
+					<h:outputText value="#{app_msgs['menu.label.detailProduct']}" />
 				</f:facet>
 				<h:commandButton style="width : 100px;"
 					value="#{app_msgs['label.menuDetailProduct.addProduct']}"
@@ -28,40 +27,36 @@
 					rows="100">
 					<f:facet name="header">
 						<rich:columnGroup>
-							<rich:column breakRowBefore="true">
+							<rich:column breakRowBefore="true" style="width:65px;">
 								<h:outputText value="" />
 							</rich:column>
 							<rich:column>
-								<h:outputText
-									value="#{app_msgs['label.menuSell.order']}" />
+								<h:outputText value="#{app_msgs['label.menuSell.order']}" />
 							</rich:column>
 							<rich:column>
-								<h:outputText
-									value="#{app_msgs['label.menuSell.image']}" />
+								<h:outputText value="#{app_msgs['label.menuSell.image']}" />
 							</rich:column>
 							<rich:column>
-								<h:outputText
-									value="#{app_msgs['label.menuSell.productCode']}" />
+								<h:outputText value="#{app_msgs['label.menuSell.productCode']}" />
 							</rich:column>
 							<rich:column>
 								<h:outputText
 									value="#{app_msgs['label.menuSell.detailProduct']}" />
 							</rich:column>
 							<rich:column>
-								<h:outputText
-									value="#{app_msgs['label.menuSell.category']}" />
+								<h:outputText value="#{app_msgs['label.menuSell.productTotal']}" />
 							</rich:column>
 							<rich:column>
-								<h:outputText
-									value="#{app_msgs['label.menuSell.unit']}" />
+								<h:outputText value="#{app_msgs['label.menuSell.category']}" />
 							</rich:column>
 							<rich:column>
-								<h:outputText
-									value="#{app_msgs['label.menuSell.price']}" />
+								<h:outputText value="#{app_msgs['label.menuSell.unit']}" />
 							</rich:column>
 							<rich:column>
-								<h:outputText
-									value="#{app_msgs['label.menuSell.pv']}" />
+								<h:outputText value="#{app_msgs['label.menuSell.price']}" />
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{app_msgs['label.menuSell.pv']}" />
 							</rich:column>
 						</rich:columnGroup>
 					</f:facet>
@@ -96,25 +91,28 @@
 					<rich:column style="text-align:center">
 						<a4j:mediaOutput element="img" mimeType="image/jpeg" id="mediaId"
 							rendered="#{item.image ne null}"
-							createContent="#{detailProductController.paintImg}" value="#{row}"
-							style="width:80px; height:80px;" cacheable="false">
+							createContent="#{detailProductController.paintImg}"
+							value="#{row}" style="width:80px; height:80px;" cacheable="false">
+							<f:param value="#{detailProductController.timeStamp}" name="time" />
 						</a4j:mediaOutput>
 						<h:graphicImage rendered="#{item.image eq null}"
-							value="/resources/image/noImg.gif" width="80px"
-							height="80px" />
+							value="/resources/image/noImg.gif" width="80px" height="80px" />
 					</rich:column>
 					<rich:column style="text-align:left">
 						<h:outputText value="#{item.productCode}">
 						</h:outputText>
 					</rich:column>
 					<rich:column style="text-align:left">
-						<h:outputText
-							value="#{item.productThDesc}">
+						<h:outputText value="#{item.productThDesc}">
+						</h:outputText>
+					</rich:column>
+					<rich:column style="text-align:right">
+						<h:outputText value="#{item.productTotal}">
+							<f:convertNumber pattern="#,##0" />
 						</h:outputText>
 					</rich:column>
 					<rich:column style="text-align:left">
-						<h:outputText
-							value="#{item.catalogThDesc}">
+						<h:outputText value="#{item.catalogThDesc}">
 						</h:outputText>
 					</rich:column>
 					<rich:column style="text-align:left">
