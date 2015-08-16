@@ -72,6 +72,10 @@ public class StockProduct implements Serializable {
     private byte[] image;
     @Column(name = "product_total")
     private Integer productTotal;
+    @Column(name = "product_status")
+    private Integer productStatus;
+    @Column(name = "product_type")
+    private Integer productType;
     @JoinColumn(name = "catalog_id", referencedColumnName = "catalog_id")
     @ManyToOne
     private StockCatalog catalogId;
@@ -233,6 +237,22 @@ public class StockProduct implements Serializable {
 
 	public void setProductTotal(Integer productTotal) {
 		this.productTotal = productTotal;
+	}
+
+	public Integer getProductStatus() {
+		return productStatus;
+	}
+
+	public void setProductStatus(Integer productStatus) {
+		this.productStatus = productStatus;
+	}
+
+	public Integer getProductType() {
+		return productType;
+	}
+
+	public void setProductType(Integer productType) {
+		this.productType = productType;
 	}
 
 	@Override

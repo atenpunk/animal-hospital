@@ -12,6 +12,7 @@ public class ProductModel implements Serializable {
 	private String productCode;
 	private String productThDesc;
 	private String productEnDesc;
+	private int productType;
 	private int productTotal;
 	private String unit;
 	private double price;
@@ -131,6 +132,12 @@ public class ProductModel implements Serializable {
 	}
 	public void setProductTotal(int productTotal) {
 		this.productTotal = productTotal;
+	}
+	public int getProductType() {
+		return productType;
+	}
+	public void setProductType(int productType) {
+		this.productType = productType;
 	}
 	
 }
