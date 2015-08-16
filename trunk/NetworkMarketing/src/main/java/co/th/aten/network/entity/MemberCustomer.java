@@ -45,8 +45,6 @@ public class MemberCustomer implements Serializable {
     private Integer lowerRightId;
     @Column(name = "recommend_id")
     private Integer recommendId;
-    @Column(name = "score")
-    private Integer score;
     @Column(name = "regis_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date regisDate;
@@ -238,14 +236,6 @@ public class MemberCustomer implements Serializable {
 
     public void setRecommendId(Integer recommendId) {
         this.recommendId = recommendId;
-    }
-
-    public Integer getScore() {
-        return score;
-    }
-
-    public void setScore(Integer score) {
-        this.score = score;
     }
 
     public Date getRegisDate() {

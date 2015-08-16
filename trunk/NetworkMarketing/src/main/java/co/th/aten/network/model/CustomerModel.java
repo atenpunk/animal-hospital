@@ -17,7 +17,6 @@ public class CustomerModel implements Serializable {
     private int positionId;
     private String positionText;
     private String positionImage;
-    private int score;
     private Date regisDate;
     private String name;
     private String firstName;
@@ -86,12 +85,6 @@ public class CustomerModel implements Serializable {
 	}
 	public void setPositionId(int positionId) {
 		this.positionId = positionId;
-	}
-	public int getScore() {
-		return score;
-	}
-	public void setScore(int score) {
-		this.score = score;
 	}
 	public Date getRegisDate() {
 		return regisDate;

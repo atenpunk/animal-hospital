@@ -97,7 +97,6 @@ public class DetailMemberController implements Serializable{
 				}
 				model.setPositionId(customer.getPositionId()!=null?customer.getPositionId().getPositionId():0);
 				model.setPositionText(customer.getPositionId()!=null?customer.getPositionId().getEnName():"");
-				model.setScore(customer.getScore()!=null?customer.getScore():0);
 				model.setRegisDate(customer.getRegisDate());
 				model.setFirstName(customerControl.genNameMenber(customer));
 				model.setLastName(customer.getLastName());

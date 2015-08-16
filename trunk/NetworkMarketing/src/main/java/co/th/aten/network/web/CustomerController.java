@@ -1423,7 +1423,6 @@ public class CustomerController implements Serializable{
 				}else if(model.getPositionId()==6){
 					model.setPositionImage("/resources/image/YT.png");
 				}
-				model.setScore(customer.getScore()!=null?customer.getScore():0);
 				model.setRegisDate(customer.getRegisDate());
 				String firstName = customerControl.genNameMenber(customer);
 				if(firstName!=null && firstName.length()>10){
@@ -1773,7 +1772,6 @@ public class CustomerController implements Serializable{
 				cus.setLowerRightId(null);
 				cus.setRecommendId(recomendId);
 				cus.setPositionId(em.find(MemberPosition.class, new Integer(6)));
-				cus.setScore(0);
 				cus.setRegisDate(regisDate);
 				cus.setTitleName(titleName);
 				cus.setFirstName(firstName);
