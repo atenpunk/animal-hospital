@@ -68,8 +68,6 @@ public class TransactionSellHeader implements Serializable {
     private Integer trxHeaderFlag;
     @Column(name = "send_status")
     private Integer sendStatus;
-    @Column(name = "buy_status")
-    private Integer buyStatus;
     @Column(name = "nation_id")
     private Integer nationId;
     @Column(name = "address_no")
@@ -222,14 +220,6 @@ public class TransactionSellHeader implements Serializable {
 
     public void setSendStatus(Integer sendStatus) {
         this.sendStatus = sendStatus;
-    }
-
-    public Integer getBuyStatus() {
-        return buyStatus;
-    }
-
-    public void setBuyStatus(Integer buyStatus) {
-        this.buyStatus = buyStatus;
     }
 
     public String getAddressNo() {
