@@ -7,10 +7,15 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import javax.annotation.Resource;
 import javax.ejb.Schedule;
+import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionManagement;
+import javax.ejb.TransactionManagementType;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import org.jboss.solder.logging.Logger;
 
@@ -19,16 +24,16 @@ import co.th.aten.network.control.TransactionScoreMatchingControl;
 import co.th.aten.network.entity.MemberCustomer;
 import co.th.aten.network.entity.TransactionScoreMatching;
 import co.th.aten.network.entity.TransactionScoreMatchingPK;
-import co.th.aten.network.producer.DBDefault;
 import co.th.aten.network.util.StringUtil;
 
 @Stateless
+@TransactionManagement(TransactionManagementType.BEAN)
 public class ScheduledMatchingProcessor {
-
-	@Inject
-	@DBDefault
+	
+	@PersistenceContext
 	private EntityManager em;
-
+	@Resource
+	private SessionContext sessionCtx;
 	@Inject
 	private CustomerControl customerControl;
 	@Inject
@@ -38,7 +43,7 @@ public class ScheduledMatchingProcessor {
 	Logger log;
 
 	//	@Schedule(hour="*",minute = "*",second="0/10")
-	@Schedule(hour="00",minute = "01",second="01")
+	@Schedule(hour="17",minute = "11",second="01")
 	public void execute() {
 		long startTime = System.currentTimeMillis();
 		try{
@@ -60,6 +65,7 @@ public class ScheduledMatchingProcessor {
 					cal.set(Calendar.MILLISECOND, 0);
 					for(Integer memId:memberList){
 						try{
+							sessionCtx.getUserTransaction().begin();
 							log.info("Matching Member ID = "+memId);
 							MemberCustomer member = em.find(MemberCustomer.class, memId);
 							int myScoreTotal = customerControl.myScoreTotal(member);
@@ -113,7 +119,9 @@ public class ScheduledMatchingProcessor {
 							member.setUpdateBy(new Integer(2));
 							member.setUpdateDate(new Date());
 							customerControl.insertOrUpdate(member);
+							sessionCtx.getUserTransaction().commit();
 						}catch(Exception ex){
+							sessionCtx.getUserTransaction().rollback();
 							ex.printStackTrace();
 						}
 					}
