@@ -235,6 +235,7 @@ public class DetailProductController implements Serializable{
 				model.setProductCode(StringUtil.n2b(pro.getProductCode()));
 				model.setProductThDesc(StringUtil.n2b(pro.getThDesc()));
 				model.setProductEnDesc(StringUtil.n2b(pro.getEnDesc()));
+				model.setProductTotal(StringUtil.n2b(pro.getProductTotal()));
 				model.setUnit(StringUtil.n2b(pro.getUnit()));
 				model.setPrice(StringUtil.n2b(pro.getPrice()).doubleValue());
 				model.setPv(StringUtil.n2b(pro.getPv()).doubleValue());
@@ -288,6 +289,7 @@ public class DetailProductController implements Serializable{
 			stackProduct.setThDesc(selectedProductModel.getProductThDesc());
 			stackProduct.setEnDesc(selectedProductModel.getProductThDesc());
 			stackProduct.setUnit(selectedProductModel.getUnit());
+			stackProduct.setProductTotal(selectedProductModel.getProductTotal());
 			stackProduct.setPrice(new BigDecimal(selectedProductModel.getPrice()));
 			stackProduct.setPv(new BigDecimal(selectedProductModel.getPv()));
 			stackProduct.setBv(new BigDecimal(selectedProductModel.getBv()));
@@ -345,6 +347,7 @@ public class DetailProductController implements Serializable{
 			stackProduct.setThDesc(selectedProductModel.getProductThDesc());
 			stackProduct.setEnDesc(selectedProductModel.getProductThDesc());
 			stackProduct.setUnit(selectedProductModel.getUnit());
+			stackProduct.setProductTotal(selectedProductModel.getProductTotal());
 			stackProduct.setPrice(new BigDecimal(selectedProductModel.getPrice()));
 			stackProduct.setPv(new BigDecimal(selectedProductModel.getPv()));
 			stackProduct.setBv(new BigDecimal(selectedProductModel.getBv()));
@@ -471,5 +474,8 @@ public class DetailProductController implements Serializable{
 	public void setUploadImgCount(int uploadImgCount) {
 		this.uploadImgCount = uploadImgCount;
 	}
-
+	
+	public long getTimeStamp(){  
+		return System.currentTimeMillis();  
+	}
 }
