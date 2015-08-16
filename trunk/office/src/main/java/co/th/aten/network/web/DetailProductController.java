@@ -224,6 +224,7 @@ public class DetailProductController implements Serializable{
 	private void genDataModel(){
 		productModelList = new ArrayList<ProductModel>();
 		List<StockProduct> productList = em.createQuery("From StockProduct " +
+				" Where productStatus = 1 " +
 				" Order by productId",StockProduct.class)
 				.getResultList();
 		if(productList!=null){
@@ -235,6 +236,7 @@ public class DetailProductController implements Serializable{
 				model.setProductCode(StringUtil.n2b(pro.getProductCode()));
 				model.setProductThDesc(StringUtil.n2b(pro.getThDesc()));
 				model.setProductEnDesc(StringUtil.n2b(pro.getEnDesc()));
+				model.setProductType(StringUtil.n2b(pro.getProductType()));
 				model.setProductTotal(StringUtil.n2b(pro.getProductTotal()));
 				model.setUnit(StringUtil.n2b(pro.getUnit()));
 				model.setPrice(StringUtil.n2b(pro.getPrice()).doubleValue());
@@ -261,6 +263,7 @@ public class DetailProductController implements Serializable{
 			chkAddActive = true;
 			uploadedImage = null;
 			selectedProductModel = new ProductModel();
+			selectedProductModel.setProductType(1);
 			if(catalogModelList!=null && catalogModelList.size()>0)
 				selectedCatalog = catalogModelList.get(0).getIntKey();
 		}catch(Exception e){
@@ -296,6 +299,8 @@ public class DetailProductController implements Serializable{
 			stackProduct.setQty(0);
 			stackProduct.setCompanyId(0);
 			stackProduct.setPackageId(0);
+			stackProduct.setProductStatus(1);// 1 = Active, 2 = Not Active
+			stackProduct.setProductType(selectedProductModel.getProductType());// 1 = cumulative, 2 = package
 			stackProduct.setCreateBy(currentUser.getCurrentAccount().getUserId());
 			stackProduct.setCreateDate(new Date());
 			stackProduct.setUpdateBy(currentUser.getCurrentAccount().getUserId());
@@ -347,6 +352,7 @@ public class DetailProductController implements Serializable{
 			stackProduct.setThDesc(selectedProductModel.getProductThDesc());
 			stackProduct.setEnDesc(selectedProductModel.getProductThDesc());
 			stackProduct.setUnit(selectedProductModel.getUnit());
+			stackProduct.setProductType(selectedProductModel.getProductType());
 			stackProduct.setProductTotal(selectedProductModel.getProductTotal());
 			stackProduct.setPrice(new BigDecimal(selectedProductModel.getPrice()));
 			stackProduct.setPv(new BigDecimal(selectedProductModel.getPv()));
@@ -380,7 +386,8 @@ public class DetailProductController implements Serializable{
 		log.info("--------------- deleteProduct() -------------");
 		try{
 			StockProduct stockProduct = em.find(StockProduct.class, new Integer(product.getProductId()));
-			em.remove(stockProduct);
+			stockProduct.setProductStatus(new Integer(2));// 1 = Active, 2 Not Active
+			em.merge(stockProduct);
 			productModelList.remove(product);
 		}catch(Exception e){
 			e.printStackTrace();

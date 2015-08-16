@@ -60,6 +60,17 @@
 					</tr>
 					<tr>
 						<td class="tableHead"><h:outputText
+								value="#{app_msgs['label.menuSell.package']}" /></td>
+						<td colspan="2"><h:selectOneRadio
+								value="#{detailProductController.selectedProductModel.productType}">
+								<f:selectItem itemValue="1"
+									itemLabel="#{app_msgs['label.sell.rewards']}" />
+								<f:selectItem itemValue="2"
+									itemLabel="#{app_msgs['label.sell.package']}" />
+							</h:selectOneRadio></td>
+					</tr>
+					<tr>
+						<td class="tableHead"><h:outputText
 								value="#{app_msgs['label.menuSell.productCode']}" /></td>
 						<td><h:inputText maxlength="20"
 								value="#{detailProductController.selectedProductModel.productCode}">
