@@ -54,8 +54,8 @@
 							<tr>
 								<td class="headerLeft"><h:outputText
 										value="#{app_msgs['label.menuShopping.memberName']}" /></td>
-								<td class="detailLeft"><h:outputText
-										id="inputMemberNameId" maxlength="100" readonly="true"
+								<td class="detailLeft"><h:outputText id="inputMemberNameId"
+										maxlength="100" readonly="true"
 										value="#{productSellController.memberName}" /></td>
 							</tr>
 							<tr>
@@ -65,7 +65,7 @@
 											itemLabel="#{app_msgs['label.sell.receive']}" />
 										<f:selectItem itemValue="2"
 											itemLabel="#{app_msgs['label.sell.send']}" />
-											<a4j:ajax event="click" render="mainPanelGridId" ></a4j:ajax>
+										<a4j:ajax event="click" render="mainPanelGridId"></a4j:ajax>
 									</h:selectOneRadio></td>
 							</tr>
 							<tr>
@@ -75,11 +75,14 @@
 											itemLabel="#{app_msgs['label.sell.rewards']}" />
 										<f:selectItem itemValue="2"
 											itemLabel="#{app_msgs['label.sell.package']}" />
+										<a4j:ajax event="click" render="productListId"
+											listener="#{productSellController.onChangeCatalog}"/>
 									</h:selectOneRadio></td>
 							</tr>
 						</table>
 					</rich:panel>
-					<rich:panel style=" width : auto;height:230px;" id="panelAddressId" rendered="#{productSellController.sendStatus eq 2}">
+					<rich:panel style=" width : auto;height:230px;" id="panelAddressId"
+						rendered="#{productSellController.sendStatus eq 2}">
 						<f:facet name="header">
 							<h:panelGrid columns="5">
 								<h:outputText value="#{app_msgs['label.sell.address']}" />
@@ -135,8 +138,7 @@
 									</h:selectOneMenu> <h:inputText maxlength="200"
 										rendered="#{!productSellController.chkNationality}"
 										value="#{productSellController.amphurStr}">
-									</h:inputText>
-									<h:outputText style="COLOR: #ff0000;" value="*" /></td>
+									</h:inputText> <h:outputText style="COLOR: #ff0000;" value="*" /></td>
 							</tr>
 							<tr>
 								<td class="headerLeft"><h:outputText
@@ -158,8 +160,7 @@
 									</h:selectOneMenu> <h:inputText maxlength="200"
 										rendered="#{!productSellController.chkNationality}"
 										value="#{productSellController.districtStr}">
-									</h:inputText>
-									<h:outputText style="COLOR: #ff0000;" value="*" /></td>
+									</h:inputText> <h:outputText style="COLOR: #ff0000;" value="*" /></td>
 							</tr>
 							<tr>
 								<td class="headerLeft"><h:outputText
@@ -171,8 +172,8 @@
 										value="#{app_msgs['label.pageAddMember.addressPostCode']}" /></td>
 								<td class="detailLeft"><h:inputText maxlength="100"
 										id="postCodeId"
-										value="#{productSellController.addressPostCode}" />
-									<h:outputText style="COLOR: #ff0000;" value="*" /></td>
+										value="#{productSellController.addressPostCode}" /> <h:outputText
+										style="COLOR: #ff0000;" value="*" /></td>
 							</tr>
 							<tr>
 								<td class="headerLeft"><h:outputText
@@ -321,7 +322,7 @@
 				</h:selectOneMenu>
 				<br />
 				<br />
-				<rich:panel style="overflow-y: scroll; height:430px;">
+				<rich:panel style="overflow-y: scroll; height:550px;">
 					<rich:dataGrid value="#{productSellController.productModelList}"
 						rowKeyVar="row" id="productListId" var="itemProduct" columns="3"
 						width="100%" border="0">
