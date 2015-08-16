@@ -1847,7 +1847,7 @@ public class CustomerController implements Serializable{
 				cus.setBankaccountNo(accNo);
 				cus.setBankaccountName(accName);
 				cus.setRemark(remark);
-
+				cus.seteMoney(new BigDecimal(0));
 				cus.setStatus(0);
 				cus.setCreateBy(user.get().getUserId());
 				cus.setCreateDate(new Date());
