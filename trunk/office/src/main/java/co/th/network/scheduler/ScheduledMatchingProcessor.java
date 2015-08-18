@@ -43,7 +43,7 @@ public class ScheduledMatchingProcessor {
 	Logger log;
 
 	//	@Schedule(hour="*",minute = "*",second="0/10")
-	@Schedule(hour="17",minute = "11",second="01")
+	@Schedule(hour="00",minute = "01",second="01")
 	public void execute() {
 		long startTime = System.currentTimeMillis();
 		try{
