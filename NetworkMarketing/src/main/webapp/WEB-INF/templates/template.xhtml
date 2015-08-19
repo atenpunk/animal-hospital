@@ -33,14 +33,27 @@
 						value="#{currentUser.customerId.eMoney.doubleValue()}">
 						<f:convertNumber pattern="#,##0.00" />
 					</h:outputText>
+					&#160;
+					<h:outputText style="font-size: 20px;FONT-WEIGHT: bold;"
+						value="THB" />
+					<br />
+					<br />
+					<h:outputText style="font-size: 20px;FONT-WEIGHT: bold;"
+						value="E-money" />&#160;&#160;<h:outputText
+						style="font-size: 20px;FONT-WEIGHT: bold;"
+						value="#{currentUser.customerId.eMoney.doubleValue()/currentUserManager.moneyUsd}">
+						<f:convertNumber pattern="#,##0.00" />
+					</h:outputText>
+					&#160;
+					<h:outputText style="font-size: 20px;FONT-WEIGHT: bold;"
+						value="USD" />
 					<br />
 					<br />
 					<br />
 					<br />
-					<br />
-					&#160;&#160;<pretty:link mappingId="logout" style="font-size: 18px;">
-						<h:outputText
-							value="#{app_msgs['menu.logout.label']}" />
+					&#160;&#160;<pretty:link mappingId="logout"
+						style="font-size: 18px;">
+						<h:outputText value="#{app_msgs['menu.logout.label']}" />
 					</pretty:link>
 					<br />
 					<br />
@@ -69,17 +82,20 @@
 					<f:view locale="#{languageController.locale}">
 						<h:commandLink title="ไทย"
 							action="#{languageController.switchLocale('th')}">
-							<h:graphicImage value="/resources/gfx/THflag.png" width="22px" height="22px"/>
+							<h:graphicImage value="/resources/gfx/THflag.png" width="22px"
+								height="22px" />
 						</h:commandLink>
 						&#160;
 						<h:commandLink title="ລາວ"
 							action="#{languageController.switchLocale('lao')}">
-							<h:graphicImage value="/resources/gfx/LAK.gif" width="22px" height="22px"/>
+							<h:graphicImage value="/resources/gfx/LAK.gif" width="22px"
+								height="22px" />
 						</h:commandLink>
 						&#160;						
 					<h:commandLink title="English"
 							action="#{languageController.switchLocale('en')}">
-							<h:graphicImage value="/resources/gfx/ENflag.png" width="22px" height="22px"/>
+							<h:graphicImage value="/resources/gfx/ENflag.png" width="22px"
+								height="22px" />
 						</h:commandLink>
 					</f:view>
 				</h:form>
