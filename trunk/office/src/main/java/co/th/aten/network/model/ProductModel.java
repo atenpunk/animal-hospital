@@ -12,8 +12,8 @@ public class ProductModel implements Serializable {
 	private String productCode;
 	private String productThDesc;
 	private String productEnDesc;
-	private int productType;
-	private int productTotal;
+	private int productTypeId;
+	private String productTypeThDesc;
 	private String unit;
 	private double price;
 	private double pv;
@@ -127,17 +127,17 @@ public class ProductModel implements Serializable {
 	public void setImage(UploadedImage image) {
 		this.image = image;
 	}
-	public int getProductTotal() {
-		return productTotal;
+	public int getProductTypeId() {
+		return productTypeId;
 	}
-	public void setProductTotal(int productTotal) {
-		this.productTotal = productTotal;
+	public void setProductTypeId(int productTypeId) {
+		this.productTypeId = productTypeId;
 	}
-	public int getProductType() {
-		return productType;
+	public String getProductTypeThDesc() {
+		return productTypeThDesc;
 	}
-	public void setProductType(int productType) {
-		this.productType = productType;
-	}
+	public void setProductTypeThDesc(String productTypeThDesc) {
+		this.productTypeThDesc = productTypeThDesc;
+	}	
 	
 }

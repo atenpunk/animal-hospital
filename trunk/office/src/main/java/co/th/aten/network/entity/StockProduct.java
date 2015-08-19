@@ -70,8 +70,6 @@ public class StockProduct implements Serializable {
     @Lob
     @Column(name = "image")
     private byte[] image;
-    @Column(name = "product_total")
-    private Integer productTotal;
     @Column(name = "product_status")
     private Integer productStatus;
     @Column(name = "product_type")
@@ -230,14 +228,6 @@ public class StockProduct implements Serializable {
     public void setCatalogId(StockCatalog catalogId) {
         this.catalogId = catalogId;
     }
-
-    public Integer getProductTotal() {
-		return productTotal;
-	}
-
-	public void setProductTotal(Integer productTotal) {
-		this.productTotal = productTotal;
-	}
 
 	public Integer getProductStatus() {
 		return productStatus;

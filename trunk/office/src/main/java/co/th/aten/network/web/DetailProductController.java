@@ -22,6 +22,7 @@ import org.richfaces.model.UploadedFile;
 import co.th.aten.network.control.StockProductControl;
 import co.th.aten.network.entity.StockCatalog;
 import co.th.aten.network.entity.StockProduct;
+import co.th.aten.network.entity.StockProductType;
 import co.th.aten.network.model.DropDownModel;
 import co.th.aten.network.model.ProductModel;
 import co.th.aten.network.model.UploadedImage;
@@ -56,8 +57,11 @@ public class DetailProductController implements Serializable{
 	private ProductModel selectedProductModel;
 	private List<DropDownModel> catalogModelList;
 	private int selectedCatalog;
+	private List<DropDownModel> productTypeModelList;
+	private int selectedProductType;
 	private boolean chkAddActive;
 	private UploadedImage uploadedImage;
+	private String starTypeId;
 	private String star00;
 	private String star01;
 	private String star02;
@@ -89,6 +93,25 @@ public class DetailProductController implements Serializable{
 				selectedCatalog = -1;
 			}
 		}
+		if(productTypeModelList==null){
+			productTypeModelList = new ArrayList<DropDownModel>();
+			List<StockProductType> stockProductTypeList = em.createQuery("From StockProductType",StockProductType.class).getResultList();
+			if(stockProductTypeList!=null && stockProductTypeList.size()>0){
+				for(StockProductType data:stockProductTypeList){
+					DropDownModel model = new DropDownModel();
+					model.setIntKey(data.getTypeId());
+					model.setThLabel(StringUtil.n2b(data.getTypeDescTh()));
+					model.setEnLabel(StringUtil.n2b(data.getTypeDescEn()));
+					productTypeModelList.add(model);
+				}
+				DropDownModel model = new DropDownModel();
+				model.setIntKey(-1);
+				model.setThLabel("");
+				model.setEnLabel("");
+				productTypeModelList.add(0,model);
+				selectedProductType = -1;
+			}
+		}
 	}
 
 	public void paint(OutputStream stream, Object object){
@@ -111,35 +134,35 @@ public class DetailProductController implements Serializable{
 			e.printStackTrace();
 		}
 	}
-	
-//	private byte[] resizeImage(byte[] originalImage, int width, int height) throws IOException {
-//        ByteArrayInputStream in = new ByteArrayInputStream(originalImage);
-//		BufferedImage img = ImageIO.read(in);
-//        BufferedImage resizedImage = new BufferedImage(width, height, 1);
-//        Graphics2D g = resizedImage.createGraphics();
-//        g.drawImage(img, 0, 0, width, height, null);
-//        g.dispose();
-//        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-//		ImageIO.write(resizedImage, "jpg", buffer);
-//        return buffer.toByteArray();
-//    }
 
-//	private byte[] resize(byte[] fileData, int width, int height) throws IOException{
-//		ByteArrayInputStream in = new ByteArrayInputStream(fileData);
-//		BufferedImage img = ImageIO.read(in);
-//		if(height == 0) {
-//			height = (width * img.getHeight())/ img.getWidth(); 
-//		}
-//		if(width == 0) {
-//			width = (height * img.getWidth())/ img.getHeight();
-//		}
-//		Image scaledImage = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
-//		BufferedImage imageBuff = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-//		imageBuff.getGraphics().drawImage(scaledImage, 0, 0, null, null);
-//		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-//		ImageIO.write(imageBuff, "jpg", buffer);
-//		return buffer.toByteArray();
-//	}
+	//	private byte[] resizeImage(byte[] originalImage, int width, int height) throws IOException {
+	//        ByteArrayInputStream in = new ByteArrayInputStream(originalImage);
+	//		BufferedImage img = ImageIO.read(in);
+	//        BufferedImage resizedImage = new BufferedImage(width, height, 1);
+	//        Graphics2D g = resizedImage.createGraphics();
+	//        g.drawImage(img, 0, 0, width, height, null);
+	//        g.dispose();
+	//        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+	//		ImageIO.write(resizedImage, "jpg", buffer);
+	//        return buffer.toByteArray();
+	//    }
+
+	//	private byte[] resize(byte[] fileData, int width, int height) throws IOException{
+	//		ByteArrayInputStream in = new ByteArrayInputStream(fileData);
+	//		BufferedImage img = ImageIO.read(in);
+	//		if(height == 0) {
+	//			height = (width * img.getHeight())/ img.getWidth(); 
+	//		}
+	//		if(width == 0) {
+	//			width = (height * img.getWidth())/ img.getHeight();
+	//		}
+	//		Image scaledImage = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+	//		BufferedImage imageBuff = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+	//		imageBuff.getGraphics().drawImage(scaledImage, 0, 0, null, null);
+	//		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+	//		ImageIO.write(imageBuff, "jpg", buffer);
+	//		return buffer.toByteArray();
+	//	}
 
 	public void listener(FileUploadEvent event){
 		try{
@@ -174,22 +197,6 @@ public class DetailProductController implements Serializable{
 		}
 	}
 
-	public void onChangeCatalog(){
-		if(selectedCatalog!=-1){
-			star00 = "";
-		}else{
-			star00 = "*";
-		}
-		if(star00.equals("*")
-				||star01.equals("*") 
-				|| star02.equals("*")
-				|| star03.equals("*")){
-			chkAddActive = true;
-		}else{
-			chkAddActive = false;
-		}
-	}
-
 	public void onKeyPress(){
 		if(selectedProductModel!=null){
 			if(selectedProductModel.getProductCode()!=null 
@@ -210,10 +217,21 @@ public class DetailProductController implements Serializable{
 			}else{
 				star03 = "*";
 			}
+			if(selectedCatalog!=-1){
+				star00 = "";
+			}else{
+				star00 = "*";
+			}
+			if(selectedProductType!=-1){
+				starTypeId = "";
+			}else{
+				starTypeId = "*";
+			}
 			if(star00.equals("*")
 					||star01.equals("*") 
 					|| star02.equals("*")
-					|| star03.equals("*")){
+					|| star03.equals("*")
+					|| starTypeId.equals("*")){
 				chkAddActive = true;
 			}else{
 				chkAddActive = false;
@@ -236,8 +254,8 @@ public class DetailProductController implements Serializable{
 				model.setProductCode(StringUtil.n2b(pro.getProductCode()));
 				model.setProductThDesc(StringUtil.n2b(pro.getThDesc()));
 				model.setProductEnDesc(StringUtil.n2b(pro.getEnDesc()));
-				model.setProductType(StringUtil.n2b(pro.getProductType()));
-				model.setProductTotal(StringUtil.n2b(pro.getProductTotal()));
+				model.setProductTypeId(StringUtil.n2b(pro.getProductType()));
+				model.setQty(StringUtil.n2b(pro.getQty()));
 				model.setUnit(StringUtil.n2b(pro.getUnit()));
 				model.setPrice(StringUtil.n2b(pro.getPrice()).doubleValue());
 				model.setPv(StringUtil.n2b(pro.getPv()).doubleValue());
@@ -255,6 +273,7 @@ public class DetailProductController implements Serializable{
 
 	private void clear(){
 		try{
+			starTypeId = "*";
 			star00 = "*";
 			star01 = "*";
 			star02 = "*";
@@ -263,9 +282,10 @@ public class DetailProductController implements Serializable{
 			chkAddActive = true;
 			uploadedImage = null;
 			selectedProductModel = new ProductModel();
-			selectedProductModel.setProductType(1);
 			if(catalogModelList!=null && catalogModelList.size()>0)
 				selectedCatalog = catalogModelList.get(0).getIntKey();
+			if(productTypeModelList!=null && productTypeModelList.size()>0)
+				selectedProductType = productTypeModelList.get(0).getIntKey();
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -292,15 +312,14 @@ public class DetailProductController implements Serializable{
 			stackProduct.setThDesc(selectedProductModel.getProductThDesc());
 			stackProduct.setEnDesc(selectedProductModel.getProductThDesc());
 			stackProduct.setUnit(selectedProductModel.getUnit());
-			stackProduct.setProductTotal(selectedProductModel.getProductTotal());
 			stackProduct.setPrice(new BigDecimal(selectedProductModel.getPrice()));
 			stackProduct.setPv(new BigDecimal(selectedProductModel.getPv()));
 			stackProduct.setBv(new BigDecimal(selectedProductModel.getBv()));
-			stackProduct.setQty(0);
+			stackProduct.setQty(selectedProductModel.getQty());
 			stackProduct.setCompanyId(0);
 			stackProduct.setPackageId(0);
 			stackProduct.setProductStatus(1);// 1 = Active, 2 = Not Active
-			stackProduct.setProductType(selectedProductModel.getProductType());// 1 = cumulative, 2 = package
+			stackProduct.setProductType(selectedProductType);
 			stackProduct.setCreateBy(currentUser.getCurrentAccount().getUserId());
 			stackProduct.setCreateDate(new Date());
 			stackProduct.setUpdateBy(currentUser.getCurrentAccount().getUserId());
@@ -331,9 +350,9 @@ public class DetailProductController implements Serializable{
 			clear();
 			selectedProductModel = product;
 			selectedCatalog = product.getCatalogId();
+			selectedProductType = product.getProductTypeId();
 			uploadedImage = product.getImage();
 			onKeyPress();
-			onChangeCatalog();
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -352,12 +371,11 @@ public class DetailProductController implements Serializable{
 			stackProduct.setThDesc(selectedProductModel.getProductThDesc());
 			stackProduct.setEnDesc(selectedProductModel.getProductThDesc());
 			stackProduct.setUnit(selectedProductModel.getUnit());
-			stackProduct.setProductType(selectedProductModel.getProductType());
-			stackProduct.setProductTotal(selectedProductModel.getProductTotal());
+			stackProduct.setProductType(selectedProductType);
 			stackProduct.setPrice(new BigDecimal(selectedProductModel.getPrice()));
 			stackProduct.setPv(new BigDecimal(selectedProductModel.getPv()));
 			stackProduct.setBv(new BigDecimal(selectedProductModel.getBv()));
-			stackProduct.setQty(0);
+			stackProduct.setQty(selectedProductModel.getQty());
 			stackProduct.setCompanyId(0);
 			stackProduct.setPackageId(0);
 			stackProduct.setUpdateBy(currentUser.getCurrentAccount().getUserId());
@@ -481,8 +499,33 @@ public class DetailProductController implements Serializable{
 	public void setUploadImgCount(int uploadImgCount) {
 		this.uploadImgCount = uploadImgCount;
 	}
-	
+
 	public long getTimeStamp(){  
 		return System.currentTimeMillis();  
 	}
+
+	public String getStarTypeId() {
+		return starTypeId;
+	}
+
+	public void setStarTypeId(String starTypeId) {
+		this.starTypeId = starTypeId;
+	}
+
+	public List<DropDownModel> getProductTypeModelList() {
+		return productTypeModelList;
+	}
+
+	public void setProductTypeModelList(List<DropDownModel> productTypeModelList) {
+		this.productTypeModelList = productTypeModelList;
+	}
+
+	public int getSelectedProductType() {
+		return selectedProductType;
+	}
+
+	public void setSelectedProductType(int selectedProductType) {
+		this.selectedProductType = selectedProductType;
+	}
+
 }

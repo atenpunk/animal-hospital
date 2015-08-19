@@ -49,7 +49,7 @@
 								value="#{detailProductController.selectedCatalog}"
 								style=" width : 150px;" id="dropDownCategory">
 								<a4j:ajax event="change" render="fromMainId"
-									listener="#{detailProductController.onChangeCatalog}" />
+									listener="#{detailProductController.onKeyPress}" />
 								<f:selectItems
 									value="#{detailProductController.catalogModelList}" var="item"
 									itemLabel="#{item.thLabel}" itemValue="#{item.intKey}">
@@ -60,13 +60,18 @@
 					<tr>
 						<td class="tableHead"><h:outputText
 								value="#{app_msgs['label.menuSell.package']}" /></td>
-						<td colspan="2"><h:selectOneRadio
-								value="#{detailProductController.selectedProductModel.productType}">
-								<f:selectItem itemValue="1"
-									itemLabel="#{app_msgs['label.sell.rewards']}" />
-								<f:selectItem itemValue="2"
-									itemLabel="#{app_msgs['label.sell.package']}" />
-							</h:selectOneRadio></td>
+						<td><h:selectOneMenu
+								value="#{detailProductController.selectedProductType}"
+								style=" width : 150px;" id="dropDownProductType">
+								<a4j:ajax event="change" render="fromMainId"
+									listener="#{detailProductController.onKeyPress}" />
+								<f:selectItems
+									value="#{detailProductController.productTypeModelList}"
+									var="item" itemLabel="#{item.thLabel}"
+									itemValue="#{item.intKey}">
+								</f:selectItems>
+							</h:selectOneMenu> <h:outputText id="starTypeId" style="COLOR: #ff0000; "
+								value="#{detailProductController.starTypeId}" /></td>
 					</tr>
 					<tr>
 						<td class="tableHead"><h:outputText
@@ -102,7 +107,7 @@
 						<td class="tableHead"><h:outputText
 								value="#{app_msgs['label.menuSell.productTotal']}" /></td>
 						<td><h:inputText maxlength="10"
-								value="#{detailProductController.selectedProductModel.productTotal}">
+								value="#{detailProductController.selectedProductModel.qty}">
 							</h:inputText></td>
 					</tr>
 					<tr>
