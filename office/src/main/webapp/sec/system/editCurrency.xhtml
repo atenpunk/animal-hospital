@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="content">
+		<br />
+		<h:form id="fromMainId">
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{app_msgs['menu.label.system.editCurrency']}" />
+				</f:facet>
+				<h:panelGrid columns="1" cellpadding="2" cellspacing="2"
+					id="messagesId" style="width:100%;text-align:left;font-size: 22px;">
+					<h:messages globalOnly="true" infoClass="info" errorClass="error"
+						warnClass="warn" />
+				</h:panelGrid>
+				<br />
+				<table>
+					<tr>
+						<td class="tableHead"><h:outputText
+								value="#{app_msgs['menu.label.system.editCurrency.valueUsd']}" /></td>
+						<td><h:inputText maxlength="10"
+								value="#{currencyController.usd}">
+								<f:convertNumber pattern="#,##0.00" />
+							</h:inputText></td>
+					</tr>
+				</table>
+				<br />
+				<h:commandButton value="#{app_msgs['button.save']}"
+					id="confirmEditId" style="width : 100px;"
+					onclick="if(!confirmMsg('#{app_msgs['menu.label.system.editCurrency.confirm']}')) return false"
+					oncomplete="endProgress();" action="#{currencyController.save}"></h:commandButton>
+					&#160;&#160;
+			</rich:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

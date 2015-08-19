@@ -69,5 +69,9 @@
 		<pattern value="/product/trx"></pattern>
 		<view-id>/sec/product/trx.jsf</view-id>
 	</url-mapping>
+	<url-mapping id="backOffice_11">
+		<pattern value="/system/editCurrency"></pattern>
+		<view-id>/sec/system/editCurrency.jsf</view-id>
+	</url-mapping>
 
 </pretty-config>

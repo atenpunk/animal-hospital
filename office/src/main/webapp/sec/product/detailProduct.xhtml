@@ -62,7 +62,8 @@
 					</f:facet>
 					<rich:column style="text-align:center">
 						<a4j:commandLink value=""
-							onclick="if(!confirm('#{app_msgs['label.menuDetailProduct.confirmDelete']}')) return false"
+							onclick="if(!confirmMsg('#{app_msgs['label.menuDetailProduct.confirmDelete']}')) return false"
+							oncomplete="endProgress();"
 							action="#{detailProductController.deleteProduct(item)}"
 							render="testDataTable">
 							<h:graphicImage value="/resources/image/delete.gif" width="20px"
