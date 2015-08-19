@@ -18,6 +18,7 @@ package co.th.aten.network.security;
 
 import java.io.Serializable;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.Produces;
 import javax.faces.bean.SessionScoped;
@@ -28,9 +29,11 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.jboss.solder.logging.Logger;
 
+import co.th.aten.network.entity.MasterConfigkey;
 import co.th.aten.network.entity.UserLogin;
 import co.th.aten.network.producer.DBDefault;
 import co.th.aten.network.security.annotation.Authenticated;
+import co.th.aten.network.util.StringUtil;
 
 
 /**
@@ -41,111 +44,98 @@ import co.th.aten.network.security.annotation.Authenticated;
 @SessionScoped
 @Named("currentUserManager")
 public class CurrentUserManager implements Serializable{
-    /**
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 7016685883035435434L;
 	@Inject
 	Logger log;
-	
+
 	@Inject
 	@DBDefault
 	private EntityManager em;
-	
-	private String check;
-	private boolean check1;
-	private boolean check2;
-	private boolean check3;
-	
 	private UserLogin currentUser;
 
-    @Produces
-    @Authenticated
-    @Named("currentUser")
-    public UserLogin getCurrentAccount() {
-        return currentUser;
-    }
+	private double moneyUsd;
 
-    // Injecting HttpServletRequest instead of HttpSession as the latter conflicts with a Weld bean on GlassFish 3.0.1
-    public void onLogin(@Observes @Authenticated UserLogin user, HttpServletRequest request) {
-        currentUser = user;
-        log.infov("set current UserLogin,userId={0},loginName={1},userName={2}",currentUser.getUserId(),currentUser.getLoginName(),currentUser.getUserName());
-        
-        checkPermission(currentUser.getUserId());
-        // reward authenticated users with a longer session
-        // default is kept short to prevent search engines from driving up # of sessions
-       // request.getSession().setMaxInactiveInterval(3600);
-    }
-    
+	@PostConstruct
+	public void init(){
+		try{
+			MasterConfigkey config = em.find(MasterConfigkey.class, "MONEY_USD");
+			moneyUsd = 30;
+			if(config!=null){
+				moneyUsd = Double.parseDouble(StringUtil.n2b(config.getValue01()));
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+
+	@Produces
+	@Authenticated
+	@Named("currentUser")
+	public UserLogin getCurrentAccount() {
+		return currentUser;
+	}
+
+	// Injecting HttpServletRequest instead of HttpSession as the latter conflicts with a Weld bean on GlassFish 3.0.1
+	public void onLogin(@Observes @Authenticated UserLogin user, HttpServletRequest request) {
+		currentUser = user;
+		log.infov("set current UserLogin,userId={0},loginName={1},userName={2}",currentUser.getUserId(),currentUser.getLoginName(),currentUser.getUserName());
+
+		checkPermission(currentUser.getUserId());
+		// reward authenticated users with a longer session
+		// default is kept short to prevent search engines from driving up # of sessions
+		// request.getSession().setMaxInactiveInterval(3600);
+	}
+
 	public void checkPermission(Integer id){
-		
+
 		log.info("--------------- id "+id);
-		check1 = true;
-		check2 = false;
-		check3 = false;
-//		try {
-//			String qr = " select ur.role_id " +
-//					" from user u " +
-//					" left join user_role ur on(ur.user_id = u.user_id) " +
-//					" left join role ro on(ro.role_id = ur.role_id) " +
-//					" where u.user_id = "+ id ;
-//			
-//			check = em.createNativeQuery(qr).getSingleResult().toString();
-//			log.info("--------------- check "+check);
-//			if(check.equals("1")){
-//				
-//				check1 = true;
-//				check2 = false; // test
-//				check3 = false;
-//				
-//			}else if(check.equals("2")){
-//				
-//				check1 = false;
-//				check2 = true; // test
-//				check3 = false;
-//				
-//			}else if(check.equals("3")){
-//				
-//				check1 = false;
-//				check2 = false; // test
-//				check3 = true;
-//			}
-//			
-//			
-//			log.info(check1);
-//			log.info(check2);
-//			log.info(check3);
-//			
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}		
-		
+		//		try {
+		//			String qr = " select ur.role_id " +
+		//					" from user u " +
+		//					" left join user_role ur on(ur.user_id = u.user_id) " +
+		//					" left join role ro on(ro.role_id = ur.role_id) " +
+		//					" where u.user_id = "+ id ;
+		//			
+		//			check = em.createNativeQuery(qr).getSingleResult().toString();
+		//			log.info("--------------- check "+check);
+		//			if(check.equals("1")){
+		//				
+		//				check1 = true;
+		//				check2 = false; // test
+		//				check3 = false;
+		//				
+		//			}else if(check.equals("2")){
+		//				
+		//				check1 = false;
+		//				check2 = true; // test
+		//				check3 = false;
+		//				
+		//			}else if(check.equals("3")){
+		//				
+		//				check1 = false;
+		//				check2 = false; // test
+		//				check3 = true;
+		//			}
+		//			
+		//			
+		//			log.info(check1);
+		//			log.info(check2);
+		//			log.info(check3);
+		//			
+		//		} catch (Exception e) {
+		//			e.printStackTrace();
+		//		}		
 	}
 
-	public boolean isCheck1() {
-		return check1;
+	public double getMoneyUsd() {
+		return moneyUsd;
 	}
 
-	public void setCheck1(boolean check1) {
-		this.check1 = check1;
-	}
+	public void setMoneyUsd(double moneyUsd) {
+		this.moneyUsd = moneyUsd;
+	}    
 
-	public boolean isCheck2() {
-		return check2;
-	}
-
-	public void setCheck2(boolean check2) {
-		this.check2 = check2;
-	}
-
-	public boolean isCheck3() {
-		return check3;
-	}
-
-	public void setCheck3(boolean check3) {
-		this.check3 = check3;
-	}
-	
-	
-    
 }
