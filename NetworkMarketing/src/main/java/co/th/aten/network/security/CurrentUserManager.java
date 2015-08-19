@@ -62,7 +62,7 @@ public class CurrentUserManager implements Serializable{
 	public void init(){
 		try{
 			MasterConfigkey config = em.find(MasterConfigkey.class, "MONEY_USD");
-			moneyUsd = 30;
+			moneyUsd = 0;
 			if(config!=null){
 				moneyUsd = Double.parseDouble(StringUtil.n2b(config.getValue01()));
 			}
