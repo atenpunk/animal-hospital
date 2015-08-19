@@ -26,6 +26,7 @@ import co.th.aten.network.entity.AddressProvinces;
 import co.th.aten.network.entity.MemberCustomer;
 import co.th.aten.network.entity.StockCatalog;
 import co.th.aten.network.entity.StockProduct;
+import co.th.aten.network.entity.StockProductType;
 import co.th.aten.network.entity.TransactionMoney;
 import co.th.aten.network.entity.TransactionMoneyStatus;
 import co.th.aten.network.entity.TransactionSellDetail;
@@ -67,6 +68,8 @@ public class ProductSellController implements Serializable{
 	private List<ProductModel> productSellModelList;
 	private List<DropDownModel> catalogModelList;
 	private int selectedCatalog;
+	private List<DropDownModel> productTypeModelList;
+	private int selectedProductType;
 	private double totalPrice;
 	private double totalPv;
 	private Date dateTime;
@@ -74,7 +77,6 @@ public class ProductSellController implements Serializable{
 	private String memberName;
 	private MemberCustomer memSearch;
 	private int sendStatus;
-	private int buyStatus;
 	// Addess
 	private boolean chkUseAddress;
 	private boolean chkNationality;
@@ -120,6 +122,25 @@ public class ProductSellController implements Serializable{
 					selectedCatalog = -1;
 				}
 			}
+			if(productTypeModelList==null){
+				productTypeModelList = new ArrayList<DropDownModel>();
+				List<StockProductType> stockProductTypeList = em.createQuery("From StockProductType",StockProductType.class).getResultList();
+				if(stockProductTypeList!=null && stockProductTypeList.size()>0){
+					for(StockProductType data:stockProductTypeList){
+						DropDownModel model = new DropDownModel();
+						model.setIntKey(data.getTypeId());
+						model.setThLabel(StringUtil.n2b(data.getTypeDescTh()));
+						model.setEnLabel(StringUtil.n2b(data.getTypeDescEn()));
+						productTypeModelList.add(model);
+					}
+					DropDownModel model = new DropDownModel();
+					model.setIntKey(-1);
+					model.setThLabel("");
+					model.setEnLabel("");
+					productTypeModelList.add(0,model);
+					selectedProductType = -1;
+				}
+			}
 
 			productSellModelList = new ArrayList<ProductModel>();
 			productModelList = new ArrayList<ProductModel>();
@@ -130,7 +151,6 @@ public class ProductSellController implements Serializable{
 			memberId = "";
 			memberName = "";
 			sendStatus = 1;
-			buyStatus = 0;
 			if(currentUser.getCurrentAccount().getCustomerId()!=null){
 				memSearch = currentUser.getCurrentAccount().getCustomerId();
 				memberId = memSearch.getCustomerMember();
@@ -467,12 +487,12 @@ public class ProductSellController implements Serializable{
 			List<StockProduct> productList = null;
 			String sqlType = "";
 			if(selectedCatalog == -1){
-				if(buyStatus>0)
-					sqlType = " Where productType = "+buyStatus+" ";
+				if(selectedProductType>0)
+					sqlType = " Where productType = "+selectedProductType+" ";
 				productList = em.createQuery("From StockProduct"+sqlType,StockProduct.class).getResultList();
 			}else{
-				if(buyStatus>0)
-					sqlType = " And productType = "+buyStatus+" ";
+				if(selectedProductType>0)
+					sqlType = " And productType = "+selectedProductType+" ";
 				StockCatalog stockCatalog = em.find(StockCatalog.class, new Integer(selectedCatalog));
 				productList = em.createQuery("From StockProduct " +
 						" Where catalogId =:catalogId " +
@@ -575,7 +595,7 @@ public class ProductSellController implements Serializable{
 							TransactionSellDetail trxDetail = new TransactionSellDetail();
 							trxDetail.setTrxHeaderId(trxSellHeader.getTrxHeaderId().intValue());
 							StockProduct stockProduct = em.find(StockProduct.class, new Integer(proModel.getProductId()));
-							stockProduct.setProductTotal(StringUtil.n2b(stockProduct.getProductTotal())-proModel.getQty());
+							stockProduct.setQty(StringUtil.n2b(stockProduct.getQty())-proModel.getQty());
 							stockProduct.setUpdateBy(currentUser.getCurrentAccount().getUserId());
 							stockProduct.setUpdateDate(new Date());
 							em.merge(stockProduct);
@@ -863,12 +883,20 @@ public class ProductSellController implements Serializable{
 		this.sendStatus = sendStatus;
 	}
 
-	public int getBuyStatus() {
-		return buyStatus;
+	public List<DropDownModel> getProductTypeModelList() {
+		return productTypeModelList;
 	}
 
-	public void setBuyStatus(int buyStatus) {
-		this.buyStatus = buyStatus;
+	public void setProductTypeModelList(List<DropDownModel> productTypeModelList) {
+		this.productTypeModelList = productTypeModelList;
+	}
+
+	public int getSelectedProductType() {
+		return selectedProductType;
+	}
+
+	public void setSelectedProductType(int selectedProductType) {
+		this.selectedProductType = selectedProductType;
 	}
 
 }
