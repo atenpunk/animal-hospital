@@ -44,9 +44,9 @@ public class UserService implements Serializable {
 	}
 
 	public UserLogin authenticate(String loginName, String password) {
-		log.info("authenticate UserLogin");
+//		log.info("authenticate UserLogin");
 		HashUtil hashUtil = new HashUtil();
-		log.infov("**={0}",hashUtil.hash(password));
+//		log.infov("**={0}",hashUtil.hash(password));
 		return store.authicate(loginName, hashUtil.hash(password));
 	}
 
