@@ -46,6 +46,17 @@
 			<rich:dropDownMenu>
 				<f:facet name="label">
 					<h:panelGroup>
+						<h:outputText value="#{app_msgs['menu.label.system']}" />
+					</h:panelGroup>
+				</f:facet>
+				<rich:menuItem submitMode="ajax"
+					label="#{app_msgs['menu.label.system.editCurrency']}"
+					onclick="document.location.href='#{request.contextPath}/system/editCurrency'" />
+			</rich:dropDownMenu>
+
+			<rich:dropDownMenu>
+				<f:facet name="label">
+					<h:panelGroup>
 						<h:outputText value="#{app_msgs['menu.label.stockProduct']}" />
 					</h:panelGroup>
 				</f:facet>
