@@ -25,6 +25,7 @@ import javax.persistence.TemporalType;
 @Table(name = "transaction_score_matching")
 @NamedQueries({
     @NamedQuery(name = "TransactionScoreMatching.findAll", query = "SELECT t FROM TransactionScoreMatching t"),
+    @NamedQuery(name = "TransactionScoreMatching.findByRoundId", query = "SELECT t FROM TransactionScoreMatching t WHERE t.transactionScoreMatchingPK.roundId = :roundId"),
     @NamedQuery(name = "TransactionScoreMatching.findByTrxMatchingDate", query = "SELECT t FROM TransactionScoreMatching t WHERE t.transactionScoreMatchingPK.trxMatchingDate = :trxMatchingDate"),
     @NamedQuery(name = "TransactionScoreMatching.findByCustomerId", query = "SELECT t FROM TransactionScoreMatching t WHERE t.transactionScoreMatchingPK.customerId = :customerId"),
     @NamedQuery(name = "TransactionScoreMatching.findByOldPvLeft", query = "SELECT t FROM TransactionScoreMatching t WHERE t.oldPvLeft = :oldPvLeft"),
@@ -95,8 +96,8 @@ public class TransactionScoreMatching implements Serializable {
         this.transactionScoreMatchingPK = transactionScoreMatchingPK;
     }
 
-    public TransactionScoreMatching(Date trxMatchingDate, int customerId) {
-        this.transactionScoreMatchingPK = new TransactionScoreMatchingPK(trxMatchingDate, customerId);
+    public TransactionScoreMatching(int roundId, Date trxMatchingDate, int customerId) {
+        this.transactionScoreMatchingPK = new TransactionScoreMatchingPK(roundId, trxMatchingDate, customerId);
     }
 
     public TransactionScoreMatchingPK getTransactionScoreMatchingPK() {
