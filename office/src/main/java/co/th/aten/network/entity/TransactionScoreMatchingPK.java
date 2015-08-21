@@ -20,8 +20,11 @@ import javax.persistence.TemporalType;
 @Embeddable
 public class TransactionScoreMatchingPK implements Serializable {
     @Basic(optional = false)
+    @Column(name = "round_id")
+    private int roundId;
+    @Basic(optional = false)
     @Column(name = "trx_matching_date")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date trxMatchingDate;
     @Basic(optional = false)
     @Column(name = "customer_id")
@@ -30,9 +33,18 @@ public class TransactionScoreMatchingPK implements Serializable {
     public TransactionScoreMatchingPK() {
     }
 
-    public TransactionScoreMatchingPK(Date trxMatchingDate, int customerId) {
+    public TransactionScoreMatchingPK(int roundId, Date trxMatchingDate, int customerId) {
+        this.roundId = roundId;
         this.trxMatchingDate = trxMatchingDate;
         this.customerId = customerId;
+    }
+
+    public int getRoundId() {
+        return roundId;
+    }
+
+    public void setRoundId(int roundId) {
+        this.roundId = roundId;
     }
 
     public Date getTrxMatchingDate() {
@@ -54,6 +66,7 @@ public class TransactionScoreMatchingPK implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
+        hash += (int) roundId;
         hash += (trxMatchingDate != null ? trxMatchingDate.hashCode() : 0);
         hash += (int) customerId;
         return hash;
@@ -66,6 +79,9 @@ public class TransactionScoreMatchingPK implements Serializable {
             return false;
         }
         TransactionScoreMatchingPK other = (TransactionScoreMatchingPK) object;
+        if (this.roundId != other.roundId) {
+            return false;
+        }
         if ((this.trxMatchingDate == null && other.trxMatchingDate != null) || (this.trxMatchingDate != null && !this.trxMatchingDate.equals(other.trxMatchingDate))) {
             return false;
         }
@@ -77,7 +93,7 @@ public class TransactionScoreMatchingPK implements Serializable {
 
     @Override
     public String toString() {
-        return "co.th.aten.network.entity.TransactionScoreMatchingPK[trxMatchingDate=" + trxMatchingDate + ", customerId=" + customerId + "]";
+        return "co.th.aten.network.entity.TransactionScoreMatchingPK[roundId=" + roundId + ", trxMatchingDate=" + trxMatchingDate + ", customerId=" + customerId + "]";
     }
 
 }

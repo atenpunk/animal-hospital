@@ -62,24 +62,24 @@ public class CustomerControl implements Serializable {
 		return name;
 	}
 	
-	public int myScoreTotal(MemberCustomer member){
-		return customerStore.myScoreTotal(member);
+	public int myScoreTotal(MemberCustomer member, Date date){
+		return customerStore.myScoreTotal(member,date);
 	}
 	
-	public int leftScoreTotal(MemberCustomer member){
-		return customerStore.leftScoreTotal(member);
+	public int myScoreDate(MemberCustomer member, Date date){
+		return customerStore.myScoreDate(member,date);
 	}
 	
-	public int rightScoreTotal(MemberCustomer member){
-		return customerStore.rightScoreTotal(member);
+	public String genSqlUnder(int memberId){
+		return customerStore.genSqlUnder(memberId);
 	}
 	
-	public int leftScoreByDate(MemberCustomer member, Date date){
-		return customerStore.leftScoreByDate(member, date);
+	public int sumScoreTotal(MemberCustomer member, Date date, String sqlUnder){
+		return customerStore.sumScoreTotal(member,date, sqlUnder);
 	}
 	
-	public int rightScoreByDate(MemberCustomer member, Date date){
-		return customerStore.rightScoreByDate(member, date);
+	public int sumScoreDate(MemberCustomer member, Date date, String sqlUnder){
+		return customerStore.sumScoreDate(member, date, sqlUnder);
 	}
 	
 	public void insert(MemberCustomer member) {

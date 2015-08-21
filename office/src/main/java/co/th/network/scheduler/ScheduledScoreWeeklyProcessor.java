@@ -22,6 +22,7 @@ public class ScheduledScoreWeeklyProcessor {
 //	@Schedule(hour="*",minute = "*",second="0/10")
     @Schedule(dayOfWeek="Mon",hour="03",minute = "01",second="01")
     public void execute() {
+		long startTime = System.currentTimeMillis();
     	try{
     		log.info("##################################################");
 			log.info("##### Start Scheduled Score Weekly Processor #####");
@@ -30,5 +31,7 @@ public class ScheduledScoreWeeklyProcessor {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+		long endTime = System.currentTimeMillis();
+		log.info("Scheduled Score Weekly Processor Time = "+((endTime-startTime)/1000d)+"s");
     }
 }  
