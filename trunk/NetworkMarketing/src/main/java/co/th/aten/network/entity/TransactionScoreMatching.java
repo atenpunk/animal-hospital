@@ -40,6 +40,8 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "TransactionScoreMatching.findByMatchingUse", query = "SELECT t FROM TransactionScoreMatching t WHERE t.matchingUse = :matchingUse"),
     @NamedQuery(name = "TransactionScoreMatching.findByMatchingBalance", query = "SELECT t FROM TransactionScoreMatching t WHERE t.matchingBalance = :matchingBalance"),
     @NamedQuery(name = "TransactionScoreMatching.findByRecommendAmount", query = "SELECT t FROM TransactionScoreMatching t WHERE t.recommendAmount = :recommendAmount"),
+    @NamedQuery(name = "TransactionScoreMatching.findBySelfDatePv", query = "SELECT t FROM TransactionScoreMatching t WHERE t.selfDatePv = :selfDatePv"),
+    @NamedQuery(name = "TransactionScoreMatching.findBySelfTotalPv", query = "SELECT t FROM TransactionScoreMatching t WHERE t.selfTotalPv = :selfTotalPv"),
     @NamedQuery(name = "TransactionScoreMatching.findByTrxMatchingStatus", query = "SELECT t FROM TransactionScoreMatching t WHERE t.trxMatchingStatus = :trxMatchingStatus"),
     @NamedQuery(name = "TransactionScoreMatching.findByTrxMatchingFlag", query = "SELECT t FROM TransactionScoreMatching t WHERE t.trxMatchingFlag = :trxMatchingFlag"),
     @NamedQuery(name = "TransactionScoreMatching.findByCreateBy", query = "SELECT t FROM TransactionScoreMatching t WHERE t.createBy = :createBy"),
@@ -74,6 +76,10 @@ public class TransactionScoreMatching implements Serializable {
     private Integer matchingBalance;
     @Column(name = "recommend_amount")
     private BigDecimal recommendAmount;
+    @Column(name = "self_date_pv")
+    private BigDecimal selfDatePv;
+    @Column(name = "self_total_pv")
+    private BigDecimal selfTotalPv;
     @Column(name = "trx_matching_status")
     private Integer trxMatchingStatus;
     @Column(name = "trx_matching_flag")
@@ -202,6 +208,22 @@ public class TransactionScoreMatching implements Serializable {
 
     public void setRecommendAmount(BigDecimal recommendAmount) {
         this.recommendAmount = recommendAmount;
+    }
+
+    public BigDecimal getSelfDatePv() {
+        return selfDatePv;
+    }
+
+    public void setSelfDatePv(BigDecimal selfDatePv) {
+        this.selfDatePv = selfDatePv;
+    }
+
+    public BigDecimal getSelfTotalPv() {
+        return selfTotalPv;
+    }
+
+    public void setSelfTotalPv(BigDecimal selfTotalPv) {
+        this.selfTotalPv = selfTotalPv;
     }
 
     public Integer getTrxMatchingStatus() {
