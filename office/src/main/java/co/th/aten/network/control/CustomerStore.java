@@ -205,7 +205,7 @@ public class CustomerStore extends BasicStore implements Serializable {
 						.getSingleResult();
 				return StringUtil.n2b(score).intValue();
 			}catch(Exception ex){
-				log.info("leftScoreTotal error : "+ex.getMessage());
+				log.info("sumScoreTotal error : "+ex.getMessage());
 			}
 		}catch(Exception e){
 			e.printStackTrace();
@@ -238,7 +238,7 @@ public class CustomerStore extends BasicStore implements Serializable {
 						.getSingleResult();
 				return StringUtil.n2b(score).intValue();
 			}catch(Exception ex){
-				log.info("rightScoreByDate error : "+ex.getMessage());
+				log.info("sumScoreDate error : "+ex.getMessage());
 			}
 		}catch(Exception e){
 			e.printStackTrace();
