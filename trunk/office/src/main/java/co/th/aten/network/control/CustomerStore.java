@@ -86,7 +86,7 @@ public class CustomerStore extends BasicStore implements Serializable {
 		return "";
 	}
 
-	public int myScoreTotal(MemberCustomer member){
+	public int myScoreTotal(MemberCustomer member, Date date){
 		try{
 			if(member !=null){
 				String sql = "select sum(totalPv) " +
@@ -94,10 +94,11 @@ public class CustomerStore extends BasicStore implements Serializable {
 						" where customerId =:memberId " +
 						" and trxHeaderDatetime < :dateTime ";
 				Calendar calStart = Calendar.getInstance();
-				calStart.set(Calendar.HOUR_OF_DAY, 0);
-				calStart.set(Calendar.MINUTE, 0);
-				calStart.set(Calendar.SECOND, 0);
-				calStart.set(Calendar.MILLISECOND, 0);
+				calStart.setTime(date);
+				calStart.set(Calendar.HOUR_OF_DAY, 23);
+				calStart.set(Calendar.MINUTE, 59);
+				calStart.set(Calendar.SECOND, 59);
+				calStart.set(Calendar.MILLISECOND, 999);
 				try{
 					BigDecimal score = (BigDecimal)em.createQuery(sql)
 							.setParameter("memberId", member.getCustomerId())
@@ -114,49 +115,34 @@ public class CustomerStore extends BasicStore implements Serializable {
 		return 0;
 	}
 
-	public int leftScoreTotal(MemberCustomer member){
+	public int myScoreDate(MemberCustomer member, Date date){
 		try{
-			if(member !=null && member.getLowerLeftId()!=null){
-				String sqlMemberId = member.getLowerLeftId().intValue()+",";
-				String sql = "From MemberCustomer " +
-						" Where customerId = "+ member.getLowerLeftId().intValue();
-				boolean chk = true;
-				while(chk){
-					String subSql = "";
-					List<MemberCustomer> customerList = em.createQuery(sql,MemberCustomer.class).getResultList();
-					for(MemberCustomer cus:customerList){
-						subSql += (cus.getLowerLeftId()==null?"":cus.getLowerLeftId().intValue()+",");
-						subSql += (cus.getLowerRightId()==null?"":cus.getLowerRightId().intValue()+",");
-						sqlMemberId += subSql;
-					}
-					if(subSql.equals("")){
-						chk = false;
-						break;
-					}
-					sql = "From MemberCustomer " +
-							" Where customerId in ";
-					subSql = subSql.substring(0, subSql.length()-1);
-					subSql = "("+subSql+")";
-					sql += subSql;
-				}
-				sqlMemberId = sqlMemberId.substring(0, sqlMemberId.length()-1);
-				sqlMemberId = "("+sqlMemberId+")";
-				String sqlSum = "select sum(totalPv) " +
+			if(member !=null){
+				String sql = "select sum(totalPv) " +
 						" from TransactionSellHeader " +
-						" where customerId in " + sqlMemberId +
-						" and trxHeaderDatetime < :dateTime ";
+						" where customerId =:memberId " +
+						" and trxHeaderDatetime between :startDate and :endDate ";
 				Calendar calStart = Calendar.getInstance();
+				calStart.setTime(date);
 				calStart.set(Calendar.HOUR_OF_DAY, 0);
 				calStart.set(Calendar.MINUTE, 0);
 				calStart.set(Calendar.SECOND, 0);
 				calStart.set(Calendar.MILLISECOND, 0);
+				Calendar calEnd = Calendar.getInstance();
+				calEnd.setTime(date);
+				calEnd.set(Calendar.HOUR_OF_DAY, 23);
+				calEnd.set(Calendar.MINUTE, 59);
+				calEnd.set(Calendar.SECOND, 59);
+				calEnd.set(Calendar.MILLISECOND, 999);
 				try{
-					BigDecimal score = (BigDecimal)em.createQuery(sqlSum)
-							.setParameter("dateTime", calStart.getTime())
+					BigDecimal score = (BigDecimal)em.createQuery(sql)
+							.setParameter("memberId", member.getCustomerId())
+							.setParameter("startDate", calStart.getTime())
+							.setParameter("endDate", calEnd.getTime())
 							.getSingleResult();
 					return StringUtil.n2b(score).intValue();
 				}catch(Exception ex){
-					log.info("leftScoreTotal error : "+ex.getMessage());
+					log.info("myScoreTotal error : "+ex.getMessage());
 				}
 			}
 		}catch(Exception e){
@@ -165,12 +151,13 @@ public class CustomerStore extends BasicStore implements Serializable {
 		return 0;
 	}
 
-	public int rightScoreTotal(MemberCustomer member){
+	public String genSqlUnder(int memberId){
+
 		try{
-			if(member !=null && member.getLowerRightId()!=null){
-				String sqlMemberId = member.getLowerRightId().intValue()+",";
+			if(memberId!=0){
+				String sqlMemberId = memberId+",";
 				String sql = "From MemberCustomer " +
-						" Where customerId = "+ member.getLowerRightId().intValue();
+						" Where customerId = "+ memberId;
 				boolean chk = true;
 				while(chk){
 					String subSql = "";
@@ -192,160 +179,85 @@ public class CustomerStore extends BasicStore implements Serializable {
 				}
 				sqlMemberId = sqlMemberId.substring(0, sqlMemberId.length()-1);
 				sqlMemberId = "("+sqlMemberId+")";
-				String sqlSum = "select sum(totalPv) " +
-						" from TransactionSellHeader " +
-						" where customerId in " + sqlMemberId +
-						" and trxHeaderDatetime < :dateTime ";
-				Calendar calStart = Calendar.getInstance();
-				calStart.set(Calendar.HOUR_OF_DAY, 0);
-				calStart.set(Calendar.MINUTE, 0);
-				calStart.set(Calendar.SECOND, 0);
-				calStart.set(Calendar.MILLISECOND, 0);
-				try{
-					BigDecimal score = (BigDecimal)em.createQuery(sqlSum)
-							.setParameter("dateTime", calStart.getTime())
-							.getSingleResult();
-					return StringUtil.n2b(score).intValue();
-				}catch(Exception ex){
-					log.info("rightScoreTotal error : "+ex.getMessage());
-				}
+				return sqlMemberId;
 			}
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		return 0;
+		return "(0)";
 	}
-	
-	public int leftScoreByDate(MemberCustomer member, Date date){
+
+	public int sumScoreTotal(MemberCustomer member, Date date, String sqlMemberUnder){
 		try{
-			if(member !=null && member.getLowerLeftId()!=null){
-				String sqlMemberId = member.getLowerLeftId().intValue()+",";
-				String sql = "From MemberCustomer " +
-						" Where customerId = "+ member.getLowerLeftId().intValue();
-				boolean chk = true;
-				while(chk){
-					String subSql = "";
-					List<MemberCustomer> customerList = em.createQuery(sql,MemberCustomer.class).getResultList();
-					for(MemberCustomer cus:customerList){
-						subSql += (cus.getLowerLeftId()==null?"":cus.getLowerLeftId().intValue()+",");
-						subSql += (cus.getLowerRightId()==null?"":cus.getLowerRightId().intValue()+",");
-						sqlMemberId += subSql;
-					}
-					if(subSql.equals("")){
-						chk = false;
-						break;
-					}
-					sql = "From MemberCustomer " +
-							" Where customerId in ";
-					subSql = subSql.substring(0, subSql.length()-1);
-					subSql = "("+subSql+")";
-					sql += subSql;
-				}
-				sqlMemberId = sqlMemberId.substring(0, sqlMemberId.length()-1);
-				sqlMemberId = "("+sqlMemberId+")";
-				String sqlSum = "select sum(totalPv) " +
-						" from TransactionSellHeader " +
-						" where customerId in " + sqlMemberId +
-						" and trxHeaderDatetime between :startDate and :endDate ";
-				Calendar calStart = Calendar.getInstance();
-				calStart.setTime(date);
-				calStart.set(Calendar.HOUR_OF_DAY, 0);
-				calStart.set(Calendar.MINUTE, 0);
-				calStart.set(Calendar.SECOND, 0);
-				calStart.set(Calendar.MILLISECOND, 0);
-				Calendar calEnd = Calendar.getInstance();
-				calEnd.setTime(date);
-				calEnd.set(Calendar.HOUR_OF_DAY, 23);
-				calEnd.set(Calendar.MINUTE, 59);
-				calEnd.set(Calendar.SECOND, 59);
-				calEnd.set(Calendar.MILLISECOND, 999);
-				try{
-					BigDecimal score = (BigDecimal)em.createQuery(sqlSum)
-							.setParameter("startDate", calStart.getTime())
-							.setParameter("endDate", calEnd.getTime())
-							.getSingleResult();
-					return StringUtil.n2b(score).intValue();
-				}catch(Exception ex){
-					log.info("rightScoreByDate error : "+ex.getMessage());
-				}
+			String sqlSum = "select sum(totalPv) " +
+					" from TransactionSellHeader " +
+					" where customerId in " + sqlMemberUnder +
+					" and trxHeaderDatetime < :dateTime ";
+			Calendar calStart = Calendar.getInstance();
+			calStart.setTime(date);
+			calStart.set(Calendar.HOUR_OF_DAY, 23);
+			calStart.set(Calendar.MINUTE, 59);
+			calStart.set(Calendar.SECOND, 59);
+			calStart.set(Calendar.MILLISECOND, 999);
+			try{
+				BigDecimal score = (BigDecimal)em.createQuery(sqlSum)
+						.setParameter("dateTime", calStart.getTime())
+						.getSingleResult();
+				return StringUtil.n2b(score).intValue();
+			}catch(Exception ex){
+				log.info("leftScoreTotal error : "+ex.getMessage());
 			}
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 		return 0;
 	}
-	
-	public int rightScoreByDate(MemberCustomer member, Date date){
+
+	public int sumScoreDate(MemberCustomer member, Date date, String sqlMemberUnder){
 		try{
-			if(member !=null && member.getLowerRightId()!=null){
-				String sqlMemberId = member.getLowerRightId().intValue()+",";
-				String sql = "From MemberCustomer " +
-						" Where customerId = "+ member.getLowerRightId().intValue();
-				boolean chk = true;
-				while(chk){
-					String subSql = "";
-					List<MemberCustomer> customerList = em.createQuery(sql,MemberCustomer.class).getResultList();
-					for(MemberCustomer cus:customerList){
-						subSql += (cus.getLowerLeftId()==null?"":cus.getLowerLeftId().intValue()+",");
-						subSql += (cus.getLowerRightId()==null?"":cus.getLowerRightId().intValue()+",");
-						sqlMemberId += subSql;
-					}
-					if(subSql.equals("")){
-						chk = false;
-						break;
-					}
-					sql = "From MemberCustomer " +
-							" Where customerId in ";
-					subSql = subSql.substring(0, subSql.length()-1);
-					subSql = "("+subSql+")";
-					sql += subSql;
-				}
-				sqlMemberId = sqlMemberId.substring(0, sqlMemberId.length()-1);
-				sqlMemberId = "("+sqlMemberId+")";
-				String sqlSum = "select sum(totalPv) " +
-						" from TransactionSellHeader " +
-						" where customerId in " + sqlMemberId +
-						" and trxHeaderDatetime between :startDate and :endDate ";
-				Calendar calStart = Calendar.getInstance();
-				calStart.setTime(date);
-				calStart.set(Calendar.HOUR_OF_DAY, 0);
-				calStart.set(Calendar.MINUTE, 0);
-				calStart.set(Calendar.SECOND, 0);
-				calStart.set(Calendar.MILLISECOND, 0);
-				Calendar calEnd = Calendar.getInstance();
-				calEnd.setTime(date);
-				calEnd.set(Calendar.HOUR_OF_DAY, 23);
-				calEnd.set(Calendar.MINUTE, 59);
-				calEnd.set(Calendar.SECOND, 59);
-				calEnd.set(Calendar.MILLISECOND, 999);
-				try{
-					BigDecimal score = (BigDecimal)em.createQuery(sqlSum)
-							.setParameter("startDate", calStart.getTime())
-							.setParameter("endDate", calEnd.getTime())
-							.getSingleResult();
-					return StringUtil.n2b(score).intValue();
-				}catch(Exception ex){
-					log.info("rightScoreByDate error : "+ex.getMessage());
-				}
+			String sqlSum = "select sum(totalPv) " +
+					" from TransactionSellHeader " +
+					" where customerId in " + sqlMemberUnder +
+					" and trxHeaderDatetime between :startDate and :endDate ";
+			Calendar calStart = Calendar.getInstance();
+			calStart.setTime(date);
+			calStart.set(Calendar.HOUR_OF_DAY, 0);
+			calStart.set(Calendar.MINUTE, 0);
+			calStart.set(Calendar.SECOND, 0);
+			calStart.set(Calendar.MILLISECOND, 0);
+			Calendar calEnd = Calendar.getInstance();
+			calEnd.setTime(date);
+			calEnd.set(Calendar.HOUR_OF_DAY, 23);
+			calEnd.set(Calendar.MINUTE, 59);
+			calEnd.set(Calendar.SECOND, 59);
+			calEnd.set(Calendar.MILLISECOND, 999);
+			try{
+				BigDecimal score = (BigDecimal)em.createQuery(sqlSum)
+						.setParameter("startDate", calStart.getTime())
+						.setParameter("endDate", calEnd.getTime())
+						.getSingleResult();
+				return StringUtil.n2b(score).intValue();
+			}catch(Exception ex){
+				log.info("rightScoreByDate error : "+ex.getMessage());
 			}
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 		return 0;
 	}
-		
+
 	public void refresh(MemberCustomer customer) {
 		em.refresh(customer);
 	}
-	
+
 	public void insert(MemberCustomer member) {
 		em.persist(member);
 	}
-	
+
 	public void delete(MemberCustomer member) {
 		em.remove(member);
 	}
-	
+
 	public void insertOrUpdate(MemberCustomer member) {
 		MemberCustomer chk = em.find(MemberCustomer.class, member.getCustomerId());
 		if (chk == null) {

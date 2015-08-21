@@ -6,6 +6,7 @@
 package co.th.aten.network.entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -43,6 +44,10 @@ public class MemberPosition implements Serializable {
     private String imageName;
     @Column(name = "matching")
     private Integer matching;
+    @Column(name = "recommend_amount")
+    private BigDecimal recommendAmount;
+    @Column(name = "level_id")
+    private Integer levelId;
     @OneToMany(mappedBy = "positionId")
     private Collection<MemberCustomer> memberCustomerCollection;
 
@@ -100,8 +105,24 @@ public class MemberPosition implements Serializable {
     public void setMemberCustomerCollection(Collection<MemberCustomer> memberCustomerCollection) {
         this.memberCustomerCollection = memberCustomerCollection;
     }
+    
+    public BigDecimal getRecommendAmount() {
+        return recommendAmount;
+    }
 
-    @Override
+    public void setRecommendAmount(BigDecimal recommendAmount) {
+        this.recommendAmount = recommendAmount;
+    }
+
+    public Integer getLevelId() {
+		return levelId;
+	}
+
+	public void setLevelId(Integer levelId) {
+		this.levelId = levelId;
+	}
+
+	@Override
     public int hashCode() {
         int hash = 0;
         hash += (positionId != null ? positionId.hashCode() : 0);

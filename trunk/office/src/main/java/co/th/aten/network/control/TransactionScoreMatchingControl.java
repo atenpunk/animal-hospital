@@ -1,11 +1,13 @@
 package co.th.aten.network.control;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.inject.Inject;
 
 import org.jboss.solder.logging.Logger;
 
+import co.th.aten.network.entity.MemberCustomer;
 import co.th.aten.network.entity.TransactionScoreMatching;
 
 
@@ -22,6 +24,10 @@ public class TransactionScoreMatchingControl implements Serializable {
 	@Inject
 	private TransactionScoreMatchingStore transactionScoreMatchingStore;
 	
+	public Integer getMaxRoundId() {
+		return transactionScoreMatchingStore.getMaxRoundId();
+	}
+	
 	public void insert(TransactionScoreMatching trx) {
 		transactionScoreMatchingStore.insert(trx);
 	}
@@ -32,5 +38,9 @@ public class TransactionScoreMatchingControl implements Serializable {
 	
 	public void insertOrUpdate(TransactionScoreMatching trx) {
 		transactionScoreMatchingStore.insertOrUpdate(trx);
+	}
+	
+	public int sumMathing(MemberCustomer member, Date date){
+		return transactionScoreMatchingStore.sumMathing(member, date);
 	}
 }
