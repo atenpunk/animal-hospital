@@ -20,11 +20,15 @@ import javax.persistence.PersistenceContext;
 import org.jboss.solder.logging.Logger;
 
 import co.th.aten.network.control.CustomerControl;
+import co.th.aten.network.control.TransactionHeaderControl;
+import co.th.aten.network.control.TransactionPackageControl;
 import co.th.aten.network.control.TransactionScoreMatchingControl;
 import co.th.aten.network.entity.MemberCustomer;
 import co.th.aten.network.entity.MemberPosition;
 import co.th.aten.network.entity.TransactionScoreMatching;
 import co.th.aten.network.entity.TransactionScoreMatchingPK;
+import co.th.aten.network.entity.TransactionScorePackage;
+import co.th.aten.network.entity.TransactionScorePackagePK;
 import co.th.aten.network.util.StringUtil;
 
 @Stateless
@@ -39,12 +43,16 @@ public class ScheduledMatchingProcessor {
 	private CustomerControl customerControl;
 	@Inject
 	private TransactionScoreMatchingControl transactionScoreMatchingControl;
+	@Inject
+	private TransactionHeaderControl transactionHeaderControl;
+	@Inject
+	private TransactionPackageControl transactionPackageControl;
 
 	@Inject
 	Logger log;
 
 	//	@Schedule(hour="*",minute = "*",second="0/10")
-	@Schedule(hour="00",minute = "01",second="01")
+	@Schedule(hour="16",minute = "54",second="01")
 	public void execute() {
 		long startTime = System.currentTimeMillis();
 		try{
@@ -67,11 +75,11 @@ public class ScheduledMatchingProcessor {
 				int maxRoundId = StringUtil.n2b(transactionScoreMatchingControl.getMaxRoundId());
 				maxRoundId = maxRoundId+1;
 				for(Integer memId:memberList){
+					long startTimeMem = System.currentTimeMillis();
 					try{
 						sessionCtx.getUserTransaction().begin();
-						log.info("Matching Member ID = "+memId);
 						MemberCustomer member = em.find(MemberCustomer.class, memId);
-						int myScoreTotal = customerControl.myScoreTotal(member, cal.getTime());
+						int myScoreTotal = transactionHeaderControl.myScoreTotal(member, cal.getTime());
 						if(myScoreTotal >= 13000 
 								&& StringUtil.n2b(member.getPositionId().getLevelId()) < 6){
 							member.setPositionId(em.find(MemberPosition.class, new Integer(5)));// 5 = SP
@@ -88,13 +96,13 @@ public class ScheduledMatchingProcessor {
 								&& StringUtil.n2b(member.getPositionId().getLevelId()) < 2){
 							member.setPositionId(em.find(MemberPosition.class, new Integer(1)));// 1 = DIS
 						}
-						int myScoreDate = customerControl.myScoreDate(member, cal.getTime());
+						int myScoreDate = transactionHeaderControl.myScoreDate(member, cal.getTime());
 						String sqlUnderLeft = customerControl.genSqlUnder(StringUtil.n2b(member.getLowerLeftId()).intValue());
 						String sqlUnderRight = customerControl.genSqlUnder(StringUtil.n2b(member.getLowerRightId()).intValue());
-						int leftScoreTotal = customerControl.sumScoreTotal(member, cal.getTime(), sqlUnderLeft);
-						int rightScoreTotal = customerControl.sumScoreTotal(member, cal.getTime(), sqlUnderRight);
-						int leftPvDay = customerControl.sumScoreDate(member, cal.getTime(), sqlUnderLeft);
-						int rightPvDay = customerControl.sumScoreDate(member, cal.getTime(), sqlUnderRight);
+						int leftScoreTotal = transactionHeaderControl.sumScoreTotal(cal.getTime(), sqlUnderLeft);
+						int rightScoreTotal = transactionHeaderControl.sumScoreTotal(cal.getTime(), sqlUnderRight);
+						int leftPvDay = transactionHeaderControl.sumScoreDate(cal.getTime(), sqlUnderLeft);
+						int rightPvDay = transactionHeaderControl.sumScoreDate(cal.getTime(), sqlUnderRight);
 						int sumMatching = transactionScoreMatchingControl.sumMathing(member, cal.getTime());
 						int oldPvLeft = leftScoreTotal - sumMatching;
 						int oldPvRight = rightScoreTotal - sumMatching;
@@ -140,8 +148,7 @@ public class ScheduledMatchingProcessor {
 						trxMatch.setMatchingUse(matchingUse);
 						trxMatch.setMatchingBalance(matchingBalance);
 						trxMatch.setSelfDatePv(new BigDecimal(myScoreDate));
-						trxMatch.setSelfTotalPv(new BigDecimal(myScoreTotal));
-//						trxMatch.setRecommendAmount(recommendAmount);
+						trxMatch.setSelfTotalPv(new BigDecimal(myScoreTotal));			
 						trxMatch.setTrxMatchingStatus(new Integer(0));
 						trxMatch.setTrxMatchingFlag(new Integer(0));
 						trxMatch.setCreateBy(new Integer(2));
@@ -156,18 +163,133 @@ public class ScheduledMatchingProcessor {
 						member.setUpdateBy(new Integer(2));
 						member.setUpdateDate(new Date());
 						customerControl.insertOrUpdate(member);
+						List<Object[]> packageList = transactionHeaderControl.genProductPackgateByMember(member, cal.getTime());
+						if(packageList!=null){
+							for(Object[] ob:packageList){
+								MemberCustomer memSugg = em.find(MemberCustomer.class, member.getRecommendId());
+								if(memSugg!=null){
+									int pv = StringUtil.n2b((BigDecimal)ob[3]).intValue();
+									int pvPackage = 0;
+									int maxPv = 0;
+									if(pv>=9000){// SP
+										MemberPosition position = em.find(MemberPosition.class, new Integer(5));
+										maxPv = StringUtil.n2b(position.getRecommendAmount()).intValue();
+										if(memSugg.getPositionId().getPositionId()==1){
+											pvPackage = 4000;
+										}else if(memSugg.getPositionId().getPositionId()==2){
+											pvPackage = 8000;
+										}else if(memSugg.getPositionId().getPositionId()==3
+												|| memSugg.getPositionId().getPositionId()==4
+												|| memSugg.getPositionId().getPositionId()==5){
+											pvPackage = 12000;
+										}
+									}else if(pv>=7000){ // DP
+										MemberPosition position = em.find(MemberPosition.class, new Integer(4));
+										maxPv = StringUtil.n2b(position.getRecommendAmount()).intValue();
+										if(memSugg.getPositionId().getPositionId()==1){
+											pvPackage = 4000;
+										}else if(memSugg.getPositionId().getPositionId()==2){
+											pvPackage = 8000;
+										}else if(memSugg.getPositionId().getPositionId()==3
+												|| memSugg.getPositionId().getPositionId()==4
+												|| memSugg.getPositionId().getPositionId()==5){
+											pvPackage = 12000;
+										}
+									}else if(pv>=3000){ // PRO
+										MemberPosition position = em.find(MemberPosition.class, new Integer(3));
+										maxPv = StringUtil.n2b(position.getRecommendAmount()).intValue();
+										if(memSugg.getPositionId().getPositionId()==1){
+											pvPackage = 4000;
+										}else if(memSugg.getPositionId().getPositionId()==2){
+											pvPackage = 8000;
+										}else if(memSugg.getPositionId().getPositionId()==3
+												|| memSugg.getPositionId().getPositionId()==4
+												|| memSugg.getPositionId().getPositionId()==5){
+											pvPackage = 12000;
+										}
+									}else if(pv>=1000){ // EX
+										MemberPosition position = em.find(MemberPosition.class, new Integer(2));
+										maxPv = StringUtil.n2b(position.getRecommendAmount()).intValue();
+										if(memSugg.getPositionId().getPositionId()==1){
+											pvPackage = 2000;
+										}else if(memSugg.getPositionId().getPositionId()==2
+												|| memSugg.getPositionId().getPositionId()==3
+												|| memSugg.getPositionId().getPositionId()==4
+												|| memSugg.getPositionId().getPositionId()==5){
+											pvPackage = 4000;
+										}
+									}else if(pv>=400){ // DIS
+										MemberPosition position = em.find(MemberPosition.class, new Integer(1));
+										maxPv = StringUtil.n2b(position.getRecommendAmount()).intValue();
+										if(memSugg.getPositionId().getPositionId()==1
+												|| memSugg.getPositionId().getPositionId()==2
+												|| memSugg.getPositionId().getPositionId()==3
+												|| memSugg.getPositionId().getPositionId()==4
+												|| memSugg.getPositionId().getPositionId()==5){
+											pvPackage = 1000;
+										}
+									}
+									TransactionScorePackage trxPackage = new TransactionScorePackage();
+									TransactionScorePackagePK packagePk = new TransactionScorePackagePK();
+									packagePk.setTrxPackageDate(cal.getTime());
+									packagePk.setSuggestId(StringUtil.n2b(member.getCustomerId()));
+									packagePk.setCustomerId(memSugg.getCustomerId());								
+									trxPackage.setTransactionScorePackagePK(packagePk);
+									trxPackage.setProductId(StringUtil.n2b((Integer)ob[2]));
+									trxPackage.setPvPackage(new BigDecimal(pvPackage));
+									trxPackage.setTrxPackageStatus(new Integer(0));
+									trxPackage.setTrxPackageFlag(new Integer(1));// 1 = package bonus
+									trxPackage.setCreateBy(new Integer(2));
+									trxPackage.setCreateDate(new Date());
+									trxPackage.setUpdateBy(new Integer(2));
+									trxPackage.setUpdateDate(new Date());
+									transactionPackageControl.insertOrUpdate(trxPackage);
+									if(pvPackage < maxPv){
+										MemberCustomer memSuggUpper = em.find(MemberCustomer.class, memSugg.getRecommendId());
+										while(memSuggUpper!=null 
+												&& (memSuggUpper.getPositionId().getPositionId()!=3
+												    || memSuggUpper.getPositionId().getPositionId()!=4
+												    || memSuggUpper.getPositionId().getPositionId()!=5)){
+											if(memSuggUpper.getRecommendId()!=null){
+												memSuggUpper = em.find(MemberCustomer.class, memSuggUpper.getRecommendId());
+											}else{
+												break;
+											}
+										}
+										if(memSuggUpper!=null){
+											TransactionScorePackage trx = new TransactionScorePackage();
+											TransactionScorePackagePK trxPk = new TransactionScorePackagePK();
+											trxPk.setTrxPackageDate(cal.getTime());
+											trxPk.setSuggestId(StringUtil.n2b(member.getCustomerId()));
+											trxPk.setCustomerId(memSuggUpper.getCustomerId());								
+											trx.setTransactionScorePackagePK(trxPk);
+											trx.setProductId(StringUtil.n2b((Integer)ob[2]));
+											trx.setPvPackage(new BigDecimal(maxPv-pvPackage));
+											trx.setTrxPackageStatus(new Integer(0));
+											trx.setTrxPackageFlag(new Integer(2)); // 2 = โบนัสส่วนต่าง
+											trx.setCreateBy(new Integer(2));
+											trx.setCreateDate(new Date());
+											trx.setUpdateBy(new Integer(2));
+											trx.setUpdateDate(new Date());
+											transactionPackageControl.insertOrUpdate(trx);
+										}
+									}
+								}
+							}
+						}
 						sessionCtx.getUserTransaction().commit();
 					}catch(Exception ex){
 						sessionCtx.getUserTransaction().rollback();
+						log.info("rollback member id = "+memId);
 						ex.printStackTrace();
 					}
+					log.info("Matching Member ID = "+memId+", Time = "+((System.currentTimeMillis()-startTimeMem)/1000d)+"s");
 				}
 			}
 			//			}// end if HH = 00
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		long endTime = System.currentTimeMillis();
-		log.info("Scheduled Matching Processor Time = "+((endTime-startTime)/1000d)+"s");
+		log.info("Scheduled Matching Processor Time = "+((System.currentTimeMillis()-startTime)/1000d)+"s");
 	}
 }  

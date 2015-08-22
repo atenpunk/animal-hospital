@@ -1,6 +1,10 @@
 package co.th.aten.network.control;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -10,6 +14,8 @@ import org.jboss.solder.logging.Logger;
 import co.th.aten.network.entity.AddressAmphures;
 import co.th.aten.network.entity.AddressDistricts;
 import co.th.aten.network.entity.AddressProvinces;
+import co.th.aten.network.entity.MemberCustomer;
+import co.th.aten.network.entity.StockProduct;
 import co.th.aten.network.entity.TransactionSellHeader;
 import co.th.aten.network.producer.DBDefault;
 import co.th.aten.network.security.CurrentUserManager;
@@ -31,7 +37,7 @@ public class TransactionHeaderStore extends BasicStore implements Serializable {
 
 	@Inject
 	private CurrentUserManager currentUser;
-	
+
 	public String getAddressByHeaderId(int headerId){
 		try{
 			TransactionSellHeader trx = em.find(TransactionSellHeader.class, new Integer(headerId));
@@ -70,5 +76,164 @@ public class TransactionHeaderStore extends BasicStore implements Serializable {
 			e.printStackTrace();
 		}
 		return "";
+	}
+
+	public List<Object[]> genProductPackageByMember(MemberCustomer member, Date date){
+		try{
+			Calendar calStart = Calendar.getInstance();
+			calStart.setTime(date);
+			calStart.set(Calendar.HOUR_OF_DAY, 0);
+			calStart.set(Calendar.MINUTE, 0);
+			calStart.set(Calendar.SECOND, 0);
+			calStart.set(Calendar.MILLISECOND, 0);
+			Calendar calEnd = Calendar.getInstance();
+			calEnd.setTime(date);
+			calEnd.set(Calendar.HOUR_OF_DAY, 23);
+			calEnd.set(Calendar.MINUTE, 59);
+			calEnd.set(Calendar.SECOND, 59);
+			calEnd.set(Calendar.MILLISECOND, 999);
+			String sql = "Select th.trxHeaderId, th.customerId, sp.productId, sp.pv " +
+					" From TransactionSellHeader th, TransactionSellDetail td, StockProduct sp " +
+					" Where th.trxHeaderDatetime between :startDate And :endDate " +
+					" And th.customerId = :customerId " +
+					" And th.trxHeaderStatus <> 99 " +// 99 = cancel
+					" And th.trxHeaderId = td.trxHeaderId " +
+					" And td.productId = sp.productId " +
+					" And sp.productType = 2 "; // 2 = package
+			List<Object[]> objectList = em.createQuery(sql,Object[].class)
+					.setParameter("startDate", calStart.getTime())
+					.setParameter("endDate", calEnd.getTime())
+					.setParameter("customerId", member.getCustomerId())
+					.getResultList();
+			return objectList;
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public int myScoreTotal(MemberCustomer member, Date date){
+		try{
+			if(member !=null){
+				String sql = "select sum(totalPv) " +
+						" from TransactionSellHeader " +
+						" where customerId =:memberId " +
+						" and trxHeaderDatetime < :dateTime ";
+				Calendar calStart = Calendar.getInstance();
+				calStart.setTime(date);
+				calStart.set(Calendar.HOUR_OF_DAY, 23);
+				calStart.set(Calendar.MINUTE, 59);
+				calStart.set(Calendar.SECOND, 59);
+				calStart.set(Calendar.MILLISECOND, 999);
+				try{
+					BigDecimal score = (BigDecimal)em.createQuery(sql)
+							.setParameter("memberId", member.getCustomerId())
+							.setParameter("dateTime", calStart.getTime())
+							.getSingleResult();
+					return StringUtil.n2b(score).intValue();
+				}catch(Exception ex){
+					log.info("myScoreTotal error : "+ex.getMessage());
+				}
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+	public int myScoreDate(MemberCustomer member, Date date){
+		try{
+			if(member !=null){
+				String sql = "select sum(totalPv) " +
+						" from TransactionSellHeader " +
+						" where customerId =:memberId " +
+						" and trxHeaderDatetime between :startDate and :endDate ";
+				Calendar calStart = Calendar.getInstance();
+				calStart.setTime(date);
+				calStart.set(Calendar.HOUR_OF_DAY, 0);
+				calStart.set(Calendar.MINUTE, 0);
+				calStart.set(Calendar.SECOND, 0);
+				calStart.set(Calendar.MILLISECOND, 0);
+				Calendar calEnd = Calendar.getInstance();
+				calEnd.setTime(date);
+				calEnd.set(Calendar.HOUR_OF_DAY, 23);
+				calEnd.set(Calendar.MINUTE, 59);
+				calEnd.set(Calendar.SECOND, 59);
+				calEnd.set(Calendar.MILLISECOND, 999);
+				try{
+					BigDecimal score = (BigDecimal)em.createQuery(sql)
+							.setParameter("memberId", member.getCustomerId())
+							.setParameter("startDate", calStart.getTime())
+							.setParameter("endDate", calEnd.getTime())
+							.getSingleResult();
+					return StringUtil.n2b(score).intValue();
+				}catch(Exception ex){
+					log.info("myScoreTotal error : "+ex.getMessage());
+				}
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+
+	public int sumScoreTotal(Date date, String sqlMemberUnder){
+		try{
+			String sqlSum = "select sum(totalPv) " +
+					" from TransactionSellHeader " +
+					" where customerId in " + sqlMemberUnder +
+					" and trxHeaderDatetime < :dateTime ";
+			Calendar calStart = Calendar.getInstance();
+			calStart.setTime(date);
+			calStart.set(Calendar.HOUR_OF_DAY, 23);
+			calStart.set(Calendar.MINUTE, 59);
+			calStart.set(Calendar.SECOND, 59);
+			calStart.set(Calendar.MILLISECOND, 999);
+			try{
+				BigDecimal score = (BigDecimal)em.createQuery(sqlSum)
+						.setParameter("dateTime", calStart.getTime())
+						.getSingleResult();
+				return StringUtil.n2b(score).intValue();
+			}catch(Exception ex){
+				log.info("sumScoreTotal error : "+ex.getMessage());
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+	public int sumScoreDate(Date date, String sqlMemberUnder){
+		try{
+			String sqlSum = "select sum(totalPv) " +
+					" from TransactionSellHeader " +
+					" where customerId in " + sqlMemberUnder +
+					" and trxHeaderDatetime between :startDate and :endDate ";
+			Calendar calStart = Calendar.getInstance();
+			calStart.setTime(date);
+			calStart.set(Calendar.HOUR_OF_DAY, 0);
+			calStart.set(Calendar.MINUTE, 0);
+			calStart.set(Calendar.SECOND, 0);
+			calStart.set(Calendar.MILLISECOND, 0);
+			Calendar calEnd = Calendar.getInstance();
+			calEnd.setTime(date);
+			calEnd.set(Calendar.HOUR_OF_DAY, 23);
+			calEnd.set(Calendar.MINUTE, 59);
+			calEnd.set(Calendar.SECOND, 59);
+			calEnd.set(Calendar.MILLISECOND, 999);
+			try{
+				BigDecimal score = (BigDecimal)em.createQuery(sqlSum)
+						.setParameter("startDate", calStart.getTime())
+						.setParameter("endDate", calEnd.getTime())
+						.getSingleResult();
+				return StringUtil.n2b(score).intValue();
+			}catch(Exception ex){
+				log.info("sumScoreDate error : "+ex.getMessage());
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return 0;
 	}
 }

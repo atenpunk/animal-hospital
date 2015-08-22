@@ -24,30 +24,7 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "transaction_score_matching")
 @NamedQueries({
-    @NamedQuery(name = "TransactionScoreMatching.findAll", query = "SELECT t FROM TransactionScoreMatching t"),
-    @NamedQuery(name = "TransactionScoreMatching.findByRoundId", query = "SELECT t FROM TransactionScoreMatching t WHERE t.transactionScoreMatchingPK.roundId = :roundId"),
-    @NamedQuery(name = "TransactionScoreMatching.findByTrxMatchingDate", query = "SELECT t FROM TransactionScoreMatching t WHERE t.transactionScoreMatchingPK.trxMatchingDate = :trxMatchingDate"),
-    @NamedQuery(name = "TransactionScoreMatching.findByCustomerId", query = "SELECT t FROM TransactionScoreMatching t WHERE t.transactionScoreMatchingPK.customerId = :customerId"),
-    @NamedQuery(name = "TransactionScoreMatching.findByOldPvLeft", query = "SELECT t FROM TransactionScoreMatching t WHERE t.oldPvLeft = :oldPvLeft"),
-    @NamedQuery(name = "TransactionScoreMatching.findByOldPvRight", query = "SELECT t FROM TransactionScoreMatching t WHERE t.oldPvRight = :oldPvRight"),
-    @NamedQuery(name = "TransactionScoreMatching.findByDatePvLeft", query = "SELECT t FROM TransactionScoreMatching t WHERE t.datePvLeft = :datePvLeft"),
-    @NamedQuery(name = "TransactionScoreMatching.findByDatePvRight", query = "SELECT t FROM TransactionScoreMatching t WHERE t.datePvRight = :datePvRight"),
-    @NamedQuery(name = "TransactionScoreMatching.findByTotalPvLeft", query = "SELECT t FROM TransactionScoreMatching t WHERE t.totalPvLeft = :totalPvLeft"),
-    @NamedQuery(name = "TransactionScoreMatching.findByTotalPvRight", query = "SELECT t FROM TransactionScoreMatching t WHERE t.totalPvRight = :totalPvRight"),
-    @NamedQuery(name = "TransactionScoreMatching.findByRemainingPvLeft", query = "SELECT t FROM TransactionScoreMatching t WHERE t.remainingPvLeft = :remainingPvLeft"),
-    @NamedQuery(name = "TransactionScoreMatching.findByRemainingPvRight", query = "SELECT t FROM TransactionScoreMatching t WHERE t.remainingPvRight = :remainingPvRight"),
-    @NamedQuery(name = "TransactionScoreMatching.findByMatchingPv", query = "SELECT t FROM TransactionScoreMatching t WHERE t.matchingPv = :matchingPv"),
-    @NamedQuery(name = "TransactionScoreMatching.findByMatchingUse", query = "SELECT t FROM TransactionScoreMatching t WHERE t.matchingUse = :matchingUse"),
-    @NamedQuery(name = "TransactionScoreMatching.findByMatchingBalance", query = "SELECT t FROM TransactionScoreMatching t WHERE t.matchingBalance = :matchingBalance"),
-    @NamedQuery(name = "TransactionScoreMatching.findByRecommendAmount", query = "SELECT t FROM TransactionScoreMatching t WHERE t.recommendAmount = :recommendAmount"),
-    @NamedQuery(name = "TransactionScoreMatching.findBySelfDatePv", query = "SELECT t FROM TransactionScoreMatching t WHERE t.selfDatePv = :selfDatePv"),
-    @NamedQuery(name = "TransactionScoreMatching.findBySelfTotalPv", query = "SELECT t FROM TransactionScoreMatching t WHERE t.selfTotalPv = :selfTotalPv"),
-    @NamedQuery(name = "TransactionScoreMatching.findByTrxMatchingStatus", query = "SELECT t FROM TransactionScoreMatching t WHERE t.trxMatchingStatus = :trxMatchingStatus"),
-    @NamedQuery(name = "TransactionScoreMatching.findByTrxMatchingFlag", query = "SELECT t FROM TransactionScoreMatching t WHERE t.trxMatchingFlag = :trxMatchingFlag"),
-    @NamedQuery(name = "TransactionScoreMatching.findByCreateBy", query = "SELECT t FROM TransactionScoreMatching t WHERE t.createBy = :createBy"),
-    @NamedQuery(name = "TransactionScoreMatching.findByCreateDate", query = "SELECT t FROM TransactionScoreMatching t WHERE t.createDate = :createDate"),
-    @NamedQuery(name = "TransactionScoreMatching.findByUpdateBy", query = "SELECT t FROM TransactionScoreMatching t WHERE t.updateBy = :updateBy"),
-    @NamedQuery(name = "TransactionScoreMatching.findByUpdateDate", query = "SELECT t FROM TransactionScoreMatching t WHERE t.updateDate = :updateDate")})
+    @NamedQuery(name = "TransactionScoreMatching.findAll", query = "SELECT t FROM TransactionScoreMatching t")})
 public class TransactionScoreMatching implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
@@ -74,8 +51,6 @@ public class TransactionScoreMatching implements Serializable {
     private Integer matchingUse;
     @Column(name = "matching_balance")
     private Integer matchingBalance;
-    @Column(name = "recommend_amount")
-    private BigDecimal recommendAmount;
     @Column(name = "self_date_pv")
     private BigDecimal selfDatePv;
     @Column(name = "self_total_pv")
@@ -200,14 +175,6 @@ public class TransactionScoreMatching implements Serializable {
 
     public void setMatchingBalance(Integer matchingBalance) {
         this.matchingBalance = matchingBalance;
-    }
-
-    public BigDecimal getRecommendAmount() {
-        return recommendAmount;
-    }
-
-    public void setRecommendAmount(BigDecimal recommendAmount) {
-        this.recommendAmount = recommendAmount;
     }
 
     public BigDecimal getSelfDatePv() {
