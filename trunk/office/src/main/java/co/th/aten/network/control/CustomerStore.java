@@ -1,9 +1,6 @@
 package co.th.aten.network.control;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -86,73 +83,7 @@ public class CustomerStore extends BasicStore implements Serializable {
 		return "";
 	}
 
-	public int myScoreTotal(MemberCustomer member, Date date){
-		try{
-			if(member !=null){
-				String sql = "select sum(totalPv) " +
-						" from TransactionSellHeader " +
-						" where customerId =:memberId " +
-						" and trxHeaderDatetime < :dateTime ";
-				Calendar calStart = Calendar.getInstance();
-				calStart.setTime(date);
-				calStart.set(Calendar.HOUR_OF_DAY, 23);
-				calStart.set(Calendar.MINUTE, 59);
-				calStart.set(Calendar.SECOND, 59);
-				calStart.set(Calendar.MILLISECOND, 999);
-				try{
-					BigDecimal score = (BigDecimal)em.createQuery(sql)
-							.setParameter("memberId", member.getCustomerId())
-							.setParameter("dateTime", calStart.getTime())
-							.getSingleResult();
-					return StringUtil.n2b(score).intValue();
-				}catch(Exception ex){
-					log.info("myScoreTotal error : "+ex.getMessage());
-				}
-			}
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		return 0;
-	}
-
-	public int myScoreDate(MemberCustomer member, Date date){
-		try{
-			if(member !=null){
-				String sql = "select sum(totalPv) " +
-						" from TransactionSellHeader " +
-						" where customerId =:memberId " +
-						" and trxHeaderDatetime between :startDate and :endDate ";
-				Calendar calStart = Calendar.getInstance();
-				calStart.setTime(date);
-				calStart.set(Calendar.HOUR_OF_DAY, 0);
-				calStart.set(Calendar.MINUTE, 0);
-				calStart.set(Calendar.SECOND, 0);
-				calStart.set(Calendar.MILLISECOND, 0);
-				Calendar calEnd = Calendar.getInstance();
-				calEnd.setTime(date);
-				calEnd.set(Calendar.HOUR_OF_DAY, 23);
-				calEnd.set(Calendar.MINUTE, 59);
-				calEnd.set(Calendar.SECOND, 59);
-				calEnd.set(Calendar.MILLISECOND, 999);
-				try{
-					BigDecimal score = (BigDecimal)em.createQuery(sql)
-							.setParameter("memberId", member.getCustomerId())
-							.setParameter("startDate", calStart.getTime())
-							.setParameter("endDate", calEnd.getTime())
-							.getSingleResult();
-					return StringUtil.n2b(score).intValue();
-				}catch(Exception ex){
-					log.info("myScoreTotal error : "+ex.getMessage());
-				}
-			}
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		return 0;
-	}
-
 	public String genSqlUnder(int memberId){
-
 		try{
 			if(memberId!=0){
 				String sqlMemberId = memberId+",";
@@ -185,65 +116,6 @@ public class CustomerStore extends BasicStore implements Serializable {
 			e.printStackTrace();
 		}
 		return "(0)";
-	}
-
-	public int sumScoreTotal(MemberCustomer member, Date date, String sqlMemberUnder){
-		try{
-			String sqlSum = "select sum(totalPv) " +
-					" from TransactionSellHeader " +
-					" where customerId in " + sqlMemberUnder +
-					" and trxHeaderDatetime < :dateTime ";
-			Calendar calStart = Calendar.getInstance();
-			calStart.setTime(date);
-			calStart.set(Calendar.HOUR_OF_DAY, 23);
-			calStart.set(Calendar.MINUTE, 59);
-			calStart.set(Calendar.SECOND, 59);
-			calStart.set(Calendar.MILLISECOND, 999);
-			try{
-				BigDecimal score = (BigDecimal)em.createQuery(sqlSum)
-						.setParameter("dateTime", calStart.getTime())
-						.getSingleResult();
-				return StringUtil.n2b(score).intValue();
-			}catch(Exception ex){
-				log.info("sumScoreTotal error : "+ex.getMessage());
-			}
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		return 0;
-	}
-
-	public int sumScoreDate(MemberCustomer member, Date date, String sqlMemberUnder){
-		try{
-			String sqlSum = "select sum(totalPv) " +
-					" from TransactionSellHeader " +
-					" where customerId in " + sqlMemberUnder +
-					" and trxHeaderDatetime between :startDate and :endDate ";
-			Calendar calStart = Calendar.getInstance();
-			calStart.setTime(date);
-			calStart.set(Calendar.HOUR_OF_DAY, 0);
-			calStart.set(Calendar.MINUTE, 0);
-			calStart.set(Calendar.SECOND, 0);
-			calStart.set(Calendar.MILLISECOND, 0);
-			Calendar calEnd = Calendar.getInstance();
-			calEnd.setTime(date);
-			calEnd.set(Calendar.HOUR_OF_DAY, 23);
-			calEnd.set(Calendar.MINUTE, 59);
-			calEnd.set(Calendar.SECOND, 59);
-			calEnd.set(Calendar.MILLISECOND, 999);
-			try{
-				BigDecimal score = (BigDecimal)em.createQuery(sqlSum)
-						.setParameter("startDate", calStart.getTime())
-						.setParameter("endDate", calEnd.getTime())
-						.getSingleResult();
-				return StringUtil.n2b(score).intValue();
-			}catch(Exception ex){
-				log.info("sumScoreDate error : "+ex.getMessage());
-			}
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		return 0;
 	}
 
 	public void refresh(MemberCustomer customer) {

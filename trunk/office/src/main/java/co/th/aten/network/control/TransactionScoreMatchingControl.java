@@ -28,6 +28,10 @@ public class TransactionScoreMatchingControl implements Serializable {
 		return transactionScoreMatchingStore.getMaxRoundId();
 	}
 	
+	public int sumMathing(MemberCustomer member, Date date){
+		return transactionScoreMatchingStore.sumMathing(member, date);
+	}
+	
 	public void insert(TransactionScoreMatching trx) {
 		transactionScoreMatchingStore.insert(trx);
 	}
@@ -40,7 +44,4 @@ public class TransactionScoreMatchingControl implements Serializable {
 		transactionScoreMatchingStore.insertOrUpdate(trx);
 	}
 	
-	public int sumMathing(MemberCustomer member, Date date){
-		return transactionScoreMatchingStore.sumMathing(member, date);
-	}
 }

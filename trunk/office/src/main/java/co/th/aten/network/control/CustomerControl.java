@@ -1,7 +1,6 @@
 package co.th.aten.network.control;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
@@ -61,25 +60,9 @@ public class CustomerControl implements Serializable {
 		}
 		return name;
 	}
-	
-	public int myScoreTotal(MemberCustomer member, Date date){
-		return customerStore.myScoreTotal(member,date);
-	}
-	
-	public int myScoreDate(MemberCustomer member, Date date){
-		return customerStore.myScoreDate(member,date);
-	}
-	
+
 	public String genSqlUnder(int memberId){
 		return customerStore.genSqlUnder(memberId);
-	}
-	
-	public int sumScoreTotal(MemberCustomer member, Date date, String sqlUnder){
-		return customerStore.sumScoreTotal(member,date, sqlUnder);
-	}
-	
-	public int sumScoreDate(MemberCustomer member, Date date, String sqlUnder){
-		return customerStore.sumScoreDate(member, date, sqlUnder);
 	}
 	
 	public void insert(MemberCustomer member) {
