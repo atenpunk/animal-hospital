@@ -47,31 +47,47 @@ public class ScheduledMatchingProcessor {
 	private TransactionHeaderControl transactionHeaderControl;
 	@Inject
 	private TransactionScorePackageControl transactionScorePackageControl;
-
 	@Inject
 	Logger log;
+	
+	private SimpleDateFormat sdfHH = new SimpleDateFormat("HH",Locale.US);
+	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",Locale.US);
 
 	//	@Schedule(hour="*",minute = "*",second="0/10")
-	@Schedule(hour="16",minute = "54",second="01")
+	@Schedule(hour="18",minute = "34",second="01")
 	public void execute() {
 		long startTime = System.currentTimeMillis();
 		try{
 			log.info("##############################################");
 			log.info("##### Start Scheduled Matching Processor #####");
 			log.info("##############################################");
-			SimpleDateFormat sdfHH = new SimpleDateFormat("HH",Locale.US);
-			log.info("HH = "+sdfHH.format(new Date()));
+			Calendar date = Calendar.getInstance();
+			date.add(Calendar.DATE, -1);
+			date.set(Calendar.HOUR_OF_DAY, 0);
+			date.set(Calendar.MINUTE, 0);
+			date.set(Calendar.SECOND, 0);
+			date.set(Calendar.MILLISECOND, 0);
+			Calendar startDateTime = Calendar.getInstance();
+			startDateTime.setTime(date.getTime());
+			startDateTime.set(Calendar.HOUR_OF_DAY, 0);
+			startDateTime.set(Calendar.MINUTE, 0);
+			startDateTime.set(Calendar.SECOND, 0);
+			startDateTime.set(Calendar.MILLISECOND, 0);
+			Calendar endDateTime = Calendar.getInstance();
+			endDateTime.setTime(date.getTime());
+			endDateTime.set(Calendar.HOUR_OF_DAY, 23);
+			endDateTime.set(Calendar.MINUTE, 59);
+			endDateTime.set(Calendar.SECOND, 59);
+			endDateTime.set(Calendar.MILLISECOND, 999);
+			log.info("HH   = "+sdfHH.format(new Date()));
+			log.info("DATE = "+sdf.format(date.getTime()));
+			log.info("Start Date Time = "+sdf.format(startDateTime.getTime()));
+			log.info("End Date Time   = "+sdf.format(endDateTime.getTime()));
 			//			if(sdfHH.format(new Date()).equals("00")){
 			List<Integer> memberList = em.createQuery("Select customerId From MemberCustomer Order By customerId asc "
 					,Integer.class).getResultList();
 			if(memberList!=null){
-				log.info("Member List Size = "+memberList.size());
-				Calendar cal = Calendar.getInstance();
-				cal.add(Calendar.DATE, -1);
-				cal.set(Calendar.HOUR_OF_DAY, 0);
-				cal.set(Calendar.MINUTE, 0);
-				cal.set(Calendar.SECOND, 0);
-				cal.set(Calendar.MILLISECOND, 0);
+				log.info("Member List Size = "+memberList.size());				
 				int maxRoundId = StringUtil.n2b(transactionScoreMatchingControl.getMaxRoundId());
 				maxRoundId = maxRoundId+1;
 				for(Integer memId:memberList){
@@ -79,7 +95,7 @@ public class ScheduledMatchingProcessor {
 					try{
 						sessionCtx.getUserTransaction().begin();
 						MemberCustomer member = em.find(MemberCustomer.class, memId);
-						int myScoreTotal = transactionHeaderControl.myScoreTotal(member, cal.getTime());
+						int myScoreTotal = transactionHeaderControl.myScoreTotal(member, date.getTime());
 						if(myScoreTotal >= 13000 
 								&& StringUtil.n2b(member.getPositionId().getLevelId()) < 6){
 							member.setPositionId(em.find(MemberPosition.class, new Integer(5)));// 5 = SP
@@ -96,14 +112,14 @@ public class ScheduledMatchingProcessor {
 								&& StringUtil.n2b(member.getPositionId().getLevelId()) < 2){
 							member.setPositionId(em.find(MemberPosition.class, new Integer(1)));// 1 = DIS
 						}
-						int myScoreDate = transactionHeaderControl.myScoreDate(member, cal.getTime());
+						int myScoreDate = transactionHeaderControl.myScoreDate(member, startDateTime.getTime(), endDateTime.getTime());
 						String sqlUnderLeft = customerControl.genSqlUnder(StringUtil.n2b(member.getLowerLeftId()).intValue());
 						String sqlUnderRight = customerControl.genSqlUnder(StringUtil.n2b(member.getLowerRightId()).intValue());
-						int leftScoreTotal = transactionHeaderControl.sumScoreTotal(cal.getTime(), sqlUnderLeft);
-						int rightScoreTotal = transactionHeaderControl.sumScoreTotal(cal.getTime(), sqlUnderRight);
-						int leftPvDay = transactionHeaderControl.sumScoreDate(cal.getTime(), sqlUnderLeft);
-						int rightPvDay = transactionHeaderControl.sumScoreDate(cal.getTime(), sqlUnderRight);
-						int sumMatching = transactionScoreMatchingControl.sumMathing(member, cal.getTime());
+						int leftScoreTotal = transactionHeaderControl.sumScoreTotal(date.getTime(), sqlUnderLeft);
+						int rightScoreTotal = transactionHeaderControl.sumScoreTotal(date.getTime(), sqlUnderRight);
+						int leftPvDay = transactionHeaderControl.sumScoreDate(startDateTime.getTime(), endDateTime.getTime(), sqlUnderLeft);
+						int rightPvDay = transactionHeaderControl.sumScoreDate(startDateTime.getTime(), endDateTime.getTime(), sqlUnderRight);
+						int sumMatching = transactionScoreMatchingControl.sumMathing(member, date.getTime());
 						int oldPvLeft = leftScoreTotal - sumMatching;
 						int oldPvRight = rightScoreTotal - sumMatching;
 						int totalPvLeft = oldPvLeft;
@@ -134,7 +150,7 @@ public class ScheduledMatchingProcessor {
 						TransactionScoreMatchingPK trxMatchPk = new TransactionScoreMatchingPK();
 						trxMatchPk.setRoundId(maxRoundId);
 						trxMatchPk.setCustomerId(member.getCustomerId());
-						trxMatchPk.setTrxMatchingDate(cal.getTime());
+						trxMatchPk.setTrxMatchingDate(date.getTime());
 						trxMatch.setTransactionScoreMatchingPK(trxMatchPk);
 						trxMatch.setOldPvLeft(new BigDecimal(oldPvLeft));
 						trxMatch.setOldPvRight(new BigDecimal(oldPvRight));
@@ -163,7 +179,7 @@ public class ScheduledMatchingProcessor {
 						member.setUpdateBy(new Integer(2));
 						member.setUpdateDate(new Date());
 						customerControl.insertOrUpdate(member);
-						List<Object[]> packageList = transactionHeaderControl.genProductPackgateByMember(member, cal.getTime());
+						List<Object[]> packageList = transactionHeaderControl.genProductPackgateByMember(member, date.getTime());
 						if(packageList!=null){
 							for(Object[] ob:packageList){
 								MemberCustomer memSugg = em.find(MemberCustomer.class, member.getRecommendId());
@@ -231,7 +247,7 @@ public class ScheduledMatchingProcessor {
 									}
 									TransactionScorePackage trxPackage = new TransactionScorePackage();
 									TransactionScorePackagePK packagePk = new TransactionScorePackagePK();
-									packagePk.setTrxPackageDate(cal.getTime());
+									packagePk.setTrxPackageDate(date.getTime());
 									packagePk.setSuggestId(StringUtil.n2b(member.getCustomerId()));
 									packagePk.setCustomerId(memSugg.getCustomerId());								
 									trxPackage.setTransactionScorePackagePK(packagePk);
@@ -259,7 +275,7 @@ public class ScheduledMatchingProcessor {
 										if(memSuggUpper!=null){
 											TransactionScorePackage trx = new TransactionScorePackage();
 											TransactionScorePackagePK trxPk = new TransactionScorePackagePK();
-											trxPk.setTrxPackageDate(cal.getTime());
+											trxPk.setTrxPackageDate(date.getTime());
 											trxPk.setSuggestId(StringUtil.n2b(member.getCustomerId()));
 											trxPk.setCustomerId(memSuggUpper.getCustomerId());								
 											trx.setTransactionScorePackagePK(trxPk);

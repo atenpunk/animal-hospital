@@ -36,15 +36,15 @@ public class TransactionHeaderControl implements Serializable {
 		return transactionHeaderStore.myScoreTotal(member,date);
 	}
 	
-	public int myScoreDate(MemberCustomer member, Date date){
-		return transactionHeaderStore.myScoreDate(member,date);
+	public int myScoreDate(MemberCustomer member, Date startDate, Date endDate){
+		return transactionHeaderStore.myScoreDate(member, startDate, endDate);
 	}
 	
 	public int sumScoreTotal(Date date, String sqlUnder){
 		return transactionHeaderStore.sumScoreTotal(date, sqlUnder);
 	}
 	
-	public int sumScoreDate(Date date, String sqlUnder){
-		return transactionHeaderStore.sumScoreDate(date, sqlUnder);
+	public int sumScoreDate(Date startDate, Date endDate, String sqlUnder){
+		return transactionHeaderStore.sumScoreDate(startDate, endDate, sqlUnder);
 	}
 }

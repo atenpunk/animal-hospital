@@ -15,7 +15,6 @@ import co.th.aten.network.entity.AddressAmphures;
 import co.th.aten.network.entity.AddressDistricts;
 import co.th.aten.network.entity.AddressProvinces;
 import co.th.aten.network.entity.MemberCustomer;
-import co.th.aten.network.entity.StockProduct;
 import co.th.aten.network.entity.TransactionSellHeader;
 import co.th.aten.network.producer.DBDefault;
 import co.th.aten.network.security.CurrentUserManager;
@@ -141,30 +140,18 @@ public class TransactionHeaderStore extends BasicStore implements Serializable {
 		return 0;
 	}
 
-	public int myScoreDate(MemberCustomer member, Date date){
+	public int myScoreDate(MemberCustomer member, Date startDate, Date endDate){
 		try{
 			if(member !=null){
 				String sql = "select sum(totalPv) " +
 						" from TransactionSellHeader " +
 						" where customerId =:memberId " +
 						" and trxHeaderDatetime between :startDate and :endDate ";
-				Calendar calStart = Calendar.getInstance();
-				calStart.setTime(date);
-				calStart.set(Calendar.HOUR_OF_DAY, 0);
-				calStart.set(Calendar.MINUTE, 0);
-				calStart.set(Calendar.SECOND, 0);
-				calStart.set(Calendar.MILLISECOND, 0);
-				Calendar calEnd = Calendar.getInstance();
-				calEnd.setTime(date);
-				calEnd.set(Calendar.HOUR_OF_DAY, 23);
-				calEnd.set(Calendar.MINUTE, 59);
-				calEnd.set(Calendar.SECOND, 59);
-				calEnd.set(Calendar.MILLISECOND, 999);
 				try{
 					BigDecimal score = (BigDecimal)em.createQuery(sql)
 							.setParameter("memberId", member.getCustomerId())
-							.setParameter("startDate", calStart.getTime())
-							.setParameter("endDate", calEnd.getTime())
+							.setParameter("startDate", startDate)
+							.setParameter("endDate", endDate)
 							.getSingleResult();
 					return StringUtil.n2b(score).intValue();
 				}catch(Exception ex){
@@ -204,28 +191,16 @@ public class TransactionHeaderStore extends BasicStore implements Serializable {
 		return 0;
 	}
 
-	public int sumScoreDate(Date date, String sqlMemberUnder){
+	public int sumScoreDate(Date startDate, Date endDate, String sqlMemberUnder){
 		try{
 			String sqlSum = "select sum(totalPv) " +
 					" from TransactionSellHeader " +
 					" where customerId in " + sqlMemberUnder +
 					" and trxHeaderDatetime between :startDate and :endDate ";
-			Calendar calStart = Calendar.getInstance();
-			calStart.setTime(date);
-			calStart.set(Calendar.HOUR_OF_DAY, 0);
-			calStart.set(Calendar.MINUTE, 0);
-			calStart.set(Calendar.SECOND, 0);
-			calStart.set(Calendar.MILLISECOND, 0);
-			Calendar calEnd = Calendar.getInstance();
-			calEnd.setTime(date);
-			calEnd.set(Calendar.HOUR_OF_DAY, 23);
-			calEnd.set(Calendar.MINUTE, 59);
-			calEnd.set(Calendar.SECOND, 59);
-			calEnd.set(Calendar.MILLISECOND, 999);
 			try{
 				BigDecimal score = (BigDecimal)em.createQuery(sqlSum)
-						.setParameter("startDate", calStart.getTime())
-						.setParameter("endDate", calEnd.getTime())
+						.setParameter("startDate", startDate)
+						.setParameter("endDate", endDate)
 						.getSingleResult();
 				return StringUtil.n2b(score).intValue();
 			}catch(Exception ex){
