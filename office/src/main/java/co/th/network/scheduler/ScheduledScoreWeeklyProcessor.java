@@ -59,7 +59,7 @@ public class ScheduledScoreWeeklyProcessor {
 
 	//	@Schedule(hour="*",minute = "*",second="0/10")
 	//  @Schedule(dayOfWeek="Mon",hour="03",minute = "01",second="01")
-	@Schedule(dayOfWeek="Sun",hour="01",minute = "01",second="01")
+	@Schedule(dayOfWeek="Sun",hour="00",minute = "50",second="01")
 	public void execute() {
 		long startTime = System.currentTimeMillis();
 		try{
@@ -114,28 +114,9 @@ public class ScheduledScoreWeeklyProcessor {
 						int oldPvRight = rightScoreTotal - sumMatching;
 						int totalPvLeft = oldPvLeft+leftPvDay;
 						int totalPvRight = oldPvRight+rightPvDay;
-						int leftMat = 0;
-						int rightMat = 0;
-						int matchingPvDay = 0;
-						int matchingUse = 0;
-						int matchingBalance = 0;
-						int positionMatching = 0;
-						if(member.getPositionId()!=null){
-							positionMatching = StringUtil.n2b(member.getPositionId().getMatching());
-						}
-						matchingBalance = positionMatching - StringUtil.n2b(member.getMatchingUse());
-						matchingBalance = matchingBalance<=0?positionMatching:matchingBalance;
-						if(matchingBalance > 0){
-							leftMat = totalPvLeft/1000;
-							rightMat = totalPvRight/1000;
-							matchingPvDay = leftMat<rightMat?(leftMat*1000):(rightMat*1000);
-							matchingUse = leftMat<rightMat?leftMat:rightMat;
-							if(matchingUse > matchingBalance){
-								matchingPvDay = matchingBalance*1000;
-								matchingUse = matchingBalance;
-							}
-						}
-						matchingBalance = matchingBalance-matchingUse;
+						int leftMat = totalPvLeft/1000;
+						int rightMat = totalPvRight/1000;
+						int matchingPvDay = leftMat<rightMat?(leftMat*1000):(rightMat*1000);
 						TransactionScoreMatchingWeekly trxMatch = new TransactionScoreMatchingWeekly();
 						TransactionScoreMatchingWeeklyPK trxMatchPk = new TransactionScoreMatchingWeeklyPK();
 						trxMatchPk.setRoundId(maxRoundId);
@@ -152,8 +133,6 @@ public class ScheduledScoreWeeklyProcessor {
 						trxMatch.setRemainingPvLeft(new BigDecimal(StringUtil.n2b(trxMatch.getTotalPvLeft()).doubleValue() - matchingPvDay));
 						trxMatch.setRemainingPvRight(new BigDecimal(StringUtil.n2b(trxMatch.getTotalPvRight()).doubleValue() - matchingPvDay));
 						trxMatch.setMatchingPv(new BigDecimal(matchingPvDay));
-						trxMatch.setMatchingUse(matchingUse);
-						trxMatch.setMatchingBalance(matchingBalance);
 						trxMatch.setSelfDatePv(new BigDecimal(myScoreDate));
 						trxMatch.setSelfTotalPv(new BigDecimal(myScoreTotal));			
 						trxMatch.setTrxMatchingStatus(new Integer(0));

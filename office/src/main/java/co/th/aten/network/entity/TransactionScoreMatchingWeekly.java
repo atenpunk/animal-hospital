@@ -24,30 +24,7 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "transaction_score_matching_weekly")
 @NamedQueries({
-    @NamedQuery(name = "TransactionScoreMatchingWeekly.findAll", query = "SELECT t FROM TransactionScoreMatchingWeekly t"),
-    @NamedQuery(name = "TransactionScoreMatchingWeekly.findByRoundId", query = "SELECT t FROM TransactionScoreMatchingWeekly t WHERE t.transactionScoreMatchingWeeklyPK.roundId = :roundId"),
-    @NamedQuery(name = "TransactionScoreMatchingWeekly.findByTrxStartDate", query = "SELECT t FROM TransactionScoreMatchingWeekly t WHERE t.transactionScoreMatchingWeeklyPK.trxStartDate = :trxStartDate"),
-    @NamedQuery(name = "TransactionScoreMatchingWeekly.findByTrxEndDate", query = "SELECT t FROM TransactionScoreMatchingWeekly t WHERE t.transactionScoreMatchingWeeklyPK.trxEndDate = :trxEndDate"),
-    @NamedQuery(name = "TransactionScoreMatchingWeekly.findByCustomerId", query = "SELECT t FROM TransactionScoreMatchingWeekly t WHERE t.transactionScoreMatchingWeeklyPK.customerId = :customerId"),
-    @NamedQuery(name = "TransactionScoreMatchingWeekly.findByOldPvLeft", query = "SELECT t FROM TransactionScoreMatchingWeekly t WHERE t.oldPvLeft = :oldPvLeft"),
-    @NamedQuery(name = "TransactionScoreMatchingWeekly.findByOldPvRight", query = "SELECT t FROM TransactionScoreMatchingWeekly t WHERE t.oldPvRight = :oldPvRight"),
-    @NamedQuery(name = "TransactionScoreMatchingWeekly.findByDatePvLeft", query = "SELECT t FROM TransactionScoreMatchingWeekly t WHERE t.datePvLeft = :datePvLeft"),
-    @NamedQuery(name = "TransactionScoreMatchingWeekly.findByDatePvRight", query = "SELECT t FROM TransactionScoreMatchingWeekly t WHERE t.datePvRight = :datePvRight"),
-    @NamedQuery(name = "TransactionScoreMatchingWeekly.findByTotalPvLeft", query = "SELECT t FROM TransactionScoreMatchingWeekly t WHERE t.totalPvLeft = :totalPvLeft"),
-    @NamedQuery(name = "TransactionScoreMatchingWeekly.findByTotalPvRight", query = "SELECT t FROM TransactionScoreMatchingWeekly t WHERE t.totalPvRight = :totalPvRight"),
-    @NamedQuery(name = "TransactionScoreMatchingWeekly.findByRemainingPvLeft", query = "SELECT t FROM TransactionScoreMatchingWeekly t WHERE t.remainingPvLeft = :remainingPvLeft"),
-    @NamedQuery(name = "TransactionScoreMatchingWeekly.findByRemainingPvRight", query = "SELECT t FROM TransactionScoreMatchingWeekly t WHERE t.remainingPvRight = :remainingPvRight"),
-    @NamedQuery(name = "TransactionScoreMatchingWeekly.findByMatchingPv", query = "SELECT t FROM TransactionScoreMatchingWeekly t WHERE t.matchingPv = :matchingPv"),
-    @NamedQuery(name = "TransactionScoreMatchingWeekly.findByMatchingUse", query = "SELECT t FROM TransactionScoreMatchingWeekly t WHERE t.matchingUse = :matchingUse"),
-    @NamedQuery(name = "TransactionScoreMatchingWeekly.findByMatchingBalance", query = "SELECT t FROM TransactionScoreMatchingWeekly t WHERE t.matchingBalance = :matchingBalance"),
-    @NamedQuery(name = "TransactionScoreMatchingWeekly.findBySelfDatePv", query = "SELECT t FROM TransactionScoreMatchingWeekly t WHERE t.selfDatePv = :selfDatePv"),
-    @NamedQuery(name = "TransactionScoreMatchingWeekly.findBySelfTotalPv", query = "SELECT t FROM TransactionScoreMatchingWeekly t WHERE t.selfTotalPv = :selfTotalPv"),
-    @NamedQuery(name = "TransactionScoreMatchingWeekly.findByTrxMatchingStatus", query = "SELECT t FROM TransactionScoreMatchingWeekly t WHERE t.trxMatchingStatus = :trxMatchingStatus"),
-    @NamedQuery(name = "TransactionScoreMatchingWeekly.findByTrxMatchingFlag", query = "SELECT t FROM TransactionScoreMatchingWeekly t WHERE t.trxMatchingFlag = :trxMatchingFlag"),
-    @NamedQuery(name = "TransactionScoreMatchingWeekly.findByCreateBy", query = "SELECT t FROM TransactionScoreMatchingWeekly t WHERE t.createBy = :createBy"),
-    @NamedQuery(name = "TransactionScoreMatchingWeekly.findByCreateDate", query = "SELECT t FROM TransactionScoreMatchingWeekly t WHERE t.createDate = :createDate"),
-    @NamedQuery(name = "TransactionScoreMatchingWeekly.findByUpdateBy", query = "SELECT t FROM TransactionScoreMatchingWeekly t WHERE t.updateBy = :updateBy"),
-    @NamedQuery(name = "TransactionScoreMatchingWeekly.findByUpdateDate", query = "SELECT t FROM TransactionScoreMatchingWeekly t WHERE t.updateDate = :updateDate")})
+    @NamedQuery(name = "TransactionScoreMatchingWeekly.findAll", query = "SELECT t FROM TransactionScoreMatchingWeekly t")})
 public class TransactionScoreMatchingWeekly implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
@@ -70,10 +47,6 @@ public class TransactionScoreMatchingWeekly implements Serializable {
     private BigDecimal remainingPvRight;
     @Column(name = "matching_pv")
     private BigDecimal matchingPv;
-    @Column(name = "matching_use")
-    private Integer matchingUse;
-    @Column(name = "matching_balance")
-    private Integer matchingBalance;
     @Column(name = "self_date_pv")
     private BigDecimal selfDatePv;
     @Column(name = "self_total_pv")
@@ -182,22 +155,6 @@ public class TransactionScoreMatchingWeekly implements Serializable {
 
     public void setMatchingPv(BigDecimal matchingPv) {
         this.matchingPv = matchingPv;
-    }
-
-    public Integer getMatchingUse() {
-        return matchingUse;
-    }
-
-    public void setMatchingUse(Integer matchingUse) {
-        this.matchingUse = matchingUse;
-    }
-
-    public Integer getMatchingBalance() {
-        return matchingBalance;
-    }
-
-    public void setMatchingBalance(Integer matchingBalance) {
-        this.matchingBalance = matchingBalance;
     }
 
     public BigDecimal getSelfDatePv() {
