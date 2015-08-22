@@ -54,7 +54,7 @@ public class ScheduledMatchingProcessor {
 	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",Locale.US);
 
 	//	@Schedule(hour="*",minute = "*",second="0/10")
-	@Schedule(hour="23",minute = "40",second="01")
+	@Schedule(hour="00",minute = "00",second="30")
 	public void execute() {
 		long startTime = System.currentTimeMillis();
 		try{
@@ -83,7 +83,7 @@ public class ScheduledMatchingProcessor {
 			log.info("DATE = "+sdf.format(date.getTime()));
 			log.info("Start Date Time = "+sdf.format(startDateTime.getTime()));
 			log.info("End Date Time   = "+sdf.format(endDateTime.getTime()));
-//			if(sdfHH.format(new Date()).equals("00")){
+			if(sdfHH.format(new Date()).equals("00")){
 				List<Integer> memberList = em.createQuery("Select customerId From MemberCustomer Order By customerId asc "
 						,Integer.class).getResultList();
 				if(memberList!=null){
@@ -302,7 +302,7 @@ public class ScheduledMatchingProcessor {
 						log.info("Matching Member ID = "+memId+", Time = "+((System.currentTimeMillis()-startTimeMem)/1000d)+"s");
 					}
 				}
-//			}// end if HH = 00
+			}// end if HH = 00
 		}catch(Exception e){
 			e.printStackTrace();
 		}

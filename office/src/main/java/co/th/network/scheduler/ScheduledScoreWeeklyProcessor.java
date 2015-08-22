@@ -59,7 +59,7 @@ public class ScheduledScoreWeeklyProcessor {
 
 	//	@Schedule(hour="*",minute = "*",second="0/10")
 	//  @Schedule(dayOfWeek="Mon",hour="03",minute = "01",second="01")
-	@Schedule(dayOfWeek="Sun",hour="03",minute = "01",second="01")
+	@Schedule(dayOfWeek="Sun",hour="01",minute = "01",second="01")
 	public void execute() {
 		long startTime = System.currentTimeMillis();
 		try{
@@ -285,7 +285,7 @@ public class ScheduledScoreWeeklyProcessor {
 						log.info("rollback member id = "+memId);
 						ex.printStackTrace();
 					}
-					log.info("Matching Member ID = "+memId+", Time = "+((System.currentTimeMillis()-startTimeMem)/1000d)+"s");
+					log.info("Package Member ID = "+memId+", Time = "+((System.currentTimeMillis()-startTimeMem)/1000d)+"s");
 				}
 			}
 			//			}// end if HH = 03
