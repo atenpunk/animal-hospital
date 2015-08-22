@@ -28,8 +28,8 @@ public class TransactionHeaderControl implements Serializable {
 		return transactionHeaderStore.getAddressByHeaderId(headerId);
 	}
 	
-	public List<Object[]> genProductPackgateByMember(MemberCustomer member, Date date){
-		return transactionHeaderStore.genProductPackageByMember(member, date);
+	public List<Object[]> genProductPackgateByMember(MemberCustomer member, Date startDate, Date endDate){
+		return transactionHeaderStore.genProductPackageByMember(member, startDate, endDate);
 	}
 	
 	public int myScoreTotal(MemberCustomer member, Date date){
