@@ -70,10 +70,6 @@ public class TransactionScoreMatchingWeekly implements Serializable {
     private BigDecimal remainingPvRight;
     @Column(name = "matching_pv")
     private BigDecimal matchingPv;
-    @Column(name = "matching_use")
-    private Integer matchingUse;
-    @Column(name = "matching_balance")
-    private Integer matchingBalance;
     @Column(name = "self_date_pv")
     private BigDecimal selfDatePv;
     @Column(name = "self_total_pv")
@@ -182,22 +178,6 @@ public class TransactionScoreMatchingWeekly implements Serializable {
 
     public void setMatchingPv(BigDecimal matchingPv) {
         this.matchingPv = matchingPv;
-    }
-
-    public Integer getMatchingUse() {
-        return matchingUse;
-    }
-
-    public void setMatchingUse(Integer matchingUse) {
-        this.matchingUse = matchingUse;
-    }
-
-    public Integer getMatchingBalance() {
-        return matchingBalance;
-    }
-
-    public void setMatchingBalance(Integer matchingBalance) {
-        this.matchingBalance = matchingBalance;
     }
 
     public BigDecimal getSelfDatePv() {
