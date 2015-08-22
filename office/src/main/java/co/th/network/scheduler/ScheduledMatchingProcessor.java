@@ -54,7 +54,7 @@ public class ScheduledMatchingProcessor {
 	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",Locale.US);
 
 	//	@Schedule(hour="*",minute = "*",second="0/10")
-	@Schedule(hour="00",minute = "01",second="01")
+	@Schedule(hour="23",minute = "40",second="01")
 	public void execute() {
 		long startTime = System.currentTimeMillis();
 		try{
@@ -83,7 +83,7 @@ public class ScheduledMatchingProcessor {
 			log.info("DATE = "+sdf.format(date.getTime()));
 			log.info("Start Date Time = "+sdf.format(startDateTime.getTime()));
 			log.info("End Date Time   = "+sdf.format(endDateTime.getTime()));
-			if(sdfHH.format(new Date()).equals("00")){
+//			if(sdfHH.format(new Date()).equals("00")){
 				List<Integer> memberList = em.createQuery("Select customerId From MemberCustomer Order By customerId asc "
 						,Integer.class).getResultList();
 				if(memberList!=null){
@@ -122,8 +122,8 @@ public class ScheduledMatchingProcessor {
 							int sumMatching = transactionScoreMatchingControl.sumMathing(member, date.getTime());
 							int oldPvLeft = leftScoreTotal - sumMatching;
 							int oldPvRight = rightScoreTotal - sumMatching;
-							int totalPvLeft = oldPvLeft;
-							int totalPvRight = oldPvRight;
+							int totalPvLeft = oldPvLeft + leftPvDay;
+							int totalPvRight = oldPvRight + rightPvDay;
 							int leftMat = 0;
 							int rightMat = 0;
 							int matchingPvDay = 0;
@@ -179,7 +179,7 @@ public class ScheduledMatchingProcessor {
 							member.setUpdateBy(new Integer(2));
 							member.setUpdateDate(new Date());
 							customerControl.insertOrUpdate(member);
-							List<Object[]> packageList = transactionHeaderControl.genProductPackgateByMember(member, date.getTime());
+							List<Object[]> packageList = transactionHeaderControl.genProductPackgateByMember(member, startDateTime.getTime(), endDateTime.getTime());
 							if(packageList!=null){
 								for(Object[] ob:packageList){
 									MemberCustomer memSugg = em.find(MemberCustomer.class, member.getRecommendId());
@@ -302,7 +302,7 @@ public class ScheduledMatchingProcessor {
 						log.info("Matching Member ID = "+memId+", Time = "+((System.currentTimeMillis()-startTimeMem)/1000d)+"s");
 					}
 				}
-			}// end if HH = 00
+//			}// end if HH = 00
 		}catch(Exception e){
 			e.printStackTrace();
 		}

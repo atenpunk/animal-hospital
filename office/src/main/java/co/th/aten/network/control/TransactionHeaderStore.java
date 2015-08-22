@@ -77,20 +77,8 @@ public class TransactionHeaderStore extends BasicStore implements Serializable {
 		return "";
 	}
 
-	public List<Object[]> genProductPackageByMember(MemberCustomer member, Date date){
+	public List<Object[]> genProductPackageByMember(MemberCustomer member, Date startDate, Date endDate){
 		try{
-			Calendar calStart = Calendar.getInstance();
-			calStart.setTime(date);
-			calStart.set(Calendar.HOUR_OF_DAY, 0);
-			calStart.set(Calendar.MINUTE, 0);
-			calStart.set(Calendar.SECOND, 0);
-			calStart.set(Calendar.MILLISECOND, 0);
-			Calendar calEnd = Calendar.getInstance();
-			calEnd.setTime(date);
-			calEnd.set(Calendar.HOUR_OF_DAY, 23);
-			calEnd.set(Calendar.MINUTE, 59);
-			calEnd.set(Calendar.SECOND, 59);
-			calEnd.set(Calendar.MILLISECOND, 999);
 			String sql = "Select th.trxHeaderId, th.customerId, sp.productId, sp.pv " +
 					" From TransactionSellHeader th, TransactionSellDetail td, StockProduct sp " +
 					" Where th.trxHeaderDatetime between :startDate And :endDate " +
@@ -100,8 +88,8 @@ public class TransactionHeaderStore extends BasicStore implements Serializable {
 					" And td.productId = sp.productId " +
 					" And sp.productType = 2 "; // 2 = package
 			List<Object[]> objectList = em.createQuery(sql,Object[].class)
-					.setParameter("startDate", calStart.getTime())
-					.setParameter("endDate", calEnd.getTime())
+					.setParameter("startDate", startDate)
+					.setParameter("endDate", endDate)
 					.setParameter("customerId", member.getCustomerId())
 					.getResultList();
 			return objectList;
@@ -117,6 +105,7 @@ public class TransactionHeaderStore extends BasicStore implements Serializable {
 				String sql = "select sum(totalPv) " +
 						" from TransactionSellHeader " +
 						" where customerId =:memberId " +
+						" and trxHeaderStatus <> 99 " +
 						" and trxHeaderDatetime < :dateTime ";
 				Calendar calStart = Calendar.getInstance();
 				calStart.setTime(date);
@@ -146,6 +135,7 @@ public class TransactionHeaderStore extends BasicStore implements Serializable {
 				String sql = "select sum(totalPv) " +
 						" from TransactionSellHeader " +
 						" where customerId =:memberId " +
+						" and trxHeaderStatus <> 99 " +
 						" and trxHeaderDatetime between :startDate and :endDate ";
 				try{
 					BigDecimal score = (BigDecimal)em.createQuery(sql)
@@ -170,13 +160,14 @@ public class TransactionHeaderStore extends BasicStore implements Serializable {
 			String sqlSum = "select sum(totalPv) " +
 					" from TransactionSellHeader " +
 					" where customerId in " + sqlMemberUnder +
+					" and trxHeaderStatus <> 99 "+
 					" and trxHeaderDatetime < :dateTime ";
 			Calendar calStart = Calendar.getInstance();
 			calStart.setTime(date);
-			calStart.set(Calendar.HOUR_OF_DAY, 23);
-			calStart.set(Calendar.MINUTE, 59);
-			calStart.set(Calendar.SECOND, 59);
-			calStart.set(Calendar.MILLISECOND, 999);
+			calStart.set(Calendar.HOUR_OF_DAY, 0);
+			calStart.set(Calendar.MINUTE, 0);
+			calStart.set(Calendar.SECOND, 0);
+			calStart.set(Calendar.MILLISECOND, 0);
 			try{
 				BigDecimal score = (BigDecimal)em.createQuery(sqlSum)
 						.setParameter("dateTime", calStart.getTime())
@@ -196,6 +187,7 @@ public class TransactionHeaderStore extends BasicStore implements Serializable {
 			String sqlSum = "select sum(totalPv) " +
 					" from TransactionSellHeader " +
 					" where customerId in " + sqlMemberUnder +
+					" and trxHeaderStatus <> 99 " +
 					" and trxHeaderDatetime between :startDate and :endDate ";
 			try{
 				BigDecimal score = (BigDecimal)em.createQuery(sqlSum)

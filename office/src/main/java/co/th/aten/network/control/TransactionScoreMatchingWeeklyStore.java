@@ -11,12 +11,12 @@ import javax.persistence.EntityManager;
 import org.jboss.solder.logging.Logger;
 
 import co.th.aten.network.entity.MemberCustomer;
-import co.th.aten.network.entity.TransactionScoreMatching;
+import co.th.aten.network.entity.TransactionScoreMatchingWeekly;
 import co.th.aten.network.producer.DBDefault;
 import co.th.aten.network.security.CurrentUserManager;
 import co.th.aten.network.util.StringUtil;
 
-public class TransactionScoreMatchingStore extends BasicStore implements Serializable {
+public class TransactionScoreMatchingWeeklyStore extends BasicStore implements Serializable {
 
 	/**
 	 * 
@@ -37,9 +37,9 @@ public class TransactionScoreMatchingStore extends BasicStore implements Seriali
 		try{
 			if(member !=null){
 				String sql = "select sum(matchingPv) " +
-						" from TransactionScoreMatching " +
-						" where transactionScoreMatchingPK.customerId = :memberId " +
-						" and transactionScoreMatchingPK.trxMatchingDate < :dateTime ";
+						" from TransactionScoreMatchingWeekly " +
+						" where transactionScoreMatchingWeeklyPK.customerId = :memberId " +
+						" and transactionScoreMatchingWeeklyPK.trxMatchingDate < :dateTime ";
 				Calendar calStart = Calendar.getInstance();
 				calStart.setTime(date);
 				calStart.set(Calendar.HOUR_OF_DAY, 0);
@@ -65,7 +65,7 @@ public class TransactionScoreMatchingStore extends BasicStore implements Seriali
 	public Integer getMaxRoundId() {
 		log.debug("find getMaxRoundId");
 		try{
-			Integer max = (Integer)em.createQuery("Select max(transactionScoreMatchingPK.roundId) From TransactionScoreMatching")
+			Integer max = (Integer)em.createQuery("Select max(transactionScoreMatchingWeeklyPK.roundId) From TransactionScoreMatchingWeekly")
 					.getSingleResult();
 			if (max!=null) {
 				return max;
@@ -76,16 +76,16 @@ public class TransactionScoreMatchingStore extends BasicStore implements Seriali
 		return 0;
 	}
 
-	public void insert(TransactionScoreMatching trx) {
+	public void insert(TransactionScoreMatchingWeekly trx) {
 		em.persist(trx);
 	}
 
-	public void delete(TransactionScoreMatching trx) {
+	public void delete(TransactionScoreMatchingWeekly trx) {
 		em.remove(trx);
 	}
 
-	public void insertOrUpdate(TransactionScoreMatching trx) {
-		TransactionScoreMatching chk = em.find(TransactionScoreMatching.class, trx.getTransactionScoreMatchingPK());
+	public void insertOrUpdate(TransactionScoreMatchingWeekly trx) {
+		TransactionScoreMatchingWeekly chk = em.find(TransactionScoreMatchingWeekly.class, trx.getTransactionScoreMatchingWeeklyPK());
 		if (chk == null) {
 			em.persist(trx);
 		} else {	
