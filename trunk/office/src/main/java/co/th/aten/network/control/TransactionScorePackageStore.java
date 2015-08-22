@@ -11,7 +11,7 @@ import co.th.aten.network.entity.TransactionScorePackage;
 import co.th.aten.network.producer.DBDefault;
 import co.th.aten.network.security.CurrentUserManager;
 
-public class TransactionPackageStore extends BasicStore implements Serializable {
+public class TransactionScorePackageStore extends BasicStore implements Serializable {
 
 	/**
 	 * 

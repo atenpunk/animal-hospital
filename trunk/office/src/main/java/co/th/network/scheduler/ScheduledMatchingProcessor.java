@@ -21,7 +21,7 @@ import org.jboss.solder.logging.Logger;
 
 import co.th.aten.network.control.CustomerControl;
 import co.th.aten.network.control.TransactionHeaderControl;
-import co.th.aten.network.control.TransactionPackageControl;
+import co.th.aten.network.control.TransactionScorePackageControl;
 import co.th.aten.network.control.TransactionScoreMatchingControl;
 import co.th.aten.network.entity.MemberCustomer;
 import co.th.aten.network.entity.MemberPosition;
@@ -46,7 +46,7 @@ public class ScheduledMatchingProcessor {
 	@Inject
 	private TransactionHeaderControl transactionHeaderControl;
 	@Inject
-	private TransactionPackageControl transactionPackageControl;
+	private TransactionScorePackageControl transactionScorePackageControl;
 
 	@Inject
 	Logger log;
@@ -243,7 +243,7 @@ public class ScheduledMatchingProcessor {
 									trxPackage.setCreateDate(new Date());
 									trxPackage.setUpdateBy(new Integer(2));
 									trxPackage.setUpdateDate(new Date());
-									transactionPackageControl.insertOrUpdate(trxPackage);
+									transactionScorePackageControl.insertOrUpdate(trxPackage);
 									if(pvPackage < maxPv){
 										MemberCustomer memSuggUpper = em.find(MemberCustomer.class, memSugg.getRecommendId());
 										while(memSuggUpper!=null 
@@ -271,7 +271,7 @@ public class ScheduledMatchingProcessor {
 											trx.setCreateDate(new Date());
 											trx.setUpdateBy(new Integer(2));
 											trx.setUpdateDate(new Date());
-											transactionPackageControl.insertOrUpdate(trx);
+											transactionScorePackageControl.insertOrUpdate(trx);
 										}
 									}
 								}

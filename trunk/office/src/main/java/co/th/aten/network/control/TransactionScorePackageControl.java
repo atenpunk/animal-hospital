@@ -9,7 +9,7 @@ import org.jboss.solder.logging.Logger;
 import co.th.aten.network.entity.TransactionScorePackage;
 
 
-public class TransactionPackageControl implements Serializable {
+public class TransactionScorePackageControl implements Serializable {
 
 	/**
 	 * 
@@ -20,17 +20,17 @@ public class TransactionPackageControl implements Serializable {
 	Logger log;
 
 	@Inject
-	private TransactionPackageStore transactionPackageStore;
+	private TransactionScorePackageStore transactionScorePackageStore;
 	
 	public void insert(TransactionScorePackage trx) {
-		transactionPackageStore.insert(trx);
+		transactionScorePackageStore.insert(trx);
 	}
 	
 	public void delete(TransactionScorePackage trx) {
-		transactionPackageStore.delete(trx);
+		transactionScorePackageStore.delete(trx);
 	}
 	
 	public void insertOrUpdate(TransactionScorePackage trx) {
-		transactionPackageStore.insertOrUpdate(trx);
+		transactionScorePackageStore.insertOrUpdate(trx);
 	}
 }
