@@ -24,18 +24,7 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "transaction_score_package")
 @NamedQueries({
-    @NamedQuery(name = "TransactionScorePackage.findAll", query = "SELECT t FROM TransactionScorePackage t"),
-    @NamedQuery(name = "TransactionScorePackage.findByTrxPackageDate", query = "SELECT t FROM TransactionScorePackage t WHERE t.transactionScorePackagePK.trxPackageDate = :trxPackageDate"),
-    @NamedQuery(name = "TransactionScorePackage.findByCustomerId", query = "SELECT t FROM TransactionScorePackage t WHERE t.transactionScorePackagePK.customerId = :customerId"),
-    @NamedQuery(name = "TransactionScorePackage.findBySuggestId", query = "SELECT t FROM TransactionScorePackage t WHERE t.transactionScorePackagePK.suggestId = :suggestId"),
-    @NamedQuery(name = "TransactionScorePackage.findByProductId", query = "SELECT t FROM TransactionScorePackage t WHERE t.productId = :productId"),
-    @NamedQuery(name = "TransactionScorePackage.findByPvPackage", query = "SELECT t FROM TransactionScorePackage t WHERE t.pvPackage = :pvPackage"),
-    @NamedQuery(name = "TransactionScorePackage.findByTrxPackageStatus", query = "SELECT t FROM TransactionScorePackage t WHERE t.trxPackageStatus = :trxPackageStatus"),
-    @NamedQuery(name = "TransactionScorePackage.findByTrxPackageFlag", query = "SELECT t FROM TransactionScorePackage t WHERE t.trxPackageFlag = :trxPackageFlag"),
-    @NamedQuery(name = "TransactionScorePackage.findByCreateBy", query = "SELECT t FROM TransactionScorePackage t WHERE t.createBy = :createBy"),
-    @NamedQuery(name = "TransactionScorePackage.findByCreateDate", query = "SELECT t FROM TransactionScorePackage t WHERE t.createDate = :createDate"),
-    @NamedQuery(name = "TransactionScorePackage.findByUpdateBy", query = "SELECT t FROM TransactionScorePackage t WHERE t.updateBy = :updateBy"),
-    @NamedQuery(name = "TransactionScorePackage.findByUpdateDate", query = "SELECT t FROM TransactionScorePackage t WHERE t.updateDate = :updateDate")})
+    @NamedQuery(name = "TransactionScorePackage.findAll", query = "SELECT t FROM TransactionScorePackage t")})
 public class TransactionScorePackage implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId

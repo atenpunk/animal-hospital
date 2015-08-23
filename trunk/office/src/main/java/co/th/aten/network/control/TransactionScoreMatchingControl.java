@@ -24,6 +24,9 @@ public class TransactionScoreMatchingControl implements Serializable {
 	@Inject
 	private TransactionScoreMatchingStore transactionScoreMatchingStore;
 	
+	public Integer getRoundIdByDate(Date date){
+		return transactionScoreMatchingStore.getRoundIdByDate(date);
+	}
 	public Integer getMaxRoundId() {
 		return transactionScoreMatchingStore.getMaxRoundId();
 	}

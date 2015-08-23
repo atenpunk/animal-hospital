@@ -73,5 +73,9 @@
 		<pattern value="/system/editCurrency"></pattern>
 		<view-id>/sec/system/editCurrency.jsf</view-id>
 	</url-mapping>
+	<url-mapping id="backOffice_12">
+		<pattern value="/score/calculateDaily"></pattern>
+		<view-id>/sec/score/calculateDaily.jsf</view-id>
+	</url-mapping>
 
 </pretty-config>

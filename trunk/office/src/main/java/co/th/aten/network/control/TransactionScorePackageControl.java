@@ -1,6 +1,7 @@
 package co.th.aten.network.control;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.inject.Inject;
 
@@ -28,6 +29,10 @@ public class TransactionScorePackageControl implements Serializable {
 	
 	public void delete(TransactionScorePackage trx) {
 		transactionScorePackageStore.delete(trx);
+	}
+	
+	public void delete(Date date, Integer suggestId) {
+		transactionScorePackageStore.delete(date, suggestId);
 	}
 	
 	public void insertOrUpdate(TransactionScorePackage trx) {

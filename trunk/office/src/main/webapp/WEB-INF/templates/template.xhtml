@@ -99,6 +99,16 @@
 					label="#{app_msgs['label.menuMoney.reportTransaction']}"
 					onclick="document.location.href='#{request.contextPath}/money/transaction'" />
 			</rich:dropDownMenu>
+			<rich:dropDownMenu>
+				<f:facet name="label">
+					<h:panelGroup>
+						<h:outputText value="#{app_msgs['menu.label.score']}" />
+					</h:panelGroup>
+				</f:facet>
+				<rich:menuItem submitMode="ajax"
+					label="#{app_msgs['menu.label.score.calculateDaily']}"
+					onclick="document.location.href='#{request.contextPath}/score/calculateDaily'" />
+			</rich:dropDownMenu>
 			<rich:toolbarGroup location="right">
 				<h:form style="float:right; text-align:right; list-style:none;">
 					<f:view locale="#{languageController.locale}">
