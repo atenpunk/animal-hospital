@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
@@ -66,7 +67,13 @@ public class CalculateDailyController implements Serializable{
 	private CurrentUserManager currentUser;
 	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",Locale.US);
 	private SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd",Locale.US);
-	private Date dateTime = new Date();
+	private Date dateTime;
+	
+	@PostConstruct
+	public void init(){
+		log.info("init method CalculateDailyController");
+		dateTime = new Date();
+	}
 
 	public void execute() {
 		long startTime = System.currentTimeMillis();
