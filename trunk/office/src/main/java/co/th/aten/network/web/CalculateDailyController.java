@@ -105,12 +105,10 @@ public class CalculateDailyController implements Serializable{
 						,Integer.class).getResultList();
 				if(memberList!=null){
 					log.info("Member List Size = "+memberList.size());
-					boolean chkUpdate = false;
 					int maxRoundId = StringUtil.n2b(transactionScoreMatchingControl.getRoundIdByDate(date.getTime()));
 					if(maxRoundId==0){
 						maxRoundId = StringUtil.n2b(transactionScoreMatchingControl.getMaxRoundId());
 						maxRoundId = maxRoundId+1;
-						chkUpdate = true;
 					}
 					log.info("maxRoundId = "+maxRoundId);
 					for(Integer memId:memberList){
@@ -175,10 +173,8 @@ public class CalculateDailyController implements Serializable{
 							trxMatch.setTrxMatchingStatus(new Integer(0));
 							trxMatch.setTrxMatchingFlag(new Integer(0));
 							trxMatch.setPaymentDate(paymentDate.getTime());
-							if(chkUpdate){
-								trxMatch.setCreateBy(currentUser.getCurrentAccount().getUserId());
-								trxMatch.setCreateDate(new Date());
-							}
+							trxMatch.setCreateBy(currentUser.getCurrentAccount().getUserId());
+							trxMatch.setCreateDate(new Date());
 							trxMatch.setUpdateBy(currentUser.getCurrentAccount().getUserId());
 							trxMatch.setUpdateDate(new Date());
 							transactionScoreMatchingControl.insertOrUpdate(trxMatch);
