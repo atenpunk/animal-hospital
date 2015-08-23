@@ -24,17 +24,24 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "transaction_score_package_weekly")
 @NamedQueries({
-    @NamedQuery(name = "TransactionScorePackageWeekly.findAll", query = "SELECT t FROM TransactionScorePackageWeekly t")})
+    @NamedQuery(name = "TransactionScorePackageWeekly.findAll", query = "SELECT t FROM TransactionScorePackageWeekly t"),
+    @NamedQuery(name = "TransactionScorePackageWeekly.findByRoundId", query = "SELECT t FROM TransactionScorePackageWeekly t WHERE t.transactionScorePackageWeeklyPK.roundId = :roundId"),
+    @NamedQuery(name = "TransactionScorePackageWeekly.findByCustomerId", query = "SELECT t FROM TransactionScorePackageWeekly t WHERE t.transactionScorePackageWeeklyPK.customerId = :customerId"),
+    @NamedQuery(name = "TransactionScorePackageWeekly.findBySuggestId", query = "SELECT t FROM TransactionScorePackageWeekly t WHERE t.transactionScorePackageWeeklyPK.suggestId = :suggestId"),
+    @NamedQuery(name = "TransactionScorePackageWeekly.findByTrxStartDate", query = "SELECT t FROM TransactionScorePackageWeekly t WHERE t.transactionScorePackageWeeklyPK.trxStartDate = :trxStartDate"),
+    @NamedQuery(name = "TransactionScorePackageWeekly.findByTrxEndDate", query = "SELECT t FROM TransactionScorePackageWeekly t WHERE t.transactionScorePackageWeeklyPK.trxEndDate = :trxEndDate"),
+    @NamedQuery(name = "TransactionScorePackageWeekly.findByProductId", query = "SELECT t FROM TransactionScorePackageWeekly t WHERE t.productId = :productId"),
+    @NamedQuery(name = "TransactionScorePackageWeekly.findByPvPackage", query = "SELECT t FROM TransactionScorePackageWeekly t WHERE t.pvPackage = :pvPackage"),
+    @NamedQuery(name = "TransactionScorePackageWeekly.findByTrxPackageStatus", query = "SELECT t FROM TransactionScorePackageWeekly t WHERE t.trxPackageStatus = :trxPackageStatus"),
+    @NamedQuery(name = "TransactionScorePackageWeekly.findByTrxPackageFlag", query = "SELECT t FROM TransactionScorePackageWeekly t WHERE t.trxPackageFlag = :trxPackageFlag"),
+    @NamedQuery(name = "TransactionScorePackageWeekly.findByCreateBy", query = "SELECT t FROM TransactionScorePackageWeekly t WHERE t.createBy = :createBy"),
+    @NamedQuery(name = "TransactionScorePackageWeekly.findByCreateDate", query = "SELECT t FROM TransactionScorePackageWeekly t WHERE t.createDate = :createDate"),
+    @NamedQuery(name = "TransactionScorePackageWeekly.findByUpdateBy", query = "SELECT t FROM TransactionScorePackageWeekly t WHERE t.updateBy = :updateBy"),
+    @NamedQuery(name = "TransactionScorePackageWeekly.findByUpdateDate", query = "SELECT t FROM TransactionScorePackageWeekly t WHERE t.updateDate = :updateDate")})
 public class TransactionScorePackageWeekly implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected TransactionScorePackageWeeklyPK transactionScorePackageWeeklyPK;
-    @Column(name = "trx_start_date")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date trxStartDate;
-    @Column(name = "trx_end_date")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date trxEndDate;
     @Column(name = "product_id")
     private Integer productId;
     @Column(name = "pv_package")
@@ -61,8 +68,8 @@ public class TransactionScorePackageWeekly implements Serializable {
         this.transactionScorePackageWeeklyPK = transactionScorePackageWeeklyPK;
     }
 
-    public TransactionScorePackageWeekly(int roundId, int customerId, int suggestId) {
-        this.transactionScorePackageWeeklyPK = new TransactionScorePackageWeeklyPK(roundId, customerId, suggestId);
+    public TransactionScorePackageWeekly(int roundId, int customerId, int suggestId, Date trxStartDate, Date trxEndDate) {
+        this.transactionScorePackageWeeklyPK = new TransactionScorePackageWeeklyPK(roundId, customerId, suggestId, trxStartDate, trxEndDate);
     }
 
     public TransactionScorePackageWeeklyPK getTransactionScorePackageWeeklyPK() {
@@ -71,22 +78,6 @@ public class TransactionScorePackageWeekly implements Serializable {
 
     public void setTransactionScorePackageWeeklyPK(TransactionScorePackageWeeklyPK transactionScorePackageWeeklyPK) {
         this.transactionScorePackageWeeklyPK = transactionScorePackageWeeklyPK;
-    }
-
-    public Date getTrxStartDate() {
-        return trxStartDate;
-    }
-
-    public void setTrxStartDate(Date trxStartDate) {
-        this.trxStartDate = trxStartDate;
-    }
-
-    public Date getTrxEndDate() {
-        return trxEndDate;
-    }
-
-    public void setTrxEndDate(Date trxEndDate) {
-        this.trxEndDate = trxEndDate;
     }
 
     public Integer getProductId() {

@@ -24,11 +24,11 @@ public class TransactionScoreMatchingWeeklyPK implements Serializable {
     private int roundId;
     @Basic(optional = false)
     @Column(name = "trx_start_date")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date trxStartDate;
     @Basic(optional = false)
     @Column(name = "trx_end_date")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date trxEndDate;
     @Basic(optional = false)
     @Column(name = "customer_id")

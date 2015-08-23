@@ -24,7 +24,7 @@ public class TransactionScoreMatchingPK implements Serializable {
     private int roundId;
     @Basic(optional = false)
     @Column(name = "trx_matching_date")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date trxMatchingDate;
     @Basic(optional = false)
     @Column(name = "customer_id")
