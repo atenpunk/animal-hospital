@@ -2,8 +2,10 @@ package co.th.aten.network.control;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -55,6 +57,24 @@ public class TransactionScoreMatchingStore extends BasicStore implements Seriali
 				}catch(Exception ex){
 					log.info("sumMathing error : "+ex.getMessage());
 				}
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
+	public Integer getRoundIdByDate(Date date){
+		log.debug("find getRoundIdByDate");
+		try{
+			SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd",Locale.US);
+			Integer max = (Integer)em.createQuery("Select transactionScoreMatchingPK.roundId " +
+					" From TransactionScoreMatching " +
+					" Where transactionScoreMatchingPK.trxMatchingDate = DATE_FORMAT('"+sdfDate.format(date)+"','%Y-%m-%d') " +
+					" Group By transactionScoreMatchingPK.roundId ")
+					.getSingleResult();
+			if (max!=null) {
+				return max;
 			}
 		}catch(Exception e){
 			e.printStackTrace();

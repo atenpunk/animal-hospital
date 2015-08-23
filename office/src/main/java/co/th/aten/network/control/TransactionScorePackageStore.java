@@ -1,6 +1,9 @@
 package co.th.aten.network.control;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -35,6 +38,15 @@ public class TransactionScorePackageStore extends BasicStore implements Serializ
 
 	public void delete(TransactionScorePackage trx) {
 		em.remove(trx);
+	}
+	
+	public void delete(Date date, Integer suggestId) {
+		SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd",Locale.US);
+		em.createQuery("Delete From TransactionScorePackage " +
+				" Where transactionScorePackagePK.suggestId =:suggestId " +
+				" And transactionScorePackagePK.trxPackageDate = DATE_FORMAT('"+sdfDate.format(date)+"','%Y-%m-%d') ")
+				.setParameter("suggestId", suggestId)
+				.executeUpdate();
 	}
 
 	public void insertOrUpdate(TransactionScorePackage trx) {
