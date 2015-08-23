@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="content">
+		<br />
+		<h:outputStylesheet>
+        .everyThirdDay {
+        background-color: gray;
+        rich-calendar-boundary-dates disabledDay;
+        }
+ 
+    </h:outputStylesheet>
+		<h:outputScript>
+   function isDayEnabled(day){
+      var date = new Date(day.date);
+      return (date.getDay() == 2);
+   }
+   function getDisabledStyle(day){
+      if (!isDayEnabled(day)) return 'everyThirdDay';
+   }
+</h:outputScript>
+		<h:form id="mainFormId">
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText value="#{app_msgs['menu.label.transferWeekly']}" />
+				</f:facet>
+				<table>
+					<tr>
+						<td class="headerLeft"><h:outputText
+								value="#{app_msgs['label.date']}" /></td>
+						<td class="detailLeft"><a4j:outputPanel id="startDate"
+								layout="block">
+								<rich:calendar value="#{transferWeeklyController.startDate}"
+									dayDisableFunction="isDayEnabled"
+									dayClassFunction="getDisabledStyle" datePattern="dd/MM/yyyy" />
+							</a4j:outputPanel></td>
+					</tr>
+					<tr>
+						<td class="detailLeft" colspan="2"><h:outputText value="" /></td>
+					</tr>
+				</table>
+				<table>
+					<tr>
+						<td><a4j:commandButton id="searchId"
+								value="#{app_msgs['button.search']}"
+								action="#{transferWeeklyController.search}"
+								render="testDataTable" style=" width : 100px;"></a4j:commandButton>&#160;&#160;</td>
+						<td><a4j:status>
+								<f:facet name="start">
+									<h:graphicImage value="/resources/gfx/spinner.gif" />
+								</f:facet>
+							</a4j:status></td>
+					</tr>
+				</table>
+				<br />
+				<rich:dataTable id="testDataTable" style="width : 100%;"
+					onrowmouseover="this.style.backgroundColor='#F1F1F1'"
+					onrowmouseout="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+					value="#{transferWeeklyController.trxProductModelList}" var="item"
+					rows="100">
+					<f:facet name="header">
+						<rich:columnGroup>
+							<rich:column breakRowBefore="true">
+								<h:outputText value="" />
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{app_msgs['label.productTrx.status']}" />
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{app_msgs['label.productTrx.dateTime']}" />
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{app_msgs['label.productTrx.receiverNo']}" />
+							</rich:column>
+							<rich:column>
+								<h:outputText
+									value="#{app_msgs['label.productTrx.memberCodeBuy']}" />
+							</rich:column>
+							<rich:column>
+								<h:outputText
+									value="#{app_msgs['label.productTrx.memberNameBuy']}" />
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{app_msgs['label.productTrx.totalPv']}" />
+							</rich:column>
+							<rich:column>
+								<h:outputText value="#{app_msgs['label.productTrx.totalPrice']}" />
+							</rich:column>
+							<rich:column>
+								<h:outputText
+									value="#{app_msgs['label.productTrx.memberCodeKey']}" />
+							</rich:column>
+						</rich:columnGroup>
+					</f:facet>
+					<rich:column style="text-align:center;">
+						<h:graphicImage value="/resources/image/new.gif"
+							rendered="#{item.statusId eq 1}" />
+					</rich:column>
+					<rich:column style="text-align:left;">
+					</rich:column>
+					<rich:column style="text-align:center;">
+						<h:outputText value="#{item.trxDateTime}">
+							<f:convertDateTime pattern="yyyy-MM-dd HH:mm" locale="en_US"
+								timeZone="GMT+7" />
+						</h:outputText>
+					</rich:column>
+					<rich:column style="text-align:center;">
+						<h:outputText value="#{item.receiptNo}" />
+					</rich:column>
+					<rich:column style="text-align:center;">
+						<h:outputText value="#{item.memberCode}" />
+					</rich:column>
+					<rich:column style="text-align:left;">
+						<h:outputText value="#{item.memberName}" />
+					</rich:column>
+					<rich:column style="text-align:right;">
+						<h:outputText value="#{item.totalPv}">
+							<f:convertNumber pattern="#,##0.00" />
+						</h:outputText>
+					</rich:column>
+					<rich:column style="text-align:right;">
+						<h:outputText value="#{item.totalPrice}">
+							<f:convertNumber pattern="#,##0.00" />
+						</h:outputText>
+					</rich:column>
+					<rich:column style="text-align:center;">
+						<h:outputText value="#{item.memberCodeKey}" />
+					</rich:column>
+					<f:facet name="footer">
+						<rich:dataScroller for="testDataTable" />
+					</f:facet>
+				</rich:dataTable>
+			</rich:panel>
+		</h:form>
+	</ui:define>
+
+</ui:composition>
