@@ -96,6 +96,11 @@ public class CalculateDailyController implements Serializable{
 				log.info("DATE            = "+sdf.format(date.getTime()));
 				log.info("Start Date Time = "+sdf.format(startDateTime.getTime()));
 				log.info("End Date Time   = "+sdf.format(endDateTime.getTime()));
+				Calendar paymentDate = Calendar.getInstance();
+				paymentDate.add(Calendar.DATE, 4);
+				while(paymentDate.get(Calendar.DAY_OF_WEEK)!=6){
+					paymentDate.add(Calendar.DATE, 1);
+				}
 				List<Integer> memberList = em.createQuery("Select customerId From MemberCustomer Order By customerId asc "
 						,Integer.class).getResultList();
 				if(memberList!=null){
@@ -169,6 +174,7 @@ public class CalculateDailyController implements Serializable{
 							trxMatch.setSelfTotalPv(new BigDecimal(myScoreTotal));			
 							trxMatch.setTrxMatchingStatus(new Integer(0));
 							trxMatch.setTrxMatchingFlag(new Integer(0));
+							trxMatch.setPaymentDate(paymentDate.getTime());
 							if(chkUpdate){
 								trxMatch.setCreateBy(currentUser.getCurrentAccount().getUserId());
 								trxMatch.setCreateDate(new Date());
@@ -246,6 +252,7 @@ public class CalculateDailyController implements Serializable{
 										}
 										TransactionScorePackage trxPackage = new TransactionScorePackage();
 										TransactionScorePackagePK packagePk = new TransactionScorePackagePK();
+										packagePk.setRoundId(maxRoundId);
 										packagePk.setTrxPackageDate(date.getTime());
 										packagePk.setSuggestId(StringUtil.n2b(member.getCustomerId()));
 										packagePk.setCustomerId(memSugg.getCustomerId());								
@@ -274,6 +281,7 @@ public class CalculateDailyController implements Serializable{
 											if(memSuggUpper!=null){
 												TransactionScorePackage trx = new TransactionScorePackage();
 												TransactionScorePackagePK trxPk = new TransactionScorePackagePK();
+												trxPk.setRoundId(maxRoundId);
 												trxPk.setTrxPackageDate(date.getTime());
 												trxPk.setSuggestId(StringUtil.n2b(member.getCustomerId()));
 												trxPk.setCustomerId(memSuggUpper.getCustomerId());								

@@ -63,15 +63,17 @@ public class TransactionScoreMatchingStore extends BasicStore implements Seriali
 		}
 		return 0;
 	}
-	
+
 	public Integer getRoundIdByDate(Date date){
 		log.debug("find getRoundIdByDate");
 		try{
-			SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd",Locale.US);
+//			SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd",Locale.US);
 			Integer max = (Integer)em.createQuery("Select transactionScoreMatchingPK.roundId " +
 					" From TransactionScoreMatching " +
-					" Where transactionScoreMatchingPK.trxMatchingDate = DATE_FORMAT('"+sdfDate.format(date)+"','%Y-%m-%d') " +
+					//					" Where transactionScoreMatchingPK.trxMatchingDate = DATE_FORMAT('"+sdfDate.format(date)+"','%Y-%m-%d') " +
+					" Where transactionScoreMatchingPK.trxMatchingDate =:dateTime " +
 					" Group By transactionScoreMatchingPK.roundId ")
+					.setParameter("dateTime", date)
 					.getSingleResult();
 			if (max!=null) {
 				return max;

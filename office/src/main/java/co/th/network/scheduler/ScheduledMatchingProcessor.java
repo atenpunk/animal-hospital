@@ -79,6 +79,11 @@ public class ScheduledMatchingProcessor {
 			endDateTime.set(Calendar.MINUTE, 59);
 			endDateTime.set(Calendar.SECOND, 59);
 			endDateTime.set(Calendar.MILLISECOND, 999);
+			Calendar paymentDate = Calendar.getInstance();
+			paymentDate.add(Calendar.DATE, 4);
+			while(paymentDate.get(Calendar.DAY_OF_WEEK)!=6){
+				paymentDate.add(Calendar.DATE, 1);
+			}
 			log.info("HH   = "+sdfHH.format(new Date()));
 			log.info("DATE = "+sdf.format(date.getTime()));
 			log.info("Start Date Time = "+sdf.format(startDateTime.getTime()));
@@ -167,6 +172,7 @@ public class ScheduledMatchingProcessor {
 							trxMatch.setSelfTotalPv(new BigDecimal(myScoreTotal));			
 							trxMatch.setTrxMatchingStatus(new Integer(0));
 							trxMatch.setTrxMatchingFlag(new Integer(0));
+							trxMatch.setPaymentDate(paymentDate.getTime());
 							trxMatch.setCreateBy(new Integer(2));
 							trxMatch.setCreateDate(new Date());
 							trxMatch.setUpdateBy(new Integer(2));
@@ -247,6 +253,7 @@ public class ScheduledMatchingProcessor {
 										}
 										TransactionScorePackage trxPackage = new TransactionScorePackage();
 										TransactionScorePackagePK packagePk = new TransactionScorePackagePK();
+										packagePk.setRoundId(maxRoundId);
 										packagePk.setTrxPackageDate(date.getTime());
 										packagePk.setSuggestId(StringUtil.n2b(member.getCustomerId()));
 										packagePk.setCustomerId(memSugg.getCustomerId());								
@@ -275,6 +282,7 @@ public class ScheduledMatchingProcessor {
 											if(memSuggUpper!=null){
 												TransactionScorePackage trx = new TransactionScorePackage();
 												TransactionScorePackagePK trxPk = new TransactionScorePackagePK();
+												trxPk.setRoundId(maxRoundId);
 												trxPk.setTrxPackageDate(date.getTime());
 												trxPk.setSuggestId(StringUtil.n2b(member.getCustomerId()));
 												trxPk.setCustomerId(memSuggUpper.getCustomerId());								

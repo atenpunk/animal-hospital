@@ -83,6 +83,11 @@ public class ScheduledScoreWeeklyProcessor {
 			endDateTime.set(Calendar.MINUTE, 59);
 			endDateTime.set(Calendar.SECOND, 59);
 			endDateTime.set(Calendar.MILLISECOND, 999);
+			Calendar paymentDate = Calendar.getInstance();
+			paymentDate.add(Calendar.DATE, 4);
+			while(paymentDate.get(Calendar.DAY_OF_WEEK)!=6){
+				paymentDate.add(Calendar.DATE, 1);
+			}
 			log.info("HH   = "+sdfHH.format(new Date()));
 			log.info("DATE = "+sdf.format(date.getTime()));
 			log.info("Start Date Time = "+sdf.format(startDateTime.getTime()));
@@ -136,6 +141,7 @@ public class ScheduledScoreWeeklyProcessor {
 							trxMatch.setSelfTotalPv(new BigDecimal(myScoreTotal));			
 							trxMatch.setTrxMatchingStatus(new Integer(0));
 							trxMatch.setTrxMatchingFlag(new Integer(0));
+							trxMatch.setPaymentDate(paymentDate.getTime());
 							trxMatch.setCreateBy(new Integer(2));
 							trxMatch.setCreateDate(new Date());
 							trxMatch.setUpdateBy(new Integer(2));
@@ -209,6 +215,7 @@ public class ScheduledScoreWeeklyProcessor {
 										}
 										TransactionScorePackageWeekly trxPackage = new TransactionScorePackageWeekly();
 										TransactionScorePackageWeeklyPK packagePk = new TransactionScorePackageWeeklyPK();
+										packagePk.setRoundId(maxRoundId);
 										packagePk.setTrxStartDate(startDateTime.getTime());
 										packagePk.setTrxEndDate(endDateTime.getTime());
 										packagePk.setSuggestId(StringUtil.n2b(member.getCustomerId()));
@@ -238,6 +245,7 @@ public class ScheduledScoreWeeklyProcessor {
 											if(memSuggUpper!=null){
 												TransactionScorePackageWeekly trx = new TransactionScorePackageWeekly();
 												TransactionScorePackageWeeklyPK trxPk = new TransactionScorePackageWeeklyPK();
+												trxPk.setRoundId(maxRoundId);
 												trxPk.setTrxStartDate(startDateTime.getTime());
 												trxPk.setTrxEndDate(endDateTime.getTime());
 												trxPk.setSuggestId(StringUtil.n2b(member.getCustomerId()));
