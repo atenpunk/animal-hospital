@@ -3,6 +3,7 @@ package co.th.aten.network.web;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -34,6 +35,7 @@ import co.th.aten.network.entity.TransactionScoreMatchingPK;
 import co.th.aten.network.entity.TransactionScorePackage;
 import co.th.aten.network.entity.TransactionScorePackagePK;
 import co.th.aten.network.i18n.AppBundleKey;
+import co.th.aten.network.model.CalculateDailyModel;
 import co.th.aten.network.security.CurrentUserManager;
 import co.th.aten.network.util.StringUtil;
 
@@ -67,23 +69,43 @@ public class CalculateDailyController implements Serializable{
 	private CurrentUserManager currentUser;
 	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",Locale.US);
 	private SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd",Locale.US);
-	private Date dateTime;
+	private List<CalculateDailyModel> calculateDailyModelList;
 	
 	@PostConstruct
 	public void init(){
 		log.info("init method CalculateDailyController");
-		dateTime = new Date();
+		search();
+	}
+	
+	private void search(){
+		try{
+			calculateDailyModelList = new ArrayList<CalculateDailyModel>();
+			String sql = "Select transactionScoreMatchingPK.roundId, transactionScoreMatchingPK.trxMatchingDate, paymentDate " +
+					" From TransactionScoreMatching " +
+					" Group By transactionScoreMatchingPK.roundId, transactionScoreMatchingPK.trxMatchingDate, paymentDate " +			
+					" Order By transactionScoreMatchingPK.trxMatchingDate DESC ";
+			List<Object[]> modelList = em.createQuery(sql,Object[].class).getResultList();
+			if(modelList!=null){
+				for(Object[] ob:modelList){
+					CalculateDailyModel model = new CalculateDailyModel();
+					model.setRoundId(StringUtil.n2b((Integer)ob[0]).intValue());
+					model.setDateCalculate((Date)ob[1]);
+					model.setDatePayment((Date)ob[2]);
+					calculateDailyModelList.add(model);
+				}
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 
-	public void execute() {
+	public void execute(CalculateDailyModel model) {
 		long startTime = System.currentTimeMillis();
 		try{
-			log.info("####################################################");
 			log.info("##### Start CalculateDailyController Processor #####");
-			log.info("####################################################");
-			if(dateTime!=null){
+			if(model!=null){
 				Calendar date = Calendar.getInstance();
-				date.setTime(dateTime);
+				date.setTime(model.getDateCalculate());
 				date.set(Calendar.HOUR_OF_DAY, 0);
 				date.set(Calendar.MINUTE, 0);
 				date.set(Calendar.SECOND, 0);
@@ -315,7 +337,7 @@ public class CalculateDailyController implements Serializable{
 					
 					// Weekly
 				}
-				messages.info(new AppBundleKey("error.label.calculate.finish",FacesContext.getCurrentInstance().getViewRoot().getLocale().getLanguage()),sdfDate.format(dateTime));
+				messages.info(new AppBundleKey("error.label.calculate.finish",FacesContext.getCurrentInstance().getViewRoot().getLocale().getLanguage()),sdfDate.format(model.getDateCalculate()));
 			}else{
 				messages.error(new AppBundleKey("error.label.calculate.dateNull",FacesContext.getCurrentInstance().getViewRoot().getLocale().getLanguage()));
 			}
@@ -326,11 +348,12 @@ public class CalculateDailyController implements Serializable{
 		log.info("CalculateDailyController Processor Time = "+((System.currentTimeMillis()-startTime)/1000d)+"s");
 	}
 
-	public Date getDateTime() {
-		return dateTime;
+	public List<CalculateDailyModel> getCalculateDailyModelList() {
+		return calculateDailyModelList;
 	}
 
-	public void setDateTime(Date dateTime) {
-		this.dateTime = dateTime;
+	public void setCalculateDailyModelList(
+			List<CalculateDailyModel> calculateDailyModelList) {
+		this.calculateDailyModelList = calculateDailyModelList;
 	}
 }
