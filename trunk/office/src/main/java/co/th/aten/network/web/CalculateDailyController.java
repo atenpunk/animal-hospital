@@ -111,6 +111,7 @@ public class CalculateDailyController implements Serializable{
 				List<Integer> memberList = em.createQuery("Select customerId From MemberCustomer Order By customerId asc "
 						,Integer.class).getResultList();
 				if(memberList!=null){
+					// Daily
 					log.info("Member List Size = "+memberList.size());
 					int maxRoundId = StringUtil.n2b(transactionScoreMatchingControl.getRoundIdByDate(date.getTime()));
 					if(maxRoundId==0){
@@ -311,6 +312,8 @@ public class CalculateDailyController implements Serializable{
 						}
 						log.info("CalculateDaily Member ID = "+memId+", Time = "+((System.currentTimeMillis()-startTimeMem)/1000d)+"s");
 					}
+					
+					// Weekly
 				}
 				messages.info(new AppBundleKey("error.label.calculate.finish",FacesContext.getCurrentInstance().getViewRoot().getLocale().getLanguage()),sdfDate.format(dateTime));
 			}else{
