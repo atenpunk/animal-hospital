@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	template="/WEB-INF/templates/template.xhtml">
+	<ui:define name="content">
+		<br />
+		<h:form id="mainFormId">
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputText
+						value="#{app_msgs['menu.label.score.calculateWeekly']}" />
+				</f:facet>
+				<table>
+					<tr>
+						<td class="headerLeft"><h:outputText
+								value="#{app_msgs['label.date']}" /></td>
+						<td class="detailLeft"><a4j:outputPanel id="startDate"
+								layout="block">
+								<rich:calendar value="#{calculateWeeklyController.dateTime}"
+									datePattern="yyyy-MM-dd"/>
+							</a4j:outputPanel></td>
+					</tr>
+				</table>
+				<table>
+					<tr>
+						<td><a4j:commandButton id="searchId"
+								value="#{app_msgs['button.calculate']}"
+								onclick="if(!confirmMsg('#{app_msgs['menu.label.score.calculateDaily.confirm']}')) return false"
+								oncomplete="endProgress();"
+								action="#{calculateWeeklyController.execute}"
+								render="mainFormId" style=" width : 120px;"></a4j:commandButton>&#160;&#160;</td>
+						<td><a4j:status>
+								<f:facet name="start">
+									<h:graphicImage value="/resources/gfx/spinner.gif" />
+								</f:facet>
+							</a4j:status></td>
+						<td><h:panelGrid columns="1" cellpadding="2" cellspacing="2"
+							style="width:100%;text-align:left;font-size: 22px;">
+							<h:messages globalOnly="true" infoClass="info" errorClass="error" warnClass="warn"/>
+						</h:panelGrid></td>
+					</tr>
+				</table>
+				<br />
+			</rich:panel>
+		</h:form>
+	</ui:define>
+
+</ui:composition>

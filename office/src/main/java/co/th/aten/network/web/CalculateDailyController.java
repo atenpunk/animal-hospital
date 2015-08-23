@@ -319,9 +319,4 @@ public class CalculateDailyController implements Serializable{
 	public void setDateTime(Date dateTime) {
 		this.dateTime = dateTime;
 	}
-	
-	public static void main(String[]args){
-		SimpleDateFormat sss = new SimpleDateFormat("yyyy-MM-dd",Locale.US);
-		System.out.println(sss.format(new Date()));
-	}
 }
