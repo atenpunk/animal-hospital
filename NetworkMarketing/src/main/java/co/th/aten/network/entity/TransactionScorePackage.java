@@ -24,22 +24,14 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "transaction_score_package")
 @NamedQueries({
-    @NamedQuery(name = "TransactionScorePackage.findAll", query = "SELECT t FROM TransactionScorePackage t"),
-    @NamedQuery(name = "TransactionScorePackage.findByTrxPackageDate", query = "SELECT t FROM TransactionScorePackage t WHERE t.transactionScorePackagePK.trxPackageDate = :trxPackageDate"),
-    @NamedQuery(name = "TransactionScorePackage.findByCustomerId", query = "SELECT t FROM TransactionScorePackage t WHERE t.transactionScorePackagePK.customerId = :customerId"),
-    @NamedQuery(name = "TransactionScorePackage.findBySuggestId", query = "SELECT t FROM TransactionScorePackage t WHERE t.transactionScorePackagePK.suggestId = :suggestId"),
-    @NamedQuery(name = "TransactionScorePackage.findByProductId", query = "SELECT t FROM TransactionScorePackage t WHERE t.productId = :productId"),
-    @NamedQuery(name = "TransactionScorePackage.findByPvPackage", query = "SELECT t FROM TransactionScorePackage t WHERE t.pvPackage = :pvPackage"),
-    @NamedQuery(name = "TransactionScorePackage.findByTrxPackageStatus", query = "SELECT t FROM TransactionScorePackage t WHERE t.trxPackageStatus = :trxPackageStatus"),
-    @NamedQuery(name = "TransactionScorePackage.findByTrxPackageFlag", query = "SELECT t FROM TransactionScorePackage t WHERE t.trxPackageFlag = :trxPackageFlag"),
-    @NamedQuery(name = "TransactionScorePackage.findByCreateBy", query = "SELECT t FROM TransactionScorePackage t WHERE t.createBy = :createBy"),
-    @NamedQuery(name = "TransactionScorePackage.findByCreateDate", query = "SELECT t FROM TransactionScorePackage t WHERE t.createDate = :createDate"),
-    @NamedQuery(name = "TransactionScorePackage.findByUpdateBy", query = "SELECT t FROM TransactionScorePackage t WHERE t.updateBy = :updateBy"),
-    @NamedQuery(name = "TransactionScorePackage.findByUpdateDate", query = "SELECT t FROM TransactionScorePackage t WHERE t.updateDate = :updateDate")})
+    @NamedQuery(name = "TransactionScorePackage.findAll", query = "SELECT t FROM TransactionScorePackage t")})
 public class TransactionScorePackage implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected TransactionScorePackagePK transactionScorePackagePK;
+    @Column(name = "trx_package_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date trxPackageDate;
     @Column(name = "product_id")
     private Integer productId;
     @Column(name = "pv_package")
@@ -66,8 +58,8 @@ public class TransactionScorePackage implements Serializable {
         this.transactionScorePackagePK = transactionScorePackagePK;
     }
 
-    public TransactionScorePackage(Date trxPackageDate, int customerId, int suggestId) {
-        this.transactionScorePackagePK = new TransactionScorePackagePK(trxPackageDate, customerId, suggestId);
+    public TransactionScorePackage(int roundId, int customerId, int suggestId) {
+        this.transactionScorePackagePK = new TransactionScorePackagePK(roundId, customerId, suggestId);
     }
 
     public TransactionScorePackagePK getTransactionScorePackagePK() {
@@ -76,6 +68,14 @@ public class TransactionScorePackage implements Serializable {
 
     public void setTransactionScorePackagePK(TransactionScorePackagePK transactionScorePackagePK) {
         this.transactionScorePackagePK = transactionScorePackagePK;
+    }
+
+    public Date getTrxPackageDate() {
+        return trxPackageDate;
+    }
+
+    public void setTrxPackageDate(Date trxPackageDate) {
+        this.trxPackageDate = trxPackageDate;
     }
 
     public Integer getProductId() {
