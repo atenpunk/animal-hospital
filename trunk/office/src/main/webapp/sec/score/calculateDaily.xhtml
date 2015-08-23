@@ -14,37 +14,63 @@
 					<h:outputText
 						value="#{app_msgs['menu.label.score.calculateDaily']}" />
 				</f:facet>
-				<table>
-					<tr>
-						<td class="headerLeft"><h:outputText
-								value="#{app_msgs['label.date']}" /></td>
-						<td class="detailLeft"><a4j:outputPanel id="startDate"
-								layout="block">
-								<rich:calendar value="#{calculateDailyController.dateTime}"
-									datePattern="yyyy-MM-dd"/>
-							</a4j:outputPanel></td>
-					</tr>
-				</table>
-				<table>
-					<tr>
-						<td><a4j:commandButton id="searchId"
-								value="#{app_msgs['button.calculate']}"
-								onclick="if(!confirmMsg('#{app_msgs['menu.label.score.calculateDaily.confirm']}')) return false"
-								oncomplete="endProgress();"
-								action="#{calculateDailyController.execute}"
-								render="mainFormId" style=" width : 120px;"></a4j:commandButton>&#160;&#160;</td>
-						<td><a4j:status>
-								<f:facet name="start">
-									<h:graphicImage value="/resources/gfx/spinner.gif" />
-								</f:facet>
-							</a4j:status></td>
-						<td><h:panelGrid columns="1" cellpadding="2" cellspacing="2"
-							style="width:100%;text-align:left;font-size: 22px;">
-							<h:messages globalOnly="true" infoClass="info" errorClass="error" warnClass="warn"/>
-						</h:panelGrid></td>
-					</tr>
-				</table>
+				<h:panelGrid columns="1" cellpadding="2" cellspacing="2"
+					style="width:100%;text-align:left;font-size: 22px;">
+					<h:messages globalOnly="true" infoClass="info" errorClass="error"
+						warnClass="warn" />
+				</h:panelGrid>
 				<br />
+				<rich:dataTable id="testDataTable" style="width : 100%;"
+					onrowmouseover="this.style.backgroundColor='#F1F1F1'"
+					onrowmouseout="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+					value="#{calculateDailyController.calculateDailyModelList}"
+					var="item" rows="100">
+					<f:facet name="header">
+						<rich:columnGroup>
+							<rich:column breakRowBefore="true">
+							</rich:column>
+							<rich:column>
+								<h:outputText
+									value="#{app_msgs['menu.label.score.calculateDaily.roundId']}" />
+							</rich:column>
+							<rich:column>
+								<h:outputText
+									value="#{app_msgs['menu.label.score.calculateDaily.dateCalculate']}" />
+							</rich:column>
+							<rich:column>
+								<h:outputText
+									value="#{app_msgs['menu.label.score.calculateDaily.datePayment']}" />
+							</rich:column>
+						</rich:columnGroup>
+					</f:facet>
+
+					<rich:column style="text-align:center;">
+						<a4j:commandLink id="processId"
+							value="#{app_msgs['button.calculate']}"
+							action="#{calculateDailyController.execute(item)}"
+							onclick="if(!confirmMsg('#{app_msgs['menu.label.score.calculateDaily.confirm']}')) return false"
+							oncomplete="endProgress();" render="mainFormId"></a4j:commandLink>
+					</rich:column>
+					<rich:column style="text-align:center;">
+						<h:outputText value="#{item.roundId}">
+						</h:outputText>
+					</rich:column>
+					<rich:column style="text-align:center;">
+						<h:outputText value="#{item.dateCalculate}">
+							<f:convertDateTime pattern="yyyy-MM-dd" locale="en_US"
+								timeZone="GMT+7" />
+						</h:outputText>
+					</rich:column>
+					<rich:column style="text-align:center;">
+						<h:outputText value="#{item.datePayment}">
+							<f:convertDateTime pattern="yyyy-MM-dd" locale="en_US"
+								timeZone="GMT+7" />
+						</h:outputText>
+					</rich:column>
+					<f:facet name="footer">
+						<rich:dataScroller for="testDataTable" />
+					</f:facet>
+				</rich:dataTable>
 			</rich:panel>
 		</h:form>
 	</ui:define>
