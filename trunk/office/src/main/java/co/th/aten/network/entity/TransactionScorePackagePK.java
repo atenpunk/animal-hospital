@@ -20,31 +20,35 @@ import javax.persistence.TemporalType;
 @Embeddable
 public class TransactionScorePackagePK implements Serializable {
     @Basic(optional = false)
-    @Column(name = "trx_package_date")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date trxPackageDate;
+    @Column(name = "round_id")
+    private int roundId;
     @Basic(optional = false)
     @Column(name = "customer_id")
     private int customerId;
     @Basic(optional = false)
     @Column(name = "suggest_id")
     private int suggestId;
+    @Basic(optional = false)
+    @Column(name = "trx_package_date")
+    @Temporal(TemporalType.DATE)
+    private Date trxPackageDate;
 
     public TransactionScorePackagePK() {
     }
 
-    public TransactionScorePackagePK(Date trxPackageDate, int customerId, int suggestId) {
-        this.trxPackageDate = trxPackageDate;
+    public TransactionScorePackagePK(int roundId, int customerId, int suggestId, Date trxPackageDate) {
+        this.roundId = roundId;
         this.customerId = customerId;
         this.suggestId = suggestId;
-    }
-
-    public Date getTrxPackageDate() {
-        return trxPackageDate;
-    }
-
-    public void setTrxPackageDate(Date trxPackageDate) {
         this.trxPackageDate = trxPackageDate;
+    }
+
+    public int getRoundId() {
+        return roundId;
+    }
+
+    public void setRoundId(int roundId) {
+        this.roundId = roundId;
     }
 
     public int getCustomerId() {
@@ -63,12 +67,21 @@ public class TransactionScorePackagePK implements Serializable {
         this.suggestId = suggestId;
     }
 
+    public Date getTrxPackageDate() {
+        return trxPackageDate;
+    }
+
+    public void setTrxPackageDate(Date trxPackageDate) {
+        this.trxPackageDate = trxPackageDate;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (trxPackageDate != null ? trxPackageDate.hashCode() : 0);
+        hash += (int) roundId;
         hash += (int) customerId;
         hash += (int) suggestId;
+        hash += (trxPackageDate != null ? trxPackageDate.hashCode() : 0);
         return hash;
     }
 
@@ -79,7 +92,7 @@ public class TransactionScorePackagePK implements Serializable {
             return false;
         }
         TransactionScorePackagePK other = (TransactionScorePackagePK) object;
-        if ((this.trxPackageDate == null && other.trxPackageDate != null) || (this.trxPackageDate != null && !this.trxPackageDate.equals(other.trxPackageDate))) {
+        if (this.roundId != other.roundId) {
             return false;
         }
         if (this.customerId != other.customerId) {
@@ -88,12 +101,15 @@ public class TransactionScorePackagePK implements Serializable {
         if (this.suggestId != other.suggestId) {
             return false;
         }
+        if ((this.trxPackageDate == null && other.trxPackageDate != null) || (this.trxPackageDate != null && !this.trxPackageDate.equals(other.trxPackageDate))) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "co.th.aten.network.entity.TransactionScorePackagePK[trxPackageDate=" + trxPackageDate + ", customerId=" + customerId + ", suggestId=" + suggestId + "]";
+        return "co.th.aten.network.entity.TransactionScorePackagePK[roundId=" + roundId + ", customerId=" + customerId + ", suggestId=" + suggestId + ", trxPackageDate=" + trxPackageDate + "]";
     }
 
 }

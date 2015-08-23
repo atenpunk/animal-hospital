@@ -25,10 +25,11 @@ import javax.persistence.TemporalType;
 @Table(name = "transaction_score_package_weekly")
 @NamedQueries({
     @NamedQuery(name = "TransactionScorePackageWeekly.findAll", query = "SELECT t FROM TransactionScorePackageWeekly t"),
-    @NamedQuery(name = "TransactionScorePackageWeekly.findByTrxStartDate", query = "SELECT t FROM TransactionScorePackageWeekly t WHERE t.transactionScorePackageWeeklyPK.trxStartDate = :trxStartDate"),
-    @NamedQuery(name = "TransactionScorePackageWeekly.findByTrxEndDate", query = "SELECT t FROM TransactionScorePackageWeekly t WHERE t.transactionScorePackageWeeklyPK.trxEndDate = :trxEndDate"),
+    @NamedQuery(name = "TransactionScorePackageWeekly.findByRoundId", query = "SELECT t FROM TransactionScorePackageWeekly t WHERE t.transactionScorePackageWeeklyPK.roundId = :roundId"),
     @NamedQuery(name = "TransactionScorePackageWeekly.findByCustomerId", query = "SELECT t FROM TransactionScorePackageWeekly t WHERE t.transactionScorePackageWeeklyPK.customerId = :customerId"),
     @NamedQuery(name = "TransactionScorePackageWeekly.findBySuggestId", query = "SELECT t FROM TransactionScorePackageWeekly t WHERE t.transactionScorePackageWeeklyPK.suggestId = :suggestId"),
+    @NamedQuery(name = "TransactionScorePackageWeekly.findByTrxStartDate", query = "SELECT t FROM TransactionScorePackageWeekly t WHERE t.transactionScorePackageWeeklyPK.trxStartDate = :trxStartDate"),
+    @NamedQuery(name = "TransactionScorePackageWeekly.findByTrxEndDate", query = "SELECT t FROM TransactionScorePackageWeekly t WHERE t.transactionScorePackageWeeklyPK.trxEndDate = :trxEndDate"),
     @NamedQuery(name = "TransactionScorePackageWeekly.findByProductId", query = "SELECT t FROM TransactionScorePackageWeekly t WHERE t.productId = :productId"),
     @NamedQuery(name = "TransactionScorePackageWeekly.findByPvPackage", query = "SELECT t FROM TransactionScorePackageWeekly t WHERE t.pvPackage = :pvPackage"),
     @NamedQuery(name = "TransactionScorePackageWeekly.findByTrxPackageStatus", query = "SELECT t FROM TransactionScorePackageWeekly t WHERE t.trxPackageStatus = :trxPackageStatus"),
@@ -67,8 +68,8 @@ public class TransactionScorePackageWeekly implements Serializable {
         this.transactionScorePackageWeeklyPK = transactionScorePackageWeeklyPK;
     }
 
-    public TransactionScorePackageWeekly(Date trxStartDate, Date trxEndDate, int customerId, int suggestId) {
-        this.transactionScorePackageWeeklyPK = new TransactionScorePackageWeeklyPK(trxStartDate, trxEndDate, customerId, suggestId);
+    public TransactionScorePackageWeekly(int roundId, int customerId, int suggestId, Date trxStartDate, Date trxEndDate) {
+        this.transactionScorePackageWeeklyPK = new TransactionScorePackageWeeklyPK(roundId, customerId, suggestId, trxStartDate, trxEndDate);
     }
 
     public TransactionScorePackageWeeklyPK getTransactionScorePackageWeeklyPK() {

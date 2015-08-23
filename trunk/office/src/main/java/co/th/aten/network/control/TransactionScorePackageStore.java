@@ -30,7 +30,7 @@ public class TransactionScorePackageStore extends BasicStore implements Serializ
 
 	@Inject
 	private CurrentUserManager currentUser;
-	
+
 
 	public void insert(TransactionScorePackage trx) {
 		em.persist(trx);
@@ -39,13 +39,15 @@ public class TransactionScorePackageStore extends BasicStore implements Serializ
 	public void delete(TransactionScorePackage trx) {
 		em.remove(trx);
 	}
-	
+
 	public void delete(Date date, Integer suggestId) {
-		SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd",Locale.US);
+//		SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd",Locale.US);
 		em.createQuery("Delete From TransactionScorePackage " +
 				" Where transactionScorePackagePK.suggestId =:suggestId " +
-				" And transactionScorePackagePK.trxPackageDate = DATE_FORMAT('"+sdfDate.format(date)+"','%Y-%m-%d') ")
+				//				" And transactionScorePackagePK.trxPackageDate = DATE_FORMAT('"+sdfDate.format(date)+"','%Y-%m-%d') ")
+				" And transactionScorePackagePK.trxPackageDate =:dateTime ")
 				.setParameter("suggestId", suggestId)
+				.setParameter("dateTime", date)
 				.executeUpdate();
 	}
 
