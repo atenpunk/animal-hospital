@@ -55,6 +55,9 @@ public class TransactionScoreMatchingWeekly implements Serializable {
     private Integer trxMatchingStatus;
     @Column(name = "trx_matching_flag")
     private Integer trxMatchingFlag;
+    @Column(name = "payment_date")
+    @Temporal(TemporalType.DATE)
+    private Date paymentDate;
     @Column(name = "create_by")
     private Integer createBy;
     @Column(name = "create_date")
@@ -187,6 +190,14 @@ public class TransactionScoreMatchingWeekly implements Serializable {
 
     public void setTrxMatchingFlag(Integer trxMatchingFlag) {
         this.trxMatchingFlag = trxMatchingFlag;
+    }
+
+    public Date getPaymentDate() {
+        return paymentDate;
+    }
+
+    public void setPaymentDate(Date paymentDate) {
+        this.paymentDate = paymentDate;
     }
 
     public Integer getCreateBy() {

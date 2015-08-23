@@ -6,12 +6,9 @@
 package co.th.aten.network.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  *
@@ -20,13 +17,8 @@ import javax.persistence.TemporalType;
 @Embeddable
 public class TransactionScorePackageWeeklyPK implements Serializable {
     @Basic(optional = false)
-    @Column(name = "trx_start_date")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date trxStartDate;
-    @Basic(optional = false)
-    @Column(name = "trx_end_date")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date trxEndDate;
+    @Column(name = "round_id")
+    private int roundId;
     @Basic(optional = false)
     @Column(name = "customer_id")
     private int customerId;
@@ -37,27 +29,18 @@ public class TransactionScorePackageWeeklyPK implements Serializable {
     public TransactionScorePackageWeeklyPK() {
     }
 
-    public TransactionScorePackageWeeklyPK(Date trxStartDate, Date trxEndDate, int customerId, int suggestId) {
-        this.trxStartDate = trxStartDate;
-        this.trxEndDate = trxEndDate;
+    public TransactionScorePackageWeeklyPK(int roundId, int customerId, int suggestId) {
+        this.roundId = roundId;
         this.customerId = customerId;
         this.suggestId = suggestId;
     }
 
-    public Date getTrxStartDate() {
-        return trxStartDate;
+    public int getRoundId() {
+        return roundId;
     }
 
-    public void setTrxStartDate(Date trxStartDate) {
-        this.trxStartDate = trxStartDate;
-    }
-
-    public Date getTrxEndDate() {
-        return trxEndDate;
-    }
-
-    public void setTrxEndDate(Date trxEndDate) {
-        this.trxEndDate = trxEndDate;
+    public void setRoundId(int roundId) {
+        this.roundId = roundId;
     }
 
     public int getCustomerId() {
@@ -79,8 +62,7 @@ public class TransactionScorePackageWeeklyPK implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (trxStartDate != null ? trxStartDate.hashCode() : 0);
-        hash += (trxEndDate != null ? trxEndDate.hashCode() : 0);
+        hash += (int) roundId;
         hash += (int) customerId;
         hash += (int) suggestId;
         return hash;
@@ -93,10 +75,7 @@ public class TransactionScorePackageWeeklyPK implements Serializable {
             return false;
         }
         TransactionScorePackageWeeklyPK other = (TransactionScorePackageWeeklyPK) object;
-        if ((this.trxStartDate == null && other.trxStartDate != null) || (this.trxStartDate != null && !this.trxStartDate.equals(other.trxStartDate))) {
-            return false;
-        }
-        if ((this.trxEndDate == null && other.trxEndDate != null) || (this.trxEndDate != null && !this.trxEndDate.equals(other.trxEndDate))) {
+        if (this.roundId != other.roundId) {
             return false;
         }
         if (this.customerId != other.customerId) {
@@ -110,7 +89,7 @@ public class TransactionScorePackageWeeklyPK implements Serializable {
 
     @Override
     public String toString() {
-        return "co.th.aten.network.entity.TransactionScorePackageWeeklyPK[trxStartDate=" + trxStartDate + ", trxEndDate=" + trxEndDate + ", customerId=" + customerId + ", suggestId=" + suggestId + "]";
+        return "co.th.aten.network.entity.TransactionScorePackageWeeklyPK[roundId=" + roundId + ", customerId=" + customerId + ", suggestId=" + suggestId + "]";
     }
 
 }
